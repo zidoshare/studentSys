@@ -16,6 +16,7 @@ import java.util.Enumeration;
  */
 @Before(UrlInterceptor.class)
 public class BaseController extends Controller {
+    protected Log log = Log.getLog(this.getClass());
     public BaseController(){
         Field[] fields =this.getClass().getDeclaredFields();
 
@@ -32,7 +33,6 @@ public class BaseController extends Controller {
             }
         }
     }
-    protected Log log = Log.getLog(this.getClass());
     public void fillHeader(){
         //三个地址：static用于找资源、servePath用于得到去掉参数的网址、holdPath为带参数网址
         String uri = getRequest().getRequestURI();
@@ -53,9 +53,10 @@ public class BaseController extends Controller {
         if(url.endsWith("/"))
             url = url.substring(0,url.length()-1);*/
         url+=para;
-        log.info("static用于找资源:"+staticPath);
+
+        /*log.info("static用于找资源:"+staticPath);
         log.info("servePath用于得到去掉参数的网址:"+servePath);
-        log.info("holdPath为带参数网址:"+url);
+        log.info("holdPath为带参数网址:"+url);*/
 
         setAttr(Common.STATIC_SERVE_PATH_LABEL,staticPath);
         setAttr(Common.SERVE_PATH_LABEL,servePath);
@@ -69,12 +70,12 @@ public class BaseController extends Controller {
         setAttr(Common.INVALID_PASSWORD_LABEL,langProp.get(Common.INVALID_PASSWORD_LABEL));
     }
     private void fillFooter() {
-        Prop langProp = LangConfig.getLangProp();
+        /*Prop langProp = LangConfig.getLangProp();
         Enumeration<Object> elements = langProp.getProperties().elements();
         while(elements.hasMoreElements()) {
             Object o = elements.nextElement();
             //System.out.println(o);
-        }
+        }*/
     }
 
 
