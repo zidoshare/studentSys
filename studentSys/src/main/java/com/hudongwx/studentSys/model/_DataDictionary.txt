@@ -1,0 +1,67 @@
+Table: stumanager_class
+-------------+--------------+------+-----+---------+---------
+ Field       | Type         | Null | Key | Default | Remarks 
+-------------+--------------+------+-----+---------+---------
+ classId     | int(10)      | NO   | PRI |         |         
+ className   | varchar(255) | YES  |     |         |         
+ headTeacher | varchar(255) | YES  |     |         | 讲师      
+ Assistant   | varchar(255) | YES  |     |         | 科目      
+-------------+--------------+------+-----+---------+---------
+
+Table: stumanager_mapping
+-------+--------------+------+-----+---------+---------
+ Field | Type         | Null | Key | Default | Remarks 
+-------+--------------+------+-----+---------+---------
+ id    | int(10)      | NO   | PRI |         |         
+ title | varchar(255) | YES  |     |         | 中文标题（名） 
+ href  | varchar(255) | YES  |     |         | 对应地址    
+-------+--------------+------+-----+---------+---------
+
+Table: stumanager_role
+-----------+-------------+------+-----+---------+---------
+ Field     | Type        | Null | Key | Default | Remarks 
+-----------+-------------+------+-----+---------+---------
+ id        | int(10)     | NO   | PRI |         |         
+ name      | varchar(20) | NO   |     |         | 角色名     
+ memberCnt | int(10)     | NO   |     |         | 角色人数    
+-----------+-------------+------+-----+---------+---------
+
+Table: stumanager_student
+--------------------+--------------+------+-----+---------+---------
+ Field              | Type         | Null | Key | Default | Remarks 
+--------------------+--------------+------+-----+---------+---------
+ id                 | int(10)      | NO   | PRI |         |         
+ name               | varchar(255) | YES  |     |         |         
+ classId            | int(10)      | YES  |     |         |         
+ tutor              | int(10)      | YES  |     |         | 辅导老师    
+ subject            | int(10)      | YES  |     |         | 学习科目    
+ contactInformation | varchar(255) | YES  |     |         | 联系方式    
+ admission          | date         | YES  |     |         | 入学时间    
+ credit             | int(10)      | YES  |     |         | 学分      
+ grade              | int(10)      | YES  |     |         | 成绩      
+ state              | varchar(255) | YES  |     |         | 状态      
+ employment         | varchar(255) | YES  |     |         | 就业跟踪    
+ createTime         | date         | YES  |     |         | 用户创建时间  
+ ip                 | varchar(255) | YES  |     |         | 最后登录的ip地址
+ oprater            | varchar(255) | YES  |     |         | 操作人     
+--------------------+--------------+------+-----+---------+---------
+
+Table: stumanager_user
+-----------------+----------------------+------+-----+---------+---------
+ Field           | Type                 | Null | Key | Default | Remarks 
+-----------------+----------------------+------+-----+---------+---------
+ id              | bigint(19)           | NO   | PRI |         |         
+ userAccount     | varchar(20)          | YES  |     |         | 用户账户    
+ userPassword    | varchar(20)          | YES  |     |         | 用户密码    
+ userNickname    | varchar(20)          | YES  |     |         | 用户昵称    
+ userEmail       | varchar(40)          | YES  |     |         | 用户邮箱    
+ userRole        | varchar(20)          | YES  |     |         | 用户角色    
+ userPurikura    | varchar(40)          | YES  |     |         | 用户头像链接  
+ userLastLoginIp | varchar(12)          | YES  |     |         | 最后登录Ip  
+ userCreateTime  | varchar(20)          | YES  |     |         | 用户创建时间  
+ userUpdateTime  | varchar(20)          | YES  |     |         | 用户更新时间  
+ userPhone       | varchar(20)          | YES  |     |         | 用户联系号码  
+ userAddress     | varchar(20)          | YES  |     |         | 用户地址    
+ userMessage     | mediumtext(16777215) | YES  |     |         | 用户个人签名等信息
+-----------------+----------------------+------+-----+---------+---------
+
