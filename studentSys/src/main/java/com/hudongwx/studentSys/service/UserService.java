@@ -19,19 +19,15 @@ public class UserService extends Service {
         return User.dao.findById(id);
     }
     public void addUser(User user) throws ServiceException {
-        log.info("addUser中packing前");
         packingUser(user);
-        log.info("addUser中packing后");
         user.save();
     }
     public void packingUser(User user) throws ServiceException {
         if(null == user.getUserAccount() || null == user.getUserPassword() ){
             //手动释放????
             user = null;
-            log.info("异常前");
             throw new ServiceException("userAccount or userPassword cannot be null when packingUser");
         }
-        log.info("异常后");
         user.setId(System.currentTimeMillis());
         /*
         * user.set...

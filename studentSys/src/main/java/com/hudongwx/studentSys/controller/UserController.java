@@ -17,11 +17,6 @@ public class UserController extends BaseController {
     @CacheName("60time")
     public void index(){
         fillHeaderAndFooter();
-        try {
-            userService.addUser(new User());
-        } catch (ServiceException e) {
-            log.error("添加失败");
-        }
         render("login.ftl");
     }
     @Before(POST.class)
