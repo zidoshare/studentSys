@@ -1,6 +1,8 @@
 package com.hudongwx.studentSys.controller;
 
 import com.hudongwx.studentSys.common.BaseController;
+import com.hudongwx.studentSys.exceptions.ServiceException;
+import com.hudongwx.studentSys.model.User;
 import com.hudongwx.studentSys.service.UserService;
 import com.hudongwx.studentSys.util.RenderKit;
 import com.jfinal.aop.Before;
@@ -15,6 +17,11 @@ public class UserController extends BaseController {
     @CacheName("60time")
     public void index(){
         fillHeaderAndFooter();
+        try {
+            userService.addUser(new User());
+        } catch (ServiceException e) {
+            log.error("添加失败");
+        }
         render("login.ftl");
     }
     @Before(POST.class)

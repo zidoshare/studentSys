@@ -4,8 +4,11 @@ import com.hudongwx.studentSys.controller.UserController;
 import com.hudongwx.studentSys.model._MappingKit;
 import com.hudongwx.studentSys.util.LangConfig;
 import com.jfinal.config.*;
+import com.jfinal.core.JFinal;
+import com.jfinal.kit.PathKit;
 import com.jfinal.kit.Prop;
 import com.jfinal.kit.PropKit;
+import com.jfinal.log.Log;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.c3p0.C3p0Plugin;
 import com.jfinal.plugin.ehcache.EhCachePlugin;
@@ -14,12 +17,12 @@ import com.jfinal.plugin.ehcache.EhCachePlugin;
  * Created by wuhongxu on 2016/8/29 0029.
  */
 public class MainConfig extends JFinalConfig {
+    private Log log = Log.getLog(MainConfig.class);
     public void configConstant(Constants me) {
         me.setDevMode(PropKit.use("config.properties").getBoolean("devMode"));
-
         //初始化语言配置
         LangConfig.init();
-
+        log.info("初始化config");
 
         //配置错误页面
         me.setError403View("/error/403.html");
