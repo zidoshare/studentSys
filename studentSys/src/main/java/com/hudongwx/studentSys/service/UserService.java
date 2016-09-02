@@ -12,6 +12,9 @@ import java.util.Date;
 
 /**
  * Created by wuhongxu on 2016/8/31 0031.
+ *
+ * 需要开启事务的函数前面前缀 _save..、_delete..、_update..、_query..
+ *
  */
 public class UserService extends Service {
     private Log log = Log.getLog(getClass());
@@ -21,7 +24,7 @@ public class UserService extends Service {
     public User getUserById(String id){
         return User.dao.findById(id);
     }
-    public void addUser(User user) throws ServiceException {
+    public void _saveUser(User user) throws ServiceException {
         packingUser(user);
         user.save();
     }

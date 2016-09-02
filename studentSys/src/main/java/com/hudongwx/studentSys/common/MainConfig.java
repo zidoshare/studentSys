@@ -13,6 +13,7 @@ import com.jfinal.kit.Prop;
 import com.jfinal.kit.PropKit;
 import com.jfinal.log.Log;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
+import com.jfinal.plugin.activerecord.tx.TxByMethodRegex;
 import com.jfinal.plugin.c3p0.C3p0Plugin;
 import com.jfinal.plugin.ehcache.EhCachePlugin;
 
@@ -53,7 +54,8 @@ public class MainConfig extends JFinalConfig {
     }
 
     public void configInterceptor(Interceptors me) {
-
+        //对增删改操作开启事务
+        me.add(new TxByMethodRegex("(^_save.*|^_update.*|^_delete.*)"));
     }
 
     public void configHandler(Handlers me) {

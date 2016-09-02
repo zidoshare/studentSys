@@ -25,7 +25,7 @@ body {
 
 #page-inner {
     width: 100%;
-    margin: 10px 20px 0px 0px;
+    margin: 0px 20px 0px 0px;
     background-color: transparent;
     padding: 15px 30px;
     min-height: 1200px;
@@ -103,6 +103,7 @@ p {
 }
 
 #page-wrapper {
+    background: #eee;
     position: relative;
     /*top: 55px;*/
     box-shadow: 0 0 10px #757575;

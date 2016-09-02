@@ -1,12 +1,24 @@
 Table: stumanager_class
--------------+--------------+------+-----+---------+---------
- Field       | Type         | Null | Key | Default | Remarks 
--------------+--------------+------+-----+---------+---------
- classId     | int(10)      | NO   | PRI |         |         
- className   | varchar(255) | YES  |     |         |         
- headTeacher | varchar(255) | YES  |     |         | 讲师      
- Assistant   | varchar(255) | YES  |     |         | 科目      
--------------+--------------+------+-----+---------+---------
+---------------+-------------+------+-----+---------+---------
+ Field         | Type        | Null | Key | Default | Remarks 
+---------------+-------------+------+-----+---------+---------
+ classId       | int(10)     | NO   | PRI |         |         
+ className     | varchar(10) | YES  |     |         |         
+ headTeacherId | bigint(19)  | YES  |     |         | 讲师      
+ Assistant     | varchar(10) | YES  |     |         | 科目      
+ tutorId       | bigint(19)  | YES  |     |         |         
+---------------+-------------+------+-----+---------+---------
+
+Table: stumanager_employee
+--------+-------------+------+-----+---------+---------
+ Field  | Type        | Null | Key | Default | Remarks 
+--------+-------------+------+-----+---------+---------
+ id     | bigint(19)  | NO   | PRI |         |         
+ name   | varchar(10) | YES  |     |         | 姓名      
+ age    | int(10)     | YES  |     |         | 年龄      
+ status | varchar(20) | YES  |     |         | 身份，如咨询师等，默认将用户角色与身份设置对等
+ sex    | varchar(2)  | YES  |     |         | 性别      
+--------+-------------+------+-----+---------+---------
 
 Table: stumanager_mapping
 -------------+--------------+------+-----+---------+---------
@@ -15,8 +27,8 @@ Table: stumanager_mapping
  id          | int(10)      | NO   | PRI |         |         
  title       | varchar(10)  | YES  |     |         | 中文标题（名） 
  href        | varchar(40)  | YES  |     |         | 对应地址    
- description | varchar(255) | YES  |     |         |         
- icon        | varchar(30)  | YES  |     |         |         
+ description | varchar(255) | YES  |     |         | 描述，可不填  
+ icon        | varchar(30)  | YES  |     |         | 图标 如：fa fa-desktop
 -------------+--------------+------+-----+---------+---------
 
 Table: stumanager_role
@@ -34,8 +46,8 @@ Table: stumanager_student
 --------------------+--------------+------+-----+---------+---------
  id                 | int(10)      | NO   | PRI |         |         
  name               | varchar(255) | YES  |     |         |         
- classId            | int(10)      | YES  |     |         |         
- tutor              | int(10)      | YES  |     |         | 辅导老师    
+ classId            | bigint(19)   | YES  |     |         |         
+ tutorId            | bigint(19)   | YES  |     |         | 辅导老师    
  subject            | int(10)      | YES  |     |         | 学习科目    
  contactInformation | varchar(255) | YES  |     |         | 联系方式    
  admission          | date         | YES  |     |         | 入学时间    
@@ -44,8 +56,9 @@ Table: stumanager_student
  state              | varchar(255) | YES  |     |         | 状态      
  employment         | varchar(255) | YES  |     |         | 就业跟踪    
  createTime         | bigint(19)   | YES  |     |         | 用户创建时间  
- ip                 | varchar(255) | YES  |     |         | 最后登录的ip地址
- oprater            | varchar(255) | YES  |     |         | 操作人     
+ ip                 | varchar(20)  | YES  |     |         | 最后登录的ip地址
+ opraterId          | bigint(19)   | YES  |     |         | 操作人     
+ consultantId       | bigint(19)   | YES  |     |         |         
 --------------------+--------------+------+-----+---------+---------
 
 Table: stumanager_user

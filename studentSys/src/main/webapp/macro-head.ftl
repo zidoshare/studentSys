@@ -23,5 +23,6 @@
 <link rel="stylesheet" href="${staticServePath}/assets/js/Lightweight-Chart/cssCharts.css?${staticResourceVersion}">
 
 <link rel="stylesheet" href="${staticServePath}/static/css/base.css?${staticResourceVersion}"/>
+<link rel="stylesheet" href="${staticServePath}/static/css/lib/bootstrap-datetimepicker.min.css"/>
 
 </#macro>

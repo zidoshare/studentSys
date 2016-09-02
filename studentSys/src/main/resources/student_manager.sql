@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50712
 File Encoding         : 65001
 
-Date: 2016-09-01 09:02:44
+Date: 2016-09-02 16:53:10
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -21,17 +21,35 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `stumanager_class`;
 CREATE TABLE `stumanager_class` (
   `classId` int(11) NOT NULL AUTO_INCREMENT,
-  `className` varchar(255) DEFAULT NULL,
-  `headTeacher` varchar(255) DEFAULT NULL COMMENT '讲师',
-  `Assistant` varchar(255) DEFAULT NULL COMMENT '科目',
+  `className` varchar(10) DEFAULT NULL,
+  `headTeacherId` bigint(40) DEFAULT NULL COMMENT '讲师',
+  `Assistant` varchar(10) DEFAULT NULL COMMENT '科目',
+  `tutorId` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`classId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of stumanager_class
 -- ----------------------------
-INSERT INTO `stumanager_class` VALUES ('1', '一班', '王老师', '安卓');
-INSERT INTO `stumanager_class` VALUES ('2', '二班', '林老师', 'web');
+INSERT INTO `stumanager_class` VALUES ('1', '一班', '15314', '安卓', null);
+INSERT INTO `stumanager_class` VALUES ('2', '二班', '1344', 'web', null);
+
+-- ----------------------------
+-- Table structure for `stumanager_employee`
+-- ----------------------------
+DROP TABLE IF EXISTS `stumanager_employee`;
+CREATE TABLE `stumanager_employee` (
+  `id` bigint(20) NOT NULL,
+  `name` varchar(10) DEFAULT NULL COMMENT '姓名',
+  `age` int(11) DEFAULT NULL COMMENT '年龄',
+  `status` varchar(20) DEFAULT NULL COMMENT '身份，如咨询师等，默认将用户角色与身份设置对等',
+  `sex` varchar(2) DEFAULT NULL COMMENT '性别',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of stumanager_employee
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `stumanager_mapping`
@@ -39,8 +57,10 @@ INSERT INTO `stumanager_class` VALUES ('2', '二班', '林老师', 'web');
 DROP TABLE IF EXISTS `stumanager_mapping`;
 CREATE TABLE `stumanager_mapping` (
   `id` int(11) NOT NULL,
-  `title` varchar(255) DEFAULT NULL COMMENT '中文标题（名）',
-  `href` varchar(255) DEFAULT NULL COMMENT '对应地址',
+  `title` varchar(10) DEFAULT NULL COMMENT '中文标题（名）',
+  `href` varchar(40) DEFAULT NULL COMMENT '对应地址',
+  `description` varchar(255) DEFAULT NULL COMMENT '描述，可不填',
+  `icon` varchar(30) DEFAULT NULL COMMENT '图标 如：fa fa-desktop',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -70,8 +90,8 @@ DROP TABLE IF EXISTS `stumanager_student`;
 CREATE TABLE `stumanager_student` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
-  `classId` int(11) DEFAULT NULL,
-  `tutor` int(11) DEFAULT NULL COMMENT '辅导老师',
+  `classId` bigint(11) DEFAULT NULL,
+  `tutorId` bigint(11) DEFAULT NULL COMMENT '辅导老师',
   `subject` int(11) DEFAULT NULL COMMENT '学习科目',
   `contactInformation` varchar(255) DEFAULT NULL COMMENT '联系方式',
   `admission` date DEFAULT NULL COMMENT '入学时间',
@@ -79,11 +99,12 @@ CREATE TABLE `stumanager_student` (
   `grade` int(11) DEFAULT NULL COMMENT '成绩',
   `state` varchar(255) DEFAULT NULL COMMENT '状态',
   `employment` varchar(255) DEFAULT NULL COMMENT '就业跟踪',
-  `createTime` date DEFAULT NULL COMMENT '用户创建时间',
-  `ip` varchar(255) DEFAULT NULL COMMENT '最后登录的ip地址',
-  `oprater` varchar(255) DEFAULT NULL COMMENT '操作人',
+  `createTime` bigint(20) DEFAULT NULL COMMENT '用户创建时间',
+  `ip` varchar(20) DEFAULT NULL COMMENT '最后登录的ip地址',
+  `opraterId` bigint(20) DEFAULT NULL COMMENT '操作人',
+  `consultantId` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `classId` (`tutor`)
+  KEY `classId` (`tutorId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -103,8 +124,8 @@ CREATE TABLE `stumanager_user` (
   `userRole` varchar(20) DEFAULT NULL COMMENT '用户角色',
   `userPurikura` varchar(40) DEFAULT NULL COMMENT '用户头像链接',
   `userLastLoginIp` varchar(12) DEFAULT NULL COMMENT '最后登录Ip',
-  `userCreateTime` varchar(20) DEFAULT NULL COMMENT '用户创建时间',
-  `userUpdateTime` varchar(20) DEFAULT NULL COMMENT '用户更新时间',
+  `userCreateTime` bigint(20) DEFAULT NULL COMMENT '用户创建时间',
+  `userUpdateTime` bigint(20) DEFAULT NULL COMMENT '用户更新时间',
   `userPhone` varchar(20) DEFAULT NULL COMMENT '用户联系号码',
   `userAddress` varchar(20) DEFAULT NULL COMMENT '用户地址',
   `userMessage` mediumtext COMMENT '用户个人签名等信息',
