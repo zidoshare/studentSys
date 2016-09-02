@@ -24,7 +24,7 @@ Table: stumanager_mapping
 -------------+--------------+------+-----+---------+---------
  Field       | Type         | Null | Key | Default | Remarks 
 -------------+--------------+------+-----+---------+---------
- id          | int(10)      | NO   | PRI |         |         
+ id          | bigint(19)   | NO   | PRI |         |         
  title       | varchar(10)  | YES  |     |         | 中文标题（名） 
  href        | varchar(40)  | YES  |     |         | 对应地址    
  description | varchar(255) | YES  |     |         | 描述，可不填  
