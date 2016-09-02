@@ -2,6 +2,7 @@ package com.hudongwx.studentSys.common;
 
 import com.alibaba.fastjson.JSONObject;
 import com.hudongwx.studentSys.model.Mapping;
+import com.hudongwx.studentSys.service.MappingService;
 import com.hudongwx.studentSys.util.Common;
 import com.hudongwx.studentSys.util.LangConfig;
 import com.jfinal.aop.Before;
@@ -84,8 +85,12 @@ public class BaseController extends Controller {
     }
 
 
-    protected void fillSide() {
-        List<JSONObject> list = new ArrayList<>();
+    protected void fillSide(MappingService mappingService) {
+
+        List<Mapping> mappings = mappingService.getMappings();
+        setAttr(Common.SIDES_LABEL,mappings);
+
+        /*List<JSONObject> list = new ArrayList<>();
 
         JSONObject object = new JSONObject();
         object.put(Mapping.TITLE,"首页");
@@ -95,7 +100,7 @@ public class BaseController extends Controller {
         list.add((JSONObject) object.clone());
         list.add((JSONObject) object.clone());
         list.add((JSONObject) object.clone());
-        setAttr(Common.SIDES_LABEL,list);
+        setAttr(Common.SIDES_LABEL,list);*/
     }
     public void fillHeaderAndFooter() {
         fillHeader();

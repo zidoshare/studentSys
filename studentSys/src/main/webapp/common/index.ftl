@@ -47,17 +47,17 @@
                                 </a>
                             </div>
                             <div class="col-md-3 col-sm-6 col-xs-6 quick-container">
-                                <a class="quick-btn bg-green" href="#">
+                                <a class="quick-btn bg-pink" href="#">
                                     用户管理
                                 </a>
                             </div>
                             <div class="col-md-3 col-sm-6 col-xs-6 quick-container">
-                                <a class="quick-btn bg-green" href="#">
+                                <a class="quick-btn bg-blue" href="#">
                                     用户管理
                                 </a>
                             </div>
                             <div class="col-md-3 col-sm-6 col-xs-6 quick-container">
-                                <a class="quick-btn bg-green" href="#">
+                                <a class="quick-btn bg-yellow" href="#">
                                     用户管理
                                 </a>
                             </div>
