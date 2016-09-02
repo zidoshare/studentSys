@@ -25,12 +25,12 @@ public abstract class BaseClass<M extends BaseClass<M>> extends Model<M> impleme
 		return get("className");
 	}
 
-	public void setHeadTeacher(java.lang.String headTeacher) {
-		set("headTeacher", headTeacher);
+	public void setHeadTeacherId(java.lang.Long headTeacherId) {
+		set("headTeacherId", headTeacherId);
 	}
 
-	public java.lang.String getHeadTeacher() {
-		return get("headTeacher");
+	public java.lang.Long getHeadTeacherId() {
+		return get("headTeacherId");
 	}
 
 	public void setAssistant(java.lang.String Assistant) {
@@ -39,6 +39,14 @@ public abstract class BaseClass<M extends BaseClass<M>> extends Model<M> impleme
 
 	public java.lang.String getAssistant() {
 		return get("Assistant");
+	}
+
+	public void setTutorId(java.lang.Long tutorId) {
+		set("tutorId", tutorId);
+	}
+
+	public java.lang.Long getTutorId() {
+		return get("tutorId");
 	}
 
 }

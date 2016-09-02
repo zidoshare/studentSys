@@ -8,4 +8,7 @@ import com.hudongwx.studentSys.common.BaseMapping;
 @SuppressWarnings("serial")
 public class Mapping extends BaseMapping<Mapping> {
 	public static final Mapping dao = new Mapping();
+	public static final String TITLE = "title";
+	public static final String HREF = "href";
+	public static final String ICON = "icon";
 }

@@ -73,19 +73,19 @@ public abstract class BaseUser<M extends BaseUser<M>> extends Model<M> implement
 		return get("userLastLoginIp");
 	}
 
-	public void setUserCreateTime(java.lang.String userCreateTime) {
+	public void setUserCreateTime(java.lang.Long userCreateTime) {
 		set("userCreateTime", userCreateTime);
 	}
 
-	public java.lang.String getUserCreateTime() {
+	public java.lang.Long getUserCreateTime() {
 		return get("userCreateTime");
 	}
 
-	public void setUserUpdateTime(java.lang.String userUpdateTime) {
+	public void setUserUpdateTime(java.lang.Long userUpdateTime) {
 		set("userUpdateTime", userUpdateTime);
 	}
 
-	public java.lang.String getUserUpdateTime() {
+	public java.lang.Long getUserUpdateTime() {
 		return get("userUpdateTime");
 	}
 

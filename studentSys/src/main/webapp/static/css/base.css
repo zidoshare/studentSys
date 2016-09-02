@@ -1,3 +1,65 @@
 .tip-container{
     position:relative;
 }
+.absolute{
+    position:absolute;
+}
+.purikura{
+    border-radius: 50%;
+    width:130px;
+    height:130px;
+    background: url("../../images/logo.gif") no-repeat center center;
+    background-size: 100% 100%;
+}
+.far-bottom{
+    margin-bottom:10px;
+}
+.far-top{
+    margin-top:10px;
+}
+.top-container{
+    margin-top:20px;
+    margin-bottom:20px;
+    color:white;
+}
+.bottom-border:after{
+    content: "";
+    width:150%;
+    height:1px;
+    background: #fff;
+    position:absolute;
+    bottom:-5px;
+    left:-25%;
+}
+.hdwx-input-lg{
+    min-width:385px;
+    width:70%;
+}
+.quick-container{
+    padding:10px 10px;
+    float: left;
+}
+.quick-btn{
+    height:138px;
+    line-height:138px;
+    text-align: center;
+    display: block;
+    color:white;
+}
+.quick-btn:hover{
+    -webkit-box-shadow: 3px 3px 10px #888888;
+    -moz-box-shadow: 3px 3px 10px #888888;
+    box-shadow: 3px 3px 10px #888888;
+}
+.bg-green{
+    background:rgba(0, 204, 102, 1);
+}
+.bg-blue{
+    background: rgba(0, 153, 204, 1);
+}
+.bg-pink{
+    background: rgba(255, 51, 102, 1);
+}
+.bg-yellow{
+    background: rgba(255, 188, 0, 1);
+}

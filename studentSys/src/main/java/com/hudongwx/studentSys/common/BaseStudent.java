@@ -25,20 +25,20 @@ public abstract class BaseStudent<M extends BaseStudent<M>> extends Model<M> imp
 		return get("name");
 	}
 
-	public void setClassId(java.lang.Integer classId) {
+	public void setClassId(java.lang.Long classId) {
 		set("classId", classId);
 	}
 
-	public java.lang.Integer getClassId() {
+	public java.lang.Long getClassId() {
 		return get("classId");
 	}
 
-	public void setTutor(java.lang.Integer tutor) {
-		set("tutor", tutor);
+	public void setTutorId(java.lang.Long tutorId) {
+		set("tutorId", tutorId);
 	}
 
-	public java.lang.Integer getTutor() {
-		return get("tutor");
+	public java.lang.Long getTutorId() {
+		return get("tutorId");
 	}
 
 	public void setSubject(java.lang.Integer subject) {
@@ -97,11 +97,11 @@ public abstract class BaseStudent<M extends BaseStudent<M>> extends Model<M> imp
 		return get("employment");
 	}
 
-	public void setCreateTime(java.util.Date createTime) {
+	public void setCreateTime(java.lang.Long createTime) {
 		set("createTime", createTime);
 	}
 
-	public java.util.Date getCreateTime() {
+	public java.lang.Long getCreateTime() {
 		return get("createTime");
 	}
 
@@ -113,12 +113,20 @@ public abstract class BaseStudent<M extends BaseStudent<M>> extends Model<M> imp
 		return get("ip");
 	}
 
-	public void setOprater(java.lang.String oprater) {
-		set("oprater", oprater);
+	public void setOpraterId(java.lang.Long opraterId) {
+		set("opraterId", opraterId);
 	}
 
-	public java.lang.String getOprater() {
-		return get("oprater");
+	public java.lang.Long getOpraterId() {
+		return get("opraterId");
+	}
+
+	public void setConsultantId(java.lang.Long consultantId) {
+		set("consultantId", consultantId);
+	}
+
+	public java.lang.Long getConsultantId() {
+		return get("consultantId");
 	}
 
 }
