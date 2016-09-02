@@ -1,7 +1,10 @@
 package com.hudongwx.studentSys.common;
 
+import com.hudongwx.studentSys.RequestHandler;
+import com.hudongwx.studentSys.controller.IndexController;
 import com.hudongwx.studentSys.controller.UserController;
 import com.hudongwx.studentSys.model._MappingKit;
+import com.hudongwx.studentSys.util.Common;
 import com.hudongwx.studentSys.util.LangConfig;
 import com.jfinal.config.*;
 import com.jfinal.core.JFinal;
@@ -19,7 +22,7 @@ import com.jfinal.plugin.ehcache.EhCachePlugin;
 public class MainConfig extends JFinalConfig {
     private Log log = Log.getLog(MainConfig.class);
     public void configConstant(Constants me) {
-        me.setDevMode(PropKit.use("config.properties").getBoolean("devMode"));
+        me.setDevMode(Common.getMainProp().getBoolean("devMode"));
         //初始化语言配置
         LangConfig.init();
         log.info("初始化config");
@@ -31,8 +34,8 @@ public class MainConfig extends JFinalConfig {
     }
 
     public void configRoute(Routes me) {
-        me.add("/", UserController.class,"/user");
         me.add("/user",UserController.class);
+        me.add("/", IndexController.class,"/common");
     }
 
     public void configPlugin(Plugins me) {
@@ -54,6 +57,6 @@ public class MainConfig extends JFinalConfig {
     }
 
     public void configHandler(Handlers me) {
-        //me.add(new RequestHandler());
+        me.add(new RequestHandler());
     }
 }

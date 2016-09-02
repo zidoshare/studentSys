@@ -97,11 +97,11 @@ public abstract class BaseStudent<M extends BaseStudent<M>> extends Model<M> imp
 		return get("employment");
 	}
 
-	public void setCreateTime(java.util.Date createTime) {
+	public void setCreateTime(java.lang.Long createTime) {
 		set("createTime", createTime);
 	}
 
-	public java.util.Date getCreateTime() {
+	public java.lang.Long getCreateTime() {
 		return get("createTime");
 	}
 

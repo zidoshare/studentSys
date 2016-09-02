@@ -9,13 +9,15 @@ Table: stumanager_class
 -------------+--------------+------+-----+---------+---------
 
 Table: stumanager_mapping
--------+--------------+------+-----+---------+---------
- Field | Type         | Null | Key | Default | Remarks 
--------+--------------+------+-----+---------+---------
- id    | int(10)      | NO   | PRI |         |         
- title | varchar(255) | YES  |     |         | 中文标题（名） 
- href  | varchar(255) | YES  |     |         | 对应地址    
--------+--------------+------+-----+---------+---------
+-------------+--------------+------+-----+---------+---------
+ Field       | Type         | Null | Key | Default | Remarks 
+-------------+--------------+------+-----+---------+---------
+ id          | int(10)      | NO   | PRI |         |         
+ title       | varchar(10)  | YES  |     |         | 中文标题（名） 
+ href        | varchar(40)  | YES  |     |         | 对应地址    
+ description | varchar(255) | YES  |     |         |         
+ icon        | varchar(30)  | YES  |     |         |         
+-------------+--------------+------+-----+---------+---------
 
 Table: stumanager_role
 -----------+-------------+------+-----+---------+---------
@@ -41,7 +43,7 @@ Table: stumanager_student
  grade              | int(10)      | YES  |     |         | 成绩      
  state              | varchar(255) | YES  |     |         | 状态      
  employment         | varchar(255) | YES  |     |         | 就业跟踪    
- createTime         | date         | YES  |     |         | 用户创建时间  
+ createTime         | bigint(19)   | YES  |     |         | 用户创建时间  
  ip                 | varchar(255) | YES  |     |         | 最后登录的ip地址
  oprater            | varchar(255) | YES  |     |         | 操作人     
 --------------------+--------------+------+-----+---------+---------
@@ -58,8 +60,8 @@ Table: stumanager_user
  userRole        | varchar(20)          | YES  |     |         | 用户角色    
  userPurikura    | varchar(40)          | YES  |     |         | 用户头像链接  
  userLastLoginIp | varchar(12)          | YES  |     |         | 最后登录Ip  
- userCreateTime  | varchar(20)          | YES  |     |         | 用户创建时间  
- userUpdateTime  | varchar(20)          | YES  |     |         | 用户更新时间  
+ userCreateTime  | bigint(19)           | YES  |     |         | 用户创建时间  
+ userUpdateTime  | bigint(19)           | YES  |     |         | 用户更新时间  
  userPhone       | varchar(20)          | YES  |     |         | 用户联系号码  
  userAddress     | varchar(20)          | YES  |     |         | 用户地址    
  userMessage     | mediumtext(16777215) | YES  |     |         | 用户个人签名等信息

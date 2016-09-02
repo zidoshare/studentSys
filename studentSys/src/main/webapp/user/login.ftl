@@ -1,4 +1,4 @@
-<#include "../macro-head.ftl">
+<#include "../macro-head-single.ftl">
 <!doctype html>
 <html lang="zh-CN">
 <head>

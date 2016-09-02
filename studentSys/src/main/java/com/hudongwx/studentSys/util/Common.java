@@ -20,5 +20,10 @@ public class Common {
     public final static String INVALID_PASSWORD_LABEL = "invalidPasswordLabel";
     public final static String ACTION_KEY_LABEL = "actionKey";
     public final static String CONTROLLER_KEY_LABEL = "controllerKey";
+    public final static String SIDES_LABEL = "sides";
 
+    //此处得到主配置
+    public static Prop getMainProp(){
+        return PropKit.use("config.properties");
+    }
 }

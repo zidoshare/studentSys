@@ -1,5 +1,7 @@
 package com.hudongwx.studentSys.common;
 
+import com.alibaba.fastjson.JSONObject;
+import com.hudongwx.studentSys.model.Mapping;
 import com.hudongwx.studentSys.util.Common;
 import com.hudongwx.studentSys.util.LangConfig;
 import com.jfinal.aop.Before;
@@ -8,8 +10,10 @@ import com.jfinal.kit.Prop;
 import com.jfinal.log.Log;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.List;
 
 /**
  * Created by wuhongxu on 2016/8/30 0030.
@@ -34,7 +38,6 @@ public class BaseController extends Controller {
             }
         }
     }
-
     public void fillHeader() {
         //三个地址：static用于找资源、servePath用于得到去掉参数的网址、holdPath为带参数网址
         String uri = getRequest().getRequestURI();
@@ -81,6 +84,19 @@ public class BaseController extends Controller {
     }
 
 
+    protected void fillSide() {
+        List<JSONObject> list = new ArrayList<>();
+
+        JSONObject object = new JSONObject();
+        object.put(Mapping.TITLE,"首页");
+        object.put(Mapping.HREF,"");
+        object.put(Mapping.ICON,"fa fa-desktop");
+        list.add((JSONObject) object.clone());
+        list.add((JSONObject) object.clone());
+        list.add((JSONObject) object.clone());
+        list.add((JSONObject) object.clone());
+        setAttr(Common.SIDES_LABEL,list);
+    }
     public void fillHeaderAndFooter() {
         fillHeader();
         fillFooter();

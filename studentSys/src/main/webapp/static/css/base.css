@@ -1,3 +1,33 @@
 .tip-container{
     position:relative;
 }
+.absolute{
+    position:absolute;
+}
+.purikura{
+    border-radius: 50%;
+    width:130px;
+    height:130px;
+    background: url("../../images/logo.gif") no-repeat center center;
+    background-size: 100% 100%;
+}
+.far-bottom{
+    margin-bottom:10px;
+}
+.far-top{
+    margin-top:10px;
+}
+.top-container{
+    margin-top:20px;
+    margin-bottom:20px;
+    color:white;
+}
+.bottom-border:after{
+    content: "";
+    width:150%;
+    height:1px;
+    background: #fff;
+    position:absolute;
+    bottom:-5px;
+    left:-25%;
+}
