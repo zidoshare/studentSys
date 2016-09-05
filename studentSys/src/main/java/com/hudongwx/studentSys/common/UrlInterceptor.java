@@ -16,6 +16,7 @@ public class UrlInterceptor implements Interceptor {
         String controllerKey = inv.getControllerKey();
         inv.getController().setAttr(Common.ACTION_KEY_LABEL,actionKey);
         inv.getController().setAttr(Common.CONTROLLER_KEY_LABEL,controllerKey);
+        log.info(actionKey);
         inv.invoke();
     }
 }

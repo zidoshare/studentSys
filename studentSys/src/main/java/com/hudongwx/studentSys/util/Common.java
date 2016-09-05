@@ -21,7 +21,16 @@ public class Common {
     public final static String ACTION_KEY_LABEL = "actionKey";
     public final static String CONTROLLER_KEY_LABEL = "controllerKey";
     public final static String SIDES_LABEL = "sides";
+    public static final String CONTENT_LABEL = "content";
+    public final static String CATALOG = "Catalog";
     public static final int MAX_SIDE_CNT = 8;
+
+
+    //缓存Label
+    public static final String CACHE_FOEVER_LABEL = "forever";
+    public static final String CACHE_LONG_TIME_LABEL = "longTime";
+    public static final String CACHE_60TIME_LABEL = "60time";
+
 
     //此处得到主配置
     public static Prop getMainProp(){

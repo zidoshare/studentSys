@@ -14,14 +14,21 @@ import com.jfinal.plugin.ehcache.CacheName;
  */
 public class UserController extends BaseController {
     UserService userService;
-    @CacheName("60time")
     public void index(){
         fillHeaderAndFooter();
         render("login.ftl");
     }
     @Before(POST.class)
     public void login(){
-        RenderKit.renderSuccess(this,"登录成功");
+        String account = getPara("account");
+        String password = getPara("password");
+
+        User user = userService.validate(account, password);
+        if(null != user)
+            setSessionAttr("user",user);
+
+        RenderKit.renderSuccess(this,"登录成功,"+account+" "+password);
+
     }
     public void register(){
         fillHeaderAndFooter();

@@ -4,11 +4,10 @@ import com.hudongwx.studentSys.common.Service;
 import com.hudongwx.studentSys.exceptions.ServiceException;
 import com.hudongwx.studentSys.model.User;
 import com.hudongwx.studentSys.util.Common;
-import com.hudongwx.studentSys.util.StrPlusKit;
-import com.jfinal.kit.HttpKit;
 import com.jfinal.log.Log;
 
-import java.util.Date;
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * Created by wuhongxu on 2016/8/31 0031.
@@ -18,15 +17,25 @@ import java.util.Date;
  */
 public class UserService extends Service {
     private Log log = Log.getLog(getClass());
-    public User getCurrentUser(){
-        return super.getCurrentUser();
+    public User validate(String userAccount,String userPassword){
+        List<User> users = User.dao.find("select * from stumanager_user where userAccount = ? and userPassword = ?", userAccount, userPassword);
+        if(users.isEmpty())
+            return null;
+        return users.get(0);
     }
     public User getUserById(String id){
         return User.dao.findById(id);
     }
-    public void _saveUser(User user) throws ServiceException {
-        packingUser(user);
+    public void _saveUser(User user){
+        try {
+            packingUser(user);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
         user.save();
+    }
+    public List<User> getAdmin(){
+        return User.dao.find("select * from stumanager_user where userRole = 'admin'");
     }
     /*
     * 完善user，系统能为其设置的所有信息

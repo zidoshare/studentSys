@@ -14,7 +14,7 @@ var Login = {
             data: [{
                 "target": $("#account"),
                 "type": "string",
-                "max": 40,
+                "max": 20,
                 "msg": Label.loginNameErrorLabel
             }, {
                 "target": $("#password"),
@@ -29,7 +29,7 @@ var Login = {
             };
             $.ajax({
                 type: "post",
-                url: "/login",
+                url: "/user/login",
                 dataType: "json",
                 data: jsonObj,
                 success: function (data) {
@@ -37,9 +37,9 @@ var Login = {
                         $("form").fadeOut(500);
                         $(".wrapper").addClass("form-success");
                         Util.showTip($("#loginTip"),data.msg,'alert alert-success');
-                        /*setTimeout(function () {
+                        setTimeout(function () {
                             location.href = "/";
-                        }, 1000);*/
+                        }, 1000);
                     } else {
                         Util.showTip($("#loginTip"), "账号或密码错误!", 'alert alert-danger');
                     }

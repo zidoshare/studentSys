@@ -9,11 +9,11 @@ import com.jfinal.plugin.activerecord.IBean;
 @SuppressWarnings("serial")
 public abstract class BaseRole<M extends BaseRole<M>> extends Model<M> implements IBean {
 
-	public void setId(java.lang.Integer id) {
+	public void setId(java.lang.Long id) {
 		set("id", id);
 	}
 
-	public java.lang.Integer getId() {
+	public java.lang.Long getId() {
 		return get("id");
 	}
 
@@ -31,6 +31,14 @@ public abstract class BaseRole<M extends BaseRole<M>> extends Model<M> implement
 
 	public java.lang.Integer getMemberCnt() {
 		return get("memberCnt");
+	}
+
+	public void setTreeData(java.lang.String treeData) {
+		set("treeData", treeData);
+	}
+
+	public java.lang.String getTreeData() {
+		return get("treeData");
 	}
 
 }

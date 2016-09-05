@@ -19,7 +19,7 @@
 
             <#list sides as side>
                 <li>
-                        <a href="${side.href}"><i class="${side.icon}"></i>${side.title}</a>
+                        <a href="${side.url}"><i class="${side.icon}"></i>${side.title}</a>
                 </li>
             </#list>
 

@@ -2,7 +2,12 @@
 <ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd" updateCheck="false"
          monitoring="autodetect" dynamicConfig="true">
-
+    <cache name="forever" maxElementsInMemory="100" eternal="true"
+            overflowToDisk="true" diskPersistent="true"
+            memoryStoreEvictionPolicy="LRU" clearOnFlush="true"/>
+    <cache name="longTime" maxElementsInMemory="10000" overflowToDisk="true"
+           timeToLiveSeconds="36000" timeToIdleSeconds="300"
+           diskPersistent="true" memoryStoreEvictionPolicy="LRU" clearOnFlush="true"/>
     <cache name="60time" maxElementsInMemory="10000"
            overflowToDisk="true" eternal="false" timeToLiveSeconds="60"
            timeToIdleSeconds="300" diskPersistent="true"

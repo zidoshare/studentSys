@@ -10,8 +10,8 @@
     <div class="container">
         <h1>Welcome</h1>
         <form class="form">
-            <input type="text" id="account" placeholder="账号/email">
-            <input type="password" id="password" placeholder="密码">
+            <input type="text" id="account" name="account" placeholder="账号">
+            <input type="password" id="password" name="password" placeholder="密码">
             <button data-style="slide-up" id="login-btn" class="btn btn-lg ladda-button" data-spinner-color="#75d9b7" data-size="s" tabindex="10" onclick="Login.login()">
                 <span class="ladda-label">登录</span>
             </button>

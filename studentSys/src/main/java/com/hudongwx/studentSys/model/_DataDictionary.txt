@@ -21,34 +21,39 @@ Table: stumanager_employee
 --------+-------------+------+-----+---------+---------
 
 Table: stumanager_mapping
--------------+--------------+------+-----+---------+---------
- Field       | Type         | Null | Key | Default | Remarks 
--------------+--------------+------+-----+---------+---------
- id          | bigint(19)   | NO   | PRI |         |         
- title       | varchar(10)  | YES  |     |         | 中文标题（名） 
- href        | varchar(40)  | YES  |     |         | 对应地址    
- description | varchar(255) | YES  |     |         | 描述，可不填  
- icon        | varchar(30)  | YES  |     |         | 图标 如：fa fa-desktop
--------------+--------------+------+-----+---------+---------
+---------------+-------------+------+-----+---------+---------
+ Field         | Type        | Null | Key | Default | Remarks 
+---------------+-------------+------+-----+---------+---------
+ id            | bigint(19)  | NO   | PRI |         |         
+ title         | varchar(20) | YES  |     |         | 标题      
+ url           | varchar(40) | YES  |     |         | 对应路径    
+ icon          | varchar(30) | YES  |     |         | 图标      
+ leftChildId   | bigint(19)  | YES  |     | 0       | 左儿子Id   
+ nextSiblingId | bigint(19)  | YES  |     | 0       | 下一个兄弟Id 
+ parentId      | bigint(19)  | YES  |     | 0       | 父亲Id    
+ childCount    | int(10)     | NO   |     | 0       | 孩子数量    
+ degree        | int(10)     | NO   |     | 0       | 深度      
+---------------+-------------+------+-----+---------+---------
 
 Table: stumanager_role
------------+-------------+------+-----+---------+---------
- Field     | Type        | Null | Key | Default | Remarks 
------------+-------------+------+-----+---------+---------
- id        | int(10)     | NO   | PRI |         |         
- name      | varchar(20) | NO   |     |         | 角色名     
- memberCnt | int(10)     | NO   |     |         | 角色人数    
------------+-------------+------+-----+---------+---------
+-----------+----------------------+------+-----+---------+---------
+ Field     | Type                 | Null | Key | Default | Remarks 
+-----------+----------------------+------+-----+---------+---------
+ id        | int(10)              | NO   | PRI |         |         
+ name      | varchar(20)          | NO   |     |         | 角色名     
+ memberCnt | int(10)              | NO   |     |         | 角色人数    
+ treeData  | mediumtext(16777215) | YES  |     |         |         
+-----------+----------------------+------+-----+---------+---------
 
 Table: stumanager_student
 --------------------+--------------+------+-----+---------+---------
  Field              | Type         | Null | Key | Default | Remarks 
 --------------------+--------------+------+-----+---------+---------
- id                 | int(10)      | NO   | PRI |         |         
+ id                 | bigint(19)   | NO   | PRI |         |         
  name               | varchar(255) | YES  |     |         |         
  classId            | bigint(19)   | YES  |     |         |         
  tutorId            | bigint(19)   | YES  |     |         | 辅导老师    
- subject            | int(10)      | YES  |     |         | 学习科目    
+ subject            | bigint(19)   | YES  |     |         | 学习科目    
  contactInformation | varchar(255) | YES  |     |         | 联系方式    
  admission          | date         | YES  |     |         | 入学时间    
  credit             | int(10)      | YES  |     |         | 学分      

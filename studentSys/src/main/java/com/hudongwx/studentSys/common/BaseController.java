@@ -1,8 +1,9 @@
 package com.hudongwx.studentSys.common;
 
-import com.alibaba.fastjson.JSONObject;
 import com.hudongwx.studentSys.model.Mapping;
+import com.hudongwx.studentSys.model.User;
 import com.hudongwx.studentSys.service.MappingService;
+import com.hudongwx.studentSys.service.RoleService;
 import com.hudongwx.studentSys.util.Common;
 import com.hudongwx.studentSys.util.LangConfig;
 import com.jfinal.aop.Before;
@@ -13,7 +14,6 @@ import com.jfinal.log.Log;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Enumeration;
 import java.util.List;
 
 /**
@@ -32,7 +32,7 @@ public class BaseController extends Controller {
             if (Service.class.isAssignableFrom(clazz) && clazz != Service.class) {
                 try {
                     field.setAccessible(true);
-                    field.set(this, Service.getInstance(clazz, this));
+                    field.set(this, Service.getInstance(clazz));
                 } catch (IllegalAccessException e) {
                     log.error(e.toString());
                 }
@@ -84,23 +84,32 @@ public class BaseController extends Controller {
         }*/
     }
 
-
-    protected void fillSide(MappingService mappingService) {
+    //页面测试
+    protected void fillTest(MappingService mappingService) {
 
         List<Mapping> mappings = mappingService.getMappings();
+
         setAttr(Common.SIDES_LABEL,mappings);
 
-        /*List<JSONObject> list = new ArrayList<>();
+    }
+    public void fillContent(RoleService roleService){
+        User user = getSessionAttr("user");
+        if(user == null){
+            renderError(403);
+            return ;
+        }
+        List<Mapping> roleTree = roleService.getRoleTree(roleService.getRoleByName(user.getUserRole()));
 
-        JSONObject object = new JSONObject();
-        object.put(Mapping.TITLE,"首页");
-        object.put(Mapping.HREF,"");
-        object.put(Mapping.ICON,"fa fa-desktop");
-        list.add((JSONObject) object.clone());
-        list.add((JSONObject) object.clone());
-        list.add((JSONObject) object.clone());
-        list.add((JSONObject) object.clone());
-        setAttr(Common.SIDES_LABEL,list);*/
+        List<Mapping> sides = new ArrayList<>();
+        List<Mapping> content = new ArrayList<>();
+        for(Mapping mapping : roleTree){
+            if(mapping.getDegree() == 1)
+                sides.add(mapping);
+            if(mapping.getDegree() == 2)
+                content.add(mapping);
+        }
+        setAttr(Common.SIDES_LABEL,sides);
+        setAttr(Common.CONTENT_LABEL,content);
     }
     public void fillHeaderAndFooter() {
         fillHeader();
