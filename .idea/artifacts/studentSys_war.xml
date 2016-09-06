@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="studentSys:war">
+    <output-path>$PROJECT_DIR$/studentSys/target</output-path>
+    <properties id="ant-postprocessing">
+      <options enabled="true" />
+    </properties>
+    <root id="archive" name="JFinalProj.war">
+      <element id="artifact" artifact-name="studentSys:war exploded" />
+    </root>
+  </artifact>
+</component>

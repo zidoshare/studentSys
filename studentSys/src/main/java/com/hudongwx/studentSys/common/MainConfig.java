@@ -93,7 +93,6 @@ public class MainConfig extends JFinalConfig{
         certificateManager.setUrl("/certificateManager");
         certificateManager.setTitle("证书管理");
         tree.insertChild(certificateManager, root, null);
-
         Mapping option = new Mapping();
         option.setIcon("fa fa-gear");
         option.setTitle("通用设置");
