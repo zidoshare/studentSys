@@ -11,6 +11,15 @@ public class Mapping extends BaseMapping<Mapping> implements TreeNode {
 	public static final Mapping dao = new Mapping();
 	private Mapping parent,leftChild,nextSibling;
 	public Mapping(){
+		init();
+	}
+	public Mapping(String icon,String title,String url){
+		setIcon("fa fa-gear");
+		setTitle("通用设置");
+		setUrl("/option");
+		init();
+	}
+	public void init(){
 		setId(System.currentTimeMillis());
 		getParent();
 		getLeftChild();

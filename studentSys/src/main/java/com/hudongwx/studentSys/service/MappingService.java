@@ -60,8 +60,6 @@ public class MappingService extends Service {
             throw new ServiceException("mapping's title cannot be null or \"\"");
         if(StrPlusKit.isEmpty(mapping.getUrl()))
             throw new ServiceException("mapping's url cannot be null or \"\"");
-        if(StrPlusKit.isEmpty(mapping.getIcon()))
-            throw new ServiceException("mapping's icon cannot be null or \"\"");
         if(mapping.getId() == null || mapping.getId() == 0)
             mapping.setId(System.currentTimeMillis());
     }
