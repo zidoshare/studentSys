@@ -17,27 +17,29 @@ public class TestController extends BaseController {
     TestService testService;
     private Log log = Log.getLog(getClass());
     public void index(){
-
+        forwardAction("/test/inputQuestion");
     }
+    //添加问题页面
     public void inputQuestion(){
         List<QuestionBigType> bigTypes = testService.getBigTypes();
         setAttr("bigTypes",bigTypes);
-        log.info(bigTypes.get(0).getName());
         setAttr("questions",testService.getQuestionsByQuestionnaire(1));
         render("inputQuestion.ftl");
     }
-    public void inputType(){
-        testService.getBigTypes();
+    //添加类型页面
+    public void inputBigType(){
+        List<QuestionBigType> bigTypes = testService.getBigTypes();
+        setAttr("bigTypes",bigTypes);
+        render("inputBigType.ftl");
     }
     @Before(POST.class)
-    public void postType(){
-        Questions model = getModel(Questions.class);
-        log.info(model.getTitle());
-        RenderKit.renderSuccess(this,model.getTitle());
-        /*if(getModel(QuestionBigType.class).save()){
+    public void postBigType(){
+        QuestionBigType qbt = getModel(QuestionBigType.class);
+        log.info(qbt.getName()+"   "+qbt.getSortFlag());
+        if(testService.saveBigType(qbt)){
             RenderKit.renderSuccess(this,"添加成功");
         }else
-            RenderKit.renderError(this,"添加失败");*/
+            RenderKit.renderError(this,"添加失败");
     }
 
     @Before(POST.class)

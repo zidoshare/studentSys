@@ -6,6 +6,7 @@ import com.hudongwx.studentSys.model.testModel.Questions;
 import com.hudongwx.studentSys.model.testModel.QuestionsQuestionnaire;
 import com.hudongwx.studentSys.util.Common;
 import com.jfinal.plugin.activerecord.Page;
+import com.jfinal.plugin.ehcache.CacheKit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,15 @@ import java.util.List;
 public class TestService extends Service {
     public List<QuestionBigType> getBigTypes() {
         return QuestionBigType.dao.findByCache(Common.CACHE_LONG_TIME_LABEL, "bigTypes", "select * from surveys_t_question_big_type");
+    }
+    public boolean saveBigType(QuestionBigType qbt) {
+        List<QuestionBigType> bigTypes = QuestionBigType.dao.findByCache(Common.CACHE_LONG_TIME_LABEL, "bigTypes", "select * from surveys_t_question_big_type");
+        if(qbt.save()) {
+            bigTypes.add(qbt);
+            CacheKit.put(Common.CACHE_LONG_TIME_LABEL, "bigTypes",bigTypes);
+            return true;
+        }
+        return false;
     }
     public Page<Questions> getAllQuestions(int currentPage){
         return Questions.dao.paginate(currentPage, Common.MAX_PAGE_SIZE, "select *", "from surveys_t_questions");

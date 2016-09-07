@@ -21,6 +21,7 @@ import com.jfinal.kit.Prop;
 import com.jfinal.kit.PropKit;
 import com.jfinal.log.Log;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
+import com.jfinal.plugin.activerecord.dialect.MysqlDialect;
 import com.jfinal.plugin.activerecord.tx.TxByMethodRegex;
 import com.jfinal.plugin.c3p0.C3p0Plugin;
 import com.jfinal.plugin.ehcache.EhCachePlugin;
@@ -145,7 +146,7 @@ public class MainConfig extends JFinalConfig{
         me.add(testC3p0Plugin);
         ActiveRecordPlugin testRecordPlugin = new ActiveRecordPlugin("test",testC3p0Plugin);
         testRecordPlugin.setShowSql(true);
-
+        testRecordPlugin.setDialect(new MysqlDialect());
         //---添加映射---
         com.hudongwx.studentSys.model.testModel._MappingKit.mapping(testRecordPlugin);
         //-------------
@@ -156,7 +157,7 @@ public class MainConfig extends JFinalConfig{
 
     public void configInterceptor(Interceptors me) {
         //对增删改操作开启事务
-        me.add(new TxByMethodRegex("(^_save.*|^_update.*|^_delete.*)"));
+        me.add(new TxByMethodRegex("(^_save.*|^_update.*|^_delete.*|^post.*)"));
         initMapping();
     }
 
