@@ -1,8 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="028b3639-dcc4-40a5-959b-bf280a030e49" name="Default" comment="">
+    <list default="true" id="028b3639-dcc4-40a5-959b-bf280a030e49" name="Default" comment="结构重构，数据库映射&#10;树结构&#10;加入大量工具类&#10;初始化操作">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/service/TestService.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/test/inputQuestion.ftl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj.war" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj.war" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/common/BaseController.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/common/BaseController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/common/MainConfig.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/common/MainConfig.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/controller/IndexController.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/controller/IndexController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/controller/TestController.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/controller/TestController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/model/Mapping.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/model/Mapping.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/service/MappingService.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/service/MappingService.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/util/Common.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/util/Common.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/BaseController.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/BaseController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/MainConfig.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/MainConfig.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/testBaseModel/BaseQuestionnaireResult.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/testBaseModel/BaseQuestionnaireResult.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/testBaseModel/BaseQuestionsQuestionnaire.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/testBaseModel/BaseQuestionsQuestionnaire.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/controller/IndexController.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/controller/IndexController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/controller/TestController.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/controller/TestController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/model/Mapping.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/model/Mapping.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/model/testModel/_MappingKit.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/model/testModel/_MappingKit.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/service/MappingService.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/service/MappingService.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/util/Common.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/util/Common.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/BaseController.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/BaseController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/MainConfig.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/MainConfig.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/testBaseModel/BaseQuestionnaireResult.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/testBaseModel/BaseQuestionnaireResult.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/testBaseModel/BaseQuestionsQuestionnaire.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/testBaseModel/BaseQuestionsQuestionnaire.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/controller/IndexController.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/controller/IndexController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/controller/TestController.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/controller/TestController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/Mapping.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/Mapping.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/testModel/_DataDictionary.txt" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/testModel/_DataDictionary.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/testModel/_MappingKit.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/testModel/_MappingKit.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/service/MappingService.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/service/MappingService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/util/Common.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/util/Common.java" />
     </list>
     <ignored path="JFinalProj.iws" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -49,20 +80,8 @@
       <file leaf-file-name="IndexController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/controller/IndexController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="10" column="24" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
-              <folding>
-                <element signature="imports" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/controller/UserController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="520">
-              <caret line="27" column="40" selection-start-line="27" selection-start-column="40" selection-end-line="27" selection-end-column="40" />
+            <state relative-caret-position="338">
+              <caret line="15" column="10" selection-start-line="15" selection-start-column="10" selection-end-line="15" selection-end-column="10" />
               <folding>
                 <element signature="imports" expanded="false" />
               </folding>
@@ -73,62 +92,64 @@
       <file leaf-file-name="MainConfig.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/MainConfig.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="98" column="33" selection-start-line="98" selection-start-column="33" selection-end-line="98" selection-end-column="33" />
+            <state relative-caret-position="540">
+              <caret line="126" column="8" selection-start-line="126" selection-start-column="8" selection-end-line="126" selection-end-column="8" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TestController.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/controller/TestController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="754">
+              <caret line="51" column="35" selection-start-line="51" selection-start-column="35" selection-end-line="51" selection-end-column="35" />
               <folding>
-                <element signature="method#initRole#0;class#MainConfig#0" expanded="false" />
-                <element signature="e#6152#6153#0" expanded="true" />
-                <element signature="e#6196#6197#0" expanded="true" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FastGenerator.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/FastGenerator.java">
+      <file leaf-file-name="RenderKit.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/util/RenderKit.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="293">
-              <caret line="38" column="46" selection-start-line="38" selection-start-column="46" selection-end-line="38" selection-end-column="46" />
+            <state relative-caret-position="494">
+              <caret line="33" column="27" selection-start-line="33" selection-start-column="27" selection-end-line="33" selection-end-column="27" />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#295#296#0" expanded="false" />
+                <element signature="e#336#337#0" expanded="false" />
+                <element signature="e#400#401#0" expanded="false" />
+                <element signature="e#443#444#0" expanded="false" />
+                <element signature="e#494#495#0" expanded="false" />
+                <element signature="e#533#534#0" expanded="false" />
+                <element signature="e#595#596#0" expanded="false" />
+                <element signature="e#638#639#0" expanded="false" />
+                <element signature="e#702#703#0" expanded="false" />
+                <element signature="e#740#741#0" expanded="false" />
+                <element signature="e#813#814#0" expanded="false" />
+                <element signature="e#868#869#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="inputQuestion.ftl" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/test/inputQuestion.ftl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="298">
+              <caret line="28" column="36" selection-start-line="28" selection-start-column="36" selection-end-line="28" selection-end-column="36" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TestGenerator.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/TestGenerator.java">
+      <file leaf-file-name="TestService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/service/TestService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="130">
-              <caret line="12" column="21" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TestController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/controller/TestController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="local.properties" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/studentSys/src/main/resources/local.properties">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="104">
-              <caret line="4" column="34" selection-start-line="4" selection-start-column="34" selection-end-line="4" selection-end-column="34" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Mapping.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/Mapping.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="182">
-              <caret line="8" column="27" selection-start-line="8" selection-start-column="27" selection-end-line="8" selection-end-column="27" />
+            <state relative-caret-position="312">
+              <caret line="20" column="28" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="false" />
               </folding>
@@ -171,12 +192,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/util/CharRange.java" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/util/CharSetKit.java" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/util/IpKit.java" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/util/StrPlusKit.java" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/resources/config.properties" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/webapp/macro-head-single.ftl" />
         <option value="$PROJECT_DIR$/studentSys/src/main/webapp/macro-foot-single.ftl" />
         <option value="$PROJECT_DIR$/studentSys/src/main/webapp/assets/css/bootstrap.css" />
         <option value="$PROJECT_DIR$/studentSys/src/main/webapp/static/css/base.css" />
@@ -206,22 +221,28 @@
         <option value="$PROJECT_DIR$/studentSys/src/main/webapp/common/newest.ftl" />
         <option value="$PROJECT_DIR$/studentSys/src/main/webapp/common/index.ftl" />
         <option value="$PROJECT_DIR$/studentSys/src/main/webapp/common/statistics.ftl" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/BaseController.java" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/util/Common.java" />
         <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/service/RoleService.java" />
         <option value="$PROJECT_DIR$/studentSys/src/main/webapp/user/login.ftl" />
         <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/service/UserService.java" />
         <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/UrlInterceptor.java" />
         <option value="$PROJECT_DIR$/studentSys/src/main/webapp/static/js/common.js" />
         <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/controller/UserController.java" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/controller/IndexController.java" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/service/MappingService.java" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/Mapping.java" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/controller/TestController.java" />
         <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/TestGenerator.java" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/resources/local.properties" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/MainConfig.java" />
         <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/FastGenerator.java" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/testModel/_MappingKit.java" />
+        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/39c29e29-1672-49d0-8443-8a56ddc37fb2/console.sql" />
+        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/5e89dfcc-866d-4f43-98e1-e95451b78ac4/console.sql" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/resources/local.properties" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/Mapping.java" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/service/MappingService.java" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/controller/IndexController.java" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/BaseController.java" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/util/Common.java" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/MainConfig.java" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/service/TestService.java" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/webapp/test/inputQuestion.ftl" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/controller/TestController.java" />
       </list>
     </option>
   </component>
@@ -272,9 +293,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
-      <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -333,6 +353,32 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JFinalProj" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="studentSys" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="resources" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -360,6 +406,36 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="studentSys" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JFinalProj" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="studentSys" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="studentSys" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="util" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -449,40 +525,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="model" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="testModel" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JFinalProj" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="studentSys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="studentSys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="controller" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -519,10 +561,11 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="vcs.TFS" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -550,6 +593,7 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="915" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
     <property name="ChangesBrowser.SHOW_FLATTEN" value="false" />
+    <property name="com.intellij.database.dataSource.DataSourceTemplate" value="MySQL" />
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
@@ -570,7 +614,7 @@
       <recent name="D:\java_web\JFinalProj\studentSys\src\main\webapp\static\js\lib" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.TestGenerator">
+  <component name="RunManager" selected="Maven.studentSys">
     <configuration default="false" name="FastGenerator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -1100,7 +1144,7 @@
     <option name="remove_strategy" value="false" />
   </component>
   <component name="SvnConfiguration">
-    <configuration />
+    <configuration>C:\Users\wuhongxu\AppData\Roaming\Subversion</configuration>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -1126,7 +1170,9 @@
       <workItem from="1472970967998" duration="11347000" />
       <workItem from="1473037179816" duration="32435000" />
       <workItem from="1473123155584" duration="9878000" />
-      <workItem from="1473148597999" duration="1199000" />
+      <workItem from="1473148597999" duration="16399000" />
+      <workItem from="1473183186615" duration="245000" />
+      <workItem from="1473210730533" duration="120000" />
     </task>
     <task id="LOCAL-00001" summary="新建项目">
       <created>1472643001120</created>
@@ -1219,11 +1265,18 @@
       <option name="project" value="LOCAL" />
       <updated>1473149606335</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="结构重构，数据库映射&#10;树结构&#10;加入大量工具类&#10;初始化操作">
+      <created>1473149803912</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1473149803912</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="207487000" />
+    <option name="totallyTimeSpent" value="223052000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1239,34 +1292,35 @@
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3268921" sideWeight="0.5151286" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5030257" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3260212" sideWeight="0.49436393" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5652174" sideWeight="0.4969743" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3268921" sideWeight="0.48487142" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5652174" sideWeight="0.4969743" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.49436393" sideWeight="0.48487142" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3268921" sideWeight="0.48487142" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27987897" sideWeight="0.48518518" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26626325" sideWeight="0.48518518" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27987897" sideWeight="0.5148148" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32829046" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42057487" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24886191" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27987897" sideWeight="0.5148148" order="5" side_tool="true" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37359098" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6197183" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.4969651" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3558776" sideWeight="0.48789713" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.4969651" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3262519" sideWeight="0.5056361" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.4969743" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="UnknownFeatures">
@@ -1296,7 +1350,7 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="40" />
+      <option name="time" value="43" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1305,123 +1359,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/BaseRole.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="107">
-          <caret line="35" column="16" selection-start-line="35" selection-start-column="16" selection-end-line="35" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/service/RoleService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="94" column="43" selection-start-line="94" selection-start-column="43" selection-end-line="94" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/service/UserService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="23" column="28" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/util/ArrayTree.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="20" column="5" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
-          <folding>
-            <element signature="e#425#426#0" expanded="false" />
-            <element signature="e#466#467#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/util/Common.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="23" column="57" selection-start-line="23" selection-start-column="57" selection-end-line="23" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/jfinal/jetty-server/8.1.8/jetty-server-8.1.8-sources.jar!/org/eclipse/jetty/security/SecurityHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="566" column="0" selection-start-line="566" selection-start-column="0" selection-end-line="566" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-server/8.1.8.v20121106/jetty-server-8.1.8.v20121106-sources.jar!/org/eclipse/jetty/server/session/SessionHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="210" column="0" selection-start-line="210" selection-start-column="0" selection-end-line="210" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-server/8.1.8.v20121106/jetty-server-8.1.8.v20121106-sources.jar!/org/eclipse/jetty/server/handler/ContextHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="314">
-          <caret line="1138" column="0" selection-start-line="1138" selection-start-column="0" selection-end-line="1138" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-server/8.1.8.v20121106/jetty-server-8.1.8.v20121106-sources.jar!/org/eclipse/jetty/server/handler/ContextHandlerCollection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="214" column="0" selection-start-line="214" selection-start-column="0" selection-end-line="214" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-server/8.1.8.v20121106/jetty-server-8.1.8.v20121106-sources.jar!/org/eclipse/jetty/server/handler/HandlerCollection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="144" column="5" selection-start-line="144" selection-start-column="5" selection-end-line="144" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-server/8.1.8.v20121106/jetty-server-8.1.8.v20121106-sources.jar!/org/eclipse/jetty/server/handler/HandlerWrapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="134" column="0" selection-start-line="134" selection-start-column="0" selection-end-line="134" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-server/8.1.8.v20121106/jetty-server-8.1.8.v20121106-sources.jar!/org/eclipse/jetty/server/Server.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="528" column="0" selection-start-line="528" selection-start-column="0" selection-end-line="528" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-io/8.1.8.v20121106/jetty-io-8.1.8.v20121106.jar!/org/eclipse/jetty/io/AbstractConnection.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="60" column="0" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-util/8.1.8.v20121106/jetty-util-8.1.8.v20121106.jar!/org/eclipse/jetty/util/thread/QueuedThreadPool.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="505" column="0" selection-start-line="505" selection-start-column="0" selection-end-line="505" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-server/8.1.8.v20121106/jetty-server-8.1.8.v20121106-sources.jar!/org/eclipse/jetty/server/handler/ScopedHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="144" column="0" selection-start-line="144" selection-start-column="0" selection-end-line="144" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/jfinal/jfinal/2.2/jfinal-2.2-sources.jar!/com/jfinal/core/JFinalFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="82" column="0" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-servlet/8.1.8.v20121106/jetty-servlet-8.1.8.v20121106.jar!/org/eclipse/jetty/servlet/ServletHandler.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
@@ -1499,13 +1436,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/BaseController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2077">
-          <caret line="95" column="0" selection-start-line="95" selection-start-column="0" selection-end-line="95" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/common/newest.ftl">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="312">
@@ -1569,78 +1499,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/Service.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="37" column="76" selection-start-line="37" selection-start-column="76" selection-end-line="37" selection-end-column="76" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/service/MappingService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1326">
-          <caret line="61" column="79" selection-start-line="61" selection-start-column="79" selection-end-line="61" selection-end-column="79" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/static/js/common.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="208">
           <caret line="8" column="28" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/controller/IndexController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="10" column="24" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/controller/UserController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="520">
-          <caret line="27" column="40" selection-start-line="27" selection-start-column="40" selection-end-line="27" selection-end-column="40" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/resources/local.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="4" column="34" selection-start-line="4" selection-start-column="34" selection-end-line="4" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/TestGenerator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="12" column="21" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/controller/TestController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/Mapping.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="8" column="27" selection-start-line="8" selection-start-column="27" selection-end-line="8" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1651,14 +1513,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/testModel/_MappingKit.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
-          <caret line="23" column="5" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/_DataDictionary.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-390">
@@ -1666,23 +1520,231 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/MainConfig.java">
+    <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="98" column="33" selection-start-line="98" selection-start-column="33" selection-end-line="98" selection-end-column="33" />
-          <folding>
-            <element signature="method#initRole#0;class#MainConfig#0" expanded="false" />
-            <element signature="e#6152#6153#0" expanded="true" />
-            <element signature="e#6196#6197#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="0">
+          <caret line="0" column="12" selection-start-line="0" selection-start-column="12" selection-end-line="0" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/jfinal/jfinal/2.2/jfinal-2.2-sources.jar!/com/jfinal/plugin/activerecord/Table.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="123">
+          <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/39c29e29-1672-49d0-8443-8a56ddc37fb2/console.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="15" selection-start-line="0" selection-start-column="15" selection-end-line="0" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/5e89dfcc-866d-4f43-98e1-e95451b78ac4/console.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/resources/local.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="6" column="12" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/jfinal/jfinal/2.2/jfinal-2.2-sources.jar!/com/jfinal/plugin/activerecord/DbKit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="123">
+          <caret line="60" column="0" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/testModel/_MappingKit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="23" column="5" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/TestGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="104">
+          <caret line="4" column="30" selection-start-line="4" selection-start-column="30" selection-end-line="4" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/Mapping.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="27" column="9" selection-start-line="27" selection-start-column="9" selection-end-line="27" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/jfinal/jfinal/2.2/jfinal-2.2-sources.jar!/com/jfinal/plugin/activerecord/ModelBuilder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="38" column="22" selection-start-line="38" selection-start-column="16" selection-end-line="38" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/util/LangConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/util/Common.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="327">
+          <caret line="26" column="47" selection-start-line="26" selection-start-column="47" selection-end-line="26" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/jfinal/jfinal/2.2/jfinal-2.2-sources.jar!/com/jfinal/plugin/activerecord/Page.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1294">
+          <caret line="83" column="5" selection-start-line="83" selection-start-column="5" selection-end-line="83" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/Service.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-427">
+          <caret line="13" column="22" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/service/MappingService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="546">
+          <caret line="30" column="48" selection-start-line="30" selection-start-column="48" selection-end-line="30" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/BaseController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7">
+          <caret line="80" column="43" selection-start-line="80" selection-start-column="43" selection-end-line="80" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/service/RoleService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-59">
+          <caret line="21" column="24" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/controller/UserController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="27" column="40" selection-start-line="27" selection-start-column="40" selection-end-line="27" selection-end-column="40" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/FastGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="38" column="46" selection-start-line="38" selection-start-column="46" selection-end-line="38" selection-end-column="46" />
+        <state relative-caret-position="260">
+          <caret line="21" column="43" selection-start-line="21" selection-start-column="43" selection-end-line="21" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/jfinal/jfinal/2.2/jfinal-2.2-sources.jar!/com/jfinal/plugin/activerecord/Model.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="386" column="19" selection-start-line="386" selection-start-column="19" selection-end-line="386" selection-end-column="19" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/controller/IndexController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="338">
+          <caret line="15" column="10" selection-start-line="15" selection-start-column="10" selection-end-line="15" selection-end-column="10" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/jfinal/jfinal/2.2/jfinal-2.2-sources.jar!/com/jfinal/core/Injector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="69">
+          <caret line="91" column="9" selection-start-line="91" selection-start-column="9" selection-end-line="91" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/jfinal/jfinal/2.2/jfinal-2.2-sources.jar!/com/jfinal/core/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="121">
+          <caret line="690" column="32" selection-start-line="690" selection-start-column="32" selection-end-line="690" selection-end-column="32" />
+          <folding>
+            <element signature="e#22116#22117#0" expanded="false" />
+            <element signature="e#22181#22182#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/service/TestService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="20" column="28" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/test/inputQuestion.ftl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="28" column="36" selection-start-line="28" selection-start-column="36" selection-end-line="28" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/util/RenderKit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="494">
+          <caret line="33" column="27" selection-start-line="33" selection-start-column="27" selection-end-line="33" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#295#296#0" expanded="false" />
+            <element signature="e#336#337#0" expanded="false" />
+            <element signature="e#400#401#0" expanded="false" />
+            <element signature="e#443#444#0" expanded="false" />
+            <element signature="e#494#495#0" expanded="false" />
+            <element signature="e#533#534#0" expanded="false" />
+            <element signature="e#595#596#0" expanded="false" />
+            <element signature="e#638#639#0" expanded="false" />
+            <element signature="e#702#703#0" expanded="false" />
+            <element signature="e#740#741#0" expanded="false" />
+            <element signature="e#813#814#0" expanded="false" />
+            <element signature="e#868#869#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/MainConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="126" column="8" selection-start-line="126" selection-start-column="8" selection-end-line="126" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/controller/TestController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="754">
+          <caret line="51" column="35" selection-start-line="51" selection-start-column="35" selection-end-line="51" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

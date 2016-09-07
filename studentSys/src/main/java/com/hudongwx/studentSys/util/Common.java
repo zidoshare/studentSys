@@ -24,6 +24,7 @@ public class Common {
     public static final String CONTENT_LABEL = "content";
     public final static String CATALOG = "Catalog";
     public static final int MAX_SIDE_CNT = 8;
+    public static final int MAX_PAGE_SIZE = 20;
 
 
     //缓存Label

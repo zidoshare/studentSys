@@ -2,6 +2,7 @@ package com.hudongwx.studentSys.common;
 
 import com.hudongwx.studentSys.RequestHandler;
 import com.hudongwx.studentSys.controller.IndexController;
+import com.hudongwx.studentSys.controller.TestController;
 import com.hudongwx.studentSys.controller.UserController;
 import com.hudongwx.studentSys.exceptions.ServiceException;
 import com.hudongwx.studentSys.model.Mapping;
@@ -46,9 +47,10 @@ public class MainConfig extends JFinalConfig{
         MappingService ms = new MappingService();
         UserService us = new UserService();
         List<User> admins = us.getAdmin();
-        if(null != admins && !admins.isEmpty()){
-            return ;
+        if(admins != null && !admins.isEmpty()){
+            return;
         }
+
         log.info("初始化地图");
         //建立mapping
         ArrayTree<Mapping> tree = new ArrayTree<>();
@@ -117,11 +119,14 @@ public class MainConfig extends JFinalConfig{
         admin.setUserAccount("admin");
         admin.setUserPassword("admin");
         us._saveUser(admin);
+
+        initRole();
     }
 
     public void configRoute(Routes me) {
         me.add("/user",UserController.class);
         me.add("/", IndexController.class,"/common");
+        me.add("/test", TestController.class);
     }
 
     public void configPlugin(Plugins me) {
@@ -129,16 +134,16 @@ public class MainConfig extends JFinalConfig{
         C3p0Plugin c3p0Plugin = new C3p0Plugin(dataBaseProp.get("jdbcUrl"),dataBaseProp.get("user"),dataBaseProp.get("password"));
         me.add(c3p0Plugin);
 
-        ActiveRecordPlugin activeRecordPlugin = new ActiveRecordPlugin(c3p0Plugin);
+        ActiveRecordPlugin activeRecordPlugin = new ActiveRecordPlugin("main",c3p0Plugin);
         activeRecordPlugin.setShowSql(true);
         _MappingKit.mapping(activeRecordPlugin);
         me.add(activeRecordPlugin);
 
 
 
-        C3p0Plugin testC3p0Plugin  = new C3p0Plugin(dataBaseProp.get("testUrl"),dataBaseProp.get("testUser"),dataBaseProp.get("userPasswrod"));
+        C3p0Plugin testC3p0Plugin  = new C3p0Plugin(dataBaseProp.get("testUrl"),dataBaseProp.get("testUser"),dataBaseProp.get("testPassword"));
         me.add(testC3p0Plugin);
-        ActiveRecordPlugin testRecordPlugin = new ActiveRecordPlugin(testC3p0Plugin);
+        ActiveRecordPlugin testRecordPlugin = new ActiveRecordPlugin("test",testC3p0Plugin);
         testRecordPlugin.setShowSql(true);
 
         //---添加映射---
@@ -153,7 +158,6 @@ public class MainConfig extends JFinalConfig{
         //对增删改操作开启事务
         me.add(new TxByMethodRegex("(^_save.*|^_update.*|^_delete.*)"));
         initMapping();
-        initRole();
     }
 
     private void initRole() {
@@ -161,7 +165,7 @@ public class MainConfig extends JFinalConfig{
         RoleService rs = new RoleService();
         MappingService ms = new MappingService();
         Role admin = rs.getRoleByName("admin");
-        if(null != admin)
+        if(null == admin)
             return ;
         Role role = new Role();
         role.setName("admin");

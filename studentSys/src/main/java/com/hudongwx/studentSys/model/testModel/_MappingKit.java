@@ -18,9 +18,9 @@ public class _MappingKit {
 	public static void mapping(ActiveRecordPlugin arp) {
 		arp.addMapping("surveys_t_question_big_type", "id", QuestionBigType.class);
 		arp.addMapping("surveys_t_questionnaire", "id", Questionnaire.class);
-		arp.addMapping("surveys_t_questionnaire_result", "", QuestionnaireResult.class);
+		arp.addMapping("surveys_t_questionnaire_result", "id", QuestionnaireResult.class);
 		arp.addMapping("surveys_t_questions", "id", Questions.class);
-		arp.addMapping("surveys_t_questions_questionnaire", "", QuestionsQuestionnaire.class);
+		arp.addMapping("surveys_t_questions_questionnaire", "id", QuestionsQuestionnaire.class);
 	}
 }
 

@@ -9,6 +9,14 @@ import com.jfinal.plugin.activerecord.IBean;
 @SuppressWarnings("serial")
 public abstract class BaseQuestionsQuestionnaire<M extends BaseQuestionsQuestionnaire<M>> extends Model<M> implements IBean {
 
+	public void setId(java.lang.Integer id) {
+		set("id", id);
+	}
+
+	public java.lang.Integer getId() {
+		return get("id");
+	}
+
 	public void setIdQuestionnaire(java.lang.Integer idQuestionnaire) {
 		set("id_questionnaire", idQuestionnaire);
 	}

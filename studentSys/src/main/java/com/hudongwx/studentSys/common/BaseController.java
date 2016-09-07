@@ -95,7 +95,7 @@ public class BaseController extends Controller {
     public void fillContent(RoleService roleService){
         User user = getSessionAttr("user");
         if(user == null){
-            renderError(403);
+            forwardAction("/user/login");
             return ;
         }
         List<Mapping> roleTree = roleService.getRoleTree(roleService.getRoleByName(user.getUserRole()));

@@ -24,6 +24,7 @@ Table: surveys_t_questionnaire_result
 ------------------+--------------+------+-----+---------+---------
  Field            | Type         | Null | Key | Default | Remarks 
 ------------------+--------------+------+-----+---------+---------
+ id               | int(10)      | NO   | PRI |         |         
  id_user          | int(10)      | NO   |     |         |         
  id_questionnaire | int(10)      | YES  |     |         |         
  questions_reply  | text(65535)  | YES  |     |         |         
@@ -46,6 +47,7 @@ Table: surveys_t_questions_questionnaire
 ------------------+-------------+------+-----+---------+---------
  Field            | Type        | Null | Key | Default | Remarks 
 ------------------+-------------+------+-----+---------+---------
+ id               | int(10)     | NO   | PRI |         |         
  id_questionnaire | int(10)     | YES  |     |         |         
  id_questions     | int(10)     | YES  |     |         |         
  create_date      | varchar(14) | YES  |     |         |         

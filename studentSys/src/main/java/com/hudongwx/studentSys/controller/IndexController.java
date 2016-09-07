@@ -13,8 +13,8 @@ public class IndexController extends BaseController{
     public void index(){
         fillHeaderAndFooter();
 
-        fillContent(roleService);
-
+//        fillContent(roleService);
+        fillTest(mappingService);
         render("index.ftl");
     }
 }

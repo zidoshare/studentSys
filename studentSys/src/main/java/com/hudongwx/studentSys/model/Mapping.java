@@ -21,6 +21,11 @@ public class Mapping extends BaseMapping<Mapping> implements TreeNode {
 	}
 	public void init(){
 		setId(System.currentTimeMillis());
+		try {
+			Thread.sleep(1);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		getParent();
 		getLeftChild();
 		getNextSibling();

@@ -8,6 +8,7 @@ import com.hudongwx.studentSys.util.StrPlusKit;
 import com.jfinal.log.Log;
 import com.jfinal.plugin.ehcache.CacheKit;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,6 +27,8 @@ public class MappingService extends Service {
             mappings.forEach(Mapping::save);
 
             List<Mapping> mappingTree = CacheKit.get(Common.CACHE_FOEVER_LABEL, "mappingTree");
+            if(null == mappingTree)
+                mappingTree = new ArrayList<>();
             mappingTree.addAll(mappings);
             CacheKit.put(Common.CACHE_FOEVER_LABEL,"mappingTree",mappingTree);
             return true;
