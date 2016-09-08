@@ -1,6 +1,6 @@
-package com.hudongwx.studentSys.common;
+package com.hudongwx.studentsys.common;
 
-import com.hudongwx.studentSys.model.User;
+import com.hudongwx.studentsys.model.User;
 import com.jfinal.core.Controller;
 import com.jfinal.log.Log;
 

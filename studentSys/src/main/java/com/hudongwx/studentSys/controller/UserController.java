@@ -1,13 +1,11 @@
-package com.hudongwx.studentSys.controller;
+package com.hudongwx.studentsys.controller;
 
-import com.hudongwx.studentSys.common.BaseController;
-import com.hudongwx.studentSys.exceptions.ServiceException;
-import com.hudongwx.studentSys.model.User;
-import com.hudongwx.studentSys.service.UserService;
-import com.hudongwx.studentSys.util.RenderKit;
+import com.hudongwx.studentsys.common.BaseController;
+import com.hudongwx.studentsys.model.User;
+import com.hudongwx.studentsys.service.UserService;
+import com.hudongwx.studentsys.util.RenderKit;
 import com.jfinal.aop.Before;
 import com.jfinal.ext.interceptor.POST;
-import com.jfinal.plugin.ehcache.CacheName;
 
 /**
  * Created by wuhongxu on 2016/8/30 0030.

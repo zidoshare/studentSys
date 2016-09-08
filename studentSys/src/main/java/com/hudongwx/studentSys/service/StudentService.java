@@ -1,6 +1,6 @@
-package com.hudongwx.studentSys.service;
+package com.hudongwx.studentsys.service;
 
-import com.hudongwx.studentSys.common.Service;
+import com.hudongwx.studentsys.common.Service;
 
 /**
  * Created by wuhongxu on 2016/9/3 0003.

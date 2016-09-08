@@ -1,16 +1,19 @@
-package com.hudongwx.studentSys.common;
+package com.hudongwx.studentsys.common;
 
-import com.hudongwx.studentSys.RequestHandler;
+import com.hudongwx.studentsys.RequestHandler;
+import com.hudongwx.studentsys.controller.IndexController;
+import com.hudongwx.studentsys.controller.UserController;
+import com.hudongwx.studentsys.model._MappingKit;
 import com.hudongwx.testing.controller.TestController;
-import com.hudongwx.studentSys.model.Mapping;
-import com.hudongwx.studentSys.model.Role;
-import com.hudongwx.studentSys.model.User;
-import com.hudongwx.studentSys.service.MappingService;
-import com.hudongwx.studentSys.service.RoleService;
-import com.hudongwx.studentSys.service.UserService;
-import com.hudongwx.studentSys.util.ArrayTree;
-import com.hudongwx.studentSys.util.Common;
-import com.hudongwx.studentSys.util.LangConfig;
+import com.hudongwx.studentsys.model.Mapping;
+import com.hudongwx.studentsys.model.Role;
+import com.hudongwx.studentsys.model.User;
+import com.hudongwx.studentsys.service.MappingService;
+import com.hudongwx.studentsys.service.RoleService;
+import com.hudongwx.studentsys.service.UserService;
+import com.hudongwx.studentsys.util.ArrayTree;
+import com.hudongwx.studentsys.util.Common;
+import com.hudongwx.studentsys.util.LangConfig;
 import com.jfinal.config.*;
 import com.jfinal.kit.Prop;
 import com.jfinal.kit.PropKit;
@@ -120,21 +123,21 @@ public class MainConfig extends JFinalConfig{
     }
 
     public void configRoute(Routes me) {
-       /*me.add("/user",UserController.class);
-        me.add("/", IndexController.class,"/common");*/
+        me.add("/user",UserController.class);
+        me.add("/index", IndexController.class,"/common");
         me.add("/", TestController.class,"test");
         me.add("/test",TestController.class);
     }
 
     public void configPlugin(Plugins me) {
         Prop dataBaseProp = PropKit.use("local.properties");
-        /*C3p0Plugin c3p0Plugin = new C3p0Plugin(dataBaseProp.get("jdbcUrl"),dataBaseProp.get("user"),dataBaseProp.get("password"));
+        C3p0Plugin c3p0Plugin = new C3p0Plugin(dataBaseProp.get("jdbcUrl"),dataBaseProp.get("user"),dataBaseProp.get("password"));
         me.add(c3p0Plugin);
 
         ActiveRecordPlugin activeRecordPlugin = new ActiveRecordPlugin("main",c3p0Plugin);
         activeRecordPlugin.setShowSql(true);
         _MappingKit.mapping(activeRecordPlugin);
-        me.add(activeRecordPlugin);*/
+        me.add(activeRecordPlugin);
 
 
 

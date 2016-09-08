@@ -1,7 +1,6 @@
-package com.hudongwx.studentSys.util;
+package com.hudongwx.studentsys.util;
 
 import com.alibaba.fastjson.JSONObject;
-import com.hudongwx.studentSys.common.BaseController;
 import com.jfinal.core.Controller;
 
 /**

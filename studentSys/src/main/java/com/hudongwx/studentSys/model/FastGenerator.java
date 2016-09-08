@@ -1,4 +1,4 @@
-package com.hudongwx.studentSys.model;
+package com.hudongwx.studentsys.model;
 
 import com.jfinal.kit.PathKit;
 import com.jfinal.kit.Prop;
@@ -8,10 +8,6 @@ import com.jfinal.plugin.activerecord.generator.Generator;
 import com.jfinal.plugin.c3p0.C3p0Plugin;
 
 import javax.sql.DataSource;
-import java.net.URLConnection;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 
 /**
  * Created by wuhongxu on 2016/8/29 0029.
@@ -29,11 +25,11 @@ public class FastGenerator {
         return c3p0Plugin.getDataSource();
     }
     public static void main(String[] args){
-        String baseModelPackageName = "com.hudongwx.studentSys.common";
-        String baseModelOutputDir = PathKit.getWebRootPath()+"\\src\\main\\java\\com\\hudongwx\\studentSys\\common";
+        String baseModelPackageName = "com.hudongwx.studentsys.common";
+        String baseModelOutputDir = PathKit.getWebRootPath()+"\\src\\main\\java\\com\\hudongwx\\studentsys\\common";
 
-        String modelPackageName = "com.hudongwx.studentSys.model";
-        String modelOutputDir = PathKit.getWebRootPath()+"\\src\\main\\java\\com\\hudongwx\\studentSys\\model";
+        String modelPackageName = "com.hudongwx.studentsys.model";
+        String modelOutputDir = PathKit.getWebRootPath()+"\\src\\main\\java\\com\\hudongwx\\studentsys\\model";
         Generator generator = new Generator(getDataSource(),baseModelPackageName,baseModelOutputDir,modelPackageName,modelOutputDir);
         generator.setDialect(new MysqlDialect());
         generator.setGenerateDaoInModel(true);

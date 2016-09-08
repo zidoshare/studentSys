@@ -1,8 +1,8 @@
 package com.hudongwx.testing.controller;
 
-import com.hudongwx.studentSys.common.BaseController;
+import com.hudongwx.studentsys.common.BaseController;
 import com.hudongwx.testing.service.TestService;
-import com.hudongwx.studentSys.util.RenderKit;
+import com.hudongwx.studentsys.util.RenderKit;
 import com.hudongwx.testing.model.*;
 import com.jfinal.aop.Before;
 import com.jfinal.ext.interceptor.POST;

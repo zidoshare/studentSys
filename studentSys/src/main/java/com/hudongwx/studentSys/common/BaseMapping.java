@@ -1,4 +1,4 @@
-package com.hudongwx.studentSys.common;
+package com.hudongwx.studentsys.common;
 
 import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.IBean;

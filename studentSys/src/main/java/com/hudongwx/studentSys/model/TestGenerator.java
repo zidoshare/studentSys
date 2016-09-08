@@ -1,4 +1,4 @@
-package com.hudongwx.studentSys.model;
+package com.hudongwx.studentsys.model;
 
 import com.jfinal.kit.PathKit;
 import com.jfinal.kit.Prop;
@@ -25,11 +25,11 @@ public class TestGenerator {
         return c3p0Plugin.getDataSource();
     }
     public static void main(String[] args){
-        String baseModelPackageName = "com.hudongwx.studentSys.common.testBaseModel";
-        String baseModelOutputDir = PathKit.getWebRootPath()+"\\src\\main\\java\\com\\hudongwx\\studentSys\\common\\testBaseModel";
+        String baseModelPackageName = "com.hudongwx.studentsys.common.testBaseModel";
+        String baseModelOutputDir = PathKit.getWebRootPath()+"\\src\\main\\java\\com\\hudongwx\\studentsys\\common\\testBaseModel";
 
-        String modelPackageName = "com.hudongwx.studentSys.model.testModel";
-        String modelOutputDir = PathKit.getWebRootPath()+"\\src\\main\\java\\com\\hudongwx\\studentSys\\model\\testModel";
+        String modelPackageName = "com.hudongwx.studentsys.model.testModel";
+        String modelOutputDir = PathKit.getWebRootPath()+"\\src\\main\\java\\com\\hudongwx\\studentsys\\model\\testModel";
         Generator generator = new Generator(getDataSource(),baseModelPackageName,baseModelOutputDir,modelPackageName,modelOutputDir);
         generator.setDialect(new MysqlDialect());
         generator.setGenerateDaoInModel(true);

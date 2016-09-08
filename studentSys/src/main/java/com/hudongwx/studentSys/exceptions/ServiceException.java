@@ -1,4 +1,4 @@
-package com.hudongwx.studentSys.exceptions;
+package com.hudongwx.studentsys.exceptions;
 
 import com.jfinal.log.Log;
 

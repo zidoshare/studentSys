@@ -1,12 +1,11 @@
-package com.hudongwx.studentSys.service;
+package com.hudongwx.studentsys.service;
 
-import com.hudongwx.studentSys.common.Service;
-import com.hudongwx.studentSys.exceptions.ServiceException;
-import com.hudongwx.studentSys.model.User;
-import com.hudongwx.studentSys.util.Common;
+import com.hudongwx.studentsys.common.Service;
+import com.hudongwx.studentsys.exceptions.ServiceException;
+import com.hudongwx.studentsys.model.User;
+import com.hudongwx.studentsys.util.Common;
 import com.jfinal.log.Log;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**

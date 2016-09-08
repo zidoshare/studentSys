@@ -1,8 +1,8 @@
-package com.hudongwx.studentSys.controller;
+package com.hudongwx.studentsys.controller;
 
-import com.hudongwx.studentSys.common.BaseController;
-import com.hudongwx.studentSys.service.MappingService;
-import com.hudongwx.studentSys.service.RoleService;
+import com.hudongwx.studentsys.common.BaseController;
+import com.hudongwx.studentsys.service.MappingService;
+import com.hudongwx.studentsys.service.RoleService;
 
 /**
  * Created by wuhongxu on 2016/9/2 0002.

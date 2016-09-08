@@ -1,4 +1,4 @@
-package com.hudongwx.studentSys.validator;
+package com.hudongwx.studentsys.validator;
 
 import com.jfinal.core.Controller;
 import com.jfinal.validate.Validator;
