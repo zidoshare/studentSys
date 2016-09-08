@@ -1,4 +1,4 @@
-package com.hudongwx.studentSys.model.testModel;
+package com.hudongwx.testing.model;
 
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 

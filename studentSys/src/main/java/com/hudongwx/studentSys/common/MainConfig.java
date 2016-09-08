@@ -1,21 +1,16 @@
 package com.hudongwx.studentSys.common;
 
 import com.hudongwx.studentSys.RequestHandler;
-import com.hudongwx.studentSys.controller.IndexController;
-import com.hudongwx.studentSys.controller.TestController;
-import com.hudongwx.studentSys.controller.UserController;
-import com.hudongwx.studentSys.exceptions.ServiceException;
+import com.hudongwx.testing.controller.TestController;
 import com.hudongwx.studentSys.model.Mapping;
 import com.hudongwx.studentSys.model.Role;
 import com.hudongwx.studentSys.model.User;
-import com.hudongwx.studentSys.model._MappingKit;
 import com.hudongwx.studentSys.service.MappingService;
 import com.hudongwx.studentSys.service.RoleService;
 import com.hudongwx.studentSys.service.UserService;
 import com.hudongwx.studentSys.util.ArrayTree;
 import com.hudongwx.studentSys.util.Common;
 import com.hudongwx.studentSys.util.LangConfig;
-import com.hudongwx.studentSys.util.TreeNode;
 import com.jfinal.config.*;
 import com.jfinal.kit.Prop;
 import com.jfinal.kit.PropKit;
@@ -149,7 +144,7 @@ public class MainConfig extends JFinalConfig{
         testRecordPlugin.setShowSql(true);
         testRecordPlugin.setDialect(new MysqlDialect());
         //---添加映射---
-        com.hudongwx.studentSys.model.testModel._MappingKit.mapping(testRecordPlugin);
+        com.hudongwx.testing.model._MappingKit.mapping(testRecordPlugin);
         //-------------
         me.add(testRecordPlugin);
         //加载缓存插件ehcache

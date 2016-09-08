@@ -1,4 +1,4 @@
-package com.hudongwx.studentSys.common.testBaseModel;
+package com.hudongwx.testing.common;
 
 import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.IBean;

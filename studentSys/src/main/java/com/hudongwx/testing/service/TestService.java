@@ -1,9 +1,9 @@
-package com.hudongwx.studentSys.service;
+package com.hudongwx.testing.service;
 
 import com.hudongwx.studentSys.common.Service;
-import com.hudongwx.studentSys.model.testModel.QuestionBigType;
-import com.hudongwx.studentSys.model.testModel.Questions;
-import com.hudongwx.studentSys.model.testModel.QuestionsQuestionnaire;
+import com.hudongwx.testing.model.QuestionBigType;
+import com.hudongwx.testing.model.Questions;
+import com.hudongwx.testing.model.QuestionsQuestionnaire;
 import com.hudongwx.studentSys.util.Common;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.ehcache.CacheKit;
