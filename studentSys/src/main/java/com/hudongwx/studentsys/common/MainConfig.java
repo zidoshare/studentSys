@@ -4,7 +4,7 @@ import com.hudongwx.studentsys.RequestHandler;
 import com.hudongwx.studentsys.controller.IndexController;
 import com.hudongwx.studentsys.controller.UserController;
 import com.hudongwx.studentsys.model._MappingKit;
-import com.hudongwx.testing.controller.TestController;
+import com.hudongwx.surveys.controller.TestController;
 import com.hudongwx.studentsys.model.Mapping;
 import com.hudongwx.studentsys.model.Role;
 import com.hudongwx.studentsys.model.User;
@@ -147,7 +147,7 @@ public class MainConfig extends JFinalConfig{
         testRecordPlugin.setShowSql(true);
         testRecordPlugin.setDialect(new MysqlDialect());
         //---添加映射---
-        com.hudongwx.testing.model._MappingKit.mapping(testRecordPlugin);
+        com.hudongwx.surveys.model._MappingKit.mapping(testRecordPlugin);
         //-------------
         me.add(testRecordPlugin);
         //加载缓存插件ehcache
