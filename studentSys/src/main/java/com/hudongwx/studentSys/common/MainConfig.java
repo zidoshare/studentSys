@@ -1,6 +1,9 @@
 package com.hudongwx.studentsys.common;
 
 import com.hudongwx.studentsys.RequestHandler;
+import com.hudongwx.studentsys.controller.IndexController;
+import com.hudongwx.studentsys.controller.UserController;
+import com.hudongwx.studentsys.model._MappingKit;
 import com.hudongwx.testing.controller.TestController;
 import com.hudongwx.studentsys.model.Mapping;
 import com.hudongwx.studentsys.model.Role;
@@ -120,21 +123,21 @@ public class MainConfig extends JFinalConfig{
     }
 
     public void configRoute(Routes me) {
-       /*me.add("/user",UserController.class);
-        me.add("/", IndexController.class,"/common");*/
+        me.add("/user",UserController.class);
+        me.add("/index", IndexController.class,"/common");
         me.add("/", TestController.class,"test");
         me.add("/test",TestController.class);
     }
 
     public void configPlugin(Plugins me) {
         Prop dataBaseProp = PropKit.use("local.properties");
-        /*C3p0Plugin c3p0Plugin = new C3p0Plugin(dataBaseProp.get("jdbcUrl"),dataBaseProp.get("user"),dataBaseProp.get("password"));
+        C3p0Plugin c3p0Plugin = new C3p0Plugin(dataBaseProp.get("jdbcUrl"),dataBaseProp.get("user"),dataBaseProp.get("password"));
         me.add(c3p0Plugin);
 
         ActiveRecordPlugin activeRecordPlugin = new ActiveRecordPlugin("main",c3p0Plugin);
         activeRecordPlugin.setShowSql(true);
         _MappingKit.mapping(activeRecordPlugin);
-        me.add(activeRecordPlugin);*/
+        me.add(activeRecordPlugin);
 
 
 
