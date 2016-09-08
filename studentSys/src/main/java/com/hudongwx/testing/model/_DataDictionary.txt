@@ -1,0 +1,55 @@
+Table: surveys_t_question_big_type
+-----------+-------------+------+-----+---------+---------
+ Field     | Type        | Null | Key | Default | Remarks 
+-----------+-------------+------+-----+---------+---------
+ id        | int(10)     | NO   | PRI |         |         
+ name      | varchar(15) | NO   |     |         |         
+ sort_flag | smallint(5) | NO   |     | 1       |         
+-----------+-------------+------+-----+---------+---------
+
+Table: surveys_t_questionnaire
+-------------+--------------+------+-----+---------+---------
+ Field       | Type         | Null | Key | Default | Remarks 
+-------------+--------------+------+-----+---------+---------
+ id          | int(10)      | NO   | PRI |         |         
+ class_name  | varchar(10)  | YES  |     |         |         
+ date        | varchar(20)  | NO   |     |         |         
+ class_chief | varchar(6)   | YES  |     |         |         
+ to_user     | varchar(6)   | NO   |     |         |         
+ end_time    | varchar(14)  | YES  |     |         |         
+ note        | varchar(150) | YES  |     |         |         
+-------------+--------------+------+-----+---------+---------
+
+Table: surveys_t_questionnaire_result
+------------------+--------------+------+-----+---------+---------
+ Field            | Type         | Null | Key | Default | Remarks 
+------------------+--------------+------+-----+---------+---------
+ id               | int(10)      | NO   | PRI |         |         
+ id_user          | int(10)      | NO   |     |         |         
+ id_questionnaire | int(10)      | YES  |     |         |         
+ questions_reply  | text(65535)  | YES  |     |         |         
+ comment          | varchar(200) | YES  |     |         |         
+------------------+--------------+------+-----+---------+---------
+
+Table: surveys_t_questions
+--------------+-------------+------+-----+---------+---------
+ Field        | Type        | Null | Key | Default | Remarks 
+--------------+-------------+------+-----+---------+---------
+ id           | int(10)     | NO   | PRI |         |         
+ big_type_id  | int(10)     | YES  |     | -1      |         
+ type         | smallint(5) | YES  |     |         |         
+ title        | varchar(15) | NO   |     |         |         
+ content      | text(65535) | NO   |     |         |         
+ option_score | text(65535) | YES  |     |         |         
+--------------+-------------+------+-----+---------+---------
+
+Table: surveys_t_questions_questionnaire
+------------------+-------------+------+-----+---------+---------
+ Field            | Type        | Null | Key | Default | Remarks 
+------------------+-------------+------+-----+---------+---------
+ id               | int(10)     | NO   | PRI |         |         
+ id_questionnaire | int(10)     | YES  |     |         |         
+ id_questions     | int(10)     | YES  |     |         |         
+ create_date      | varchar(14) | YES  |     |         |         
+------------------+-------------+------+-----+---------+---------
+

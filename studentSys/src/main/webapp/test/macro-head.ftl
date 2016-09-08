@@ -1,0 +1,1 @@
+<a class="btn btn-success" href="/test/inputQuestion">添加问题</a> · <a class="btn btn-success" href="/test/inputBigType">添加大类型</a>
