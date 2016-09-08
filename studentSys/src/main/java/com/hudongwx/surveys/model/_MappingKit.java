@@ -1,4 +1,4 @@
-package com.hudongwx.testing.model;
+package com.hudongwx.surveys.model;
 
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 

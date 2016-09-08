@@ -1,6 +1,7 @@
-package com.hudongwx.testing.controller;
+package com.hudongwx.surveys.controller;
 
 import com.hudongwx.studentsys.common.BaseController;
+import com.hudongwx.surveys.model.*;
 import com.hudongwx.testing.service.TestService;
 import com.hudongwx.studentsys.util.RenderKit;
 import com.hudongwx.testing.model.*;
