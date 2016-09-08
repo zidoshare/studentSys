@@ -125,20 +125,21 @@ public class MainConfig extends JFinalConfig{
     }
 
     public void configRoute(Routes me) {
-        me.add("/user",UserController.class);
-        me.add("/", IndexController.class,"/common");
-        me.add("/test", TestController.class);
+       /*me.add("/user",UserController.class);
+        me.add("/", IndexController.class,"/common");*/
+        me.add("/", TestController.class,"test");
+        me.add("/test",TestController.class);
     }
 
     public void configPlugin(Plugins me) {
         Prop dataBaseProp = PropKit.use("local.properties");
-        C3p0Plugin c3p0Plugin = new C3p0Plugin(dataBaseProp.get("jdbcUrl"),dataBaseProp.get("user"),dataBaseProp.get("password"));
+        /*C3p0Plugin c3p0Plugin = new C3p0Plugin(dataBaseProp.get("jdbcUrl"),dataBaseProp.get("user"),dataBaseProp.get("password"));
         me.add(c3p0Plugin);
 
         ActiveRecordPlugin activeRecordPlugin = new ActiveRecordPlugin("main",c3p0Plugin);
         activeRecordPlugin.setShowSql(true);
         _MappingKit.mapping(activeRecordPlugin);
-        me.add(activeRecordPlugin);
+        me.add(activeRecordPlugin);*/
 
 
 
@@ -158,7 +159,7 @@ public class MainConfig extends JFinalConfig{
     public void configInterceptor(Interceptors me) {
         //对增删改操作开启事务
         me.add(new TxByMethodRegex("(^_save.*|^_update.*|^_delete.*|^post.*)"));
-        initMapping();
+        /*initMapping();*/
     }
 
     private void initRole() {

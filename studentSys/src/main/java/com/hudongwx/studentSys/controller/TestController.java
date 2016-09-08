@@ -7,6 +7,7 @@ import com.hudongwx.studentSys.util.RenderKit;
 import com.jfinal.aop.Before;
 import com.jfinal.ext.interceptor.POST;
 import com.jfinal.log.Log;
+import com.jfinal.plugin.activerecord.Page;
 
 import java.util.List;
 
@@ -17,13 +18,15 @@ public class TestController extends BaseController {
     TestService testService;
     private Log log = Log.getLog(getClass());
     public void index(){
-        forwardAction("/test/inputQuestion");
+        forwardAction("/test/inputBigType");
     }
     //添加问题页面
     public void inputQuestion(){
         List<QuestionBigType> bigTypes = testService.getBigTypes();
         setAttr("bigTypes",bigTypes);
-        setAttr("questions",testService.getQuestionsByQuestionnaire(1));
+        Page<Questions> allQuestions = testService.getAllQuestions(1);
+        setAttr("questions",allQuestions.getList());
+        setAttr("maxPage",allQuestions.getTotalRow());
         render("inputQuestion.ftl");
     }
     //添加类型页面
