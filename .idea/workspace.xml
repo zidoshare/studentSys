@@ -2,54 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="028b3639-dcc4-40a5-959b-bf280a030e49" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj.war" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj.war" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/common/MainConfig.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/common/MainConfig.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/controller/TestController.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/controller/TestController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/MainConfig.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/MainConfig.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/controller/TestController.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/controller/TestController.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/RequestHandler.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/RequestHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/BaseClass.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/BaseClass.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/BaseController.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/BaseController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/BaseEmployee.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/BaseEmployee.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/BaseMapping.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/BaseMapping.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/BaseRole.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/BaseRole.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/BaseStudent.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/BaseStudent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/BaseUser.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/BaseUser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/MainConfig.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/MainConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/Service.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/Service.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/UrlInterceptor.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/UrlInterceptor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/controller/IndexController.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/controller/IndexController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/controller/UserController.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/controller/UserController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/exceptions/ServiceException.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/exceptions/ServiceException.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/Class.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/Class.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/Employee.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/Employee.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/FastGenerator.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/FastGenerator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/Mapping.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/Mapping.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/Role.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/Role.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/Student.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/Student.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/TestGenerator.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/TestGenerator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/User.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/User.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/_MappingKit.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/_MappingKit.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/service/MappingService.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/service/MappingService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/service/RoleService.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/service/RoleService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/service/StudentService.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/service/StudentService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/service/UserService.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/service/UserService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/util/ArrayKit.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/util/ArrayKit.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/util/ArrayTree.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/util/ArrayTree.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/util/CharRange.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/util/CharRange.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/util/CharSet.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/util/CharSet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/util/CharSetKit.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/util/CharSetKit.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/util/Common.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/util/Common.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/util/IpKit.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/util/IpKit.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/util/LangConfig.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/util/LangConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/util/ObjectKit.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/util/ObjectKit.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/util/RenderKit.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/util/RenderKit.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/util/StrPlusKit.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/util/StrPlusKit.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/util/treeNode.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/util/treeNode.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/validator/LoginValidator.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/validator/LoginValidator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/testing/controller/TestController.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/testing/controller/TestController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/testing/service/TestService.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/testing/service/TestService.java" />
     </list>
     <ignored path="JFinalProj.iws" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -156,8 +109,8 @@
       <file leaf-file-name="CharSetKit.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/util/CharSetKit.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="182">
-              <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+            <state relative-caret-position="234">
+              <caret line="11" column="62" selection-start-line="11" selection-start-column="62" selection-end-line="11" selection-end-column="62" />
               <folding />
             </state>
           </provider>
@@ -1115,7 +1068,7 @@
       <workItem from="1473123155584" duration="9878000" />
       <workItem from="1473148597999" duration="16399000" />
       <workItem from="1473183186615" duration="245000" />
-      <workItem from="1473210730533" duration="41098000" />
+      <workItem from="1473210730533" duration="41497000" />
     </task>
     <task id="LOCAL-00001" summary="新建项目">
       <created>1472643001120</created>
@@ -1243,11 +1196,18 @@
       <option name="project" value="LOCAL" />
       <updated>1473323635494</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="修改命名">
+      <created>1473323943947</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1473323943947</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="264030000" />
+    <option name="totallyTimeSpent" value="264429000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1260,7 +1220,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1270,7 +1230,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5030257" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16111952" sideWeight="0.49436393" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5652174" sideWeight="0.4969743" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.41867954" sideWeight="0.4969743" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29951692" sideWeight="0.48487142" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3268921" sideWeight="0.48487142" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1316,7 +1276,8 @@
     <MESSAGE value="结构重构，数据库映射&#10;树结构&#10;加入大量工具类&#10;初始化操作" />
     <MESSAGE value="加入在线测试" />
     <MESSAGE value="添加题目，添加大分类" />
-    <option name="LAST_COMMIT_MESSAGE" value="添加题目，添加大分类" />
+    <MESSAGE value="修改命名" />
+    <option name="LAST_COMMIT_MESSAGE" value="修改命名" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1751,8 +1712,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/util/CharSetKit.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+        <state relative-caret-position="234">
+          <caret line="11" column="62" selection-start-line="11" selection-start-column="62" selection-end-line="11" selection-end-column="62" />
           <folding />
         </state>
       </provider>
