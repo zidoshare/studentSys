@@ -1,9 +1,9 @@
 package com.hudongwx.surveys.controller;
 
 import com.hudongwx.studentsys.common.BaseController;
-import com.hudongwx.surveys.service.TestService;
-import com.hudongwx.studentsys.util.RenderKit;
 import com.hudongwx.surveys.model.*;
+import com.hudongwx.studentsys.util.RenderKit;
+import com.hudongwx.surveys.service.TestService;
 import com.jfinal.aop.Before;
 import com.jfinal.ext.interceptor.POST;
 import com.jfinal.log.Log;

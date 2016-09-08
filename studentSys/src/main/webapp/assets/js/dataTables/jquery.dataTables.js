@@ -13514,7 +13514,7 @@
 			return [ 'first', 'previous', _numbers(page, pages), 'next', 'last' ];
 		},
 	
-		// For surveys and plug-ins to use
+		// For testing and plug-ins to use
 		_numbers: _numbers,
 		numbers_length: 7
 	} );

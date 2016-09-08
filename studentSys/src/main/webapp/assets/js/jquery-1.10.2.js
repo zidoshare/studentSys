@@ -910,7 +910,7 @@ function markFunction( fn ) {
 }
 
 /**
- * Support surveys using an element
+ * Support testing using an element
  * @param {Function} fn Passed the created div and expects a boolean result
  */
 function assert( fn ) {
