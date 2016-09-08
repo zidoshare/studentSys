@@ -1,4 +1,4 @@
-package com.hudongwx.studentSys.util;
+package com.hudongwx.studentsys.util;
 
 /**
  * Created by wuhongxu on 2016/9/4 0004.

@@ -1,8 +1,7 @@
-package com.hudongwx.studentSys;
+package com.hudongwx.studentsys;
 
 import com.jfinal.handler.Handler;
 import com.jfinal.kit.HandlerKit;
-import com.jfinal.log.Log;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

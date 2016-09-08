@@ -1,11 +1,11 @@
-package com.hudongwx.studentSys.service;
+package com.hudongwx.studentsys.service;
 
-import com.hudongwx.studentSys.common.Service;
-import com.hudongwx.studentSys.exceptions.ServiceException;
-import com.hudongwx.studentSys.model.Mapping;
-import com.hudongwx.studentSys.model.Role;
-import com.hudongwx.studentSys.util.Common;
-import com.hudongwx.studentSys.util.StrPlusKit;
+import com.hudongwx.studentsys.common.Service;
+import com.hudongwx.studentsys.exceptions.ServiceException;
+import com.hudongwx.studentsys.model.Mapping;
+import com.hudongwx.studentsys.model.Role;
+import com.hudongwx.studentsys.util.Common;
+import com.hudongwx.studentsys.util.StrPlusKit;
 import com.jfinal.log.Log;
 import com.jfinal.plugin.ehcache.CacheKit;
 

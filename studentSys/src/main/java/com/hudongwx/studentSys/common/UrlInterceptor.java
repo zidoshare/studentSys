@@ -1,6 +1,6 @@
-package com.hudongwx.studentSys.common;
+package com.hudongwx.studentsys.common;
 
-import com.hudongwx.studentSys.util.Common;
+import com.hudongwx.studentsys.util.Common;
 import com.jfinal.aop.Interceptor;
 import com.jfinal.aop.Invocation;
 import com.jfinal.log.Log;

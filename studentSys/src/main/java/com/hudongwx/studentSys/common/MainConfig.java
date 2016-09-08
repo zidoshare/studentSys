@@ -1,16 +1,16 @@
-package com.hudongwx.studentSys.common;
+package com.hudongwx.studentsys.common;
 
-import com.hudongwx.studentSys.RequestHandler;
+import com.hudongwx.studentsys.RequestHandler;
 import com.hudongwx.testing.controller.TestController;
-import com.hudongwx.studentSys.model.Mapping;
-import com.hudongwx.studentSys.model.Role;
-import com.hudongwx.studentSys.model.User;
-import com.hudongwx.studentSys.service.MappingService;
-import com.hudongwx.studentSys.service.RoleService;
-import com.hudongwx.studentSys.service.UserService;
-import com.hudongwx.studentSys.util.ArrayTree;
-import com.hudongwx.studentSys.util.Common;
-import com.hudongwx.studentSys.util.LangConfig;
+import com.hudongwx.studentsys.model.Mapping;
+import com.hudongwx.studentsys.model.Role;
+import com.hudongwx.studentsys.model.User;
+import com.hudongwx.studentsys.service.MappingService;
+import com.hudongwx.studentsys.service.RoleService;
+import com.hudongwx.studentsys.service.UserService;
+import com.hudongwx.studentsys.util.ArrayTree;
+import com.hudongwx.studentsys.util.Common;
+import com.hudongwx.studentsys.util.LangConfig;
 import com.jfinal.config.*;
 import com.jfinal.kit.Prop;
 import com.jfinal.kit.PropKit;

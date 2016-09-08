@@ -1,4 +1,4 @@
-package com.hudongwx.studentSys.util;
+package com.hudongwx.studentsys.util;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
