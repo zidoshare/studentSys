@@ -11,6 +11,6 @@ public class TestingRoutes extends Routes{
     @Override
     public void config() {
         add("/testing", UpdateTestingController.class);
-        add("/test", TestingController.class);
+        add("/tests", TestingController.class);
     }
 }
