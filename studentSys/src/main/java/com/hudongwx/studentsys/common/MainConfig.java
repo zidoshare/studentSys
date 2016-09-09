@@ -15,6 +15,7 @@ import com.hudongwx.studentsys.service.UserService;
 import com.hudongwx.studentsys.util.ArrayTree;
 import com.hudongwx.studentsys.util.Common;
 import com.hudongwx.studentsys.util.LangConfig;
+import com.hudongwx.testing.common.TestingRoutes;
 import com.jfinal.config.*;
 import com.jfinal.kit.Prop;
 import com.jfinal.kit.PropKit;
@@ -127,6 +128,7 @@ public class MainConfig extends JFinalConfig{
         me.add("/user",UserController.class);
         me.add("/index", IndexController.class,"/common");
         me.add(new SurveysRoutes());
+        me.add(new TestingRoutes());
     }
 
     public void configPlugin(Plugins me) {
@@ -150,6 +152,19 @@ public class MainConfig extends JFinalConfig{
         com.hudongwx.surveys.model._MappingKit.mapping(testRecordPlugin);
         //-------------
         me.add(testRecordPlugin);
+        //加载缓存插件ehcache
+        me.add(new EhCachePlugin());
+
+        //测试题
+        C3p0Plugin testingC3p0Plugin  = new C3p0Plugin(dataBaseProp.get
+                ("testingUrl"),dataBaseProp.get("testingUser"),dataBaseProp.get("testingPwd"));
+        me.add(testingC3p0Plugin);
+        ActiveRecordPlugin testingRecordPlugin = new ActiveRecordPlugin
+                ("testing",testingC3p0Plugin);
+        testingRecordPlugin.setShowSql(true);
+        com.hudongwx.testing.model._MappingKit.mapping(testingRecordPlugin);
+        me.add(testingRecordPlugin);
+
         //加载缓存插件ehcache
         me.add(new EhCachePlugin());
     }

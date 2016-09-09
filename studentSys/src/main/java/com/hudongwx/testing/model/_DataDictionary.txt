@@ -1,0 +1,82 @@
+Table: testing_t_grade
+------------------+-------------+------+-----+---------+---------
+ Field            | Type        | Null | Key | Default | Remarks 
+------------------+-------------+------+-----+---------+---------
+ id               | int(10)     | NO   | PRI |         |         
+ id_user          | int(10)     | NO   |     |         |         
+ id_questionnaire | int(10)     | YES  |     |         |         
+ questions_reply  | text(65535) | YES  |     |         |         
+ total_score      | smallint(5) | YES  |     |         |         
+------------------+-------------+------+-----+---------+---------
+
+Table: testing_t_question_big_type
+-----------+--------------+------+-----+---------+---------
+ Field     | Type         | Null | Key | Default | Remarks 
+-----------+--------------+------+-----+---------+---------
+ id        | int(10)      | NO   | PRI |         |         
+ name      | varchar(100) | NO   |     |         |         
+ sort_flag | smallint(5)  | NO   |     | 0       |         
+ is_enable | smallint(5)  | YES  |     | 1       |         
+-----------+--------------+------+-----+---------+---------
+
+Table: testing_t_questionnaire
+--------------+-------------+------+-----+---------+---------
+ Field        | Type        | Null | Key | Default | Remarks 
+--------------+-------------+------+-----+---------+---------
+ id           | int(10)     | NO   | PRI |         |         
+ class_id     | int(10)     | NO   |     |         |         
+ start_time   | varchar(15) | NO   |     |         |         
+ end_time     | varchar(14) | YES  |     |         |         
+ creat_time   | varchar(14) | YES  |     |         |         
+ title        | varchar(50) | YES  |     |         |         
+ total_score  | smallint(5) | YES  |     |         |         
+ note         | varchar(50) | YES  |     |         |         
+ join_number  | smallint(5) | YES  |     |         |         
+ submit_numer | smallint(5) | YES  |     |         |         
+ aver_score   | smallint(5) | YES  |     |         |         
+--------------+-------------+------+-----+---------+---------
+
+Table: testing_t_questionnaire_result
+------------------+-------------+------+-----+---------+---------
+ Field            | Type        | Null | Key | Default | Remarks 
+------------------+-------------+------+-----+---------+---------
+ id               | int(10)     | NO   | PRI |         |         
+ id_user          | int(10)     | NO   |     |         |         
+ id_questionnaire | int(10)     | YES  |     |         |         
+ questions_reply  | text(65535) | YES  |     |         |         
+------------------+-------------+------+-----+---------+---------
+
+Table: testing_t_questions
+-------------+--------------+------+-----+---------+---------
+ Field       | Type         | Null | Key | Default | Remarks 
+-------------+--------------+------+-----+---------+---------
+ id          | int(10)      | NO   | PRI |         |         
+ big_type_id | int(10)      | YES  |     | -1      |         
+ title       | varchar(200) | NO   |     |         |         
+ tag_id      | varchar(200) | NO   |     |         |         
+ content     | text(65535)  | NO   |     |         |         
+ score       | smallint(5)  | NO   |     | 0       |         
+ answer      | varchar(20)  | YES  |     |         |         
+ create_time | varchar(14)  | YES  |     |         |         
+ creater_id  | int(10)      | YES  |     |         |         
+ is_enable   | smallint(5)  | YES  |     | 1       |         
+-------------+--------------+------+-----+---------+---------
+
+Table: testing_t_questions_questionnaire
+------------------+---------+------+-----+---------+---------
+ Field            | Type    | Null | Key | Default | Remarks 
+------------------+---------+------+-----+---------+---------
+ id               | int(10) | NO   | PRI |         |         
+ id_questionnaire | int(10) | YES  |     |         |         
+ id_questions     | int(10) | YES  |     |         |         
+------------------+---------+------+-----+---------+---------
+
+Table: testing_t_questions_tag
+-----------+-------------+------+-----+---------+---------
+ Field     | Type        | Null | Key | Default | Remarks 
+-----------+-------------+------+-----+---------+---------
+ id        | int(10)     | NO   | PRI |         |         
+ name      | varchar(50) | NO   |     |         |         
+ is_enable | smallint(5) | YES  |     | 1       |         
+-----------+-------------+------+-----+---------+---------
+
