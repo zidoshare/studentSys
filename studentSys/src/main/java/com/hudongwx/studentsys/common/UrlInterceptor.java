@@ -5,9 +5,12 @@ import com.jfinal.aop.Interceptor;
 import com.jfinal.aop.Invocation;
 import com.jfinal.log.Log;
 
+import java.lang.reflect.Method;
+
 /**
  * Created by wuhongxu on 2016/8/31 0031.
  */
+
 public class UrlInterceptor implements Interceptor {
     private Log log = Log.getLog(UrlInterceptor.class);
     @Override

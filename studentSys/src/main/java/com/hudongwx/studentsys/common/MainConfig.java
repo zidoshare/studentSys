@@ -157,6 +157,7 @@ public class MainConfig extends JFinalConfig{
     public void configInterceptor(Interceptors me) {
         //对增删改操作开启事务
         me.add(new TxByMethodRegex("(^_save.*|^_update.*|^_delete.*|^post.*)"));
+        me.add(new UrlInterceptor());
         /*initMapping();*/
     }
 

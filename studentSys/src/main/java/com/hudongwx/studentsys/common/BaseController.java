@@ -19,7 +19,6 @@ import java.util.List;
 /**
  * Created by wuhongxu on 2016/8/30 0030.
  */
-@Before(UrlInterceptor.class)
 public class BaseController extends Controller {
     protected Log log = Log.getLog(this.getClass());
 

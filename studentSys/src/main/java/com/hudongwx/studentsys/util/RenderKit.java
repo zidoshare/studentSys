@@ -17,7 +17,7 @@ public class RenderKit {
         renderState(me,"error");
     }
     public static void renderError(Controller me,String msg){
-        renderMsg(me,msg,"success");
+        renderMsg(me,msg,"error");
     }
     public static void renderState(Controller me,String state){
         renderMsg(me,"",state);

@@ -25,12 +25,13 @@ public class Common {
     public final static String CATALOG = "Catalog";
     public static final int MAX_SIDE_CNT = 8;
     public static final int MAX_PAGE_SIZE = 20;
-
+    public static final int START_PAGE = 1;
 
     //缓存Label
     public static final String CACHE_FOEVER_LABEL = "forever";
     public static final String CACHE_LONG_TIME_LABEL = "longTime";
     public static final String CACHE_60TIME_LABEL = "60time";
+
 
 
     //此处得到主配置

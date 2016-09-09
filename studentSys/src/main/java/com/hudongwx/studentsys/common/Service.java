@@ -12,7 +12,7 @@ import java.util.Map;
  * Created by wuhongxu on 2016/8/31 0031.
  */
 public abstract class Service {
-    private Log log = Log.getLog(getClass());
+    protected Log log = Log.getLog(getClass());
     protected static Map<Class<? extends Service>, Service> INSTANCE_MAP = new HashMap<Class<? extends Service>, Service>();
     private static Log serviceLog = Log.getLog(Service.class);
     public static <Ser extends Service> Ser getInstance(Class<Ser> clazz){

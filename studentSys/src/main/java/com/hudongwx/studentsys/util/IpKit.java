@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
  */
 public class IpKit {
     private Log LOGGER = Log.getLog(IpKit.class);
-    public String getIp(HttpServletRequest request){
+    public static String getIp(HttpServletRequest request){
         String ret = request.getHeader("X-forwarded-for");
 
         if (StrPlusKit.isEmpty(ret)) {
