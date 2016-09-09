@@ -152,8 +152,6 @@ public class MainConfig extends JFinalConfig{
         com.hudongwx.surveys.model._MappingKit.mapping(testRecordPlugin);
         //-------------
         me.add(testRecordPlugin);
-        //加载缓存插件ehcache
-        me.add(new EhCachePlugin());
 
         //测试题
         C3p0Plugin testingC3p0Plugin  = new C3p0Plugin(dataBaseProp.get

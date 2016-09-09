@@ -2,13 +2,15 @@
 CREATE TABLE testing_t_question_big_type(
   id int PRIMARY KEY AUTO_INCREMENT,  -- id
   name VARCHAR(100) UNIQUE NOT NULL DEFAULT '', -- 分类名称
-  sort_flag smallint not null default 0 -- 排序标示
+  sort_flag smallint not null default 0 , -- 排序标示
+   is_enable SMALLINT DEFAULT 1 -- 是否启用0不能使用(0,1)
 );
 
 -- 题的分类标签
 create TABLE  testing_t_questions_tag(
   id int PRIMARY KEY AUTO_INCREMENT, -- 题对应的标签名称,例如io,字符串,时间
-  name VARCHAR(50) NOT NULL DEFAULT --题每次
+  name VARCHAR(50) NOT NULL DEFAULT '', -- 题每次
+   is_enable SMALLINT DEFAULT 1 -- 是否启用0不能使用(0,1)
 );
 
 --问题库表
@@ -19,7 +21,7 @@ CREATE TABLE testing_t_questions(
   tag_id VARCHAR(200) NOT NULL, -- 对应标签id,对应多个使用分割号:[1,2,10]
   content TEXT  not null, -- 问题json格式
   score  SMALLINT NOT  NULL DEFAULT 0,-- 分数
-  answer VARCHAR(20), --题对应的答案,多个用逗号分割
+  answer VARCHAR(20), -- 题对应的答案,多个用逗号分割
   create_time VARCHAR(14), -- 题创建时间
   creater_id int, -- 创建者id
   is_enable SMALLINT DEFAULT 1 -- 是否启用0不能使用(0,1)
@@ -28,7 +30,7 @@ CREATE TABLE testing_t_questions(
 -- 试卷表
 CREATE TABLE testing_t_questionnaire(
     id int PRIMARY KEY AUTO_INCREMENT, -- 问卷id
-    class_id int NOT NULL ,--对应的班级id
+    class_id int NOT NULL ,-- 对应的班级id
     start_time VARCHAR(15) NOT NULL , -- 开始考试时间
     end_time varchar(14), -- 考试结束时间
     creat_time VARCHAR(14), -- 创建时间
@@ -43,7 +45,7 @@ CREATE TABLE testing_t_questionnaire(
 CREATE TABLE testing_t_questions_questionnaire(
   id INT PRIMARY KEY AUTO_INCREMENT,
   id_questionnaire int, -- 问卷id
-  id_questions int, -- 问题id
+  id_questions int -- 问题id
 );
 
 -- 试卷回答表

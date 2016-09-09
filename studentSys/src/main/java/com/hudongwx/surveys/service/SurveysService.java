@@ -27,7 +27,7 @@ public class SurveysService extends Service {
     }
     public boolean saveBigType(QuestionBigType qbt) {
         List<QuestionBigType> bigTypes = QuestionBigType.dao.findByCache(Common.CACHE_LONG_TIME_LABEL, "bigTypes", "select * from surveys_t_question_big_type");
-        if(qbt.save()) {
+            if(qbt.save()) {
             bigTypes.add(qbt);
             CacheKit.put(Common.CACHE_LONG_TIME_LABEL, "bigTypes",bigTypes);
             return true;
