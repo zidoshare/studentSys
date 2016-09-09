@@ -24,7 +24,7 @@
             </#list>
 
             <#--<li>
-                <a class="active-menu" href="index.html"><i class="fa fa-dashboard"></i> Dashboard</a>
+                <a class="active-menu" href="index.ftl"><i class="fa fa-dashboard"></i> Dashboard</a>
             </li>
             <li>
                 <a href="ui-elements.html"><i class="fa fa-desktop"></i> UI Elements</a>

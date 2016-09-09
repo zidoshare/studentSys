@@ -6,7 +6,7 @@ import com.hudongwx.studentsys.util.IpKit;
 import com.hudongwx.studentsys.util.StrPlusKit;
 import com.hudongwx.surveys.model.*;
 import com.hudongwx.studentsys.util.RenderKit;
-import com.hudongwx.surveys.service.TestService;
+import com.hudongwx.surveys.service.SurveysService;
 import com.jfinal.aop.Before;
 import com.jfinal.ext.interceptor.POST;
 import com.jfinal.log.Log;
@@ -17,8 +17,8 @@ import java.util.List;
 /**
  * Created by wuhongxu on 2016/9/6 0006.
  */
-public class TestController extends BaseController {
-    TestService testService;
+public class SurveysController extends BaseController {
+    SurveysService surveysService;
     private Log log = Log.getLog(getClass());
     public void index(){
         fillHeaderAndFooter();
@@ -26,16 +26,16 @@ public class TestController extends BaseController {
     }
     //添加问题页面
     public void inputQuestion(){
-        List<QuestionBigType> bigTypes = testService.getBigTypes();
+        List<QuestionBigType> bigTypes = surveysService.getBigTypes();
         setAttr("bigTypes",bigTypes);
-        Page<Questions> allQuestions = testService.getAllQuestions(1);
+        Page<Questions> allQuestions = surveysService.getAllQuestions(1);
         setAttr("questions",allQuestions.getList());
         setAttr("maxPage",allQuestions.getTotalRow());
         render("inputQuestion.ftl");
     }
     //添加类型页面
     public void inputBigType(){
-        List<QuestionBigType> bigTypes = testService.getBigTypes();
+        List<QuestionBigType> bigTypes = surveysService.getBigTypes();
         setAttr("bigTypes",bigTypes);
         render("inputBigType.ftl");
     }
@@ -47,7 +47,7 @@ public class TestController extends BaseController {
         if(StrPlusKit.isNumeric(p))
             p = ""+Common.START_PAGE;
         int page = Integer.valueOf(p);
-        Page<Questionnaire> questionnaires = testService.getQuestionnaires(page);
+        Page<Questionnaire> questionnaires = surveysService.getQuestionnaires(page);
         setAttr("questionnaires",questionnaires);
     }
     //提交名字
@@ -60,13 +60,13 @@ public class TestController extends BaseController {
         }
 
         RenderKit.renderSuccess(this,"/surveys/");
-        boolean b = testService.registerName(name);
+        boolean b = surveysService.registerName(name);
         String ip = IpKit.getIp(getRequest());
         if(b)
             log.info(name+"开始了调查,ip为："+ip);
         else
             log.info(name+"重新进入调查，ip为："+ip);
-        log.info("总人数"+testService.getRegisterSize());
+        log.info("总人数"+ surveysService.getRegisterSize());
     }
     //调查问卷视图
     public void surveys(){
@@ -76,11 +76,11 @@ public class TestController extends BaseController {
             return ;
         }
 
-        if(testService.isContainUser(name)){
+        if(surveysService.isContainUser(name)){
             renderError(403);
             return ;
         }
-        List<Questions> allQuestions = testService.getAllQuestions();
+        List<Questions> allQuestions = surveysService.getAllQuestions();
         setAttr("questions",allQuestions);
         render("survey.ftl");
     }
@@ -97,7 +97,7 @@ public class TestController extends BaseController {
     public void postBigType(){
         QuestionBigType qbt = getModel(QuestionBigType.class);
         log.info(qbt.getName()+"   "+qbt.getSortFlag());
-        if(testService.saveBigType(qbt)){
+        if(surveysService.saveBigType(qbt)){
             RenderKit.renderSuccess(this,"添加成功");
         }else
             RenderKit.renderError(this,"添加失败");

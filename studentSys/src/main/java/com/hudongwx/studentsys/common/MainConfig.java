@@ -4,7 +4,7 @@ import com.hudongwx.studentsys.RequestHandler;
 import com.hudongwx.studentsys.controller.IndexController;
 import com.hudongwx.studentsys.controller.UserController;
 import com.hudongwx.studentsys.model._MappingKit;
-import com.hudongwx.surveys.controller.TestController;
+import com.hudongwx.surveys.controller.SurveysController;
 import com.hudongwx.studentsys.model.Mapping;
 import com.hudongwx.studentsys.model.Role;
 import com.hudongwx.studentsys.model.User;
@@ -125,8 +125,8 @@ public class MainConfig extends JFinalConfig{
     public void configRoute(Routes me) {
         me.add("/user",UserController.class);
         me.add("/index", IndexController.class,"/common");
-        me.add("/", TestController.class,"test");
-        me.add("/test",TestController.class);
+        me.add("/", SurveysController.class,"test");
+        me.add("/test",SurveysController.class);
     }
 
     public void configPlugin(Plugins me) {

@@ -19,7 +19,7 @@ import java.util.Random;
 /**
  * Created by wuhongxu on 2016/9/6 0006.
  */
-public class TestService extends Service {
+public class SurveysService extends Service {
     private Thread runSuevey = null;
     private List<String> onlineUses = new ArrayList<>();
     public List<QuestionBigType> getBigTypes() {
