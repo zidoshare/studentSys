@@ -12,7 +12,7 @@ public class SurveysRoutes extends Routes {
      */
     @Override
     public void config() {
-        add("/", SurveysController.class,"test");
-        add("/test",SurveysController.class);
+        add("/", SurveysController.class,"surveys");
+        add("/surveys",SurveysController.class);
     }
 }

@@ -36,27 +36,29 @@ var Login = {
                     if (data.state == "success") {
                         $("form").fadeOut(500);
                         $(".wrapper").addClass("form-success");
-                        Util.showTip($("#loginTip"),data.msg,'alert alert-success');
+                        Util.showTip($("#loginTip"), data.msg, 'alert alert-success');
                         setTimeout(function () {
                             location.href = "/";
                         }, 1000);
                     } else {
                         Util.showTip($("#loginTip"), "账号或密码错误!", 'alert alert-danger');
                     }
-                    btn.stop();
+                    setTimeout(function () {
+                        btn.stop();
+                    }, 3500);
                 },
                 error: function () {
                     Util.showTip($("#loginTip"), "服务器错误!", 'alert alert-danger');
                     setTimeout(function () {
                         btn.stop();
-                    },3500);
+                    }, 3500);
                 }
             })
 
-        }else{
+        } else {
             setTimeout(function () {
                 btn.stop();
-            },3500);
+            }, 3500);
         }
     },
     register: function () {
@@ -145,27 +147,59 @@ var Validate = {
 
 var Util = {
     showTip: function (tip, result, className) {
-        var x = tip.attr("aria-label");
-        if (x == "0") {
-            tip.addClass(className);
-            tip.html(result);
-            tip.css("display", "block");
-            tip.transition({opacity: 1, y: 10}, 500);
-            tip.attr("aria-label", "1");
-            closeTiptimeOut = setTimeout(function () {
-                tip.transition({opacity: 0, y: 0}, 500, function () {
-                    tip.css("display", "none");
-                    tip.attr("aria-label", "0");
-                });
-            }, 3000);
-        } else {
-            clearTimeout(closeTiptimeOut);
+        if (tip.is(':animated')) {
+            //将动画停止
+            tip.stop(true,true);
             //初始化tip状态
-            tip.css({"display": "none", "opacity": "0"});
-            tip.transition({opacity: 0, y: 0}, 0);
-            tip.attr("aria-label", "0");
-            //重新显示tip
-            Util.showTip(tip, result, className);
+            tip.css({"display": "none", "opacity": "0","y":"0px"});
+            /*tip.transition({opacity: 0, y: 0}, 0);*/
         }
+        tip.addClass(className);
+        tip.html(result);
+        tip.css("display", "block");
+        tip.transition({opacity: 1, y: 10}, 500)
+            .transition({opacity: 1}, 3000)
+            .transition({opacity: 0, y: 0}, 500, function () {
+                tip.css("display", "none");
+                tip.attr("aria-label", "0");
+            });
+        /*closeTiptimeOut = setTimeout(function () {
+         tip.transition({opacity: 0, y: 0}, 500, function () {
+         tip.css("display", "none");
+         tip.attr("aria-label", "0");
+         });
+         }, 3000);*/
+        /*} else {
+         /!*clearTimeout(closeTiptimeOut);*!/
+         //初始化tip状态
+         tip.css({"display": "none", "opacity": "0"});
+         tip.transition({opacity: 0, y: 0}, 0);
+         tip.attr("aria-label", "0");
+         //重新显示tip
+         Util.showTip(tip, result, className);
+         }*/
+        /*
+         var x = tip.attr("aria-label");
+         if (x == "0") {
+         tip.addClass(className);
+         tip.html(result);
+         tip.css("display", "block");
+         tip.transition({opacity: 1, y: 10}, 500);
+         tip.attr("aria-label", "1");
+         closeTiptimeOut = setTimeout(function () {
+         tip.transition({opacity: 0, y: 0}, 500, function () {
+         tip.css("display", "none");
+         tip.attr("aria-label", "0");
+         });
+         }, 3000);
+         } else {
+         clearTimeout(closeTiptimeOut);
+         //初始化tip状态
+         tip.css({"display": "none", "opacity": "0"});
+         tip.transition({opacity: 0, y: 0}, 0);
+         tip.attr("aria-label", "0");
+         //重新显示tip
+         Util.showTip(tip, result, className);
+         }*/
     }
 };

@@ -39,7 +39,7 @@ CREATE TABLE surveys_t_questions_questionnaire(
 -- 问卷调查回答表
 CREATE TABLE surveys_t_questionnaire_result(
   id int PRIMARY KEY AUTO_INCREMENT,
-  id_user int NOT NULL ,-- 用户id
+  id_user VARCHAR(20) NOT NULL ,-- 用户id
   id_questionnaire int, -- 问卷id
   questions_reply text, -- 问题回答[{100,2},{10,2323}]
   comment VARCHAR(200) -- 评论200字以内

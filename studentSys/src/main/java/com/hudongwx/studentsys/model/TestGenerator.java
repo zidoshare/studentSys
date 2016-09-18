@@ -25,11 +25,11 @@ public class TestGenerator {
         return c3p0Plugin.getDataSource();
     }
     public static void main(String[] args){
-        String baseModelPackageName = "com.hudongwx.studentsys.common.testBaseModel";
-        String baseModelOutputDir = PathKit.getWebRootPath()+"\\src\\main\\java\\com\\hudongwx\\studentsys\\common\\testBaseModel";
+        String baseModelPackageName = "com.hudongwx.surveys.common";
+        String baseModelOutputDir = PathKit.getWebRootPath()+"\\src\\main\\java\\com\\hudongwx\\surveys\\common";
 
-        String modelPackageName = "com.hudongwx.studentsys.model.testModel";
-        String modelOutputDir = PathKit.getWebRootPath()+"\\src\\main\\java\\com\\hudongwx\\studentsys\\model\\testModel";
+        String modelPackageName = "com.hudongwx.surveys.model";
+        String modelOutputDir = PathKit.getWebRootPath()+"\\src\\main\\java\\com\\hudongwx\\surveys\\model";
         Generator generator = new Generator(getDataSource(),baseModelPackageName,baseModelOutputDir,modelPackageName,modelOutputDir);
         generator.setDialect(new MysqlDialect());
         generator.setGenerateDaoInModel(true);

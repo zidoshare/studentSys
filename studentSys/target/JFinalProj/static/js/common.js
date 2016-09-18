@@ -43,7 +43,9 @@ var Login = {
                     } else {
                         Util.showTip($("#loginTip"), "账号或密码错误!", 'alert alert-danger');
                     }
-                    btn.stop();
+                    setTimeout(function () {
+                        btn.stop();
+                    },3500);
                 },
                 error: function () {
                     Util.showTip($("#loginTip"), "服务器错误!", 'alert alert-danger');

@@ -25,23 +25,23 @@ Table: surveys_t_questionnaire_result
  Field            | Type         | Null | Key | Default | Remarks 
 ------------------+--------------+------+-----+---------+---------
  id               | int(10)      | NO   | PRI |         |         
- id_user          | int(10)      | NO   |     |         |         
+ id_user          | varchar(20)  | NO   |     |         |         
  id_questionnaire | int(10)      | YES  |     |         |         
  questions_reply  | text(65535)  | YES  |     |         |         
  comment          | varchar(200) | YES  |     |         |         
 ------------------+--------------+------+-----+---------+---------
 
 Table: surveys_t_questions
---------------+-------------+------+-----+---------+---------
- Field        | Type        | Null | Key | Default | Remarks 
---------------+-------------+------+-----+---------+---------
- id           | int(10)     | NO   | PRI |         |         
- big_type_id  | int(10)     | YES  |     | -1      |         
- type         | smallint(5) | YES  |     |         |         
- title        | varchar(15) | NO   |     |         |         
- content      | text(65535) | NO   |     |         |         
- option_score | text(65535) | YES  |     |         |         
---------------+-------------+------+-----+---------+---------
+--------------+--------------+------+-----+---------+---------
+ Field        | Type         | Null | Key | Default | Remarks 
+--------------+--------------+------+-----+---------+---------
+ id           | int(10)      | NO   | PRI |         |         
+ big_type_id  | int(10)      | YES  |     | -1      |         
+ type         | smallint(5)  | YES  |     |         |         
+ title        | varchar(200) | NO   |     |         |         
+ content      | text(65535)  | NO   |     |         |         
+ option_score | text(65535)  | YES  |     |         |         
+--------------+--------------+------+-----+---------+---------
 
 Table: surveys_t_questions_questionnaire
 ------------------+-------------+------+-----+---------+---------

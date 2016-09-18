@@ -31,7 +31,7 @@ public class Common {
     public static final String CACHE_FOEVER_LABEL = "forever";
     public static final String CACHE_LONG_TIME_LABEL = "longTime";
     public static final String CACHE_60TIME_LABEL = "60time";
-
+    public static final String SEPARATOR = "&";
 
 
     //此处得到主配置

@@ -17,11 +17,11 @@ public abstract class BaseQuestionnaireResult<M extends BaseQuestionnaireResult<
 		return get("id");
 	}
 
-	public void setIdUser(java.lang.Integer idUser) {
+	public void setIdUser(java.lang.String idUser) {
 		set("id_user", idUser);
 	}
 
-	public java.lang.Integer getIdUser() {
+	public java.lang.String getIdUser() {
 		return get("id_user");
 	}
 

@@ -141,9 +141,9 @@ public class MainConfig extends JFinalConfig{
 
 
 
-        C3p0Plugin testC3p0Plugin  = new C3p0Plugin(dataBaseProp.get("testUrl"),dataBaseProp.get("testUser"),dataBaseProp.get("testPassword"));
-        me.add(testC3p0Plugin);
-        ActiveRecordPlugin testRecordPlugin = new ActiveRecordPlugin("test",testC3p0Plugin);
+        C3p0Plugin surveysPlugin  = new C3p0Plugin(dataBaseProp.get("testUrl"),dataBaseProp.get("testUser"),dataBaseProp.get("testPassword"));
+        me.add(surveysPlugin);
+        ActiveRecordPlugin testRecordPlugin = new ActiveRecordPlugin("surveys",surveysPlugin);
         testRecordPlugin.setShowSql(true);
         testRecordPlugin.setDialect(new MysqlDialect());
         //---添加映射---
