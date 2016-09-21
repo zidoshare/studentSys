@@ -45,8 +45,6 @@ public class UserService extends Service {
             user = null;
             throw new ServiceException("userAccount or userPassword cannot be null when packingUser");
         }
-        if(null == user.getId())
-            user.setId(System.currentTimeMillis());
         if(null == user.getUserCreateTime())
             user.setUserCreateTime(System.currentTimeMillis());
         if(null == user.getUserPurikura())

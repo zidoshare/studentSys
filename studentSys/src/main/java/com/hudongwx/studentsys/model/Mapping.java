@@ -14,83 +14,51 @@ public class Mapping extends BaseMapping<Mapping> implements TreeNode {
 		init();
 	}
 	public Mapping(String icon,String title,String url){
-		setIcon("fa fa-gear");
-		setTitle("通用设置");
-		setUrl("/option");
+		setIcon(icon);
+		setTitle(title);
+		setUrl(url);
 		init();
 	}
 	public void init(){
-		setId(System.currentTimeMillis());
-		try {
-			Thread.sleep(1);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 		getParent();
 		getLeftChild();
 		getNextSibling();
+		setChildCount(0);
+		setParentId(0);
+		setLeftChildId(0);
+		setNextSiblingId(0);
 	}
 	@Override
 	public Mapping getParent() {
-		if(null == parent){
-			Long parentId = getParentId();
-			if(parentId == null)
-				return null;
-			parent = dao.findById(parentId);
-		}
-
 		return parent;
 	}
 
 	@Override
 	public void setParent(TreeNode treeNode) {
 		parent = (Mapping) treeNode;
-		if(null != parent)
-			setParentId(parent.getId());
-		else
-			setParentId(0L);
 	}
 
 	@Override
 	public void setLeftChild(TreeNode treeNode) {
 		leftChild = (Mapping)treeNode;
-		if(null != leftChild)
-			setLeftChildId(leftChild.getId());
-		else
-			setLeftChildId(0L);
 	}
 
 	@Override
 	public Mapping getLeftChild() {
-		if(null == leftChild){
-			Long leftChildId = getLeftChildId();
-			if(leftChildId == null)
-				return null;
-			leftChild = dao.findById(leftChildId);
-		}
-
 		return leftChild;
 	}
 
 	@Override
 	public void setNextSibling(TreeNode treeNode) {
 		nextSibling = (Mapping) treeNode;
-		if(null != nextSibling)
-			setNextSiblingId(nextSibling.getId());
-		else
-			setNextSiblingId(0L);
 	}
 
 	@Override
 	public Mapping getNextSibling() {
-		if(null == nextSibling){
-			Long nextSiblingId = getNextSiblingId();
-			if(nextSiblingId == null)
-				return null;
-			nextSibling = dao.findById(nextSiblingId);
-		}
-
 		return nextSibling;
 	}
 
+	public boolean equals(Mapping mapping) {
+		return mapping.getId().equals(getId()) && mapping.getTitle().equals(getTitle()) && mapping.getUrl().equals(getUrl());
+	}
 }

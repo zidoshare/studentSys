@@ -21,9 +21,7 @@ public abstract class Service {
             try {
                 service = clazz.newInstance();
                 INSTANCE_MAP.put(clazz, service);
-            } catch (InstantiationException e) {
-                serviceLog.error(e.toString());
-            } catch (IllegalAccessException e) {
+            } catch (InstantiationException | IllegalAccessException e) {
                 serviceLog.error(e.toString());
             }
         }

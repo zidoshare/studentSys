@@ -8,7 +8,6 @@
     </JAVADOC>
     <SOURCES>
       <root url="jar://$MAVEN_REPOSITORY$/com/jfinal/jetty-server/8.1.8/jetty-server-8.1.8-sources.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/com/jfinal/jetty-server/8.1.8/jetty-server-8.1.8.jar!/" />
     </SOURCES>
   </library>
 </component>

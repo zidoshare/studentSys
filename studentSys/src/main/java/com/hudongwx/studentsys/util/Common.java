@@ -26,6 +26,8 @@ public class Common {
     public static final int MAX_SIDE_CNT = 8;
     public static final int MAX_PAGE_SIZE = 20;
     public static final int START_PAGE = 1;
+    public static final String ROLE_TREE_LABEL = "roleTree";
+    public static final String NOW_VISITE_LABEL = "now";
 
     //缓存Label
     public static final String CACHE_FOEVER_LABEL = "forever";

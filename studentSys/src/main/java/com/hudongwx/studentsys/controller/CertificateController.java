@@ -6,15 +6,15 @@ import com.hudongwx.studentsys.service.MappingService;
 import com.hudongwx.studentsys.service.RoleService;
 
 /**
- * Created by wuhongxu on 2016/9/2 0002.
+ * Created by wuhongxu on 2016/9/21 0021.
  */
-public class IndexController extends BaseController{
+public class CertificateController extends BaseController {
 
     /**
-     * @return
+     * @return 返回mapping的title属性
      */
     @Override
     public String init() {
-        return "首页";
+        return "证书管理";
     }
 }

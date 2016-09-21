@@ -9,11 +9,11 @@ import com.jfinal.plugin.activerecord.IBean;
 @SuppressWarnings("serial")
 public abstract class BaseUser<M extends BaseUser<M>> extends Model<M> implements IBean {
 
-	public void setId(java.lang.Long id) {
+	public void setId(java.lang.Integer id) {
 		set("id", id);
 	}
 
-	public java.lang.Long getId() {
+	public java.lang.Integer getId() {
 		return get("id");
 	}
 

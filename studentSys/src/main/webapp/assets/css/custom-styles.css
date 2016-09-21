@@ -95,7 +95,7 @@ p {
 }
 
 .navbar-side {
-    z-index: 1;
+    z-index: 10;
     position: fixed;
     width: 260px;
 
@@ -165,18 +165,6 @@ p {
     vertical-align: baseline;
     background-color: #F36A5A;
     border-radius: 10px;
-}
-
-.closed {
-    -ms-transform: rotate(90deg); /* IE 9 */
-    -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
-    transform: rotate(90deg);
-    color: #EDEDED !important;
-    margin-top: 12px !important;
-}
-
-.closed i {
-    color: #F09B22;
 }
 
 /*----------------------------------------------
@@ -277,15 +265,14 @@ h1.page-header small {
 .chartJs {
     padding-right: 15px;
 }
-
+/*
 i.fa.fa-bars {
     font-size: 20px;
-    margin: 12px 0 0;
 }
 
 i.fa.fa-bars:hover {
     color: #F36A5A;
-}
+}*/
 
 .board .panel {
     padding: 25px 15px;
@@ -677,9 +664,9 @@ div#sideNav:hover {
     padding-left: 55px;
 }
 
-.sidebar-collapse, .sidebar-collapse .nav {
+/*.sidebar-collapse, .sidebar-collapse .nav {
     background: none;
-}
+}*/
 
 .sidebar-collapse .nav {
     padding: 0;

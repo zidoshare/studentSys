@@ -287,4 +287,12 @@ public class SurveysController extends BaseController {
         } else
             RenderKit.renderError(this, "提交失败");
     }
+
+    /**
+     * @return
+     */
+    @Override
+    public String init() {
+        return "证书管理";
+    }
 }

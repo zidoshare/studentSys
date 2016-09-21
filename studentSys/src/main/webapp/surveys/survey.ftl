@@ -97,6 +97,7 @@
             radioClass: 'iradio_square-blue',
             increaseArea: '20%' // optional
         });
+
         var t = 0;
         $(document).find('li.subject').each(function (index, doc) {
             var d = $(this);

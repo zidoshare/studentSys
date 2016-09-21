@@ -2,40 +2,165 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="028b3639-dcc4-40a5-959b-bf280a030e49" name="Default" comment="修改命名">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/fonts/FontAwesome.otf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/fonts/fontawesome-webfont.ttf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/fonts/fontawesome-webfont.woff" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/fonts/fontawesome-webfont.woff2" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/fonts/glyphicons-halflings-regular.woff2" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/Build.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/AttendanceController.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/CertificateController.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/EnrollController.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/OptionController.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/PaymentController.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/StudentController.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/css/font-awesome.min.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/fonts/fontawesome-webfont.eot" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/fonts/fontawesome-webfont.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/index.ftl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/studentManager/studentList.ftl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/userManager/roleList.ftl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/userManager/userList.ftl" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_3_8_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/css/font-awesome.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/font-awesome/fonts/fontawesome-webfontba72.eot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/font-awesome/fonts/fontawesome-webfontba72.svg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/font-awesome/fonts/fontawesome-webfontba72.ttf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/font-awesome/fonts/fontawesome-webfontba72.woff" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/font-awesome/fonts/fontawesome-webfontd41d.eot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/fonts/glyphicons-halflings-regulard41d.eot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/css/font-awesome.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/font-awesome/fonts/fontawesome-webfontba72.eot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/font-awesome/fonts/fontawesome-webfontba72.svg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/font-awesome/fonts/fontawesome-webfontba72.ttf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/font-awesome/fonts/fontawesome-webfontba72.woff" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/font-awesome/fonts/fontawesome-webfontd41d.eot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/fonts/glyphicons-halflings-regulard41d.eot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/studentSys/web/WEB-INF/web.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/fonts/glyphicons-halflings-regular.ttf" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/fonts/glyphicons-halflings-regular.ttf" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/fonts/glyphicons-halflings-regular.woff" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/fonts/glyphicons-halflings-regular.woff" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj.war" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj.war" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/common/BaseController.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/common/BaseController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/common/BaseEmployee.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/common/BaseEmployee.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/common/BaseMapping.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/common/BaseMapping.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/common/BaseRole.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/common/BaseRole.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/common/BaseStudent.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/common/BaseStudent.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/common/BaseUser.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/common/BaseUser.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/common/MainConfig.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/common/MainConfig.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/common/Service.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/common/Service.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/common/UrlInterceptor.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/common/UrlInterceptor.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/controller/IndexController.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/controller/IndexController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/controller/UserController.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/controller/UserController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/model/Mapping.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/model/Mapping.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/model/Role.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/model/Role.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/model/TestGenerator.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/model/TestGenerator.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/service/MappingService.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/service/MappingService.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/service/RoleService.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/service/RoleService.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/service/UserService.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/service/UserService.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/util/ArrayTree$onCheckListener.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/util/ArrayTree$onCheckListener.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/util/ArrayTree.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/util/ArrayTree.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/util/Common.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/util/Common.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/util/IpKit.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/util/IpKit.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/util/RenderKit.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/util/RenderKit.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/fonts/glyphicons-halflings-regular.ttf" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/fonts/glyphicons-halflings-regular.ttf" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/fonts/glyphicons-halflings-regular.woff" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/fonts/glyphicons-halflings-regular.woff" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/BaseController.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/BaseController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/BaseEmployee.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/BaseEmployee.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/BaseMapping.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/BaseMapping.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/BaseRole.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/BaseRole.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/BaseStudent.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/BaseStudent.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/BaseUser.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/BaseUser.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/MainConfig.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/MainConfig.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/Service.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/Service.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/UrlInterceptor.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/UrlInterceptor.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/controller/IndexController.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/controller/IndexController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/controller/UserController.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/controller/UserController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/model/Mapping.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/model/Mapping.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/model/Role.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/model/Role.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/model/TestGenerator.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/model/TestGenerator.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/service/MappingService.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/service/MappingService.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/service/RoleService.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/service/RoleService.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/service/UserService.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/service/UserService.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/util/ArrayTree$onCheckListener.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/util/ArrayTree$onCheckListener.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/util/ArrayTree.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/util/ArrayTree.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/util/Common.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/util/Common.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/util/IpKit.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/util/IpKit.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/util/RenderKit.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/util/RenderKit.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/common/BaseController.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/common/BaseController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/common/BaseEmployee.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/common/BaseEmployee.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/common/BaseMapping.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/common/BaseMapping.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/common/BaseRole.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/common/BaseRole.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/common/BaseStudent.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/common/BaseStudent.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/common/BaseUser.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/common/BaseUser.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/common/MainConfig.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/common/MainConfig.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/common/Service.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/common/Service.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/common/UrlInterceptor.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/common/UrlInterceptor.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/controller/IndexController.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/controller/IndexController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/controller/UserController.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/controller/UserController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/model/Mapping.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/model/Mapping.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/model/Role.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/model/Role.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/service/MappingService.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/service/MappingService.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/service/RoleService.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/service/RoleService.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/service/UserService.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/service/UserService.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/util/ArrayTree$onCheckListener.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/util/ArrayTree$onCheckListener.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/util/ArrayTree.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/util/ArrayTree.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/util/Common.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/util/Common.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/util/IpKit.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/util/IpKit.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/util/RenderKit.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/util/RenderKit.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_jfinal_jetty_server_8_1_8.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_jfinal_jetty_server_8_1_8.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/pom.xml" afterPath="$PROJECT_DIR$/studentSys/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/BaseController.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/BaseController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/BaseEmployee.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/BaseEmployee.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/BaseMapping.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/BaseMapping.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/BaseRole.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/BaseRole.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/BaseStudent.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/BaseStudent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/BaseUser.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/BaseUser.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/MainConfig.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/MainConfig.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/Service.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/Service.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/IndexController.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/IndexController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/UserController.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/UserController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/model/Mapping.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/model/Mapping.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/model/Role.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/model/Role.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/model/_DataDictionary.txt" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/model/_DataDictionary.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/service/MappingService.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/service/MappingService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/service/RoleService.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/service/RoleService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/service/UserService.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/service/UserService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/util/ArrayTree.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/util/ArrayTree.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/util/Common.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/util/Common.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/surveys/common/SurveysRoutes.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/surveys/common/SurveysRoutes.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/surveys/controller/SurveysController.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/surveys/controller/SurveysController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/resources/local.properties" afterPath="$PROJECT_DIR$/studentSys/src/main/resources/local.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/local.properties" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/local.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/css/bootstrap.css" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/css/bootstrap.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/js/dataTables/jquery.dataTables.js" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/js/dataTables/jquery.dataTables.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/js/jquery-1.10.2.js" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/js/jquery-1.10.2.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/resources/student_manager.sql" afterPath="$PROJECT_DIR$/studentSys/src/main/resources/student_manager.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/css/custom-styles.css" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/css/custom-styles.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/fonts/glyphicons-halflings-regular.eot" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/fonts/glyphicons-halflings-regular.eot" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/fonts/glyphicons-halflings-regular.svg" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/fonts/glyphicons-halflings-regular.svg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/js/custom-scripts.js" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/js/custom-scripts.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/common/fastOprator.ftl" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/common/fastOprator.ftl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/common/index.ftl" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/common/index.ftl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/common/newest.ftl" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/common/newest.ftl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/common/search.ftl" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/common/search.ftl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/common/statistics.ftl" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/common/statistics.ftl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/macro-foot.ftl" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/macro-foot.ftl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/macro-head.ftl" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/macro-head.ftl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/macro-left.ftl" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/macro-left.ftl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/static/css/base.css" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/static/css/base.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/studentManager/index.ftl" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/studentManager/index.ftl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/surveys/survey.ftl" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/surveys/survey.ftl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/userManager/index.ftl" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/userManager/index.ftl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/studentSys.iml" afterPath="$PROJECT_DIR$/studentSys/studentSys.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/student_manager.sql" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/student_manager.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/css/custom-styles.css" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/css/custom-styles.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/fonts/glyphicons-halflings-regular.eot" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/fonts/glyphicons-halflings-regular.eot" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/fonts/glyphicons-halflings-regular.svg" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/fonts/glyphicons-halflings-regular.svg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/js/custom-scripts.js" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/js/custom-scripts.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/common/fastOprator.ftl" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/common/fastOprator.ftl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/common/index.ftl" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/common/index.ftl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/common/newest.ftl" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/common/newest.ftl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/common/search.ftl" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/common/search.ftl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/common/statistics.ftl" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/common/statistics.ftl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/macro-foot.ftl" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/macro-foot.ftl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/macro-head.ftl" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/macro-head.ftl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/macro-left.ftl" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/macro-left.ftl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/static/css/lib/bootstrap.min.css" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/static/css/lib/bootstrap.min.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/static/css/base.css" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/static/css/base.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/static/js/common.js" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/static/js/common.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/studentManager/index.ftl" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/studentManager/index.ftl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/userManager/index.ftl" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/userManager/index.ftl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/local.properties" afterPath="$PROJECT_DIR$/studentSys/target/classes/local.properties" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/surveys/controller/TestController.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/surveys/controller/SurveysController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/surveys/service/TestService.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/surveys/service/SurveysService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/student_manager.sql" afterPath="$PROJECT_DIR$/studentSys/target/classes/student_manager.sql" />
     </list>
     <ignored path=".idea/" />
     <ignored path="session_data/" />
@@ -44,6 +169,7 @@
     <ignored path="$PROJECT_DIR$/studentSys/target/classes/" />
     <ignored path="$PROJECT_DIR$/studentSys/target/JFinalProj/" />
     <ignored path="$PROJECT_DIR$/studentSys/target/tmp/" />
+    <ignored path=".idea/dataSources.local.xml" />
     <manually-removed-from-ignored>
       <directory path="$PROJECT_DIR$/out/" />
       <directory path="$PROJECT_DIR$/studentSys/target/" />
@@ -85,74 +211,106 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="SurveysController.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/surveys/controller/SurveysController.java">
+      <file leaf-file-name="Build.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/Build.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="20" column="34" selection-start-line="20" selection-start-column="34" selection-end-line="20" selection-end-column="34" />
+            <state relative-caret-position="129">
+              <caret line="24" column="49" selection-start-line="24" selection-start-column="49" selection-end-line="24" selection-end-column="49" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SurveysService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/surveys/service/SurveysService.java">
+      <file leaf-file-name="PaymentController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/PaymentController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="25" column="19" selection-start-line="25" selection-start-column="19" selection-end-line="25" selection-end-column="19" />
+            <state relative-caret-position="358">
+              <caret line="16" column="20" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="web.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/WEB-INF/web.xml">
+      <file leaf-file-name="StudentController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/StudentController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
-              <caret line="11" column="74" selection-start-line="11" selection-start-column="74" selection-end-line="11" selection-end-column="74" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MainConfig.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/MainConfig.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="364">
-              <caret line="135" column="0" selection-start-line="135" selection-start-column="0" selection-end-line="135" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RenderKit.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/util/RenderKit.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="20" column="5" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
+            <state relative-caret-position="358">
+              <caret line="17" column="20" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="20" />
               <folding>
-                <element signature="e#541#542#0" expanded="true" />
-                <element signature="e#582#583#0" expanded="true" />
+                <element signature="imports" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="survey.ftl" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/test/survey.ftl">
+      <file leaf-file-name="UserController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/UserController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="26">
-              <caret line="5" column="4" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="4" />
+            <state relative-caret-position="182">
+              <caret line="15" column="27" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="27" />
+              <folding>
+                <element signature="e#686#687#0" expanded="true" />
+                <element signature="e#715#716#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BaseController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/BaseController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-104">
+              <caret line="26" column="30" selection-start-line="26" selection-start-column="30" selection-end-line="26" selection-end-column="30" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.ftl" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/test/index.ftl">
+      <file leaf-file-name="RoleService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/service/RoleService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="66" column="40" selection-start-line="66" selection-start-column="40" selection-end-line="66" selection-end-column="70" />
+            <state relative-caret-position="52">
+              <caret line="21" column="20" selection-start-line="21" selection-start-column="20" selection-end-line="21" selection-end-column="20" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MappingService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/service/MappingService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="134">
+              <caret line="18" column="40" selection-start-line="18" selection-start-column="40" selection-end-line="18" selection-end-column="40" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Service.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/Service.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="258">
+              <caret line="27" column="23" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StudentSysRoutes.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/StudentSysRoutes.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="258">
+              <caret line="24" column="50" selection-start-line="24" selection-start-column="50" selection-end-line="24" selection-end-column="50" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SurveysRoutes.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/surveys/common/SurveysRoutes.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="290">
+              <caret line="14" column="54" selection-start-line="14" selection-start-column="54" selection-end-line="14" selection-end-column="54" />
               <folding />
             </state>
           </provider>
@@ -193,57 +351,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/studentSys/src/main/webapp/common/fastOprator.ftl" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/webapp/common/newest.ftl" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/webapp/common/index.ftl" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/webapp/common/statistics.ftl" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/service/RoleService.java" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/service/UserService.java" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/UrlInterceptor.java" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/webapp/static/js/common.js" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/controller/UserController.java" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/TestGenerator.java" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/FastGenerator.java" />
-        <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/testModel/_MappingKit.java" />
-        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/39c29e29-1672-49d0-8443-8a56ddc37fb2/console.sql" />
-        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/5e89dfcc-866d-4f43-98e1-e95451b78ac4/console.sql" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/Mapping.java" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/service/MappingService.java" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/controller/IndexController.java" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/BaseController.java" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/util/Common.java" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/webapp/test/footer.ftl" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/webapp/static/js/test.js" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/webapp/test/inputType.ftl" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/model/testModel/QuestionBigType.java" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/service/TestService.java" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/webapp/test/macro-head.ftl" />
-        <option value="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/common/MainConfig.class" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/common/MainConfig.java" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/webapp/test/inputBigType.ftl" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/webapp/test/inputQuestion.ftl" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/controller/TestController.java" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/testing/controller/TestController.java" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/util/CharSetKit.java" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/webapp/WEB-INF/web.xml" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/service/treeNode.java" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentSys/util/treeNode.java" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/resources/local.properties" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/util/TreeNode.java" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/UrlInterceptor.java" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/BaseController.java" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/util/Common.java" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/Service.java" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/util/IpKit.java" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/webapp/test/survey.ftl" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/webapp/user/login.ftl" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/util/RenderKit.java" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/MainConfig.java" />
-        <option value="$PROJECT_DIR$/studentSys/src/main/webapp/test/index.ftl" />
         <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/surveys/controller/TestController.java" />
         <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/surveys/service/TestService.java" />
         <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/surveys/controller/SurveysController.java" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/FastGenerator.java" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/BaseMapping.java" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/resources/local.properties" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/studentSysRoutes.java" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/BuildMapping.java" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/test.java" />
+        <option value="$PROJECT_DIR$/studentSys/pom.xml" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/MainConfig.java" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/resources/student_manager.sql" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/model/Role.java" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/model/Mapping.java" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/webapp/userManager/index.ftl" />
+        <option value="$USER_HOME$/Desktop/201512241050280/js/modernizr-custom.js" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/webapp/surveys/survey.ftl" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/webapp/common/search.ftl" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/webapp/common/fastOprator.ftl" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/webapp/common/newest.ftl" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/webapp/userManager/userList.ftl" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/webapp/assets/css/bootstrap.css" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/webapp/common/statistics.ftl" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/webapp/common/index.ftl" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/webapp/assets/js/chartjs.js" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/webapp/macro-foot.ftl" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/webapp/macro-left.ftl" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/webapp/assets/js/custom-scripts.js" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/util/ArrayTree.java" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/webapp/static/css/base.css" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/webapp/macro-head.ftl" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/webapp/assets/css/custom-styles.css" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/webapp/studentManager/index.ftl" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/webapp/userManager/roleList.ftl" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/util/Common.java" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/webapp/index.ftl" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/Build.java" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/CertificateController.java" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/StudentController.java" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/OptionController.java" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/IndexController.java" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/AttendanceController.java" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/EnrollController.java" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/PaymentController.java" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/UserController.java" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/service/MappingService.java" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/BaseController.java" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/service/RoleService.java" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/Service.java" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/surveys/common/SurveysRoutes.java" />
+        <option value="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/StudentSysRoutes.java" />
       </list>
     </option>
   </component>
@@ -316,9 +474,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -347,7 +502,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="target" />
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -361,59 +520,15 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="target" />
+              <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="classes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JFinalProj" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="studentSys" />
+              <option name="myItemId" value="main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="target" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="classes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hudongwx" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JFinalProj" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="studentSys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="target" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="classes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
+              <option name="myItemId" value="java" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -422,566 +537,104 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="surveys" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JFinalProj" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="studentSys" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hudongwx" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="surveys" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JFinalProj" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="studentSys" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hudongwx" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="studentsys" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JFinalProj" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="studentSys" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hudongwx" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="studentsys" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JFinalProj" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="studentSys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="target" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="classes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hudongwx" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="surveys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="model" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JFinalProj" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="studentSys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="target" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="classes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hudongwx" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="surveys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controller" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JFinalProj" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="studentSys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="target" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="classes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hudongwx" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="surveys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="common" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JFinalProj" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="studentSys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="target" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="classes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hudongwx" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="studentsys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JFinalProj" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="studentSys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="target" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="classes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hudongwx" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="studentsys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="model" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JFinalProj" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="studentSys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="target" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="classes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hudongwx" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="studentsys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="exceptions" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JFinalProj" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="studentSys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="target" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="classes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hudongwx" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="studentsys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="common" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JFinalProj" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="studentSys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JFinalProj" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="studentSys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="WEB-INF" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JFinalProj" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="studentSys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="user" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JFinalProj" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="studentSys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JFinalProj" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="studentSys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JFinalProj" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="studentSys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hudongwx" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="surveys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JFinalProj" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="studentSys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hudongwx" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="surveys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="model" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JFinalProj" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="studentSys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hudongwx" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="surveys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controller" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JFinalProj" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="studentSys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hudongwx" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="surveys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="common" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JFinalProj" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="studentSys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hudongwx" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="studentsys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JFinalProj" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="studentSys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hudongwx" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="studentsys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="util" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1055,6 +708,9 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1089,6 +745,13 @@
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="MySQL" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\java_web\JFinalProj\studentSys\src\main\webapp\assets" />
+      <recent name="D:\java_web\JFinalProj\studentSys\src\main\webapp\assets\css" />
+      <recent name="D:\java_web\JFinalProj\studentSys\src\main\webapp\assets\font-awesome" />
+      <recent name="D:\java_web\JFinalProj\studentSys\src\main\java\com\hudongwx\testing\model" />
+      <recent name="D:\java_web\JFinalProj\studentSys\src\main\resources" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.hudongwx.testing.common" />
       <recent name="com.hudongwx.testing.controller" />
@@ -1096,22 +759,15 @@
       <recent name="com.hudongwx.testing.model" />
       <recent name="" />
     </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.hudongwx.studentSys.util" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\java_web\JFinalProj\studentSys\src\main\webapp\assets\fonts" />
       <recent name="D:\java_web\JFinalProj\studentSys\src\main\webapp\test" />
       <recent name="D:\java_web\JFinalProj\studentSys\src\main\webapp\static\css" />
       <recent name="D:\java_web\JFinalProj\studentSys\src\main\webapp\static\js\lib" />
       <recent name="D:\java_web\JFinalProj\studentSys\src\main\webapp\static\css\lib" />
-      <recent name="D:\java_web\JFinalProj\studentSys\src\main\webapp\images" />
-    </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="com.hudongwx.studentSys.util" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\java_web\JFinalProj\studentSys\src\main\java\com\hudongwx\testing\model" />
-      <recent name="D:\java_web\JFinalProj\studentSys\src\main\resources" />
-      <recent name="D:\java_web\JFinalProj\studentSys\src\main\webapp\images" />
-      <recent name="D:\java_web\JFinalProj\studentSys\src\main\webapp\assets\img" />
-      <recent name="D:\java_web\JFinalProj\studentSys\src\main\webapp" />
     </key>
   </component>
   <component name="RunManager" selected="Maven.studentSys">
@@ -1135,14 +791,14 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="TestGenerator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="Build" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
-          <option name="PATTERN" value="com.hudongwx.studentsys.model.*" />
+          <option name="PATTERN" value="com.hudongwx.studentsys.common.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="MAIN_CLASS_NAME" value="com.hudongwx.studentsys.model.TestGenerator" />
+      <option name="MAIN_CLASS_NAME" value="com.hudongwx.studentsys.common.Build" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
@@ -1153,6 +809,84 @@
       <option name="PASS_PARENT_ENVS" value="true" />
       <module name="studentSys" />
       <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="Build" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.hudongwx.studentsys.common.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="studentSys" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.hudongwx.studentsys.common" />
+      <option name="MAIN_CLASS_NAME" value="com.hudongwx.studentsys.common.Build" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="Build.testToBuild" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.hudongwx.studentsys.common.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="studentSys" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.hudongwx.studentsys.common" />
+      <option name="MAIN_CLASS_NAME" value="com.hudongwx.studentsys.common.Build" />
+      <option name="METHOD_NAME" value="testToBuild" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="Build.testClearMapping" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.hudongwx.studentsys.common.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="studentSys" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.hudongwx.studentsys.common" />
+      <option name="MAIN_CLASS_NAME" value="com.hudongwx.studentsys.common.Build" />
+      <option name="METHOD_NAME" value="testClearMapping" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
       <method />
     </configuration>
     <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" ALTERNATIVE_JRE_ENABLED="false">
@@ -1628,15 +1362,21 @@
         <option name="MakeProject" enabled="true" />
       </method>
     </configuration>
-    <list size="3">
+    <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Maven.studentSys" />
       <item index="1" class="java.lang.String" itemvalue="Application.FastGenerator" />
-      <item index="2" class="java.lang.String" itemvalue="Application.TestGenerator" />
+      <item index="2" class="java.lang.String" itemvalue="Application.Build" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.Build" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.Build.testToBuild" />
+      <item index="5" class="java.lang.String" itemvalue="JUnit.Build.testClearMapping" />
     </list>
     <recent_temporary>
-      <list size="2">
-        <item index="0" class="java.lang.String" itemvalue="Application.TestGenerator" />
-        <item index="1" class="java.lang.String" itemvalue="Application.FastGenerator" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="Application.FastGenerator" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.Build.testClearMapping" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.Build.testToBuild" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.Build" />
+        <item index="4" class="java.lang.String" itemvalue="Application.Build" />
       </list>
     </recent_temporary>
   </component>
@@ -1676,6 +1416,14 @@
       <workItem from="1473324877604" duration="3750000" />
       <workItem from="1473333336080" duration="3701000" />
       <workItem from="1473383105091" duration="13110000" />
+      <workItem from="1474176379088" duration="6556000" />
+      <workItem from="1474217142359" duration="3843000" />
+      <workItem from="1474246859020" duration="8557000" />
+      <workItem from="1474257404025" duration="16862000" />
+      <workItem from="1474296646031" duration="8087000" />
+      <workItem from="1474332841428" duration="23665000" />
+      <workItem from="1474419066926" duration="13679000" />
+      <workItem from="1474440292290" duration="2692000" />
     </task>
     <task id="LOCAL-00001" summary="新建项目">
       <created>1472643001120</created>
@@ -1855,8 +1603,34 @@
     <option name="localTasksCounter" value="26" />
     <servers />
   </component>
+  <component name="TestHistory">
+    <history-entry file="Build - 2016.09.19 at 11h 01m 34s.xml">
+      <configuration name="Build" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="Build_testClearMapping - 2016.09.19 at 11h 04m 36s.xml">
+      <configuration name="Build.testClearMapping" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="Build_testToBuild - 2016.09.19 at 11h 02m 18s.xml">
+      <configuration name="Build.testToBuild" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="test_testBuild - 2016.09.19 at 10h 44m 42s.xml">
+      <configuration name="test.testBuild" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="test_testBuild - 2016.09.19 at 10h 44m 58s.xml">
+      <configuration name="test.testBuild" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="test_testBuild - 2016.09.19 at 10h 45m 21s.xml">
+      <configuration name="test.testBuild" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="test_testBuild - 2016.09.19 at 10h 46m 06s.xml">
+      <configuration name="test.testBuild" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="test_testClearMapping - 2016.09.19 at 10h 46m 21s.xml">
+      <configuration name="test.testClearMapping" configurationId="JUnit" />
+    </history-entry>
+  </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="284990000" />
+    <option name="totallyTimeSpent" value="368931000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1880,20 +1654,19 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36490682" sideWeight="0.50292826" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33055976" sideWeight="0.49436393" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41706926" sideWeight="0.4969743" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2979066" sideWeight="0.48789713" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30595812" sideWeight="0.48789713" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3268921" sideWeight="0.48487142" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25402635" sideWeight="0.47826087" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4054463" sideWeight="0.4686775" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26626325" sideWeight="0.5217391" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22541603" sideWeight="0.5313225" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42057487" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38486314" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24886191" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26626325" sideWeight="0.5217391" order="5" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3167702" sideWeight="0.49707174" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42512077" sideWeight="0.49707174" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1901,6 +1674,7 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3262519" sideWeight="0.5056361" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.4969743" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38486314" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="UnknownFeatures">
@@ -1933,7 +1707,7 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="60" />
+      <option name="time" value="83" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1942,434 +1716,411 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/IndexController.java">
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/model/Mapping.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="10" column="25" selection-start-line="10" selection-start-column="25" selection-end-line="10" selection-end-column="25" />
+        <state relative-caret-position="172">
+          <caret line="61" column="123" selection-start-line="61" selection-start-column="123" selection-end-line="61" selection-end-column="123" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/surveys/common/BaseQuestionBigType.java">
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/BaseMapping.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="27" column="21" selection-start-line="27" selection-start-column="21" selection-end-line="27" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/util/TreeNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="24" column="37" selection-start-line="24" selection-start-column="37" selection-end-line="24" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/macro-left.ftl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="26" column="45" selection-start-line="26" selection-start-column="45" selection-end-line="26" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/macro-head.ftl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/common/index.ftl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="9" column="16" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/jfinal/jfinal/2.2/jfinal-2.2-sources.jar!/com/jfinal/core/Action.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="57" column="0" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+        <state relative-caret-position="207">
+          <caret line="47" column="39" selection-start-line="47" selection-start-column="39" selection-end-line="47" selection-end-column="39" />
           <folding>
-            <element signature="e#1711#1712#0" expanded="false" />
+            <element signature="e#937#938#0" expanded="false" />
+            <element signature="e#1015#1016#0" expanded="false" />
+            <element signature="e#1123#1124#0" expanded="false" />
+            <element signature="e#1205#1206#0" expanded="false" />
+            <element signature="e#1293#1294#0" expanded="false" />
+            <element signature="e#1365#1366#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/jfinal/jfinal/2.2/jfinal-2.2-sources.jar!/com/jfinal/core/ActionReporter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="107" column="0" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/BaseController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="24" column="6" selection-start-line="24" selection-start-column="6" selection-end-line="24" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/common/BaseController.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1040">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#3637#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/common/BaseClass.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-468">
-          <caret line="8" column="44" selection-start-line="8" selection-start-column="44" selection-end-line="8" selection-end-column="44" />
-          <folding>
-            <element signature="e#0#1284#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/model/Class.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-130">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#321#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/model/_MappingKit.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#993#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/common/UrlInterceptor.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="21" column="50" selection-start-line="21" selection-start-column="50" selection-end-line="21" selection-end-column="50" />
-          <folding>
-            <element signature="e#0#731#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/common/MainConfig.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1880">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#6899#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/surveys/controller/TestController.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/jfinal/jfinal/2.2/jfinal-2.2-sources.jar!/com/jfinal/handler/Handler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-112">
-          <caret line="32" column="22" selection-start-line="32" selection-start-column="22" selection-end-line="32" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/jfinal/jfinal/2.2/jfinal-2.2-sources.jar!/com/jfinal/plugin/activerecord/Model.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="868" column="19" selection-start-line="868" selection-start-column="19" selection-end-line="868" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_45/src.zip!/java/lang/Character.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="6922" column="22" selection-start-line="6922" selection-start-column="22" selection-end-line="6922" selection-end-column="22" />
-          <folding>
-            <element signature="e#197464#197465#0" expanded="false" />
-            <element signature="e#197503#197504#0" expanded="false" />
-            <element signature="e#198787#198788#0" expanded="false" />
-            <element signature="e#198862#198863#0" expanded="false" />
-            <element signature="e#252159#252160#0" expanded="false" />
-            <element signature="e#252228#252229#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/util/StrPlusKit.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="1842" column="33" selection-start-line="1842" selection-start-column="30" selection-end-line="1842" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_45/src.zip!/java/lang/Runnable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="67" column="25" selection-start-line="67" selection-start-column="25" selection-end-line="67" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/util/IpKit.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-26">
-          <caret line="13" column="18" selection-start-line="13" selection-start-column="18" selection-end-line="13" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/Service.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="26">
-          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/resources/local.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="6" column="22" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/resources/surverys_sys_db.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="23" column="11" selection-start-line="23" selection-start-column="4" selection-end-line="23" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/surveys/common/BaseQuestionnaire.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="32" column="27" selection-start-line="32" selection-start-column="27" selection-end-line="32" selection-end-column="27" />
-          <folding>
-            <element signature="e#719#720#0" expanded="true" />
-            <element signature="e#744#745#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/util/Common.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="27" column="38" selection-start-line="27" selection-start-column="38" selection-end-line="27" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/test/inputBigType.ftl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="54" column="17" selection-start-line="54" selection-start-column="17" selection-end-line="54" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/macro-head-single.ftl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="26">
-          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="13" selection-end-column="96" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/static/js/common.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="59" column="9" selection-start-line="8" selection-start-column="8" selection-end-line="59" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/user/login.ftl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="41" column="16" selection-start-line="41" selection-start-column="16" selection-end-line="41" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/macro-foot.ftl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="7" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/jfinal/jfinal/2.2/jfinal-2.2-sources.jar!/com/jfinal/ext/interceptor/POST.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/UrlInterceptor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/jfinal/jfinal/2.2/jfinal-2.2-sources.jar!/com/jfinal/plugin/activerecord/tx/TxByMethodRegex.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="137">
-          <caret line="62" column="0" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/com/jfinal/jfinal/2.2/jfinal-2.2-sources.jar!/com/jfinal/aop/Invocation.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="137">
-          <caret line="95" column="0" selection-start-line="95" selection-start-column="0" selection-end-line="95" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="109">
+          <caret line="85" column="0" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/jfinal/jfinal/2.2/jfinal-2.2-sources.jar!/com/jfinal/core/ActionHandler.java">
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_45/src.zip!/java/util/List.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="131" column="0" selection-start-line="131" selection-start-column="0" selection-end-line="131" selection-end-column="0" />
+        <state relative-caret-position="109">
+          <caret line="144" column="12" selection-start-line="144" selection-start-column="12" selection-end-line="144" selection-end-column="12" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-server/8.1.8.v20121106/jetty-server-8.1.8.v20121106-sources.jar!/org/eclipse/jetty/server/handler/ContextHandler.java">
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/util/TreeNode.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="1182" column="4" selection-start-line="1182" selection-start-column="4" selection-end-line="1182" selection-end-column="4" />
-          <folding />
+        <state relative-caret-position="-374">
+          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-server/8.1.8.v20121106/jetty-server-8.1.8.v20121106-sources.jar!/org/eclipse/jetty/server/session/SessionHandler.java">
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/surveys/macro-head.ftl">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="137">
-          <caret line="227" column="0" selection-start-line="227" selection-start-column="0" selection-end-line="227" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/jfinal/jetty-server/8.1.8/jetty-server-8.1.8-sources.jar!/org/eclipse/jetty/security/SecurityHandler.java">
+    <entry file="file://$USER_HOME$/Desktop/201512241050280/js/modernizr-custom.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="566" column="0" selection-start-line="566" selection-start-column="0" selection-end-line="566" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="52">
+          <caret line="2" column="21" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-server/8.1.8.v20121106/jetty-server-8.1.8.v20121106-sources.jar!/org/eclipse/jetty/server/handler/ScopedHandler.java">
+    <entry file="file://$USER_HOME$/Desktop/201512241050280/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="144" column="0" selection-start-line="144" selection-start-column="0" selection-end-line="144" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="363">
+          <caret line="424" column="9" selection-start-line="424" selection-start-column="9" selection-end-line="424" selection-end-column="9" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-servlet/8.1.8.v20121106/jetty-servlet-8.1.8.v20121106.jar!/org/eclipse/jetty/servlet/ServletHandler.class">
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/static/css/lib/bootstrap.min.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="127">
-          <caret line="289" column="157" selection-start-line="289" selection-start-column="157" selection-end-line="289" selection-end-column="157" />
-          <folding />
+        <state relative-caret-position="-14367">
+          <caret line="17" column="58218" selection-start-line="17" selection-start-column="58218" selection-end-line="17" selection-end-column="58218" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/jfinal/jfinal/2.2/jfinal-2.2-sources.jar!/com/jfinal/core/JFinalFilter.java">
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/surveys/survey.ftl">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="82" column="0" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="104">
+          <caret line="94" column="8" selection-start-line="94" selection-start-column="8" selection-end-line="94" selection-end-column="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/RequestHandler.java">
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/common/fastOprator.ftl">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="0">
+          <caret line="0" column="25" selection-start-line="0" selection-start-column="25" selection-end-line="0" selection-end-column="25" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/test/survey.ftl">
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/assets/css/bootstrap.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="26">
-          <caret line="5" column="4" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="4" />
+          <caret line="4" column="117" selection-start-line="4" selection-start-column="117" selection-end-line="4" selection-end-column="117" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/common/search.ftl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="6" column="18" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/assets/js/chartjs.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="10" column="23" selection-start-line="0" selection-start-column="0" selection-end-line="269" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/assets/js/jquery.metisMenu.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="36" column="4" selection-start-line="36" selection-start-column="4" selection-end-line="36" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/static/css/css.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="35" column="21" selection-start-line="35" selection-start-column="21" selection-end-line="35" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/assets/js/custom-scripts.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/macro-foot.ftl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-49">
+          <caret line="16" column="26" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/common/statistics.ftl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="185">
+          <caret line="89" column="10" selection-start-line="89" selection-start-column="10" selection-end-line="89" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/util/ArrayTree.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="161" column="44" selection-start-line="161" selection-start-column="44" selection-end-line="161" selection-end-column="44" />
+          <folding>
+            <element signature="e#4180#4181#0" expanded="false" />
+            <element signature="e#4232#4233#0" expanded="false" />
+            <element signature="e#4272#4273#0" expanded="false" />
+            <element signature="e#4324#4325#0" expanded="false" />
+            <element signature="e#4386#4387#0" expanded="false" />
+            <element signature="e#4437#4438#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/common/newest.ftl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="7" column="12" selection-start-line="7" selection-start-column="12" selection-end-line="55" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/common/index.ftl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/macro-head.ftl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="7" column="9" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/macro-head-single.ftl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/test/index.ftl">
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/static/css/base.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="66" column="40" selection-start-line="66" selection-start-column="40" selection-end-line="66" selection-end-column="70" />
+        <state relative-caret-position="107">
+          <caret line="382" column="24" selection-start-line="382" selection-start-column="24" selection-end-line="382" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/assets/js/dataTables/dataTables.bootstrap.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="57" column="35" selection-start-line="57" selection-start-column="35" selection-end-line="57" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/userManager/roleList.ftl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="702">
+          <caret line="27" column="61" selection-start-line="27" selection-start-column="61" selection-end-line="27" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/assets/css/custom-styles.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="104">
+          <caret line="236" column="4" selection-start-line="236" selection-start-column="4" selection-end-line="236" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/studentManager/studentList.ftl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/macro-left.ftl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-52">
+          <caret line="18" column="10" selection-start-line="18" selection-start-column="10" selection-end-line="18" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/userManager/userList.ftl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-517">
+          <caret line="8" column="20" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/studentManager/index.ftl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="9" column="23" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/userManager/index.ftl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="12" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="22" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/util/Common.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="25" column="45" selection-start-line="25" selection-start-column="45" selection-end-line="25" selection-end-column="45" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/MainConfig.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="135" column="0" selection-start-line="135" selection-start-column="0" selection-end-line="135" selection-end-column="0" />
+        <state relative-caret-position="108">
+          <caret line="34" column="23" selection-start-line="34" selection-start-column="23" selection-end-line="34" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/util/RenderKit.java">
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/index.ftl">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="20" column="5" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
+        <state relative-caret-position="416">
+          <caret line="16" column="16" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/AttendanceController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="13" column="33" selection-start-line="13" selection-start-column="33" selection-end-line="13" selection-end-column="33" />
           <folding>
-            <element signature="e#541#542#0" expanded="true" />
-            <element signature="e#582#583#0" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/webapp/WEB-INF/web.xml">
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/CertificateController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="11" column="74" selection-start-line="11" selection-start-column="74" selection-end-line="11" selection-end-column="74" />
+        <state relative-caret-position="275">
+          <caret line="13" column="14" selection-start-line="13" selection-start-column="14" selection-end-line="13" selection-end-column="32" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/surveys/service/SurveysService.java">
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/EnrollController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="25" column="19" selection-start-line="25" selection-start-column="19" selection-end-line="25" selection-end-column="19" />
+        <state relative-caret-position="384">
+          <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
+          <folding>
+            <element signature="e#447#448#0" expanded="false" />
+            <element signature="e#476#477#0" expanded="false" />
+            <marker date="1474440956681" expanded="true" signature="363:407" ph="/**...*/" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/IndexController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="338">
+          <caret line="17" column="18" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#426#427#0" expanded="false" />
+            <element signature="e#453#454#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/OptionController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="10" column="54" selection-start-line="10" selection-start-column="54" selection-end-line="10" selection-end-column="54" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/surveys/controller/SurveysController.java">
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/PaymentController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="20" column="34" selection-start-line="20" selection-start-column="34" selection-end-line="20" selection-end-column="34" />
+        <state relative-caret-position="358">
+          <caret line="16" column="20" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/StudentController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="358">
+          <caret line="17" column="20" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/Build.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="129">
+          <caret line="24" column="49" selection-start-line="24" selection-start-column="49" selection-end-line="24" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/UserController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="15" column="27" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="27" />
+          <folding>
+            <element signature="e#686#687#0" expanded="true" />
+            <element signature="e#715#716#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/BaseController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-104">
+          <caret line="26" column="30" selection-start-line="26" selection-start-column="30" selection-end-line="26" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/service/RoleService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="52">
+          <caret line="21" column="20" selection-start-line="21" selection-start-column="20" selection-end-line="21" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/service/MappingService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="18" column="40" selection-start-line="18" selection-start-column="40" selection-end-line="18" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/Service.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="258">
+          <caret line="27" column="23" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/surveys/common/SurveysRoutes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="14" column="54" selection-start-line="14" selection-start-column="54" selection-end-line="14" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/StudentSysRoutes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="258">
+          <caret line="24" column="50" selection-start-line="24" selection-start-column="50" selection-end-line="24" selection-end-column="50" />
           <folding />
         </state>
       </provider>
@@ -2382,9 +2133,9 @@
           <artifact-editor>
             <show-sorted>false</show-sorted>
             <show-content>
+              <type id="javaee-facet-resources" />
               <type id="jpa-descriptors" />
               <type id="artifact" />
-              <type id="javaee-facet-resources" />
               <type id="library" />
             </show-content>
           </artifact-editor>

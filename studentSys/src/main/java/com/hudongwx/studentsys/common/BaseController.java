@@ -4,10 +4,11 @@ import com.hudongwx.studentsys.model.Mapping;
 import com.hudongwx.studentsys.model.User;
 import com.hudongwx.studentsys.service.MappingService;
 import com.hudongwx.studentsys.service.RoleService;
+import com.hudongwx.studentsys.util.ArrayTree;
 import com.hudongwx.studentsys.util.Common;
 import com.hudongwx.studentsys.util.LangConfig;
-import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
+import com.jfinal.kit.HandlerKit;
 import com.jfinal.kit.Prop;
 import com.jfinal.log.Log;
 
@@ -19,14 +20,16 @@ import java.util.List;
 /**
  * Created by wuhongxu on 2016/8/30 0030.
  */
-public class BaseController extends Controller {
+public abstract class BaseController extends Controller {
     protected Log log = Log.getLog(this.getClass());
+    public MappingService mappingService;
+    public RoleService roleService;
+    protected Mapping mapping;
 
     public BaseController() {
-        Field[] fields = this.getClass().getDeclaredFields();
-
-        for (int i = 0; i < fields.length; i++) {
-            Field field = fields[i];
+        Field[] fields = this.getClass().getFields();
+        for (Field field : fields) {
+            log.info("获取到属性："+field.getName());
             Class clazz = field.getType();
             if (Service.class.isAssignableFrom(clazz) && clazz != Service.class) {
                 try {
@@ -37,7 +40,21 @@ public class BaseController extends Controller {
                 }
             }
         }
+        mapping = mappingService.getMappingByTitle(init());
     }
+    public void index(){
+        fillHeaderAndFooter();
+        if(!fillContent()){
+            return ;
+        }
+        render("/index.ftl");
+    }
+
+    /**
+     *
+     * @return 返回mapping的title属性
+     */
+    public abstract String init();
     public void fillHeader() {
         //三个地址：static用于找资源、servePath用于得到去掉参数的网址、holdPath为带参数网址
         String uri = getRequest().getRequestURI();
@@ -84,33 +101,50 @@ public class BaseController extends Controller {
     }
 
     //页面测试
-    protected void fillTest(MappingService mappingService) {
+    protected void fillTest() {
 
-        List<Mapping> mappings = mappingService.getMappings();
+        List<Mapping> mappings = mappingService.getTree().getList();
+        mappings.remove(0);
 
-        setAttr(Common.SIDES_LABEL,mappings);
+        setAttr(Common.SIDES_LABEL, mappings);
 
     }
-    public void fillContent(RoleService roleService){
-        User user = getSessionAttr("user");
-        if(user == null){
-            forwardAction("/user/login");
-            return ;
-        }
-        List<Mapping> roleTree = roleService.getRoleTree(roleService.getRoleByName(user.getUserRole()));
 
+    public boolean fillContent() {
+        User user = getSessionAttr("user");
+        if (user == null) {
+            /*redirect("/user/login");
+            return false;*/
+            user = new User();
+            user.setUserRole("admin");
+        }
+        if(mapping == null){
+            renderError(403);
+        }
+        ArrayTree<Mapping> roleTree = roleService.getRoleTree(roleService.getRoleByName(user.getUserRole()));
+        String actionKey = getAttr(Common.ACTION_KEY_LABEL);
         List<Mapping> sides = new ArrayList<>();
         List<Mapping> content = new ArrayList<>();
-        for(Mapping mapping : roleTree){
-            if(mapping.getDegree() == 1)
-                sides.add(mapping);
-            if(mapping.getDegree() == 2)
-                content.add(mapping);
-        }
-        setAttr(Common.SIDES_LABEL,sides);
-        setAttr(Common.CONTENT_LABEL,content);
+        roleTree.checkTree(now -> {
+            if(roleTree.getParent(now) == null)
+                return true;
+            if (now.getDegree() == 1) {
+                sides.add(now);
+            }
+            if (roleTree.getParent(now).equals(mapping)) {
+                content.add(now);
+            }
+            return true;
+        });
+        setAttr(Common.SIDES_LABEL, sides);
+        setAttr(Common.CONTENT_LABEL, content);
+        setAttr(Common.NOW_VISITE_LABEL,mapping);
+        //base仅处理两层，其他处理继续下放
+        setAttr(Common.ROLE_TREE_LABEL,roleTree);
+        return true;
     }
-    public void fillHeaderAndFooter() {
+
+    protected void fillHeaderAndFooter() {
         fillHeader();
         fillFooter();
     }

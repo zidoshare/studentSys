@@ -9,11 +9,11 @@ import com.jfinal.plugin.activerecord.IBean;
 @SuppressWarnings("serial")
 public abstract class BaseMapping<M extends BaseMapping<M>> extends Model<M> implements IBean {
 
-	public void setId(java.lang.Long id) {
+	public void setId(java.lang.Integer id) {
 		set("id", id);
 	}
 
-	public java.lang.Long getId() {
+	public java.lang.Integer getId() {
 		return get("id");
 	}
 
@@ -41,27 +41,27 @@ public abstract class BaseMapping<M extends BaseMapping<M>> extends Model<M> imp
 		return get("icon");
 	}
 
-	public void setLeftChildId(java.lang.Long leftChildId) {
+	public void setLeftChildId(java.lang.Integer leftChildId) {
 		set("leftChildId", leftChildId);
 	}
 
-	public java.lang.Long getLeftChildId() {
+	public java.lang.Integer getLeftChildId() {
 		return get("leftChildId");
 	}
 
-	public void setNextSiblingId(java.lang.Long nextSiblingId) {
+	public void setNextSiblingId(java.lang.Integer nextSiblingId) {
 		set("nextSiblingId", nextSiblingId);
 	}
 
-	public java.lang.Long getNextSiblingId() {
+	public java.lang.Integer getNextSiblingId() {
 		return get("nextSiblingId");
 	}
 
-	public void setParentId(java.lang.Long parentId) {
+	public void setParentId(java.lang.Integer parentId) {
 		set("parentId", parentId);
 	}
 
-	public java.lang.Long getParentId() {
+	public java.lang.Integer getParentId() {
 		return get("parentId");
 	}
 

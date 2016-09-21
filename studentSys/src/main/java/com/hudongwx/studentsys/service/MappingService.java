@@ -3,8 +3,10 @@ package com.hudongwx.studentsys.service;
 import com.hudongwx.studentsys.common.Service;
 import com.hudongwx.studentsys.exceptions.ServiceException;
 import com.hudongwx.studentsys.model.Mapping;
+import com.hudongwx.studentsys.util.ArrayTree;
 import com.hudongwx.studentsys.util.Common;
 import com.hudongwx.studentsys.util.StrPlusKit;
+import com.hudongwx.studentsys.util.TreeNode;
 import com.jfinal.log.Log;
 import com.jfinal.plugin.ehcache.CacheKit;
 
@@ -16,8 +18,65 @@ import java.util.List;
  */
 public class MappingService extends Service {
     private Log log = Log.getLog(getClass());
-    public List<Mapping> getMappings(){
-        return Mapping.dao.findByCache(Common.CACHE_FOEVER_LABEL, "mappingTree", "select * from stumanager_mapping");
+
+    /*//私有化构造函数
+    private MappingService(){}
+
+    private static MappingService mappingService = new MappingService();
+    public static MappingService create(){
+        return mappingService;
+    }*/
+    public ArrayTree<Mapping> getTree(){
+        ArrayTree<Mapping> mappingTree = CacheKit.get(Common.CACHE_60TIME_LABEL, "mappingTree");
+        if(mappingTree == null){
+            //查询持久化之后的
+            List<Mapping> mappings = Mapping.dao.find("select * from stumanager_mapping");
+            //------------装载树--------------
+            mappingTree = new ArrayTree<>();
+            for(Mapping m : mappings){
+                for(Mapping mp : mappings){
+                    if(mp.getId().equals(m.getParentId()))
+                        m.setParent(mp);
+                    else if(mp.getId().equals(m.getLeftChildId()))
+                        m.setLeftChild(mp);
+                    else if(mp.getId().equals(m.getNextSiblingId()))
+                        m.setNextSibling(mp);
+                }
+                //要实现ArrayTree的遍历，必须将树根放置于首位
+                if(m.getTitle().equals("根目录"))
+                    mappingTree.addGoodNode(0,m);
+                else
+                    mappingTree.addGoodNode(m);
+            }
+            //------------装载完成--------------
+            //加入缓存
+            CacheKit.put(Common.CACHE_60TIME_LABEL, "mappingTree",mappingTree);
+        }
+        return mappingTree;
+    }
+    public Mapping getMappingById(Integer id){
+        List<Mapping> list = getTree().getList();
+        for(Mapping mp:list){
+            if(mp.getId().equals(id))
+                return mp;
+        }
+        return null;
+    }
+    public Mapping getMappingByUrl(String url){
+        List<Mapping> list = getTree().getList();
+        for(Mapping mp:list){
+            if(mp.getUrl().equals(url))
+                return mp;
+        }
+        return null;
+    }
+    public Mapping getMappingByTitle(String title){
+        List<Mapping> list = getTree().getList();
+        for(Mapping mp:list){
+            if(mp.getTitle().equals(title))
+                return mp;
+        }
+        return null;
     }
     public boolean _saveMappings(List<Mapping> mappings) {
         try {
@@ -37,17 +96,18 @@ public class MappingService extends Service {
         }
         return false;
     }
-    public void _saveMapping(Mapping mappingNode){
+    public boolean _saveMapping(Mapping mappingNode){
+        boolean x = false;
         try {
             packingMapping(mappingNode);
-            mappingNode.save();
+            x = mappingNode.save();
             List<Mapping> mappingTree = CacheKit.get(Common.CACHE_FOEVER_LABEL, "mappingTree");
             mappingTree.add(mappingNode);
             CacheKit.put(Common.CACHE_FOEVER_LABEL,"mappingTree",mappingTree);
         } catch (ServiceException e) {
             e.printStackTrace();
         }
-
+        return x;
     }
     public void _deleteMapping(Mapping mapping){
         mapping.delete();
@@ -63,8 +123,6 @@ public class MappingService extends Service {
             throw new ServiceException("mapping's title cannot be null or \"\"");
         if(StrPlusKit.isEmpty(mapping.getUrl()))
             throw new ServiceException("mapping's url cannot be null or \"\"");
-        if(mapping.getId() == null || mapping.getId() == 0)
-            mapping.setId(System.currentTimeMillis());
     }
     public void packingMappings(List<Mapping> mappings) throws ServiceException {
         for(Mapping mapping : mappings){

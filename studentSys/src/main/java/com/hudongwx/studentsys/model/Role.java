@@ -1,6 +1,7 @@
 package com.hudongwx.studentsys.model;
 
 import com.hudongwx.studentsys.common.BaseRole;
+import com.hudongwx.studentsys.util.ArrayTree;
 
 import java.util.List;
 
@@ -10,5 +11,5 @@ import java.util.List;
 @SuppressWarnings("serial")
 public class Role extends BaseRole<Role> {
 	public static final Role dao = new Role();
-	public List<Mapping> allowMappings = null;
+	public ArrayTree<Mapping> allowTree = null;
 }
