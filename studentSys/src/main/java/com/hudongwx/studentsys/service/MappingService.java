@@ -29,7 +29,7 @@ public class MappingService extends Service {
     public ArrayTree<Mapping> getTree(){
         ArrayTree<Mapping> mappingTree = CacheKit.get(Common.CACHE_60TIME_LABEL, "mappingTree");
         if(mappingTree == null){
-            //查询持久化之后的
+            //查询持久化之后的树
             List<Mapping> mappings = Mapping.dao.find("select * from stumanager_mapping");
             //------------装载树--------------
             mappingTree = new ArrayTree<>();
