@@ -19,7 +19,6 @@ import java.util.List;
 
 /**
  * Created by wuhongxu on 2016/8/30 0030.
- *
  */
 public abstract class BaseController extends Controller {
     protected Log log = Log.getLog(this.getClass());
@@ -56,7 +55,6 @@ public abstract class BaseController extends Controller {
      * @return 返回mapping的title属性
      */
     public abstract String init();
-
     public void fillHeader() {
         //三个地址：static用于找资源、servePath用于得到去掉参数的网址、holdPath为带参数网址
         String uri = getRequest().getRequestURI();
