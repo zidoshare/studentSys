@@ -1,2 +1,0 @@
-<a class="btn btn-success" href="/inputQuestion">添加问题</a> · <a class="btn btn-success" href="/inputBigType">添加大类型</a>
- · <a class="btn btn-success" href="/inputQuestionnaire">组卷</a> · <a class="btn btn-success" href="/checkResult">统计</a>
