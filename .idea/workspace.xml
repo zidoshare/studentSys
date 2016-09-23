@@ -2,165 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="028b3639-dcc4-40a5-959b-bf280a030e49" name="Default" comment="修改命名">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/fonts/FontAwesome.otf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/fonts/fontawesome-webfont.ttf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/fonts/fontawesome-webfont.woff" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/fonts/fontawesome-webfont.woff2" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/fonts/glyphicons-halflings-regular.woff2" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/Build.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/AttendanceController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/CertificateController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/EnrollController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/OptionController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/PaymentController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/StudentController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/css/font-awesome.min.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/fonts/fontawesome-webfont.eot" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/fonts/fontawesome-webfont.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/index.ftl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/studentManager/studentList.ftl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/userManager/roleList.ftl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/userManager/userList.ftl" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_3_8_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/css/font-awesome.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/font-awesome/fonts/fontawesome-webfontba72.eot" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/font-awesome/fonts/fontawesome-webfontba72.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/font-awesome/fonts/fontawesome-webfontba72.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/font-awesome/fonts/fontawesome-webfontba72.woff" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/font-awesome/fonts/fontawesome-webfontd41d.eot" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/fonts/glyphicons-halflings-regulard41d.eot" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/css/font-awesome.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/font-awesome/fonts/fontawesome-webfontba72.eot" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/font-awesome/fonts/fontawesome-webfontba72.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/font-awesome/fonts/fontawesome-webfontba72.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/font-awesome/fonts/fontawesome-webfontba72.woff" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/font-awesome/fonts/fontawesome-webfontd41d.eot" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/fonts/glyphicons-halflings-regulard41d.eot" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/studentSys/web/WEB-INF/web.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/fonts/glyphicons-halflings-regular.ttf" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/fonts/glyphicons-halflings-regular.ttf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/fonts/glyphicons-halflings-regular.woff" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/fonts/glyphicons-halflings-regular.woff" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj.war" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj.war" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/common/BaseController.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/common/BaseController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/common/BaseEmployee.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/common/BaseEmployee.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/common/BaseMapping.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/common/BaseMapping.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/common/BaseRole.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/common/BaseRole.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/common/BaseStudent.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/common/BaseStudent.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/common/BaseUser.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/common/BaseUser.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/common/MainConfig.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/common/MainConfig.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/controller/IndexController.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/controller/IndexController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/controller/UserController.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/controller/UserController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/model/Mapping.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/model/Mapping.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/model/Role.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/model/Role.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/model/TestGenerator.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/model/TestGenerator.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/service/MappingService.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/service/MappingService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/service/RoleService.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/service/RoleService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/service/UserService.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/service/UserService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/util/ArrayTree$onCheckListener.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/util/ArrayTree$onCheckListener.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/util/ArrayTree.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/util/ArrayTree.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/util/Common.class" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/com/hudongwx/studentSys/util/Common.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/fonts/glyphicons-halflings-regular.ttf" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/fonts/glyphicons-halflings-regular.ttf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/fonts/glyphicons-halflings-regular.woff" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/fonts/glyphicons-halflings-regular.woff" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/BaseController.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/BaseController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/BaseEmployee.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/BaseEmployee.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/BaseMapping.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/BaseMapping.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/BaseRole.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/BaseRole.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/BaseStudent.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/BaseStudent.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/BaseUser.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/BaseUser.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/MainConfig.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/MainConfig.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/Service.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/Service.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/UrlInterceptor.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/common/UrlInterceptor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/controller/IndexController.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/controller/IndexController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/controller/UserController.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/controller/UserController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/model/Mapping.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/model/Mapping.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/model/Role.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/model/Role.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/model/TestGenerator.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/model/TestGenerator.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/service/MappingService.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/service/MappingService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/service/RoleService.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/service/RoleService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/service/UserService.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/service/UserService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/util/ArrayTree$onCheckListener.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/util/ArrayTree$onCheckListener.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/util/ArrayTree.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/util/ArrayTree.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/util/Common.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/util/Common.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/util/IpKit.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/util/IpKit.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/util/RenderKit.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentSys/util/RenderKit.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/common/BaseController.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/common/BaseController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/common/BaseEmployee.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/common/BaseEmployee.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/common/BaseMapping.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/common/BaseMapping.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/common/BaseRole.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/common/BaseRole.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/common/BaseStudent.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/common/BaseStudent.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/common/BaseUser.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/common/BaseUser.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/common/MainConfig.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/common/MainConfig.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/controller/IndexController.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/controller/IndexController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/controller/UserController.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/controller/UserController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/model/Mapping.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/model/Mapping.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/model/Role.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/model/Role.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/service/MappingService.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/service/MappingService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/service/RoleService.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/service/RoleService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/service/UserService.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/service/UserService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/util/ArrayTree$onCheckListener.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/util/ArrayTree$onCheckListener.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/util/ArrayTree.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/util/ArrayTree.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/common/Service.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/common/Service.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/util/Common.class" afterPath="$PROJECT_DIR$/studentSys/target/classes/com/hudongwx/studentsys/util/Common.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_jfinal_jetty_server_8_1_8.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_jfinal_jetty_server_8_1_8.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/pom.xml" afterPath="$PROJECT_DIR$/studentSys/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/BaseController.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/BaseController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/BaseEmployee.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/BaseEmployee.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/BaseMapping.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/BaseMapping.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/BaseRole.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/BaseRole.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/BaseStudent.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/BaseStudent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/BaseUser.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/BaseUser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/MainConfig.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/MainConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/Service.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/Service.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/IndexController.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/IndexController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/UserController.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/UserController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/model/Mapping.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/model/Mapping.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/model/Role.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/model/Role.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/model/_DataDictionary.txt" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/model/_DataDictionary.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/service/MappingService.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/service/MappingService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/service/RoleService.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/service/RoleService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/service/UserService.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/service/UserService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/util/ArrayTree.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/util/ArrayTree.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/util/Common.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/util/Common.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/surveys/common/SurveysRoutes.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/surveys/common/SurveysRoutes.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/surveys/controller/SurveysController.java" afterPath="$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/surveys/controller/SurveysController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/resources/local.properties" afterPath="$PROJECT_DIR$/studentSys/src/main/resources/local.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/resources/student_manager.sql" afterPath="$PROJECT_DIR$/studentSys/src/main/resources/student_manager.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/css/custom-styles.css" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/css/custom-styles.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/fonts/glyphicons-halflings-regular.eot" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/fonts/glyphicons-halflings-regular.eot" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/fonts/glyphicons-halflings-regular.svg" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/fonts/glyphicons-halflings-regular.svg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/js/custom-scripts.js" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/assets/js/custom-scripts.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/common/fastOprator.ftl" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/common/fastOprator.ftl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/common/index.ftl" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/common/index.ftl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/common/newest.ftl" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/common/newest.ftl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/common/search.ftl" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/common/search.ftl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/common/statistics.ftl" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/common/statistics.ftl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/macro-foot.ftl" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/macro-foot.ftl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/macro-head.ftl" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/macro-head.ftl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/macro-left.ftl" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/macro-left.ftl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/static/css/base.css" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/static/css/base.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/studentManager/index.ftl" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/studentManager/index.ftl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/surveys/survey.ftl" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/surveys/survey.ftl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/src/main/webapp/userManager/index.ftl" afterPath="$PROJECT_DIR$/studentSys/src/main/webapp/userManager/index.ftl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/studentSys.iml" afterPath="$PROJECT_DIR$/studentSys/studentSys.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/student_manager.sql" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/WEB-INF/classes/student_manager.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/css/custom-styles.css" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/css/custom-styles.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/fonts/glyphicons-halflings-regular.eot" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/fonts/glyphicons-halflings-regular.eot" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/fonts/glyphicons-halflings-regular.svg" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/fonts/glyphicons-halflings-regular.svg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/js/custom-scripts.js" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/assets/js/custom-scripts.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/common/fastOprator.ftl" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/common/fastOprator.ftl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/common/index.ftl" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/common/index.ftl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/common/newest.ftl" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/common/newest.ftl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/common/search.ftl" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/common/search.ftl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/common/statistics.ftl" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/common/statistics.ftl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/macro-foot.ftl" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/macro-foot.ftl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/macro-head.ftl" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/macro-head.ftl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/macro-left.ftl" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/macro-left.ftl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/static/css/base.css" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/static/css/base.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/static/js/common.js" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/static/js/common.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/studentManager/index.ftl" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/studentManager/index.ftl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/JFinalProj/userManager/index.ftl" afterPath="$PROJECT_DIR$/studentSys/target/JFinalProj/userManager/index.ftl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/local.properties" afterPath="$PROJECT_DIR$/studentSys/target/classes/local.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/studentSys/target/classes/student_manager.sql" afterPath="$PROJECT_DIR$/studentSys/target/classes/student_manager.sql" />
     </list>
     <ignored path=".idea/" />
     <ignored path="session_data/" />
@@ -214,8 +66,8 @@
       <file leaf-file-name="Build.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/Build.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="129">
-              <caret line="24" column="49" selection-start-line="24" selection-start-column="49" selection-end-line="24" selection-end-column="49" />
+            <state relative-caret-position="-131">
+              <caret line="24" column="26" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -224,7 +76,7 @@
       <file leaf-file-name="PaymentController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/PaymentController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="358">
+            <state relative-caret-position="312">
               <caret line="16" column="20" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
               <folding />
             </state>
@@ -234,11 +86,9 @@
       <file leaf-file-name="StudentController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/StudentController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="358">
+            <state relative-caret-position="338">
               <caret line="17" column="20" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="20" />
-              <folding>
-                <element signature="imports" expanded="false" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -259,8 +109,8 @@
       <file leaf-file-name="BaseController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/BaseController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-104">
-              <caret line="26" column="30" selection-start-line="26" selection-start-column="30" selection-end-line="26" selection-end-column="30" />
+            <state relative-caret-position="286">
+              <caret line="26" column="14" selection-start-line="26" selection-start-column="14" selection-end-line="26" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -269,7 +119,7 @@
       <file leaf-file-name="RoleService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/service/RoleService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="52">
+            <state relative-caret-position="234">
               <caret line="21" column="20" selection-start-line="21" selection-start-column="20" selection-end-line="21" selection-end-column="20" />
               <folding />
             </state>
@@ -279,8 +129,8 @@
       <file leaf-file-name="MappingService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/service/MappingService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="134">
-              <caret line="18" column="40" selection-start-line="18" selection-start-column="40" selection-end-line="18" selection-end-column="40" />
+            <state relative-caret-position="108">
+              <caret line="22" column="22" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -289,7 +139,7 @@
       <file leaf-file-name="Service.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/Service.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="258">
+            <state relative-caret-position="546">
               <caret line="27" column="23" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
               <folding />
             </state>
@@ -299,8 +149,8 @@
       <file leaf-file-name="StudentSysRoutes.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/StudentSysRoutes.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="258">
-              <caret line="24" column="50" selection-start-line="24" selection-start-column="50" selection-end-line="24" selection-end-column="50" />
+            <state relative-caret-position="182">
+              <caret line="8" column="31" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -309,8 +159,8 @@
       <file leaf-file-name="SurveysRoutes.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/surveys/common/SurveysRoutes.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="290">
-              <caret line="14" column="54" selection-start-line="14" selection-start-column="54" selection-end-line="14" selection-end-column="54" />
+            <state relative-caret-position="312">
+              <caret line="14" column="26" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -339,6 +189,11 @@
       </list>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="PUSH_TAGS">
       <GitPushTagMode />
     </option>
@@ -708,9 +563,9 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="Scratches" />
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1424,6 +1279,7 @@
       <workItem from="1474332841428" duration="23665000" />
       <workItem from="1474419066926" duration="13679000" />
       <workItem from="1474440292290" duration="2692000" />
+      <workItem from="1474660912613" duration="449000" />
     </task>
     <task id="LOCAL-00001" summary="新建项目">
       <created>1472643001120</created>
@@ -1630,7 +1486,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="368931000" />
+    <option name="totallyTimeSpent" value="369380000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1643,19 +1499,17 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.4969651" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36490682" sideWeight="0.50292826" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33055976" sideWeight="0.49436393" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41706926" sideWeight="0.4969743" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30595812" sideWeight="0.48789713" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3268921" sideWeight="0.48487142" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3268921" sideWeight="0.48487142" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4054463" sideWeight="0.4686775" order="0" side_tool="false" content_ui="combo" />
@@ -1666,12 +1520,14 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24886191" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26626325" sideWeight="0.5217391" order="5" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42512077" sideWeight="0.49707174" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42512077" sideWeight="0.49707174" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.4969651" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30595812" sideWeight="0.48789713" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3262519" sideWeight="0.5056361" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.4969743" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38486314" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1728,14 +1584,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="207">
           <caret line="47" column="39" selection-start-line="47" selection-start-column="39" selection-end-line="47" selection-end-column="39" />
-          <folding>
-            <element signature="e#937#938#0" expanded="false" />
-            <element signature="e#1015#1016#0" expanded="false" />
-            <element signature="e#1123#1124#0" expanded="false" />
-            <element signature="e#1205#1206#0" expanded="false" />
-            <element signature="e#1293#1294#0" expanded="false" />
-            <element signature="e#1365#1366#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1899,7 +1748,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1994,9 +1842,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="13" column="33" selection-start-line="13" selection-start-column="33" selection-end-line="13" selection-end-column="33" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2004,7 +1849,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="275">
           <caret line="13" column="14" selection-start-line="13" selection-start-column="14" selection-end-line="13" selection-end-column="32" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2012,11 +1856,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="384">
           <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
-          <folding>
-            <element signature="e#447#448#0" expanded="false" />
-            <element signature="e#476#477#0" expanded="false" />
-            <marker date="1474440956681" expanded="true" signature="363:407" ph="/**...*/" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2024,11 +1863,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="338">
           <caret line="17" column="18" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#426#427#0" expanded="false" />
-            <element signature="e#453#454#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2042,7 +1876,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/PaymentController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
+        <state relative-caret-position="312">
           <caret line="16" column="20" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
           <folding />
         </state>
@@ -2050,18 +1884,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/controller/StudentController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
+        <state relative-caret-position="338">
           <caret line="17" column="20" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/Build.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="24" column="49" selection-start-line="24" selection-start-column="49" selection-end-line="24" selection-end-column="49" />
           <folding />
         </state>
       </provider>
@@ -2077,33 +1901,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/BaseController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-104">
-          <caret line="26" column="30" selection-start-line="26" selection-start-column="30" selection-end-line="26" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/service/RoleService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="52">
+        <state relative-caret-position="234">
           <caret line="21" column="20" selection-start-line="21" selection-start-column="20" selection-end-line="21" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/service/MappingService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134">
-          <caret line="18" column="40" selection-start-line="18" selection-start-column="40" selection-end-line="18" selection-end-column="40" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/Service.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
+        <state relative-caret-position="546">
           <caret line="27" column="23" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
           <folding />
         </state>
@@ -2111,16 +1919,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/surveys/common/SurveysRoutes.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="14" column="54" selection-start-line="14" selection-start-column="54" selection-end-line="14" selection-end-column="54" />
+        <state relative-caret-position="312">
+          <caret line="14" column="26" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/Build.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-131">
+          <caret line="24" column="26" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/service/MappingService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="22" column="22" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/BaseController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="26" column="14" selection-start-line="26" selection-start-column="14" selection-end-line="26" selection-end-column="14" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/studentSys/src/main/java/com/hudongwx/studentsys/common/StudentSysRoutes.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="24" column="50" selection-start-line="24" selection-start-column="50" selection-end-line="24" selection-end-column="50" />
+        <state relative-caret-position="182">
+          <caret line="8" column="31" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
           <folding />
         </state>
       </provider>
