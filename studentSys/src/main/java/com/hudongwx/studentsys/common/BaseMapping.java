@@ -33,6 +33,14 @@ public abstract class BaseMapping<M extends BaseMapping<M>> extends Model<M> imp
 		return get("url");
 	}
 
+	public void setMessage(java.lang.String message) {
+		set("message", message);
+	}
+
+	public java.lang.String getMessage() {
+		return get("message");
+	}
+
 	public void setIcon(java.lang.String icon) {
 		set("icon", icon);
 	}

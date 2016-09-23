@@ -22,7 +22,7 @@
                 </th>
             </tr>
         <#list results as result>
-            <tr>
+            <tr id = ${result.id}>
                 <th>
                 ${result.idUser}
                 </th>
@@ -45,7 +45,9 @@
 
 
 <script type="text/javascript">
-
+    $("tr").bind("click",function(){
+        window.open("${staticServePath}/result/"+$(this).attr('id'));
+    });
 </script>
 </body>
 </html>

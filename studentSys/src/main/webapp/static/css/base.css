@@ -336,10 +336,6 @@ td, th {
 .common-line-height{
     line-height: 34px;
 }
-.half{
-    width:49%;
-    float: left;
-}
 .div-move-in-top{
     position:relative;
     top:0;
@@ -384,4 +380,11 @@ td, th {
 }
 .animate{
     opacity: 0;
+}
+.title-container{
+    height:60px;
+    color: #fff;
+    font-size:28px;
+    line-height: 60px;
+    padding:0 20px;
 }

@@ -16,6 +16,7 @@
             <#include c.url>
         </#list>
     </div>
+</div>
 </body>
 </html>
 <#include "macro-foot.ftl">

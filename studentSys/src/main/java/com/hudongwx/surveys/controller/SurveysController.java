@@ -22,7 +22,7 @@ import java.util.*;
  * Created by wuhongxu on 2016/9/6 0006.
  */
 public class SurveysController extends BaseController {
-    SurveysService surveysService;
+    public SurveysService surveysService;
     private Log log = Log.getLog(getClass());
 
     public void index() {
@@ -92,6 +92,7 @@ public class SurveysController extends BaseController {
 
     }
     public void checkResult(){
+        fillHeaderAndFooter();
         String p = getPara("p");
         if (p == null)
             p = "" + Common.START_PAGE;
@@ -104,6 +105,7 @@ public class SurveysController extends BaseController {
         render("checkResult.ftl");
     }
     public void getTable(){
+        fillHeaderAndFooter();
         String qId = getPara(0);
         int sum = 0;
         List<QuestionnaireResult> questionnaireResultByQuestionnaireId = surveysService.getQuestionnaireResultByQuestionnaireId(qId);
@@ -126,6 +128,35 @@ public class SurveysController extends BaseController {
         setAttr("questionnaire",questionnaire);
         setAttr("results",questionnaireResultByQuestionnaireId);
         render("countResult.ftl");
+    }
+    public void result(){
+        fillHeaderAndFooter();
+        String resultId = getPara(0);
+        if(!StrPlusKit.isNumeric(resultId)){
+            renderError(404);
+            return;
+        }
+        QuestionnaireResult q = QuestionnaireResult.dao.findById(resultId);
+        if(q == null){
+            renderError(404);
+            return;
+        }
+        Questionnaire questionnaire = Questionnaire.dao.findById(q.getIdQuestionnaire());
+        if(questionnaire == null){
+            renderError(404);
+            return;
+        }
+        surveysService.generatorQuestionnaire(questionnaire);
+        q.setUser(surveysService.getUserByIp(q.getIdUser()));
+        JSONArray array = JSON.parseArray(q.getQuestionsReply());
+        JSONObject json = array.getJSONObject(array.size()-1);
+        Integer score = json.getInteger("score");
+        if(score == null)
+            score = 0;
+        q.setCount(score);
+        setAttr("result",q);
+        setAttr("questionnaire",questionnaire);
+        render("result.ftl");
     }
     public void chooseQuestionnaire() {
         fillHeaderAndFooter();
