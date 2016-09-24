@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50712
 File Encoding         : 65001
 
-Date: 2016-09-02 16:53:10
+Date: 2016-09-19 17:54:06
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -39,7 +39,7 @@ INSERT INTO `stumanager_class` VALUES ('2', '二班', '1344', 'web', null);
 -- ----------------------------
 DROP TABLE IF EXISTS `stumanager_employee`;
 CREATE TABLE `stumanager_employee` (
-  `id` bigint(20) NOT NULL,
+  `id` int(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(10) DEFAULT NULL COMMENT '姓名',
   `age` int(11) DEFAULT NULL COMMENT '年龄',
   `status` varchar(20) DEFAULT NULL COMMENT '身份，如咨询师等，默认将用户角色与身份设置对等',
@@ -56,28 +56,29 @@ CREATE TABLE `stumanager_employee` (
 -- ----------------------------
 DROP TABLE IF EXISTS `stumanager_mapping`;
 CREATE TABLE `stumanager_mapping` (
-  `id` int(11) NOT NULL,
-  `title` varchar(10) DEFAULT NULL COMMENT '中文标题（名）',
-  `href` varchar(40) DEFAULT NULL COMMENT '对应地址',
-  `description` varchar(255) DEFAULT NULL COMMENT '描述，可不填',
-  `icon` varchar(30) DEFAULT NULL COMMENT '图标 如：fa fa-desktop',
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `title` varchar(20) DEFAULT NULL COMMENT '标题',
+  `url` varchar(40) DEFAULT NULL COMMENT '对应路径',
+  `icon` varchar(30) DEFAULT NULL COMMENT '图标',
+  `leftChildId` bigint(20) DEFAULT '0' COMMENT '左儿子Id',
+  `nextSiblingId` bigint(20) DEFAULT '0' COMMENT '下一个兄弟Id',
+  `parentId` bigint(20) DEFAULT '0' COMMENT '父亲Id',
+  `childCount` int(11) NOT NULL DEFAULT '0' COMMENT '孩子数量',
+  `degree` int(11) NOT NULL DEFAULT '0' COMMENT '深度',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of stumanager_mapping
--- ----------------------------
+) ENGINE=InnoDB AUTO_INCREMENT=215 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for `stumanager_role`
 -- ----------------------------
 DROP TABLE IF EXISTS `stumanager_role`;
 CREATE TABLE `stumanager_role` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL COMMENT '角色名',
   `memberCnt` int(11) NOT NULL COMMENT '角色人数',
+  `treeData` mediumtext,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of stumanager_role
@@ -92,7 +93,7 @@ CREATE TABLE `stumanager_student` (
   `name` varchar(255) DEFAULT NULL,
   `classId` bigint(11) DEFAULT NULL,
   `tutorId` bigint(11) DEFAULT NULL COMMENT '辅导老师',
-  `subject` int(11) DEFAULT NULL COMMENT '学习科目',
+  `subject` bigint(11) DEFAULT NULL COMMENT '学习科目',
   `contactInformation` varchar(255) DEFAULT NULL COMMENT '联系方式',
   `admission` date DEFAULT NULL COMMENT '入学时间',
   `credit` int(11) DEFAULT NULL COMMENT '学分',
@@ -116,7 +117,7 @@ CREATE TABLE `stumanager_student` (
 -- ----------------------------
 DROP TABLE IF EXISTS `stumanager_user`;
 CREATE TABLE `stumanager_user` (
-  `id` bigint(20) NOT NULL,
+  `id` int(20) NOT NULL AUTO_INCREMENT,
   `userAccount` varchar(20) DEFAULT NULL COMMENT '用户账户',
   `userPassword` varchar(20) DEFAULT NULL COMMENT '用户密码',
   `userNickname` varchar(20) DEFAULT NULL COMMENT '用户昵称',
@@ -130,7 +131,7 @@ CREATE TABLE `stumanager_user` (
   `userAddress` varchar(20) DEFAULT NULL COMMENT '用户地址',
   `userMessage` mediumtext COMMENT '用户个人签名等信息',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of stumanager_user
