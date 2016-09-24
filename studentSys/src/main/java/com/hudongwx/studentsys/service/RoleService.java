@@ -10,9 +10,7 @@ import com.hudongwx.studentsys.util.StrPlusKit;
 import com.jfinal.log.Log;
 import com.jfinal.plugin.ehcache.CacheKit;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by wuhongxu on 2016/9/5 0005.
@@ -25,8 +23,12 @@ public class RoleService extends Service {
         return Role.dao.findByCache(Common.CACHE_FOEVER_LABEL, "roles", "select * from stumanager_role");
     }
 
-    public String[] getpermitMappingIds(Role role) {
-        return role.getTreeData().split(":");
+    public List<String> getpermitMappingIds(Role role) {
+        List<String> ids = new LinkedList<>();
+        String[] split = role.getTreeData().split(":");
+        for(String s : split)
+            ids.add(s);
+        return ids;
     }
 
     public Role getRoleByName(String roleName) {
@@ -83,14 +85,27 @@ public class RoleService extends Service {
         role.setMemberCnt(0);
     }
 
-    public ArrayTree<Mapping> getRoleTree(Role role) {
-        String[] strs = getpermitMappingIds(role);
+    public ArrayTree<Mapping> getRoleTree(final Role role) {
+        if(role.allowTree != null)
+            return role.allowTree;
+        List<String> ids = getpermitMappingIds(role);
         ArrayTree<Mapping> tree = mappingService.getTree();
         //依附查找
         ArrayTree<Mapping> roleTree = new ArrayTree<>();
+        /* 效率太低，废弃
+        for(String id : ids){
+            Mapping mapping = mappingService.getMappingById(Integer.valueOf(id));
+            roleTree.addGoodNode(mapping);
+        }*/
+        //需要严格遵守顺序
         tree.checkTree(now -> {
-            roleTree.addGoodNode(now);
-            return true;
+            Integer id = Integer.valueOf(ids.get(0));
+            if(id.equals(now.getId())){
+                roleTree.addGoodNode(now);
+                ids.remove(0);
+                return true;
+            }
+            return false;
         });
         role.allowTree = roleTree;
         return roleTree;

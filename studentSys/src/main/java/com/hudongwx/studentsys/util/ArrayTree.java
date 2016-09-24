@@ -1,11 +1,6 @@
 package com.hudongwx.studentsys.util;
 
-import com.hudongwx.studentsys.model.Mapping;
-
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * Created by wuhongxu on 2016/9/4 0004.
@@ -15,6 +10,9 @@ public class ArrayTree<T extends TreeNode> {
     private List<T> tree;
     //暂时缓存上次添加的父节点，方便下次添加到同一父节点下时直接添加不需要传入父节点参数
     private T parent;
+
+    //暂定层数最多一百层
+    private int[] index = new int[Common.MAX_DEGREE];
     //这里得到的是复制，不能操作树本身
     public List<T> getList() {
         List<T> list = new ArrayList<>(tree);
@@ -119,7 +117,10 @@ public class ArrayTree<T extends TreeNode> {
         if (leftSibling != null && !tree.contains(leftSibling)) {
             return false;
         }
+        if(parent.getDegree() >= Common.MAX_DEGREE)
+            return false;
         parent.setChildCount(parent.getChildCount() + 1);
+
         node.setDegree(parent.getDegree() + 1);
         node.setParent(parent);
         if (null != leftSibling) {
@@ -133,7 +134,12 @@ public class ArrayTree<T extends TreeNode> {
         }
         if (null != opn)
             opn.onOver(node, parent, leftSibling);
-        tree.add(node);
+        //添加位置为无论如何添加所有同层的在一起
+        /*index[node.getDegree()] += index[parent.getDegree()];*/
+        tree.add(++index[node.getDegree()],node);
+        //TODO 思考更快速的位置标记，暂时没想到
+        for(int i = node.getDegree() + 1; i < Common.MAX_DEGREE; i++)
+            index[i]++;
         return true;
     }
 
@@ -169,7 +175,7 @@ public class ArrayTree<T extends TreeNode> {
     public void checkTree(T parent, onCheckListener<T> ocl) {
         if (!tree.contains(parent) || null == ocl)
             return;
-        Queue<T> queue = new ArrayDeque<>();
+        Queue<T> queue = new LinkedList<>();
         queue.add(parent);
         while (!queue.isEmpty()) {
             T now = queue.poll();
@@ -193,5 +199,32 @@ public class ArrayTree<T extends TreeNode> {
     //bfs完成遍历
     public void checkTree(onCheckListener<T> ocl) {
         checkTree(root(),ocl);
+    }
+    public void checkTreePreorder(onCheckListener<T> ocl){
+        checkTreePreorder(root(),ocl);
+    }
+    //深搜
+    public void checkTreePreorder(T parent,onCheckListener<T> ocl){
+        if (!tree.contains(parent) || null == ocl)
+            return;
+        Stack<T> stack = new Stack<>();
+        stack.push(parent);
+        while (!stack.isEmpty()) {
+            T now = stack.pop();
+            //如果tree不包含此节点，将不对其进行操作遍历(因为其实操作的对象是同一个，所以可能不会包含在链表中)
+            if(!tree.contains(now))
+                continue;
+            T first = null;
+            if(now.getParent() != null)
+                first = (T) now.getParent().getLeftChild();
+            //如果返回值为false，将放弃子节点遍历
+            if (!ocl.onCheck(now))
+                continue;
+            T c = (T) now.getLeftChild();
+            while (c != null) {
+                stack.push(c);
+                c = (T) c.getNextSibling();
+            }
+        }
     }
 }

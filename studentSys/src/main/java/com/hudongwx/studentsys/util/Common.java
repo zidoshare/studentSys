@@ -28,12 +28,14 @@ public class Common {
     public static final int START_PAGE = 1;
     public static final String ROLE_TREE_LABEL = "roleTree";
     public static final String NOW_VISITE_LABEL = "now";
+    public static final int MAX_DEGREE = 100;
 
     //缓存Label
     public static final String CACHE_FOEVER_LABEL = "forever";
     public static final String CACHE_LONG_TIME_LABEL = "longTime";
     public static final String CACHE_60TIME_LABEL = "60time";
     public static final String SEPARATOR = "&";
+
 
 
     //此处得到主配置

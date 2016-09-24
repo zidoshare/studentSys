@@ -124,7 +124,6 @@ public abstract class BaseController extends Controller {
             renderError(403);
         }
         ArrayTree<Mapping> roleTree = roleService.getRoleTree(roleService.getRoleByName(user.getUserRole()));
-        String actionKey = getAttr(Common.ACTION_KEY_LABEL);
         List<Mapping> sides = new ArrayList<>();
         List<Mapping> content = new ArrayList<>();
         roleTree.checkTree(now -> {
