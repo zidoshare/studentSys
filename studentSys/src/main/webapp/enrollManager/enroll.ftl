@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <div class="panel panel-default item">
             <div class="panel-heading title">
-                学生列表
+                报名学生
             </div>
         </div>
     </div>
@@ -14,20 +14,6 @@
             <div class="panel-heading">
                 <form class="clearfix">
                     <div class="input-group hdwx-input-sm pull-left">
-                        <div class="btn-group input-group-btn">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-                                    aria-haspopup="true"
-                                    aria-expanded="false">
-                                选择班级 <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                            </ul>
-                        </div>
                         <label for="all-search" class="sr-only">search</label>
                         <input type="text" class="form-control" id="all-search" placeholder="学生...">
                 <span class="input-group-btn">
@@ -37,7 +23,7 @@
 
                 </span>
                     </div>
-                    <button class="btn btn-success pull-right">添加考勤记录</button>
+                    <button class="btn btn-success pull-right">添加报名信息</button>
                 </form>
             </div>
 
@@ -52,61 +38,74 @@
                                 姓名
                             </th>
                             <th>
-                                班级
-                            </th>
-                            <th>
-                                辅导老师
-                            </th>
-                            <th>
-                                学习科目
+                                性别
                             </th>
                             <th>
                                 联系方式
                             </th>
                             <th>
-                                入学时间
+                                报名日期
                             </th>
                             <th>
-                                学分
+                                班级
                             </th>
                             <th>
-                                成绩
+                                班级
                             </th>
                             <th>
-                                状态
+                                开课日期
                             </th>
                             <th>
-                                就业跟踪
+                                付款
                             </th>
                             <th>
-                                用户创建时间
+                                备注
                             </th>
                             <th>
-                                最后登录ip
+                                咨询师
                             </th>
                             <th>
                                 操作
                             </th>
-                            <th>
-                                操作人
-                            </th>
                             </thead>
                             <tbody>
                             <tr>
-                                <td>nini</td>
-                                <td>nini</td>
-                                <td>nini</td>
-                                <td>nini</td>
-                                <td>nini</td>
-                                <td>nini</td>
-                                <td>nini</td>
-                                <td>nini</td>
-                                <td>查看</td>
-                                <td>nini</td>
-                                <td>nini</td>
-                                <td>nini</td>
-                                <td>nini</td>
-                                <td>nini</td>
+                                <td>
+                                    1
+                                </td>
+                                <td>
+                                    1
+                                </td>
+                                <td>
+                                    1
+                                </td>
+                                <td>
+                                    1
+                                </td>
+                                <td>
+                                    1
+                                </td>
+                                <td>
+                                    1
+                                </td>
+                                <td>
+                                    1
+                                </td>
+                                <td>
+                                    1
+                                </td>
+                                <td>
+                                    1
+                                </td>
+                                <td>
+                                    1
+                                </td>
+                                <td>
+                                    <a class="text-success">增加</a>/
+                                    <a class="text-success">修改</a>/
+                                    <a class="text-success">删除</a>/
+                                    <a class="text-success">停用</a>
+                                </td>
                             </tr>
                             </tbody>
                         </table>

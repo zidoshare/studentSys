@@ -16,4 +16,10 @@ public class OptionController extends BaseController {
     public String init() {
         return "通用设置";
     }
+
+    @Override
+    public void index() {
+        super.index();
+        render("index.ftl");
+    }
 }
