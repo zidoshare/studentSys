@@ -3,6 +3,8 @@ package com.hudongwx.studentsys.util;
 import com.jfinal.kit.Prop;
 import com.jfinal.kit.PropKit;
 
+import java.util.List;
+
 /**
  * Created by wuhongxu on 2016/8/29 0029.
  *
@@ -30,8 +32,9 @@ public class Common {
     public static final String NOW_VISITE_LABEL = "now";
     public static final int MAX_DEGREE = 100;
     public static final String SIDES_CHILD_LABEL = "childSides";
-
     public static final String SIDES_SIZE_LABEL = "menuSize";
+    public static final String ID_LABEL = "id";
+
     //缓存Label
     public static final String CACHE_FOEVER_LABEL = "forever";
     public static final String CACHE_LONG_TIME_LABEL = "longTime";

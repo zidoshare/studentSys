@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mapping id="1432" icon="fa" url="url" title="根目录">
+    <mappings>
+        <mapping id="1433" icon="fa fa-desktop" url="/" title="首页">
+            <mappings>
+                <mapping id="1441" icon="search" url="/common/search.ftl" title="全局搜索">
+                    <mappings/>
+                </mapping>
+                <mapping id="1442" icon="fast" url="/common/fastOprator.ftl" title="快捷操作">
+                    <mappings/>
+                </mapping>
+                <mapping id="1443" icon="newest" url="/common/newest.ftl" title="最新报名">
+                    <mappings/>
+                </mapping>
+                <mapping id="1444" icon="statistics" url="/common/statistics.ftl" title="统计">
+                    <mappings/>
+                </mapping>
+            </mappings>
+        </mapping>
+        <mapping id="1434" icon="fa fa-users" url="/userManager" title="用户管理">
+            <mappings>
+                <mapping id="1445" icon="userList" url="/userManager/userList.ftl" title="用户列表">
+                    <mappings>
+                        <mapping id="1452" icon="addUser" url="addUser" title="添加">
+                            <mappings/>
+                        </mapping>
+                        <mapping id="1453" icon="updateUser" url="updateUser" title="编辑">
+                            <mappings/>
+                        </mapping>
+                        <mapping id="1454" icon="deleteUser" url="deleteUser" title="删除">
+                            <mappings/>
+                        </mapping>
+                    </mappings>
+                </mapping>
+                <mapping id="1446" icon="roleList" url="/userManager/roleList.ftl" title="角色列表">
+                    <mappings>
+                        <mapping id="1455" icon="addRole" url="addRole" title="添加">
+                            <mappings/>
+                        </mapping>
+                        <mapping id="1456" icon="updateRole" url="updateRole" title="编辑">
+                            <mappings/>
+                        </mapping>
+                        <mapping id="1457" icon="deleteRole" url="deleteRole" title="删除">
+                            <mappings/>
+                        </mapping>
+                    </mappings>
+                </mapping>
+            </mappings>
+        </mapping>
+        <mapping id="1435" icon="fa fa-calendar" url="/studentManager" title="学生管理">
+            <mappings>
+                <mapping id="1447" icon="studentList" url="/studentManager/studentList.ftl" title="学生信息列表">
+                    <mappings>
+                        <mapping id="1458" icon="addStudent" url="addStudent" title="添加">
+                            <mappings/>
+                        </mapping>
+                        <mapping id="1459" icon="updateStudent" url="updateStudent" title="修改">
+                            <mappings/>
+                        </mapping>
+                        <mapping id="1460" icon="deleteStudent" url="deleteStudent" title="删除">
+                            <mappings/>
+                        </mapping>
+                    </mappings>
+                </mapping>
+            </mappings>
+        </mapping>
+        <mapping id="1436" icon="fa fa-usd" url="/repaymentManager" title="还款管理">
+            <mappings/>
+        </mapping>
+        <mapping id="1437" icon="fa fa-crosshairs" url="/attendanceManager" title="出勤管理">
+            <mappings>
+                <mapping id="1448" icon="attendanceList" url="/attendanceManager/attendanceList.ftl" title="考勤信息列表">
+                    <mappings>
+                        <mapping id="1461" icon="addAttendance" url="addAttendance" title="添加">
+                            <mappings/>
+                        </mapping>
+                        <mapping id="1462" icon="updateAttendance" url="updateAttendance" title="修改">
+                            <mappings/>
+                        </mapping>
+                        <mapping id="1463" icon="deleteStudent" url="deleteStudent" title="删除">
+                            <mappings/>
+                        </mapping>
+                    </mappings>
+                </mapping>
+            </mappings>
+        </mapping>
+        <mapping id="1438" icon="fa fa-book" url="/certificateManager" title="证书管理">
+            <mappings/>
+        </mapping>
+        <mapping id="1439" icon="fa fa-gear" url="/option" title="通用设置">
+            <mappings>
+                <mapping id="1449" icon="updatePurikura" url="/option/updatePurikura.ftl" title="修改头像">
+                    <mappings/>
+                </mapping>
+                <mapping id="1450" icon="updatePassword" url="/option/updatePassword.ftl" title="修改密码">
+                    <mappings/>
+                </mapping>
+            </mappings>
+        </mapping>
+        <mapping id="1440" icon="fa fa-thumbs-up" url="/enrollManager" title="报名学生">
+            <mappings>
+                <mapping id="1451" icon="enrollList" url="/enrollManager/enroll.ftl" title="报名学生列表">
+                    <mappings>
+                        <mapping id="1464" icon="addEnroll" url="addEnroll" title="添加报名学生">
+                            <mappings/>
+                        </mapping>
+                        <mapping id="1465" icon="updateEnroll" url="updateEnroll" title="修改">
+                            <mappings/>
+                        </mapping>
+                        <mapping id="1466" icon="deleteEnroll" url="deleteEnroll" title="删除">
+                            <mappings/>
+                        </mapping>
+                    </mappings>
+                </mapping>
+            </mappings>
+        </mapping>
+    </mappings>
+</mapping>

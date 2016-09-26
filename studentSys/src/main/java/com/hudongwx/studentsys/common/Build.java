@@ -7,12 +7,25 @@ import com.hudongwx.studentsys.service.MappingService;
 import com.hudongwx.studentsys.service.RoleService;
 import com.hudongwx.studentsys.service.UserService;
 import com.hudongwx.studentsys.util.ArrayTree;
+import com.hudongwx.studentsys.util.Common;
+import com.hudongwx.studentsys.util.ObjectKit;
+import com.hudongwx.studentsys.util.StrPlusKit;
+import com.jfinal.kit.PathKit;
 import com.jfinal.log.Log;
+import org.dom4j.*;
+import org.dom4j.io.OutputFormat;
+import org.dom4j.io.SAXReader;
+import org.dom4j.io.XMLWriter;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by wuhongxu on 2016/9/18 0018.
@@ -26,11 +39,12 @@ public class Build{
     private static MappingService ms = new MappingService();
     private static UserService us = new UserService();
     private static RoleService rs = new RoleService();
+    private static ArrayTree<Mapping> tree;
     //建立地图
     public static void buildMapping(){
         log.info("初始化地图");
         //建立mapping
-        ArrayTree<Mapping> tree = new ArrayTree<>();
+        tree = new ArrayTree<>();
         Mapping r = new Mapping();
         r.setIcon("fa");
         r.setTitle("根目录");
@@ -146,6 +160,85 @@ public class Build{
 
         log.info("建立地图完成");
     }
+    public static void generatorXML(ArrayTree<Mapping> tree) throws IOException {
+        Document document = DocumentHelper.createDocument();
+        final Map<Mapping,Element> map = new HashMap<>();
+        tree.checkTree(now->{
+            if(now.getParent() == null){
+                Element rt = DocumentHelper.createElement("mapping");
+                document.setRootElement(rt);
+                Element element = addAttributeToElement(rt, now);
+                map.put(now,element);
+                return true;
+            }
+            Element e = map.get(now.getParent()).addElement("mapping");
+            map.put(now,addAttributeToElement(e,now));
+            return true;
+        });
+        //输出到控制台
+        XMLWriter xmlWriter = new XMLWriter();
+        xmlWriter.write(document);
+
+        // 输出到文件
+        // 格式
+        OutputFormat format = new OutputFormat("    ", true);// 设置缩进为4个空格，并且另起一行为true
+        XMLWriter xmlWriter2 = new XMLWriter(
+                new FileOutputStream("src\\main\\resources\\permission.xml"), format);
+        xmlWriter2.write(document);
+
+        // 另一种输出方式，记得要调用flush()方法,否则输出的文件中显示空白
+       /* XMLWriter xmlWriter3 = new XMLWriter(new FileWriter("student2.xml"),
+                format);
+        xmlWriter3.write(document2);
+        xmlWriter3.flush();*/
+        // close()方法也可以
+
+    }
+    private static Element addAttributeToElement(Element e, Mapping mapping){
+        e.addAttribute(Common.ID_LABEL,""+mapping.getId());
+        e.addAttribute(Mapping.ICON_LABEL,mapping.getIcon());
+        e.addAttribute(Mapping.URL_LABEL,mapping.getUrl());
+        e.addAttribute(Mapping.TITLE_LABEL,mapping.getTitle());
+        e.addAttribute(Mapping.FUNCTION_LABEL,""+mapping.getFunction());
+        return e.addElement("mappings");
+    }
+    private static void readXML(final ArrayTree<Mapping> tree,final String path) throws Exception {
+        SAXReader saxReader = new SAXReader();
+        File file = new File(path);
+        if(!file.exists())
+            throw new Exception(path+"文件不存在");
+        Document document = saxReader.read(file);
+        Queue<Element> queue = new LinkedList<>();
+        queue.offer(document.getRootElement());
+        Map<Element,Mapping> map = new HashMap<>();
+        while (!queue.isEmpty()){
+            Element nowe = queue.poll();
+            final Attribute icona = nowe.attribute(Mapping.ICON_LABEL);
+            final Attribute titlea = nowe.attribute(Mapping.TITLE_LABEL);
+            final Attribute urla = nowe.attribute(Mapping.URL_LABEL);
+            final Attribute functiona = nowe.attribute(Mapping.FUNCTION_LABEL);
+            if(icona == null || titlea == null || urla == null)
+                throw new Exception("icon/title/url不存在");
+            final String icon = icona.getStringValue();
+            final String title = titlea.getStringValue();
+            final String url = urla.getStringValue();
+            Integer function = Mapping.FUNCTION_DEFAULT;
+            if(null != functiona)
+                function = Integer.valueOf(functiona.getStringValue());
+            if(StrPlusKit.isEmpty(url) || StrPlusKit.isEmpty(icon) || StrPlusKit.isEmpty(title))
+                throw new Exception("icon/title/url不能为空值");
+            Mapping now = new Mapping(icon,title,url,function);
+            if(!nowe.isRootElement()){
+                tree.insertChild(now,map.get(nowe.getParent()));
+            }else{
+                tree.initTree(now);
+            }
+            map.put(nowe,now);
+            Element children = nowe.element("mappings");
+            List<Element> elements = children.elements();
+            queue.addAll(elements);
+        }
+    }
     public static void initUser(){
 
         //建立admin
@@ -190,45 +283,30 @@ public class Build{
         jf.setSize(200,100);
         JPanel jp = new JPanel(new FlowLayout());
         jf.setContentPane(jp);
-        JButton userBtn = new JButton("初始化用户");
-        userBtn.addActionListener(e -> {
-            initUser();
-        });
-        JButton mappingBtn = new JButton("初始化地图");
+        JButton mappingBtn = new JButton("初始化数据");
         mappingBtn.addActionListener(e -> {
             buildMapping();
+            initRole();
+            initUser();
         });
         JButton clearBtn = new JButton("清除数据");
         clearBtn.addActionListener(e -> {
             clearMapping();
         });
-        JButton roleBtn = new JButton("初始化角色");
-        roleBtn.addActionListener(e -> {
-            initRole();
+        JButton generatorXML = new JButton("生成xml文件");
+        generatorXML.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    generatorXML(tree);
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
         });
         jp.add(clearBtn);
         jp.add(mappingBtn);
-        jp.add(userBtn);
-        jp.add(roleBtn);
+        jp.add(generatorXML);
         jf.setVisible(true);
-        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        /*Scanner sc = new Scanner(System.in);
-        Class build = Build.class;
-        Method[] methods = build.getMethods();
-        while(true){
-            String name = sc.next();
-            if(name.equals("q"))
-                return;
-            for (Method method : methods) {
-                if (name.equals(method.getName())) {
-                    try {
-                        method.invoke(null);
-                    } catch (InvocationTargetException | IllegalAccessException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                }
-            }
-        }*/
     }
 }
