@@ -185,7 +185,7 @@ public class ArrayTree<T extends TreeNode> {
             T first = null;
             if(now.getParent() != null)
                 first = (T) now.getParent().getLeftChild();
-            //如果返回值为false，将放弃子节点遍历
+            //如果返回值为false，将放弃子节点遍历，但是会继续遍历本层
             if (!ocl.onCheck(now))
                 continue;
             T c = (T) now.getLeftChild();

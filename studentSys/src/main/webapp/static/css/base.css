@@ -61,7 +61,7 @@ label {
 }
 
 body {
-    background-color: #f1f1f1;
+    background-color: white;
 }
 .far-left{
     margin-left:20px;
@@ -231,15 +231,14 @@ ul.nav li:hover {
 .bg-fine-gray{
     background: #f1f1f1;
 }
-.bgwhite{
+.bg-white{
     background: white;
 }
-#page-wrapper {
-    top: 0;
+.bg-black{
+    background: #3e3e3e;
 }
-
 #page-inner {
-    margin: 0;
+    padding-top:0;
 }
 
 .far-top {
@@ -288,7 +287,7 @@ td, th {
     z-index: 999999;
     width: 124px;
     height: 124px;
-    background: url('../images/loading.gif') 50% 50% no-repeat;
+    /*background: url('../images/loading.gif') 50% 50% no-repeat;*/
 }
 
 .myhk_pjax_loading  {
@@ -387,4 +386,8 @@ td, th {
     font-size:28px;
     line-height: 60px;
     padding:0 20px;
+}
+.put-top{
+    position:relative;
+    top:-20px;
 }

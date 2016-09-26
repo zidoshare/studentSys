@@ -8,10 +8,10 @@ import com.hudongwx.studentsys.util.ArrayTree;
 import com.hudongwx.studentsys.util.Common;
 import com.hudongwx.studentsys.util.LangConfig;
 import com.jfinal.core.Controller;
-import com.jfinal.kit.HandlerKit;
 import com.jfinal.kit.Prop;
 import com.jfinal.log.Log;
 
+import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,6 +46,7 @@ public abstract class BaseController extends Controller {
     public void index(){
         fillHeaderAndFooter();
         if(!fillContent()){
+            renderError(403);
             return ;
         }
         render("/index.ftl");
@@ -111,8 +112,7 @@ public abstract class BaseController extends Controller {
         setAttr(Common.SIDES_LABEL, mappings);
 
     }
-
-    public boolean fillContent() {
+    protected boolean fillContentParent() {
         User user = getSessionAttr("user");
         if (user == null) {
             /*redirect("/user/login");
@@ -122,27 +122,75 @@ public abstract class BaseController extends Controller {
         }
         if(mapping == null){
             renderError(403);
+            return false;
         }
         ArrayTree<Mapping> roleTree = roleService.getRoleTree(roleService.getRoleByName(user.getUserRole()));
         List<Mapping> sides = new ArrayList<>();
-        List<Mapping> content = new ArrayList<>();
+        List<Mapping> childSides = new ArrayList<>();
+        List<Mapping> views = new ArrayList<>();
+        final int[] size = new int[Common.MAX_DEGREE];
         roleTree.checkTree(now -> {
             if(roleTree.getParent(now) == null)
                 return true;
-            if (now.getDegree() == 1) {
+            //子菜单计数,只支持二级菜单。。。
+            if(now.getFunction() > Mapping.FUNCTION_MENUITEM){
+                size[sides.indexOf(now.getParent())]++;
+                childSides.add(now);
+            }
+            //一级菜单
+            if(now.getFunction() == Mapping.FUNCTION_MENUITEM){
                 sides.add(now);
+                return true;
             }
-            if (roleTree.getParent(now).equals(mapping)) {
-                content.add(now);
+            //视图遍历，遍历到一级视图停止遍历,并添加到视图链表，以便后续功能或子视图的遍历处理
+            else if (now.getParent()==mapping && now.getFunction() == Mapping.FUNCTION_VIEW){
+                views.add(now);
+                return false;
             }
-            return true;
+            //如果同层不同访问，则其他同层节点子节点放弃遍历
+            /*if(mappingService.getBaseMenu(now) == mapping)
+                return true;
+            return mappingService.getBaseMenu(now) == mapping;*/
+            return false;
         });
         setAttr(Common.SIDES_LABEL, sides);
-        setAttr(Common.CONTENT_LABEL, content);
+        setAttr(Common.SIDES_SIZE_LABEL,size);
+        setAttr(Common.SIDES_CHILD_LABEL,childSides);
+        setAttr(Common.VIEWS_LABEL, views);
         setAttr(Common.NOW_VISITE_LABEL,mapping);
-        //base仅处理两层，其他处理继续下放
+        //base处理通用的，其他处理继续下放
         setAttr(Common.ROLE_TREE_LABEL,roleTree);
         return true;
+    }
+    //如果没有子视图模块，则可以使用通用的操作遍历
+    protected boolean fillContentChild(){
+        User user = getSessionAttr("user");
+        if (user == null) {
+            /*redirect("/user/login");
+            return false;*/
+            user = new User();
+            user.setUserRole("admin");
+        }
+        if(mapping == null){
+            renderError(403);
+            return false;
+        }
+        ArrayTree<Mapping> roleTree = roleService.getRoleTree(roleService.getRoleByName(user.getUserRole()));
+        List<Mapping> sides = getAttr(Common.VIEWS_LABEL);
+        for(Mapping side : sides){
+            List<Mapping> operators = new ArrayList<>();
+            roleTree.checkTree(side,now -> {
+                if(now.getFunction()==Mapping.FUNCTION_OPERATE)
+                    operators.add(now);
+                return false;
+            });
+            setAttr("operators"+side.getId(),operators);
+        }
+        return true;
+    }
+
+    protected boolean fillContent(){
+        return fillContentParent() && fillContentChild();
     }
 
     protected void fillHeaderAndFooter() {
@@ -150,5 +198,7 @@ public abstract class BaseController extends Controller {
         fillFooter();
     }
 
-
+    public static User getCurrentUser(HttpServletRequest request){
+        return (User)request.getSession().getAttribute("user");
+    }
 }

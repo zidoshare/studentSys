@@ -9,6 +9,16 @@ import com.hudongwx.studentsys.util.TreeNode;
 @SuppressWarnings("serial")
 public class Mapping extends BaseMapping<Mapping> implements TreeNode {
 	public static final Mapping dao = new Mapping();
+
+	/*
+	* 职能，0：功能，1：视图模块，2：菜单，3：二级菜单，以后多级菜单，依次类推
+	* */
+	public static final int FUNCTION_DEFAULT = 0;
+	public static final int FUNCTION_OPERATE = 0;
+	public static final int FUNCTION_VIEW = 1;
+	public static final int FUNCTION_MENUITEM = 2;
+	public static final int FUNCTION_MENUITEM_CHILD = 3;
+
 	private Mapping parent,leftChild,nextSibling;
 	public Mapping(){
 		init();
@@ -18,6 +28,10 @@ public class Mapping extends BaseMapping<Mapping> implements TreeNode {
 		setTitle(title);
 		setUrl(url);
 		init();
+	}
+	public Mapping(String icon,String title,String url,int function){
+		this(icon,title,url);
+		setFunction(function);
 	}
 	public void init(){
 		getParent();
@@ -60,5 +74,11 @@ public class Mapping extends BaseMapping<Mapping> implements TreeNode {
 
 	public boolean equals(Mapping mapping) {
 		return mapping.getId().equals(getId()) && mapping.getTitle().equals(getTitle()) && mapping.getUrl().equals(getUrl());
+	}
+
+	public boolean isSameSibling(Mapping mapping){
+		if(null == mapping)
+			return false;
+		return mapping.getDegree().equals(getDegree());
 	}
 }

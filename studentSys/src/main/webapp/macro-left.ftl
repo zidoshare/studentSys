@@ -10,21 +10,41 @@
                 <i class="fa fa-edit text-success"></i>
             </span>
             <p style="padding-top:0;">
-                <a><small>基本信息</small></a>
+                <a>
+                    <small>基本信息</small>
+                </a>
                 &nbsp;
-                <a><small>退出</small></a>
+                <a>
+                    <small>退出</small>
+                </a>
             </p>
 
         </div>
     </div>
     <div class="tip-container">
         <ul class="nav" id="main-menu">
+        <#assign tag = 0>
+        <#assign start = 0>
+        <#list sides as side>
+            <li>
+                <a href="${side.url}"><i class="${side.icon}"></i>${side.title}<#if menuSize[tag] gt 0><span
+                        class="fa arrow"></span></#if></a>
+                <#if menuSize[tag] gt 0>
+                    <#assign index = menuSize[tag]>
+                    <#list start..index-1 as x >
+                        <ul class="nav nav-third-level collapse">
+                            <li>
+                                <a href="${childSides[x].url}"><i
+                                        class="${childSides[x].icon}"></i>${childSides[x].title}</a>
+                            </li>
+                        </ul>
+                    </#list>
+                    <#assign start = index + 1>
+                </#if>
+            </li>
 
-            <#list sides as side>
-                <li>
-                        <a href="${side.url}"><i class="${side.icon}"></i>${side.title}</a>
-                </li>
-            </#list>
+            <#assign tag++>
+        </#list>
         </ul>
     </div>
 

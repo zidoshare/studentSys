@@ -89,4 +89,20 @@ public abstract class BaseMapping<M extends BaseMapping<M>> extends Model<M> imp
 		return get("degree");
 	}
 
+	public void setVisitCnt(java.lang.Integer visitCnt) {
+		set("visitCnt", visitCnt);
+	}
+
+	public java.lang.Integer getVisitCnt() {
+		return get("visitCnt");
+	}
+
+	public void setFunction(java.lang.Integer function) {
+		set("function", function);
+	}
+
+	public java.lang.Integer getFunction() {
+		return get("function");
+	}
+
 }

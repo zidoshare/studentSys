@@ -5,14 +5,14 @@
 <@head title="${now.title}">
     </@head>
 </head>
-<body>
+<body class="bg-black">
 <div class="wrapper">
 <#include "macro-left.ftl">
 </div>
 <div id="page-wrapper">
 
     <div id="page-inner">
-    <#list content as c>
+    <#list views as c>
             <#include c.url>
         </#list>
     </div>

@@ -17,7 +17,7 @@
                 <div class="panel panel-default item">
                     <div class="row">
 
-                        <#list content as c>
+                        <#list views as c>
                             <div class="col-md-6 col-sm-12 col-xs-12 col-lg6">
                                 <#include c.url>
                             </div>

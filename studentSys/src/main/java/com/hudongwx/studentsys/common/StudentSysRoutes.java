@@ -22,6 +22,6 @@ public class StudentSysRoutes extends Routes {
         add("/studentManager", StudentController.class,"/studentManager");
 
         add("/index", IndexController.class,"/common");
-        /*add("/", IndexController.class,"/common");*/
+        add("/", IndexController.class,"/common");
     }
 }

@@ -12,6 +12,7 @@ import com.jfinal.log.Log;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by wuhongxu on 2016/9/18 0018.
@@ -40,87 +41,95 @@ public class Build{
         common.setIcon("fa fa-desktop");
         common.setTitle("首页");
         common.setUrl("/");
+        common.setFunction(Mapping.FUNCTION_MENUITEM);
         tree.insertChild(common, root, null);
 
-        Mapping search = new Mapping("search","全局搜索","/common/search.ftl");
+        Mapping search = new Mapping("search","全局搜索","/common/search.ftl",Mapping.FUNCTION_VIEW);
         tree.insertChild(search,common,null);
 
-        Mapping fast = new Mapping("fast","快捷操作","/common/fastOprator.ftl");
+        Mapping fast = new Mapping("fast","快捷操作","/common/fastOprator.ftl",Mapping.FUNCTION_VIEW);
         tree.insertChild(fast,common,search,null);
 
-        tree.insertChild(new Mapping("newest","最新报名","/common/newest.ftl"),common,null);
-        tree.insertChild(new Mapping("statistics","统计","/common/statistics.ftl"),common,null);
+        tree.insertChild(new Mapping("newest","最新报名","/common/newest.ftl",Mapping.FUNCTION_VIEW),common,null);
+        tree.insertChild(new Mapping("statistics","统计","/common/statistics.ftl",Mapping.FUNCTION_VIEW),common,null);
 
         Mapping userManager = new Mapping();
         userManager.setIcon("fa fa-users");
         userManager.setTitle("用户管理");
         userManager.setUrl("/userManager");
+        userManager.setFunction(Mapping.FUNCTION_MENUITEM);
         tree.insertChild(userManager, root, null);
-        Mapping userList = new Mapping("userList","用户列表","/userManager/userList.ftl");
+        Mapping userList = new Mapping("userList","用户列表","/userManager/userList.ftl",Mapping.FUNCTION_VIEW);
         tree.insertChild(userList,userManager,null);
-        tree.insertChild(new Mapping("addUser","添加","addUser"),userList,null);
-        tree.insertChild(new Mapping("updateUser","编辑","updateUser"));
-        tree.insertChild(new Mapping("deleteUser","删除","deleteUser"));
-        Mapping roleList = new Mapping("roleList", "角色列表", "/userManager/roleList.ftl");
+        tree.insertChild(new Mapping("addUser","添加","addUser",Mapping.FUNCTION_OPERATE),userList,null);
+        tree.insertChild(new Mapping("updateUser","编辑","updateUser",Mapping.FUNCTION_OPERATE));
+        tree.insertChild(new Mapping("deleteUser","删除","deleteUser",Mapping.FUNCTION_OPERATE));
+        Mapping roleList = new Mapping("roleList", "角色列表", "/userManager/roleList.ftl",Mapping.FUNCTION_VIEW);
         tree.insertChild(roleList,userManager,null);
-        tree.insertChild(new Mapping("addRole","添加","addRole"),roleList);
-        tree.insertChild(new Mapping("updateRole","编辑","updateRole"));
-        tree.insertChild(new Mapping("deleteRole","删除","deleteRole"));
+        tree.insertChild(new Mapping("addRole","添加","addRole",Mapping.FUNCTION_OPERATE),roleList);
+        tree.insertChild(new Mapping("updateRole","编辑","updateRole",Mapping.FUNCTION_OPERATE));
+        tree.insertChild(new Mapping("deleteRole","删除","deleteRole",Mapping.FUNCTION_OPERATE));
 
         Mapping studentManager = new Mapping();
         studentManager.setIcon("fa fa-calendar");
         studentManager.setTitle("学生管理");
         studentManager.setUrl("/studentManager");
+        studentManager.setFunction(Mapping.FUNCTION_MENUITEM);
         tree.insertChild(studentManager, root, null);
-        Mapping studentList = new Mapping("studentList","学生信息列表","/studentManager/studentList.ftl");
+        Mapping studentList = new Mapping("studentList","学生信息列表","/studentManager/studentList.ftl",Mapping.FUNCTION_VIEW);
         tree.insertChild(studentList,studentManager);
-        tree.insertChild(new Mapping("addStudent","添加","addStudent"),studentList);
-        tree.insertChild(new Mapping("updateStudent","修改","updateStudent"));
-        tree.insertChild(new Mapping("deleteStudent","删除","deleteStudent"));
+        tree.insertChild(new Mapping("addStudent","添加","addStudent",Mapping.FUNCTION_OPERATE),studentList);
+        tree.insertChild(new Mapping("updateStudent","修改","updateStudent",Mapping.FUNCTION_OPERATE));
+        tree.insertChild(new Mapping("deleteStudent","删除","deleteStudent",Mapping.FUNCTION_OPERATE));
 
 
         Mapping RePaymentManager = new Mapping();
         RePaymentManager.setIcon("fa fa-usd");
         RePaymentManager.setTitle("还款管理");
         RePaymentManager.setUrl("/repaymentManager");
+        RePaymentManager.setFunction(Mapping.FUNCTION_MENUITEM);
         tree.insertChild(RePaymentManager, root, null);
 
         Mapping attendanceManager = new Mapping();
         attendanceManager.setIcon("fa fa-crosshairs");
         attendanceManager.setTitle("出勤管理");
         attendanceManager.setUrl("/attendanceManager");
+        attendanceManager.setFunction(Mapping.FUNCTION_MENUITEM);
         tree.insertChild(attendanceManager, root, null);
-        Mapping attendanceList = new Mapping("attendanceList","考勤信息列表","/attendanceManager/attendanceList.ftl");
+        Mapping attendanceList = new Mapping("attendanceList","考勤信息列表","/attendanceManager/attendanceList.ftl",Mapping.FUNCTION_VIEW);
         tree.insertChild(attendanceList,attendanceManager);
-        tree.insertChild(new Mapping("addAttendance","添加","addAttendance"),attendanceList);
-        tree.insertChild(new Mapping("updateAttendance","修改","updateAttendance"));
-        tree.insertChild(new Mapping("deleteStudent","删除","deleteStudent"));
+        tree.insertChild(new Mapping("addAttendance","添加","addAttendance",Mapping.FUNCTION_OPERATE),attendanceList);
+        tree.insertChild(new Mapping("updateAttendance","修改","updateAttendance",Mapping.FUNCTION_OPERATE));
+        tree.insertChild(new Mapping("deleteStudent","删除","deleteStudent",Mapping.FUNCTION_OPERATE));
 
 
         Mapping certificateManager = new Mapping();
         certificateManager.setIcon("fa fa-book");
         certificateManager.setUrl("/certificateManager");
         certificateManager.setTitle("证书管理");
+        certificateManager.setFunction(Mapping.FUNCTION_MENUITEM);
         tree.insertChild(certificateManager, root, null);
 
         Mapping option = new Mapping();
         option.setIcon("fa fa-gear");
         option.setTitle("通用设置");
         option.setUrl("/option");
+        option.setFunction(Mapping.FUNCTION_MENUITEM);
         tree.insertChild(option, root, null);
-        tree.insertChild(new Mapping("updatePurikura","修改头像","/option/updatePurikura.ftl"),option);
-        tree.insertChild(new Mapping("updatePassword","修改密码","/option/updatePassword.ftl"));
+        tree.insertChild(new Mapping("updatePurikura","修改头像","/option/updatePurikura.ftl",Mapping.FUNCTION_VIEW),option);
+        tree.insertChild(new Mapping("updatePassword","修改密码","/option/updatePassword.ftl",Mapping.FUNCTION_VIEW));
 
         Mapping enrollManager = new Mapping();
         enrollManager.setIcon("fa fa-thumbs-up");
         enrollManager.setTitle("报名学生");
         enrollManager.setUrl("/enrollManager");
+        enrollManager.setFunction(Mapping.FUNCTION_MENUITEM);
         tree.insertChild(enrollManager, root, null);
-        Mapping enrollList = new Mapping("enrollList","报名学生列表","/enrollManager/enroll.ftl");
+        Mapping enrollList = new Mapping("enrollList","报名学生列表","/enrollManager/enroll.ftl",Mapping.FUNCTION_VIEW);
         tree.insertChild(enrollList,enrollManager);
-        tree.insertChild(new Mapping("addEnroll","添加报名学生","addEnroll"),enrollList);
-        tree.insertChild(new Mapping("updateEnroll","修改","updateEnroll"));
-        tree.insertChild(new Mapping("deleteEnroll","删除","deleteEnroll"));
+        tree.insertChild(new Mapping("addEnroll","添加报名学生","addEnroll",Mapping.FUNCTION_OPERATE),enrollList);
+        tree.insertChild(new Mapping("updateEnroll","修改","updateEnroll",Mapping.FUNCTION_OPERATE));
+        tree.insertChild(new Mapping("deleteEnroll","删除","deleteEnroll",Mapping.FUNCTION_OPERATE));
         ms._saveMappings(tree.getList());
 
         tree.checkTree(now -> {
