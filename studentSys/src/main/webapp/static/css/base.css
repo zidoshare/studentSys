@@ -289,6 +289,12 @@ td, th {
     height: 124px;
     /*background: url('../images/loading.gif') 50% 50% no-repeat;*/
 }
+a:visited{
+    text-decoration: none;
+}
+a{
+    color: #000000;
+}
 
 .myhk_pjax_loading  {
     position: fixed;
@@ -341,10 +347,20 @@ td, th {
     -webkit-animation: move-in-top cubic-bezier(0.4, 0, 1, 1) .5s;
     animation: move-in-top cubic-bezier(0.4, 0, 1, 1) .5s;
 }
+.div-move-out-top{
+    position:relative;
+    top:0;
+    -webkit-animation: move-out-top cubic-bezier(0.4, 0, 1, 1) .5s;
+    animation: move-out-top cubic-bezier(0.4, 0, 1, 1) .5s;
+}
 @keyframes move-in-top {
     from {top:30px;opacity: 0;}
     to {top:0px;opacity: 1;}
 }
+@keyframes move-out-top{
+    from {top:0px;opacity: 1;}
+    to {top:1px;opacity: 0;}
+ }
 .nav-btn{
     position:absolute;
     left:258px;
@@ -390,4 +406,26 @@ td, th {
 .put-top{
     position:relative;
     top:-20px;
+}
+.pjax_loading{
+    background: white;
+}
+.operator-btn{
+    display: block;
+    float:left;
+    margin:5px 10px;
+    padding:0 10px;
+    background: #eee;
+    border-left:1px solid #00cb66;
+    border-right:1px solid #00cb66;
+    vertical-align: middle;
+    font-family: "Helvetica Neue","Luxi Sans","DejaVu Sans",Tahoma,"Hiragino Sans GB","Microsoft Yahei",sans-serif;
+}
+.operator-btn:hover{
+    cursor: pointer;
+}
+.td-check{
+    width:19px;height: 19px;
+    position:relative;
+    top:-10px;
 }

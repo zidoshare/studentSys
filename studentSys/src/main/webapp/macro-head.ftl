@@ -21,8 +21,9 @@
 <!-- Google Fonts-->
 <#--<link href='http://fonts.useso.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />-->
 <link rel="stylesheet" href="${staticServePath}/assets/js/Lightweight-Chart/cssCharts.css?${staticResourceVersion}">
-
+<link rel="stylesheet" href="${staticServePath}/assets/css/checkbox3.min.css?${staticResourceVersion}"/>
 <link rel="stylesheet" href="${staticServePath}/static/css/base.css?${staticResourceVersion}"/>
-<link rel="stylesheet" href="${staticServePath}/static/css/lib/bootstrap-datetimepicker.min.css"/>
+<link rel="stylesheet" href="${staticServePath}/static/css/lib/bootstrap-datetimepicker.min.css?${staticResourceVersion}"/>
 
+<link rel="stylesheet" href="${staticServePath}/static/css/style.css?${staticResourceVersion}"/>
 </#macro>

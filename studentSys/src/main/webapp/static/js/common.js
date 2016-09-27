@@ -149,9 +149,9 @@ var Util = {
     showTip: function (tip, result, className) {
         if (tip.is(':animated')) {
             //将动画停止
-            tip.stop(true,true);
+            tip.stop(true, true);
             //初始化tip状态
-            tip.css({"display": "none", "opacity": "0","y":"0px"});
+            tip.css({"display": "none", "opacity": "0", "y": "0px"});
             /*tip.transition({opacity: 0, y: 0}, 0);*/
         }
         tip.addClass(className);
@@ -203,3 +203,55 @@ var Util = {
          }*/
     }
 };
+var Animate = {
+    loadWrapper: function () {
+        var t = 100;
+        $(document).find('.animate').each(function (index, doc) {
+            var d = $(this);
+            setTimeout(function () {
+                d.addClass('div-move-in-top');
+                d.css("opacity", "1");
+            }, t);
+            t += 100;
+        });
+    },
+    clearWrapper: function () {
+        var t = 100;
+        $(document).find('.animate').each(function (index, doc) {
+            var d = $(this);
+            setTimeout(function () {
+                d.addClass('div-move-in-top');
+                d.css("opacity", "1");
+            }, t);
+            t += 100;
+        });
+        return t;
+    },
+    reDraw: function () {
+        $('#easypiechart-teal').easyPieChart({
+            scaleColor: false,
+            barColor: '#1ebfae'
+        });
+
+        $('#easypiechart-orange').easyPieChart({
+            scaleColor: false,
+            barColor: '#ffb53e'
+        });
+
+        $('#easypiechart-red').easyPieChart({
+            scaleColor: false,
+            barColor: '#f9243f'
+        });
+
+        $('#easypiechart-blue').easyPieChart({
+            scaleColor: false,
+            barColor: '#30a5ff'
+        });
+    }
+};
+var func = {
+    addRole:function(){
+        $('#myModal').modal('toggle');
+    }
+
+}

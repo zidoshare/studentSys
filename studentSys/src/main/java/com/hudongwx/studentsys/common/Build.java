@@ -298,6 +298,7 @@ public class Build{
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+                    tree = new MappingService().getTree();
                     generatorXML(tree);
                 } catch (IOException e1) {
                     e1.printStackTrace();

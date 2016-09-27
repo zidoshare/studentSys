@@ -10,11 +10,11 @@
                 <i class="fa fa-edit text-success"></i>
             </span>
             <p style="padding-top:0;">
-                <a>
+                <a style="color:white;">
                     <small>基本信息</small>
                 </a>
                 &nbsp;
-                <a>
+                <a style="color:white;">
                     <small>退出</small>
                 </a>
             </p>
@@ -26,7 +26,7 @@
         <#assign tag = 0>
         <#assign start = 0>
         <#list sides as side>
-            <li>
+            <li <#if side.title == now.title>class="active-menu"</#if>>
                 <a href="${side.url}"><i class="${side.icon}"></i>${side.title}<#if menuSize[tag] gt 0><span
                         class="fa arrow"></span></#if></a>
                 <#if menuSize[tag] gt 0>

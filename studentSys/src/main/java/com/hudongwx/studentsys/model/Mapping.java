@@ -83,9 +83,7 @@ public class Mapping extends BaseMapping<Mapping> implements TreeNode {
 		return mapping.getId().equals(getId()) && mapping.getTitle().equals(getTitle()) && mapping.getUrl().equals(getUrl());
 	}
 
-	public boolean isSameSibling(Mapping mapping){
-		if(null == mapping)
-			return false;
-		return mapping.getDegree().equals(getDegree());
+	public boolean isSameSibling(Mapping mapping) {
+		return null != mapping && mapping.getDegree().equals(getDegree());
 	}
 }

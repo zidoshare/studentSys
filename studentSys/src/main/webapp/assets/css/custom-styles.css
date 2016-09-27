@@ -79,7 +79,7 @@ p {
 }
 
 .navbar-side .nav > li > a > i {
-    color: #8C8C8C;
+    color: #fff;
     padding: 8px;
     width: 30px;
     text-align: center;
@@ -673,7 +673,7 @@ div#sideNav:hover {
 }
 
 .sidebar-collapse .nav > li > a {
-    color: #B8B8B8;
+    color: white;
     background: transparent;
     text-shadow: none;
     font-size: 14px;
@@ -696,9 +696,9 @@ ul.nav.nav-second-level.collapse.in {
 
     outline: 0;
 
-    background: #575757;
+    background: rgba(0, 204, 102, 1);
 
-    color: #F36A5A;
+    color: white;
 }
 
 .navbar-side {

@@ -8,7 +8,7 @@ import com.hudongwx.studentsys.common.BaseUser;
 @SuppressWarnings("serial")
 public class User extends BaseUser<User> {
 	public static final User dao = new User();
-
+	public static final String SERCH_FROM_USER = "select * from stumanager_user ";
 	public User getByAccount(){
 
 		return null;

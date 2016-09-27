@@ -2,6 +2,7 @@ package com.hudongwx.studentsys.service;
 
 import com.hudongwx.studentsys.common.Service;
 import com.hudongwx.studentsys.exceptions.ServiceException;
+import com.hudongwx.studentsys.model.Role;
 import com.hudongwx.studentsys.model.User;
 import com.hudongwx.studentsys.util.Common;
 import com.jfinal.log.Log;
@@ -62,5 +63,9 @@ public class UserService extends Service {
         *
         *
         * */
+    }
+
+    public List<User> getUsersByRole(Role role) {
+        return User.dao.find(User.SERCH_FROM_USER+"where userRole = ?",role.getName());
     }
 }

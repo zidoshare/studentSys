@@ -13,13 +13,10 @@ import com.jfinal.log.Log;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by wuhongxu on 2016/8/30 0030.
- *
  */
 public abstract class BaseController extends Controller {
     protected Log log = Log.getLog(this.getClass());
@@ -30,7 +27,7 @@ public abstract class BaseController extends Controller {
     public BaseController() {
         Field[] fields = this.getClass().getFields();
         for (Field field : fields) {
-            log.info("获取到属性："+field.getName());
+            log.info("获取到属性：" + field.getName());
             Class clazz = field.getType();
             if (Service.class.isAssignableFrom(clazz) && clazz != Service.class) {
                 try {
@@ -43,17 +40,17 @@ public abstract class BaseController extends Controller {
         }
         mapping = mappingService.getMappingByTitle(init());
     }
-    public void index(){
+
+    public void index() {
         fillHeaderAndFooter();
-        if(!fillContent()){
+        if (!fillContent()) {
             renderError(403);
-            return ;
+            return;
         }
         render("/index.ftl");
     }
 
     /**
-     *
      * @return 返回mapping的title属性
      */
     public abstract String init();
@@ -112,6 +109,7 @@ public abstract class BaseController extends Controller {
         setAttr(Common.SIDES_LABEL, mappings);
 
     }
+
     protected boolean fillContentParent() {
         User user = getSessionAttr("user");
         if (user == null) {
@@ -120,7 +118,7 @@ public abstract class BaseController extends Controller {
             user = new User();
             user.setUserRole("admin");
         }
-        if(mapping == null){
+        if (mapping == null) {
             renderError(403);
             return false;
         }
@@ -130,20 +128,20 @@ public abstract class BaseController extends Controller {
         List<Mapping> views = new ArrayList<>();
         final int[] size = new int[Common.MAX_DEGREE];
         roleTree.checkTree(now -> {
-            if(roleTree.getParent(now) == null)
+            if (roleTree.getParent(now) == null)
                 return true;
             //子菜单计数,只支持二级菜单。。。
-            if(now.getFunction() > Mapping.FUNCTION_MENUITEM){
+            if (now.getFunction() > Mapping.FUNCTION_MENUITEM) {
                 size[sides.indexOf(now.getParent())]++;
                 childSides.add(now);
             }
             //一级菜单
-            if(now.getFunction() == Mapping.FUNCTION_MENUITEM){
+            if (now.getFunction() == Mapping.FUNCTION_MENUITEM) {
                 sides.add(now);
                 return true;
             }
             //视图遍历，遍历到一级视图停止遍历,并添加到视图链表，以便后续功能或子视图的遍历处理
-            else if (now.getParent()==mapping && now.getFunction() == Mapping.FUNCTION_VIEW){
+            else if (now.getParent() == mapping && now.getFunction() == Mapping.FUNCTION_VIEW) {
                 views.add(now);
                 return false;
             }
@@ -154,16 +152,17 @@ public abstract class BaseController extends Controller {
             return false;
         });
         setAttr(Common.SIDES_LABEL, sides);
-        setAttr(Common.SIDES_SIZE_LABEL,size);
-        setAttr(Common.SIDES_CHILD_LABEL,childSides);
+        setAttr(Common.SIDES_SIZE_LABEL, size);
+        setAttr(Common.SIDES_CHILD_LABEL, childSides);
         setAttr(Common.VIEWS_LABEL, views);
-        setAttr(Common.NOW_VISITE_LABEL,mapping);
+        setAttr(Common.NOW_VISITE_LABEL, mapping);
         //base处理通用的，其他处理继续下放
-        setAttr(Common.ROLE_TREE_LABEL,roleTree);
+        setAttr(Common.ROLE_TREE_LABEL, roleTree);
         return true;
     }
+
     //如果没有子视图模块，则可以使用通用的操作遍历
-    protected boolean fillContentChild(){
+    protected boolean fillContentChild() {
         User user = getSessionAttr("user");
         if (user == null) {
             /*redirect("/user/login");
@@ -171,25 +170,29 @@ public abstract class BaseController extends Controller {
             user = new User();
             user.setUserRole("admin");
         }
-        if(mapping == null){
+        if (mapping == null) {
             renderError(403);
             return false;
         }
         ArrayTree<Mapping> roleTree = roleService.getRoleTree(roleService.getRoleByName(user.getUserRole()));
         List<Mapping> sides = getAttr(Common.VIEWS_LABEL);
-        for(Mapping side : sides){
+        Map<String, List<Mapping>> map = new HashMap<>();
+        for (Mapping side : sides) {
             List<Mapping> operators = new ArrayList<>();
-            roleTree.checkTree(side,now -> {
-                if(now.getFunction()==Mapping.FUNCTION_OPERATE)
+            roleTree.checkTree(side, now -> {
+                if (now.getFunction() == Mapping.FUNCTION_OPERATE) {
                     operators.add(now);
-                return false;
+                    return false;
+                }
+                return true;
             });
-            setAttr("operators"+side.getId(),operators);
+            map.put("operators" + side.getId(), operators);
         }
+        setAttr("map", map);
         return true;
     }
 
-    protected boolean fillContent(){
+    protected boolean fillContent() {
         return fillContentParent() && fillContentChild();
     }
 
@@ -198,7 +201,7 @@ public abstract class BaseController extends Controller {
         fillFooter();
     }
 
-    public static User getCurrentUser(HttpServletRequest request){
-        return (User)request.getSession().getAttribute("user");
+    public static User getCurrentUser(HttpServletRequest request) {
+        return (User) request.getSession().getAttribute("user");
     }
 }

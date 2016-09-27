@@ -12,8 +12,8 @@
 <div id="page-wrapper">
 
     <div id="page-inner">
-    <#list views as c>
-            <#include c.url>
+    <#list views as view>
+            <#include view.url>
         </#list>
     </div>
 </div>
