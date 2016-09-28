@@ -1,28 +1,10 @@
-<div class="pjax_loading" style="display: none;">
-    <div id="contain">
-        <div class="wrap" id="wrap1">
-            <div class="part" id="part1"></div>
-        </div>
-
-        <div class="wrap" id="wrap2">
-            <div class="part" id="part2"></div>
-        </div>
-
-        <div class="wrap" id="wrap3">
-            <div class="part" id="part3"></div>
-        </div>
-
-        <div class="wrap" id="wrap4">
-            <div class="part" id="part4"></div>
-        </div>
-    </div>
-</div>
 <script src="${staticServePath}/static/js/lib/jquery-2.1.1.min.js?${staticResourceVersion}"
         type="text/javascript"></script>
 <#--<script src="${staticServePath}/assets/js/jquery-1.10.2.js?${staticResourceVersion}"></script>-->
 <script src="${staticServePath}/static/js/lib/spin.min.js?${staticResourceVersion}"></script>
 <script src="${staticServePath}/static/js/lib/ladda.min.js?${staticResourceVersion}" type="text/javascript"></script>
-<script src="${staticServePath}/static/js/lib/jquery.transit.js?${staticResourceVersion}" type="text/javascript"></script>
+<script src="${staticServePath}/static/js/lib/jquery.transit.js?${staticResourceVersion}"
+        type="text/javascript"></script>
 <script src="${staticServePath}/static/js/common.js?${staticResourceVersion}" type="text/javascript"></script>
 <script src="${staticServePath}/static/js/lib/bootstrap-datetimepicker.min.js?${staticResourceVersion}"></script>
 <!-- /. WRAPPER  -->
@@ -53,7 +35,7 @@
 <script type="text/javascript" src="${staticServePath}/static/js/lib/jquery.pjax.js?${staticResourceVersion}"></script>
 
 <script type="text/javascript">
-    $('#purikura').css('background','url("../../images/logo.gif") no-repeat center center');
+    $('#purikura').css('background', 'url("../../images/logo.gif") no-repeat center center');
     Animate.loadWrapper();
     var Label = {
         staticServePath: "${staticServePath}",
@@ -64,30 +46,39 @@
         invalidPasswordLabel: "${invalidPasswordLabel}"
     };
     $(function () {
-        if($.support.pjax){
+        if ($.support.pjax) {
             $(document).pjax('a[href!=#]', '#page-inner', {
                 fragment: '#page-inner',
                 timeout: 8000,
                 cache: true,
-                storage:true
+                storage: true
             });
         }
+        $('input').change(function()
+        {
+            if ($(this).prop('checked')) {
+                var id = $(this).attr('id');
+                func.showPermissions(id, 'permission' + id);
+            }
+        }
+        )
+        ;
     });
-    $(document).on('pjax:beforeSend', function() { //pjax链接点击后显示加载动画；
+    $(document).on('pjax:beforeSend', function () { //pjax链接点击后显示加载动画；
         $('#page-inner').html('');
         $('.pjax_loading').css("display", "block");
     });
-    $(document).on('pjax:complete', function() { //pjax链接加载完成后隐藏加载动画；
+    $(document).on('pjax:complete', function () { //pjax链接加载完成后隐藏加载动画；
         $('.pjax_loading').css('display', 'none');
         Animate.loadWrapper();
         Animate.reDraw();
     });
 
-    $('#main-menu').find('li').on('click',function(){
+    $('#main-menu').find('li').on('click', function () {
         $(this).addClass('active-menu');
         $(this).siblings('li').removeClass('active-menu');
     })
-    $('tr').on('click',function(){
+    $('tr').on('click', function () {
         /*alert("ok");
         $(this).find('.checkbox3.checkbox-round').first().click();*/
     })

@@ -5,8 +5,6 @@ import com.jfinal.aop.Interceptor;
 import com.jfinal.aop.Invocation;
 import com.jfinal.log.Log;
 
-import java.lang.reflect.Method;
-
 /**
  * Created by wuhongxu on 2016/8/31 0031.
  */
@@ -17,8 +15,8 @@ public class UrlInterceptor implements Interceptor {
     public void intercept(Invocation inv) {
         String actionKey = inv.getActionKey();
         String controllerKey = inv.getControllerKey();
-        inv.getController().setAttr(Common.ACTION_KEY_LABEL,actionKey);
-        inv.getController().setAttr(Common.CONTROLLER_KEY_LABEL,controllerKey);
+        inv.getController().setAttr(Common.LABEL_ACTION_KEY,actionKey);
+        inv.getController().setAttr(Common.LABEL_CONTROLLER_KEY,controllerKey);
         log.info(actionKey);
         inv.invoke();
     }

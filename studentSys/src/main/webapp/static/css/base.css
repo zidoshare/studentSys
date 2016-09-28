@@ -60,9 +60,6 @@ label {
     /*font-weight: 500;*/
 }
 
-body {
-    background-color: white;
-}
 .far-left{
     margin-left:20px;
 }
@@ -134,7 +131,7 @@ body {
 }
 
 .active-menu, .active-menu i {
-    background-color: #00cb66 !important;
+    /*background-color: #00cb66 !important;*/
     color: white !important;
 }
 
@@ -409,6 +406,12 @@ a{
 }
 .pjax_loading{
     background: white;
+    position:fixed;
+    left:260px;
+    top:0;
+    right:0;
+    bottom: 0;
+    z-index:99999;
 }
 .operator-btn{
     display: block;
@@ -428,4 +431,10 @@ a{
     width:19px;height: 19px;
     position:relative;
     top:-10px;
+}
+ul.nav.nav-third-level.collapse.in {
+    background: #131212;
+}
+i{
+    background: rgba(0,0,0,0);
 }

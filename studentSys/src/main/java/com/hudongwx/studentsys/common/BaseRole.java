@@ -41,4 +41,20 @@ public abstract class BaseRole<M extends BaseRole<M>> extends Model<M> implement
 		return get("treeData");
 	}
 
+	public void setCreateTime(java.lang.Long createTime) {
+		set("createTime", createTime);
+	}
+
+	public java.lang.Long getCreateTime() {
+		return get("createTime");
+	}
+
+	public void setOperater(java.lang.String operater) {
+		set("operater", operater);
+	}
+
+	public java.lang.String getOperater() {
+		return get("operater");
+	}
+
 }

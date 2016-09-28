@@ -11,7 +11,7 @@
                 <#assign updateAble = false>
                 <#assign deleteAble = false>
                 <#list map["operators"+view.id] as op>
-                    <a onclick="func.${op.url}();" class="btn btn-success btn-sm">${op.title}</a>
+                    <a onclick="func.${op.url}('show');" class="btn btn-success btn-sm">${op.title}</a>
                     <#if op.title=="编辑">
                         <#assign updateAble = true>
                     </#if>
@@ -29,7 +29,10 @@
                         <tr>
                             <th>角色名
                             </th>
-                            <th>人数
+                            <th>
+                                人数
+                            </th>
+                            <th>创建时间
                             </th>
                             <th>操作人
                             </th>
@@ -51,8 +54,9 @@
                         <tr class="gradeA odd">
                             <td class="sorting_1">${role.name}</td>
                             <td class=" ">${role.memberCnt}</td>
-                            <td class=" ">Win 98+ / OSX.2+</td>
-
+                            <td class=""><#if role.createTime??>${(role.createTime?number)?number_to_datetime}<#else>
+                                未记录</#if></td>
+                            <td class=" "><#if role.operater??>${role.operater}<#else>未记录</#if></td>
                             <#if updateAble || deleteAble>
                                 <td>
                                     <div class="checkbox3 checkbox-round">
@@ -71,19 +75,60 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">信息录入</h4>
             </div>
             <div class="modal-body">
-                ...
+                <form id="role" role="form" class="form-horizontal">
+                    <div class="form-group">
+                        <label for="role.name" class="col-sm-2 control-label">角色名</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="role.name" id="role.name" placeholder="角色名">
+                        </div>
+                    </div>
+                    <div class="form-group sr-only">
+                        <label for="createTime" class="col-sm-2 control-label">createTime</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="role.createTime" id="createTime"
+                                   placeholder="角色名" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group sr-only">
+                        <label for="treeData" class="col-sm-2 control-label">treeData</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="role.treeData" id="treeData" placeholder="角色名"
+                                   disabled>
+                        </div>
+                    </div>
+                    <div class="form-group sr-only">
+                        <label for="operater" class="col-sm-2 control-label">operater</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="role.operater" id="operater" placeholder="操作人" value="${user.userNickname}"
+                                   disabled>
+                        </div>
+                    </div>
+                </form>
+                <div class="checkbox3 checkbox-round sr-only">
+                    <input type="checkbox" checked name="${root.id}" id="${root.id}">
+                    <label for="${root.id}">
+                    </label>
+                </div>
+                <div id="permissions"
+                     style="/*display: none;*//*height:${root.childCount * 40}px;*/overflow-y:auto;overflow-x:hidden; "></div>
+
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button data-style="slide-up" id="save-btn" class="btn btn-primary ladda-button"
+                        onclick="func.addRole('up')">
+                    <span class="ladda-label">保存</span>
+                </button>
             </div>
         </div>
     </div>

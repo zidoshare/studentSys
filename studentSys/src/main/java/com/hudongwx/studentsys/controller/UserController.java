@@ -1,16 +1,20 @@
 package com.hudongwx.studentsys.controller;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.hudongwx.studentsys.common.BaseController;
 import com.hudongwx.studentsys.model.Mapping;
 import com.hudongwx.studentsys.model.Role;
 import com.hudongwx.studentsys.model.User;
-import com.hudongwx.studentsys.service.MappingService;
-import com.hudongwx.studentsys.service.RoleService;
 import com.hudongwx.studentsys.service.UserService;
+import com.hudongwx.studentsys.util.ArrayTree;
+import com.hudongwx.studentsys.util.Common;
 import com.hudongwx.studentsys.util.RenderKit;
+import com.hudongwx.studentsys.util.StrPlusKit;
 import com.jfinal.aop.Before;
 import com.jfinal.ext.interceptor.POST;
 
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,18 +51,65 @@ public class UserController extends BaseController {
         String password = getPara("password");
 
         User user = userService.validate(account, password);
-        if(null != user)
+        if(null != user){
             setSessionAttr("user",user);
 
-        RenderKit.renderSuccess(this,"登录成功,"+account+" "+password);
-
+            RenderKit.renderSuccess(this,"登录成功,"+account+" "+password);
+        }else
+            RenderKit.renderError(this,"账号或密码错误");
     }
     public void showLogin(){
         fillHeaderAndFooter();
-        render("login.ftl");
+        render("/user/login.ftl");
     }
     @Before(POST.class)
     public void addRole(){
-        
+        Role model = getModel(Role.class);
+        roleService._saveRole(model);
+        RenderKit.renderSuccess(this);
+    }
+    @Before(POST.class)
+    public void addUser(){
+        User user = getModel(User.class);
+        userService._saveUser(user);
+        RenderKit.renderSuccess(this);
+    }
+    public void showPermissions(){
+        String id = getPara(0);
+        ArrayTree<Mapping> tree = mappingService.getTree();
+        Mapping parent = null;
+        if(StrPlusKit.isEmpty(id))
+            parent = tree.root();
+        else
+            parent = mappingService.getMappingById(Integer.valueOf(id));
+        log.info(parent.getTitle());
+        final JSONArray jsonArray = new JSONArray();
+        Mapping finalParent = parent;
+        tree.checkTree(parent, now -> {
+            if(now == finalParent)
+                return true;
+            JSONObject json = new JSONObject();
+            json.put(Common.LABEL_ID,now.getId());
+            json.put(Mapping.LABEL_ICON,now.getIcon());
+            json.put(Mapping.LABEL_TITLE,now.getTitle());
+            json.put(Mapping.LABEL_URL,now.getUrl());
+            json.put(Mapping.LABEL_CHILD_COUNT,now.getChildCount());
+            jsonArray.add(json);
+            return false;
+        });
+        log.info(jsonArray.toString());
+        RenderKit.renderSuccess(this,jsonArray.toString());
+        /*Map<String,List<Mapping>> map = new HashMap<>();
+        tree.checkTree(now -> {
+            map.put(now.getId()+"",new ArrayList<Mapping>());
+            if(now.getParent() == null)
+                return true;
+            List<Mapping> mappings = map.get(now.getParent().getId() + "");
+            mappings.add(now);
+            return true;
+        });
+        setAttr("map",map);
+        setAttr("root",tree.root());
+        render("/userManager/showAllPermission.ftl");*/
     }
 }

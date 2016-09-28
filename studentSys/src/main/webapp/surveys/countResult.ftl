@@ -5,7 +5,7 @@
 <body>
 
 <div class="modal-header">
-    <h4 class="modal-title" id="myModalLabel">${questionnaire.toUser}调查表统计 平均分${avg}  人数${results?size}</h4>
+    <h4 class="modal-title" id="myModalLabel">${questionnaire.toUser}调查表统计 平均分${avg} 人数${results?size}</h4>
 </div>
 <div class="modal-body">
     <div class="table-responsive">
@@ -22,7 +22,7 @@
                 </th>
             </tr>
         <#list results as result>
-            <tr id = ${result.id}>
+            <tr id= ${result.id}>
                 <th>
                 ${result.idUser}
                 </th>
@@ -45,8 +45,8 @@
 
 
 <script type="text/javascript">
-    $("tr").bind("click",function(){
-        window.open("${staticServePath}/result/"+$(this).attr('id'));
+    $("tr").bind("click", function () {
+        window.open("${staticServePath}/result/" + $(this).attr('id'));
     });
 </script>
 </body>

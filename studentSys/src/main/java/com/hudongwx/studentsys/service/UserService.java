@@ -5,6 +5,7 @@ import com.hudongwx.studentsys.exceptions.ServiceException;
 import com.hudongwx.studentsys.model.Role;
 import com.hudongwx.studentsys.model.User;
 import com.hudongwx.studentsys.util.Common;
+import com.hudongwx.studentsys.util.StrPlusKit;
 import com.jfinal.log.Log;
 
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.List;
  */
 public class UserService extends Service {
     private Log log = Log.getLog(getClass());
+    private RoleService roleService;
     public User validate(String userAccount,String userPassword){
         List<User> users = User.dao.find("select * from stumanager_user where userAccount = ? and userPassword = ?", userAccount, userPassword);
         if(users.isEmpty())
@@ -42,19 +44,21 @@ public class UserService extends Service {
     * */
     public void packingUser(User user) throws ServiceException {
         if(null == user.getUserAccount() || null == user.getUserPassword() ){
-            //手动释放????
-            user = null;
             throw new ServiceException("userAccount or userPassword cannot be null when packingUser");
         }
         if(null == user.getUserCreateTime())
             user.setUserCreateTime(System.currentTimeMillis());
         if(null == user.getUserPurikura())
             user.setUserPurikura(Common.getMainProp().get("defaultPurikura"));
-        if(null == user.getUserRole())
-            user.setUserRole(Common.getMainProp().get("defaultRole"));
-        if(null == user.getUserNickname()){
+        if(StrPlusKit.isEmpty(user.getUserRole()))
+            throw new ServiceException("userRole cannot be null when packingUser");
+        Role role = roleService.getRoleByName(user.getUserRole());
+        if(null == role)
+            throw new ServiceException("role:"+user.getUserRole()+" not exists");
+        role.setMemberCnt(role.getMemberCnt()+1);
+        role.update();
+        if(StrPlusKit.isEmpty(user.getUserNickname())){
             String id = user.getId()+"";
-            id.substring(id.length()-7,id.length());
             String str = Common.getMainProp().get("defaultNickNameBefore")+id;
             user.setUserNickname(str);
         }
@@ -66,6 +70,6 @@ public class UserService extends Service {
     }
 
     public List<User> getUsersByRole(Role role) {
-        return User.dao.find(User.SERCH_FROM_USER+"where userRole = ?",role.getName());
+        return User.dao.find(User.SEARCH_FROM_USER +"where userRole = ?",role.getName());
     }
 }

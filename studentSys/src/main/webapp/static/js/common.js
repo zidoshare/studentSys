@@ -250,8 +250,109 @@ var Animate = {
     }
 };
 var func = {
-    addRole:function(){
-        $('#myModal').modal('toggle');
+    addRole: function (method) {
+        if (method == 'show') {
+            $('#myModal').modal('toggle');
+            func.showPermissions(0, '', 'permissions');
+        } else {
+            var data = [];
+            var x = 0;
+            $('#myModal').find("input[type='checkbox']").each(function (index, dom) {
+                if($(this).prop('checked'))
+                    data[x++] = $(this).attr('name');
+            });
+            data = data.sort(function(a,b){
+                return a-b;
+            });
+            console.log(data);
+            var d = "";
+            for(var i = 0; i < data.length;i++){
+                d+=data[i]+":";
+            }
+            alert(d);
+            if (d.length > 0)
+                d = d.substr(0, d.length - 1);
+            $('#treeData').val(d);
+            $('#createTime').val(new Date().getTime());
+            var btn = Ladda.create(document.querySelector("#save-btn"));
+            btn.start();
+            var json = {};
+            $('#role').find('input').each(function () {
+                json[$(this).attr('name')] = $(this).val();
+            });
+            $.ajax({
+                url: '/userManager/addRole',
+                type: 'post',
+                data: json,
+                success: function (data) {
+                    if (data.state == 'success') {
+                        alert("ok");
+                    } else
+                        alert("no");
+                },
+                error: function () {
+                    alert('服务器错误');
+                },
+                complete:function(){
+                    btn.stop();
+                }
+            });
+        }
+    },
+    addUser:function(method){
+        if (method == 'show') {
+            $('#addUserModel').modal('toggle');
+            /*func.showPermissions(0, '', 'permissions');*/
+        }else{
+            var btn = Ladda.create(document.querySelector("#save-btn"));
+            btn.start();
+            var json = {};
+            $('#user').find('.form-control').each(function () {
+                json[$(this).attr('name')] = $(this).val();
+            });
+            $.ajax({
+                url: '/userManager/addUser',
+                type: 'post',
+                data: json,
+                success: function (data) {
+                    if (data.state == 'success') {
+                        alert("ok");
+                    } else
+                        alert("no");
+                },
+                error: function () {
+                    alert('服务器错误');
+                },
+                complete:function(){
+                    btn.stop();
+                }
+            });
+        }
+    },
+    showPermissions: function (left, mappingId, divId) {
+        $.ajax({
+            url: '/userManager/showPermissions/' + mappingId,
+            type: 'get',
+            success: function (data) {
+                if (data.state == 'success') {
+                    var str = '';
+                    var list = $.parseJSON(data.msg);
+                    for (var i = 0; i < list.length; i++) {
+                        var json = list[i];
+                        var id = json['id'];
+                        var icon = json['icon'];
+                        var title = json['title'];
+                        var url = json['url'];
+                        var childCnt = json['childCount'];
+                        str += '<div class="checkbox3 checkbox-round" onchange="func.showPermissions(' + (left + 20) + ',\'' + id + '\',\'permission' + id + '\')"> ' +
+                            '<input type="checkbox" name="' + id + '" id="' + id + '"> ' +
+                            '<label for="' + id + '">' + title + '</label>' +
+                            ' </div><div id="permission' + id + '" style="margin-left: ' + (left + 20) + 'px;/*height:' + (childCnt * 40) + 'px;*//*overflow-y:auto;overflow-x:hidden;*/ "></div>';
+                    }
+                    $('#' + divId).html(str);
+                }
+            }/*,
+             complete:$('#'+divId).slideDown()*/
+        });
     }
-
-}
+};

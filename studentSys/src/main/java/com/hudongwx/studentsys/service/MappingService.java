@@ -6,7 +6,6 @@ import com.hudongwx.studentsys.model.Mapping;
 import com.hudongwx.studentsys.util.ArrayTree;
 import com.hudongwx.studentsys.util.Common;
 import com.hudongwx.studentsys.util.StrPlusKit;
-import com.hudongwx.studentsys.util.TreeNode;
 import com.jfinal.log.Log;
 import com.jfinal.plugin.ehcache.CacheKit;
 
@@ -89,11 +88,11 @@ public class MappingService extends Service {
             //神玩法....以前从来不知道有这种用法...真神奇
             mappings.forEach(Mapping::save);
 
-            List<Mapping> mappingTree = CacheKit.get(Common.CACHE_FOEVER_LABEL, "mappingTree");
+            List<Mapping> mappingTree = CacheKit.get(Common.CACHE_FOREVER_LABEL, "mappingTree");
             if (null == mappingTree)
                 mappingTree = new ArrayList<>();
             mappingTree.addAll(mappings);
-            CacheKit.put(Common.CACHE_FOEVER_LABEL, "mappingTree", mappingTree);
+            CacheKit.put(Common.CACHE_FOREVER_LABEL, "mappingTree", mappingTree);
             return true;
         } catch (ServiceException e) {
             e.printStackTrace();
@@ -106,9 +105,9 @@ public class MappingService extends Service {
         try {
             packingMapping(mappingNode);
             x = mappingNode.save();
-            List<Mapping> mappingTree = CacheKit.get(Common.CACHE_FOEVER_LABEL, "mappingTree");
+            List<Mapping> mappingTree = CacheKit.get(Common.CACHE_FOREVER_LABEL, "mappingTree");
             mappingTree.add(mappingNode);
-            CacheKit.put(Common.CACHE_FOEVER_LABEL, "mappingTree", mappingTree);
+            CacheKit.put(Common.CACHE_FOREVER_LABEL, "mappingTree", mappingTree);
         } catch (ServiceException e) {
             e.printStackTrace();
         }
@@ -117,9 +116,9 @@ public class MappingService extends Service {
 
     public void _deleteMapping(Mapping mapping) {
         mapping.delete();
-        List<Mapping> mappingTree = CacheKit.get(Common.CACHE_FOEVER_LABEL, "mappingTree");
+        List<Mapping> mappingTree = CacheKit.get(Common.CACHE_FOREVER_LABEL, "mappingTree");
         mappingTree.remove(mapping);
-        CacheKit.put(Common.CACHE_FOEVER_LABEL, "mappingTree", mappingTree);
+        CacheKit.put(Common.CACHE_FOREVER_LABEL, "mappingTree", mappingTree);
     }
 
     public void _updateMapping(Mapping mapping) {

@@ -20,7 +20,9 @@ public class RoleService extends Service {
     private MappingService mappingService;
 
     public List<Role> getRoles() {
-        return Role.dao.findByCache(Common.CACHE_FOEVER_LABEL, "roles", "select * from stumanager_role");
+        return Role.dao.find(Role.SEARCH_FROM_ROLE);
+        //暂时取消缓存
+        //return Role.dao.findByCache(Common.CACHE_FOREVER_LABEL, "roles", "select * from stumanager_role");
     }
 
     public List<String> getpermitMappingIds(Role role) {
@@ -62,9 +64,9 @@ public class RoleService extends Service {
         try {
             packingRole(role);
             role.save();
-            List<Role> roles = getRoles();
+           /* List<Role> roles = getRoles();
             roles.add(role);
-            CacheKit.put(Common.CACHE_FOEVER_LABEL, "roles", roles);
+            CacheKit.put(Common.CACHE_FOREVER_LABEL, "roles", roles);*/
         } catch (ServiceException e) {
             e.printStackTrace();
         }
@@ -72,9 +74,9 @@ public class RoleService extends Service {
 
     public void _deleteRole(Role role) {
         role.delete();
-        List<Role> roles = getRoles();
+        /*List<Role> roles = getRoles();
         roles.remove(role);
-        CacheKit.put(Common.CACHE_FOEVER_LABEL, "roles", roles);
+        CacheKit.put(Common.CACHE_FOREVER_LABEL, "roles", roles);*/
     }
 
     public void packingRole(Role role) throws ServiceException {
@@ -84,7 +86,6 @@ public class RoleService extends Service {
             throw new ServiceException("role's data cannot be null or \"\"");
         role.setMemberCnt(0);
     }
-
     public ArrayTree<Mapping> getRoleTree(final Role role) {
         if(role.allowTree != null)
             return role.allowTree;

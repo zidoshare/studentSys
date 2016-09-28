@@ -8,9 +8,7 @@ import com.hudongwx.studentsys.service.RoleService;
 import com.hudongwx.studentsys.service.UserService;
 import com.hudongwx.studentsys.util.ArrayTree;
 import com.hudongwx.studentsys.util.Common;
-import com.hudongwx.studentsys.util.ObjectKit;
 import com.hudongwx.studentsys.util.StrPlusKit;
-import com.jfinal.kit.PathKit;
 import com.jfinal.log.Log;
 import org.dom4j.*;
 import org.dom4j.io.OutputFormat;
@@ -124,6 +122,32 @@ public class Build{
         certificateManager.setFunction(Mapping.FUNCTION_MENUITEM);
         tree.insertChild(certificateManager, root, null);
 
+        Mapping myTest = new Mapping("fa fa-pencil","我的考试","/test",Mapping.FUNCTION_MENUITEM);
+        tree.insertChild(myTest,root);
+        Mapping testHistory = new Mapping("testHistory","考试历史","/test/history",Mapping.FUNCTION_MENUITEM_CHILD);
+        Mapping toTest = new Mapping("toTest","参加考试","/test/to",Mapping.FUNCTION_MENUITEM_CHILD);
+        tree.insertChild(testHistory,myTest);
+        tree.insertChild(toTest);
+
+        Mapping mySurveys = new Mapping("fa fa-file-text","我的调查","/#",Mapping.FUNCTION_MENUITEM);
+        tree.insertChild(mySurveys,root);
+        Mapping toSurveying = new Mapping("toSurveying","调查列表","/surveys/surveyList",Mapping.FUNCTION_MENUITEM_CHILD);
+        tree.insertChild(toSurveying,mySurveys);
+        Mapping surveying = new Mapping("surveying","正在进行的调查","/surveys/surveying.ftl",Mapping.FUNCTION_VIEW);
+        tree.insertChild(surveying,toSurveying);
+        Mapping toInputBigType = new Mapping("toInputBigType","添加大类型","/surveys/inputBigType",Mapping.FUNCTION_MENUITEM_CHILD);
+        tree.insertChild(toInputBigType,mySurveys);
+        tree.insertChild(new Mapping("inputBigType","添加大类型","/surveys/inputBigType.ftl",Mapping.FUNCTION_VIEW),toInputBigType);
+        Mapping toInputQuestion = new Mapping("toInputQuestion","添加问题","/surveys/inputBigQuestion",Mapping.FUNCTION_MENUITEM_CHILD);
+        tree.insertChild(toInputQuestion,mySurveys);
+        tree.insertChild(new Mapping("inputQuestion","添加问题","/surveys/inputQuestion.ftl",Mapping.FUNCTION_VIEW),toInputQuestion);
+        Mapping toInputQuestionnaire = new Mapping("toInputQuestionnaire","组卷","/surveys/inputQuestionnaire",Mapping.FUNCTION_MENUITEM_CHILD);
+        tree.insertChild(toInputQuestionnaire,mySurveys);
+        tree.insertChild(new Mapping("inputQuestionnaire","组卷","/surveys/inputQuestionnaire.ftl",Mapping.FUNCTION_VIEW),toInputQuestionnaire);
+        Mapping toCheckResult = new Mapping("toCheckResult","查看调查结果","/surveys/checkResult",Mapping.FUNCTION_MENUITEM_CHILD);
+        tree.insertChild(toCheckResult,mySurveys);
+        tree.insertChild(new Mapping("checkResult","查看调查结果","/surveys/checkResult.ftl",Mapping.FUNCTION_VIEW),toCheckResult);
+
         Mapping option = new Mapping();
         option.setIcon("fa fa-gear");
         option.setTitle("通用设置");
@@ -195,11 +219,11 @@ public class Build{
 
     }
     private static Element addAttributeToElement(Element e, Mapping mapping){
-        e.addAttribute(Common.ID_LABEL,""+mapping.getId());
-        e.addAttribute(Mapping.ICON_LABEL,mapping.getIcon());
-        e.addAttribute(Mapping.URL_LABEL,mapping.getUrl());
-        e.addAttribute(Mapping.TITLE_LABEL,mapping.getTitle());
-        e.addAttribute(Mapping.FUNCTION_LABEL,""+mapping.getFunction());
+        e.addAttribute(Common.LABEL_ID,""+mapping.getId());
+        e.addAttribute(Mapping.LABEL_ICON,mapping.getIcon());
+        e.addAttribute(Mapping.LABEL_URL,mapping.getUrl());
+        e.addAttribute(Mapping.LABEL_TITLE,mapping.getTitle());
+        e.addAttribute(Mapping.LABEL_FUNCTION,""+mapping.getFunction());
         return e.addElement("mappings");
     }
     private static void readXML(final ArrayTree<Mapping> tree,final String path) throws Exception {
@@ -213,10 +237,10 @@ public class Build{
         Map<Element,Mapping> map = new HashMap<>();
         while (!queue.isEmpty()){
             Element nowe = queue.poll();
-            final Attribute icona = nowe.attribute(Mapping.ICON_LABEL);
-            final Attribute titlea = nowe.attribute(Mapping.TITLE_LABEL);
-            final Attribute urla = nowe.attribute(Mapping.URL_LABEL);
-            final Attribute functiona = nowe.attribute(Mapping.FUNCTION_LABEL);
+            final Attribute icona = nowe.attribute(Mapping.LABEL_ICON);
+            final Attribute titlea = nowe.attribute(Mapping.LABEL_TITLE);
+            final Attribute urla = nowe.attribute(Mapping.LABEL_URL);
+            final Attribute functiona = nowe.attribute(Mapping.LABEL_FUNCTION);
             if(icona == null || titlea == null || urla == null)
                 throw new Exception("icon/title/url不存在");
             final String icon = icona.getStringValue();
@@ -262,6 +286,8 @@ public class Build{
         Role role = new Role();
         role.setName("admin");
         role.setMemberCnt(0);
+        role.setCreateTime(System.currentTimeMillis());
+        role.setOperater("system");
         ArrayTree<Mapping> tree = ms.getTree();
         rs.putRoleTree(role,tree);
         rs._saveRole(role);

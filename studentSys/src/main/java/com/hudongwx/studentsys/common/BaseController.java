@@ -49,7 +49,6 @@ public abstract class BaseController extends Controller {
         }
         render("/index.ftl");
     }
-
     /**
      * @return 返回mapping的title属性
      */
@@ -65,7 +64,7 @@ public abstract class BaseController extends Controller {
             para = "";
         else
             para = "?" + para;
-        String actionKey = getAttr(Common.ACTION_KEY_LABEL);
+        String actionKey = getAttr(Common.LABEL_ACTION_KEY);
         String servePath = staticPath + actionKey;
         /*if(staticPath.endsWith("/"))
             staticPath = staticPath.substring(0,staticPath.length()-1);
@@ -79,16 +78,17 @@ public abstract class BaseController extends Controller {
         log.info("servePath用于得到去掉参数的网址:"+servePath);
         log.info("holdPath为带参数网址:"+url);*/
 
-        setAttr(Common.STATIC_SERVE_PATH_LABEL, staticPath);
-        setAttr(Common.SERVE_PATH_LABEL, servePath);
-        setAttr(Common.HOLD_PATH_LABEL, url);
+        setAttr(Common.LABEL_STATIC_SERVE_PATH, staticPath);
+        setAttr(Common.LABEL_SERVE_PATH, servePath);
+        setAttr(Common.LABEL_HOLD_PATH, url);
 
-        setAttr(Common.STATIC_RESOURCE_VERSION_LABEL, new Date().getTime());
-        setAttr(Common.LOGIN_ROLE_LABEL, "学生");
-        setAttr(Common.IS_LOGIN_LABEL, false);
+        setAttr(Common.LABEL_STATIC_RESOURCE_VERSION, new Date().getTime());
+        setAttr(Common.LABEL_LOGIN_ROLE, "学生");
+        setAttr(Common.LABEL_USER,getCurrentUser(getRequest()));
+        setAttr(Common.LABEL_IS_LOGIN, false);
         Prop langProp = LangConfig.getLangProp();
-        setAttr(Common.LOGIN_NAME_ERROR_LABEL, langProp.get(Common.LOGIN_NAME_ERROR_LABEL));
-        setAttr(Common.INVALID_PASSWORD_LABEL, langProp.get(Common.INVALID_PASSWORD_LABEL));
+        setAttr(Common.LABEL_LOGIN_NAME_ERROR, langProp.get(Common.LABEL_LOGIN_NAME_ERROR));
+        setAttr(Common.LABEL_INVALID_PASSWORD, langProp.get(Common.LABEL_INVALID_PASSWORD));
     }
 
     private void fillFooter() {
@@ -106,17 +106,15 @@ public abstract class BaseController extends Controller {
         List<Mapping> mappings = mappingService.getTree().getList();
         mappings.remove(0);
 
-        setAttr(Common.SIDES_LABEL, mappings);
+        setAttr(Common.LABEL_SIDES, mappings);
 
     }
 
     protected boolean fillContentParent() {
-        User user = getSessionAttr("user");
+        User user = getCurrentUser(getRequest());
         if (user == null) {
-            /*redirect("/user/login");
-            return false;*/
-            user = new User();
-            user.setUserRole("admin");
+            redirect("/user/login");
+            return false;
         }
         if (mapping == null) {
             renderError(403);
@@ -151,31 +149,30 @@ public abstract class BaseController extends Controller {
             return mappingService.getBaseMenu(now) == mapping;*/
             return false;
         });
-        setAttr(Common.SIDES_LABEL, sides);
-        setAttr(Common.SIDES_SIZE_LABEL, size);
-        setAttr(Common.SIDES_CHILD_LABEL, childSides);
-        setAttr(Common.VIEWS_LABEL, views);
-        setAttr(Common.NOW_VISITE_LABEL, mapping);
+        setAttr(Common.LABEL_SIDES, sides);
+        setAttr(Common.LABEL_SIDES_SIZE, size);
+        setAttr(Common.LABEL_SIDES_CHILD, childSides);
+        setAttr(Common.LABEL_VIEWS, views);
+        setAttr(Common.LABEL_NOW_VISIT, mapping);
         //base处理通用的，其他处理继续下放
-        setAttr(Common.ROLE_TREE_LABEL, roleTree);
+        setAttr(Common.LABEL_ROLE_TREE, roleTree);
+        setAttr(Common.LABEL_ROOT_MAPPING,roleTree.root());
         return true;
     }
 
     //如果没有子视图模块，则可以使用通用的操作遍历
     protected boolean fillContentChild() {
-        User user = getSessionAttr("user");
+        User user = getCurrentUser(getRequest());
         if (user == null) {
-            /*redirect("/user/login");
-            return false;*/
-            user = new User();
-            user.setUserRole("admin");
+            redirect("/user/login");
+            return false;
         }
         if (mapping == null) {
             renderError(403);
             return false;
         }
         ArrayTree<Mapping> roleTree = roleService.getRoleTree(roleService.getRoleByName(user.getUserRole()));
-        List<Mapping> sides = getAttr(Common.VIEWS_LABEL);
+        List<Mapping> sides = getAttr(Common.LABEL_VIEWS);
         Map<String, List<Mapping>> map = new HashMap<>();
         for (Mapping side : sides) {
             List<Mapping> operators = new ArrayList<>();
@@ -202,6 +199,10 @@ public abstract class BaseController extends Controller {
     }
 
     public static User getCurrentUser(HttpServletRequest request) {
+        /*User user = new User();
+        user.setUserNickname("管理员");
+        user.setUserRole("admin");
+        return user;*/
         return (User) request.getSession().getAttribute("user");
     }
 }

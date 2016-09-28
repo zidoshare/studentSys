@@ -29,6 +29,9 @@ public class SurveysController extends BaseController {
         fillHeaderAndFooter();
         render("index.ftl");
     }
+    public void surveyList(){
+        super.index();
+    }
 
     //添加问题页面
     public void inputQuestion() {
@@ -319,11 +322,8 @@ public class SurveysController extends BaseController {
             RenderKit.renderError(this, "提交失败");
     }
 
-    /**
-     * @return
-     */
     @Override
     public String init() {
-        return "证书管理";
+        return "我的调查";
     }
 }
