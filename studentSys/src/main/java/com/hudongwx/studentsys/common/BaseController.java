@@ -207,6 +207,9 @@ public abstract class BaseController extends Controller {
         return user;*/
         return (User) request.getSession().getAttribute("user");
     }
+    public static User getCurrentUser(Controller me){
+        return getCurrentUser(me.getRequest());
+    }
     public void setMapping(Mapping mapping){
         this.mapping = mapping;
     }

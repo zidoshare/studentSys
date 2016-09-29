@@ -56,9 +56,9 @@ Table: stumanager_student
 --------------------+--------------+------+-----+---------+---------
  id                 | int(10)      | NO   | PRI |         |         
  name               | varchar(255) | YES  |     |         |         
- classId            | bigint(19)   | YES  |     |         |         
- tutorId            | bigint(19)   | YES  |     |         | 辅导老师    
- subject            | bigint(19)   | YES  |     |         | 学习科目    
+ classId            | int(10)      | YES  |     |         |         
+ tutorId            | int(10)      | YES  |     |         | 辅导老师    
+ subject            | int(10)      | YES  |     |         | 学习科目    
  contactInformation | varchar(255) | YES  |     |         | 联系方式    
  admission          | date         | YES  |     |         | 入学时间    
  credit             | int(10)      | YES  |     |         | 学分      
@@ -67,8 +67,8 @@ Table: stumanager_student
  employment         | varchar(255) | YES  |     |         | 就业跟踪    
  createTime         | bigint(19)   | YES  |     |         | 用户创建时间  
  ip                 | varchar(20)  | YES  |     |         | 最后登录的ip地址
- opraterId          | bigint(19)   | YES  |     |         | 操作人     
- consultantId       | bigint(19)   | YES  |     |         |         
+ opraterId          | int(10)      | YES  |     |         | 操作人     
+ consultantId       | int(10)      | YES  |     |         |         
 --------------------+--------------+------+-----+---------+---------
 
 Table: stumanager_user
@@ -88,5 +88,6 @@ Table: stumanager_user
  userPhone       | varchar(20)          | YES  |     |         | 用户联系号码  
  userAddress     | varchar(20)          | YES  |     |         | 用户地址    
  userMessage     | mediumtext(16777215) | YES  |     |         | 用户个人签名等信息
+ operater        | varchar(20)          | YES  |     |         | 创建者     
 -----------------+----------------------+------+-----+---------+---------
 

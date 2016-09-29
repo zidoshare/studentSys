@@ -3,6 +3,7 @@ package com.hudongwx.studentsys.common;
 import com.hudongwx.studentsys.util.Common;
 import com.jfinal.aop.Interceptor;
 import com.jfinal.aop.Invocation;
+import com.jfinal.core.Controller;
 import com.jfinal.log.Log;
 
 /**
@@ -15,9 +16,15 @@ public class UrlInterceptor implements Interceptor {
     public void intercept(Invocation inv) {
         String actionKey = inv.getActionKey();
         String controllerKey = inv.getControllerKey();
-        inv.getController().setAttr(Common.LABEL_ACTION_KEY,actionKey);
-        inv.getController().setAttr(Common.LABEL_CONTROLLER_KEY,controllerKey);
+        Controller controller = (BaseController) inv.getController();
+        controller.setAttr(Common.LABEL_ACTION_KEY,actionKey);
+        controller.setAttr(Common.LABEL_CONTROLLER_KEY,controllerKey);
         log.info(actionKey);
+        if(null == BaseController.getCurrentUser(controller.getRequest())){
+            controller.setAttr("msg","你尚未登录");
+            controller.forwardAction("/userManager/showLogin");
+            return ;
+        }
         inv.invoke();
     }
 }

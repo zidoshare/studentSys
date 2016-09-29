@@ -234,6 +234,9 @@ ul.nav li:hover {
 .bg-black{
     background: #3e3e3e;
 }
+.text-gray{
+    color: #333;
+}
 #page-inner {
     padding-top:0;
 }
@@ -363,10 +366,12 @@ a{
     left:5px;
     top:5px;
     border:2px #3E3E3E solid;
+    border-radius: 5px;
     z-index:10000;
 }
 .nav-btn:hover{
     cursor: pointer;
+    border:2px #fff solid;
 }
 .nav-hidden{
     left:-260px;
@@ -787,7 +792,7 @@ i{
 
 .navToggle6
 {
-    width: 30px;
+    width: 32px;
     height: 35px;
     -webkit-transition-duration: 0.5s;
     transition-duration: 0.5s;

@@ -4,6 +4,10 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.hudongwx.studentsys.common.BaseController;
+import com.hudongwx.studentsys.model.Class;
+import com.hudongwx.studentsys.model.Student;
+import com.hudongwx.studentsys.service.ClassService;
+import com.hudongwx.studentsys.service.StudentService;
 import com.hudongwx.studentsys.util.Common;
 import com.hudongwx.studentsys.util.IpKit;
 import com.hudongwx.studentsys.util.RenderKit;
@@ -23,6 +27,8 @@ import java.util.*;
  */
 public class SurveysController extends BaseController {
     public SurveysService surveysService;
+    public StudentService studentService;
+    public ClassService classService;
     private Log log = Log.getLog(getClass());
 
     /*public void index() {
@@ -34,7 +40,20 @@ public class SurveysController extends BaseController {
         //二级菜单需要重新定位mapping
         setMapping(mappingService.getMappingByTitle("调查列表"));
         index();
-
+        Student student = studentService.getStudentByUser(getCurrentUser(this));
+        if(student == null){
+            renderError(403);
+            return ;
+        }
+        setAttr("student",student);
+        Class cls = classService.getClassById(student.getClassId());
+        List<Questionnaire> surveying = surveysService.getQuestionnaireByClassNameAndDate(cls.getClassName());
+        //正在考试列表
+        setAttr("surveying",surveying);
+        //所有的
+        List<Questionnaire> questionnaires = surveysService.getQuestionnairesByClassName(cls.getClassName());
+        setAttr("questionnaires",questionnaires);
+        setAttr("nowTime",System.currentTimeMillis());
     }
 
     //添加问题页面

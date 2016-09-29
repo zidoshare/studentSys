@@ -25,27 +25,27 @@ public abstract class BaseStudent<M extends BaseStudent<M>> extends Model<M> imp
 		return get("name");
 	}
 
-	public void setClassId(java.lang.Long classId) {
+	public void setClassId(java.lang.Integer classId) {
 		set("classId", classId);
 	}
 
-	public java.lang.Long getClassId() {
+	public java.lang.Integer getClassId() {
 		return get("classId");
 	}
 
-	public void setTutorId(java.lang.Long tutorId) {
+	public void setTutorId(java.lang.Integer tutorId) {
 		set("tutorId", tutorId);
 	}
 
-	public java.lang.Long getTutorId() {
+	public java.lang.Integer getTutorId() {
 		return get("tutorId");
 	}
 
-	public void setSubject(java.lang.Long subject) {
+	public void setSubject(java.lang.Integer subject) {
 		set("subject", subject);
 	}
 
-	public java.lang.Long getSubject() {
+	public java.lang.Integer getSubject() {
 		return get("subject");
 	}
 
@@ -113,19 +113,19 @@ public abstract class BaseStudent<M extends BaseStudent<M>> extends Model<M> imp
 		return get("ip");
 	}
 
-	public void setOpraterId(java.lang.Long opraterId) {
+	public void setOpraterId(java.lang.Integer opraterId) {
 		set("opraterId", opraterId);
 	}
 
-	public java.lang.Long getOpraterId() {
+	public java.lang.Integer getOpraterId() {
 		return get("opraterId");
 	}
 
-	public void setConsultantId(java.lang.Long consultantId) {
+	public void setConsultantId(java.lang.Integer consultantId) {
 		set("consultantId", consultantId);
 	}
 
-	public java.lang.Long getConsultantId() {
+	public java.lang.Integer getConsultantId() {
 		return get("consultantId");
 	}
 

@@ -12,6 +12,7 @@ import com.hudongwx.studentsys.util.Common;
 import com.hudongwx.studentsys.util.RenderKit;
 import com.hudongwx.studentsys.util.StrPlusKit;
 import com.jfinal.aop.Before;
+import com.jfinal.aop.Clear;
 import com.jfinal.ext.interceptor.POST;
 
 import java.util.Enumeration;
@@ -44,7 +45,7 @@ public class UserController extends BaseController {
         }
         setAttr("roleMap",map);
     }
-
+    @Clear
     @Before(POST.class)
     public void login(){
         String account = getPara("account");
@@ -58,6 +59,7 @@ public class UserController extends BaseController {
         }else
             RenderKit.renderError(this,"账号或密码错误");
     }
+    @Clear
     public void showLogin(){
         fillHeaderAndFooter();
         render("/user/login.ftl");

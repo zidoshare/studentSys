@@ -8,5 +8,5 @@ import com.hudongwx.studentsys.common.BaseStudent;
 @SuppressWarnings("serial")
 public class Student extends BaseStudent<Student> {
 	public static final Student dao = new Student();
-	public static final String SEARCH_FROM_STUDENT = "select * from student ";
+	public static final String SEARCH_FROM_STUDENT = "select * from stumanager_student ";
 }

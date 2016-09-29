@@ -113,4 +113,12 @@ public abstract class BaseUser<M extends BaseUser<M>> extends Model<M> implement
 		return get("userMessage");
 	}
 
+	public void setOperater(java.lang.String operater) {
+		set("operater", operater);
+	}
+
+	public java.lang.String getOperater() {
+		return get("operater");
+	}
+
 }

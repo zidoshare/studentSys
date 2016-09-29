@@ -69,7 +69,7 @@
             <div class="panel-heading title">
             ${view.title}
             <#--<a class="btn btn-success pull-right" href="/user/addUser">
-                添加角色
+                用户
                 <i class="glyphicon glyphicon-plus"></i>
             </a>-->
                 <div class="pull-right btn-group">
@@ -117,48 +117,36 @@
                             <table class="table">
                                 <thead>
                                 <th>
-                                    姓名
+                                    账户名
                                 </th>
                                 <th>
-                                    班级
+                                    名字
                                 </th>
                                 <th>
-                                    辅导老师
+                                    创建时间
                                 </th>
                                 <th>
-                                    学习科目
-                                </th>
-                                <th>
-                                    联系方式
-                                </th>
-                                <th>
-                                    入学时间
-                                </th>
-                                <th>
-                                    学分
-                                </th>
-                                <th>
-                                    成绩
-                                </th>
-                                <th>
-                                    状态
-                                </th>
-                                <th>
-                                    就业跟踪
-                                </th>
-                                <th>
-                                    用户创建时间
-                                </th>
-                                <th>
-                                    最后登录ip
-                                </th>
-                                <th>
-                                    操作
-                                </th>
-                                <th>
-                                    操作人
+                                    用户最后登录ip
                                 </th>
                                 </thead>
+                                <tbody>
+                                    <#list roleMap[role.name] as user >
+                                        <tr>
+                                            <td>
+                                                ${user.userAccount}
+                                            </td>
+                                            <td>
+                                                ${user.userNickname}
+                                            </td>
+                                            <td>
+                                                ${(user.userCreateTime?number)?number_to_date}
+                                            </td>
+                                            <td>
+                                                0.0.0.0
+                                            </td>
+                                        </tr>
+                                    </#list>
+                                </tbody>
                             </table>
                         </div>
                     </div>

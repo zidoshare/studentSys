@@ -167,18 +167,16 @@ public class SurveysService extends Service {
     }
 
     public List<Questionnaire> getQuestionnairesByClassName(String className) {
-        return Questionnaire.dao.findByCache(Common.CACHE_LONG_TIME_LABEL, "classNameQuestionnaires", "select * from surveys_t_questionnaire where class_name = ?", className);
+        return Questionnaire.dao.findByCache(Common.CACHE_LONG_TIME_LABEL, "classNameQuestionnaires", "select * from surveys_t_questionnaire where class_name = ? order by createTime ASC", className);
     }
 
     public List<Questionnaire> getQuestionnaireByClassNameAndDate(String className) {
         long nowTime = System.currentTimeMillis();
         List<Questionnaire> questionnaireList = CacheKit.get(Common.CACHE_60TIME_LABEL, "questionnaire" + className);
         if (null == questionnaireList || questionnaireList.size() < 2)
-            questionnaireList = Questionnaire.dao.find("select * from surveys_t_questionnaire where date < ? and end_time > ? and class_name = ?", nowTime, nowTime, className);
+            questionnaireList = Questionnaire.dao.find("select * from surveys_t_questionnaire where date < ? and end_time > ? and class_name = ? order by createTime asc", nowTime, nowTime, className);
         if (questionnaireList.size() > 1)
             CacheKit.put(Common.CACHE_60TIME_LABEL, "questionnaire" + className, questionnaireList);
-        else
-            return new ArrayList<>();
         return questionnaireList;
     }
 
