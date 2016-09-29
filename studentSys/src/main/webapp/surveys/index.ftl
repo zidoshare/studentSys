@@ -62,7 +62,9 @@
         window.location.href = str;
     }
     $('#login-btn').click(function (event) {
-        event.preventDefault();
+        var evt = arguments.callee.caller.arguments[0] || window.event;
+        evt.preventDefault();
+        evt.stopPropagation();
         var btn = Ladda.create(document.querySelector("#login-btn"));
         btn.start();
         var jsonObj = {

@@ -128,10 +128,12 @@ public abstract class BaseController extends Controller {
         roleTree.checkTree(now -> {
             if (roleTree.getParent(now) == null)
                 return true;
-            //子菜单计数,只支持二级菜单。。。
+            //子菜单计数,只支持二级菜单。。。子菜单下继续遍历子视图
             if (now.getFunction() > Mapping.FUNCTION_MENUITEM) {
                 size[sides.indexOf(now.getParent())]++;
                 childSides.add(now);
+                //子菜单为当前点击菜单才会继续向子视图遍历
+                return now == mapping;
             }
             //一级菜单
             if (now.getFunction() == Mapping.FUNCTION_MENUITEM) {
@@ -139,7 +141,7 @@ public abstract class BaseController extends Controller {
                 return true;
             }
             //视图遍历，遍历到一级视图停止遍历,并添加到视图链表，以便后续功能或子视图的遍历处理
-            else if (now.getParent() == mapping && now.getFunction() == Mapping.FUNCTION_VIEW) {
+            if (now.getParent() == mapping && now.getFunction() == Mapping.FUNCTION_VIEW) {
                 views.add(now);
                 return false;
             }
@@ -204,5 +206,8 @@ public abstract class BaseController extends Controller {
         user.setUserRole("admin");
         return user;*/
         return (User) request.getSession().getAttribute("user");
+    }
+    public void setMapping(Mapping mapping){
+        this.mapping = mapping;
     }
 }

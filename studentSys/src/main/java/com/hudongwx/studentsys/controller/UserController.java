@@ -66,6 +66,7 @@ public class UserController extends BaseController {
     public void addRole(){
         Role model = getModel(Role.class);
         roleService._saveRole(model);
+        String[] data = model.getTreeData().split(":");
         RenderKit.renderSuccess(this);
     }
     @Before(POST.class)

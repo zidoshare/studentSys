@@ -54,13 +54,12 @@
                 storage: true
             });
         }
-        $('input').change(function()
-        {
-            if ($(this).prop('checked')) {
-                var id = $(this).attr('id');
-                func.showPermissions(id, 'permission' + id);
-            }
-        }
+        $('input').change(function () {
+                    if ($(this).prop('checked')) {
+                        var id = $(this).attr('id');
+                        func.showPermissions(id, 'permission' + id);
+                    }
+                }
         )
         ;
     });
@@ -82,4 +81,56 @@
         /*alert("ok");
         $(this).find('.checkbox3.checkbox-round').first().click();*/
     })
+/*
+    $(".navToggle1").click(function () {
+        $(this).toggleClass("open");
+    });
+
+    $(".navToggle2").click(function () {
+        $(this).toggleClass("open");
+    });
+
+    $(".navToggle3").click(function () {
+        $(this).toggleClass("open");
+    });
+
+    $(".navToggle4").click(function () {
+        $(this).toggleClass("open");
+    });
+
+    $(".navToggle5").click(function () {
+        $(this).toggleClass("open");
+    });
+
+    $(".navToggle6").click(function () {
+        $(this).toggleClass("open");
+    });
+
+    $(".navToggle7").click(function () {
+        $(this).toggleClass("open");
+    });
+
+    $(".navToggle8").click(function () {
+        $(this).toggleClass("open");
+    });
+
+    $(".navToggle9").click(function () {
+        $(this).toggleClass("open");
+    });
+
+    $(".navToggle10").click(function () {
+        $(this).toggleClass("open");
+    });
+
+    $(".navToggle11").click(function () {
+        $(this).toggleClass("open");
+    });
+
+    $(".navToggle12").click(function () {
+        $(this).toggleClass("open");
+    });
+
+    $(".navToggle13").click(function () {
+        $(this).toggleClass("open");
+    });*/
 </script>

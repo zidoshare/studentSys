@@ -25,12 +25,16 @@ public class SurveysController extends BaseController {
     public SurveysService surveysService;
     private Log log = Log.getLog(getClass());
 
-    public void index() {
+    /*public void index() {
         fillHeaderAndFooter();
         render("index.ftl");
-    }
+    }*/
     public void surveyList(){
-        super.index();
+        log.info("调查列表");
+        //二级菜单需要重新定位mapping
+        setMapping(mappingService.getMappingByTitle("调查列表"));
+        index();
+
     }
 
     //添加问题页面

@@ -1,16 +1,8 @@
+<#include "../macro-title.ftl">
+<@title title="考勤记录列表"></@title>
 <div class="row animate">
     <div class="col-md-12">
         <div class="panel panel-default item">
-            <div class="panel-heading title">
-                考勤记录列表
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row animate">
-    <div class="col-md-12">
-        <div class="panel panel-default item">
-
             <div class="panel-heading">
                 <form class="clearfix">
                     <div class="input-group hdwx-input-sm pull-left">

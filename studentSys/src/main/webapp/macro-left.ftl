@@ -1,7 +1,9 @@
 <nav class="navbar-default navbar-side sidebar-collapse" role="navigation">
-    <div class="nav-btn">
-        <i class="fa fa-bars"></i>
+    <div class="nav-btn navToggle6 bg-black">
+        <div class="icon">
+        </div>
     </div>
+
     <div class="tip-container top-container">
         <div class="purikura center-block" id="purikura"></div>
         <div class="text-center">
@@ -25,7 +27,7 @@
         <ul class="nav" id="main-menu">
         <#assign tag = 0>
         <#assign start = 0>
-            <#assign index = 0>
+        <#assign index = 0>
         <#list sides as side>
             <li <#if side.title == now.title>class="active-menu"</#if>>
                 <a href="${side.url}"><i class="${side.icon}"></i>${side.title}<#if menuSize[tag] gt 0><span

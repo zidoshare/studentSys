@@ -359,36 +359,17 @@ a{
     to {top:1px;opacity: 0;}
  }
 .nav-btn{
-    position:absolute;
-    left:258px;
+    position:fixed;
+    left:5px;
     top:5px;
-    overflow: hidden;
-    font-size:20px;
-    padding:5px 3px;
     border:2px #3E3E3E solid;
-    border-radius: 0 5px 5px 0;
-
-
-    -webkit-transition: opacity 1s,background 1s;
-    -o-transition-property: background,opacity;
-    -o-transition-duration: 1s,1s;
-    -moz-transition-property: background,font-size,opacity;
-    -moz-transition-duration: 1s,1s;
-    transition-property: background,opacity;
-    transition-duration: 1s,1s;
-
     z-index:10000;
 }
 .nav-btn:hover{
-    opacity: 1;
-    background: #fff;
     cursor: pointer;
 }
 .nav-hidden{
     left:-260px;
-}
-.closed{
-    background: #1ec7e6;
 }
 .animate{
     opacity: 0;
@@ -437,4 +418,1082 @@ ul.nav.nav-third-level.collapse.in {
 }
 i{
     background: rgba(0,0,0,0);
+}
+
+.navToggle1
+{
+    position: absolute;
+    width: 60px;
+    height: 120px;
+    top: 60px;
+    left: 0px;
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+}
+.navToggle1 .icon-left
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    height: 8px;
+    width: 30px;
+    top: 60px;
+    background-color: #212121;
+}
+.navToggle1 .icon-left:before
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    width: 30px;
+    height: 8px;
+    background-color: #212121;
+    content: "";
+    top: -20px;
+}
+.navToggle1 .icon-left:after
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    width: 30px;
+    height: 8px;
+    background-color: #212121;
+    content: "";
+    top: 20px;
+}
+.navToggle1 .icon-left:hover
+{
+    cursor: pointer;
+}
+.navToggle1 .icon-right
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    height: 8px;
+    width: 30px;
+    top: 60px;
+    background-color: #212121;
+    left: 30px;
+}
+.navToggle1 .icon-right:before
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    width: 30px;
+    height: 8px;
+    background-color: #212121;
+    content: "";
+    top: -20px;
+}
+.navToggle1 .icon-right:after
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    width: 30px;
+    height: 8px;
+    background-color: #212121;
+    content: "";
+    top: 20px;
+}
+.navToggle1 .icon-right:hover
+{
+    cursor: pointer;
+}
+.navToggle1.open .icon-left
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    background: transparent;
+}
+.navToggle1.open .icon-left:before
+{
+    -webkit-transform: rotateZ(45deg) scaleX(1.4) translate(4px, 4px);
+    transform: rotateZ(45deg) scaleX(1.4) translate(4px, 4px);
+}
+.navToggle1.open .icon-left:after
+{
+    -webkit-transform: rotateZ(-45deg) scaleX(1.4) translate(4px, -4px);
+    transform: rotateZ(-45deg) scaleX(1.4) translate(4px, -4px);
+}
+.navToggle1.open .icon-right
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    background: transparent;
+}
+.navToggle1.open .icon-right:before
+{
+    -webkit-transform: rotateZ(-45deg) scaleX(1.4) translate(-4px, 4px);
+    transform: rotateZ(-45deg) scaleX(1.4) translate(-4px, 4px);
+}
+.navToggle1.open .icon-right:after
+{
+    -webkit-transform: rotateZ(45deg) scaleX(1.4) translate(-4px, -4px);
+    transform: rotateZ(45deg) scaleX(1.4) translate(-4px, -4px);
+}
+
+.navToggle2
+{
+    position: absolute;
+    width: 60px;
+    height: 120px;
+    top: 60px;
+    left: 120px;
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+}
+.navToggle2 .icon
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    height: 8px;
+    width: 60px;
+    top: 60px;
+    background-color: #212121;
+}
+.navToggle2 .icon:before
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    width: 60px;
+    height: 8px;
+    background-color: #212121;
+    content: "";
+    top: -20px;
+}
+.navToggle2 .icon:after
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    width: 60px;
+    height: 8px;
+    background-color: #212121;
+    content: "";
+    top: 20px;
+}
+.navToggle2 .icon:hover
+{
+    cursor: pointer;
+}
+.navToggle2.open .icon
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    background: transparent;
+}
+.navToggle2.open .icon:before
+{
+    -webkit-transform: rotateZ(45deg) scaleX(1.25) translate(13px, 13px);
+    transform: rotateZ(45deg) scaleX(1.25) translate(13px, 13px);
+}
+.navToggle2.open .icon:after
+{
+    -webkit-transform: rotateZ(-45deg) scaleX(1.25) translate(12px, -12px);
+    transform: rotateZ(-45deg) scaleX(1.25) translate(12px, -12px);
+}
+
+.navToggle3
+{
+    position: absolute;
+    width: 60px;
+    height: 120px;
+    top: 60px;
+    left: 240px;
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+}
+.navToggle3 .icon
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    height: 0px;
+    width: 60px;
+    top: 60px;
+    background-color: #212121;
+}
+.navToggle3 .icon:before
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    width: 60px;
+    height: 8px;
+    background-color: #212121;
+    content: "";
+    top: -20px;
+}
+.navToggle3 .icon:after
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    width: 60px;
+    height: 8px;
+    background-color: #212121;
+    content: "";
+    top: 20px;
+}
+.navToggle3 .icon:hover
+{
+    cursor: pointer;
+}
+.navToggle3.open .icon
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+}
+.navToggle3.open .icon:before
+{
+    -webkit-transform: rotateZ(135deg) scaleX(1.25) translate(13px, -13px);
+    transform: rotateZ(135deg) scaleX(1.25) translate(13px, -13px);
+}
+.navToggle3.open .icon:after
+{
+    -webkit-transform: rotateZ(-135deg) scaleX(1.25) translate(12px, 12px);
+    transform: rotateZ(-135deg) scaleX(1.25) translate(12px, 12px);
+}
+
+.navToggle4
+{
+    position: absolute;
+    width: 60px;
+    height: 120px;
+    top: 60px;
+    left: 360px;
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+}
+.navToggle4 .icon
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    height: 0px;
+    width: 60px;
+    top: 60px;
+    background-color: #212121;
+}
+.navToggle4 .icon:before
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    width: 60px;
+    height: 8px;
+    background-color: #212121;
+    content: "";
+    top: -20px;
+}
+.navToggle4 .icon:after
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    width: 60px;
+    height: 8px;
+    background-color: #212121;
+    content: "";
+    top: 20px;
+}
+.navToggle4 .icon:hover
+{
+    cursor: pointer;
+}
+.navToggle4.open .icon
+{
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+}
+.navToggle4.open .icon:before
+{
+    -webkit-transform: rotateZ(45deg) scaleX(1.25) translate(12px, 12px);
+    transform: rotateZ(45deg) scaleX(1.25) translate(12px, 12px);
+}
+.navToggle4.open .icon:after
+{
+    -webkit-transform: rotateZ(-45deg) scaleX(1.25) translate(12px, -12px);
+    transform: rotateZ(-45deg) scaleX(1.25) translate(12px, -12px);
+}
+
+.navToggle5
+{
+    position: absolute;
+    width: 60px;
+    height: 120px;
+    top: 180px;
+    left: 0px;
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+}
+.navToggle5 .icon
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    height: 8px;
+    width: 60px;
+    top: 60px;
+    background-color: #212121;
+}
+.navToggle5 .icon:before
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    width: 60px;
+    height: 8px;
+    background-color: #212121;
+    content: "";
+    top: -20px;
+}
+.navToggle5 .icon:after
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    width: 60px;
+    height: 8px;
+    background-color: #212121;
+    content: "";
+    top: 20px;
+}
+.navToggle5 .icon:hover
+{
+    cursor: pointer;
+}
+.navToggle5.open .icon
+{
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+}
+.navToggle5.open .icon:before
+{
+    -webkit-transform: rotateZ(-45deg) scaleX(0.75) translate(-20px, -6px);
+    transform: rotateZ(-45deg) scaleX(0.75) translate(-20px, -6px);
+}
+.navToggle5.open .icon:after
+{
+    -webkit-transform: rotateZ(45deg) scaleX(0.75) translate(-20px, 6px);
+    transform: rotateZ(45deg) scaleX(0.75) translate(-20px, 6px);
+}
+
+.navToggle6
+{
+    width: 30px;
+    height: 35px;
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+}
+.navToggle6 .icon
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    height: 3px;
+    width: 20px;
+    top: 15px;
+    left:5px;
+    background-color: #fff;
+}
+.navToggle6 .icon:before
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    height: 3px;
+    width: 20px;
+    background-color: #fff;
+    content: "";
+    top: -8px;
+    left:0;
+}
+.navToggle6 .icon:after
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    height: 3px;
+    width: 20px;
+    background-color: #fff;
+    content: "";
+    top: 8px;
+    left:0;
+}
+.navToggle6 .icon:hover
+{
+    cursor: pointer;
+}
+.navToggle6:hover .icon{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    -webkit-transform: rotateZ(180deg);
+    transform: rotateZ(180deg);
+}
+.navToggle6:hover .icon:before{
+    -webkit-transform: rotateZ(45deg) scaleX(0.75) translate(20px, -10px);
+    transform: rotateZ(45deg) scaleX(0.75) translate(20px, -10px);
+    left:-12px;
+}
+.navToggle6:hover .icon:after{
+    -webkit-transform: rotateZ(-45deg) scaleX(0.75) translate(20px, 10px);
+    transform: rotateZ(-45deg) scaleX(0.75) translate(20px, 10px);
+    left:-12px;
+}
+.navToggle6.open .icon
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    -webkit-transform: rotateZ(180deg);
+    transform: rotateZ(180deg);
+}
+.navToggle6.open .icon:before
+{
+    -webkit-transform: rotateZ(45deg) scaleX(0.75) translate(20px, -10px);
+    transform: rotateZ(45deg) scaleX(0.75) translate(20px, -10px);
+    left:-12px;
+}
+.navToggle6.open .icon:after
+{
+    -webkit-transform: rotateZ(-45deg) scaleX(0.75) translate(20px, 10px);
+    transform: rotateZ(-45deg) scaleX(0.75) translate(20px, 10px);
+    left:-12px;
+}
+
+.navToggle7
+{
+    position: absolute;
+    width: 60px;
+    height: 120px;
+    top: 180px;
+    left: 240px;
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+}
+.navToggle7 .icon-E
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    height: 8px;
+    width: 60px;
+    top: 60px;
+    background-color: #212121;
+    -webkit-transition-delay: 0.5s;
+    transition-delay: 0.5s;
+}
+.navToggle7 .icon-E:before
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    width: 60px;
+    height: 8px;
+    background-color: #212121;
+    content: "";
+    top: -20px;
+}
+.navToggle7 .icon-E:after
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    width: 60px;
+    height: 8px;
+    background-color: #212121;
+    content: "";
+    top: 20px;
+}
+.navToggle7 .icon-E:hover
+{
+    cursor: pointer;
+}
+.navToggle7 .icon-X
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    height: 0px;
+    width: 60px;
+    top: 60px;
+    background-color: #212121;
+    -webkit-transform: scaleX(0);
+    -ms-transform: scaleX(0);
+    transform: scaleX(0);
+}
+.navToggle7 .icon-X:before
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    width: 60px;
+    height: 8px;
+    background-color: #212121;
+    content: "";
+    top: -20px;
+    -webkit-transform: rotateZ(45deg) scaleX(1.25) translate(12px, 12px);
+    transform: rotateZ(45deg) scaleX(1.25) translate(12px, 12px);
+}
+.navToggle7 .icon-X:after
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    width: 60px;
+    height: 8px;
+    background-color: #212121;
+    content: "";
+    top: 20px;
+    -webkit-transform: rotateZ(-45deg) scaleX(1.25) translate(12px, -12px);
+    transform: rotateZ(-45deg) scaleX(1.25) translate(12px, -12px);
+}
+.navToggle7 .icon-X:hover
+{
+    cursor: pointer;
+}
+.navToggle7.open .icon-E
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    -webkit-transform: scaleX(0);
+    -ms-transform: scaleX(0);
+    transform: scaleX(0);
+    -webkit-transition-delay: 0s;
+    transition-delay: 0s;
+}
+.navToggle7.open .icon-X
+{
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    -webkit-transition-delay: 0.5s;
+    transition-delay: 0.5s;
+    -webkit-transform: scaleX(1);
+    -ms-transform: scaleX(1);
+    transform: scaleX(1);
+}
+
+.navToggle8
+{
+    position: absolute;
+    width: 60px;
+    height: 120px;
+    top: 180px;
+    left: 360px;
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+}
+.navToggle8 .icon-E
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    height: 8px;
+    width: 60px;
+    top: 60px;
+    background-color: #212121;
+    -webkit-transform-origin: 0px 0px;
+    -ms-transform-origin: 0px 0px;
+    transform-origin: 0px 0px;
+    -webkit-transition-delay: 0.5s;
+    transition-delay: 0.5s;
+}
+.navToggle8 .icon-E:before
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    width: 60px;
+    height: 8px;
+    background-color: #212121;
+    content: "";
+    top: -20px;
+}
+.navToggle8 .icon-E:after
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    width: 60px;
+    height: 8px;
+    background-color: #212121;
+    content: "";
+    top: 20px;
+}
+.navToggle8 .icon-E:hover
+{
+    cursor: pointer;
+}
+.navToggle8 .icon-X
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    height: 0px;
+    width: 60px;
+    top: 60px;
+    background-color: #212121;
+    -webkit-transform-origin: 0px 0px;
+    -ms-transform-origin: 0px 0px;
+    transform-origin: 0px 0px;
+    -webkit-transform: scaleY(0);
+    -ms-transform: scaleY(0);
+    transform: scaleY(0);
+}
+.navToggle8 .icon-X:before
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    width: 60px;
+    height: 8px;
+    background-color: #212121;
+    content: "";
+    top: -20px;
+    -webkit-transform: rotateZ(45deg) scaleX(1.25) translate(12px, 12px);
+    transform: rotateZ(45deg) scaleX(1.25) translate(12px, 12px);
+}
+.navToggle8 .icon-X:after
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    width: 60px;
+    height: 8px;
+    background-color: #212121;
+    content: "";
+    top: 20px;
+    -webkit-transform: rotateZ(-45deg) scaleX(1.25) translate(12px, -12px);
+    transform: rotateZ(-45deg) scaleX(1.25) translate(12px, -12px);
+}
+.navToggle8 .icon-X:hover
+{
+    cursor: pointer;
+}
+.navToggle8.open .icon-E
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    -webkit-transform: scaleY(0);
+    -ms-transform: scaleY(0);
+    transform: scaleY(0);
+    -webkit-transition-delay: 0s;
+    transition-delay: 0s;
+}
+.navToggle8.open .icon-X
+{
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    -webkit-transition-delay: 0.5s;
+    transition-delay: 0.5s;
+    -webkit-transform: scaleY(1);
+    -ms-transform: scaleY(1);
+    transform: scaleY(1);
+}
+
+.navToggle9
+{
+    position: absolute;
+    width: 60px;
+    height: 120px;
+    top: 305px;
+    left: 0px;
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+}
+.navToggle9 .icon
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    height: 0px;
+    width: 60px;
+    top: 60px;
+    background-color: #212121;
+    top: 30px;
+    -webkit-transform: rotateZ(90deg);
+    transform: rotateZ(90deg);
+    -webkit-transform-origin: 30px 30px;
+    -ms-transform-origin: 30px 30px;
+    transform-origin: 30px 30px;
+}
+.navToggle9 .icon:before
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    width: 30px;
+    height: 60px;
+    background-color: #212121;
+    content: "";
+    top: 20px;
+    top: 0;
+}
+.navToggle9 .icon:after
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    width: 30px;
+    height: 60px;
+    background-color: #212121;
+    content: "";
+    top: 20px;
+    top: 0;
+    left: 30px;
+}
+.navToggle9 .icon:hover
+{
+    cursor: pointer;
+}
+.navToggle9.open .icon
+{
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+    -webkit-transform: rotateZ(0deg);
+    transform: rotateZ(0deg);
+}
+.navToggle9.open .icon:before
+{
+    width: 22.5px;
+}
+.navToggle9.open .icon:after
+{
+    -webkit-transform-origin: 30px 60px;
+    -ms-transform-origin: 30px 60px;
+    transform-origin: 30px 60px;
+    -webkit-transform: scaleX(0.75);
+    -ms-transform: scaleX(0.75);
+    transform: scaleX(0.75);
+}
+.navToggle9.play .icon
+{
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+    -webkit-transform: rotateZ(0deg);
+    transform: rotateZ(0deg);
+}
+.navToggle9.play .icon:before
+{
+    width: 500px;
+}
+.navToggle9.play .icon:after
+{
+    -webkit-transform-origin: 30px 60px;
+    -ms-transform-origin: 30px 60px;
+    transform-origin: 30px 60px;
+    -webkit-transform: scaleX(2);
+    -ms-transform: scaleX(2);
+    transform: scaleX(2);
+}
+
+.navToggle10
+{
+    position: absolute;
+    width: 60px;
+    height: 120px;
+    top: 300px;
+    left: 120px;
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+}
+.navToggle10 .icon
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    height: 8px;
+    width: 60px;
+    top: 60px;
+    background-color: #212121;
+}
+.navToggle10 .icon:before
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    width: 60px;
+    height: 8px;
+    background-color: #212121;
+    content: "";
+    top: -20px;
+}
+.navToggle10 .icon:after
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    width: 60px;
+    height: 8px;
+    background-color: #212121;
+    content: "";
+    top: 20px;
+}
+.navToggle10 .icon:hover
+{
+    cursor: pointer;
+}
+.navToggle10.open .icon
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    -webkit-transform: rotateZ(-180deg);
+    transform: rotateZ(-180deg);
+}
+.navToggle10.open .icon:before
+{
+    -webkit-transform: rotateZ(-45deg) scaleX(0.75) translate(-20px, -6px);
+    transform: rotateZ(-45deg) scaleX(0.75) translate(-20px, -6px);
+}
+.navToggle10.open .icon:after
+{
+    -webkit-transform: rotateZ(45deg) scaleX(0.75) translate(-20px, 6px);
+    transform: rotateZ(45deg) scaleX(0.75) translate(-20px, 6px);
+}
+
+.navToggle11
+{
+    position: absolute;
+    width: 60px;
+    height: 120px;
+    top: 300px;
+    left: 240px;
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+}
+.navToggle11 .icon-left
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    height: 4px;
+    width: 15px;
+    top: 60px;
+    background-color: #212121;
+}
+.navToggle11 .icon-left:before
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    width: 15px;
+    height: 4px;
+    background-color: #212121;
+    content: "";
+    top: -10px;
+}
+.navToggle11 .icon-left:after
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    width: 15px;
+    height: 4px;
+    background-color: #212121;
+    content: "";
+    top: 10px;
+}
+.navToggle11 .icon-left:hover
+{
+    cursor: pointer;
+}
+.navToggle11 .icon-right
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    height: 4px;
+    width: 15px;
+    top: 60px;
+    background-color: #212121;
+    left: 15px;
+}
+.navToggle11 .icon-right:before
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    width: 15px;
+    height: 4px;
+    background-color: #212121;
+    content: "";
+    top: -10px;
+}
+.navToggle11 .icon-right:after
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    width: 15px;
+    height: 4px;
+    background-color: #212121;
+    content: "";
+    top: 10px;
+}
+.navToggle11 .icon-right:hover
+{
+    cursor: pointer;
+}
+.navToggle11.open .icon-left
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    background: transparent;
+}
+.navToggle11.open .icon-left:before
+{
+    -webkit-transform: rotateZ(45deg) scaleX(1.4) translate(2px, 2px);
+    transform: rotateZ(45deg) scaleX(1.4) translate(2px, 2px);
+}
+.navToggle11.open .icon-left:after
+{
+    -webkit-transform: rotateZ(-45deg) scaleX(1.4) translate(2px, -2px);
+    transform: rotateZ(-45deg) scaleX(1.4) translate(2px, -2px);
+}
+.navToggle11.open .icon-right
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    background: transparent;
+}
+.navToggle11.open .icon-right:before
+{
+    -webkit-transform: rotateZ(-45deg) scaleX(1.4) translate(-2px, 2px);
+    transform: rotateZ(-45deg) scaleX(1.4) translate(-2px, 2px);
+}
+.navToggle11.open .icon-right:after
+{
+    -webkit-transform: rotateZ(45deg) scaleX(1.4) translate(-2px, -2px);
+    transform: rotateZ(45deg) scaleX(1.4) translate(-2px, -2px);
+}
+
+.navToggle12
+{
+    position: absolute;
+    width: 60px;
+    height: 120px;
+    top: 300px;
+    left: 315px;
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+}
+.navToggle12 .icon
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    height: 4px;
+    width: 30px;
+    top: 60px;
+    background-color: #212121;
+}
+.navToggle12 .icon:before
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    width: 30px;
+    height: 4px;
+    background-color: #212121;
+    content: "";
+    top: -10px;
+}
+.navToggle12 .icon:after
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    width: 30px;
+    height: 4px;
+    background-color: #212121;
+    content: "";
+    top: 10px;
+}
+.navToggle12 .icon:hover
+{
+    cursor: pointer;
+}
+.navToggle12.open .icon
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    background: transparent;
+}
+.navToggle12.open .icon:before
+{
+    -webkit-transform: rotateZ(45deg) scaleX(1.25) translate(6.5px, 6.5px);
+    transform: rotateZ(45deg) scaleX(1.25) translate(6.5px, 6.5px);
+}
+.navToggle12.open .icon:after
+{
+    -webkit-transform: rotateZ(-45deg) scaleX(1.25) translate(6px, -6px);
+    transform: rotateZ(-45deg) scaleX(1.25) translate(6px, -6px);
+}
+
+.navToggle13
+{
+    position: absolute;
+    width: 60px;
+    height: 120px;
+    top: 300px;
+    left: 390px;
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+}
+.navToggle13 .icon
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    height: 4px;
+    width: 30px;
+    top: 60px;
+    background-color: #212121;
+}
+.navToggle13 .icon:before
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    width: 30px;
+    height: 4px;
+    background-color: #212121;
+    content: "";
+    top: -10px;
+}
+.navToggle13 .icon:after
+{
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    position: absolute;
+    width: 30px;
+    height: 4px;
+    background-color: #212121;
+    content: "";
+    top: 10px;
+}
+.navToggle13 .icon:hover
+{
+    cursor: pointer;
+}
+.navToggle13.open .icon
+{
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+}
+.navToggle13.open .icon:before
+{
+    -webkit-transform: rotateZ(-45deg) scaleX(0.75) translate(-10px, -3px);
+    transform: rotateZ(-45deg) scaleX(0.75) translate(-10px, -3px);
+}
+.navToggle13.open .icon:after
+{
+    -webkit-transform: rotateZ(45deg) scaleX(0.75) translate(-10px, 3px);
+    transform: rotateZ(45deg) scaleX(0.75) translate(-10px, 3px);
 }

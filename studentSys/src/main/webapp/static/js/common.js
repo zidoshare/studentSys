@@ -6,7 +6,9 @@ var closeTiptimeOut;
 
 var Login = {
     login: function () {
-        event.preventDefault();
+        var evt = arguments.callee.caller.arguments[0] || window.event;
+        evt.preventDefault();
+        evt.stopPropagation();
         var btn = Ladda.create(document.querySelector("#login-btn"));
         btn.start();
         var data = {
@@ -258,16 +260,16 @@ var func = {
             var data = [];
             var x = 0;
             $('#myModal').find("input[type='checkbox']").each(function (index, dom) {
-                if($(this).prop('checked'))
+                if ($(this).prop('checked'))
                     data[x++] = $(this).attr('name');
             });
-            data = data.sort(function(a,b){
-                return a-b;
+            data = data.sort(function (a, b) {
+                return a - b;
             });
             console.log(data);
             var d = "";
-            for(var i = 0; i < data.length;i++){
-                d+=data[i]+":";
+            for (var i = 0; i < data.length; i++) {
+                d += data[i] + ":";
             }
             alert(d);
             if (d.length > 0)
@@ -293,17 +295,17 @@ var func = {
                 error: function () {
                     alert('服务器错误');
                 },
-                complete:function(){
+                complete: function () {
                     btn.stop();
                 }
             });
         }
     },
-    addUser:function(method){
+    addUser: function (method) {
         if (method == 'show') {
             $('#addUserModel').modal('toggle');
             /*func.showPermissions(0, '', 'permissions');*/
-        }else{
+        } else {
             var btn = Ladda.create(document.querySelector("#save-btn"));
             btn.start();
             var json = {};
@@ -323,7 +325,7 @@ var func = {
                 error: function () {
                     alert('服务器错误');
                 },
-                complete:function(){
+                complete: function () {
                     btn.stop();
                 }
             });

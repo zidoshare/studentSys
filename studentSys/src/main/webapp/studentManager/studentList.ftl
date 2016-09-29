@@ -1,12 +1,6 @@
-<div class="row animate">
-    <div class="col-md-12">
-        <div class="panel panel-default item">
-            <div class="panel-heading title">
-                学生列表
-            </div>
-        </div>
-    </div>
-</div>
+<#include "../macro-title.ftl">
+<@title title="学生列表">
+</@title>
 <div class="row animate">
     <div class="col-md-12">
         <div class="panel panel-default item">
