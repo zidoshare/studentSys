@@ -3,7 +3,6 @@
 <head>
     <title>添加大类型</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" href="../static/css/lib/bootstrap.min.css">
 </head>
 <body>
 <#include "macro-head.ftl">
@@ -43,7 +42,7 @@
         var sort = $("#sort").val();
         $.ajax({
             type: "post",
-            url: "/test/postBigType",
+            url: "/surveys/postBigType",
             data: {
                 "questionBigType.name": name,
                 "questionBigType.sort_flag": sort

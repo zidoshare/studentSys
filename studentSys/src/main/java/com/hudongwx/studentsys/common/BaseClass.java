@@ -9,12 +9,12 @@ import com.jfinal.plugin.activerecord.IBean;
 @SuppressWarnings("serial")
 public abstract class BaseClass<M extends BaseClass<M>> extends Model<M> implements IBean {
 
-	public void setClassId(java.lang.Integer classId) {
-		set("classId", classId);
+	public void setId(java.lang.Integer id) {
+		set("id", id);
 	}
 
-	public java.lang.Integer getClassId() {
-		return get("classId");
+	public java.lang.Integer getId() {
+		return get("id");
 	}
 
 	public void setClassName(java.lang.String className) {
@@ -25,12 +25,12 @@ public abstract class BaseClass<M extends BaseClass<M>> extends Model<M> impleme
 		return get("className");
 	}
 
-	public void setHeadTeacherId(java.lang.Long headTeacherId) {
-		set("headTeacherId", headTeacherId);
+	public void setHeadTeacherid(java.lang.Integer headTeacherid) {
+		set("headTeacherid", headTeacherid);
 	}
 
-	public java.lang.Long getHeadTeacherId() {
-		return get("headTeacherId");
+	public java.lang.Integer getHeadTeacherid() {
+		return get("headTeacherid");
 	}
 
 	public void setAssistant(java.lang.String Assistant) {
@@ -41,11 +41,11 @@ public abstract class BaseClass<M extends BaseClass<M>> extends Model<M> impleme
 		return get("Assistant");
 	}
 
-	public void setTutorId(java.lang.Long tutorId) {
+	public void setTutorId(java.lang.Integer tutorId) {
 		set("tutorId", tutorId);
 	}
 
-	public java.lang.Long getTutorId() {
+	public java.lang.Integer getTutorId() {
 		return get("tutorId");
 	}
 

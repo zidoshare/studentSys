@@ -8,6 +8,7 @@ import com.hudongwx.studentsys.util.Common;
 import com.hudongwx.studentsys.util.StrPlusKit;
 import com.jfinal.log.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,13 +29,15 @@ public class UserService extends Service {
     public User getUserById(String id){
         return User.dao.findById(id);
     }
-    public void _saveUser(User user){
+    public boolean _saveUser(User user){
         try {
             packingUser(user);
+            if(user.save())
+                return true;
         } catch (ServiceException e) {
             e.printStackTrace();
         }
-        user.save();
+        return false;
     }
     public List<User> getAdmin(){
         return User.dao.find("select * from stumanager_user where userRole = 'admin'");
@@ -70,6 +73,8 @@ public class UserService extends Service {
     }
 
     public List<User> getUsersByRole(Role role) {
+        if(null == role)
+            return new ArrayList<>();
         return User.dao.find(User.SEARCH_FROM_USER +"where userRole = ?",role.getName());
     }
 }

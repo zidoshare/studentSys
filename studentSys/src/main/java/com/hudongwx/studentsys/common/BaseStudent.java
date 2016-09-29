@@ -33,6 +33,22 @@ public abstract class BaseStudent<M extends BaseStudent<M>> extends Model<M> imp
 		return get("classId");
 	}
 
+	public void setClassName(java.lang.String className) {
+		set("className", className);
+	}
+
+	public java.lang.String getClassName() {
+		return get("className");
+	}
+
+	public void setTutor(java.lang.String tutor) {
+		set("tutor", tutor);
+	}
+
+	public java.lang.String getTutor() {
+		return get("tutor");
+	}
+
 	public void setTutorId(java.lang.Integer tutorId) {
 		set("tutorId", tutorId);
 	}
@@ -57,11 +73,11 @@ public abstract class BaseStudent<M extends BaseStudent<M>> extends Model<M> imp
 		return get("contactInformation");
 	}
 
-	public void setAdmission(java.util.Date admission) {
+	public void setAdmission(java.lang.Long admission) {
 		set("admission", admission);
 	}
 
-	public java.util.Date getAdmission() {
+	public java.lang.Long getAdmission() {
 		return get("admission");
 	}
 
@@ -113,12 +129,20 @@ public abstract class BaseStudent<M extends BaseStudent<M>> extends Model<M> imp
 		return get("ip");
 	}
 
-	public void setOpraterId(java.lang.Integer opraterId) {
-		set("opraterId", opraterId);
+	public void setOperaterId(java.lang.Integer operaterId) {
+		set("operaterId", operaterId);
 	}
 
-	public java.lang.Integer getOpraterId() {
-		return get("opraterId");
+	public java.lang.Integer getOperaterId() {
+		return get("operaterId");
+	}
+
+	public void setOperater(java.lang.String operater) {
+		set("operater", operater);
+	}
+
+	public java.lang.String getOperater() {
+		return get("operater");
 	}
 
 	public void setConsultantId(java.lang.Integer consultantId) {

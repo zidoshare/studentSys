@@ -2,10 +2,6 @@
 <html>
 <head>
     <title>组卷</title>
-    <link rel="stylesheet" type="text/css"
-          href="${staticServePath}/static/css/lib/bootstrap.min.css?${staticResourceVersion}">
-    <link rel="stylesheet" type="text/css"
-          href="${staticServePath}/static/css/lib/ladda-themeless.min.css?${staticResourceVersion}">
 </head>
 <body>
 <div class="container-fluid">
@@ -125,12 +121,6 @@
     <button class="btn btn-success pull-right" data-toggle="modal" data-target="#myModal" onclick="createTime()">添加试卷
     </button>
 </body>
-<script type="text/javascript" src="${staticServePath}/static/js/lib/jquery-3.1.0.min.js"></script>
-<script type="text/javascript" src="${staticServePath}/static/js/lib/bootstrap.min.js"></script>
-<script src="${staticServePath}/static/js/lib/spin.min.js?${staticResourceVersion}"></script>
-<script src="${staticServePath}/static/js/lib/ladda.min.js?${staticResourceVersion}" type="text/javascript"></script>
-<script src="${staticServePath}/static/js/lib/jquery.transit.js?${staticResourceVersion}"
-        type="text/javascript"></script>
 <script type="text/javascript">
     $('tr').click(function () {
         var input = $(this).find('input').first();
@@ -164,7 +154,7 @@
             "questionsId": ids
         }
         $.ajax({
-            url: "surveys/postQuestionnaire",
+            url: "/surveys/postQuestionnaire",
             type: "post",
             data: jsonObj,
             success: function (data, status) {
@@ -191,7 +181,7 @@
     }
     function createTime() {
         $.ajax({
-            url: "/getNowTime",
+            url: "/surveys/getNowTime",
             type: "get",
             success: function (data, status) {
                 if (data.state == "success") {

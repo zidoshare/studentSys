@@ -115,17 +115,20 @@
                     </div>
                 </form>
                 <div class="checkbox3 checkbox-round sr-only">
-                    <input type="checkbox" checked name="${root.id}" id="${root.id}">
+                    <input type="checkbox" data-arialabel="1" checked name="${root.id}" id="${root.id}">
                     <label for="${root.id}">
                     </label>
                 </div>
                 <div id="permissions"
                      style="/*display: none;*//*height:${root.childCount * 40}px;*/overflow-y:auto;overflow-x:hidden; "></div>
-
+                <div class="tip-container">
+                    <div class="tip" id="saveRoleTip" aria-label="0">
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button data-style="slide-up" id="save-btn" class="btn btn-primary ladda-button"
+                <button data-style="slide-up" id="saveRole-btn" class="btn btn-primary ladda-button"
                         onclick="func.addRole('up')">
                     <span class="ladda-label">保存</span>
                 </button>

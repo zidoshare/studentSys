@@ -22,7 +22,7 @@
                 </th>
             </tr>
         <#list results as result>
-            <tr id= ${result.id}>
+            <tr id= "${result.id}" data-label="open-count">
                 <th>
                 ${result.idUser}
                 </th>
@@ -40,14 +40,6 @@
     </div>
 </div>
 <div class="modal-footer">
-
 </div>
-
-
-<script type="text/javascript">
-    $("tr").bind("click", function () {
-        window.open("${staticServePath}/result/" + $(this).attr('id'));
-    });
-</script>
 </body>
 </html>

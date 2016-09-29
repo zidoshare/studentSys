@@ -67,15 +67,20 @@ public class UserController extends BaseController {
     @Before(POST.class)
     public void addRole(){
         Role model = getModel(Role.class);
-        roleService._saveRole(model);
-        String[] data = model.getTreeData().split(":");
-        RenderKit.renderSuccess(this);
+        if(roleService._saveRole(model)){
+            RenderKit.renderSuccess(this);
+            return ;
+        }
+        RenderKit.renderError(this);
     }
     @Before(POST.class)
     public void addUser(){
         User user = getModel(User.class);
-        userService._saveUser(user);
-        RenderKit.renderSuccess(this);
+        if(userService._saveUser(user)){
+            RenderKit.renderSuccess(this);
+            return ;
+        }
+        RenderKit.renderError(this);
     }
     public void showPermissions(){
         String id = getPara(0);

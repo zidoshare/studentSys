@@ -2,11 +2,11 @@ Table: stumanager_class
 ---------------+-------------+------+-----+---------+---------
  Field         | Type        | Null | Key | Default | Remarks 
 ---------------+-------------+------+-----+---------+---------
- classId       | int(10)     | NO   | PRI |         |         
+ id            | int(10)     | NO   | PRI |         |         
  className     | varchar(10) | YES  |     |         |         
- headTeacherId | bigint(19)  | YES  |     |         | 讲师      
+ headTeacherid | int(10)     | YES  |     |         | 讲师      
  Assistant     | varchar(10) | YES  |     |         | 科目      
- tutorId       | bigint(19)  | YES  |     |         |         
+ tutorId       | int(10)     | YES  |     |         |         
 ---------------+-------------+------+-----+---------+---------
 
 Table: stumanager_employee
@@ -57,17 +57,20 @@ Table: stumanager_student
  id                 | int(10)      | NO   | PRI |         |         
  name               | varchar(255) | YES  |     |         |         
  classId            | int(10)      | YES  |     |         |         
+ className          | varchar(20)  | YES  |     |         |         
+ tutor              | varchar(20)  | YES  |     |         |         
  tutorId            | int(10)      | YES  |     |         | 辅导老师    
  subject            | int(10)      | YES  |     |         | 学习科目    
  contactInformation | varchar(255) | YES  |     |         | 联系方式    
- admission          | date         | YES  |     |         | 入学时间    
+ admission          | bigint(19)   | YES  |     |         | 入学时间    
  credit             | int(10)      | YES  |     |         | 学分      
  grade              | int(10)      | YES  |     |         | 成绩      
  state              | varchar(255) | YES  |     |         | 状态      
  employment         | varchar(255) | YES  |     |         | 就业跟踪    
  createTime         | bigint(19)   | YES  |     |         | 用户创建时间  
  ip                 | varchar(20)  | YES  |     |         | 最后登录的ip地址
- opraterId          | int(10)      | YES  |     |         | 操作人     
+ operaterId         | int(10)      | YES  |     |         | 操作人     
+ operater           | varchar(20)  | YES  |     |         |         
  consultantId       | int(10)      | YES  |     |         |         
 --------------------+--------------+------+-----+---------+---------
 

@@ -60,16 +60,19 @@ public class RoleService extends Service {
         role.allowTree.addGoodNode(mapping);
     }
 
-    public void _saveRole(Role role) {
+    public boolean _saveRole(Role role) {
         try {
             packingRole(role);
-            role.save();
+            if(role.save())
+                return true;
            /* List<Role> roles = getRoles();
             roles.add(role);
             CacheKit.put(Common.CACHE_FOREVER_LABEL, "roles", roles);*/
+
         } catch (ServiceException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     public void _deleteRole(Role role) {

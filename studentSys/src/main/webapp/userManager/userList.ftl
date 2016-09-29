@@ -12,28 +12,31 @@
                     <div class="form-group">
                         <label for="userAccount" class="col-sm-2 control-label">账号</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="user.userAccount" id="userAccount" placeholder="账号">
+                            <input type="text" class="form-control" name="user.userAccount" id="userAccount"
+                                   placeholder="账号">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="userPassword" class="col-sm-2 control-label">密码</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="user.userPassword" id="userPassword" placeholder="密码">
+                            <input type="text" class="form-control" name="user.userPassword" id="userPassword"
+                                   placeholder="密码">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="userNickname" class="col-sm-2 control-label">名字</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="user.userNickname" id="userNickname" placeholder="名字">
+                            <input type="text" class="form-control" name="user.userNickname" id="userNickname"
+                                   placeholder="名字">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="userRole" class="col-sm-2 control-label">角色</label>
                         <div class="col-sm-10">
                             <select class="form-control" name="user.userRole" id="userRole">
-                                <#list roles as role>
-                                    <option>${role.name}</option>
-                                </#list>
+                            <#list roles as role>
+                                <option>${role.name}</option>
+                            </#list>
                             </select>
                         </div>
                     </div>
@@ -47,15 +50,21 @@
                     <div class="form-group sr-only">
                         <label for="operater" class="col-sm-2 control-label">operater</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="role.operater" id="operater" placeholder="创建者" value="${user.userNickname}"
+                            <input type="text" class="form-control" name="role.operater" id="operater" placeholder="创建者"
+                                   value="${user.userNickname}"
                                    disabled>
                         </div>
                     </div>
+
                 </form>
+                <div class="tip-container">
+                    <div class="tip" id="saveUserTip" aria-label="0">
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button data-style="slide-up" id="save-btn" class="btn btn-primary ladda-button"
+                <button data-style="slide-up" id="saveUser-btn" class="btn btn-primary ladda-button"
                         onclick="func.addUser('up')">
                     <span class="ladda-label">保存</span>
                 </button>
@@ -131,174 +140,174 @@
                                 </thead>
                                 <tbody>
                                     <#list roleMap[role.name] as user >
-                                        <tr>
-                                            <td>
-                                                ${user.userAccount}
-                                            </td>
-                                            <td>
-                                                ${user.userNickname}
-                                            </td>
-                                            <td>
-                                                ${(user.userCreateTime?number)?number_to_date}
-                                            </td>
-                                            <td>
-                                                0.0.0.0
-                                            </td>
-                                        </tr>
+                                    <tr>
+                                        <td>
+                                        ${user.userAccount}
+                                        </td>
+                                        <td>
+                                        ${user.userNickname}
+                                        </td>
+                                        <td>
+                                        ${(user.userCreateTime?number)?number_to_date}
+                                        </td>
+                                        <td>
+                                            0.0.0.0
+                                        </td>
+                                    </tr>
                                     </#list>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </#list>
-                    <#--<div class="tab-pane fade in active" id="student">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                <th>
-                                    姓名
-                                </th>
-                                <th>
-                                    班级
-                                </th>
-                                <th>
-                                    辅导老师
-                                </th>
-                                <th>
-                                    学习科目
-                                </th>
-                                <th>
-                                    联系方式
-                                </th>
-                                <th>
-                                    入学时间
-                                </th>
-                                <th>
-                                    学分
-                                </th>
-                                <th>
-                                    成绩
-                                </th>
-                                <th>
-                                    状态
-                                </th>
-                                <th>
-                                    就业跟踪
-                                </th>
-                                <th>
-                                    用户创建时间
-                                </th>
-                                <th>
-                                    最后登录ip
-                                </th>
-                                <th>
-                                    操作
-                                </th>
-                                <th>
-                                    操作人
-                                </th>
-                                </thead>
-                            </table>
-                        </div>
+                <#--<div class="tab-pane fade in active" id="student">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <th>
+                                姓名
+                            </th>
+                            <th>
+                                班级
+                            </th>
+                            <th>
+                                辅导老师
+                            </th>
+                            <th>
+                                学习科目
+                            </th>
+                            <th>
+                                联系方式
+                            </th>
+                            <th>
+                                入学时间
+                            </th>
+                            <th>
+                                学分
+                            </th>
+                            <th>
+                                成绩
+                            </th>
+                            <th>
+                                状态
+                            </th>
+                            <th>
+                                就业跟踪
+                            </th>
+                            <th>
+                                用户创建时间
+                            </th>
+                            <th>
+                                最后登录ip
+                            </th>
+                            <th>
+                                操作
+                            </th>
+                            <th>
+                                操作人
+                            </th>
+                            </thead>
+                        </table>
                     </div>
-                    <div class="tab-pane fade" id="teacher">
-                        <div class="table-responsive">
+                </div>
+                <div class="tab-pane fade" id="teacher">
+                    <div class="table-responsive">
 
-                            <table class="table">
-                                <thead>
-                                <th>
-                                    姓名
-                                </th>
-                                <th>
-                                    管理班级
-                                </th>
-                                <th>
-                                    教学科目
-                                </th>
-                                <th>
-                                    联系方式
-                                </th>
-                                <th>
-                                    入职时间
-                                </th>
-                                <th>
-                                    用户创建时间
-                                </th>
-                                <th>
-                                    最后登录ip
-                                </th>
-                                <th>
-                                    操作
-                                </th>
-                                <th>
-                                    操作人
-                                </th>
-                                </thead>
-                            </table>
+                        <table class="table">
+                            <thead>
+                            <th>
+                                姓名
+                            </th>
+                            <th>
+                                管理班级
+                            </th>
+                            <th>
+                                教学科目
+                            </th>
+                            <th>
+                                联系方式
+                            </th>
+                            <th>
+                                入职时间
+                            </th>
+                            <th>
+                                用户创建时间
+                            </th>
+                            <th>
+                                最后登录ip
+                            </th>
+                            <th>
+                                操作
+                            </th>
+                            <th>
+                                操作人
+                            </th>
+                            </thead>
+                        </table>
 
-                        </div>
                     </div>
-                    <div class="tab-pane fade" id="consultant">
-                        <div class="table-responsive">
+                </div>
+                <div class="tab-pane fade" id="consultant">
+                    <div class="table-responsive">
 
-                            <table class="table">
-                                <thead>
-                                <th>
-                                    姓名
-                                </th>
-                                <th>
-                                    报名学生
-                                </th>
-                                <th>
-                                    学生所在班级
-                                </th>
-                                <th>
-                                    联系方式
-                                </th>
-                                <th>
-                                    入职时间
-                                </th>
-                                <th>
-                                    用户创建时间
-                                </th>
-                                <th>
-                                    最后登录ip
-                                </th>
-                                <th>
-                                    操作
-                                </th>
-                                <th>
-                                    操作人
-                                </th>
-                                </thead>
-                            </table>
+                        <table class="table">
+                            <thead>
+                            <th>
+                                姓名
+                            </th>
+                            <th>
+                                报名学生
+                            </th>
+                            <th>
+                                学生所在班级
+                            </th>
+                            <th>
+                                联系方式
+                            </th>
+                            <th>
+                                入职时间
+                            </th>
+                            <th>
+                                用户创建时间
+                            </th>
+                            <th>
+                                最后登录ip
+                            </th>
+                            <th>
+                                操作
+                            </th>
+                            <th>
+                                操作人
+                            </th>
+                            </thead>
+                        </table>
 
-                        </div>
                     </div>
-                    <div class="tab-pane fade" id="manager">
-                        <div class="table-responsive">
+                </div>
+                <div class="tab-pane fade" id="manager">
+                    <div class="table-responsive">
 
-                            <table class="table">
-                                <thead>
-                                <th>
-                                    姓名
-                                </th>
-                                <th>
-                                    联系方式
-                                </th>
-                                <th>
-                                    用户创建时间
-                                </th>
-                                <th>
-                                    最后登录ip
-                                </th>
-                                <th>
-                                    操作
-                                </th>
-                                </thead>
-                            </table>
-                        </div>
-                    </div>-->
+                        <table class="table">
+                            <thead>
+                            <th>
+                                姓名
+                            </th>
+                            <th>
+                                联系方式
+                            </th>
+                            <th>
+                                用户创建时间
+                            </th>
+                            <th>
+                                最后登录ip
+                            </th>
+                            <th>
+                                操作
+                            </th>
+                            </thead>
+                        </table>
+                    </div>
+                </div>-->
 
                 </div>
             </div>

@@ -46,35 +46,38 @@ public class SurveysController extends BaseController {
             return ;
         }
         setAttr("student",student);
-        Class cls = classService.getClassById(student.getClassId());
-        List<Questionnaire> surveying = surveysService.getQuestionnaireByClassNameAndDate(cls.getClassName());
+        List<Questionnaire> surveying = surveysService.getQuestionnaireByClassNameAndDate(student.getClassName());
         //正在考试列表
         setAttr("surveying",surveying);
         //所有的
-        List<Questionnaire> questionnaires = surveysService.getQuestionnairesByClassName(cls.getClassName());
+        List<Questionnaire> questionnaires = surveysService.getQuestionnairesByClassName(student.getClassName());
         setAttr("questionnaires",questionnaires);
         setAttr("nowTime",System.currentTimeMillis());
     }
 
     //添加问题页面
     public void inputQuestion() {
+        setMapping(mappingService.getMappingByTitle("添加问题"));
+        super.index();
         List<QuestionBigType> bigTypes = surveysService.getBigTypes();
         setAttr("bigTypes", bigTypes);
         Page<Questions> allQuestions = surveysService.getAllQuestions(1);
         setAttr("questions", allQuestions.getList());
         setAttr("maxPage", allQuestions.getTotalRow());
-        render("inputQuestion.ftl");
     }
 
     //添加类型页面
     public void inputBigType() {
+        setMapping(mappingService.getMappingByTitle("添加大类型"));
+        super.index();
         List<QuestionBigType> bigTypes = surveysService.getBigTypes();
         setAttr("bigTypes", bigTypes);
-        render("inputBigType.ftl");
     }
 
     //添加试卷页面
     public void inputQuestionnaire() {
+        setMapping(mappingService.getMappingByTitle("组卷"));
+        super.index();
         String p = getPara("p");
         if (p == null)
             p = "" + Common.START_PAGE;
@@ -85,8 +88,6 @@ public class SurveysController extends BaseController {
         setAttr("questionnaires", questionnaires);
         List<Questions> allQuestions = surveysService.getAllQuestions();
         setAttr("questions", allQuestions);
-        fillHeaderAndFooter();
-        render("inputQuestionnaire.ftl");
     }
 
     //提交名字
@@ -118,7 +119,8 @@ public class SurveysController extends BaseController {
 
     }
     public void checkResult(){
-        fillHeaderAndFooter();
+        setMapping(mappingService.getMappingByTitle("查看调查结果"));
+        super.index();
         String p = getPara("p");
         if (p == null)
             p = "" + Common.START_PAGE;
@@ -127,8 +129,6 @@ public class SurveysController extends BaseController {
         int page = Integer.valueOf(p);
         Page<Questionnaire> questionnaires = surveysService.getQuestionnaires(page);
         setAttr("questionnaires", questionnaires);
-        fillHeaderAndFooter();
-        render("checkResult.ftl");
     }
     public void getTable(){
         fillHeaderAndFooter();

@@ -271,12 +271,11 @@ var func = {
             for (var i = 0; i < data.length; i++) {
                 d += data[i] + ":";
             }
-            alert(d);
             if (d.length > 0)
                 d = d.substr(0, d.length - 1);
             $('#treeData').val(d);
             $('#createTime').val(new Date().getTime());
-            var btn = Ladda.create(document.querySelector("#save-btn"));
+            var btn = Ladda.create(document.querySelector("#saveRole-btn"));
             btn.start();
             var json = {};
             $('#role').find('input').each(function () {
@@ -288,12 +287,12 @@ var func = {
                 data: json,
                 success: function (data) {
                     if (data.state == 'success') {
-                        alert("ok");
+                        Util.showTip($('#saveRoleTip'),'添加成功','alert alert-success');
                     } else
-                        alert("no");
+                        Util.showTip($('#saveRoleTip'),'添加失败','alert alert-warning');
                 },
                 error: function () {
-                    alert('服务器错误');
+                    Util.showTip($('#saveRoleTip'),'服务器错误','alert alert-danger');
                 },
                 complete: function () {
                     btn.stop();
@@ -306,24 +305,55 @@ var func = {
             $('#addUserModel').modal('toggle');
             /*func.showPermissions(0, '', 'permissions');*/
         } else {
-            var btn = Ladda.create(document.querySelector("#save-btn"));
+            var btn = Ladda.create(document.querySelector("#saveUser-btn"));
             btn.start();
             var json = {};
             $('#user').find('.form-control').each(function () {
                 json[$(this).attr('name')] = $(this).val();
             });
+            $('#createTime').val(new Date().getTime());
             $.ajax({
                 url: '/userManager/addUser',
                 type: 'post',
                 data: json,
                 success: function (data) {
                     if (data.state == 'success') {
-                        alert("ok");
+                        Util.showTip($('#saveUserTip'),'添加成功','alert alert-success');
                     } else
-                        alert("no");
+                        Util.showTip($('#saveUserTip'),'添加失败','alert alert-warning');
                 },
                 error: function () {
-                    alert('服务器错误');
+                    Util.showTip($('#saveUserTip'),'服务器错误','alert alert-danger');
+                },
+                complete: function () {
+                    btn.stop();
+                }
+            });
+        }
+    },
+    addStudent:function(method){
+        if (method == 'show') {
+            $('#addStudentModel').modal('toggle');
+        } else {
+            var btn = Ladda.create(document.querySelector("#save-btn"));
+            btn.start();
+            $('#createTime').val(new Date().getTime());
+            var json = {};
+            $('#student').find('.form-control').each(function () {
+                json[$(this).attr('name')] = $(this).val();
+            });
+            $.ajax({
+                url: '/studentManager/addStudent',
+                type: 'post',
+                data: json,
+                success: function (data) {
+                    if (data.state == 'success') {
+                        Util.showTip($('#saveTip'),'添加成功','alert alert-success');
+                    } else
+                        Util.showTip($('#saveTip'),'添加失败','alert alert-warning');
+                },
+                error: function () {
+                    Util.showTip($('#saveTip'),'服务器错误','alert alert-danger');
                 },
                 complete: function () {
                     btn.stop();
@@ -347,7 +377,7 @@ var func = {
                         var url = json['url'];
                         var childCnt = json['childCount'];
                         str += '<div class="checkbox3 checkbox-round" onchange="func.showPermissions(' + (left + 20) + ',\'' + id + '\',\'permission' + id + '\')"> ' +
-                            '<input type="checkbox" name="' + id + '" id="' + id + '"> ' +
+                            '<input type="checkbox" data-arialabel="1" name="' + id + '" id="' + id + '"> ' +
                             '<label for="' + id + '">' + title + '</label>' +
                             ' </div><div id="permission' + id + '" style="margin-left: ' + (left + 20) + 'px;/*height:' + (childCnt * 40) + 'px;*//*overflow-y:auto;overflow-x:hidden;*/ "></div>';
                     }

@@ -343,7 +343,7 @@
         mode["questionnaireResult.questions_reply"] = JSON.stringify(reply);
 
         $.ajax({
-            url: "/postQresult/" + code,
+            url: "/surveys/postQresult/" + code,
             type: "post",
             data: mode,
             success: function (data, textstatus) {

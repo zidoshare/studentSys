@@ -54,7 +54,7 @@
                 storage: true
             });
         }
-        $('input').change(function () {
+        $('input[data-arialabel="1"]').change(function () {
                     if ($(this).prop('checked')) {
                         var id = $(this).attr('id');
                         func.showPermissions(id, 'permission' + id);
@@ -76,11 +76,74 @@
     $('#main-menu').find('li').on('click', function () {
         $(this).addClass('active-menu');
         $(this).siblings('li').removeClass('active-menu');
-    })
-    $('tr').on('click', function () {
-        /*alert("ok");
-        $(this).find('.checkbox3.checkbox-round').first().click();*/
-    })
+    });
+    var sid = 0;
+    var word = "a";
+    function submit() {
+        var title = $("#title").val();
+        var bigType = jQuery("#bigType").find("option:selected").val();
+        var type = jQuery("#type").find("option:selected").val();
+        var c = [];
+        var s = [];
+        /*var content = "{[\"";*/
+        for (var i = 0; i < sid; i++) {
+            /*content += i+"\":\"";
+            content += $("#select"+i).val()+"\",";*/
+            c[i] = $("#select" + i).val();
+            s[i] = $("#score" + i).val();
+        }
+        /*content = content.substring(0,content.length-1);
+        content+="]}";*/
+        var content = c.join("&");
+        var score = s.join("&");
+        $.ajax({
+            type: "post",
+            url: "/surveys/postQuestion",
+            data: {
+                "questions.title": title,
+                "questions.type": type,
+                "questions.big_type_id": bigType,
+                "questions.content": content,
+                "questions.option_score": score
+            },
+            success: function (data, textStatus) {
+                alert(data.msg);
+                if(data.state == "success") {
+                    $("#q-flag").append("<p>" + title + "<p>");
+                    var row = parseInt($("#maxRow").text());
+                    $("#maxRow").text(row + 1);
+                }
+            },
+            error: function () {
+                alert("错误");
+            }
+        });
+    }
+    function addSelect() {
+        $("#add").before("<div class=\"item clearfix\"><textarea class=\"form-control\" rows=\"2\" placeholder=\"" + String.fromCharCode(word.charCodeAt() + sid) + "\"  id=select" + (sid) + "></textarea>" +
+                "<input type=\"text\" class=\"form-control\" value=\"1\" id=\"score" + sid++ + "\"/>" +
+                "</div>");
+    }
+    function removeSelect() {
+        var s = $("#add").prev();
+        if (s.hasClass("item")) {
+            s.remove();
+            sid--;
+        }
+    }
+    function loadResult(id) {
+        var evt = arguments.callee.caller.arguments[0] || window.event;
+        evt.preventDefault();
+        evt.stopPropagation();
+        $('#check').load("/surveys/getTable/" + id);
+        $('#myModal').modal('toggle');
+    }
+    $('tr[data-label="open-check"]').on("click", function () {
+        loadResult($(this).attr('id'));
+    });
+    $('tr[data-label="open-count"]').on('click', function () {
+        window.open("/surveys/result/" + $(this).attr('id'));
+    });
 /*
     $(".navToggle1").click(function () {
         $(this).toggleClass("open");
