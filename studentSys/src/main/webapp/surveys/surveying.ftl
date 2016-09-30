@@ -10,9 +10,9 @@
                 <div class="jumbotron">
                     <h3>你有正在进行中的调查，快开始吧>></h3>
                     <#list surveying as s>
-                        <#if s.message??><p>信息：s.message</p></#if>
+                        <#if s.note??><p>信息：${s.note}</p></#if>
                     </#list>
-                    <p><a class="btn btn-primary" href="#" role="button">快速进入</a></p>
+                    <p><a class="btn btn-primary" href="/surveys/questionnaire" target="_blank" role="button">快速进入</a></p>
                 </div>
             </div>
         </div>
@@ -43,20 +43,22 @@
                             <tr>
                                 <td>${q.className}</td>
                                 <td>${q.toUser}</td>
-                                <td>${q.date}</td>
-                                <td>${q.endTime}</td>
+                                <td>${((q.date)?number)?number_to_datetime}</td>
+                                <td>${((q.endTime)?number)?number_to_datetime}</td>
                                 <td><#if (q.date?number) < (nowTime?number) && (q.endTime?number) gt (nowTime?number)>
                                     <a class="text-success">正在进行中</a>
-                                    <#elseif (q.date?number) < (nowTime?number)>
+                                    <#elseif (q.date?number) gt (nowTime?number)>
                                     <a class="text-danger">尚未开始</a>
                                     <#else>
                                     <a class="text-gray">已完结</a>
                                 </#if></td>
+                                <td>
                                 <#if (q.endTime?number) < (nowTime?number)>
-                                <td><a href="#">查看</a></td>
+                                    <a href="#">查看</a>
                                 <#else>
                                     <a>无法查看</a>
                                 </#if>
+                                </td>
                             </tr>
                             </#list>
 

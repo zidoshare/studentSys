@@ -82,6 +82,11 @@ public class UserController extends BaseController {
         }
         RenderKit.renderError(this);
     }
+    @Clear
+    public void loginOut(){
+        setSessionAttr("user",null);
+        redirect("/user/showLogin");
+    }
     public void showPermissions(){
         String id = getPara(0);
         ArrayTree<Mapping> tree = mappingService.getTree();

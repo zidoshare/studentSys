@@ -16,7 +16,7 @@
                     <small>基本信息</small>
                 </a>
                 &nbsp;
-                <a style="color:white;">
+                <a style="color:white;" class="func" onclick="Login.loginOut()">
                     <small>退出</small>
                 </a>
             </p>

@@ -2,6 +2,7 @@ package com.hudongwx.surveys.service;
 
 import com.hudongwx.studentsys.common.Service;
 import com.hudongwx.studentsys.exceptions.ServiceException;
+import com.hudongwx.studentsys.model.Student;
 import com.hudongwx.studentsys.util.ArrayKit;
 import com.hudongwx.studentsys.util.StrPlusKit;
 import com.hudongwx.surveys.model.*;
@@ -12,7 +13,9 @@ import com.jfinal.plugin.activerecord.Record;
 import com.jfinal.plugin.ehcache.CacheKit;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by wuhongxu on 2016/9/6 0006.
@@ -20,7 +23,7 @@ import java.util.List;
 public class SurveysService extends Service {
     private Thread runSuevey = null;
     private List<Node> onlineUsers = new ArrayList<>();
-
+    private int currentNum = 0;
     public List<QuestionBigType> getBigTypes() {
         return QuestionBigType.dao.findByCache(Common.CACHE_LONG_TIME_LABEL, "bigTypes", "select * from surveys_t_question_big_type");
     }
@@ -167,7 +170,7 @@ public class SurveysService extends Service {
     }
 
     public List<Questionnaire> getQuestionnairesByClassName(String className) {
-        return Questionnaire.dao.findByCache(Common.CACHE_LONG_TIME_LABEL, "classNameQuestionnaires", "select * from surveys_t_questionnaire where class_name = ? order by createTime ASC", className);
+        return Questionnaire.dao.findByCache(Common.CACHE_60TIME_LABEL, "classNameQuestionnaires", "select * from surveys_t_questionnaire where class_name = ? order by createTime ASC", className);
     }
 
     public List<Questionnaire> getQuestionnaireByClassNameAndDate(String className) {
@@ -221,6 +224,11 @@ public class SurveysService extends Service {
     }
     public List<QuestionnaireResult> getQuestionnaireResultByQuestionnaireId(String id){
         return QuestionnaireResult.dao.find("select * from surveys_t_questionnaire_result where id_questionnaire = ?", id);
+    }
+
+    public void register(Student student) {
+        log.info(String.format("班级为%s的学生\"%s\"开始了调查,ip为：%s", student.getClassName(), student.getName(),student.getIp()));
+
     }
 
     /*private List<String> testFlags;

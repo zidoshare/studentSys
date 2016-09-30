@@ -65,6 +65,9 @@ var Login = {
     },
     register: function () {
 
+    },
+    loginOut:function(){
+        window.location.href="/user/loginOut";
     }
 };
 var Validate = {

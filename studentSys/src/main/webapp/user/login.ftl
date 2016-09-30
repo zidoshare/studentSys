@@ -39,4 +39,13 @@
 </div>
 </body>
 </html>
-<#include "../macro-foot.ftl">
+<script type="text/javascript">
+    var Label = {
+        staticServePath: "${staticServePath}",
+        servePath: "${servePath}",
+        isLogin:${isLogin?c},
+        loginRole: "${loginRole}",
+        loginNameErrorLabel: "${loginNameErrorLabel}",
+        invalidPasswordLabel: "${invalidPasswordLabel}"
+    };
+</script>

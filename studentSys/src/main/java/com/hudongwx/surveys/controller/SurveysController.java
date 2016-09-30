@@ -6,8 +6,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.hudongwx.studentsys.common.BaseController;
 import com.hudongwx.studentsys.model.Class;
 import com.hudongwx.studentsys.model.Student;
+import com.hudongwx.studentsys.model.User;
 import com.hudongwx.studentsys.service.ClassService;
 import com.hudongwx.studentsys.service.StudentService;
+import com.hudongwx.studentsys.service.UserService;
 import com.hudongwx.studentsys.util.Common;
 import com.hudongwx.studentsys.util.IpKit;
 import com.hudongwx.studentsys.util.RenderKit;
@@ -28,6 +30,7 @@ import java.util.*;
 public class SurveysController extends BaseController {
     public SurveysService surveysService;
     public StudentService studentService;
+    public UserService userService;
     public ClassService classService;
     private Log log = Log.getLog(getClass());
 
@@ -35,24 +38,24 @@ public class SurveysController extends BaseController {
         fillHeaderAndFooter();
         render("index.ftl");
     }*/
-    public void surveyList(){
+    public void surveyList() {
         log.info("调查列表");
         //二级菜单需要重新定位mapping
         setMapping(mappingService.getMappingByTitle("调查列表"));
         index();
         Student student = studentService.getStudentByUser(getCurrentUser(this));
-        if(student == null){
+        if (student == null) {
             renderError(403);
-            return ;
+            return;
         }
-        setAttr("student",student);
+        setAttr("student", student);
         List<Questionnaire> surveying = surveysService.getQuestionnaireByClassNameAndDate(student.getClassName());
         //正在考试列表
-        setAttr("surveying",surveying);
+        setAttr("surveying", surveying);
         //所有的
         List<Questionnaire> questionnaires = surveysService.getQuestionnairesByClassName(student.getClassName());
-        setAttr("questionnaires",questionnaires);
-        setAttr("nowTime",System.currentTimeMillis());
+        setAttr("questionnaires", questionnaires);
+        setAttr("nowTime", System.currentTimeMillis());
     }
 
     //添加问题页面
@@ -118,7 +121,8 @@ public class SurveysController extends BaseController {
         }
 
     }
-    public void checkResult(){
+
+    public void checkResult() {
         setMapping(mappingService.getMappingByTitle("查看调查结果"));
         super.index();
         String p = getPara("p");
@@ -130,60 +134,63 @@ public class SurveysController extends BaseController {
         Page<Questionnaire> questionnaires = surveysService.getQuestionnaires(page);
         setAttr("questionnaires", questionnaires);
     }
-    public void getTable(){
+
+    public void getTable() {
         fillHeaderAndFooter();
         String qId = getPara(0);
         int sum = 0;
         List<QuestionnaireResult> questionnaireResultByQuestionnaireId = surveysService.getQuestionnaireResultByQuestionnaireId(qId);
-        for(QuestionnaireResult q:questionnaireResultByQuestionnaireId){
+        for (QuestionnaireResult q : questionnaireResultByQuestionnaireId) {
             q.setUser(surveysService.getUserByIp(q.getIdUser()));
             JSONArray array = JSON.parseArray(q.getQuestionsReply());
-            JSONObject json = array.getJSONObject(array.size()-1);
+            JSONObject json = array.getJSONObject(array.size() - 1);
             Integer score = json.getInteger("score");
-            if(score == null)
+            if (score == null)
                 score = 0;
-            sum+=score;
+            sum += score;
             q.setCount(score);
         }
         Questionnaire questionnaire = Questionnaire.dao.findById(qId);
         int avg = 0;
-        if(questionnaireResultByQuestionnaireId.size()>0) {
+        if (questionnaireResultByQuestionnaireId.size() > 0) {
             avg = sum / questionnaireResultByQuestionnaireId.size();
         }
-        setAttr("avg",avg);
-        setAttr("questionnaire",questionnaire);
-        setAttr("results",questionnaireResultByQuestionnaireId);
+        setAttr("avg", avg);
+        setAttr("questionnaire", questionnaire);
+        setAttr("results", questionnaireResultByQuestionnaireId);
         render("countResult.ftl");
     }
-    public void result(){
+
+    public void result() {
         fillHeaderAndFooter();
         String resultId = getPara(0);
-        if(!StrPlusKit.isNumeric(resultId)){
+        if (!StrPlusKit.isNumeric(resultId)) {
             renderError(404);
             return;
         }
         QuestionnaireResult q = QuestionnaireResult.dao.findById(resultId);
-        if(q == null){
+        if (q == null) {
             renderError(404);
             return;
         }
         Questionnaire questionnaire = Questionnaire.dao.findById(q.getIdQuestionnaire());
-        if(questionnaire == null){
+        if (questionnaire == null) {
             renderError(404);
             return;
         }
         surveysService.generatorQuestionnaire(questionnaire);
         q.setUser(surveysService.getUserByIp(q.getIdUser()));
         JSONArray array = JSON.parseArray(q.getQuestionsReply());
-        JSONObject json = array.getJSONObject(array.size()-1);
+        JSONObject json = array.getJSONObject(array.size() - 1);
         Integer score = json.getInteger("score");
-        if(score == null)
+        if (score == null)
             score = 0;
         q.setCount(score);
-        setAttr("result",q);
-        setAttr("questionnaire",questionnaire);
+        setAttr("result", q);
+        setAttr("questionnaire", questionnaire);
         render("result.ftl");
     }
+
     public void chooseQuestionnaire() {
         fillHeaderAndFooter();
         String code = getPara(0);
@@ -204,8 +211,8 @@ public class SurveysController extends BaseController {
 
     //调查问卷视图
     public void questionnaire() {
-        String code = getPara(0);
-        if (StrPlusKit.isEmpty(code)) {
+        fillHeaderAndFooter();
+        /*if (StrPlusKit.isEmpty(code)) {
             renderError(403);
             return;
         }
@@ -214,14 +221,28 @@ public class SurveysController extends BaseController {
         if (null == user) {
             renderError(403);
             return;
+        }*/
+        User user = userService.getCurrentUser(this);
+        if (null == user) {
+            renderError(403);
+            return;
         }
-        log.info(String.format("班级为%s的学生\"%s\"开始了调查,ip为：%s", user.className, user.name, user.ip));
-        log.info("总人数:" + surveysService.getRegisterSize());
-        List<Questionnaire> questionnaires = surveysService.getQuestionnaireByClassNameAndDate(user.className);
-        if (questionnaires != null && questionnaires.size() > 1)
+        Student student = studentService.getStudentByUser(user);
+        if (null == student) {
+            renderError(403);
+            return;
+        }
+        surveysService.register(student);
+        int questionSize = 0;
+        List<Questionnaire> questionnaires = surveysService.getQuestionnaireByClassNameAndDate(student.getClassName());
+        if (questionnaires != null && questionnaires.size() > 0)
             for (Questionnaire questionnaire : questionnaires) {
                 surveysService.generatorQuestionnaire(questionnaire);
+                questionSize += QuestionsQuestionnaire.dao.find("select * from surveys_t_questions_questionnaire where id_questionnaire = ?",""+questionnaire.getId()).size()+1;
             }
+        else {
+            renderError(404);
+        }
         /*for (int i = 1; getPara(i) != null; i++) {
             Integer questionnaireId = getParaToInt(i);
             Questionnaire questionnaire = surveysService.getQuestionnaireById(questionnaireId);
@@ -231,11 +252,10 @@ public class SurveysController extends BaseController {
             questionnaires.add(questionnaire);
 
         }*/
-        fillHeaderAndFooter();
         setAttr("questionnaires", questionnaires);
-        setAttr("code", code);
-        setAttr("user", user);
-        render("survey.ftl");
+        setAttr("student", student);
+        setAttr("questionSize",questionSize);
+        render("/surveys/survey.ftl");
     }
 
     public void getNowTime() {
@@ -308,26 +328,22 @@ public class SurveysController extends BaseController {
 
     @Before(POST.class)
     public void postQresult() {
-        String code = getPara(0);
-        if (code == null) {
-            RenderKit.renderError(this, "提交失败！ 你未领取提交码获取不到你的身份信息");
-            return;
-        }
-        Node user = surveysService.getUserByCode(code);
+        User user = userService.getCurrentUser(this);
         if (user == null) {
             RenderKit.renderError(this, "提交失败！你的信息发生了变化或者获取不到你的身份信息");
             return;
         }
-        List<QuestionnaireResult> questionnaireResults = surveysService.getQuestionnaireResultByUserName(user.name);
+        Student student = studentService.getStudentByUser(user);
+        List<QuestionnaireResult> questionnaireResults = surveysService.getQuestionnaireResultByUserName(student.getName());
         QuestionnaireResult model = getModel(QuestionnaireResult.class);
         for (QuestionnaireResult q : questionnaireResults)
             if (Objects.equals(q.getIdQuestionnaire(), model.getIdQuestionnaire())) {
                 q.setQuestionsReply(model.getQuestionsReply());
                 q.setComment(model.getComment());
                 Questionnaire questionnaire = Questionnaire.dao.findById(q.getIdQuestionnaire());
-                if(Long.valueOf(questionnaire.getEndTime()) < System.currentTimeMillis() ){
+                if (Long.valueOf(questionnaire.getEndTime()) < System.currentTimeMillis()) {
                     RenderKit.renderError(this, "已经超时，提交失败");
-                    return ;
+                    return;
                 }
                 log.info(q.getQuestionsReply());
                 if (q.update()) {
@@ -335,7 +351,7 @@ public class SurveysController extends BaseController {
                     return;
                 } else {
                     RenderKit.renderError(this, "保存答案失败");
-                    return ;
+                    return;
                 }
             }
         log.info(model.getQuestionsReply());

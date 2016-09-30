@@ -12,4 +12,13 @@
       href="${staticServePath}/static/css/login/styles.css?${staticResourceVersion}">
 <link rel="stylesheet" type="text/css"
       href="${staticServePath}/static/css/lib/ladda-themeless.min.css?${staticResourceVersion}">
+<script src="${staticServePath}/static/js/lib/jquery-2.1.1.min.js?${staticResourceVersion}"
+        type="text/javascript"></script>
+<#--<script src="${staticServePath}/assets/js/jquery-1.10.2.js?${staticResourceVersion}"></script>-->
+<script src="${staticServePath}/static/js/lib/spin.min.js?${staticResourceVersion}"></script>
+<script src="${staticServePath}/static/js/lib/ladda.min.js?${staticResourceVersion}" type="text/javascript"></script>
+<script src="${staticServePath}/static/js/lib/jquery.transit.js?${staticResourceVersion}"
+        type="text/javascript"></script>
+<script src="${staticServePath}/static/js/common.js?${staticResourceVersion}" type="text/javascript"></script>
+
 </#macro>

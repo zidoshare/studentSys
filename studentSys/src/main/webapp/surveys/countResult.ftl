@@ -41,5 +41,10 @@
 </div>
 <div class="modal-footer">
 </div>
+<script type="text/javascript">
+    $('tr[data-label="open-count"]').on('click', function () {
+        window.open("/surveys/result/" + $(this).attr('id'));
+    });
+</script>
 </body>
 </html>

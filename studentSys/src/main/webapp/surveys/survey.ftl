@@ -90,7 +90,7 @@
 
     var progressFlag;
     var proccer = 0;
-    var max = 0;
+    var max = ${questionSize};
     $(document).ready(function () {
         $('input').iCheck({
             checkboxClass: 'iradio_square-blue',
@@ -127,7 +127,7 @@
         if (check()) {
             //读取内容并初始化进度
             proccer = readReply();
-            max = $('li.subject').length + 2;
+            max = ${questionSize};
             changeProgress(parseFloat((proccer / max * 100)).toFixed(2) + "%");
             $("label").on("click", saveReply);
             $("ins").on("click", saveReply);
@@ -142,7 +142,6 @@
             if (minutes <= 0 && mm <= 0) {
                 Util.showTip($('#submitTip'), "你已超时，将不能再提交");
                 $("#count-down").text(0);
-                code = 0;
                 return;
             }
             setTimeout(countDown, 100);
@@ -299,12 +298,10 @@
             }
         }
     });
-    var code = '${code}';
     var score = 0;
     function validateComment(data) {
         return data.length <= 200;
     }
-    $('textarea').on('input propertychange', validate);
     function postReply() {
         if (proccer < max) {
             Util.showTip($('#submitTip'), '你尚未完成调查表，不能提交！', 'alert alert-warning');
@@ -320,7 +317,7 @@
     </#list>
     <#list questionnaires as questionnaire>
         mode = {
-            "questionnaireResult.id_user": "${user.name}",
+            "questionnaireResult.id_user": "${student.name}",
             "questionnaireResult.id_questionnaire": "${questionnaire.id}",
             "questionnaireResult.comment": $("#${questionnaire.id}comment").val()
         };
@@ -343,7 +340,7 @@
         mode["questionnaireResult.questions_reply"] = JSON.stringify(reply);
 
         $.ajax({
-            url: "/surveys/postQresult/" + code,
+            url: "/surveys/postQresult",
             type: "post",
             data: mode,
             success: function (data, textstatus) {

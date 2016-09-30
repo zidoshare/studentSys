@@ -11,7 +11,6 @@
       href="${staticServePath}/assets/css/bootstrap.css?${staticResourceVersion}">
 <link rel="stylesheet" type="text/css"
       href="${staticServePath}/static/css/lib/ladda-themeless.min.css?${staticResourceVersion}">
-
 <!-- FontAwesome Styles-->
 <link href="${staticServePath}/assets/css/font-awesome.min.css?${staticResourceVersion}" rel="stylesheet" />
 <!-- Morris Chart Styles-->
