@@ -44,8 +44,6 @@
     </div>
 
 </div>
-<script type="text/javascript" src="${staticServePath}/static/js/lib/jquery.cookie.js"></script>
-<script type="text/javascript" src="${staticServePath}/static/js/common.js"></script>
 <script>
 
     var progressFlag;

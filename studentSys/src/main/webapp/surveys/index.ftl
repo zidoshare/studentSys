@@ -42,13 +42,6 @@
 
 </body>
 </html>
-<script src="${staticServePath}/assets/js/jquery-1.10.2.js?${staticResourceVersion}"></script>
-<script src="${staticServePath}/static/js/lib/spin.min.js?${staticResourceVersion}"></script>
-<script src="${staticServePath}/static/js/lib/ladda.min.js?${staticResourceVersion}" type="text/javascript"></script>
-<script src="${staticServePath}/static/js/lib/jquery.transit.js?${staticResourceVersion}"
-        type="text/javascript"></script>
-<script src="${staticServePath}/static/js/common.js?${staticResourceVersion}" type="text/javascript"></script>
-<script type="text/javascript" src="${staticServePath}/static/js/lib/bootstrap.min.js"></script>
 <script type="text/javascript">
     function start(code) {
         var str = "questionnaire/" + code;

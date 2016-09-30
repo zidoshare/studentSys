@@ -4,7 +4,6 @@
     <title>统计</title>
 </head>
 <body>
-<#include "macro-head.ftl">
 
 <div class="table-responsive">
     <table class="table table-striped table-bordered table-hover ">
@@ -54,9 +53,10 @@
 
         </div>
     </div>
-</div>
-<script type="text/javascript">
-
+</div><script type="text/javascript">
+    $('tr[data-label="open-check"]').on("click", function () {
+        loadResult($(this).attr('id'));
+    });
 </script>
 </body>
 </html>

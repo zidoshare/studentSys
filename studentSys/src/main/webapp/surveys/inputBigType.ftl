@@ -35,7 +35,6 @@
 </div>
 
 </body>
-<script src="../static/js/lib/jquery-3.1.0.min.js"></script>
 <script>
     function post() {
         var name = $("#name").val();
