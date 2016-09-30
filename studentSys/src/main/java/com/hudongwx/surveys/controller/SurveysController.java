@@ -222,6 +222,11 @@ public class SurveysController extends BaseController {
             renderError(403);
             return;
         }*/
+        Integer id = getParaToInt(0);
+        if (id == null) {
+            renderError(404);
+            return;
+        }
         User user = userService.getCurrentUser(this);
         if (null == user) {
             renderError(403);
@@ -234,15 +239,17 @@ public class SurveysController extends BaseController {
         }
         surveysService.register(student);
         int questionSize = 0;
-        List<Questionnaire> questionnaires = surveysService.getQuestionnaireByClassNameAndDate(student.getClassName());
-        if (questionnaires != null && questionnaires.size() > 0)
-            for (Questionnaire questionnaire : questionnaires) {
-                surveysService.generatorQuestionnaire(questionnaire);
-                questionSize += QuestionsQuestionnaire.dao.find("select * from surveys_t_questions_questionnaire where id_questionnaire = ?",""+questionnaire.getId()).size()+1;
-            }
-        else {
+        Questionnaire questionnaire = surveysService.getQuestionnaireById(id);
+        if(null == questionnaire){
             renderError(404);
+            return ;
         }
+        surveysService.generatorQuestionnaire(questionnaire);
+        if(!questionnaire.getClassName().equals(student.getClassName()) || Long.valueOf(questionnaire.getDate()) > System.currentTimeMillis() || Long.valueOf(questionnaire.getEndTime()) < System.currentTimeMillis()){
+            renderError(404);
+            return ;
+        }
+        questionSize += QuestionsQuestionnaire.dao.find("select * from surveys_t_questions_questionnaire where id_questionnaire = ?", "" + questionnaire.getId()).size() + 1;
         /*for (int i = 1; getPara(i) != null; i++) {
             Integer questionnaireId = getParaToInt(i);
             Questionnaire questionnaire = surveysService.getQuestionnaireById(questionnaireId);
@@ -252,9 +259,9 @@ public class SurveysController extends BaseController {
             questionnaires.add(questionnaire);
 
         }*/
-        setAttr("questionnaires", questionnaires);
+        setAttr("questionnaire", questionnaire);
         setAttr("student", student);
-        setAttr("questionSize",questionSize);
+        setAttr("questionSize", questionSize);
         render("/surveys/survey.ftl");
     }
 

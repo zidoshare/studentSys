@@ -13,7 +13,6 @@
 </head>
 <body>
 <div class="wrapper" id="wrapper">
-<#if questionnaires?size gt 0 >
     <div class="big-container">
         <div class="tip" id="submitTip" aria-label="0">
         </div>
@@ -40,7 +39,6 @@
                 "
             </h4>
         </div>
-        <#list questionnaires as questionnaire>
             <form method="get" id="questionnaire${questionnaire.id}">
                 <h1 class="survey_to_title">${questionnaire.toUser}满意度调查</h1>
                 <ul class="subject_list">
@@ -74,14 +72,10 @@
                 </div>
 
             </form>
-        </#list>
         <div style="text-align: right">
             <button class="submit" type="submit" onclick="postReply()">提交</button>
         </div>
     </div>
-<#else>
-    <h2 style="text-align: center;">可能调查尚未开始或你所属班级没有调查</h2>
-</#if>
 
 </div>
 <script type="text/javascript" src="${staticServePath}/static/js/lib/jquery.cookie.js"></script>
@@ -109,7 +103,6 @@
         });
 
         //时间控制
-    <#list questionnaires as questionnaire>
         var start = ${questionnaire.date};
         var end = ${questionnaire.endTime};
         progressFlag = ${questionnaire.id};
@@ -120,8 +113,6 @@
         var time = ${questionnaire.endTime?number}-new Date().getTime();
         formatDuring(time);
         countDown();
-        <#break >
-    </#list>
         $('#count').transition({opacity: 1, top: 0}, 1000);
 
         if (check()) {
@@ -309,13 +300,10 @@
         }
         var mode;
         var btn;
-    <#list questionnaires as questionnaire>
         if (!validateComment($("#${questionnaire.id}comment").val())) {
             Util.showTip($('#submitTip'), '${questionnaire.toUser}调查表的评论长度应在200字以内！', 'alert alert-warning');
             return;
         }
-    </#list>
-    <#list questionnaires as questionnaire>
         mode = {
             "questionnaireResult.id_user": "${student.name}",
             "questionnaireResult.id_questionnaire": "${questionnaire.id}",
@@ -360,7 +348,6 @@
 
             }
         });
-    </#list>
     }
 </script>
 
