@@ -14,6 +14,7 @@ import org.dom4j.*;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
+import org.w3c.dom.Attr;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,6 +25,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.*;
 import java.util.List;
+import java.util.jar.Attributes;
 
 /**
  * Created by wuhongxu on 2016/9/18 0018.
@@ -235,17 +237,63 @@ public class Build{
         if(!file.exists())
             throw new Exception(path+"文件不存在");
         Document document = saxReader.read(file);
+        //bfs实现建树
         Queue<Element> queue = new LinkedList<>();
+        queue.offer(document.getRootElement());
+        while (!queue.isEmpty()){
+            Element now = queue.poll();
+            if(5 > now.attributeCount())
+                throw new Exception(now.getPath()+"节点的元素个数不足");
+            Mapping mapping = new Mapping();
+            List<Attribute> attributes = now.attributes();
+            for(Attribute attribute : attributes){
+                mapping.set(attribute.getName(),attribute.getValue());
+            }
+             if(now.isRootElement()){
+                tree.initTree(mapping);
+            }else{
+                List<Mapping> list = tree.getList();
+                for(Mapping m : list){
+                    Element parent = now.getParent().getParent();
+                    String s = parent.attributeValue(Common.LABEL_ID);
+                    if(Objects.equals(m.get(Common.LABEL_ID), s)){
+                        tree.insertChild(mapping,m);
+                        break;
+                    }
+                }
+            }
+            List<Element> list = now.element("mappings").elements();
+            list.forEach(queue::offer);
+        }
+        //建树完成 注意：因类型关系，此树不能重复使用,必须重新读树
+        tree.checkTree(now->{
+            log.info(now.toString());
+            return true;
+        });
+        tree.checkTree(now -> {
+            if(now.getParent() != null){
+                now.setParentId(now.getParent().getId());
+            }
+            if(now.getLeftChild() != null)
+                now.setLeftChildId(now.getLeftChild().getId());
+            if(now.getNextSibling() != null)
+                now.setNextSiblingId(now.getNextSibling().getId());
+
+            return now.save();
+        });
+        /*Queue<Element> queue = new LinkedList<>();
         queue.offer(document.getRootElement());
         Map<Element,Mapping> map = new HashMap<>();
         while (!queue.isEmpty()){
             Element nowe = queue.poll();
+            final Attribute ida = nowe.attribute(Common.LABEL_ID);
             final Attribute icona = nowe.attribute(Mapping.LABEL_ICON);
             final Attribute titlea = nowe.attribute(Mapping.LABEL_TITLE);
             final Attribute urla = nowe.attribute(Mapping.LABEL_URL);
             final Attribute functiona = nowe.attribute(Mapping.LABEL_FUNCTION);
             if(icona == null || titlea == null || urla == null)
                 throw new Exception("icon/title/url不存在");
+            final Integer id = Integer.valueOf(ida.getStringValue());
             final String icon = icona.getStringValue();
             final String title = titlea.getStringValue();
             final String url = urla.getStringValue();
@@ -255,6 +303,7 @@ public class Build{
             if(StrPlusKit.isEmpty(url) || StrPlusKit.isEmpty(icon) || StrPlusKit.isEmpty(title))
                 throw new Exception("icon/title/url不能为空值");
             Mapping now = new Mapping(icon,title,url,function);
+            now.setId(id);
             if(!nowe.isRootElement()){
                 tree.insertChild(now,map.get(nowe.getParent()));
             }else{
@@ -264,7 +313,7 @@ public class Build{
             Element children = nowe.element("mappings");
             List<Element> elements = children.elements();
             queue.addAll(elements);
-        }
+        }*/
     }
     public static void initUser(){
 
@@ -299,43 +348,62 @@ public class Build{
     public static void clearMapping(){
         List<Mapping> mappings = Mapping.dao.find("select * from stumanager_mapping");
         mappings.forEach(Mapping::delete);
+
+        log.info("清楚地图数据完成");
+    }
+    public static void clearRole(){
         List<User> users = User.dao.find("select * from stumanager_user");
         users.forEach(User::delete);
         List<Role> roles = Role.dao.find("select * from stumanager_role");
         roles.forEach(Role::delete);
-        log.info("清楚地图数据完成");
+        log.info("清楚角色数据完成");
     }
     public static void buildControl(){
 
         JFrame jf = new JFrame("控制窗口");
-        jf.setSize(200,100);
+        jf.setSize(200,300);
         JPanel jp = new JPanel(new FlowLayout());
         jf.setContentPane(jp);
-        JButton mappingBtn = new JButton("初始化数据");
+        JButton mappingBtn = new JButton("硬初始化地图(从代码中初始化)");
         mappingBtn.addActionListener(e -> {
             buildMapping();
+        });
+        JButton roleBtn = new JButton("初始化角色");
+        roleBtn.addActionListener(e -> {
             initRole();
             initUser();
         });
-        JButton clearBtn = new JButton("清除数据");
+        JButton clearBtn = new JButton("清除地图数据");
         clearBtn.addActionListener(e -> {
             clearMapping();
         });
+        JButton clearRoleBtn = new JButton("清除角色数据");
+        clearBtn.addActionListener(e -> {
+            clearRole();
+        });
         JButton generatorXML = new JButton("生成xml文件");
-        generatorXML.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    tree = new MappingService().getTree();
-                    generatorXML(tree);
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
+        generatorXML.addActionListener(e -> {
+            try {
+                tree = new MappingService().getTree();
+                generatorXML(tree);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        });
+        JButton readXml = new JButton("从xml中初始化地图");
+        readXml.addActionListener(e -> {
+            try {
+                readXML(new ArrayTree<Mapping>(),"src\\main\\resources\\permission.xml");
+            } catch (Exception e1) {
+                e1.printStackTrace();
             }
         });
         jp.add(clearBtn);
-        jp.add(mappingBtn);
+        jp.add(clearRoleBtn);
         jp.add(generatorXML);
+        jp.add(readXml);
+        jp.add(roleBtn);
+        jp.add(mappingBtn);
         jf.setVisible(true);
     }
 }

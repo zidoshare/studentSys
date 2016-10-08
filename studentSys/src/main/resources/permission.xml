@@ -1,163 +1,177 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<mapping id="1818" icon="fa" url="url" title="根目录" function="0">
+<!--0：功能，1：视图模块，2：菜单，3：二级菜单，以后多级菜单，依次类推-->
+<mapping id="2326" icon="fa" url="url" title="根目录" function="0">
     <mappings>
-        <mapping id="1819" icon="fa fa-desktop" url="/" title="首页" function="2">
+        <mapping id="2327" icon="fa fa-desktop" url="/" title="首页" function="2">
             <mappings>
-                <mapping id="1829" icon="search" url="/common/search.ftl" title="全局搜索" function="1">
+                <mapping id="2337" icon="search" url="/common/search.ftl" title="全局搜索" function="1">
                     <mappings/>
                 </mapping>
-                <mapping id="1830" icon="fast" url="/common/fastOprator.ftl" title="快捷操作" function="1">
+                <mapping id="2338" icon="fast" url="/common/fastOprator.ftl" title="快捷操作" function="1">
                     <mappings/>
                 </mapping>
-                <mapping id="1831" icon="newest" url="/common/newest.ftl" title="最新报名" function="1">
+                <mapping id="2339" icon="newest" url="/common/newest.ftl" title="最新报名" function="1">
                     <mappings/>
                 </mapping>
-                <mapping id="1832" icon="statistics" url="/common/statistics.ftl" title="统计" function="1">
+                <mapping id="2340" icon="statistics" url="/common/statistics.ftl" title="统计" function="1">
                     <mappings/>
                 </mapping>
             </mappings>
         </mapping>
-        <mapping id="1820" icon="fa fa-users" url="/userManager" title="用户管理" function="2">
+        <mapping id="2328" icon="fa fa-users" url="/userManager" title="用户管理" function="2">
             <mappings>
-                <mapping id="1833" icon="userList" url="/userManager/userList.ftl" title="用户列表" function="1">
+                <mapping id="2341" icon="userList" url="/userManager/userList.ftl" title="用户列表" function="1">
                     <mappings>
-                        <mapping id="1847" icon="addUser" url="addUser" title="添加" function="0">
+                        <mapping id="2355" icon="addUser" url="addUser" title="添加" function="0">
                             <mappings/>
                         </mapping>
-                        <mapping id="1848" icon="updateUser" url="updateUser" title="编辑" function="0">
+                        <mapping id="2356" icon="updateUser" url="updateUser" title="编辑" function="0">
                             <mappings/>
                         </mapping>
-                        <mapping id="1849" icon="deleteUser" url="deleteUser" title="删除" function="0">
+                        <mapping id="2357" icon="deleteUser" url="deleteUser" title="删除" function="0">
                             <mappings/>
                         </mapping>
                     </mappings>
                 </mapping>
-                <mapping id="1834" icon="roleList" url="/userManager/roleList.ftl" title="角色列表" function="1">
+                <mapping id="2342" icon="roleList" url="/userManager/roleList.ftl" title="角色列表" function="1">
                     <mappings>
-                        <mapping id="1850" icon="addRole" url="addRole" title="添加" function="0">
+                        <mapping id="2358" icon="addRole" url="addRole" title="添加" function="0">
                             <mappings/>
                         </mapping>
-                        <mapping id="1851" icon="updateRole" url="updateRole" title="编辑" function="0">
+                        <mapping id="2359" icon="updateRole" url="updateRole" title="编辑" function="0">
                             <mappings/>
                         </mapping>
-                        <mapping id="1852" icon="deleteRole" url="deleteRole" title="删除" function="0">
-                            <mappings/>
-                        </mapping>
-                    </mappings>
-                </mapping>
-            </mappings>
-        </mapping>
-        <mapping id="1821" icon="fa fa-calendar" url="/studentManager" title="学生管理" function="2">
-            <mappings>
-                <mapping id="1835" icon="studentList" url="/studentManager/studentList.ftl" title="学生信息列表" function="1">
-                    <mappings>
-                        <mapping id="1853" icon="addStudent" url="addStudent" title="添加" function="0">
-                            <mappings/>
-                        </mapping>
-                        <mapping id="1854" icon="updateStudent" url="updateStudent" title="修改" function="0">
-                            <mappings/>
-                        </mapping>
-                        <mapping id="1855" icon="deleteStudent" url="deleteStudent" title="删除" function="0">
+                        <mapping id="2360" icon="deleteRole" url="deleteRole" title="删除" function="0">
                             <mappings/>
                         </mapping>
                     </mappings>
                 </mapping>
             </mappings>
         </mapping>
-        <mapping id="1822" icon="fa fa-usd" url="/repaymentManager" title="还款管理" function="2">
+        <mapping id="2329" icon="fa fa-calendar" url="/studentManager" title="学生管理" function="2">
+            <mappings>
+                <mapping id="2343" icon="studentList" url="/studentManager/studentList.ftl" title="学生信息列表" function="1">
+                    <mappings>
+                        <mapping id="2361" icon="addStudent" url="addStudent" title="添加" function="0">
+                            <mappings/>
+                        </mapping>
+                        <mapping id="2362" icon="updateStudent" url="updateStudent" title="修改" function="0">
+                            <mappings/>
+                        </mapping>
+                        <mapping id="2363" icon="deleteStudent" url="deleteStudent" title="删除" function="0">
+                            <mappings/>
+                        </mapping>
+                    </mappings>
+                </mapping>
+            </mappings>
+        </mapping>
+        <mapping id="2330" icon="fa fa-usd" url="/repaymentManager" title="还款管理" function="2">
             <mappings/>
         </mapping>
-        <mapping id="1823" icon="fa fa-crosshairs" url="/attendanceManager" title="出勤管理" function="2">
+        <mapping id="2331" icon="fa fa-crosshairs" url="/attendanceManager" title="出勤管理" function="2">
             <mappings>
-                <mapping id="1836" icon="attendanceList" url="/attendanceManager/attendanceList.ftl" title="考勤信息列表" function="1">
+                <mapping id="2344" icon="attendanceList" url="/attendanceManager/attendanceList.ftl" title="考勤信息列表"
+                         function="1">
                     <mappings>
-                        <mapping id="1856" icon="addAttendance" url="addAttendance" title="添加" function="0">
+                        <mapping id="2364" icon="addAttendance" url="addAttendance" title="添加" function="0">
                             <mappings/>
                         </mapping>
-                        <mapping id="1857" icon="updateAttendance" url="updateAttendance" title="修改" function="0">
+                        <mapping id="2365" icon="updateAttendance" url="updateAttendance" title="修改" function="0">
                             <mappings/>
                         </mapping>
-                        <mapping id="1858" icon="deleteStudent" url="deleteStudent" title="删除" function="0">
+                        <mapping id="2366" icon="deleteStudent" url="deleteStudent" title="删除" function="0">
                             <mappings/>
                         </mapping>
                     </mappings>
                 </mapping>
             </mappings>
         </mapping>
-        <mapping id="1824" icon="fa fa-book" url="/certificateManager" title="证书管理" function="2">
+        <mapping id="2332" icon="fa fa-book" url="/certificateManager" title="证书管理" function="2">
             <mappings/>
         </mapping>
-        <mapping id="1825" icon="fa fa-pencil" url="/test" title="我的考试" function="2">
+        <mapping id="2333" icon="fa fa-pencil" url="/test" title="我的考试" function="2">
             <mappings>
-                <mapping id="1837" icon="testHistory" url="/test/history" title="考试历史" function="3">
-                    <mappings/>
-                </mapping>
-                <mapping id="1838" icon="toTest" url="/test/to" title="参加考试" function="3">
-                    <mappings/>
-                </mapping>
-            </mappings>
-        </mapping>
-        <mapping id="1826" icon="fa fa-file-text" url="/#" title="我的调查" function="2">
-            <mappings>
-                <mapping id="1839" icon="toSurveying" url="/surveys/surveyList" title="调查列表" function="3">
+                <mapping id="2345" icon="testHistory" url="/test/history" title="考试历史" function="3">
                     <mappings>
-                        <mapping id="1859" icon="surveying" url="/surveys/surveying.ftl" title="正在进行的调查" function="1">
+                        <mapping id="2367" icon="historyList" url="/test/historyList.ftl" title="考试历史" function="1">
                             <mappings/>
                         </mapping>
                     </mappings>
                 </mapping>
-                <mapping id="1840" icon="toInputBigType" url="/surveys/inputBigType" title="添加大类型" function="3">
+                <mapping id="2346" icon="toTest" url="/test/to" title="参加考试" function="3">
                     <mappings>
-                        <mapping id="1860" icon="inputBigType" url="/surveys/inputBigType.ftl" title="添加大类型" function="1">
-                            <mappings/>
-                        </mapping>
-                    </mappings>
-                </mapping>
-                <mapping id="1841" icon="toInputQuestion" url="/surveys/inputQuestion" title="添加问题" function="3">
-                    <mappings>
-                        <mapping id="1861" icon="inputQuestion" url="/surveys/inputQuestion.ftl" title="添加问题" function="1">
-                            <mappings/>
-                        </mapping>
-                    </mappings>
-                </mapping>
-                <mapping id="1842" icon="toInputQuestionnaire" url="/surveys/inputQuestionnaire" title="组卷" function="3">
-                    <mappings>
-                        <mapping id="1862" icon="inputQuestionnaire" url="/surveys/inputQuestionnaire.ftl" title="组卷" function="1">
-                            <mappings/>
-                        </mapping>
-                    </mappings>
-                </mapping>
-                <mapping id="1843" icon="toCheckResult" url="/surveys/checkResult" title="查看调查结果" function="3">
-                    <mappings>
-                        <mapping id="1863" icon="checkResult" url="/surveys/checkResult.ftl" title="查看调查结果" function="1">
+                        <mapping id="2368" icon="testing" url="/test/testing.ftl" title="正在进行的考试" function="1">
                             <mappings/>
                         </mapping>
                     </mappings>
                 </mapping>
             </mappings>
         </mapping>
-        <mapping id="1827" icon="fa fa-gear" url="/option" title="通用设置" function="2">
+        <mapping id="2334" icon="fa fa-file-text" url="/#" title="我的调查" function="2">
             <mappings>
-                <mapping id="1844" icon="updatePurikura" url="/option/updatePurikura.ftl" title="修改头像" function="1">
+                <mapping id="2347" icon="toSurveying" url="/surveys/surveyList" title="调查列表" function="3">
+                    <mappings>
+                        <mapping id="2369" icon="surveying" url="/surveys/surveying.ftl" title="正在进行的调查" function="1">
+                            <mappings/>
+                        </mapping>
+                    </mappings>
+                </mapping>
+                <mapping id="2348" icon="toInputBigType" url="/surveys/inputBigType" title="添加大类型" function="3">
+                    <mappings>
+                        <mapping id="2370" icon="inputBigType" url="/surveys/inputBigType.ftl" title="添加大类型"
+                                 function="1">
+                            <mappings/>
+                        </mapping>
+                    </mappings>
+                </mapping>
+                <mapping id="2349" icon="toInputQuestion" url="/surveys/inputQuestion" title="添加问题" function="3">
+                    <mappings>
+                        <mapping id="2371" icon="inputQuestion" url="/surveys/inputQuestion.ftl" title="添加问题"
+                                 function="1">
+                            <mappings/>
+                        </mapping>
+                    </mappings>
+                </mapping>
+                <mapping id="2350" icon="toInputQuestionnaire" url="/surveys/inputQuestionnaire" title="组卷"
+                         function="3">
+                    <mappings>
+                        <mapping id="2372" icon="inputQuestionnaire" url="/surveys/inputQuestionnaire.ftl" title="组卷"
+                                 function="1">
+                            <mappings/>
+                        </mapping>
+                    </mappings>
+                </mapping>
+                <mapping id="2351" icon="toCheckResult" url="/surveys/checkResult" title="查看调查结果" function="3">
+                    <mappings>
+                        <mapping id="2373" icon="checkResult" url="/surveys/checkResult.ftl" title="查看调查结果"
+                                 function="1">
+                            <mappings/>
+                        </mapping>
+                    </mappings>
+                </mapping>
+            </mappings>
+        </mapping>
+        <mapping id="2335" icon="fa fa-gear" url="/option" title="通用设置" function="2">
+            <mappings>
+                <mapping id="2352" icon="updatePurikura" url="/option/updatePurikura.ftl" title="修改头像" function="1">
                     <mappings/>
                 </mapping>
-                <mapping id="1845" icon="updatePassword" url="/option/updatePassword.ftl" title="修改密码" function="1">
+                <mapping id="2353" icon="updatePassword" url="/option/updatePassword.ftl" title="修改密码" function="1">
                     <mappings/>
                 </mapping>
             </mappings>
         </mapping>
-        <mapping id="1828" icon="fa fa-thumbs-up" url="/enrollManager" title="报名学生" function="2">
+        <mapping id="2336" icon="fa fa-thumbs-up" url="/enrollManager" title="报名学生" function="2">
             <mappings>
-                <mapping id="1846" icon="enrollList" url="/enrollManager/enroll.ftl" title="报名学生列表" function="1">
+                <mapping id="2354" icon="enrollList" url="/enrollManager/enroll.ftl" title="报名学生列表" function="1">
                     <mappings>
-                        <mapping id="1864" icon="addEnroll" url="addEnroll" title="添加报名学生" function="0">
+                        <mapping id="2374" icon="addEnroll" url="addEnroll" title="添加报名学生" function="0">
                             <mappings/>
                         </mapping>
-                        <mapping id="1865" icon="updateEnroll" url="updateEnroll" title="修改" function="0">
+                        <mapping id="2375" icon="updateEnroll" url="updateEnroll" title="修改" function="0">
                             <mappings/>
                         </mapping>
-                        <mapping id="1866" icon="deleteEnroll" url="deleteEnroll" title="删除" function="0">
+                        <mapping id="2376" icon="deleteEnroll" url="deleteEnroll" title="删除" function="0">
                             <mappings/>
                         </mapping>
                     </mappings>
