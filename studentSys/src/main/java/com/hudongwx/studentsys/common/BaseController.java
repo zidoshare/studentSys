@@ -212,6 +212,7 @@ public abstract class BaseController extends Controller {
     public static User getCurrentUser(Controller me){
         return getCurrentUser(me.getRequest());
     }
+    //如果是从二级菜单导航出去，一定要setMapping
     public void setMapping(Mapping mapping){
         this.mapping = mapping;
     }
