@@ -125,18 +125,20 @@
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
-                                <th>
-                                    账户名
-                                </th>
-                                <th>
-                                    名字
-                                </th>
-                                <th>
-                                    创建时间
-                                </th>
-                                <th>
-                                    用户最后登录ip
-                                </th>
+                                <tr>
+                                    <th>
+                                        账户名
+                                    </th>
+                                    <th>
+                                        名字
+                                    </th>
+                                    <th>
+                                        创建时间
+                                    </th>
+                                    <th>
+                                        用户最后登录ip
+                                    </th>
+                                </tr>
                                 </thead>
                                 <tbody>
                                     <#list roleMap[role.name] as user >

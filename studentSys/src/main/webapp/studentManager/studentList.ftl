@@ -54,21 +54,23 @@
                         <table class="table table-striped table-bordered table-hover dataTable no-footer"
                                id="dataTables-example" aria-describedby="dataTables-example_info">
                             <thead>
-                            <th>
-                                姓名
-                            </th>
-                            <th>
-                                班级
-                            </th>
-                            <th>
-                                辅导老师
-                            </th>
-                            <th>
-                                联系方式
-                            </th>
-                            <th>
-                                入学时间
-                            </th>
+                            <tr>
+
+                                <th>
+                                    姓名
+                                </th>
+                                <th>
+                                    班级
+                                </th>
+                                <th>
+                                    辅导老师
+                                </th>
+                                <th>
+                                    联系方式
+                                </th>
+                                <th>
+                                    入学时间
+                                </th>
                             <#--<th>
                                 学分
                             </th>
@@ -81,25 +83,26 @@
                             <th>
                                 就业跟踪
                             </th>-->
-                            <th>
-                                用户创建时间
-                            </th>
-                            <th>
-                                最后登录ip
-                            </th>
-                            <th>
-                                操作人
-                            </th>
+                                <th>
+                                    用户创建时间
+                                </th>
+                                <th>
+                                    最后登录ip
+                                </th>
+                                <th>
+                                    操作人
+                                </th>
                             <#if updateAble || deleteAble>
-                            <th>
-                                <div class="checkbox3 checkbox-round">
-                                    <input type="checkbox" id="all-check">
-                                    <label for="all-check" class="td-check">
-                                        全选
-                                    </label>
-                                </div>
-                            </th>
+                                <th>
+                                    <div class="checkbox3 checkbox-round">
+                                        <input type="checkbox" id="all-check">
+                                        <label for="all-check" class="td-check">
+                                            全选
+                                        </label>
+                                    </div>
+                                </th>
                             </#if>
+                            </tr>
                             </thead>
                             <tbody>
 

@@ -83,9 +83,11 @@ public abstract class BaseController extends Controller {
         setAttr(Common.LABEL_HOLD_PATH, url);
 
         setAttr(Common.LABEL_STATIC_RESOURCE_VERSION, new Date().getTime());
-        setAttr(Common.LABEL_LOGIN_ROLE, "学生");
-        setAttr(Common.LABEL_USER,getCurrentUser(getRequest()));
-        setAttr(Common.LABEL_IS_LOGIN, false);
+        User currentUser = getCurrentUser(this);
+
+        setAttr(Common.LABEL_IS_LOGIN, currentUser == null);
+            setAttr(Common.LABEL_LOGIN_ROLE, currentUser!=null?currentUser.getUserRole():"");
+        setAttr(Common.LABEL_USER, currentUser);
         Prop langProp = LangConfig.getLangProp();
         setAttr(Common.LABEL_LOGIN_NAME_ERROR, langProp.get(Common.LABEL_LOGIN_NAME_ERROR));
         setAttr(Common.LABEL_INVALID_PASSWORD, langProp.get(Common.LABEL_INVALID_PASSWORD));

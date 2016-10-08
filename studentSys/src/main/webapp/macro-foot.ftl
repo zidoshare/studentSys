@@ -19,13 +19,12 @@
             });
         }
         $('input[data-arialabel="1"]').change(function () {
-                        if ($(this).prop('checked')) {
-                            var id = $(this).attr('id');
-                            func.showPermissions(id, 'permission' + id);
-                        }
+                    if ($(this).prop('checked')) {
+                        var id = $(this).attr('id');
+                        func.showPermissions(id, 'permission' + id);
+                    }
                 }
-        )
-        ;
+        );
     });
     $(document).on('pjax:beforeSend', function () { //pjax链接点击后显示加载动画；
         $('#page-inner').html('');
@@ -72,7 +71,7 @@
             },
             success: function (data, textStatus) {
                 alert(data.msg);
-                if(data.state == "success") {
+                if (data.state == "success") {
                     $("#q-flag").append("<p>" + title + "<p>");
                     var row = parseInt($("#maxRow").text());
                     $("#maxRow").text(row + 1);
@@ -102,56 +101,56 @@
         $('#check').load("/surveys/getTable/" + id);
         $('#myModal').modal('toggle');
     }
-/*
-    $(".navToggle1").click(function () {
-        $(this).toggleClass("open");
-    });
+    /*
+        $(".navToggle1").click(function () {
+            $(this).toggleClass("open");
+        });
 
-    $(".navToggle2").click(function () {
-        $(this).toggleClass("open");
-    });
+        $(".navToggle2").click(function () {
+            $(this).toggleClass("open");
+        });
 
-    $(".navToggle3").click(function () {
-        $(this).toggleClass("open");
-    });
+        $(".navToggle3").click(function () {
+            $(this).toggleClass("open");
+        });
 
-    $(".navToggle4").click(function () {
-        $(this).toggleClass("open");
-    });
+        $(".navToggle4").click(function () {
+            $(this).toggleClass("open");
+        });
 
-    $(".navToggle5").click(function () {
-        $(this).toggleClass("open");
-    });
+        $(".navToggle5").click(function () {
+            $(this).toggleClass("open");
+        });
 
-    $(".navToggle6").click(function () {
-        $(this).toggleClass("open");
-    });
+        $(".navToggle6").click(function () {
+            $(this).toggleClass("open");
+        });
 
-    $(".navToggle7").click(function () {
-        $(this).toggleClass("open");
-    });
+        $(".navToggle7").click(function () {
+            $(this).toggleClass("open");
+        });
 
-    $(".navToggle8").click(function () {
-        $(this).toggleClass("open");
-    });
+        $(".navToggle8").click(function () {
+            $(this).toggleClass("open");
+        });
 
-    $(".navToggle9").click(function () {
-        $(this).toggleClass("open");
-    });
+        $(".navToggle9").click(function () {
+            $(this).toggleClass("open");
+        });
 
-    $(".navToggle10").click(function () {
-        $(this).toggleClass("open");
-    });
+        $(".navToggle10").click(function () {
+            $(this).toggleClass("open");
+        });
 
-    $(".navToggle11").click(function () {
-        $(this).toggleClass("open");
-    });
+        $(".navToggle11").click(function () {
+            $(this).toggleClass("open");
+        });
 
-    $(".navToggle12").click(function () {
-        $(this).toggleClass("open");
-    });
+        $(".navToggle12").click(function () {
+            $(this).toggleClass("open");
+        });
 
-    $(".navToggle13").click(function () {
-        $(this).toggleClass("open");
-    });*/
+        $(".navToggle13").click(function () {
+            $(this).toggleClass("open");
+        });*/
 </script>

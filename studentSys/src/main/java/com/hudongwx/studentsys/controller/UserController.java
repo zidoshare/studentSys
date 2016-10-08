@@ -15,7 +15,6 @@ import com.jfinal.aop.Before;
 import com.jfinal.aop.Clear;
 import com.jfinal.ext.interceptor.POST;
 
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,11 +66,19 @@ public class UserController extends BaseController {
     @Before(POST.class)
     public void addRole(){
         Role model = getModel(Role.class);
-        if(roleService._saveRole(model)){
-            RenderKit.renderSuccess(this);
-            return ;
+        if(model.getId()!=null){
+            if(roleService._updateRole(model)){
+                RenderKit.renderSuccess(this);
+                return ;
+            }
+            RenderKit.renderError(this);
+        }else{
+            if(roleService._saveRole(model)){
+                RenderKit.renderSuccess(this);
+                return ;
+            }
+            RenderKit.renderError(this);
         }
-        RenderKit.renderError(this);
     }
     @Before(POST.class)
     public void addUser(){
@@ -86,6 +93,45 @@ public class UserController extends BaseController {
     public void loginOut(){
         setSessionAttr("user",null);
         redirect("/user/showLogin");
+    }
+    public void showAllPermissons(){
+        Integer id = getParaToInt(0);
+        if(id == null){
+            RenderKit.renderError(this);
+            return ;
+        }
+        ArrayTree<Mapping> tree= mappingService.getTree();
+        Role role = roleService.getRoleById(id);
+        List<String> ids = roleService.getPermitMappingIds(role);
+        final JSONArray jsonArray = new JSONArray();
+        tree.checkTreePreorder(now->{
+            if(now == tree.root())
+                return true;
+            JSONObject json = new JSONObject();
+            json.put(Common.LABEL_ID,now.getId());
+            json.put(Mapping.LABEL_ICON,now.getIcon());
+            json.put(Mapping.LABEL_TITLE,now.getTitle());
+            json.put(Mapping.LABEL_URL,now.getUrl());
+            json.put(Mapping.LABEL_CHILD_COUNT,now.getChildCount());
+            json.put("isChecked",ids.contains(String.valueOf(now.getId())));
+            jsonArray.add(json);
+            return true;
+        });
+        log.info(jsonArray.toString());
+        /*tree.checkTree(now -> {
+            if(now == tree.root())
+                return true;
+            JSONObject json = new JSONObject();
+            json.put(Common.LABEL_ID,now.getId());
+            json.put(Mapping.LABEL_ICON,now.getIcon());
+            json.put(Mapping.LABEL_TITLE,now.getTitle());
+            json.put(Mapping.LABEL_URL,now.getUrl());
+            json.put(Mapping.LABEL_CHILD_COUNT,now.getChildCount());
+            json.put("isChecked",ids.contains(String.valueOf(now.getId())));
+            jsonArray.add(json);
+            return false;
+        });*/
+        RenderKit.renderSuccess(this,jsonArray.toString());
     }
     public void showPermissions(){
         String id = getPara(0);

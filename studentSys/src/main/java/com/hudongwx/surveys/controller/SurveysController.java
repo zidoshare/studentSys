@@ -212,16 +212,6 @@ public class SurveysController extends BaseController {
     //调查问卷视图
     public void questionnaire() {
         fillHeaderAndFooter();
-        /*if (StrPlusKit.isEmpty(code)) {
-            renderError(403);
-            return;
-        }
-
-        Node user = surveysService.getUserByCode(code);
-        if (null == user) {
-            renderError(403);
-            return;
-        }*/
         Integer id = getParaToInt(0);
         if (id == null) {
             renderError(404);

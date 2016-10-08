@@ -11,7 +11,7 @@
                 <#assign updateAble = false>
                 <#assign deleteAble = false>
                 <#list map["operators"+view.id] as op>
-                    <a onclick="func.${op.url}('show');" class="btn btn-success btn-sm">${op.title}</a>
+                <#--<a onclick="func.${op.url}('show');" class="btn btn-success btn-sm">${op.title}</a>-->
                     <#if op.title=="编辑">
                         <#assign updateAble = true>
                     </#if>
@@ -23,7 +23,6 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-
                     <table class="table">
                         <thead>
                         <tr>
@@ -38,12 +37,13 @@
                             </th>
                         <#if updateAble || deleteAble>
                             <th>
-                                <div class="checkbox3 checkbox-round">
-                                    <input type="checkbox" id="all-check">
-                                    <label for="all-check" class="td-check center-block">
-                                        全选
-                                    </label>
-                                </div>
+                                操作
+                            <#--<div class="checkbox3 checkbox-round">
+                                <input type="checkbox" id="all-check">
+                                <label for="all-check" class="td-check center-block">
+                                    全选
+                                </label>
+                            </div>-->
                             </th>
                         </#if>
                         </tr>
@@ -51,19 +51,23 @@
                         <tbody>
                         <#list roles as role>
 
-                        <tr class="gradeA odd">
-                            <td class="sorting_1">${role.name}</td>
-                            <td class=" ">${role.memberCnt}</td>
-                            <td class=""><#if role.createTime??>${(role.createTime?number)?number_to_datetime}<#else>
+                        <tr class="gradeA odd" id="${role.id}">
+                            <td class="sorting_1" aria-label="name">${role.name}</td>
+                            <td class=" " aria-label="memberCnt">${role.memberCnt}</td>
+                            <td class="" aria-label="createTime"><#if role.createTime??>${(role.createTime?number)?number_to_datetime}<#else>
                                 未记录</#if></td>
-                            <td class=" "><#if role.operater??>${role.operater}<#else>未记录</#if></td>
+                            <td class=" " aria-label="oprater"><#if role.operater??>${role.operater}<#else>未记录</#if></td>
                             <#if updateAble || deleteAble>
                                 <td>
-                                    <div class="checkbox3 checkbox-round">
-                                        <input type="checkbox" id="checkbox-2">
-                                        <label for="checkbox-2" class="td-check center-block">
-                                        </label>
-                                    </div>
+                                    <#list map["operators"+view.id] as op>
+                                        <#if op_index != 0>/</#if>
+                                        <a onclick="func.${op.url}('show','${role.id}');" class="res">${op.title}</a>
+                                    </#list>
+                                <#--<div class="checkbox3 checkbox-round">
+                                    <input type="checkbox" id="checkbox-2">
+                                    <label for="checkbox-2" class="td-check center-block">
+                                    </label>
+                                </div>-->
                                 </td>
                             </#if>
                         </tr>
@@ -100,6 +104,13 @@
                         </div>
                     </div>
                     <div class="form-group sr-only">
+                        <label for="id" class="col-sm-2 control-label">id</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="role.id" id="id"
+                                   placeholder="id" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group sr-only">
                         <label for="treeData" class="col-sm-2 control-label">treeData</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" name="role.treeData" id="treeData" placeholder="角色名"
@@ -109,7 +120,8 @@
                     <div class="form-group sr-only">
                         <label for="operater" class="col-sm-2 control-label">operater</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="role.operater" id="operater" placeholder="操作人" value="${user.userNickname}"
+                            <input type="text" class="form-control" name="role.operater" id="operater" placeholder="操作人"
+                                   value="${user.userNickname}"
                                    disabled>
                         </div>
                     </div>

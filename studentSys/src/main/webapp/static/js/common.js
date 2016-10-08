@@ -66,8 +66,8 @@ var Login = {
     register: function () {
 
     },
-    loginOut:function(){
-        window.location.href="/user/loginOut";
+    loginOut: function () {
+        window.location.href = "/user/loginOut";
     }
 };
 var Validate = {
@@ -168,44 +168,6 @@ var Util = {
                 tip.css("display", "none");
                 tip.attr("aria-label", "0");
             });
-        /*closeTiptimeOut = setTimeout(function () {
-         tip.transition({opacity: 0, y: 0}, 500, function () {
-         tip.css("display", "none");
-         tip.attr("aria-label", "0");
-         });
-         }, 3000);*/
-        /*} else {
-         /!*clearTimeout(closeTiptimeOut);*!/
-         //初始化tip状态
-         tip.css({"display": "none", "opacity": "0"});
-         tip.transition({opacity: 0, y: 0}, 0);
-         tip.attr("aria-label", "0");
-         //重新显示tip
-         Util.showTip(tip, result, className);
-         }*/
-        /*
-         var x = tip.attr("aria-label");
-         if (x == "0") {
-         tip.addClass(className);
-         tip.html(result);
-         tip.css("display", "block");
-         tip.transition({opacity: 1, y: 10}, 500);
-         tip.attr("aria-label", "1");
-         closeTiptimeOut = setTimeout(function () {
-         tip.transition({opacity: 0, y: 0}, 500, function () {
-         tip.css("display", "none");
-         tip.attr("aria-label", "0");
-         });
-         }, 3000);
-         } else {
-         clearTimeout(closeTiptimeOut);
-         //初始化tip状态
-         tip.css({"display": "none", "opacity": "0"});
-         tip.transition({opacity: 0, y: 0}, 0);
-         tip.attr("aria-label", "0");
-         //重新显示tip
-         Util.showTip(tip, result, className);
-         }*/
     }
 };
 var Animate = {
@@ -257,7 +219,7 @@ var Animate = {
 var func = {
     addRole: function (method) {
         if (method == 'show') {
-            $('#myModal').modal('toggle');
+            modalUtil.toggleClear($('#myModal'));
             func.showPermissions(0, '', 'permissions');
         } else {
             var data = [];
@@ -288,14 +250,15 @@ var func = {
                 url: '/userManager/addRole',
                 type: 'post',
                 data: json,
+                dataType: "json",
                 success: function (data) {
                     if (data.state == 'success') {
-                        Util.showTip($('#saveRoleTip'),'添加成功','alert alert-success');
+                        Util.showTip($('#saveRoleTip'), '添加成功', 'alert alert-success');
                     } else
-                        Util.showTip($('#saveRoleTip'),'添加失败','alert alert-warning');
+                        Util.showTip($('#saveRoleTip'), '添加失败', 'alert alert-warning');
                 },
                 error: function () {
-                    Util.showTip($('#saveRoleTip'),'服务器错误','alert alert-danger');
+                    Util.showTip($('#saveRoleTip'), '服务器错误', 'alert alert-danger');
                 },
                 complete: function () {
                     btn.stop();
@@ -305,7 +268,7 @@ var func = {
     },
     addUser: function (method) {
         if (method == 'show') {
-            $('#addUserModel').modal('toggle');
+            modalUtil.toggleClear($('#addUserModel'));
             /*func.showPermissions(0, '', 'permissions');*/
         } else {
             var btn = Ladda.create(document.querySelector("#saveUser-btn"));
@@ -319,14 +282,15 @@ var func = {
                 url: '/userManager/addUser',
                 type: 'post',
                 data: json,
+                dataType: "json",
                 success: function (data) {
                     if (data.state == 'success') {
-                        Util.showTip($('#saveUserTip'),'添加成功','alert alert-success');
+                        Util.showTip($('#saveUserTip'), '添加成功', 'alert alert-success');
                     } else
-                        Util.showTip($('#saveUserTip'),'添加失败','alert alert-warning');
+                        Util.showTip($('#saveUserTip'), '添加失败', 'alert alert-warning');
                 },
                 error: function () {
-                    Util.showTip($('#saveUserTip'),'服务器错误','alert alert-danger');
+                    Util.showTip($('#saveUserTip'), '服务器错误', 'alert alert-danger');
                 },
                 complete: function () {
                     btn.stop();
@@ -334,9 +298,9 @@ var func = {
             });
         }
     },
-    addStudent:function(method){
+    addStudent: function (method) {
         if (method == 'show') {
-            $('#addStudentModel').modal('toggle');
+            modalUtil.toggleClear($('#addStudentModel'));
         } else {
             var btn = Ladda.create(document.querySelector("#save-btn"));
             btn.start();
@@ -349,14 +313,15 @@ var func = {
                 url: '/studentManager/addStudent',
                 type: 'post',
                 data: json,
+                dataType: "json",
                 success: function (data) {
                     if (data.state == 'success') {
-                        Util.showTip($('#saveTip'),'添加成功','alert alert-success');
+                        Util.showTip($('#saveTip'), '添加成功', 'alert alert-success');
                     } else
-                        Util.showTip($('#saveTip'),'添加失败','alert alert-warning');
+                        Util.showTip($('#saveTip'), '添加失败', 'alert alert-warning');
                 },
                 error: function () {
-                    Util.showTip($('#saveTip'),'服务器错误','alert alert-danger');
+                    Util.showTip($('#saveTip'), '服务器错误', 'alert alert-danger');
                 },
                 complete: function () {
                     btn.stop();
@@ -364,7 +329,57 @@ var func = {
             });
         }
     },
-    showPermissions: function (left, mappingId, divId) {
+    updateUser: function (method) {
+        if (method == 'show') {
+
+        }
+    },
+    updateRole: function (method,id) {
+        if (arguments.length < 1)
+            return ;
+        var modal = $('#myModal');
+        if (method == 'show') {
+            modalUtil.toggleClear(modal);
+            func.showPermissions(0, id, 'permissions','all');
+            var name = $('#'+id).find('td').first().text();
+            modal.find('input').first().val(name);
+            $('#id').val(id);
+        }
+    },
+    showPermissions: function (left, mappingId, divId,method) {
+        if(method == 'all'){
+            $.ajax({
+                url: '/userManager/showAllPermissons/'+mappingId,
+                type: 'get',
+                success: function (data) {
+                    if (data.state == 'success') {
+                        var str = '';
+                        var list = $.parseJSON(data.msg);
+                        var start = 0;
+                        for (var i = 0; i < list.length; i++) {
+                            var json = list[i];
+                            var id = json['id'];
+                            var icon = json['icon'];
+                            var title = json['title'];
+                            var url = json['url'];
+                            var childCnt = parseInt(json['childCount']);
+                            var isChecked = json['isChecked'];
+
+                            str += '<div class="checkbox3 checkbox-round"> ' +/* onchange="func.showPermissions(' + (left) + ',\'' + id + '\',\'permission' + id + '\')"*/
+                                '<input type="checkbox" data-arialabel="1" name="' + id + '" id="' + id + '"';
+                            if(isChecked == true)
+                                str+='checked';
+                            str+= '> ' +
+                                '<label for="' + id + '">' + title + '</label>' +
+                                ' </div><div id="permission' + id + '" style="margin-left: ' + (left) + 'px;/*height:' + (childCnt * 40) + 'px;*//*overflow-y:auto;overflow-x:hidden;*/ "></div>';
+                        }
+                        $('#' + divId).html(str);
+                    }
+                }/*,
+                 complete:$('#'+divId).slideDown()*/
+            });
+            return ;
+        }
         $.ajax({
             url: '/userManager/showPermissions/' + mappingId,
             type: 'get',
@@ -386,8 +401,13 @@ var func = {
                     }
                     $('#' + divId).html(str);
                 }
-            }/*,
-             complete:$('#'+divId).slideDown()*/
+            }
         });
+    }
+};
+var modalUtil = {
+    toggleClear:function(modal){
+        modal.find('input[id!="operater"]').val('');
+        modal.modal('toggle');
     }
 };

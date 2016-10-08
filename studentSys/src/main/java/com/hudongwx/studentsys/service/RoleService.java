@@ -5,10 +5,8 @@ import com.hudongwx.studentsys.exceptions.ServiceException;
 import com.hudongwx.studentsys.model.Mapping;
 import com.hudongwx.studentsys.model.Role;
 import com.hudongwx.studentsys.util.ArrayTree;
-import com.hudongwx.studentsys.util.Common;
 import com.hudongwx.studentsys.util.StrPlusKit;
 import com.jfinal.log.Log;
-import com.jfinal.plugin.ehcache.CacheKit;
 
 import java.util.*;
 
@@ -25,7 +23,7 @@ public class RoleService extends Service {
         //return Role.dao.findByCache(Common.CACHE_FOREVER_LABEL, "roles", "select * from stumanager_role");
     }
 
-    public List<String> getpermitMappingIds(Role role) {
+    public List<String> getPermitMappingIds(Role role) {
         List<String> ids = new LinkedList<>();
         String[] split = role.getTreeData().split(":");
         for(String s : split)
@@ -50,8 +48,8 @@ public class RoleService extends Service {
         role.allowTree.addGoodNode(mapping);
     }
 
-    public void _updateRole(Role role) {
-        role.update();
+    public boolean _updateRole(Role role) {
+        return role.update();
     }
 
     public void putAllowMapping(Role role, Mapping mapping) {
@@ -92,7 +90,7 @@ public class RoleService extends Service {
     public ArrayTree<Mapping> getRoleTree(final Role role) {
         if(role.allowTree != null)
             return role.allowTree;
-        List<String> ids = getpermitMappingIds(role);
+        List<String> ids = getPermitMappingIds(role);
         ArrayTree<Mapping> tree = mappingService.getTree();
         //依附查找
         ArrayTree<Mapping> roleTree = new ArrayTree<>();
@@ -125,5 +123,9 @@ public class RoleService extends Service {
             str = str.substring(0, str.length() - 1);
         role.allowTree = tree;
         role.setTreeData(str);
+    }
+
+    public Role getRoleById(Integer id) {
+        return Role.dao.findById(id);
     }
 }

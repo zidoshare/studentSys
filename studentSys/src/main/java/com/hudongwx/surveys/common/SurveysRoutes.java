@@ -1,6 +1,7 @@
 package com.hudongwx.surveys.common;
 
 import com.hudongwx.surveys.controller.SurveysController;
+import com.hudongwx.surveys.controller.TestController;
 import com.jfinal.config.Routes;
 
 /**
@@ -14,5 +15,6 @@ public class SurveysRoutes extends Routes {
     public void config() {
 //        add("/", SurveysController.class,"surveys");
         add("/surveys",SurveysController.class);
+        add("/test", TestController.class);
     }
 }

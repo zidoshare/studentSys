@@ -203,11 +203,12 @@ public class ArrayTree<T extends TreeNode> {
     public void checkTreePreorder(onCheckListener<T> ocl){
         checkTreePreorder(root(),ocl);
     }
-    //深搜
+    //深搜,顺序还是为从前到后，比正常深搜多一个倒栈操作
     public void checkTreePreorder(T parent,onCheckListener<T> ocl){
         if (!tree.contains(parent) || null == ocl)
             return;
         Stack<T> stack = new Stack<>();
+        Stack<T> bufferStack = new Stack<T>();
         stack.push(parent);
         while (!stack.isEmpty()) {
             T now = stack.pop();
@@ -222,8 +223,13 @@ public class ArrayTree<T extends TreeNode> {
                 continue;
             T c = (T) now.getLeftChild();
             while (c != null) {
-                stack.push(c);
+                //加入缓存栈
+                bufferStack.push(c);
                 c = (T) c.getNextSibling();
+            }
+            while(!bufferStack.isEmpty()){
+                //倒序入栈
+                stack.push(bufferStack.pop());
             }
         }
     }

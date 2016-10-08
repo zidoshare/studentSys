@@ -50,13 +50,13 @@ public class MainConfig extends JFinalConfig{
 
         C3p0Plugin surveysPlugin  = new C3p0Plugin(dataBaseProp.get("testUrl"),dataBaseProp.get("testUser"),dataBaseProp.get("testPassword"));
         me.add(surveysPlugin);
-        ActiveRecordPlugin testRecordPlugin = new ActiveRecordPlugin("surveys",surveysPlugin);
-        testRecordPlugin.setShowSql(true);
-        testRecordPlugin.setDialect(new MysqlDialect());
+        ActiveRecordPlugin surveysRecordPlugin = new ActiveRecordPlugin("surveys",surveysPlugin);
+        surveysRecordPlugin.setShowSql(true);
+        surveysRecordPlugin.setDialect(new MysqlDialect());
         //---添加映射---
-        com.hudongwx.surveys.model._MappingKit.mapping(testRecordPlugin);
+        com.hudongwx.surveys.model._MappingKit.mapping(surveysRecordPlugin);
         //-------------
-        me.add(testRecordPlugin);
+        me.add(surveysRecordPlugin);
         //加载缓存插件ehcache
         me.add(new EhCachePlugin());
     }
@@ -70,7 +70,7 @@ public class MainConfig extends JFinalConfig{
 
     public void configHandler(Handlers me) {
         me.add(new RequestHandler());
-
-        Build.buildControl();
+        if(Common.getMainProp().getBoolean("devMode"))
+            Build.buildControl();
     }
 }
