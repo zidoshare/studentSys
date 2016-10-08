@@ -125,9 +125,12 @@ public class Build{
         Mapping myTest = new Mapping("fa fa-pencil","我的考试","/test",Mapping.FUNCTION_MENUITEM);
         tree.insertChild(myTest,root);
         Mapping testHistory = new Mapping("testHistory","考试历史","/test/history",Mapping.FUNCTION_MENUITEM_CHILD);
+
         Mapping toTest = new Mapping("toTest","参加考试","/test/to",Mapping.FUNCTION_MENUITEM_CHILD);
         tree.insertChild(testHistory,myTest);
-        tree.insertChild(toTest);
+        tree.insertChild(new Mapping("historyList","考试历史","/test/historyList.ftl",Mapping.FUNCTION_VIEW),testHistory);
+        tree.insertChild(toTest,myTest);
+        tree.insertChild(new Mapping("testing","正在进行的考试","/test/testing.ftl",Mapping.FUNCTION_VIEW),toTest);
 
         Mapping mySurveys = new Mapping("fa fa-file-text","我的调查","/#",Mapping.FUNCTION_MENUITEM);
         tree.insertChild(mySurveys,root);
@@ -138,7 +141,7 @@ public class Build{
         Mapping toInputBigType = new Mapping("toInputBigType","添加大类型","/surveys/inputBigType",Mapping.FUNCTION_MENUITEM_CHILD);
         tree.insertChild(toInputBigType,mySurveys);
         tree.insertChild(new Mapping("inputBigType","添加大类型","/surveys/inputBigType.ftl",Mapping.FUNCTION_VIEW),toInputBigType);
-        Mapping toInputQuestion = new Mapping("toInputQuestion","添加问题","/surveys/inputBigQuestion",Mapping.FUNCTION_MENUITEM_CHILD);
+        Mapping toInputQuestion = new Mapping("toInputQuestion","添加问题","/surveys/inputQuestion",Mapping.FUNCTION_MENUITEM_CHILD);
         tree.insertChild(toInputQuestion,mySurveys);
         tree.insertChild(new Mapping("inputQuestion","添加问题","/surveys/inputQuestion.ftl",Mapping.FUNCTION_VIEW),toInputQuestion);
         Mapping toInputQuestionnaire = new Mapping("toInputQuestionnaire","组卷","/surveys/inputQuestionnaire",Mapping.FUNCTION_MENUITEM_CHILD);
@@ -272,7 +275,6 @@ public class Build{
         admin.setUserAccount("admin");
         admin.setUserPassword("admin");
         Role role = rs.getRoleByName("admin");
-        role.setMemberCnt(role.getMemberCnt()+1);
         role.update();
         us._saveUser(admin);
 

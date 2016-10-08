@@ -14,9 +14,13 @@ public class TestController extends BaseController{
         return "我的考试";
     }
     public void history(){
+        setMapping(mappingService.getMappingByTitle("考试历史"));
         super.index();
+
     }
     public void to(){
+        setMapping(mappingService.getMappingByTitle("参加考试"));
         super.index();
     }
+
 }
