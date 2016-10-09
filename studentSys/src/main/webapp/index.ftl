@@ -13,18 +13,18 @@
 <div id="page-wrapper">
 
     <div id="page-inner">
-        <#if views?size < 1>
-            <div class="row animate">
-                <div class="col-md-12">
-                    <div class="panel panel-default item">
-                        <h1 align="center">权限不够...</h1>
-                    </div>
+    <#if views?size < 1>
+        <div class="row animate">
+            <div class="col-md-12">
+                <div class="panel panel-default item">
+                    <h1 align="center">权限bugou...</h1>
                 </div>
             </div>
-        </#if>
+        </div>
+    </#if>
     <#list views as view>
-            <#include view.url>
-        </#list>
+        <#include view.url>
+    </#list>
     </div>
     <div class="pjax_loading" style="display: none;">
         <div id="contain">

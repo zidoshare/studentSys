@@ -339,6 +339,7 @@ a.res {
     font-size: 14px;
     color: #00cb66;
     position: relative;
+    cursor: pointer;
 }
 
 a.res:after {
@@ -383,6 +384,9 @@ a.res:hover:after{
     font-size: 14px;
     color: white;
     background: #00cb66;
+}
+.select{
+    margin-bottom:5px;
 }
 
 .form-item {

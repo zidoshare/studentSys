@@ -8,4 +8,5 @@ import com.hudongwx.studentsys.common.BaseTestType;
 @SuppressWarnings("serial")
 public class TestType extends BaseTestType<TestType> {
 	public static final TestType dao = new TestType();
+	public static final String SEARCH_FROM_TEST_TYPE = "select * from stumanager_test_type ";
 }

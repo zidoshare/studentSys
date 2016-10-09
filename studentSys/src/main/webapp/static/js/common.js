@@ -168,6 +168,39 @@ var Util = {
                 tip.css("display", "none");
                 tip.attr("aria-label", "0");
             });
+    },
+    addSelect: function () {
+        var item = 'A';
+        var op = 0;
+        var s = $("#add").prev();
+        while (s.hasClass("select")) {
+            op++;
+            s=s.prev();
+        }
+        item = String.fromCharCode(item.charCodeAt() + op);
+        $("#add").before("<div class=\"select form-group\"><label for='item'"+op+">"+item+":</label><textarea class=\"form-control\" rows=\"2\" id='item'"+op+"></textarea>" +
+            "</div>");
+    },
+    removeSelect: function () {
+        var s = $("#add").prev();
+        if (s.hasClass("select")) {
+            s.remove();
+        }
+    },
+    changeTag: function (str, dom) {
+        var isChecked = dom.prop('checked');
+        var targetStr = $('input#tags').val();
+        var array = targetStr.split(',');
+
+        var end = '';
+        for (var i = 0; i < array.length; i++) {
+            if (array[i] != str && array[i].length > 0)
+                end += array[i] + ',';
+        }
+        if (isChecked)
+            end += str + ',';
+        end = end.substr(0, end.length - 1);
+        $('input#tags').val(end);
     }
 };
 var Animate = {
@@ -329,8 +362,8 @@ var func = {
             });
         }
     },
-    addTestQuestion:function(method){
-        if(method == 'show'){
+    addTestQuestion: function (method) {
+        if (method == 'show') {
             modalUtil.toggleClear($('#addTestQuestion'));
         }
     },
@@ -339,22 +372,22 @@ var func = {
 
         }
     },
-    updateRole: function (method,id) {
+    updateRole: function (method, id) {
         if (arguments.length < 1)
-            return ;
+            return;
         var modal = $('#myModal');
         if (method == 'show') {
             modalUtil.toggleClear(modal);
-            func.showPermissions(0, id, 'permissions','all');
-            var name = $('#'+id).find('td').first().text();
+            func.showPermissions(0, id, 'permissions', 'all');
+            var name = $('#' + id).find('td').first().text();
             modal.find('input').first().val(name);
             $('#id').val(id);
         }
     },
-    showPermissions: function (left, mappingId, divId,method) {
-        if(method == 'all'){
+    showPermissions: function (left, mappingId, divId, method) {
+        if (method == 'all') {
             $.ajax({
-                url: '/userManager/showAllPermissons/'+mappingId,
+                url: '/userManager/showAllPermissons/' + mappingId,
                 type: 'get',
                 success: function (data) {
                     if (data.state == 'success') {
@@ -370,11 +403,11 @@ var func = {
                             var childCnt = parseInt(json['childCount']);
                             var isChecked = json['isChecked'];
 
-                            str += '<div class="checkbox3 checkbox-round"> ' +/* onchange="func.showPermissions(' + (left) + ',\'' + id + '\',\'permission' + id + '\')"*/
+                            str += '<div class="checkbox3 checkbox-round"> ' + /* onchange="func.showPermissions(' + (left) + ',\'' + id + '\',\'permission' + id + '\')"*/
                                 '<input type="checkbox" data-arialabel="1" name="' + id + '" id="' + id + '"';
-                            if(isChecked == true)
-                                str+='checked';
-                            str+= '> ' +
+                            if (isChecked == true)
+                                str += 'checked';
+                            str += '> ' +
                                 '<label for="' + id + '">' + title + '</label>' +
                                 ' </div><div id="permission' + id + '" style="margin-left: ' + (left) + 'px;/*height:' + (childCnt * 40) + 'px;*//*overflow-y:auto;overflow-x:hidden;*/ "></div>';
                         }
@@ -383,7 +416,7 @@ var func = {
                 }/*,
                  complete:$('#'+divId).slideDown()*/
             });
-            return ;
+            return;
         }
         $.ajax({
             url: '/userManager/showPermissions/' + mappingId,
@@ -411,7 +444,7 @@ var func = {
     }
 };
 var modalUtil = {
-    toggleClear:function(modal){
+    toggleClear: function (modal) {
         modal.find('input[id!="operater"]').val('');
         modal.modal('toggle');
     }
