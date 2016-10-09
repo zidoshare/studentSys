@@ -153,4 +153,12 @@ public abstract class BaseStudent<M extends BaseStudent<M>> extends Model<M> imp
 		return get("consultantId");
 	}
 
+	public void setUserId(java.lang.Integer userId) {
+		set("userId", userId);
+	}
+
+	public java.lang.Integer getUserId() {
+		return get("userId");
+	}
+
 }

@@ -24,6 +24,11 @@ public class StudentService extends Service {
         if(user == null)
             return null;
         return getStudentByName(user.getUserNickname());
+        /*Integer id = user.getId();
+        List<Student> students = Student.dao.find(Student.SEARCH_FROM_STUDENT + "where userId = id");
+        if(students.isEmpty())
+            return null;
+        return students.get(0);*/
     }
     public Student getStudentByName(String name){
         if(StrPlusKit.isEmpty(name))

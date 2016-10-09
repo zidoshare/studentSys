@@ -38,6 +38,7 @@ public class MainConfig extends JFinalConfig{
 
     public void configPlugin(Plugins me) {
         Prop dataBaseProp = PropKit.use("local.properties");
+        log.info(dataBaseProp.get("jdbcUrl"));
         C3p0Plugin c3p0Plugin = new C3p0Plugin(dataBaseProp.get("jdbcUrl"),dataBaseProp.get("user"),dataBaseProp.get("password"));
         me.add(c3p0Plugin);
 

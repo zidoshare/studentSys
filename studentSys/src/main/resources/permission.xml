@@ -109,13 +109,31 @@
                 <mapping id="3000" icon="toQuestions" title="题库" url="/test/questions" function="3">
                     <mappings>
                         <mapping id="3001" icon="questions" url="/test/questions.ftl" function="1" title="中心题库">
-                            <mappings/>
+                            <mappings>
+                                <mapping id="3007" icon="addTestQuestion" url="addTestQuestion" function="0" title="添加">
+                                    <mappings/>
+                                </mapping>
+                                <mapping id="3008" icon="updateTestQuestion" url="updateTestQuestion" function="0"
+                                         title="修改">
+                                    <mappings/>
+                                </mapping>
+                                <mapping id="3009" icon="deleteTestQuestion" url="deleteTestQuestion" function="0"
+                                         title="删除">
+                                    <mappings/>
+                                </mapping>
+                                <mapping id="3010" icon="addToTest" url="addToTest" function="0" title="添加到试卷">
+                                    <mappings/>
+                                </mapping>
+                                <mapping id="3011" icon="testManage" url="testManage" function="0" title="当前试卷管理">
+                                    <mappings/>
+                                </mapping>
+                            </mappings>
                         </mapping>
                     </mappings>
                 </mapping>
-                <mapping id="3002" icon="toCorrecting" title="批改试卷" url="/test/correcting" function="3">
+                <mapping id="3002" icon="testList" title="试卷列表" url="/test/testList" function="3">
                     <mappings>
-                        <mapping id="3003" icon="correcting" title="批改" url="/test/correcting.ftl" function="1">
+                        <mapping id="3003" icon="testList" title="试卷列表" url="/test/testList.ftl" function="1">
                             <mappings/>
                         </mapping>
                     </mappings>

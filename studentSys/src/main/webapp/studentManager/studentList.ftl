@@ -68,9 +68,9 @@
                                 <th>
                                     联系方式
                                 </th>
-                                <th>
+                                <#--<th>
                                     入学时间
-                                </th>
+                                </th>-->
                             <#--<th>
                                 学分
                             </th>
@@ -112,7 +112,7 @@
                                 <td>${student.className}</td>
                                 <td>${student.tutor}</td>
                                 <td>${student.contactInformation}</td>
-                                <td>${student.admission}</td>
+                                <#--<td>${student.admission}</td>-->
                                 <td>${(student.createTime?number)?number_to_datetime}</td>
                                 <td>${student.ip}</td>
                                 <td>${student.operater}</td>

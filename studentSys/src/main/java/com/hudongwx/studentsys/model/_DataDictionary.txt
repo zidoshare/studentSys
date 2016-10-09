@@ -72,6 +72,7 @@ Table: stumanager_student
  operaterId         | int(10)      | YES  |     |         | 操作人     
  operater           | varchar(20)  | YES  |     |         |         
  consultantId       | int(10)      | YES  |     |         |         
+ userId             | int(10)      | YES  |     |         |         
 --------------------+--------------+------+-----+---------+---------
 
 Table: stumanager_user

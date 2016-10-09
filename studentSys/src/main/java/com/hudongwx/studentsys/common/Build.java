@@ -10,6 +10,7 @@ import com.hudongwx.studentsys.util.ArrayTree;
 import com.hudongwx.studentsys.util.Common;
 import com.hudongwx.studentsys.util.StrPlusKit;
 import com.jfinal.log.Log;
+import com.jfinal.plugin.ehcache.CacheKit;
 import org.dom4j.*;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
@@ -284,6 +285,7 @@ public class Build{
 
             return now.save();
         });
+        CacheKit.put(Common.CACHE_60TIME_LABEL,"mappingTree",null);
         /*Queue<Element> queue = new LinkedList<>();
         queue.offer(document.getRootElement());
         Map<Element,Mapping> map = new HashMap<>();
