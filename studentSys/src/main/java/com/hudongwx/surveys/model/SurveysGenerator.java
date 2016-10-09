@@ -1,4 +1,4 @@
-package com.hudongwx.studentsys.model;
+package com.hudongwx.surveys.model;
 
 import com.jfinal.kit.PathKit;
 import com.jfinal.kit.Prop;
@@ -12,7 +12,7 @@ import javax.sql.DataSource;
 /**
  * Created by wuhongxu on 2016/9/6 0006.
  */
-public class TestGenerator {
+public class SurveysGenerator {
     public static DataSource getDataSource(){
         Prop dataBaseProp = PropKit.use("local.properties");
         String jdbcUrl = dataBaseProp.get("testUrl");

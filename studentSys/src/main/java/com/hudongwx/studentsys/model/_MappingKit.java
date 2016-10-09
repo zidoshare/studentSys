@@ -21,6 +21,10 @@ public class _MappingKit {
 		arp.addMapping("stumanager_mapping", "id", Mapping.class);
 		arp.addMapping("stumanager_role", "id", Role.class);
 		arp.addMapping("stumanager_student", "id", Student.class);
+		arp.addMapping("stumanager_test_question", "id", TestQuestion.class);
+		arp.addMapping("stumanager_test_tag", "id", TestTag.class);
+		arp.addMapping("stumanager_test_tag_question", "id", TestTagQuestion.class);
+		arp.addMapping("stumanager_test_type", "id", TestType.class);
 		arp.addMapping("stumanager_user", "id", User.class);
 	}
 }

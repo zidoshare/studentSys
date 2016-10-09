@@ -1,4 +1,4 @@
-package com.hudongwx.surveys.service;
+package com.hudongwx.studentsys.service;
 
 import com.hudongwx.studentsys.common.Service;
 import com.hudongwx.surveys.model.Questions;

@@ -1,4 +1,4 @@
-package com.hudongwx.surveys.controller;
+package com.hudongwx.studentsys.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;

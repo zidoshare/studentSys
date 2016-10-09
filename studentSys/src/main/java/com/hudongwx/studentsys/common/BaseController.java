@@ -27,7 +27,7 @@ public abstract class BaseController extends Controller {
     public BaseController() {
         Field[] fields = this.getClass().getFields();
         for (Field field : fields) {
-            log.info("获取到属性：" + field.getName());
+            //log.info("获取到属性：" + field.getName());
             Class clazz = field.getType();
             if (Service.class.isAssignableFrom(clazz) && clazz != Service.class) {
                 try {

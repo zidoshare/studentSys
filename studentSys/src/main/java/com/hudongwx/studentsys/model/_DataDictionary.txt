@@ -68,12 +68,55 @@ Table: stumanager_student
  state              | varchar(255) | YES  |     |         | 状态      
  employment         | varchar(255) | YES  |     |         | 就业跟踪    
  createTime         | bigint(19)   | YES  |     |         | 用户创建时间  
- ip                 | varchar(20)  | YES  |     |         | 最后登录的ip地址
+ ip                 | varchar(20)  | YES  |     | 0.0.0.0 | 最后登录的ip地址
  operaterId         | int(10)      | YES  |     |         | 操作人     
- operater           | varchar(20)  | YES  |     |         |         
+ operater           | varchar(20)  | YES  |     | admin   |         
  consultantId       | int(10)      | YES  |     |         |         
  userId             | int(10)      | YES  |     |         |         
 --------------------+--------------+------+-----+---------+---------
+
+Table: stumanager_test_question
+-------------------------+-------------+------+-----+---------+---------
+ Field                   | Type        | Null | Key | Default | Remarks 
+-------------------------+-------------+------+-----+---------+---------
+ id                      | int(10)     | NO   | PRI |         |         
+ testQuestionTitle       | text(65535) | NO   |     |         |         
+ testQuestionTypeId      | int(10)     | NO   |     |         |         
+ testQuestionContent     | text(65535) | YES  |     |         | 数组格式存储，[a,b,c,d]
+ testQuestionShortAnswer | varchar(30) | YES  |     |         | 答案，选择题使用此字段，使用[a,b,c]格式
+ testQuestionLongAnswer  | text(65535) | YES  |     |         | 问答题或编程题使用此答案字段
+ testQuestionCreateTime  | int(10)     | NO   |     |         |         
+ testQuestionUpdateTime  | int(10)     | NO   |     |         |         
+-------------------------+-------------+------+-----+---------+---------
+
+Table: stumanager_test_tag
+-------------+-------------+------+-----+---------+---------
+ Field       | Type        | Null | Key | Default | Remarks 
+-------------+-------------+------+-----+---------+---------
+ id          | int(10)     | NO   | PRI |         |         
+ tagName     | varchar(20) | NO   |     |         |         
+ questionCnt | int(10)     | NO   |     | 0       |         
+-------------+-------------+------+-----+---------+---------
+
+Table: stumanager_test_tag_question
+----------------+---------+------+-----+---------+---------
+ Field          | Type    | Null | Key | Default | Remarks 
+----------------+---------+------+-----+---------+---------
+ id             | int(10) | NO   | PRI |         |         
+ tagId          | int(10) | NO   |     |         |         
+ testQuestionId | int(10) | NO   |     |         |         
+----------------+---------+------+-----+---------+---------
+
+Table: stumanager_test_type
+-----------------+-------------+------+-----+---------+---------
+ Field           | Type        | Null | Key | Default | Remarks 
+-----------------+-------------+------+-----+---------+---------
+ id              | int(10)     | NO   | PRI |         |         
+ typeName        | varchar(20) | NO   |     |         |         
+ typeQuestionCnt | int(10)     | NO   |     | 0       |         
+ typeCreateTime  | int(10)     | NO   |     |         |         
+ typeUpdateTime  | int(10)     | NO   |     |         |         
+-----------------+-------------+------+-----+---------+---------
 
 Table: stumanager_user
 -----------------+----------------------+------+-----+---------+---------
@@ -86,12 +129,12 @@ Table: stumanager_user
  userEmail       | varchar(40)          | YES  |     |         | 用户邮箱    
  userRole        | varchar(20)          | YES  |     |         | 用户角色    
  userPurikura    | varchar(40)          | YES  |     |         | 用户头像链接  
- userLastLoginIp | varchar(12)          | YES  |     |         | 最后登录Ip  
+ userLastLoginIp | varchar(12)          | YES  |     | 0.0.0.0 | 最后登录Ip  
  userCreateTime  | bigint(19)           | YES  |     |         | 用户创建时间  
  userUpdateTime  | bigint(19)           | YES  |     |         | 用户更新时间  
  userPhone       | varchar(20)          | YES  |     |         | 用户联系号码  
  userAddress     | varchar(20)          | YES  |     |         | 用户地址    
  userMessage     | mediumtext(16777215) | YES  |     |         | 用户个人签名等信息
- operater        | varchar(20)          | YES  |     |         | 创建者     
+ operater        | varchar(20)          | YES  |     | admin   | 创建者     
 -----------------+----------------------+------+-----+---------+---------
 

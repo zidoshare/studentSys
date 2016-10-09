@@ -329,6 +329,11 @@ var func = {
             });
         }
     },
+    addTestQuestion:function(method){
+        if(method == 'show'){
+            modalUtil.toggleClear($('#addTestQuestion'));
+        }
+    },
     updateUser: function (method) {
         if (method == 'show') {
 
