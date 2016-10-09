@@ -57,19 +57,19 @@ public abstract class BaseTestQuestion<M extends BaseTestQuestion<M>> extends Mo
 		return get("testQuestionLongAnswer");
 	}
 
-	public void setTestQuestionCreateTime(java.lang.Integer testQuestionCreateTime) {
+	public void setTestQuestionCreateTime(java.lang.Long testQuestionCreateTime) {
 		set("testQuestionCreateTime", testQuestionCreateTime);
 	}
 
-	public java.lang.Integer getTestQuestionCreateTime() {
+	public java.lang.Long getTestQuestionCreateTime() {
 		return get("testQuestionCreateTime");
 	}
 
-	public void setTestQuestionUpdateTime(java.lang.Integer testQuestionUpdateTime) {
+	public void setTestQuestionUpdateTime(java.lang.Long testQuestionUpdateTime) {
 		set("testQuestionUpdateTime", testQuestionUpdateTime);
 	}
 
-	public java.lang.Integer getTestQuestionUpdateTime() {
+	public java.lang.Long getTestQuestionUpdateTime() {
 		return get("testQuestionUpdateTime");
 	}
 

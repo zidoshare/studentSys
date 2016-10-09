@@ -175,10 +175,11 @@ var Util = {
         var s = $("#add").prev();
         while (s.hasClass("select")) {
             op++;
-            s=s.prev();
+            s = s.prev();
         }
         item = String.fromCharCode(item.charCodeAt() + op);
-        $("#add").before("<div class=\"select form-group\"><label for='item'"+op+">"+item+":</label><textarea class=\"form-control\" rows=\"2\" id='item'"+op+"></textarea>" +
+        var checkDom = '<div class="checkbox3 checkbox-success checkbox-inline checkbox-check checkbox-round  checkbox-light"> <input type="checkbox" id="'+item+'"> <label for="'+item+'"> '+item+' </label> </div>';
+        $("#add").before("<div class=\"select form-group\">"+checkDom+"<textarea class=\"form-control\" rows=\"2\" id='item" + op + "'></textarea>" +
             "</div>");
     },
     removeSelect: function () {
@@ -201,6 +202,16 @@ var Util = {
             end += str + ',';
         end = end.substr(0, end.length - 1);
         $('input#tags').val(end);
+    },
+    changeModel:function(select){
+        $('#shortModel').addClass('sr-only');
+        $('#longModel').addClass('sr-only');
+        var val = select.val();
+        var limit = $('#option'+val).attr('data-label');
+        var limits = JSON.parse(limit);
+        for(var i = 0; i < limits.length;i++){
+            $('#'+limits[i]).removeClass('sr-only');
+        }
     }
 };
 var Animate = {
@@ -365,6 +376,51 @@ var func = {
     addTestQuestion: function (method) {
         if (method == 'show') {
             modalUtil.toggleClear($('#addTestQuestion'));
+        } else {
+            var btn = Ladda.create(document.querySelector("#saveTestQuestion-btn"));
+            btn.start();
+            //填充创建时间
+            $('#testQuestionCreateTime').val(new Date().getTime());
+            //---------------填充选择题选项------------
+            var selects = [];
+            //---------------填充选择题答案------------
+            var answers = [];
+            var i = 0;
+            var first = 'A';
+            while($('#item'+i).is('textarea')){
+                var a = String.fromCharCode(first.charCodeAt() + i);
+                if($('#'+a).prop('checked')){
+                    answers.push(a);
+                }
+                selects[i] = $('#item'+(i++)).val();
+            }
+            $('#testQuestionContent').val(JSON.stringify(selects));
+            $('#testQuestionShortAnswer').val(JSON.stringify(answers));
+            //---------------填充选项及答案结束------------
+
+            var json = {};
+            $('#testQuestion').find('.form-control').each(function () {
+                if ($(this).attr('name') != null)
+                    json[$(this).attr('name')] = $(this).val();
+            });
+            $.ajax({
+                url: "/test/addTestQuestion",
+                dataType: 'json',
+                type:'post',
+                data:json,
+                success: function (data,status) {
+                    if(data.state == 'success')
+                        Util.showTip($('#saveTestQuestionTip'),data.msg,"alert alert-success");
+                    else
+                        Util.showTip($('#saveTestQuestionTip'),data.msg,"alert alert-warning");
+                },
+                error:function(){
+                    Util.showTip($('#saveTestQuestionTip'),"服务器错误","alert alert-danger");
+                },
+                complete: function () {
+                    btn.stop();
+                }
+            });
         }
     },
     updateUser: function (method) {

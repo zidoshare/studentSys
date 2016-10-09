@@ -33,20 +33,28 @@ public abstract class BaseTestType<M extends BaseTestType<M>> extends Model<M> i
 		return get("typeQuestionCnt");
 	}
 
-	public void setTypeCreateTime(java.lang.Integer typeCreateTime) {
+	public void setTypeCreateTime(java.lang.Long typeCreateTime) {
 		set("typeCreateTime", typeCreateTime);
 	}
 
-	public java.lang.Integer getTypeCreateTime() {
+	public java.lang.Long getTypeCreateTime() {
 		return get("typeCreateTime");
 	}
 
-	public void setTypeUpdateTime(java.lang.Integer typeUpdateTime) {
+	public void setTypeUpdateTime(java.lang.Long typeUpdateTime) {
 		set("typeUpdateTime", typeUpdateTime);
 	}
 
-	public java.lang.Integer getTypeUpdateTime() {
+	public java.lang.Long getTypeUpdateTime() {
 		return get("typeUpdateTime");
+	}
+
+	public void setTypeLimit(java.lang.String typeLimit) {
+		set("typeLimit", typeLimit);
+	}
+
+	public java.lang.String getTypeLimit() {
+		return get("typeLimit");
 	}
 
 }

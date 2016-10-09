@@ -12,4 +12,10 @@ public class TestTagService extends Service {
     public List<TestTag> getAllTestTag(){
         return TestTag.dao.find(TestTag.SEARCH_FROM_TEST_TAG);
     }
+    public boolean _saveTestTag(TestTag tag){
+        return tag.save();
+    }
+    public boolean _updateTestTag(TestTag tag){
+        return tag.update();
+    }
 }

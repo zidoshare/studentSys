@@ -31,7 +31,7 @@ ${view.title}
                 <h4 class="modal-title" id="myModalLabel">添加题目</h4>
             </div>
             <div class="modal-body">
-                <form id="user" role="form">
+                <form id="testQuestion" role="form">
                     <div class="form-group">
                         <label for="testQuestionTitle" class="control-label">题目</label>
                         <textarea class="form-control" rows="3" name="testQuestion.testQuestionTitle"
@@ -39,16 +39,16 @@ ${view.title}
                     </div>
                     <div class="form-group">
                         <label for="testQuestionTypeId" class="control-label">题目类型</label>
-                        <select class="form-control" name="testQuestion.testQuestionTypeId" id="testQuestionTypeId">
+                        <select class="form-control" name="testQuestion.testQuestionTypeId" id="testQuestionTypeId" onchange="Util.changeModel($('#testQuestionTypeId'))">
                         <#list types as type>
-                            <option value="${type.id}">${type.typeName}</option>
+                            <option id="option${type.id}" value="${type.id}" data-label="${type.typeLimit?html}">${type.typeName}</option>
                         </#list>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="tags">标签（使用英文输入状态下的逗号进行分隔）：<a class="res" onclick="$('.tag-container').toggle()">选择</a></label>
-                        <input class="form-control" type="text" id="tags">
-                        <div class="tag-container">
+                        <input class="form-control" type="text" id="tags" name="tags">
+                        <div class="tag-container" style="display: none">
                         <#list tags as tag>
                             <div class="checkbox3 checkbox-success checkbox-inline checkbox-check checkbox-round  checkbox-light">
                                 <input type="checkbox" id="${tag.id}" onchange="Util.changeTag('${tag.tagName}',$('input#${tag.id}'))">
@@ -60,37 +60,41 @@ ${view.title}
                         </div>
                     </div>
                     <hr/>
-                    <a class="res" id="add" onclick="Util.addSelect()">添加选项</a>
-                    <a class="res" id="remove" onclick="Util.removeSelect()">删除选项</a>
-                    <div class="form-group sr-only">
-                        <label for="testQuestionContent" class="control-label">选项</label>
-                        <input type="text" class="form-control" name="testQuestion.testQuestionContent"
-                                  id="testQuestionContent">
+                    <div id="shortModel">
+                        <a class="res" id="add" onclick="Util.addSelect()">添加选项</a>
+                        <a class="res" id="remove" onclick="Util.removeSelect()">删除选项</a>
+                        <div class="form-group sr-only">
+                            <label for="testQuestionContent" class="control-label">选项</label>
+                            <input type="text" class="form-control" name="testQuestion.testQuestionContent"
+                                   id="testQuestionContent">
+                        </div>
+                        <div class="form-group sr-only">
+                            <label for="testQuestionShortAnswer" class="control-label">选择题答案（多选用英文状态下的逗号隔开）:</label>
+                            <input type="text" class="form-control" name="testQuestion.testQuestionShortAnswer"
+                                   id="testQuestionShortAnswer">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="testQuestionShortAnswer" class="control-label">选择题答案（多选用英文状态下的逗号隔开）:</label>
-                        <input type="text" class="form-control" name="testQuestion.testQuestionShortAnswer"
-                               id="testQuestionShortAnswer">
-                    </div>
-                    <div class="form-group">
-                        <label for="testQuestionLongAnswer" class="control-label">答案:</label>
+                    <div id="longModel" class="sr-only">
+                        <div class="form-group">
+                            <label for="testQuestionLongAnswer" class="control-label">答案:</label>
                         <textarea rows="3" class="form-control" name="testQuestion.testQuestionLongAnswer"
-                               id="testQuestionLongAnswer"></textarea>
+                                  id="testQuestionLongAnswer"></textarea>
+                        </div>
                     </div>
                     <div class="sr-only">
-                        <label for="createTime"></label><input class="form-control" name="testQuestion.createTime" id="createTime">
+                        <label for="testQuestionCreateTime"></label><input class="form-control" name="testQuestion.testQuestionCreateTime" id="testQuestionCreateTime">
                     </div>
 
                 </form>
                 <div class="tip-container">
-                    <div class="tip" id="saveUserTip" aria-label="0">
+                    <div class="tip" id="saveTestQuestionTip" aria-label="0">
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button data-style="slide-up" id="saveUser-btn" class="btn btn-primary ladda-button"
-                        onclick="func.add('up')">
+                <button data-style="slide-up" id="saveTestQuestion-btn" class="btn btn-primary ladda-button"
+                        onclick="func.addTestQuestion('up')">
                     <span class="ladda-label">保存</span>
                 </button>
             </div>
