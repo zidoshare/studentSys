@@ -272,12 +272,15 @@ public class Build{
         });
         tree.checkTree(now -> {
             if(now.getParent() != null){
-                now.setParentId(now.getParent().getId());
+                now.set("parentId",now.getParent().get(Common.LABEL_ID));
+                /*now.setParentId(now.getParent().getId());*/
             }
             if(now.getLeftChild() != null)
-                now.setLeftChildId(now.getLeftChild().getId());
+                now.set("leftChildId",now.getLeftChild().get(Common.LABEL_ID));
+/*                now.setLeftChildId(now.getLeftChild().getId());*/
             if(now.getNextSibling() != null)
-                now.setNextSiblingId(now.getNextSibling().getId());
+                now.set("nextSiblingId",now.getNextSibling().get(Common.LABEL_ID));
+                /*now.setNextSiblingId(now.getNextSibling().getId());*/
 
             return now.save();
         });
@@ -348,15 +351,14 @@ public class Build{
     public static void clearMapping(){
         List<Mapping> mappings = Mapping.dao.find("select * from stumanager_mapping");
         mappings.forEach(Mapping::delete);
-
-        log.info("清楚地图数据完成");
+        log.info("清除地图数据完成");
     }
     public static void clearRole(){
         List<User> users = User.dao.find("select * from stumanager_user");
         users.forEach(User::delete);
         List<Role> roles = Role.dao.find("select * from stumanager_role");
         roles.forEach(Role::delete);
-        log.info("清楚角色数据完成");
+        log.info("清除角色数据完成");
     }
     public static void buildControl(){
 
@@ -378,7 +380,7 @@ public class Build{
             clearMapping();
         });
         JButton clearRoleBtn = new JButton("清除角色数据");
-        clearBtn.addActionListener(e -> {
+        clearRoleBtn.addActionListener(e -> {
             clearRole();
         });
         JButton generatorXML = new JButton("生成xml文件");

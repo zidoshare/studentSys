@@ -105,6 +105,30 @@
                         </mapping>
                     </mappings>
                 </mapping>
+                <mapping id="3000" icon="toQuestions" title="题库" url="/test/questions" function="3">
+                    <mappings>
+                        <mapping id="3001" icon="questions" url="/test/questions.ftl" function="1" title="中心题库">
+                            <mappings/>
+                        </mapping>
+                    </mappings>
+                </mapping>
+                <mapping id="3002" icon="toCorrecting" title="批改试卷" url="/test/correcting" function="3">
+                    <mappings>
+                        <mapping id="3003" icon="correcting" title="批改" url="/test/correcting.ftl" function="1">
+                            <mappings/>
+                        </mapping>
+                    </mappings>
+                </mapping>
+                <mapping id="3004" icon="toCount" title="成绩统计" url="/test/count" function="3">
+                    <mappings>
+                        <mapping id="3005" icon="count" title="列表" url="/test/gradeList.ftl" function="1">
+                            <mappings/>
+                        </mapping>
+                        <mapping id="3006" icon="count" title="图表" url="/test/gradeChart.ftl" function="1">
+                            <mappings/>
+                        </mapping>
+                    </mappings>
+                </mapping>
             </mappings>
         </mapping>
         <mapping id="2334" icon="fa fa-file-text" url="/#" title="我的调查" function="2">

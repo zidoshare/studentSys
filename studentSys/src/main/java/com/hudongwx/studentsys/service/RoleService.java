@@ -49,6 +49,8 @@ public class RoleService extends Service {
     }
 
     public boolean _updateRole(Role role) {
+        //清除暂存
+        role.allowTree = null;
         return role.update();
     }
 
@@ -94,21 +96,22 @@ public class RoleService extends Service {
         ArrayTree<Mapping> tree = mappingService.getTree();
         //依附查找
         ArrayTree<Mapping> roleTree = new ArrayTree<>();
-        /* 效率太低，废弃
+        //下面是两种选择
+        // 1、效率太低
         for(String id : ids){
             Mapping mapping = mappingService.getMappingById(Integer.valueOf(id));
             roleTree.addGoodNode(mapping);
-        }*/
-        //需要严格遵守顺序
-        tree.checkTree(now -> {
-            Integer id = Integer.valueOf(ids.get(0));
-            if(id.equals(now.getId())){
-                roleTree.addGoodNode(now);
-                ids.remove(0);
-                return true;
-            }
-            return false;
-        });
+        }
+        //2、需要严格遵守顺序
+//        tree.checkTree(now -> {
+//            Integer id = Integer.valueOf(ids.get(0));
+//            if(id.equals(now.getId())){
+//                roleTree.addGoodNode(now);
+//                ids.remove(0);
+//                return true;
+//            }
+//            return false;
+//        });
         role.allowTree = roleTree;
         return roleTree;
     }
