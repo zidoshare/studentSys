@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapping>
 <!--0：功能，1：视图模块，2：菜单，3：二级菜单，以后多级菜单，依次类推-->
 <mapping id="2326" icon="fa" url="url" title="根目录" function="0">
     <mappings>

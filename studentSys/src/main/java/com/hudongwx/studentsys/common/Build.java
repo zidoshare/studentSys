@@ -367,22 +367,16 @@ public class Build{
         JPanel jp = new JPanel(new FlowLayout());
         jf.setContentPane(jp);
         JButton mappingBtn = new JButton("硬初始化地图(从代码中初始化)");
-        mappingBtn.addActionListener(e -> {
-            buildMapping();
-        });
+        mappingBtn.addActionListener(e -> buildMapping());
         JButton roleBtn = new JButton("初始化角色");
         roleBtn.addActionListener(e -> {
             initRole();
             initUser();
         });
         JButton clearBtn = new JButton("清除地图数据");
-        clearBtn.addActionListener(e -> {
-            clearMapping();
-        });
+        clearBtn.addActionListener(e -> clearMapping());
         JButton clearRoleBtn = new JButton("清除角色数据");
-        clearRoleBtn.addActionListener(e -> {
-            clearRole();
-        });
+        clearRoleBtn.addActionListener(e -> clearRole());
         JButton generatorXML = new JButton("生成xml文件");
         generatorXML.addActionListener(e -> {
             try {
@@ -395,7 +389,7 @@ public class Build{
         JButton readXml = new JButton("从xml中初始化地图");
         readXml.addActionListener(e -> {
             try {
-                readXML(new ArrayTree<Mapping>(),"src\\main\\resources\\permission.xml");
+                readXML(new ArrayTree<>(),"src\\main\\resources\\permission.xml");
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
