@@ -151,7 +151,7 @@ var Validate = {
 };
 
 var Util = {
-    showTip: function (tip, result, className) {
+    showTip: function (tip, result, className,onover) {
         if (tip.is(':animated')) {
             //将动画停止
             tip.stop(true, true);
@@ -167,7 +167,9 @@ var Util = {
             .transition({opacity: 0, y: 0}, 500, function () {
                 tip.css("display", "none");
                 tip.attr("aria-label", "0");
+                onover();
             });
+
     },
     addSelect: function () {
         var item = 'A';
@@ -410,7 +412,9 @@ var func = {
                 data:json,
                 success: function (data,status) {
                     if(data.state == 'success')
-                        Util.showTip($('#saveTestQuestionTip'),data.msg,"alert alert-success");
+                        Util.showTip($('#saveTestQuestionTip'),data.msg,"alert alert-success",function(){
+                            $.pjax.reload("#page-inner");
+                        });
                     else
                         Util.showTip($('#saveTestQuestionTip'),data.msg,"alert alert-warning");
                 },
@@ -502,6 +506,7 @@ var func = {
 var modalUtil = {
     toggleClear: function (modal) {
         modal.find('input[id!="operater"]').val('');
+        modal.find('textarea[id!="operater"]').val('');
         modal.modal('toggle');
     }
 };
