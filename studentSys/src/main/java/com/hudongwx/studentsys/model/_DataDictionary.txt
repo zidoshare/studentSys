@@ -87,7 +87,41 @@ Table: stumanager_test_question
  testQuestionLongAnswer  | text(65535) | YES  |     |         | 问答题或编程题使用此答案字段
  testQuestionCreateTime  | bigint(19)  | NO   |     |         |         
  testQuestionUpdateTime  | bigint(19)  | YES  |     |         |         
+ testQuestionOperaterId  | int(10)     | NO   |     | 83      |         
 -------------------------+-------------+------+-----+---------+---------
+
+Table: stumanager_test_questionnaire
+-----------------------------+--------------+------+-----+---------+---------
+ Field                       | Type         | Null | Key | Default | Remarks 
+-----------------------------+--------------+------+-----+---------+---------
+ id                          | int(10)      | NO   | PRI |         |         
+ testQuestionnaireTitle      | varchar(50)  | NO   |     |         |         
+ testQuestionnaireScore      | int(10)      | NO   |     |         |         
+ testQuestionnaireCreateTime | bigint(19)   | NO   |     |         |         
+ testQuestionnaireStartTime  | int(10)      | NO   |     |         |         
+ testQuestionnaireEndTime    | int(10)      | NO   |     |         |         
+ testQuestionnaireOperaterId | int(10)      | NO   |     |         |         
+ testQuestionnaireMessage    | varchar(200) | YES  |     |         |         
+-----------------------------+--------------+------+-----+---------+---------
+
+Table: stumanager_test_questionnaire_class
+---------------------+---------+------+-----+---------+---------
+ Field               | Type    | Null | Key | Default | Remarks 
+---------------------+---------+------+-----+---------+---------
+ id                  | int(10) | NO   | PRI |         |         
+ classId             | int(10) | NO   |     |         |         
+ testQuestionnaireId | int(10) | NO   |     |         |         
+---------------------+---------+------+-----+---------+---------
+
+Table: stumanager_test_questionnaire_question
+---------------------+---------+------+-----+---------+---------
+ Field               | Type    | Null | Key | Default | Remarks 
+---------------------+---------+------+-----+---------+---------
+ id                  | int(10) | NO   | PRI |         |         
+ testQuestionnaireId | int(10) | NO   |     |         |         
+ testQuestionId      | int(10) | NO   |     |         |         
+ testQuestionScore   | int(10) | NO   |     |         |         
+---------------------+---------+------+-----+---------+---------
 
 Table: stumanager_test_tag
 -------------+-------------+------+-----+---------+---------

@@ -35,7 +35,6 @@
         Animate.loadWrapper();
         Animate.reDraw();
     });
-
     $('#main-menu').find('li').on('click', function () {
         $(this).addClass('active-menu');
         $(this).siblings('li').removeClass('active-menu');

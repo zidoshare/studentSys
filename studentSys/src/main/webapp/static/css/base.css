@@ -215,6 +215,11 @@ ul.nav li:hover {
     position: relative;
 }
 
+.show-pp-hidden {
+    left:-10000px;
+    top:0px;
+}
+
 .title:before {
     content: '';
     display: inline-block;
@@ -312,7 +317,7 @@ td, th:hover {
 }
 
 td, th {
-    text-align: center;
+    /*text-align: center;*/
     white-space: nowrap;
 }
 
@@ -356,10 +361,10 @@ a.res:hover {
     border: none;
     color: black;
 }
-a.res:hover:after{
-    height:0;
-}
 
+a.res:hover:after {
+    height: 0;
+}
 
 .progress-loading {
     position: fixed;
@@ -385,8 +390,13 @@ a.res:hover:after{
     color: white;
     background: #00cb66;
 }
-.select{
-    margin-bottom:5px;
+
+ul, li {
+    list-style: none;
+}
+
+.select {
+    margin-bottom: 5px;
 }
 
 .form-item {

@@ -73,4 +73,12 @@ public abstract class BaseTestQuestion<M extends BaseTestQuestion<M>> extends Mo
 		return get("testQuestionUpdateTime");
 	}
 
+	public void setTestQuestionOperaterId(java.lang.Integer testQuestionOperaterId) {
+		set("testQuestionOperaterId", testQuestionOperaterId);
+	}
+
+	public java.lang.Integer getTestQuestionOperaterId() {
+		return get("testQuestionOperaterId");
+	}
+
 }

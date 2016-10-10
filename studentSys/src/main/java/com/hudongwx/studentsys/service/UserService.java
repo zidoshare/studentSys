@@ -2,6 +2,7 @@ package com.hudongwx.studentsys.service;
 
 import com.hudongwx.studentsys.common.Service;
 import com.hudongwx.studentsys.exceptions.ServiceException;
+import com.hudongwx.studentsys.model.Mapping;
 import com.hudongwx.studentsys.model.Role;
 import com.hudongwx.studentsys.model.User;
 import com.hudongwx.studentsys.util.Common;

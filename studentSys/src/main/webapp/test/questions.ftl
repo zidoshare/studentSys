@@ -18,6 +18,89 @@ ${view.title}
                 <#assign deleteAble = true>
             </#if>
         </#list>
+        <a onclick="Test.testPjaxReload()" class="btn btn-success btn-sm">测试reload</a>
+    </div>
+</div>
+<div class="panel-body">
+    <div class="table-responsive">
+
+        <table style="table-layout: fixed" class="table table-striped table-bordered table-hover"
+               id="dataTables-example" aria-describedby="dataTables-example_info">
+            <thead>
+            <tr>
+                <th>
+                    题目
+                </th>
+                <th>
+                    题目类型
+                </th>
+                <th>
+                    创建时间
+                </th>
+                <th>
+                    创建人
+                </th>
+                <#if updateAble || deleteAble>
+                    <th>操作</th>
+                </#if>
+            </tr>
+            </thead>
+            <tbody>
+                <#list questions as question>
+                <tr id="tr${question.id}" class="showQuestion">
+                    <td width="30%"
+                        style="overflow:hidden;WORD-WRAP: break-word;white-space:nowrap;text-overflow:ellipsis;">${question.testQuestionTitle}</td>
+                    <td width="20%">
+                    ${testTypeMap["${question.testQuestionTypeId}"].typeName}
+                    </td>
+                    <td width="20%">
+                    ${((question.testQuestionCreateTime)?number)?number_to_datetime}
+                    </td>
+                    <td width="15%">
+                    ${userMap["${question.testQuestionOperaterId}"].userNickname}
+                    </td>
+                    <#if updateAble || deleteAble>
+                        <td width="15%"><#list map["operators"+view.id] as op>
+                            <#if op_index gt 0>/</#if>
+                            <a onclick="func.${op.url}('show');" class="res">${op.title}</a>
+                            <#if op.title == "删除">
+                                <#break >
+                            </#if>
+                        </#list></td>
+                    </#if>
+                </tr>
+                <tr id="show-tr${question.id}" class="question-panel sr-only">
+                    <td colspan="<#if updateAble || deleteAble>5<#else>4</#if>">
+                        <div class="panel panel-success far-top">
+                            <div class="panel-heading">
+                                <label class="panel-title">${question.testQuestionTitle}</label class="panel-title">
+                            </div>
+                            <#assign xx = ['A','B','C','D','E','F','G']>
+                            <#list testTypeMap["${question.testQuestionTypeId}"].typeLimit?eval as model>
+                                <#if model="shortModel">
+                                    <div class="panel-body">
+                                        <p><label>选项:</label></p>
+                                        <#list question.testQuestionContent?eval as s>
+                                        <div><span>${xx[s_index]}: ${s}</span></div>
+                                        </#list>
+                                        <p><label>答案:</label></p>
+                                        <#list question.testQuestionShortAnswer?eval as answer>
+                                            <span>${answer}</span>
+                                        </#list>
+                                    </div>
+                                <#else>
+                                    <p><label>答案:</label></p>
+                                    <span>${question.testQuestionLongAnswer}</span>
+                                </#if>
+                            </#list>
+
+                        </div>
+                    </td>
+                </tr>
+                </#list>
+            </tbody>
+        </table>
+
     </div>
 </div>
 </@item>
@@ -39,19 +122,23 @@ ${view.title}
                     </div>
                     <div class="form-group">
                         <label for="testQuestionTypeId" class="control-label">题目类型</label>
-                        <select class="form-control" name="testQuestion.testQuestionTypeId" id="testQuestionTypeId" onchange="Util.changeModel($('#testQuestionTypeId'))">
+                        <select class="form-control" name="testQuestion.testQuestionTypeId" id="testQuestionTypeId"
+                                onchange="Util.changeModel($('#testQuestionTypeId'))">
                         <#list types as type>
-                            <option id="option${type.id}" value="${type.id}" data-label="${type.typeLimit?html}">${type.typeName}</option>
+                            <option id="option${type.id}" value="${type.id}"
+                                    data-label="${type.typeLimit?html}">${type.typeName}</option>
                         </#list>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="tags">标签（使用英文输入状态下的逗号进行分隔）：<a class="res" onclick="$('.tag-container').toggle()">选择</a></label>
+                        <label for="tags">标签（使用英文输入状态下的逗号进行分隔）：<a class="res"
+                                                                  onclick="$('.tag-container').toggle()">选择</a></label>
                         <input class="form-control" type="text" id="tags" name="tags">
                         <div class="tag-container" style="display: none">
                         <#list tags as tag>
                             <div class="checkbox3 checkbox-success checkbox-inline checkbox-check checkbox-round  checkbox-light">
-                                <input type="checkbox" id="${tag.id}" onchange="Util.changeTag('${tag.tagName}',$('input#${tag.id}'))">
+                                <input type="checkbox" id="${tag.id}"
+                                       onchange="Util.changeTag('${tag.tagName}',$('input#${tag.id}'))">
                                 <label for="${tag.id}">
                                 ${tag.tagName}
                                 </label>
@@ -82,7 +169,9 @@ ${view.title}
                         </div>
                     </div>
                     <div class="sr-only">
-                        <label for="testQuestionCreateTime"></label><input class="form-control" name="testQuestion.testQuestionCreateTime" id="testQuestionCreateTime">
+                        <label for="testQuestionCreateTime"></label><input class="form-control"
+                                                                           name="testQuestion.testQuestionCreateTime"
+                                                                           id="testQuestionCreateTime">
                     </div>
 
                 </form>
@@ -101,3 +190,10 @@ ${view.title}
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $('.showQuestion').on('mouseenter',function(){
+        $(this).siblings('tr.question-panel').addClass("sr-only");
+        var trId = $(this).attr('id');
+        $('#show-'+trId).removeClass("sr-only");
+    });
+</script>

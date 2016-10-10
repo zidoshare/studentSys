@@ -151,7 +151,18 @@ var Validate = {
 };
 
 var Util = {
-    showTip: function (tip, result, className,onover) {
+    showTip: function (tip, result, className, options) {
+        var defaults = {
+            time: 3000, before: function () {
+            }, complete: function () {
+            }
+        };
+        if (options != null)
+            $.each(options, function (name, value) {
+                if (value != null)
+                    defaults[name] = value;
+            });
+        defaults.before();
         if (tip.is(':animated')) {
             //将动画停止
             tip.stop(true, true);
@@ -163,11 +174,11 @@ var Util = {
         tip.html(result);
         tip.css("display", "block");
         tip.transition({opacity: 1, y: 10}, 500)
-            .transition({opacity: 1}, 3000)
+            .transition({opacity: 1}, defaults.time)
             .transition({opacity: 0, y: 0}, 500, function () {
                 tip.css("display", "none");
                 tip.attr("aria-label", "0");
-                onover();
+                defaults.complete();
             });
 
     },
@@ -180,8 +191,8 @@ var Util = {
             s = s.prev();
         }
         item = String.fromCharCode(item.charCodeAt() + op);
-        var checkDom = '<div class="checkbox3 checkbox-success checkbox-inline checkbox-check checkbox-round  checkbox-light"> <input type="checkbox" id="'+item+'"> <label for="'+item+'"> '+item+' </label> </div>';
-        $("#add").before("<div class=\"select form-group\">"+checkDom+"<textarea class=\"form-control\" rows=\"2\" id='item" + op + "'></textarea>" +
+        var checkDom = '<div class="checkbox3 checkbox-success checkbox-inline checkbox-check checkbox-round  checkbox-light"> <input type="checkbox" id="' + item + '"> <label for="' + item + '"> ' + item + ' </label> </div>';
+        $("#add").before("<div class=\"select form-group\">" + checkDom + "<textarea class=\"form-control\" rows=\"2\" id='item" + op + "'></textarea>" +
             "</div>");
     },
     removeSelect: function () {
@@ -205,14 +216,14 @@ var Util = {
         end = end.substr(0, end.length - 1);
         $('input#tags').val(end);
     },
-    changeModel:function(select){
+    changeModel: function (select) {
         $('#shortModel').addClass('sr-only');
         $('#longModel').addClass('sr-only');
         var val = select.val();
-        var limit = $('#option'+val).attr('data-label');
+        var limit = $('#option' + val).attr('data-label');
         var limits = JSON.parse(limit);
-        for(var i = 0; i < limits.length;i++){
-            $('#'+limits[i]).removeClass('sr-only');
+        for (var i = 0; i < limits.length; i++) {
+            $('#' + limits[i]).removeClass('sr-only');
         }
     }
 };
@@ -389,12 +400,12 @@ var func = {
             var answers = [];
             var i = 0;
             var first = 'A';
-            while($('#item'+i).is('textarea')){
+            while ($('#item' + i).is('textarea')) {
                 var a = String.fromCharCode(first.charCodeAt() + i);
-                if($('#'+a).prop('checked')){
+                if ($('#' + a).prop('checked')) {
                     answers.push(a);
                 }
-                selects[i] = $('#item'+(i++)).val();
+                selects[i] = $('#item' + (i++)).val();
             }
             $('#testQuestionContent').val(JSON.stringify(selects));
             $('#testQuestionShortAnswer').val(JSON.stringify(answers));
@@ -408,20 +419,26 @@ var func = {
             $.ajax({
                 url: "/test/addTestQuestion",
                 dataType: 'json',
-                type:'post',
-                data:json,
-                success: function (data,status) {
-                    if(data.state == 'success')
-                        Util.showTip($('#saveTestQuestionTip'),data.msg,"alert alert-success",function(){
-                            $.pjax.reload("#page-inner");
+                type: 'post',
+                data: json,
+                success: function (data, status) {
+                    if (data.state == 'success')
+                        Util.showTip($('#saveTestQuestionTip'), data.msg, "alert alert-success", {
+                            time: 5000,
+                            complete: function () {
+                                modalUtil.toggleClear($('#addTestQuestion'));
+                                //TODO 这里是已经进行了pjax的方法了的,但是会请求两次，第二次是没有pjax请求的，暂时不清楚怎么回事
+                                $.pjax.reload("#page-inner");
+                            }
                         });
-                    else
-                        Util.showTip($('#saveTestQuestionTip'),data.msg,"alert alert-warning");
+                    else {
+                        Util.showTip($('#saveTestQuestionTip'), data.msg, "alert alert-warning");
+                        btn.stop();
+                    }
+
                 },
-                error:function(){
-                    Util.showTip($('#saveTestQuestionTip'),"服务器错误","alert alert-danger");
-                },
-                complete: function () {
+                error: function () {
+                    Util.showTip($('#saveTestQuestionTip'), "服务器错误", "alert alert-danger");
                     btn.stop();
                 }
             });
@@ -510,3 +527,9 @@ var modalUtil = {
         modal.modal('toggle');
     }
 };
+var Test = {
+    testPjaxReload: function () {
+        $.pjax.reload({container: '#page-inner'});
+    }
+};
+

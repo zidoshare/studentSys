@@ -11,6 +11,6 @@ import java.util.List;
 @SuppressWarnings("serial")
 public class Role extends BaseRole<Role> {
 	public static final Role dao = new Role();
-	public static final String SEARCH_FROM_ROLE = "select * from stumanager_role";
+	public static final String SEARCH_FROM_ROLE = "select * from stumanager_role ";
 	public ArrayTree<Mapping> allowTree = null;
 }

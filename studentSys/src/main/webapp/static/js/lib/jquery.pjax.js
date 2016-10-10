@@ -385,7 +385,6 @@ function pjaxReload(container, options) {
     replace: true,
     scrollTo: false
   }
-
   return pjax($.extend(defaults, optionsFor(container, options)))
 }
 

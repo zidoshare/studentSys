@@ -5,6 +5,7 @@ import com.hudongwx.studentsys.exceptions.ServiceException;
 import com.hudongwx.studentsys.model.Mapping;
 import com.hudongwx.studentsys.model.Role;
 import com.hudongwx.studentsys.util.ArrayTree;
+import com.hudongwx.studentsys.util.RenderKit;
 import com.hudongwx.studentsys.util.StrPlusKit;
 import com.jfinal.log.Log;
 
@@ -130,5 +131,9 @@ public class RoleService extends Service {
 
     public Role getRoleById(Integer id) {
         return Role.dao.findById(id);
+    }
+
+    public List<Role> getRoleByMapping(Mapping mapping) {
+        return Role.dao.find(Role.SEARCH_FROM_ROLE+"where treeData like '%"+mapping.getId()+"%'");
     }
 }
