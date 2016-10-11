@@ -29,10 +29,14 @@ public class TestQuestionnaireService extends Service {
     }
 
     public List<TestQuestionnaire> getQuestionnaireByStudent(Student student) {
+        if(student == null)
+            return new ArrayList<>();
         return getQuestionnaireByClass(classService.getClassByStudent(student));
     }
 
     public List<TestQuestionnaire> getQuestionnaireByUser(User user) {
+        if(user == null)
+            return new ArrayList<>();
         return getQuestionnaireByStudent(studentService.getStudentByUser(user));
     }
 }

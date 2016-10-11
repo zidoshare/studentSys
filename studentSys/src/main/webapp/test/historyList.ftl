@@ -3,8 +3,6 @@
 <div class="panel-heading title">
     考试历史
 </div>
-</@item>
-<@item>
 <div class="panel-body">
     <div class="table-responsive">
         <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline" role="grid">

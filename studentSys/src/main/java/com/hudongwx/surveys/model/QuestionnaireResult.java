@@ -9,6 +9,7 @@ import com.hudongwx.surveys.service.Node;
 @SuppressWarnings("serial")
 public class QuestionnaireResult extends BaseQuestionnaireResult<QuestionnaireResult> {
 	public static final QuestionnaireResult dao = new QuestionnaireResult();
+	public static final String SEARCH_FROM_QUESTIONNAIRE_RESULT = "select * from surveys_t_questionnaire_result ";
 	private Node user ;
 	private int count;
 	public Node getUser() {

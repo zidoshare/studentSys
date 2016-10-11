@@ -1,12 +1,12 @@
 <#include "../macro-title.ftl">
 <#include "../macro-item.ftl">
-<@title title="参加考试">
-</@title>
 <#if testing?size gt 0>
 <div class="row animate">
     <div class="col-md-12">
         <div class="panel panel-default item">
-            <div class="panel-heading"></div>
+            <div class="panel-heading title">
+                ${view.title}
+            </div>
             <div class="panel-body">
 
                 <div class="jumbotron">

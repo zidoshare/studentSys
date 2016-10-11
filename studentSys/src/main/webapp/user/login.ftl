@@ -8,7 +8,7 @@
 <body>
 <div class="wrapper">
     <div class="container">
-        <h1>Welcome</h1>
+        <h1>CRM管理系统</h1>
         <form class="form">
             <input type="text" id="account" name="account" placeholder="账号">
             <input type="password" id="password" name="password" placeholder="密码">
@@ -36,6 +36,9 @@
         <li></li>
     </ul>
 
+</div>
+<div class="to-bottom text-black text-center">
+    版权所有:成都互动无限有限公司
 </div>
 </body>
 </html>

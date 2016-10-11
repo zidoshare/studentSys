@@ -14,7 +14,7 @@ public class ClassService extends Service {
         return Class.dao.findById(id);
     }
     public Class getClassByClassName(String className){
-        return Class.dao.findFirst(Class.SEARCH_FROM_CLASS+"where className = "+className);
+        return Class.dao.findFirst(Class.SEARCH_FROM_CLASS+"where className = ?",className);
     }
     public Class getClassByStudent(Student stu){
         return getClassByClassName(stu.getClassName());

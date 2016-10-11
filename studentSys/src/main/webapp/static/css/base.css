@@ -320,6 +320,9 @@ td, th {
     /*text-align: center;*/
     white-space: nowrap;
 }
+.text-black{
+    color:black !important;
+}
 
 .myhk_pjax_loading_frame  {
     position: fixed;

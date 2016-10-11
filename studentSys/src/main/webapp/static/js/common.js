@@ -38,7 +38,7 @@ var Login = {
                     if (data.state == "success") {
                         $("form").fadeOut(500);
                         $(".wrapper").addClass("form-success");
-                        Util.showTip($("#loginTip"), data.msg, 'alert alert-success');
+                        //Util.showTip($("#loginTip"), data.msg, 'alert alert-success');
                         setTimeout(function () {
                             location.href = "/";
                         }, 1000);
@@ -179,6 +179,7 @@ var Util = {
                 tip.css("display", "none");
                 tip.attr("aria-label", "0");
                 defaults.complete();
+                tip.attr('class','');
             });
 
     },

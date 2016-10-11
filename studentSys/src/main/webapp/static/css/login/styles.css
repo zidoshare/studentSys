@@ -5,10 +5,18 @@
   padding: 0;
   font-weight: 300;
 }
+html{
+  height:100%;
+}
 body {
   font-family: 'Source Sans Pro', sans-serif;
   color: white;
   font-weight: 300;
+  height:100%;
+  background: #50a3a2;
+  background: -webkit-linear-gradient(top left, #50a3a2 0%, #53e3a6 100%);
+  background: linear-gradient(to bottom right, #50a3a2 0%, #53e3a6 100%)!important;
+  opacity: 0.8;
 }
 body ::-webkit-input-placeholder {
   /* WebKit browsers */
@@ -37,18 +45,12 @@ body :-ms-input-placeholder {
   font-weight: 300;
 }
 .wrapper {
-  background: #50a3a2;
-  background: -webkit-linear-gradient(top left, #50a3a2 0%, #53e3a6 100%);
-  background: linear-gradient(to bottom right, #50a3a2 0%, #53e3a6 100%);
-  opacity: 0.8;
   position: absolute;
   top: 50%;
-  left: 0;
   width: 100%;
   height: 400px;
   margin-top: -200px;
   overflow: hidden;
-
 }
 
 .wrapper.form-success .container h1 {
@@ -62,6 +64,8 @@ body :-ms-input-placeholder {
   padding: 80px 0;
   height: 400px;
   text-align: center;
+  /*border-radius: 5px;
+  border:2px solid #c5e4c5;*/
 }
 .container h1 {
   font-size: 40px;
@@ -231,4 +235,12 @@ form button:hover {
     -webkit-transform: translateY(-700px) rotate(600deg);
             transform: translateY(-700px) rotate(600deg);
   }
+}
+.to-bottom{
+  position: absolute;
+  top:95%;
+  width:100%;
+}
+.text-black{
+  color:gray !important;
 }

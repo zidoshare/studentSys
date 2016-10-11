@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.hudongwx.studentsys.common.BaseController;
-import com.hudongwx.studentsys.model.Class;
 import com.hudongwx.studentsys.model.Student;
 import com.hudongwx.studentsys.model.User;
 import com.hudongwx.studentsys.service.ClassService;
@@ -16,6 +15,7 @@ import com.hudongwx.studentsys.util.RenderKit;
 import com.hudongwx.studentsys.util.StrPlusKit;
 import com.hudongwx.surveys.model.*;
 import com.hudongwx.surveys.service.Node;
+import com.hudongwx.surveys.service.QuestionnaireResultService;
 import com.hudongwx.surveys.service.SurveysService;
 import com.jfinal.aop.Before;
 import com.jfinal.ext.interceptor.POST;
@@ -32,6 +32,7 @@ public class SurveysController extends BaseController {
     public StudentService studentService;
     public UserService userService;
     public ClassService classService;
+    public QuestionnaireResultService questionnaireResultService;
     private Log log = Log.getLog(getClass());
 
     /*public void index() {
@@ -50,8 +51,14 @@ public class SurveysController extends BaseController {
         }
         setAttr("student", student);
         List<Questionnaire> surveying = surveysService.getQuestionnaireByClassNameAndDate(student.getClassName());
-        //正在考试列表
+        //正在调查列表
         setAttr("surveying", surveying);
+        Map<String, String> states = new HashMap<>();
+        for (Questionnaire q : surveying) {
+            QuestionnaireResult questionnaireResult = questionnaireResultService.getQuestionnaireResultByStudentAndQuestionnaire(student,q);
+            states.put(q.getId()+"",questionnaireResult==null?"未提交":"已提交");
+        }
+        setAttr("states",states);
         //所有的
         List<Questionnaire> questionnaires = surveysService.getQuestionnairesByClassName(student.getClassName());
         setAttr("questionnaires", questionnaires);
@@ -230,14 +237,14 @@ public class SurveysController extends BaseController {
         surveysService.register(student);
         int questionSize = 0;
         Questionnaire questionnaire = surveysService.getQuestionnaireById(id);
-        if(null == questionnaire){
+        if (null == questionnaire) {
             renderError(404);
-            return ;
+            return;
         }
         surveysService.generatorQuestionnaire(questionnaire);
-        if(!questionnaire.getClassName().equals(student.getClassName()) || Long.valueOf(questionnaire.getDate()) > System.currentTimeMillis() || Long.valueOf(questionnaire.getEndTime()) < System.currentTimeMillis()){
+        if (!questionnaire.getClassName().equals(student.getClassName()) || Long.valueOf(questionnaire.getDate()) > System.currentTimeMillis() || Long.valueOf(questionnaire.getEndTime()) < System.currentTimeMillis()) {
             renderError(404);
-            return ;
+            return;
         }
         questionSize += QuestionsQuestionnaire.dao.find("select * from surveys_t_questions_questionnaire where id_questionnaire = ?", "" + questionnaire.getId()).size() + 1;
         /*for (int i = 1; getPara(i) != null; i++) {

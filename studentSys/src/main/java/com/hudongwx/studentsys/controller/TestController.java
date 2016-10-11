@@ -40,6 +40,11 @@ public class TestController extends BaseController{
         setAttr("testing",questionnaires);
         setAttr("nowTime",System.currentTimeMillis());
     }
+    public void testList(){
+        setMapping(mappingService.getMappingByUrl("/test/testList"));
+        super.index();
+        
+    }
     public void to(){
         setMapping(mappingService.getMappingByTitle("参加考试"));
         super.index();
