@@ -41,6 +41,8 @@
                         <td>${q.testQuestionnaireOperater}</td>
                         <#if updateAble || deleteAble>
                             <td>
+                                <@macroUpdateBtn q.id></@macroUpdateBtn>
+                                <@macroDeleteBtn q.id></@macroDeleteBtn>
                                 <#if updateAble>
                                     ${updateBtn}/
                                 </#if>

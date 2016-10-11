@@ -107,6 +107,10 @@ label {
 .clear-margin {
     margin: 0;
 }
+.img-sm{
+    width:40px;
+    height:40px;
+}
 
 .top {
     position: fixed;
@@ -288,9 +292,6 @@ ul.nav li:hover {
     margin-top: 10px;
 }
 
-.far-bottom {
-    margin-bottom: 20px;
-}
 
 .far-away-top {
     margin-top: 50px;
@@ -345,14 +346,14 @@ a {
     color: #000000;
 }
 
-a.res {
+.res {
     font-size: 14px;
     color: #00cb66;
     position: relative;
     cursor: pointer;
 }
 
-a.res:after {
+.res:after {
     content: "";
     position: absolute;
     width: 100%;
@@ -362,15 +363,26 @@ a.res:after {
     left: 0;
 }
 
-a.res:hover {
+.res:hover {
     border: none;
     color: black;
 }
 
-a.res:hover:after {
+.res:hover:after {
     height: 0;
 }
-
+.out-link{
+    display: block;
+    min-width:90px;
+    margin-left: 10px;
+    margin-top:10px;
+    margin-bottom:10px;
+    padding:5px;
+    border:1px solid #ECECEC;
+    -webkit-border-radius:2px;
+    -moz-border-radius:2px;
+    border-radius:2px;
+}
 .progress-loading {
     position: fixed;
     top: 0px;
