@@ -134,7 +134,23 @@
                 <mapping id="3002" icon="testList" title="试卷列表" url="/test/testList" function="3">
                     <mappings>
                         <mapping id="3003" icon="testList" title="试卷列表" url="/test/testList.ftl" function="1">
-                            <mappings/>
+                            <mappings>
+                                <mapping id="3020" icon="addTestQuestionnaire" title="添加试卷"
+                                         url="addTestQuestionnaire"
+                                         function="0">
+                                    <mappings/>
+                                </mapping>
+                                <mapping id="3021" icon="updateTestQuestionnaire" title="修改"
+                                         url="updateTestQuestionnaire"
+                                         function="0">
+                                    <mappings/>
+                                </mapping>
+                                <mapping id="3022" icon="deleteTestQuestionnaire" title="删除"
+                                         url="deleteQuestionnaire"
+                                         function="0">
+                                    <mappings/>
+                                </mapping>
+                            </mappings>
                         </mapping>
                     </mappings>
                 </mapping>

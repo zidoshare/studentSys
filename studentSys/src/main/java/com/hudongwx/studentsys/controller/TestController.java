@@ -43,7 +43,12 @@ public class TestController extends BaseController{
     public void testList(){
         setMapping(mappingService.getMappingByUrl("/test/testList"));
         super.index();
-        
+        List<TestQuestionnaire> allTestQuestionnaire = testQuestionnaireService.getAllTestQuestionnaire();
+        setAttr("questionnaires",allTestQuestionnaire);
+        /*Map<String,String> msgMap = new HashMap<>();
+        for(TestQuestionnaire tq : allTestQuestionnaire){
+            testQuestionnaireService.getMsgMapByQuestionnaire(tq);
+        }*/
     }
     public void to(){
         setMapping(mappingService.getMappingByTitle("参加考试"));

@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    $('#purikura').css('background', 'url("../../images/logo.gif") no-repeat center center');
+    $('#purikura').css('background', 'url("../../images/logo.png") no-repeat center center');
     Animate.loadWrapper();
     var Label = {
         staticServePath: "${staticServePath}",

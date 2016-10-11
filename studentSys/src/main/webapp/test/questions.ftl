@@ -68,29 +68,32 @@
                                     </#list>
                                 </div>
                             </div>
-                            <#assign xx = ['A','B','C','D','E','F','G']>
-                            <#list testTypeMap["${question.testQuestionTypeId}"].typeLimit?eval as model>
-                                <#if model="shortModel">
-                                    <div class="panel-body">
-                                        <p><label>选项:</label></p>
-                                        <#list question.testQuestionContent?eval as s>
-                                        <div><span>${xx[s_index]}: ${s}</span></div>
-                                        </#list>
+                            <div class="panel-body">
+                                <#assign xx = ['A','B','C','D','E','F','G']>
+                                <#list testTypeMap["${question.testQuestionTypeId}"].typeLimit?eval as model>
+                                    <#if model="shortModel">
+                                        <div class="panel-body">
+                                            <p><label>选项:</label></p>
+                                            <#list question.testQuestionContent?eval as s>
+                                                <div><span>${xx[s_index]}: ${s}</span></div>
+                                            </#list>
+                                            <p><label>答案:</label></p>
+                                            <#list question.testQuestionShortAnswer?eval as answer>
+                                                <span>${answer}</span>
+                                            </#list>
+                                        </div>
+                                    <#else>
                                         <p><label>答案:</label></p>
-                                        <#list question.testQuestionShortAnswer?eval as answer>
-                                            <span>${answer}</span>
-                                        </#list>
-                                    </div>
-                                <#else>
-                                    <p><label>答案:</label></p>
-                                    <span>${question.testQuestionLongAnswer}</span>
-                                </#if>
-                                <p><label>标签:</label></p>
+                                        <span>${question.testQuestionLongAnswer}</span>
+                                    </#if>
+                                </#list>
+                            </div>
+                            <div class="panel-footer">
+                                <label>标签:</label>
                                 <#list testQuestionTags["${question.id}"] as tag>
                                     <span>${tag.tagName}</span>
                                 </#list>
-                            </#list>
-
+                            </div>
                         </div>
                     </td>
                 </tr>

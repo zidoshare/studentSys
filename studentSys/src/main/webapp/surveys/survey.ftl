@@ -141,15 +141,15 @@
         function formatDuring(mss) {
             var days = parseInt(mss / (1000 * 60 * 60 * 24));
             var hours = parseInt((mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-//            var minutes = parseInt((mss % (1000 * 60 * 60)) / (1000 * 60));
-            minutes = parseInt(mss / (1000 * 60));
+            minutes = parseInt((mss % (1000 * 60 * 60)) / (1000 * 60));
+            //minutes = parseInt(mss / (1000 * 60));
             var min = getzf(minutes);
             var seconds = parseInt((mss % (1000 * 60)) / 1000);
 
             mm = parseInt(mss % 1000);
             var mmmin = get3zf(mm);
-            return min + " 分 "
-                    + mmmin + " 毫秒 ";
+            return getzf(hours)+":"+ min + ":"
+                    + getzf(seconds);
         }
 
         //获得年月日      得到日期oTime

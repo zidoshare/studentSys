@@ -97,7 +97,9 @@ label {
 #page-wrapper {
     min-height: 0;
 }
-
+#count-down{
+    font-size:25px;
+}
 .clear-padding {
     padding: 0;
 }

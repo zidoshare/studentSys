@@ -33,4 +33,20 @@ public abstract class BaseTestQuestionnaireClass<M extends BaseTestQuestionnaire
 		return get("testQuestionnaireId");
 	}
 
+	public void setTestQuestionnaireStartTime(java.lang.Long testQuestionnaireStartTime) {
+		set("testQuestionnaireStartTime", testQuestionnaireStartTime);
+	}
+
+	public java.lang.Long getTestQuestionnaireStartTime() {
+		return get("testQuestionnaireStartTime");
+	}
+
+	public void setTestQuestionnaireEndTime(java.lang.Long testQuestionnaireEndTime) {
+		set("testQuestionnaireEndTime", testQuestionnaireEndTime);
+	}
+
+	public java.lang.Long getTestQuestionnaireEndTime() {
+		return get("testQuestionnaireEndTime");
+	}
+
 }

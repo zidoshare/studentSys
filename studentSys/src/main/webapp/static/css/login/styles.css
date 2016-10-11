@@ -9,14 +9,14 @@ html{
   height:100%;
 }
 body {
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "微软雅黑", Helvetica, Arial, sans-serif;
   color: white;
   font-weight: 300;
   height:100%;
   background: #50a3a2;
   background: -webkit-linear-gradient(top left, #50a3a2 0%, #53e3a6 100%);
   background: linear-gradient(to bottom right, #50a3a2 0%, #53e3a6 100%)!important;
-  opacity: 0.8;
+  /*opacity: 0.8;*/
 }
 body ::-webkit-input-placeholder {
   /* WebKit browsers */
@@ -87,7 +87,7 @@ form input {
   outline: 0;
   border: 1px solid rgba(255, 255, 255, 0.4);
   background-color: rgba(255, 255, 255, 0.2);
-  width: 250px;
+  width: 300px;
   border-radius: 3px;
   padding: 10px 15px;
   margin: 0 auto 10px auto;
@@ -104,7 +104,7 @@ form input:hover {
 }
 form input:focus {
   background-color: white;
-  width: 300px;
+  width: 350px;
   color: #53e3a6;
 }
 form button {
@@ -117,7 +117,7 @@ form button {
   padding: 10px 15px;
   color: #53e3a6;
   border-radius: 3px;
-  width: 250px;
+  width: 300px;
   cursor: pointer;
   font-size: 18px;
   -webkit-transition-duration: 0.25s;
@@ -243,4 +243,18 @@ form button:hover {
 }
 .text-black{
   color:gray !important;
+}
+.text-bg{
+  font-size:40px;
+  font-weight: 500;
+  margin-right:5px;
+}
+.text-md{
+  font-size:25px;
+  font-weight: 500;
+}
+.text-sm{
+  font-size:16px;
+  font-weight: 500;
+  font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", "Microsoft Yahei", sans-serif;
 }

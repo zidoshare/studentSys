@@ -5,7 +5,9 @@ import com.hudongwx.studentsys.model.*;
 import com.hudongwx.studentsys.model.Class;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -38,5 +40,19 @@ public class TestQuestionnaireService extends Service {
         if(user == null)
             return new ArrayList<>();
         return getQuestionnaireByStudent(studentService.getStudentByUser(user));
+    }
+
+    public Map<String, String> getMsgMapByQuestionnaire(TestQuestionnaire tq) {
+        List<TestQuestionnaireClass> questionnaireClasses = TestQuestionnaireClass.dao.find(TestQuestionnaireClass.SEARCH_FROM_TEST_QUESTIONNAIRE_CLASS + "where testQuestionnaireId = ?", tq.getId());
+        Map<String,String> msgMap = new HashMap<>();
+        for(TestQuestionnaireClass tqc : questionnaireClasses){
+            msgMap.put(tq.getId()+"-"+tqc.getClassId()+"StartTime",tqc.getTestQuestionnaireStartTime()+"");
+            msgMap.put(tq.getId()+"-"+tqc.getClassId()+"EndTime",tqc.getTestQuestionnaireEndTime()+"");
+            Class aClass = classService.getClassById(tqc.getClassId());
+            msgMap.put(tq.getId()+"-classId",aClass.getId()+"");
+            msgMap.put(tq.getId()+"-"+tqc.getClassId()+"className",aClass.getClassName());
+        }
+        return msgMap;
+
     }
 }

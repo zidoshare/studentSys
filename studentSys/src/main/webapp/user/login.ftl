@@ -3,14 +3,15 @@
 <html lang="zh-CN">
 <head>
     <@head title="登录">
+        <link rel="Shortcut Icon" href="../images/favicon.ico" />
     </@head>
 </head>
 <body>
 <div class="wrapper">
     <div class="container">
-        <h1>CRM管理系统</h1>
+        <h1><span class="text-bg">CRM</span><span class="text-md">管理系统</span></h1>
         <form class="form">
-            <input type="text" id="account" name="account" placeholder="账号">
+            <input type="text" id="account" name="account" placeholder="账号/手机号">
             <input type="password" id="password" name="password" placeholder="密码">
             <button data-style="slide-up" id="login-btn" class="btn btn-lg ladda-button" data-spinner-color="#75d9b7" data-size="s" tabindex="10" onclick="Login.login()">
                 <span class="ladda-label">登录</span>
@@ -37,8 +38,8 @@
     </ul>
 
 </div>
-<div class="to-bottom text-black text-center">
-    版权所有:成都互动无限有限公司
+<div class="to-bottom text-center text-sm">
+    Copyright © 2014-2016 互动无限科技有限公司
 </div>
 </body>
 </html>
