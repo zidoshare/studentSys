@@ -444,6 +444,11 @@ var func = {
             });
         }
     },
+    updateTestQuestion: function (method,id) {
+        modalUtil.toggleClear($('#addTestQuestion'));
+        $('#id').val(id);
+        
+    },
     updateUser: function (method) {
         if (method == 'show') {
 

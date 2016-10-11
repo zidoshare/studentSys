@@ -89,3 +89,8 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).on('pjax:complete', function () { //pjax链接加载完成后隐藏加载动画；
+        Animate.reDraw();
+    });
+</script>

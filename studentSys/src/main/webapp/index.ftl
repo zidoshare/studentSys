@@ -17,7 +17,7 @@
         <div class="row animate">
             <div class="col-md-12">
                 <div class="panel panel-default item">
-                    <h1 align="center">权限bugou...</h1>
+                    <h1 align="center">权限不够...</h1>
                 </div>
             </div>
         </div>

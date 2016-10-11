@@ -8,4 +8,5 @@ import com.hudongwx.studentsys.common.BaseTestTagQuestion;
 @SuppressWarnings("serial")
 public class TestTagQuestion extends BaseTestTagQuestion<TestTagQuestion> {
 	public static final TestTagQuestion dao = new TestTagQuestion();
+	public static final String SEARCH_FROM_TEST_TAG_QUESTION = "select * from stumanager_test_tag_question ";
 }

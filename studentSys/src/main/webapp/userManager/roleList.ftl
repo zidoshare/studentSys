@@ -148,3 +148,12 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $('input[data-arialabel="1"]').change(function () {
+                if ($(this).prop('checked')) {
+                    var id = $(this).attr('id');
+                    func.showPermissions(id, 'permission' + id);
+                }
+            }
+    );
+</script>

@@ -61,8 +61,14 @@ public class TestController extends BaseController{
         setAttr("testTypeMap",testTypeMap);
         List<TestTag> tags = testTagService.getAllTestTag();
         setAttr("tags",tags);
+
         List<TestQuestion> allQuestions = testQuestionService.getAllQuestions();
         setAttr("questions",allQuestions);
+        Map<String,List<TestTag>> testQuestionTagsMap = new HashMap<>();
+        for(TestQuestion tq : allQuestions){
+            testQuestionTagsMap.put(tq.getId()+"",testTagService.getTagsByQuestion(tq));
+        }
+        setAttr("testQuestionTags",testQuestionTagsMap);
         //能够进行添加题目的角色
         Mapping mapping = mappingService.getMappingByUrl("addTestQuestion");
         List<Role> roles = roleService.getRoleByMapping(mapping);

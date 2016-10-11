@@ -1,16 +1,14 @@
 <#include "../macro-item.ftl">
 <@item>
-<div class="panel-heading title">
-${view.title}
-</div>
-</@item>
-<@item>
 <div class="panel-heading">
-    <div class="btn-group">
+    <div class="panel-heading title">
+    ${view.title}
         <#assign updateAble = false>
         <#assign deleteAble = false>
         <#list map["operators"+view.id] as op>
-            <a onclick="func.${op.url}('show');" class="btn btn-success btn-sm">${op.title}</a>
+            <#if op.title=="添加">
+                <a class="btn btn-success pull-right">添加</a>
+            </#if>
             <#if op.title=="编辑">
                 <#assign updateAble = true>
             </#if>
@@ -18,7 +16,6 @@ ${view.title}
                 <#assign deleteAble = true>
             </#if>
         </#list>
-        <a onclick="Test.testPjaxReload()" class="btn btn-success btn-sm">测试reload</a>
     </div>
 </div>
 <div class="panel-body">
@@ -40,15 +37,12 @@ ${view.title}
                 <th>
                     创建人
                 </th>
-                <#if updateAble || deleteAble>
-                    <th>操作</th>
-                </#if>
             </tr>
             </thead>
             <tbody>
                 <#list questions as question>
                 <tr id="tr${question.id}" class="showQuestion">
-                    <td width="30%"
+                    <td width="40%"
                         style="overflow:hidden;WORD-WRAP: break-word;white-space:nowrap;text-overflow:ellipsis;">${question.testQuestionTitle}</td>
                     <td width="20%">
                     ${testTypeMap["${question.testQuestionTypeId}"].typeName}
@@ -56,24 +50,23 @@ ${view.title}
                     <td width="20%">
                     ${((question.testQuestionCreateTime)?number)?number_to_datetime}
                     </td>
-                    <td width="15%">
+                    <td width="20%">
                     ${userMap["${question.testQuestionOperaterId}"].userNickname}
                     </td>
-                    <#if updateAble || deleteAble>
-                        <td width="15%"><#list map["operators"+view.id] as op>
-                            <#if op_index gt 0>/</#if>
-                            <a onclick="func.${op.url}('show');" class="res">${op.title}</a>
-                            <#if op.title == "删除">
-                                <#break >
-                            </#if>
-                        </#list></td>
-                    </#if>
                 </tr>
                 <tr id="show-tr${question.id}" class="question-panel sr-only">
-                    <td colspan="<#if updateAble || deleteAble>5<#else>4</#if>">
+                    <td colspan="<#if updateAble || deleteAble>4<#else>3</#if>">
                         <div class="panel panel-success far-top">
                             <div class="panel-heading">
                                 <label class="panel-title">${question.testQuestionTitle}</label class="panel-title">
+                                <div class="pull-right">
+                                    <#list map["operators"+view.id] as op>
+                                        <#if op.title != "添加">
+                                        <a onclick="func.${op.url}('show','${question.id}');" class="res">${op.title}</a>
+                                        <#if op_index < map["operators"+view.id]?size - 1>/</#if>
+                                        </#if>
+                                    </#list>
+                                </div>
                             </div>
                             <#assign xx = ['A','B','C','D','E','F','G']>
                             <#list testTypeMap["${question.testQuestionTypeId}"].typeLimit?eval as model>
@@ -92,6 +85,10 @@ ${view.title}
                                     <p><label>答案:</label></p>
                                     <span>${question.testQuestionLongAnswer}</span>
                                 </#if>
+                                <p><label>标签:</label></p>
+                                <#list testQuestionTags["${question.id}"] as tag>
+                                    <span>${tag.tagName}</span>
+                                </#list>
                             </#list>
 
                         </div>
@@ -129,6 +126,13 @@ ${view.title}
                                     data-label="${type.typeLimit?html}">${type.typeName}</option>
                         </#list>
                         </select>
+                    </div>
+                    <div class="form-group sr-only">
+                        <label for="id" class="col-sm-2 control-label">id</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="testQuestion.id" id="id"
+                                   placeholder="id" disabled>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="tags">标签（使用英文输入状态下的逗号进行分隔）：<a class="res"

@@ -121,12 +121,12 @@
                                          title="删除">
                                     <mappings/>
                                 </mapping>
-                                <mapping id="3010" icon="addToTest" url="addToTest" function="0" title="添加到试卷">
+                                <!--<mapping id="3010" icon="addToTest" url="addToTest" function="0" title="添加到试卷">
                                     <mappings/>
                                 </mapping>
                                 <mapping id="3011" icon="testManage" url="testManage" function="0" title="当前试卷管理">
                                     <mappings/>
-                                </mapping>
+                                </mapping>-->
                             </mappings>
                         </mapping>
                     </mappings>
