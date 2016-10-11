@@ -1,7 +1,9 @@
 package com.hudongwx.studentsys;
 
+import com.hudongwx.studentsys.util.Common;
 import com.jfinal.handler.Handler;
 import com.jfinal.kit.HandlerKit;
+import com.jfinal.log.Log;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
  * Created by wuhongxu on 2016/8/31 0031.
  */
 public class RequestHandler extends Handler {
+    private Log log = Log.getLog(getClass());
     /**
      * Handle target
      *

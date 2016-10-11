@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    $('#purikura').css('background', 'url("../../images/logo.png") no-repeat center center');
+    $('#purikura').css('background', 'url("${staticServePath}/images/logo.png") no-repeat center center');
     Animate.loadWrapper();
     var Label = {
         staticServePath: "${staticServePath}",
@@ -52,7 +52,7 @@
         var score = s.join("&");
         $.ajax({
             type: "post",
-            url: "/surveys/postQuestion",
+            url: "${staticServePath}/surveys/postQuestion",
             data: {
                 "questions.title": title,
                 "questions.type": type,
@@ -89,7 +89,7 @@
         var evt = arguments.callee.caller.arguments[0] || window.event;
         evt.preventDefault();
         evt.stopPropagation();
-        $('#check').load("/surveys/getTable/" + id);
+        $('#check').load("${staticServePath}/surveys/getTable/" + id);
         $('#myModal').modal('toggle');
     }
     /*

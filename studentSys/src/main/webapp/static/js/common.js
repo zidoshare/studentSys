@@ -31,7 +31,7 @@ var Login = {
             };
             $.ajax({
                 type: "post",
-                url: "/user/login",
+                url: Label.staticServePath+"/user/login",
                 dataType: "json",
                 data: jsonObj,
                 success: function (data) {
@@ -40,7 +40,7 @@ var Login = {
                         $(".wrapper").addClass("form-success");
                         //Util.showTip($("#loginTip"), data.msg, 'alert alert-success');
                         setTimeout(function () {
-                            location.href = "/";
+                            location.href = Label.staticServePath+"/";
                         }, 1000);
                     } else {
                         Util.showTip($("#loginTip"), "账号或密码错误!", 'alert alert-danger');
@@ -62,7 +62,7 @@ var Login = {
 
     },
     loginOut: function () {
-        window.location.href = "/user/loginOut";
+        window.location.href = Label.staticServePath+"/user/loginOut";
     }
 };
 var Validate = {
@@ -300,7 +300,7 @@ var func = {
                 json[$(this).attr('name')] = $(this).val();
             });
             $.ajax({
-                url: '/userManager/addRole',
+                url: Label.staticServePath+'/userManager/addRole',
                 type: 'post',
                 data: json,
                 dataType: "json",
@@ -332,7 +332,7 @@ var func = {
             });
             $('#createTime').val(new Date().getTime());
             $.ajax({
-                url: '/userManager/addUser',
+                url: Label.staticServePath+'/userManager/addUser',
                 type: 'post',
                 data: json,
                 dataType: "json",
@@ -363,7 +363,7 @@ var func = {
                 json[$(this).attr('name')] = $(this).val();
             });
             $.ajax({
-                url: '/studentManager/addStudent',
+                url: Label.staticServePath+'/studentManager/addStudent',
                 type: 'post',
                 data: json,
                 dataType: "json",
@@ -413,7 +413,7 @@ var func = {
                     json[$(this).attr('name')] = $(this).val();
             });
             $.ajax({
-                url: "/test/addTestQuestion",
+                url: Label.staticServePath+"/test/addTestQuestion",
                 dataType: 'json',
                 type: 'post',
                 data: json,
@@ -468,7 +468,7 @@ var func = {
     showPermissions: function (left, mappingId, divId, method) {
         if (method == 'all') {
             $.ajax({
-                url: '/userManager/showAllPermissons/' + mappingId,
+                url: Label.staticServePath+'/userManager/showAllPermissons/' + mappingId,
                 type: 'get',
                 success: function (data) {
                     if (data.state == 'success') {
@@ -500,7 +500,7 @@ var func = {
             return;
         }
         $.ajax({
-            url: '/userManager/showPermissions/' + mappingId,
+            url: Label.staticServePath+'/userManager/showPermissions/' + mappingId,
             type: 'get',
             success: function (data) {
                 if (data.state == 'success') {

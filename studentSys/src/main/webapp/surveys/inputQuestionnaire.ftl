@@ -154,7 +154,7 @@
             "questionsId": ids
         }
         $.ajax({
-            url: "/surveys/postQuestionnaire",
+            url: "${staticServePath}/surveys/postQuestionnaire",
             type: "post",
             data: jsonObj,
             success: function (data, status) {
@@ -181,7 +181,7 @@
     }
     function createTime() {
         $.ajax({
-            url: "/surveys/getNowTime",
+            url: "${staticServePath}/surveys/getNowTime",
             type: "get",
             success: function (data, status) {
                 if (data.state == "success") {

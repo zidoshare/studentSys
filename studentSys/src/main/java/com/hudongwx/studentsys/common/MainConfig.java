@@ -6,6 +6,7 @@ import com.hudongwx.surveys.common.SurveysRoutes;
 import com.hudongwx.studentsys.util.Common;
 import com.hudongwx.studentsys.util.LangConfig;
 import com.jfinal.config.*;
+import com.jfinal.ext.handler.ContextPathHandler;
 import com.jfinal.kit.Prop;
 import com.jfinal.kit.PropKit;
 import com.jfinal.log.Log;
@@ -71,6 +72,7 @@ public class MainConfig extends JFinalConfig{
 
     public void configHandler(Handlers me) {
         me.add(new RequestHandler());
+        me.add(new ContextPathHandler(Common.LABEL_STATIC_SERVE_PATH));
         if(Common.getMainProp().getBoolean("devMode"))
             Build.buildControl();
     }

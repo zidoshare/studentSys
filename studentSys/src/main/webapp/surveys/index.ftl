@@ -66,7 +66,7 @@
         };
         $.ajax({
             type: "post",
-            url: "/registerName",
+            url: "${staticServePath}/registerName",
             dataType: "json",
             data: jsonObj,
             success: function (data) {

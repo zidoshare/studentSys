@@ -38,7 +38,7 @@
                                     </#if>
                                 </td>
                                 <td>
-                                    <a href="/surveys/questionnaire/${q.id}" class="text-success"
+                                    <a href="${staticServePath}/surveys/questionnaire/${q.id}" class="text-success"
                                        target="_blank">快速开始>></a>
                                 </td>
                             </tr>

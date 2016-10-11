@@ -8,7 +8,7 @@
         <div class="purikura center-block" id="purikura"></div>
         <div class="text-center">
             <span class="bottom-border tip-container">
-                <a class="h3" href="">${user.userNickname}</a>
+                <a class="h3" href="${staticServePath}">${user.userNickname}</a>
                 <i class="fa fa-edit text-success"></i>
             </span>
             <p style="padding-top:0;">
@@ -30,14 +30,14 @@
         <#assign index = 0>
         <#list sides as side>
             <li <#if side.title == now.title>class="active-menu"</#if>>
-                <a href="${side.url}"><i class="${side.icon}"></i>${side.title}<#if menuSize[tag] gt 0><span
+                <a href="${staticServePath}${side.url}"><i class="${side.icon}"></i>${side.title}<#if menuSize[tag] gt 0><span
                         class="fa arrow"></span></#if></a>
                 <#if menuSize[tag] gt 0>
                     <#assign index += menuSize[tag]>
                     <#list start..index-1 as x >
                         <ul class="nav nav-third-level collapse">
                             <li>
-                                <a href="${childSides[x].url}"><i
+                                <a href="${staticServePath}${childSides[x].url}"><i
                                         class="${childSides[x].icon}"></i>${childSides[x].title}</a>
                             </li>
                         </ul>

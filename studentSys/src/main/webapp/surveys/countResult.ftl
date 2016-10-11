@@ -43,7 +43,7 @@
 </div>
 <script type="text/javascript">
     $('tr[data-label="open-count"]').on('click', function () {
-        window.open("/surveys/result/" + $(this).attr('id'));
+        window.open("${staticServePath}/surveys/result/" + $(this).attr('id'));
     });
 </script>
 </body>

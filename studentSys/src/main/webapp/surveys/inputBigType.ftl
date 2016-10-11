@@ -41,7 +41,7 @@
         var sort = $("#sort").val();
         $.ajax({
             type: "post",
-            url: "/surveys/postBigType",
+            url: "${staticServePath}/surveys/postBigType",
             data: {
                 "questionBigType.name": name,
                 "questionBigType.sort_flag": sort

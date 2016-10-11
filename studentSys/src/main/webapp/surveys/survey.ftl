@@ -328,14 +328,14 @@
         mode["questionnaireResult.questions_reply"] = JSON.stringify(reply);
 
         $.ajax({
-            url: "/surveys/postQresult",
+            url: "${staticServePath}/surveys/postQresult",
             type: "post",
             data: mode,
             success: function (data, textstatus) {
                 if (data.state == 'success') {
                     Util.showTip($('#submitTip'), '${questionnaire.toUser}情况调查表 ' + data.msg, 'alert alert-success');
                     setTimeout(function () {
-                        window.location.href = "/";
+                        window.location.href = "${staticServePath}/";
                     }, 1000);
                 }
                 if (data.state == 'error') {

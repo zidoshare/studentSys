@@ -1,5 +1,6 @@
 package com.hudongwx.surveys.common;
 
+import com.hudongwx.studentsys.util.Common;
 import com.hudongwx.surveys.controller.SurveysController;
 import com.hudongwx.studentsys.controller.TestController;
 import com.jfinal.config.Routes;

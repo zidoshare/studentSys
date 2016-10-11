@@ -58,7 +58,7 @@ public abstract class BaseController extends Controller {
         //三个地址：static用于找资源、servePath用于得到去掉参数的网址、holdPath为带参数网址
         String uri = getRequest().getRequestURI();
         String url = String.valueOf(getRequest().getRequestURL());
-        String staticPath = url.substring(0, url.lastIndexOf(uri));
+        String staticPath = Common.getMainProp().get("staticServePath");
         String para = getRequest().getQueryString();
         if (null == para)
             para = "";
@@ -78,7 +78,7 @@ public abstract class BaseController extends Controller {
         log.info("servePath用于得到去掉参数的网址:"+servePath);
         log.info("holdPath为带参数网址:"+url);*/
 
-        setAttr(Common.LABEL_STATIC_SERVE_PATH, staticPath);
+        //setAttr(Common.LABEL_STATIC_SERVE_PATH, staticPath);
         setAttr(Common.LABEL_SERVE_PATH, servePath);
         setAttr(Common.LABEL_HOLD_PATH, url);
 
