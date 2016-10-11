@@ -5,6 +5,32 @@
     <span class="pull-right">${addBtn}</span>
 </div>
 <div class="panel-body">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 align="center">组卷</h3>
+        </div>
+        <div class="panel-body">
+            <form role="form">
+                <div class="form-group">
+                    <label for="testQuestionnaireTitle">试卷标题：</label>
+                    <input type="email" class="form-control" name="testQuestionnaire.testQuestionnaireTitle" id="testQuestionnaireTitle" placeholder="试卷标题">
+                </div>
+                <div class="form-group">
+                    <label for="testQuestionnaireMessage">试卷备注信息：</label>
+                    <input type="email" class="form-control" name="testQuestionnaire.testQuestionnaireMessage" id="testQuestionnaireMessage" placeholder="试卷备注信息">
+                </div>
+                <div class="form-group sr-only">
+                    <label for="testQuestionnaireScore">试卷总分：</label>
+                    <input type="email" class="form-control" name="testQuestionnaire.testQuestionnaireScore" id="testQuestionnaireScore" placeholder="试卷总分">
+                </div>
+                <div class="form-group sr-only">
+                    <label for="testQuestionnaireCreateTime">试卷创建时间：</label>
+                    <input type="email" class="form-control" name="testQuestionnaire.testQuestionnaireCreateTime" id="testQuestionnaireCreateTime" placeholder="试卷总分">
+                </div>
+            </form>
+            <a class="btn btn-default pull-right">下一步</a>
+        </div>
+    </div>
     <div class="table-responsive">
         <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline" role="grid">
             <table class="table table-striped table-bordered table-hover dataTable no-footer"

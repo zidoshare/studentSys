@@ -1,21 +1,10 @@
 <#include "../macro-item.ftl">
+<#include "../macro-btn.ftl">
 <@item>
 <div class="panel-heading">
     <div class="panel-heading title">
     ${view.title}
-        <#assign updateAble = false>
-        <#assign deleteAble = false>
-        <#list map["operators"+view.id] as op>
-            <#if op.title=="添加">
-                <a class="btn btn-success pull-right">添加</a>
-            </#if>
-            <#if op.title=="编辑">
-                <#assign updateAble = true>
-            </#if>
-            <#if op.title == "删除">
-                <#assign deleteAble = true>
-            </#if>
-        </#list>
+        <span class="pull-right">${addBtn}</span>
     </div>
 </div>
 <div class="panel-body">
@@ -43,8 +32,9 @@
                 <#list questions as question>
                 <tr id="tr${question.id}" class="showQuestion">
                     <td width="40%"
-                        style="overflow:hidden;WORD-WRAP: break-word;white-space:nowrap;text-overflow:ellipsis;">${question.testQuestionTitle}</td>
-                    <td width="20%">
+                        style="overflow:hidden;WORD-WRAP: break-word;white-space:nowrap;text-overflow:ellipsis;">${question.testQuestionTitle?html}</td>
+                    <td width="20%" id="type${question.id}"
+                        data-label="${testTypeMap["${question.testQuestionTypeId}"].id}">
                     ${testTypeMap["${question.testQuestionTypeId}"].typeName}
                     </td>
                     <td width="20%">
@@ -58,41 +48,48 @@
                     <td colspan="<#if updateAble || deleteAble>4<#else>3</#if>">
                         <div class="panel panel-success far-top">
                             <div class="panel-heading">
-                                <label class="panel-title">${question.testQuestionTitle}</label class="panel-title">
+                                <label class="panel-title"
+                                       id="testQuestionTitle${question.id}">${question.testQuestionTitle}</label class="panel-title">
                                 <div class="pull-right">
                                     <#list map["operators"+view.id] as op>
                                         <#if op.title != "添加">
-                                        <a onclick="func.${op.url}('show','${question.id}');" class="res">${op.title}</a>
-                                        <#if op_index < map["operators"+view.id]?size - 1>/</#if>
+                                            <a onclick="func.${op.url}('show','${question.id}');"
+                                               class="res">${op.title}</a>
+                                            <#if op_index < map["operators"+view.id]?size - 1>/</#if>
                                         </#if>
                                     </#list>
                                 </div>
                             </div>
-                            <div class="panel-body">
+                            <div class="panel-body" id="item${question.id}">
                                 <#assign xx = ['A','B','C','D','E','F','G']>
                                 <#list testTypeMap["${question.testQuestionTypeId}"].typeLimit?eval as model>
                                     <#if model="shortModel">
                                         <div class="panel-body">
                                             <p><label>选项:</label></p>
-                                            <#list question.testQuestionContent?eval as s>
-                                                <div><span>${xx[s_index]}: ${s}</span></div>
-                                            </#list>
+                                            <div id="testQuestionSelect${question.id}">
+                                                <#list question.testQuestionContent?eval as s>
+                                                    <div><span><span class="optionName">${xx[s_index]}</span>: <span
+                                                            class="optionValue">${s}</span></span></div>
+                                                </#list>
+                                            </div>
                                             <p><label>答案:</label></p>
                                             <#list question.testQuestionShortAnswer?eval as answer>
-                                                <span>${answer}</span>
+                                                <span class="short-answer">${answer}</span>
                                             </#list>
                                         </div>
                                     <#else>
                                         <p><label>答案:</label></p>
-                                        <span>${question.testQuestionLongAnswer}</span>
+                                        <span class="long-answer">${question.testQuestionLongAnswer}</span>
                                     </#if>
                                 </#list>
                             </div>
                             <div class="panel-footer">
                                 <label>标签:</label>
-                                <#list testQuestionTags["${question.id}"] as tag>
-                                    <span>${tag.tagName}</span>
-                                </#list>
+                                <span id="tagsLabel${question.id}">
+                                    <#list testQuestionTags["${question.id}"] as tag>
+                                        <span data-label="${tag.id}">${tag.tagName}</span>
+                                    </#list>
+                                </span>
                             </div>
                         </div>
                     </td>
@@ -144,9 +141,9 @@
                         <div class="tag-container" style="display: none">
                         <#list tags as tag>
                             <div class="checkbox3 checkbox-success checkbox-inline checkbox-check checkbox-round  checkbox-light">
-                                <input type="checkbox" id="${tag.id}"
-                                       onchange="Util.changeTag('${tag.tagName}',$('input#${tag.id}'))">
-                                <label for="${tag.id}">
+                                <input type="checkbox" id="tagCheckbox${tag.id}"
+                                       onchange="Util.changeTag('${tag.tagName}',$('input#tagCheckbox${tag.id}'))">
+                                <label for="tagCheckbox${tag.id}">
                                 ${tag.tagName}
                                 </label>
                             </div>
@@ -198,9 +195,9 @@
     </div>
 </div>
 <script type="text/javascript">
-    $('.showQuestion').on('mouseenter',function(){
+    $('.showQuestion').on('mouseenter', function () {
         $(this).siblings('tr.question-panel').addClass("sr-only");
         var trId = $(this).attr('id');
-        $('#show-'+trId).removeClass("sr-only");
+        $('#show-' + trId).removeClass("sr-only");
     });
 </script>

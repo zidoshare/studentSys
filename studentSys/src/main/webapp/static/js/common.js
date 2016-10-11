@@ -31,7 +31,7 @@ var Login = {
             };
             $.ajax({
                 type: "post",
-                url: Label.staticServePath+"/user/login",
+                url: Label.staticServePath + "/user/login",
                 dataType: "json",
                 data: jsonObj,
                 success: function (data) {
@@ -40,7 +40,7 @@ var Login = {
                         $(".wrapper").addClass("form-success");
                         //Util.showTip($("#loginTip"), data.msg, 'alert alert-success');
                         setTimeout(function () {
-                            location.href = Label.staticServePath+"/";
+                            location.href = Label.staticServePath + "/";
                         }, 1000);
                     } else {
                         Util.showTip($("#loginTip"), "账号或密码错误!", 'alert alert-danger');
@@ -49,7 +49,7 @@ var Login = {
                 error: function () {
                     Util.showTip($("#loginTip"), "服务器错误!", 'alert alert-danger');
                 },
-                complete:function(){
+                complete: function () {
                     btn.stop();
                 }
             })
@@ -62,7 +62,7 @@ var Login = {
 
     },
     loginOut: function () {
-        window.location.href = Label.staticServePath+"/user/loginOut";
+        window.location.href = Label.staticServePath + "/user/loginOut";
     }
 };
 var Validate = {
@@ -174,7 +174,7 @@ var Util = {
                 tip.css("display", "none");
                 tip.attr("aria-label", "0");
                 defaults.complete();
-                tip.attr('class','');
+                tip.attr('class', '');
             });
 
     },
@@ -188,12 +188,17 @@ var Util = {
         }
         item = String.fromCharCode(item.charCodeAt() + op);
         var checkDom = '<div class="checkbox3 checkbox-success checkbox-inline checkbox-check checkbox-round  checkbox-light"> <input type="checkbox" id="' + item + '"> <label for="' + item + '"> ' + item + ' </label> </div>';
-        $("#add").before("<div class=\"select form-group\">" + checkDom + "<textarea class=\"form-control\" rows=\"2\" id='item" + op + "'></textarea>" +
+        $("#add").before("<div class=\"select form-group\">" + checkDom + "<textarea class=\"form-control\" rows=\"2\" id='testQuestionOption" + op + "'></textarea>" +
             "</div>");
     },
-    removeSelect: function () {
+    removeSelect: function (method) {
         var s = $("#add").prev();
-        if (s.hasClass("select")) {
+        if (method == 'all') {
+            while (s.hasClass("select")) {
+                s.remove();
+                s = $("#add").prev();
+            }
+        } else if (s.hasClass("select")) {
             s.remove();
         }
     },
@@ -300,7 +305,7 @@ var func = {
                 json[$(this).attr('name')] = $(this).val();
             });
             $.ajax({
-                url: Label.staticServePath+'/userManager/addRole',
+                url: Label.staticServePath + '/userManager/addRole',
                 type: 'post',
                 data: json,
                 dataType: "json",
@@ -332,7 +337,7 @@ var func = {
             });
             $('#createTime').val(new Date().getTime());
             $.ajax({
-                url: Label.staticServePath+'/userManager/addUser',
+                url: Label.staticServePath + '/userManager/addUser',
                 type: 'post',
                 data: json,
                 dataType: "json",
@@ -363,7 +368,7 @@ var func = {
                 json[$(this).attr('name')] = $(this).val();
             });
             $.ajax({
-                url: Label.staticServePath+'/studentManager/addStudent',
+                url: Label.staticServePath + '/studentManager/addStudent',
                 type: 'post',
                 data: json,
                 dataType: "json",
@@ -413,7 +418,7 @@ var func = {
                     json[$(this).attr('name')] = $(this).val();
             });
             $.ajax({
-                url: Label.staticServePath+"/test/addTestQuestion",
+                url: Label.staticServePath + "/test/addTestQuestion",
                 dataType: 'json',
                 type: 'post',
                 data: json,
@@ -440,13 +445,41 @@ var func = {
             });
         }
     },
-    addTestQuestionnaire:function(method,id){
-        
+    addTestQuestionnaire: function (method, id) {
+
     },
-    updateTestQuestion: function (method,id) {
+    updateTestQuestion: function (method, id) {
         modalUtil.toggleClear($('#addTestQuestion'));
         $('#id').val(id);
-        
+        $('#testQuestionTitle').val($('#testQuestionTitle' + id).text());
+        $('#testQuestionTypeId').val($('#type' + id).attr('data-label'));
+        var tags = [];
+        $('#tagsLabel' + id).find('span').each(function (index, dom) {
+            tags.push($(this).text());
+            $('#tagCheckbox' + $(this).attr("data-label")).prop('checked', true);
+        });
+        var tagVal = tags.join(',');
+        $('input#tags').val(tagVal);
+        Util.changeModel($('#testQuestionTypeId'));
+        $('#testQuestionLongAnswer').val($('#item' + id).find('span.long-answer').first().text());
+        //填充选项
+        var op = $('#testQuestionSelect' + id).children();
+        var len = op.length;
+        var optionValues = [];
+        var optionAnswer = [];
+        op.each(function(index,dom){
+            optionValues.push($(this).find('.optionValue').first().text());
+        });
+
+        var item = 'A';
+        for (var i = 0; i < len; i++) {
+            $('#add').click();
+            item = String.fromCharCode(item.charCodeAt() + i);
+            $('#testQuestionOption'+i).val(optionValues[i]);
+        }
+        $('.short-answer').each(function(index,dom){
+            $('#'+$(this).text()).prop('checked',true);
+        })
     },
     updateUser: function (method) {
         if (method == 'show') {
@@ -468,7 +501,7 @@ var func = {
     showPermissions: function (left, mappingId, divId, method) {
         if (method == 'all') {
             $.ajax({
-                url: Label.staticServePath+'/userManager/showAllPermissons/' + mappingId,
+                url: Label.staticServePath + '/userManager/showAllPermissons/' + mappingId,
                 type: 'get',
                 success: function (data) {
                     if (data.state == 'success') {
@@ -500,7 +533,7 @@ var func = {
             return;
         }
         $.ajax({
-            url: Label.staticServePath+'/userManager/showPermissions/' + mappingId,
+            url: Label.staticServePath + '/userManager/showPermissions/' + mappingId,
             type: 'get',
             success: function (data) {
                 if (data.state == 'success') {
@@ -528,6 +561,7 @@ var modalUtil = {
     toggleClear: function (modal) {
         modal.find('input[id!="operater"]').val('');
         modal.find('textarea[id!="operater"]').val('');
+        Util.removeSelect('all');
         modal.modal('toggle');
     }
 };

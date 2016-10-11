@@ -335,7 +335,7 @@ td, th {
     z-index: 999999;
     width: 124px;
     height: 124px;
-    /*background: url('../images/loading.gif') 50% 50% no-repeat;*/
+    /*background: url('${staticServePath}/images/loading.gif') 50% 50% no-repeat;*/
 }
 
 a:visited {

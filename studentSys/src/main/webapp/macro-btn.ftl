@@ -14,7 +14,7 @@
     <#list map["operators"+view.id] as op>
         <#if op.url?starts_with("add")>
             <#assign addAble = true>
-            <#assign addBtn = "<a onclick=\"func.${op.url}('show');\" class=\"btn btn-success btn-sm\">${op.title}</a>">
+            <#assign addBtn = "<a onclick=\"func.${op.url}('show');\" class=\"btn btn-success\">${op.title}</a>">
         </#if>
         <#if op.url?starts_with("update")>
             <#assign updateAble = true>

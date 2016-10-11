@@ -3,7 +3,7 @@
 <html lang="zh-CN">
 <head>
     <@head title="登录">
-        <link rel="Shortcut Icon" href="../images/favicon.ico" />
+        <link rel="Shortcut Icon" href="${staticServePath}/images/favicon.ico" />
     </@head>
 </head>
 <body>
