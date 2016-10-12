@@ -226,6 +226,13 @@ var Util = {
         for (var i = 0; i < limits.length; i++) {
             $('#' + limits[i]).removeClass('sr-only');
         }
+    },
+    step:function(dom,myDom){
+        myDom = myDom.parent();
+        myDom.siblings().removeClass('active');
+        myDom.addClass('active');
+        myDom.prevAll().addClass('active');
+        dom.click();
     }
 };
 var Animate = {

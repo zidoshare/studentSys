@@ -14,8 +14,8 @@
             $(document).pjax('a[target!="_blank"]', '#page-inner', {
                 fragment: '#page-inner',
                 timeout: 8000,
-                cache: true,
-                storage: true
+                cache: false,
+                storage: false
             });
         }
     });

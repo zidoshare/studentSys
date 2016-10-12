@@ -7,6 +7,7 @@
 <meta name="copyright" content="stuManager" />
 <meta http-equiv="Window-target" content="_top" />
 <link rel="Shortcut Icon" href="${staticServePath}/images/favicon.ico" />
+<link rel="stylesheet" href="${staticServePath}/static/css/lib/bs-is-fun.css">
 <!-- Bootstrap Styles-->
 <link rel="stylesheet" type="text/css"
       href="${staticServePath}/assets/css/bootstrap.css?${staticResourceVersion}">

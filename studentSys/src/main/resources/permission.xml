@@ -8,6 +8,9 @@
                 <mapping id="2337" icon="search" url="/common/search.ftl" title="全局搜索" function="1">
                     <mappings/>
                 </mapping>
+                <mapping id="1999" icon="dataManager" url="/common/dataManager.ftl" title="数据管理" function="1">
+                    <mappings/>
+                </mapping>
                 <mapping id="2000" icon="routs" url="/common/routs.ftl" title="导航" function="1">
                     <mappings/>
                 </mapping>

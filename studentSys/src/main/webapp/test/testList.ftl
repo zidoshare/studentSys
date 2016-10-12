@@ -1,5 +1,8 @@
 <#include "../macro-item.ftl">
 <#include "../macro-btn.ftl">
+<head>
+    <link rel="stylesheet" href="${staticServePath}/static/css/lib/bootstrap-select.min.css">
+</head>
 <@item>
 <div class="panel-heading title">${view.title}
     <span class="pull-right">${addBtn}</span>
@@ -10,24 +13,90 @@
             <h3 align="center">组卷</h3>
         </div>
         <div class="panel-body">
-            <form role="form">
-                <div class="form-group">
-                    <label for="testQuestionnaireTitle">试卷标题：</label>
-                    <input type="email" class="form-control" name="testQuestionnaire.testQuestionnaireTitle" id="testQuestionnaireTitle" placeholder="试卷标题">
+            <ul class="nav nav-pills nav-tabs nav-justified step step-arrow">
+                <li class="active">
+                    <a id="show1" onclick="Util.step($('#tabBtn1'),$('#show1'))">step1</a>
+                </li>
+                <li>
+                    <a id="show2" onclick="Util.step($('#tabBtn2'),$('#show2'))">step2</a>
+                </li>
+                <li>
+                    <a id="show3" onclick="Util.step($('#tabBtn3'),$('#show3'))">step3</a>
+                </li>
+            </ul>
+            <ul class="nav nav-pills nav-tabs nav-justified step step-arrow sr-only">
+                <li class="active">
+                    <a href="#tab1" id="tabBtn1" data-toggle="pill">step1</a>
+                </li>
+                <li>
+                    <a href="#tab2" id="tabBtn2" data-toggle="pill">step2</a>
+                </li>
+                <li>
+                    <a href="#tab3" id="tabBtn3" data-toggle="pill">step3</a>
+                </li>
+            </ul>
+            <div id="tablesContent" class="tab-content">
+                <div class="tab-pane fade in active" id="tab1">
+                    <form role="form">
+                        <div class="form-group">
+                            <label for="testQuestionnaireTitle">试卷标题：</label>
+                            <input type="email" class="form-control" name="testQuestionnaire.testQuestionnaireTitle"
+                                   id="testQuestionnaireTitle" placeholder="试卷标题">
+                        </div>
+                        <div class="form-group">
+                            <label for="testQuestionnaireMessage">试卷备注信息：</label>
+                            <input type="email" class="form-control" name="testQuestionnaire.testQuestionnaireMessage"
+                                   id="testQuestionnaireMessage" placeholder="试卷备注信息">
+                        </div>
+                        <div class="form-group sr-only">
+                            <label for="testQuestionnaireScore">试卷总分：</label>
+                            <input type="email" class="form-control" name="testQuestionnaire.testQuestionnaireScore"
+                                   id="testQuestionnaireScore" placeholder="试卷总分">
+                        </div>
+                        <div class="form-group sr-only">
+                            <label for="testQuestionnaireCreateTime">试卷创建时间：</label>
+                            <input type="email" class="form-control" name="testQuestionnaire.testQuestionnaireCreateTime"
+                                   id="testQuestionnaireCreateTime" placeholder="试卷总分">
+                        </div>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <label for="testQuestionnaireMessage">试卷备注信息：</label>
-                    <input type="email" class="form-control" name="testQuestionnaire.testQuestionnaireMessage" id="testQuestionnaireMessage" placeholder="试卷备注信息">
+                <div class="tab-pane fade in" id="tab2">
+                    <div id="tab2_loading" class="panel_loading">
+                        <img src="${staticServePath}/images/loading.gif" class="img-sm center-block"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="testQuestionTypeId" class="control-label">题目类型</label>
+                        <select class="form-control" name="testQuestion.testQuestionTypeId" id="testQuestionTypeId" onchange="Util.changeModel($('#testQuestionTypeId'))">
+                            <option id="option1" value="1" data-label="[&quot;shortModel&quot;]">单选题</option>
+                            <option id="option2" value="2" data-label="[&quot;shortModel&quot;]">多选题</option>
+                            <option id="option3" value="3" data-label="[&quot;longModel&quot;]">问答题</option>
+                            <option id="option4" value="4" data-label="[&quot;longModel&quot;]">编程题</option>
+                        </select>
+                    </div>
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label for="basic" class="col-lg-2 control-label">"Basic" (liveSearch enabled)</label>
+
+                            <div class="col-lg-10">
+                                <select id="basic" class="selectpicker show-tick form-control" data-live-search="true">
+                                    <option>cow</option>
+                                    <option data-subtext="option subtext">bull</option>
+                                    <option class="get-class" disabled>ox</option>
+                                    <optgroup label="test" data-subtext="optgroup subtext">
+                                        <option>ASD</option>
+                                        <option selected>Bla</option>
+                                        <option>Ble</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <div class="form-group sr-only">
-                    <label for="testQuestionnaireScore">试卷总分：</label>
-                    <input type="email" class="form-control" name="testQuestionnaire.testQuestionnaireScore" id="testQuestionnaireScore" placeholder="试卷总分">
+                <div class="tab-pane fade in" id="tab3">
+                    333333333333
                 </div>
-                <div class="form-group sr-only">
-                    <label for="testQuestionnaireCreateTime">试卷创建时间：</label>
-                    <input type="email" class="form-control" name="testQuestionnaire.testQuestionnaireCreateTime" id="testQuestionnaireCreateTime" placeholder="试卷总分">
-                </div>
-            </form>
+            </div>
+
             <a class="btn btn-default pull-right">下一步</a>
         </div>
     </div>
@@ -70,9 +139,9 @@
                                 <@macroUpdateBtn q.id></@macroUpdateBtn>
                                 <@macroDeleteBtn q.id></@macroDeleteBtn>
                                 <#if updateAble>
-                                    ${updateBtn}/
+                                ${updateBtn}/
                                 </#if>
-                                ${deleteBtn}
+                            ${deleteBtn}
                             </td>
                         </#if>
                     </tr>
@@ -86,7 +155,8 @@
 
 </div>
 </@item>
-<div class="modal fade bs-example-modal-lg" id="addTestQuestionnaireModal" tabindex="-1" role="dialog" aria-labelledby="addTestQuestionnaireModalLabel"
+<div class="modal fade bs-example-modal-lg" id="addTestQuestionnaireModal" tabindex="-1" role="dialog"
+     aria-labelledby="addTestQuestionnaireModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -100,19 +170,22 @@
                     <div class="form-group">
                         <label for="testQuestionnaireTitle" class="col-sm-2 control-label">试卷名称</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="testQuestionnaire.testQuestionnaireTitle" id="testQuestionnaireTitle" placeholder="试卷名">
+                            <input type="text" class="form-control" name="testQuestionnaire.testQuestionnaireTitle"
+                                   id="testQuestionnaireTitle" placeholder="试卷名">
                         </div>
                     </div>
                     <div class="form-group sr-only">
                         <label for="testQuestionnaireScore" class="col-sm-2 control-label">分数</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="testQuestionnaire.testQuestionnaireScore" id="testQuestionnaireScore" placeholder="分数">
+                            <input type="text" class="form-control" name="testQuestionnaire.testQuestionnaireScore"
+                                   id="testQuestionnaireScore" placeholder="分数">
                         </div>
                     </div>
                     <div class="form-group sr-only">
                         <label for="testQuestionnaireScore" class="col-sm-2 control-label">分数</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="testQuestionnaire.testQuestionnaireScore" id="testQuestionnaireScore" placeholder="分数">
+                            <input type="text" class="form-control" name="testQuestionnaire.testQuestionnaireScore"
+                                   id="testQuestionnaireScore" placeholder="分数">
                         </div>
                     </div>
                 </form>
@@ -138,6 +211,13 @@
         </div>
     </div>
 </div>
+<script  type="text/javascript" src="${staticServePath}/static/js/lib/bootstrap-select.min.js"></script>
 <script type="text/javascript">
 
+    $('#tabBtn2').on('shown.bs.tab',function(e){
+        $.holdReady(false);
+        if(!$('#tab2_loading').hasClass('sr-only')){
+
+        }
+    })
 </script>

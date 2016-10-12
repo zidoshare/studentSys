@@ -44,7 +44,6 @@ public class MainConfig extends JFinalConfig{
         me.add(c3p0Plugin);
 
         ActiveRecordPlugin activeRecordPlugin = new ActiveRecordPlugin("main",c3p0Plugin);
-        activeRecordPlugin.setShowSql(true);
         _MappingKit.mapping(activeRecordPlugin);
         me.add(activeRecordPlugin);
 
@@ -53,7 +52,6 @@ public class MainConfig extends JFinalConfig{
         C3p0Plugin surveysPlugin  = new C3p0Plugin(dataBaseProp.get("testUrl"),dataBaseProp.get("testUser"),dataBaseProp.get("testPassword"));
         me.add(surveysPlugin);
         ActiveRecordPlugin surveysRecordPlugin = new ActiveRecordPlugin("surveys",surveysPlugin);
-        surveysRecordPlugin.setShowSql(true);
         surveysRecordPlugin.setDialect(new MysqlDialect());
         //---添加映射---
         com.hudongwx.surveys.model._MappingKit.mapping(surveysRecordPlugin);
@@ -73,7 +71,5 @@ public class MainConfig extends JFinalConfig{
     public void configHandler(Handlers me) {
         me.add(new RequestHandler());
         me.add(new ContextPathHandler(Common.LABEL_STATIC_SERVE_PATH));
-        if(Common.getMainProp().getBoolean("devMode"))
-            Build.buildControl();
     }
 }

@@ -92,6 +92,37 @@ public class TestController extends BaseController{
         }
         setAttr("userMap",userMap);
     }
+    public void getQuestions(){
+        List<TestType> testTypes = testTypeService.getAllTestTypes();
+        setAttr("types",testTypes);
+        Map<String,TestType> testTypeMap = new HashMap<>();
+        for(TestType t : testTypes){
+            testTypeMap.put(t.getId()+"",t);
+        }
+        setAttr("testTypeMap",testTypeMap);
+        List<TestTag> tags = testTagService.getAllTestTag();
+        setAttr("tags",tags);
+
+        List<TestQuestion> allQuestions = testQuestionService.getAllQuestions();
+        setAttr("questions",allQuestions);
+        Map<String,List<TestTag>> testQuestionTagsMap = new HashMap<>();
+        for(TestQuestion tq : allQuestions){
+            testQuestionTagsMap.put(tq.getId()+"",testTagService.getTagsByQuestion(tq));
+        }
+        setAttr("testQuestionTags",testQuestionTagsMap);
+        //能够进行添加题目的角色
+        Mapping mapping = mappingService.getMappingByUrl("addTestQuestion");
+        List<Role> roles = roleService.getRoleByMapping(mapping);
+        Map<String,User> userMap = new HashMap<>();
+        List<User> users = new ArrayList<>();
+        for(Role role : roles){
+            users.addAll(userService.getUsersByRole(role));
+        }
+        for(User user : users){
+            userMap.put(user.getId()+"",user);
+        }
+        setAttr("userMap",userMap);
+    }
     @Before(POST.class)
     public void addTestQuestion(){
         TestQuestion model = getModel(TestQuestion.class);

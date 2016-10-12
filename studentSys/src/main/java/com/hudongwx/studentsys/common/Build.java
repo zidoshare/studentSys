@@ -232,7 +232,7 @@ public class Build{
         e.addAttribute(Mapping.LABEL_FUNCTION,""+mapping.getFunction());
         return e.addElement("mappings");
     }
-    private static void readXML(final ArrayTree<Mapping> tree,final String path) throws Exception {
+    public static void readXML(final ArrayTree<Mapping> tree,final String path) throws Exception {
         SAXReader saxReader = new SAXReader();
         File file = new File(path);
         if(!file.exists())
