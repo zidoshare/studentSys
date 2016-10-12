@@ -54,9 +54,9 @@ public class TestController extends BaseController{
         setMapping(mappingService.getMappingByTitle("参加考试"));
         super.index();
         User user = getCurrentUser(this);
-        List<TestQuestionnaire> questionnaires = testQuestionnaireService.getQuestionnaireByUser(user);
-        List<TestQuestionnaire> testing = questionnaires.stream().filter(q -> q.getTestQuestionnaireStartTime() < System.currentTimeMillis() && q.getTestQuestionnaireEndTime() > System.currentTimeMillis()).collect(Collectors.toList());
-        setAttr("testing",testing);
+        List<Map<String,Object>> questionnaires = testQuestionnaireService.getNowQuestionnaireByUser(user);
+
+        setAttr("testing",questionnaires);
         setAttr("nowTime",System.currentTimeMillis());
     }
     public void questions(){
@@ -92,7 +92,7 @@ public class TestController extends BaseController{
         }
         setAttr("userMap",userMap);
     }
-    public void getQuestions(){
+    public void getQuestionsJSON(){
         List<TestType> testTypes = testTypeService.getAllTestTypes();
         setAttr("types",testTypes);
         Map<String,TestType> testTypeMap = new HashMap<>();

@@ -215,7 +215,6 @@
 <script type="text/javascript">
 
     $('#tabBtn2').on('shown.bs.tab',function(e){
-        $.holdReady(false);
         if(!$('#tab2_loading').hasClass('sr-only')){
 
         }

@@ -20,6 +20,14 @@
             <td>${(questionnaire.date?number)?number_to_datetime}</td>
             <td>${(questionnaire.endTime?number)?number_to_datetime}</td>
         </tr>
+        <tr class="sr-only tr-show">
+            <td colspan="4">
+                <div class="pan"></div>
+                <div class="panel_loading">
+                    <img src="${staticServePath}/images/loading.gif" class="img-sm center-block"/>
+                </div>
+            </td>
+        </tr>
     </#list>
     </table>
 </div>
@@ -55,7 +63,11 @@
     </div>
 </div><script type="text/javascript">
     $('tr[data-label="open-check"]').on("click", function () {
-        loadResult($(this).attr('id'));
+
+        $(this).siblings('.tr-show').addClass('sr-only');
+        var dom = $(this).next();
+        dom.removeClass('sr-only');
+        loadResult($(this).attr('id'),dom);
     });
 </script>
 </body>

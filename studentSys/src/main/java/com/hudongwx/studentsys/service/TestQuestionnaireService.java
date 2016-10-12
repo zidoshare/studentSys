@@ -55,4 +55,23 @@ public class TestQuestionnaireService extends Service {
         return msgMap;
 
     }
+
+    public List<Map<String,Object>> getNowQuestionnaireByUser(User user) {
+        Class userClass = classService.getClassByStudent(studentService.getStudentByUser(user));
+        long now = System.currentTimeMillis();
+        List<TestQuestionnaireClass> testQuestionnaireClasses = TestQuestionnaireClass.dao.find(TestQuestionnaireClass.SEARCH_FROM_TEST_QUESTIONNAIRE_CLASS
+                + "where testQuestionnaireStartTime < ? and testQuestionnaireEndTime > ?", now, now);
+        List<Map<String,Object>> list = new ArrayList<>();
+        for(TestQuestionnaireClass tqc : testQuestionnaireClasses){
+            Map<String,Object> map = new HashMap<>();
+            TestQuestionnaire q = TestQuestionnaire.dao.findById(tqc.getTestQuestionnaireId());
+            if(null == q)
+                continue;
+            map.put("testQuestionnaire", q);
+            map.put("testQuestionnaireStartTime",tqc.getTestQuestionnaireStartTime());
+            map.put("testQuestionnaireEndTime",tqc.getTestQuestionnaireEndTime());
+            list.add(map);
+        }
+        return list;
+    }
 }

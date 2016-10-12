@@ -9,6 +9,26 @@ Table: stumanager_class
  tutorId       | int(10)     | YES  |     |         |         
 ---------------+-------------+------+-----+---------+---------
 
+Table: stumanager_domain
+------------------+--------------+------+-----+---------+---------
+ Field            | Type         | Null | Key | Default | Remarks 
+------------------+--------------+------+-----+---------+---------
+ id               | int(10)      | NO   | PRI |         |         
+ domainTitle      | varchar(20)  | NO   |     |         |         
+ domainMessage    | varchar(250) | YES  |     |         |         
+ domainOperaterId | int(10)      | NO   |     |         |         
+ domainCreateTime | bigint(19)   | NO   |     |         |         
+------------------+--------------+------+-----+---------+---------
+
+Table: stumanager_domain_tag
+----------+---------+------+-----+---------+---------
+ Field    | Type    | Null | Key | Default | Remarks 
+----------+---------+------+-----+---------+---------
+ id       | int(10) | NO   | PRI |         |         
+ domainId | int(10) | NO   |     |         |         
+ tagId    | int(10) | NO   |     |         |         
+----------+---------+------+-----+---------+---------
+
 Table: stumanager_employee
 --------+-------------+------+-----+---------+---------
  Field  | Type        | Null | Key | Default | Remarks 
@@ -98,8 +118,6 @@ Table: stumanager_test_questionnaire
  testQuestionnaireTitle      | varchar(50)  | NO   |     |         |         
  testQuestionnaireScore      | int(10)      | NO   |     |         |         
  testQuestionnaireCreateTime | bigint(19)   | NO   |     |         |         
- testQuestionnaireStartTime  | int(10)      | NO   |     |         |         
- testQuestionnaireEndTime    | int(10)      | NO   |     |         |         
  testQuestionnaireOperaterId | int(10)      | NO   |     |         |         
  testQuestionnaireMessage    | varchar(200) | YES  |     |         |         
 -----------------------------+--------------+------+-----+---------+---------

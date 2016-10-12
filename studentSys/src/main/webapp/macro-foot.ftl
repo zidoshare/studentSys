@@ -85,12 +85,14 @@
             sid--;
         }
     }
-    function loadResult(id) {
+    function loadResult(id,dom) {
         var evt = arguments.callee.caller.arguments[0] || window.event;
         evt.preventDefault();
         evt.stopPropagation();
-        $('#check').load("${staticServePath}/surveys/getTable/" + id);
-        $('#myModal').modal('toggle');
+        dom.find('.pan').first().load("${staticServePath}/surveys/getTable/" + id,function(){
+            dom.find('.panel_loading').first().addClass('sr-only');
+        });
+
     }
     /*
         $(".navToggle1").click(function () {

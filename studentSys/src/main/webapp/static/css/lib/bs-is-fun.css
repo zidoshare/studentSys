@@ -4,14 +4,14 @@
  * */
 /*loginmodal*/
 
-#myModal .container-fluid {
+/*#myModal .container-fluid {
 	padding: 0 25%;
 }
 #myModal .modal-dialog {
 	margin-top: 6rem;
 }
 #myModal .modal-content
-/*,#myModalNext .modal-content*/
+!*,#myModalNext .modal-content*!
 
 {
 	-webkit-box-shadow: none;
@@ -53,7 +53,7 @@
 }
 #myModal .modal-footer p {
 	margin-bottom: 0;
-}
+}*/
 /*Modalstep*/
 /*step*/
 a {

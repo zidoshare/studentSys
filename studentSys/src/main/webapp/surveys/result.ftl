@@ -16,30 +16,30 @@
     <div class="container">
         <h1 class="survey_to_title">${questionnaire.toUser}满意度调查 · ${result.idUser} · ${result.count}</h1>
         <ul class="subject_list">
-            <#list questionnaire.questionnaireNodeList as questionnaireNode>
-                <li class="subject_big">
-                    <h3>${questionnaireNode.questionBigType.name}</h3>
+        <#list questionnaire.questionnaireNodeList as questionnaireNode>
+            <li class="subject_big">
+                <h3>${questionnaireNode.questionBigType.name}</h3>
+            </li>
+            <#list questionnaireNode.questionsList as question>
+                <li class="subject"
+                    id="${questionnaire.id}T${questionnaireNode.questionBigType.id}T${question.id}"
+                    aria-label="0">
+                    <h4 class="subject_title">${question.title}</h4>
+                    <#list question.questionsNodes as node>
+                        <label class="subject_option">
+                            <input name="${questionnaire.id}T${questionnaireNode.questionBigType.id}T${question.id}"
+                                   id="${questionnaire.id}T${questionnaireNode.questionBigType.id}T${question.id}T${node.score}"
+                                   type="radio" name="iCheck" value="${node.score}">
+                        ${node.select}
+                        </label>
+                    </#list>
                 </li>
-                <#list questionnaireNode.questionsList as question>
-                    <li class="subject"
-                        id="${questionnaire.id}T${questionnaireNode.questionBigType.id}T${question.id}"
-                        aria-label="0">
-                        <h4 class="subject_title">${question.title}</h4>
-                        <#list question.questionsNodes as node>
-                            <label class="subject_option">
-                                <input name="${questionnaire.id}T${questionnaireNode.questionBigType.id}T${question.id}"
-                                       id="${questionnaire.id}T${questionnaireNode.questionBigType.id}T${question.id}T${node.score}"
-                                       type="radio" name="iCheck" value="${node.score}">
-                            ${node.select}
-                            </label>
-                        </#list>
-                    </li>
-                </#list>
             </#list>
+        </#list>
         </ul>
         <div class="tip-container">
                 <textarea class="comment" name="comment" id="${questionnaire.id}comment" rows="10" tabindex="4"
-                          placeholder="输入评论内容...字数在两百字以内" aria-label="0"></textarea>
+                          placeholder="输入评论内容...字数在两百字以内" aria-label="0">${result.comment}</textarea>
         </div>
     </div>
 
@@ -67,15 +67,17 @@
         });
         var result = ${result.questionsReply};
         $('#count').transition({opacity: 1, top: 0}, 1000);
-        for(var i = 0; i < result.length; i++){
-            for(var key in result[i]){
+        for (var i = 0; i < result.length; i++) {
+            for (var key in result[i]) {
                 var str = key + result[i][key];
-                $('#'+str).prop("checked", true);
-                $('#'+str).parent().addClass("checked");
-                $('#'+str).parent().parent().parent().attr('aria-label', 1);
+                $('#' + str).prop("checked", true);
+                $('#' + str).parent().addClass("checked");
+                $('#' + str).parent().parent().parent().attr('aria-label', 1);
             }
         }
-        $('#${questionnaire.id}comment').val('${result.comment}');
+    <#escape x as x?html>
+        //$('#${questionnaire.id}comment').val('');
+    </#escape>
     });
     var score = 0;
 </script>
