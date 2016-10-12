@@ -15,6 +15,7 @@ import com.jfinal.aop.Before;
 import com.jfinal.aop.Clear;
 import com.jfinal.ext.interceptor.POST;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,6 +62,7 @@ public class UserController extends BaseController {
     @Clear
     public void showLogin(){
         fillHeaderAndFooter();
+        fillOutLink();
         render("/user/login.ftl");
     }
     @Before(POST.class)

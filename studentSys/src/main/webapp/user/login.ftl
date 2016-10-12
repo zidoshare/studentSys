@@ -38,8 +38,17 @@
     </ul>
 
 </div>
-<div class="to-bottom text-center text-sm">
-    Copyright © 2014-2016 互动无限科技有限公司
+
+<div class="to-bottom text-center text-sm" style="z-index: 1000;">
+<div style="width: auto;display: table;" class="center-block">
+<#list outLinks as link>
+    <a href="http://${link["url"]}" class="out-link pull-left" target="_blank">
+        <img class="img-sm center-block far-top" src="${staticServePath}/images/${link["icon"]}">
+        <div class="far-top far-bottom text-center">${link["name"]?html}</div>
+    </a>
+</#list>
+</div>
+    <div>Copyright © 2014-2016 互动无限科技有限公司</div>
 </div>
 </body>
 </html>

@@ -201,7 +201,23 @@ public abstract class BaseController extends Controller {
         fillHeader();
         fillFooter();
     }
-
+    protected void fillOutLink(){
+        String outLinkNames = Common.getMainProp().get("outLinkNames");
+        String[] linkNames = outLinkNames.split(",");
+        String outLinkUrls = Common.getMainProp().get("outLinkUrls");
+        String[] linkUrls = outLinkUrls.split(",");
+        String outLinkIcons = Common.getMainProp().get("outLinkIcons");
+        String[] linkIcons = outLinkIcons.split(",");
+        List<Map<String,String>> list= new ArrayList<>();
+        for(int i = 0; i < linkNames.length; i++){
+            Map<String,String> map = new HashMap<>();
+            map.put("name",linkNames[i]);
+            map.put("url",linkUrls[i]);
+            map.put("icon",linkIcons[i]);
+            list.add(map);
+        }
+        setAttr("outLinks",list);
+    }
     public static User getCurrentUser(HttpServletRequest request) {
         /*User user = new User();
         user.setUserNickname("管理员");

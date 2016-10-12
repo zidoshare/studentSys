@@ -1,19 +1,39 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost_3306
-Source Server Version : 50712
-Source Host           : localhost:3306
+Source Server         : 公司数据库
+Source Server Version : 50631
+Source Host           : 192.168.6.250:3306
 Source Database       : surveys_sys
 
 Target Server Type    : MYSQL
-Target Server Version : 50712
+Target Server Version : 50631
 File Encoding         : 65001
 
-Date: 2016-10-10 16:33:54
+Date: 2016-10-12 09:36:46
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for `surveys_t_question_big_type`
+-- ----------------------------
+DROP TABLE IF EXISTS `surveys_t_question_big_type`;
+CREATE TABLE `surveys_t_question_big_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(15) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `sort_flag` smallint(6) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of surveys_t_question_big_type
+-- ----------------------------
+INSERT INTO `surveys_t_question_big_type` VALUES ('-1', '', '32767');
+INSERT INTO `surveys_t_question_big_type` VALUES ('20', '一、教师专业知识', '1');
+INSERT INTO `surveys_t_question_big_type` VALUES ('21', '二、教师授课技巧', '2');
+INSERT INTO `surveys_t_question_big_type` VALUES ('22', '三、教师调控能力', '3');
+INSERT INTO `surveys_t_question_big_type` VALUES ('23', '四、教师职业态度', '4');
 
 -- ----------------------------
 -- Table structure for `surveys_t_questionnaire`
@@ -29,13 +49,11 @@ CREATE TABLE `surveys_t_questionnaire` (
   `note` varchar(150) DEFAULT '',
   `createTime` bigint(20) DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of surveys_t_questionnaire
 -- ----------------------------
-INSERT INTO `surveys_t_questionnaire` VALUES ('28', '123', '1475214955000', '123', '123', '1475229600000', '123的调查', null);
-INSERT INTO `surveys_t_questionnaire` VALUES ('29', '123', '1475215026000', '123', '234', '1475229600000', '234的调查', null);
 
 -- ----------------------------
 -- Table structure for `surveys_t_questionnaire_result`
@@ -48,13 +66,11 @@ CREATE TABLE `surveys_t_questionnaire_result` (
   `questions_reply` text,
   `comment` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of surveys_t_questionnaire_result
 -- ----------------------------
-INSERT INTO `surveys_t_questionnaire_result` VALUES ('123', '123', '28', '[{\"28T20T4\":\"T6\"},{\"28T20T5\":\"T6\"},{\"28T20T6\":\"T6\"},{\"28T21T9\":\"T6\"},{\"28T21T10\":\"T6\"},{\"28T21T11\":\"T6\"},{\"28T21T12\":\"T6\"},{\"28T22T13\":\"T6\"},{\"28T22T14\":\"T6\"},{\"28T22T15\":\"T6\"},{\"28T22T16\":\"T6\"},{\"28T23T17\":\"T6\"},{\"28T23T18\":\"T6\"},{\"28T23T19\":\"T6\"},{\"28T23T20\":\"T6\"},{\"score\":\"90\"}]', '123456789');
-INSERT INTO `surveys_t_questionnaire_result` VALUES ('124', '123', '29', '[{\"29T-1T22\":\"T10\"},{\"29T-1T23\":\"T10\"},{\"29T-1T24\":\"T10\"},{\"29T-1T25\":\"T10\"},{\"29T-1T26\":\"T10\"},{\"29T-1T27\":\"T10\"},{\"29T-1T28\":\"T10\"},{\"29T-1T29\":\"T10\"},{\"29T-1T30\":\"T10\"},{\"29T-1T31\":\"T10\"},{\"score\":\"100\"}]', '123456');
 
 -- ----------------------------
 -- Table structure for `surveys_t_questions`
@@ -112,71 +128,8 @@ CREATE TABLE `surveys_t_questions_questionnaire` (
   `id_questions` int(11) DEFAULT NULL,
   `create_date` varchar(14) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=478 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=493 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of surveys_t_questions_questionnaire
--- ----------------------------
-INSERT INTO `surveys_t_questions_questionnaire` VALUES ('453', '28', '4', '1475214969821');
-INSERT INTO `surveys_t_questions_questionnaire` VALUES ('454', '28', '5', '1475214969824');
-INSERT INTO `surveys_t_questions_questionnaire` VALUES ('455', '28', '6', '1475214969829');
-INSERT INTO `surveys_t_questions_questionnaire` VALUES ('456', '28', '9', '1475214969833');
-INSERT INTO `surveys_t_questions_questionnaire` VALUES ('457', '28', '10', '1475214969836');
-INSERT INTO `surveys_t_questions_questionnaire` VALUES ('458', '28', '11', '1475214969838');
-INSERT INTO `surveys_t_questions_questionnaire` VALUES ('459', '28', '12', '1475214969841');
-INSERT INTO `surveys_t_questions_questionnaire` VALUES ('460', '28', '13', '1475214969843');
-INSERT INTO `surveys_t_questions_questionnaire` VALUES ('461', '28', '14', '1475214969845');
-INSERT INTO `surveys_t_questions_questionnaire` VALUES ('462', '28', '15', '1475214969847');
-INSERT INTO `surveys_t_questions_questionnaire` VALUES ('463', '28', '16', '1475214969849');
-INSERT INTO `surveys_t_questions_questionnaire` VALUES ('464', '28', '17', '1475214969851');
-INSERT INTO `surveys_t_questions_questionnaire` VALUES ('465', '28', '18', '1475214969854');
-INSERT INTO `surveys_t_questions_questionnaire` VALUES ('466', '28', '19', '1475214969856');
-INSERT INTO `surveys_t_questions_questionnaire` VALUES ('467', '28', '20', '1475214969858');
-INSERT INTO `surveys_t_questions_questionnaire` VALUES ('468', '29', '22', '1475215041071');
-INSERT INTO `surveys_t_questions_questionnaire` VALUES ('469', '29', '23', '1475215041079');
-INSERT INTO `surveys_t_questions_questionnaire` VALUES ('470', '29', '24', '1475215041085');
-INSERT INTO `surveys_t_questions_questionnaire` VALUES ('471', '29', '25', '1475215041090');
-INSERT INTO `surveys_t_questions_questionnaire` VALUES ('472', '29', '26', '1475215041095');
-INSERT INTO `surveys_t_questions_questionnaire` VALUES ('473', '29', '27', '1475215041099');
-INSERT INTO `surveys_t_questions_questionnaire` VALUES ('474', '29', '28', '1475215041100');
-INSERT INTO `surveys_t_questions_questionnaire` VALUES ('475', '29', '29', '1475215041103');
-INSERT INTO `surveys_t_questions_questionnaire` VALUES ('476', '29', '30', '1475215041105');
-INSERT INTO `surveys_t_questions_questionnaire` VALUES ('477', '29', '31', '1475215041107');
-
--- ----------------------------
--- Table structure for `surveys_t_question_big_type`
--- ----------------------------
-DROP TABLE IF EXISTS `surveys_t_question_big_type`;
-CREATE TABLE `surveys_t_question_big_type` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(15) CHARACTER SET utf8 NOT NULL DEFAULT '',
-  `sort_flag` smallint(6) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4;
-
--- ----------------------------
--- Records of surveys_t_question_big_type
--- ----------------------------
-INSERT INTO `surveys_t_question_big_type` VALUES ('-1', '', '32767');
-INSERT INTO `surveys_t_question_big_type` VALUES ('20', '一、教师专业知识', '1');
-INSERT INTO `surveys_t_question_big_type` VALUES ('21', '二、教师授课技巧', '2');
-INSERT INTO `surveys_t_question_big_type` VALUES ('22', '三、教师调控能力', '3');
-INSERT INTO `surveys_t_question_big_type` VALUES ('23', '四、教师职业态度', '4');
-
--- ----------------------------
--- Table structure for `tag`
--- ----------------------------
-DROP TABLE IF EXISTS `tag`;
-CREATE TABLE `tag` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `tagName` varchar(10) NOT NULL,
-  `tagIcon` varchar(20) DEFAULT NULL,
-  `tagDescription` varchar(100) DEFAULT NULL,
-  `tagIconPath` varchar(100) DEFAULT NULL,
-  `tagChildCnt` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of tag
 -- ----------------------------

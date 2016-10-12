@@ -238,7 +238,7 @@ form button:hover {
 }
 .to-bottom{
   position: absolute;
-  top:95%;
+  top:70%;
   width:100%;
 }
 .text-black{
@@ -257,4 +257,29 @@ form button:hover {
   font-size:16px;
   font-weight: 500;
   font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", "Microsoft Yahei", sans-serif;
+}
+.out-link{
+  display: block;
+  min-width:90px;
+  margin-left: 10px;
+  margin-top:10px;
+  margin-bottom:10px;
+  padding:5px;
+  -webkit-border-radius:2px;
+  -moz-border-radius:2px;
+  border-radius:2px;
+  color:white;
+}
+.out-link:visited{
+  color:white;
+}
+.far-top {
+  margin-top: 10px;
+}
+.far-bottom {
+  margin-bottom: 10px;
+}
+.img-sm{
+  width:40px;
+  height:40px;
 }
