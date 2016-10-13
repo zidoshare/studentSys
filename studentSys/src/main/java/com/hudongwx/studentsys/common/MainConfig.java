@@ -44,6 +44,7 @@ public class MainConfig extends JFinalConfig{
         me.add(c3p0Plugin);
 
         ActiveRecordPlugin activeRecordPlugin = new ActiveRecordPlugin("main",c3p0Plugin);
+        activeRecordPlugin.setShowSql(true);
         _MappingKit.mapping(activeRecordPlugin);
         me.add(activeRecordPlugin);
 

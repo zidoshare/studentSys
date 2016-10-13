@@ -8,4 +8,5 @@ import com.hudongwx.studentsys.common.BaseDomainTag;
 @SuppressWarnings("serial")
 public class DomainTag extends BaseDomainTag<DomainTag> {
 	public static final DomainTag dao = new DomainTag();
+	public static final String SEARCH_FROM_DOMAIN_TAG = "select * from stumanager_domain_tag ";
 }

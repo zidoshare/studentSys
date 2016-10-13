@@ -8,4 +8,5 @@ import com.hudongwx.studentsys.common.BaseDomain;
 @SuppressWarnings("serial")
 public class Domain extends BaseDomain<Domain> {
 	public static final Domain dao = new Domain();
+	public static final String SEARCH_FROM_DOMAIN = "select * from stumanager_domain ";
 }

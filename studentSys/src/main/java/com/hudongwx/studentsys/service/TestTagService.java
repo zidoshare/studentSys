@@ -1,9 +1,7 @@
 package com.hudongwx.studentsys.service;
 
 import com.hudongwx.studentsys.common.Service;
-import com.hudongwx.studentsys.model.TestQuestion;
-import com.hudongwx.studentsys.model.TestTag;
-import com.hudongwx.studentsys.model.TestTagQuestion;
+import com.hudongwx.studentsys.model.*;
 
 import java.util.List;
 
@@ -11,6 +9,7 @@ import java.util.List;
  * Created by wuhongxu on 2016/10/9 0009.
  */
 public class TestTagService extends Service {
+    private TestDomainTagService domainTagService;
     public List<TestTag> getAllTestTag() {
         return TestTag.dao.find(TestTag.SEARCH_FROM_TEST_TAG);
     }
@@ -31,5 +30,10 @@ public class TestTagService extends Service {
         }
         str+=Integer.MAX_VALUE+")";
         return TestTag.dao.find(str);
+    }
+
+    public List<TestTag> getTagsByDomain(Domain domain) {
+        String str = domainTagService.getTagsStrByDomain(domain);
+        return TestTag.dao.find(TestTag.SEARCH_FROM_TEST_TAG+"where id in "+str);
     }
 }

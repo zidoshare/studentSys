@@ -134,7 +134,6 @@
         if (!$('#tab2_loading').hasClass('sr-only')) {
             $('#load_questions').load('${staticServePath}/test/selectQuestions', function (response, status, xhr) {
                 //TODO  当服务器重启而页面不刷新时，点击会发生错误，尚未处理掉，会发生错误
-                console.log(xhr);
                 if (status == 'success')
                     $('#tab2_loading').addClass('sr-only');
                 else

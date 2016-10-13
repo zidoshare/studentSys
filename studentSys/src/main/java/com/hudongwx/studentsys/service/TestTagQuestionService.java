@@ -28,7 +28,7 @@ public class TestTagQuestionService extends Service {
         for (TestTagQuestion tq : tqs) {
             str.append(tq.getTestQuestionId()).append(",");
         }
-        if (str.length() > 0)
+        if (str.length() > 1)
             str.deleteCharAt(str.length() - 1);
         str.append(")");
         return str.toString();

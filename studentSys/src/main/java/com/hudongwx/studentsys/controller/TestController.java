@@ -27,6 +27,7 @@ public class TestController extends BaseController{
     public UserService userService;
     public MappingService mappingService;
     public TestQuestionnaireService testQuestionnaireService;
+    public TestDomainService testDomainService;
     /**
      * @return 返回mapping的title属性
      */
@@ -95,9 +96,38 @@ public class TestController extends BaseController{
         setAttr("userMap",userMap);
     }
     public void selectQuestions(){
+        List<TestType> allTestTypes = testTypeService.getAllTestTypes();
+        setAttr("types",allTestTypes);
+        List<Domain> allDomains = testDomainService.getAllDomains();
+        setAttr("domains",allDomains);
 
+        //取得第一个domain下面的tag
+        List<TestTag> tags = testTagService.getTagsByDomain(allDomains.get(0));
+        setAttr("tags",tags);
         //questions();
         render("/test/selectQuestion.ftl");
+    }
+    @Before(POST.class)
+    public void getTags(){
+        Integer domainId = getParaToInt("domain");
+        if(domainId == null){
+            RenderKit.renderError(this,"参数不对");
+            return ;
+        }
+        Domain domain = testDomainService.getDomainById(domainId);
+        if(domain == null){
+            RenderKit.renderError(this,"没有该分类");
+            return ;
+        }
+        List<TestTag> tags = testTagService.getTagsByDomain(domain);
+        JSONArray array = new JSONArray();
+        for(TestTag tag : tags){
+            JSONObject json = new JSONObject();
+            json.put("id",tag.getId());
+            json.put("tagName",tag.getTagName());
+            array.add(json);
+        }
+        renderJson(array);
     }
     @Before(POST.class)
     public void getQuestions(){
