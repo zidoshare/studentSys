@@ -96,19 +96,20 @@ Table: stumanager_student
 --------------------+--------------+------+-----+---------+---------
 
 Table: stumanager_test_question
--------------------------+-------------+------+-----+---------+---------
- Field                   | Type        | Null | Key | Default | Remarks 
--------------------------+-------------+------+-----+---------+---------
- id                      | int(10)     | NO   | PRI |         |         
- testQuestionTitle       | text(65535) | NO   |     |         |         
- testQuestionTypeId      | int(10)     | NO   |     |         |         
- testQuestionContent     | text(65535) | YES  |     |         | 数组格式存储，[a,b,c,d]
- testQuestionShortAnswer | varchar(30) | YES  |     |         | 答案，选择题使用此字段，使用[a,b,c]格式
- testQuestionLongAnswer  | text(65535) | YES  |     |         | 问答题或编程题使用此答案字段
- testQuestionCreateTime  | bigint(19)  | NO   |     |         |         
- testQuestionUpdateTime  | bigint(19)  | YES  |     |         |         
- testQuestionOperaterId  | int(10)     | NO   |     | 83      |         
--------------------------+-------------+------+-----+---------+---------
+--------------------------+-------------+------+-----+---------+---------
+ Field                    | Type        | Null | Key | Default | Remarks 
+--------------------------+-------------+------+-----+---------+---------
+ id                       | int(10)     | NO   | PRI |         |         
+ testQuestionTitle        | text(65535) | NO   |     |         |         
+ testQuestionTypeId       | int(10)     | NO   |     |         |         
+ testQuestionContent      | text(65535) | YES  |     |         | 数组格式存储，[a,b,c,d]
+ testQuestionShortAnswer  | varchar(30) | YES  |     |         | 答案，选择题使用此字段，使用[a,b,c]格式
+ testQuestionLongAnswer   | text(65535) | YES  |     |         | 问答题或编程题使用此答案字段
+ testQuestionCreateTime   | bigint(19)  | NO   |     |         |         
+ testQuestionUpdateTime   | bigint(19)  | YES  |     |         |         
+ testQuestionOperaterId   | int(10)     | NO   |     | 83      |         
+ testQuestionDefaultScore | int(10)     | NO   |     | 0       |         
+--------------------------+-------------+------+-----+---------+---------
 
 Table: stumanager_test_questionnaire
 -----------------------------+--------------+------+-----+---------+---------
@@ -116,6 +117,7 @@ Table: stumanager_test_questionnaire
 -----------------------------+--------------+------+-----+---------+---------
  id                          | int(10)      | NO   | PRI |         |         
  testQuestionnaireTitle      | varchar(50)  | NO   |     |         |         
+ testQuestionnaireTypeList   | varchar(200) | NO   |     |         | [[{id:分类id1,name:分类1},{id:分类id2,name:分类2},{id:分类id3,name:分类3}],[[分类id1题目1,分类id1题目2],[分类id2题目1,分类id2题目2],[分类id3题目1]]]
  testQuestionnaireScore      | int(10)      | NO   |     |         |         
  testQuestionnaireCreateTime | bigint(19)   | NO   |     |         |         
  testQuestionnaireOperaterId | int(10)      | NO   |     |         |         
@@ -134,14 +136,15 @@ Table: stumanager_test_questionnaire_class
 ----------------------------+------------+------+-----+---------+---------
 
 Table: stumanager_test_questionnaire_question
----------------------+---------+------+-----+---------+---------
- Field               | Type    | Null | Key | Default | Remarks 
----------------------+---------+------+-----+---------+---------
- id                  | int(10) | NO   | PRI |         |         
- testQuestionnaireId | int(10) | NO   |     |         |         
- testQuestionId      | int(10) | NO   |     |         |         
- testQuestionScore   | int(10) | NO   |     |         |         
----------------------+---------+------+-----+---------+---------
+-----------------------+---------+------+-----+---------+---------
+ Field                 | Type    | Null | Key | Default | Remarks 
+-----------------------+---------+------+-----+---------+---------
+ id                    | int(10) | NO   | PRI |         |         
+ testQuestionnaireId   | int(10) | NO   |     |         |         
+ testQuestionId        | int(10) | NO   |     |         |         
+ testQuestionScore     | int(10) | NO   |     |         |         
+ testQuestionIsVisible | int(10) | NO   |     | 1       |         
+-----------------------+---------+------+-----+---------+---------
 
 Table: stumanager_test_tag
 -------------+-------------+------+-----+---------+---------
@@ -162,16 +165,17 @@ Table: stumanager_test_tag_question
 ----------------+---------+------+-----+---------+---------
 
 Table: stumanager_test_type
------------------+-------------+------+-----+----------------------------+---------
- Field           | Type        | Null | Key | Default                    | Remarks 
------------------+-------------+------+-----+----------------------------+---------
- id              | int(10)     | NO   | PRI |                            |         
- typeName        | varchar(20) | NO   |     |                            |         
- typeQuestionCnt | int(10)     | NO   |     | 0                          |         
- typeCreateTime  | bigint(19)  | NO   |     |                            |         
- typeUpdateTime  | bigint(19)  | NO   |     |                            |         
- typeLimit       | varchar(50) | YES  |     | ["shortModel","longModel"] | 限制出现模块,目前只支持["shortModel","longModel"]，分别指选择和问答（编程题也是问答）
------------------+-------------+------+-----+----------------------------+---------
+-----------------------+-------------+------+-----+----------------------------+---------
+ Field                 | Type        | Null | Key | Default                    | Remarks 
+-----------------------+-------------+------+-----+----------------------------+---------
+ id                    | int(10)     | NO   | PRI |                            |         
+ typeName              | varchar(20) | NO   |     |                            |         
+ typeQuestionCnt       | int(10)     | NO   |     | 0                          |         
+ typeCreateTime        | bigint(19)  | NO   |     |                            |         
+ typeUpdateTime        | bigint(19)  | NO   |     |                            |         
+ typeLimit             | varchar(50) | YES  |     | ["shortModel","longModel"] | 限制出现模块,目前只支持["shortModel","longModel"]，分别指选择和问答（编程题也是问答）
+ testQuestionIsVisible | int(10)     | NO   |     | 1                          |         
+-----------------------+-------------+------+-----+----------------------------+---------
 
 Table: stumanager_user
 -----------------+----------------------+------+-----+---------+---------

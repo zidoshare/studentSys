@@ -4,7 +4,7 @@
             <div class="form-group">
                 <label for="testQuestionTypeId" class="control-label">题目类型：</label>
                 <select class="form-control" name="testQuestion.testQuestionTypeId" id="testQuestionTypeId"
-                 onclick="getQuestions()">
+                        onclick="getQuestions()">
                 <#list types as type>
                     <option id="option${type.id}" value="${type.id}">${type.typeName}</option>
                 </#list>
@@ -66,7 +66,7 @@
         ds.on('change', function () {
             getTags(ds.val());
         });
-        tps.on('change',function(){
+        tps.on('change', function () {
         })
     });
     function redrawSelects() {
@@ -89,12 +89,61 @@
                 var q = $('#questions');
                 q.html('');
                 var str = '<ul>';
+                var checked = '';
+                var s = $('#selectedQuestions');
+                var selects = s.val();
+                var selectsVal = [];
+                if (selects.length > 0)
+                    selectsVal = JSON.parse(selects);
                 $.each(array, function (index, obj) {
-                    str+='<li id = "'+obj.id+'"><div class="checkbox3 checkbox-round"> <input type="checkbox" id="question'+obj.id+'"> <label for="question'+obj.id+'">'+obj.title+' </label> </div></li>';
+                    var index = $.inArray(obj.type,selectsVal[0]);
+                    if ($.inArray(obj.id + '', selectsVal[1][index]) >= 0)
+                        checked = 'checked';
+                    str += '<li id = "' + obj.id + '"><div class="checkbox3 checkbox-round"> <input type="checkbox" id="question' + obj.id + '" onchange="changeSelected(\'' + obj.id + '\',\'' + obj.type + '\',this)"' + checked + '> <label for="question' + obj.id + '">' + obj.title + ' </label> </div></li>';
+                    checked = '';
                 });
                 q.html(str);
             }
         });
+    }
+    function changeSelected(id, typeId, dom) {
+        var tp = parseInt(typeId);
+        var s = $('#selectedQuestions');
+        var str = s.val();
+        var array = JSON.parse(s.val());
+        var typeArray = array[0];
+        var questionArray = array[1];
+        if ($(dom).prop('checked')) {
+            //默认按照id大小进行排序
+            var result = Util.insertArrayByOrder(typeArray, tp);
+            typeArray = result.arr;
+            if (questionArray.length <= result.index)
+                questionArray[result.index] = [];
+            questionArray[result.index].push(id);
+        }
+        else {
+            var temp = [];
+            var index = $.inArray(tp, typeArray);
+            if (index >= 0) {
+                $.each(questionArray[index], function (ind, obj) {
+                    if (obj + '' != id)
+                        temp.push(obj);
+                });
+                questionArray[index] = temp;
+                if (temp.length == 0) {
+
+                    for (var x = index; x < questionArray.length; x++) {
+                        questionArray[x] = questionArray[x + 1];
+                        typeArray[x] = typeArray[x + 1];
+                    }
+                    questionArray.splice(questionArray.length - 1);
+                    typeArray.splice(typeArray.length - 1)
+                }
+            }
+        }
+        array[0] = typeArray;
+        array[1] = questionArray;
+        s.val(JSON.stringify(array));
     }
     function getTags(domain) {
         var json = {'domain': domain};

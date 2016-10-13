@@ -227,12 +227,42 @@ var Util = {
             $('#' + limits[i]).removeClass('sr-only');
         }
     },
-    step:function(dom,myDom){
+    step: function (dom, myDom) {
         myDom = myDom.parent();
         myDom.siblings().removeClass('active');
         myDom.addClass('active');
         myDom.prevAll().addClass('active');
         dom.click();
+    },
+    insertArrayByOrder: function (array, value) {
+        var str = '[';
+        var index = $.inArray(value,array);
+        /*$.each(array,function (ind,a) {
+            if(a == value)
+                index = ind;
+        });*/
+        if(index >= 0)
+            return {'index':index,'arr':array};
+        index = 0;
+        var flag = false;
+        for (var i = 0; i < array.length; i++) {
+
+            if (value < parseInt(array[i])) {
+                str += value + ',';
+                index = i;
+                flag = true;
+            }
+            str += array[i] + ',';
+        }
+        if(flag == false){
+            str += value+',';
+            index = array.length;
+        }
+
+        str = str.substr(0, str.length - 1);
+        str += ']';
+        var arr = JSON.parse(str);
+        return {'index':index,'arr':arr};
     }
 };
 var Animate = {
@@ -474,7 +504,7 @@ var func = {
         var len = op.length;
         var optionValues = [];
         var optionAnswer = [];
-        op.each(function(index,dom){
+        op.each(function (index, dom) {
             optionValues.push($(this).find('.optionValue').first().text());
         });
 
@@ -482,10 +512,10 @@ var func = {
         for (var i = 0; i < len; i++) {
             $('#add').click();
             item = String.fromCharCode(item.charCodeAt() + i);
-            $('#testQuestionOption'+i).val(optionValues[i]);
+            $('#testQuestionOption' + i).val(optionValues[i]);
         }
-        $('.short-answer').each(function(index,dom){
-            $('#'+$(this).text()).prop('checked',true);
+        $('.short-answer').each(function (index, dom) {
+            $('#' + $(this).text()).prop('checked', true);
         })
     },
     updateUser: function (method) {

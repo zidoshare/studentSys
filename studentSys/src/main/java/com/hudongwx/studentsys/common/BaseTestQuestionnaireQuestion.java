@@ -41,4 +41,12 @@ public abstract class BaseTestQuestionnaireQuestion<M extends BaseTestQuestionna
 		return get("testQuestionScore");
 	}
 
+	public void setTestQuestionIsVisible(java.lang.Integer testQuestionIsVisible) {
+		set("testQuestionIsVisible", testQuestionIsVisible);
+	}
+
+	public java.lang.Integer getTestQuestionIsVisible() {
+		return get("testQuestionIsVisible");
+	}
+
 }

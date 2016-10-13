@@ -57,4 +57,12 @@ public abstract class BaseTestType<M extends BaseTestType<M>> extends Model<M> i
 		return get("typeLimit");
 	}
 
+	public void setTestQuestionIsVisible(java.lang.Integer testQuestionIsVisible) {
+		set("testQuestionIsVisible", testQuestionIsVisible);
+	}
+
+	public java.lang.Integer getTestQuestionIsVisible() {
+		return get("testQuestionIsVisible");
+	}
+
 }

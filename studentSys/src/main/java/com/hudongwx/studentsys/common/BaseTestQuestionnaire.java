@@ -25,6 +25,14 @@ public abstract class BaseTestQuestionnaire<M extends BaseTestQuestionnaire<M>> 
 		return get("testQuestionnaireTitle");
 	}
 
+	public void setTestQuestionnaireTypeList(java.lang.String testQuestionnaireTypeList) {
+		set("testQuestionnaireTypeList", testQuestionnaireTypeList);
+	}
+
+	public java.lang.String getTestQuestionnaireTypeList() {
+		return get("testQuestionnaireTypeList");
+	}
+
 	public void setTestQuestionnaireScore(java.lang.Integer testQuestionnaireScore) {
 		set("testQuestionnaireScore", testQuestionnaireScore);
 	}

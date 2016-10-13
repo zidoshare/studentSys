@@ -5,15 +5,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.hudongwx.studentsys.common.BaseController;
 import com.hudongwx.studentsys.model.*;
 import com.hudongwx.studentsys.service.*;
+import com.hudongwx.studentsys.util.ObjectKit;
 import com.hudongwx.studentsys.util.RenderKit;
 import com.jfinal.aop.Before;
 import com.jfinal.ext.interceptor.POST;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.*;
 
 /**
  * Created by wuhongxu on 2016/10/8 0008.
@@ -65,7 +62,7 @@ public class TestController extends BaseController{
     public void questions(){
         setMapping(mappingService.getMappingByTitle("题库"));
         super.index();
-        List<TestType> testTypes = testTypeService.getAllTestTypes();
+        List<TestType> testTypes = testTypeService.getAllVisibleTypes();
         setAttr("types",testTypes);
         Map<String,TestType> testTypeMap = new HashMap<>();
         for(TestType t : testTypes){
@@ -96,7 +93,7 @@ public class TestController extends BaseController{
         setAttr("userMap",userMap);
     }
     public void selectQuestions(){
-        List<TestType> allTestTypes = testTypeService.getAllTestTypes();
+        List<TestType> allTestTypes = testTypeService.getAllVisibleTypes();
         setAttr("types",allTestTypes);
         List<Domain> allDomains = testDomainService.getAllDomains();
         setAttr("domains",allDomains);
@@ -106,6 +103,25 @@ public class TestController extends BaseController{
         setAttr("tags",tags);
         //questions();
         render("/test/selectQuestion.ftl");
+    }
+    public void preview(){
+        fillHeaderAndFooter();
+        String qn = getPara("questions");
+        JSONArray qnArray = JSONArray.parseArray(qn);
+        JSONArray typeArray = qnArray.getJSONArray(0);
+        JSONArray questionsArray = qnArray.getJSONArray(1);
+        Iterator<Object> typeIds = typeArray.iterator();
+        String typeStr = ObjectKit.getStrByJSONArray(typeArray);
+        List<TestType> types = testTypeService.getTypesByJSONArray(typeArray);
+        Map<String,List<TestQuestion>> map = new HashMap<>();
+        for(int i = 0; i < types.size(); i++){
+            JSONArray qs = questionsArray.getJSONArray(i);
+            List<TestQuestion> testQuestions = testQuestionService.getQuestionsByJSONArray(qs);
+            map.put(types.get(i).getId()+"",testQuestions);
+        }
+        setAttr("types",types);
+        setAttr("questionMap",map);
+        render("/test/preview.ftl");
     }
     @Before(POST.class)
     public void getTags(){
@@ -139,6 +155,7 @@ public class TestController extends BaseController{
             JSONObject json = new JSONObject();
             json.put("id", q.getId());
             json.put("title",q.getTestQuestionTitle());
+            json.put("type",q.getTestQuestionTypeId());
             array.add(json);
         }
         RenderKit.renderSuccess(this,array);

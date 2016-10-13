@@ -57,6 +57,10 @@
                                    name="testQuestionnaire.testQuestionnaireCreateTime"
                                    id="testQuestionnaireCreateTime" placeholder="试卷总分">
                         </div>
+                        <div class="form-group">
+                            <label for="selectedQuestions">已选择的题目：</label>
+                            <input type="text" class="form-control" id="selectedQuestions" name="selectedQuestions" value="[[],[]]">
+                        </div>
                     </form>
                 </div>
                 <div class="tab-pane fade in" id="tab2">
@@ -66,11 +70,14 @@
                     <div id="load_questions"></div>
                 </div>
                 <div class="tab-pane fade in" id="tab3">
-                    333333333333
+                    <div id="tab3_loading" class="panel_loading">
+                        <img src="${staticServePath}/images/loading.gif" class="img-sm center-block"/>
+                    </div>
+                    <div id="load_preview"></div>
                 </div>
             </div>
 
-            <a class="btn btn-default pull-right">下一步</a>
+            <a class="btn btn-default pull-right" onclick="func.postTestQuestionnaire()">保存</a>
         </div>
     </div>
     <div class="table-responsive">
@@ -140,5 +147,17 @@
                     window.location.href = '${staticServePath}/user/showLogin';
             });
         }
-    })
+    });
+    $('#tabBtn3').on('shown.bs.tab',function(e){
+        e.preventDefault();
+        if (!$('#tab3_loading').hasClass('sr-only')) {
+            $('#load_preview').load('${staticServePath}/test/preview?questions='+$('#selectedQuestions').val(), function (response, status, xhr) {
+                //TODO  当服务器重启而页面不刷新时，点击会发生错误，尚未处理掉，会发生错误
+                if (status == 'success')
+                    $('#tab3_loading').addClass('sr-only');
+                else
+                    window.location.href = '${staticServePath}/user/showLogin';
+            });
+        }
+    });
 </script>

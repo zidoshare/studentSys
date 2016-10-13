@@ -12,7 +12,7 @@
     <script src="${staticServePath}/static/js/lib/jquery.transit.js"></script>
 </head>
 <body>
-<div class="wrapper" id="wrapper">
+<div class="wrapper cs-wrapper" id="wrapper">
     <div class="big-container">
         <div class="tip" id="submitTip" aria-label="0">
         </div>

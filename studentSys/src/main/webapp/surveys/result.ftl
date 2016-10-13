@@ -12,7 +12,7 @@
     <script src="${staticServePath}/static/js/lib/jquery.transit.js"></script>
 </head>
 <body>
-<div class="wrapper" id="wrapper">
+<div class="wrapper cs-wrapper" id="wrapper">
     <div class="container">
         <h1 class="survey_to_title">${questionnaire.toUser}满意度调查 · ${result.idUser} · ${result.count}</h1>
         <ul class="subject_list">

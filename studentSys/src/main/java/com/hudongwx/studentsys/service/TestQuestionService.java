@@ -1,10 +1,12 @@
 package com.hudongwx.studentsys.service;
 
+import com.alibaba.fastjson.JSONArray;
 import com.hudongwx.studentsys.common.Service;
 import com.hudongwx.studentsys.model.TestQuestion;
 import com.hudongwx.studentsys.model.TestTag;
 import com.hudongwx.studentsys.model.TestTagQuestion;
 import com.hudongwx.studentsys.model.TestType;
+import com.hudongwx.studentsys.util.ObjectKit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,5 +51,10 @@ public class TestQuestionService extends Service {
         }
         String str = testTagQuestionService.getQuestionStrByTag(TestTag.dao.findById(tagId));
         return TestQuestion.dao.find(TestQuestion.SEARCH_FROM_TEST_QUESTION+"where testQuestionTypeId = ? and id in "+str,typeId);
+    }
+
+    public List<TestQuestion> getQuestionsByJSONArray(JSONArray array) {
+        String str = ObjectKit.getStrByJSONArray(array);
+        return TestQuestion.dao.find(TestQuestion.SEARCH_FROM_TEST_QUESTION+"where id in "+str);
     }
 }

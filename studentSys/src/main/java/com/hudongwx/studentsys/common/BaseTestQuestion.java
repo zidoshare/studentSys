@@ -81,4 +81,12 @@ public abstract class BaseTestQuestion<M extends BaseTestQuestion<M>> extends Mo
 		return get("testQuestionOperaterId");
 	}
 
+	public void setTestQuestionDefaultScore(java.lang.Integer testQuestionDefaultScore) {
+		set("testQuestionDefaultScore", testQuestionDefaultScore);
+	}
+
+	public java.lang.Integer getTestQuestionDefaultScore() {
+		return get("testQuestionDefaultScore");
+	}
+
 }
