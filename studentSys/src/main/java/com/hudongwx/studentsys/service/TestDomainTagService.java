@@ -11,7 +11,12 @@ import java.util.List;
  */
 public class TestDomainTagService extends Service {
     public String getTagsStrByDomain(Domain domain){
-        List<DomainTag> domainTags = DomainTag.dao.find(DomainTag.SEARCH_FROM_DOMAIN_TAG+"where domainId = ?",domain.getId());
+
+        List<DomainTag> domainTags = null;
+        if(domain.getId()!=0)
+            domainTags = DomainTag.dao.find(DomainTag.SEARCH_FROM_DOMAIN_TAG+"where domainId = ?",domain.getId());
+        else
+            domainTags = DomainTag.dao.find(DomainTag.SEARCH_FROM_DOMAIN_TAG);
         StringBuilder str = new StringBuilder("(");
         for(DomainTag dt : domainTags){
             str.append(dt.getTagId()).append(",");

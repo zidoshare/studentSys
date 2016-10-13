@@ -34,6 +34,9 @@ public class TestTagService extends Service {
 
     public List<TestTag> getTagsByDomain(Domain domain) {
         String str = domainTagService.getTagsStrByDomain(domain);
+        if(domain.getId() == 0){
+            return TestTag.dao.find(TestTag.SEARCH_FROM_TEST_TAG+"where id not in "+str);
+        }
         return TestTag.dao.find(TestTag.SEARCH_FROM_TEST_TAG+"where id in "+str);
     }
 }
