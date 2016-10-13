@@ -1,5 +1,7 @@
 package com.hudongwx.studentsys.controller;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.hudongwx.studentsys.common.BaseController;
 import com.hudongwx.studentsys.model.*;
 import com.hudongwx.studentsys.service.*;
@@ -92,36 +94,24 @@ public class TestController extends BaseController{
         }
         setAttr("userMap",userMap);
     }
-    public void getQuestionsJSON(){
-        List<TestType> testTypes = testTypeService.getAllTestTypes();
-        setAttr("types",testTypes);
-        Map<String,TestType> testTypeMap = new HashMap<>();
-        for(TestType t : testTypes){
-            testTypeMap.put(t.getId()+"",t);
-        }
-        setAttr("testTypeMap",testTypeMap);
-        List<TestTag> tags = testTagService.getAllTestTag();
-        setAttr("tags",tags);
+    public void selectQuestions(){
 
-        List<TestQuestion> allQuestions = testQuestionService.getAllQuestions();
-        setAttr("questions",allQuestions);
-        Map<String,List<TestTag>> testQuestionTagsMap = new HashMap<>();
-        for(TestQuestion tq : allQuestions){
-            testQuestionTagsMap.put(tq.getId()+"",testTagService.getTagsByQuestion(tq));
+        //questions();
+        render("/test/selectQuestion.ftl");
+    }
+    @Before(POST.class)
+    public void getQuestions(){
+        Integer tagId = getParaToInt("tag");
+        Integer typeId = getParaToInt("type");
+        List<TestQuestion> questions = testQuestionService.getQuestionsByTypeIdAndTagId(tagId, typeId);
+        JSONArray array = new JSONArray();
+        for(TestQuestion q : questions){
+            JSONObject json = new JSONObject();
+            json.put("id", q.getId());
+            json.put("title",q.getTestQuestionTitle());
+            array.add(json);
         }
-        setAttr("testQuestionTags",testQuestionTagsMap);
-        //能够进行添加题目的角色
-        Mapping mapping = mappingService.getMappingByUrl("addTestQuestion");
-        List<Role> roles = roleService.getRoleByMapping(mapping);
-        Map<String,User> userMap = new HashMap<>();
-        List<User> users = new ArrayList<>();
-        for(Role role : roles){
-            users.addAll(userService.getUsersByRole(role));
-        }
-        for(User user : users){
-            userMap.put(user.getId()+"",user);
-        }
-        setAttr("userMap",userMap);
+        RenderKit.renderSuccess(this,array);
     }
     @Before(POST.class)
     public void addTestQuestion(){

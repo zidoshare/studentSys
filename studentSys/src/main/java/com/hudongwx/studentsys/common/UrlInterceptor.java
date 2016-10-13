@@ -21,6 +21,7 @@ public class UrlInterceptor implements Interceptor {
         controller.setAttr(Common.LABEL_CONTROLLER_KEY,controllerKey);
         log.info(actionKey);
         if(null == BaseController.getCurrentUser(controller.getRequest())){
+            controller.setAttr("code",403);
             controller.setAttr("msg","你尚未登录");
             controller.forwardAction("/userManager/showLogin");
             return ;

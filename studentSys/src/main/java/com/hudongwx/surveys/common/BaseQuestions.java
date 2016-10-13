@@ -57,4 +57,36 @@ public abstract class BaseQuestions<M extends BaseQuestions<M>> extends Model<M>
 		return get("option_score");
 	}
 
+	public void setCreateTime(java.lang.Integer createTime) {
+		set("createTime", createTime);
+	}
+
+	public java.lang.Integer getCreateTime() {
+		return get("createTime");
+	}
+
+	public void setUpdateTime(java.lang.Integer updateTime) {
+		set("updateTime", updateTime);
+	}
+
+	public java.lang.Integer getUpdateTime() {
+		return get("updateTime");
+	}
+
+	public void setAnswer(java.lang.String answer) {
+		set("answer", answer);
+	}
+
+	public java.lang.String getAnswer() {
+		return get("answer");
+	}
+
+	public void setMaxScore(java.lang.Integer maxScore) {
+		set("maxScore", maxScore);
+	}
+
+	public java.lang.Integer getMaxScore() {
+		return get("maxScore");
+	}
+
 }

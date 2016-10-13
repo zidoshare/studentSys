@@ -65,4 +65,20 @@ public abstract class BaseQuestionnaire<M extends BaseQuestionnaire<M>> extends 
 		return get("note");
 	}
 
+	public void setCreateTime(java.lang.Long createTime) {
+		set("createTime", createTime);
+	}
+
+	public java.lang.Long getCreateTime() {
+		return get("createTime");
+	}
+
+	public void setMaxScore(java.lang.Integer maxScore) {
+		set("maxScore", maxScore);
+	}
+
+	public java.lang.Integer getMaxScore() {
+		return get("maxScore");
+	}
+
 }

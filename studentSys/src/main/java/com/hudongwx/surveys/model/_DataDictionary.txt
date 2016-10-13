@@ -18,6 +18,8 @@ Table: surveys_t_questionnaire
  to_user     | varchar(6)   | NO   |     |         |         
  end_time    | varchar(14)  | YES  |     |         |         
  note        | varchar(150) | YES  |     |         |         
+ createTime  | bigint(19)   | YES  |     |         | 创建时间    
+ maxScore    | int(10)      | NO   |     |         |         
 -------------+--------------+------+-----+---------+---------
 
 Table: surveys_t_questionnaire_result
@@ -41,6 +43,10 @@ Table: surveys_t_questions
  title        | varchar(200) | NO   |     |         |         
  content      | text(65535)  | NO   |     |         |         
  option_score | text(65535)  | YES  |     |         |         
+ createTime   | int(10)      | NO   |     | 0       |         
+ updateTime   | int(10)      | YES  |     |         |         
+ answer       | varchar(100) | YES  |     |         |         
+ maxScore     | int(10)      | NO   |     |         |         
 --------------+--------------+------+-----+---------+---------
 
 Table: surveys_t_questions_questionnaire

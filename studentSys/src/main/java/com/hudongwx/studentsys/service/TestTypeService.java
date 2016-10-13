@@ -12,4 +12,8 @@ public class TestTypeService extends Service {
     public List<TestType> getAllTestTypes(){
         return TestType.dao.find(TestType.SEARCH_FROM_TEST_TYPE);
     }
+
+    public TestType getTypeById(Integer typeId) {
+        return TestType.dao.findById(typeId);
+    }
 }

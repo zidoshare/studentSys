@@ -14,8 +14,10 @@
             $(document).pjax('a[target!="_blank"]', '#page-inner', {
                 fragment: '#page-inner',
                 timeout: 8000,
-                cache: false,
-                storage: false
+                cache: true,
+                maxCacheLength:5,
+                storage: false,
+                replace:true
             });
         }
     });
@@ -33,18 +35,22 @@
     });
     var sid = 0;
     var word = "a";
-    function submit() {
+    function submitQuestion() {
         var title = $("#title").val();
         var bigType = jQuery("#bigType").find("option:selected").val();
         var type = jQuery("#type").find("option:selected").val();
         var c = [];
         var s = [];
         /*var content = "{[\"";*/
+        var max = 0;
         for (var i = 0; i < sid; i++) {
             /*content += i+"\":\"";
             content += $("#select"+i).val()+"\",";*/
             c[i] = $("#select" + i).val();
             s[i] = $("#score" + i).val();
+            if(parseInt(s[i])>max){
+                max=parseInt(s[i]);
+            }
         }
         /*content = content.substring(0,content.length-1);
         content+="]}";*/
@@ -58,7 +64,8 @@
                 "questions.type": type,
                 "questions.big_type_id": bigType,
                 "questions.content": content,
-                "questions.option_score": score
+                "questions.option_score": score,
+                "questions.maxScore":max
             },
             success: function (data, textStatus) {
                 alert(data.msg);

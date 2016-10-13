@@ -18,7 +18,6 @@ public class SurveysGenerator {
         String jdbcUrl = dataBaseProp.get("testUrl");
         String user = dataBaseProp.get("testUser");
         String password = dataBaseProp.get("testPassword");
-        System.out.println(jdbcUrl+":::::::"+user+"::::::"+password);
 
         C3p0Plugin c3p0Plugin = new C3p0Plugin(jdbcUrl,user,password);
         c3p0Plugin.start();

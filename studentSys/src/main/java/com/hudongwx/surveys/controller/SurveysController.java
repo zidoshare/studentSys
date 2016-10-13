@@ -162,6 +162,12 @@ public class SurveysController extends BaseController {
         if (questionnaireResultByQuestionnaireId.size() > 0) {
             avg = sum / questionnaireResultByQuestionnaireId.size();
         }
+        List<Questions> questions = surveysService.getQuestionsByQuestionnaire(questionnaire.getId());
+        int score = 0;
+        for(Questions q : questions){
+            score+=q.getMaxScore();
+        }
+        setAttr("sum",score);
         setAttr("avg", avg);
         setAttr("questionnaire", questionnaire);
         setAttr("results", questionnaireResultByQuestionnaireId);

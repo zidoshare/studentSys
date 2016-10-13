@@ -62,7 +62,7 @@
     </div>-->
         <div class="form-group">
             <div class="col-sm-offset-5 col-sm-10">
-                <button onclick="submit()" class="btn btn-success">提交</button>
+                <button onclick="submitQuestion()" class="btn btn-success">提交</button>
             </div>
         </div>
 

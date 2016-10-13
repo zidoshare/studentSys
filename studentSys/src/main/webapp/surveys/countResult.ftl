@@ -1,6 +1,6 @@
 
 <div class="modal-header">
-    <h4 class="modal-title" id="myModalLabel">${questionnaire.toUser}调查表统计 平均分${avg} 人数${results?size}</h4>
+    <h4 class="modal-title" id="myModalLabel">${questionnaire.toUser}调查表统计 总分:${sum} 平均分:${avg} 人数:${results?size}</h4>
 </div>
 <div class="modal-body">
         <table class="table text-success table-striped table-hover" id="ids">
