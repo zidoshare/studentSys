@@ -1,10 +1,12 @@
 package com.hudongwx.studentsys.common;
 
 import com.hudongwx.studentsys.util.Common;
+import com.hudongwx.studentsys.util.InsertKit;
 import com.jfinal.aop.Interceptor;
 import com.jfinal.aop.Invocation;
 import com.jfinal.core.Controller;
 import com.jfinal.log.Log;
+import com.jfinal.render.FreeMarkerRender;
 
 /**
  * Created by wuhongxu on 2016/8/31 0031.

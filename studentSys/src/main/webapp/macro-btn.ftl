@@ -1,12 +1,14 @@
-<#macro macroBtn url title type="normal" theme="res" id="">
+<#macro macroBtn url title theme="res" isSave=false>
     <#assign str = "">
-    <#if id?length gt 0>
-        <#assign str = ",'${id}'">
-    </#if>
-    <#if type=="normal">
-        <a onclick="func.${url}('show'${str});" class="res">${title}</a>
+    <#assign btnLabel = "">
+    <#if isSave>
+        <#assign btnLabel = "<button data-style=\"slide-up\" id=\"save-btn\" class=\"btn btn-${theme} ladda-button\"
+                onclick=\"func.${url}('up'${str});\"><span
+                class=\"ladda-label\">title</span></button>">
+    <#elseif theme == "res">
+        <#assign btnLabel = "<a onclick=\"func.${url}('show','?');\" class=\"${theme}\">${title}</a>">
     <#else>
-        <button data-style="slide-up" id="save-btn" class="btn btn-${theme} ladda-button" onclick="func.${url}('up'"><span class="ladda-label">保存</span></button>
+        <#assign btnLabel = "<a onclick=\"func.${url}('show','?');\" class=\"btn btn-${theme}\">${title}</a>">
     </#if>
 </#macro>
 
@@ -22,15 +24,20 @@
         <#list map["operators"+view.id] as op>
             <#if op.url?starts_with("add")>
                 <#assign addAble = true>
-                <#assign addBtn = "<a onclick=\"func.${op.url}('show');\" class=\"btn btn-"+theme+"\">${op.title}</a>">
-                <#assign saveBtn = "<button data-style=\"slide-up\" id=\"save-btn\" class=\"btn btn-"+theme+" ladda-button\" onclick=\"func.${op.url}('up');\"><span class=\"ladda-label\">保存</span></button>">
+                <@macroBtn url = op.url title = op.title theme=theme></@macroBtn>
+                <#assign addBtn = btnLabel>
+                <@macroBtn url = op.url title = op.title theme=theme isSave=true></@macroBtn>
+                <#assign saveBtn = btnLabel>
             </#if>
             <#if op.url?starts_with("update")>
                 <#assign updateAble = true>
+                <@macroBtn url = op.url title = op.title ></@macroBtn>
+                <#assign updateBtn = btnLabel>
             </#if>
             <#if op.url?starts_with("delete")>
                 <#assign deleteAble = true>
-
+                <@macroBtn url = op.url title = op.title ></@macroBtn>
+                <#assign deleteBtn = btnLabel>
             </#if>
         </#list>
     </#if>

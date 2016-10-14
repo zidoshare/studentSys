@@ -230,6 +230,10 @@ ul.nav li:hover {
 .title {
     /*font-size: 32px;
     margin-left: 10px;*/
+    font-family: inherit;
+    color:#ff6a16 !important;
+    font-weight: 500 !important;
+    font-size:36px !important;
     position: relative;
 }
 
@@ -242,12 +246,11 @@ ul.nav li:hover {
     content: '';
     display: inline-block;
     width: 5px;
-    height: 30px;
+    height: 39px;
     position: absolute;
-    border-radius: 2px;
     top: 17px;
-    left: 5px;
-    background: #bebebe;
+    left: 0;
+    background: #ff6a16;
 }
 
 .oprater-div {
@@ -358,14 +361,14 @@ a {
     color: #000000;
 }
 
-.res {
+.res,.btn-res {
     font-size: 14px;
     color: #00cb66;
     position: relative;
     cursor: pointer;
 }
 
-.res:after {
+.res:after,.btn-res:after {
     content: "";
     position: absolute;
     width: 100%;
@@ -375,12 +378,12 @@ a {
     left: 0;
 }
 
-.res:hover {
+.res:hover,.btn-res:hover {
     border: none;
     color: black;
 }
 
-.res:hover:after {
+.res:hover:after,.btn-res:after {
     height: 0;
 }
 

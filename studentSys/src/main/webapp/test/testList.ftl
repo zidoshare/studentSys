@@ -1,6 +1,6 @@
 <#include "../macro-item.ftl">
 <#include "../macro-btn.ftl">
-<@initBtn map = map view=view theme="default"></@initBtn>
+<@initBtn map = map view=view></@initBtn>
 <link rel="stylesheet" href="${staticServePath}/static/css/lib/bootstrap-select.min.css">
 <@item>
 <div class="panel-heading title">${view.title}
@@ -120,16 +120,14 @@
                         <td>${(q.testQuestionnaireCreateTime?number)?number_to_datetime}</td>
                         <td>${q.testQuestionnaireScore}</td>
                         <td>${operaterMap["${q.id}"].userNickname}</td>
-                        <#--<#if updateAble || deleteAble>-->
-                            <#--<td>-->
-                                <#--<@macroUpdateBtn q.id></@macroUpdateBtn>-->
-                                <#--<@macroDeleteBtn q.id></@macroDeleteBtn>-->
-                                <#--<#if updateAble>-->
-                                <#--${updateBtn}/-->
-                                <#--</#if>-->
-                            <#--${deleteBtn}-->
-                            <#--</td>-->
-                        <#--</#if>-->
+                        <#if updateAble || deleteAble>
+                            <td>
+                                <#if updateAble>
+                                    ${InsertKit(updateBtn,"${q.id}")}/
+                                </#if>
+                            ${InsertKit(deleteBtn,"${q.id}")}
+                            </td>
+                        </#if>
                     </tr>
                     </#list>
 

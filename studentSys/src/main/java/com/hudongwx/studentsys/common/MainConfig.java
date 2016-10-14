@@ -2,6 +2,7 @@ package com.hudongwx.studentsys.common;
 
 import com.hudongwx.studentsys.RequestHandler;
 import com.hudongwx.studentsys.model._MappingKit;
+import com.hudongwx.studentsys.util.InsertKit;
 import com.hudongwx.surveys.common.SurveysRoutes;
 import com.hudongwx.studentsys.util.Common;
 import com.hudongwx.studentsys.util.LangConfig;
@@ -15,6 +16,7 @@ import com.jfinal.plugin.activerecord.dialect.MysqlDialect;
 import com.jfinal.plugin.activerecord.tx.TxByMethodRegex;
 import com.jfinal.plugin.c3p0.C3p0Plugin;
 import com.jfinal.plugin.ehcache.EhCachePlugin;
+import com.jfinal.render.FreeMarkerRender;
 
 /**
  * Created by wuhongxu on 2016/8/29 0029.
@@ -66,6 +68,7 @@ public class MainConfig extends JFinalConfig{
         //对增删改操作开启事务
         me.add(new TxByMethodRegex("(^_save.*|^_update.*|^_delete.*|^post.*)"));
         me.add(new UrlInterceptor());
+        FreeMarkerRender.getConfiguration().setSharedVariable("InsertKit",new InsertKit());
         /*initMapping();*/
     }
 
