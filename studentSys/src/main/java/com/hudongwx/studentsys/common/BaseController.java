@@ -115,7 +115,7 @@ public abstract class BaseController extends Controller {
     protected boolean fillContentParent() {
         User user = getCurrentUser(getRequest());
         if (user == null) {
-            redirect("/user/login");
+            forwardAction("/user/showLogin");
             return false;
         }
         if (mapping == null) {
@@ -168,7 +168,7 @@ public abstract class BaseController extends Controller {
     protected boolean fillContentChild() {
         User user = getCurrentUser(getRequest());
         if (user == null) {
-            redirect("/user/login");
+            forwardAction("/user/showLogin");
             return false;
         }
         if (mapping == null) {

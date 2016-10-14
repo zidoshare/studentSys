@@ -369,10 +369,10 @@ var func = {
             var btn = Ladda.create(document.querySelector("#saveUser-btn"));
             btn.start();
             var json = {};
+            $('#createTime').val(new Date().getTime());
             $('#user').find('.form-control').each(function () {
                 json[$(this).attr('name')] = $(this).val();
             });
-            $('#createTime').val(new Date().getTime());
             $.ajax({
                 url: Label.staticServePath + '/userManager/addUser',
                 type: 'post',
@@ -483,7 +483,47 @@ var func = {
         }
     },
     addTestQuestionnaire: function (method, id) {
-
+        if(method == 'show')
+            $('#inputQuestionnairePanel').toggle();
+        else{
+            var btn = Ladda.create(document.querySelector("#save-btn"));
+            btn.start();
+            var json = {};
+            $('#testQuestionnaireCreateTime').val(new Date().getTime());
+            var qqs = [];
+            var sum = 0;
+            $('.subject_list').find('.que').each(function(index,dom){
+                var qj = {};
+                var qId = $(dom).attr('id');
+                var qVal = $(dom).val();
+                qj['testQuestionId'] = ''+qId;
+                qj['testQuestionScore'] = ''+qVal;
+                sum +=parseInt($(dom).val());
+                qqs.push(qj);
+            });
+            json["questionnaireQuestions"] = JSON.stringify(qqs);
+            $('#testQuestionnaireScore').val(sum);
+            $('#testQuestionnaire').find('.form-control').each(function () {
+                json[$(this).attr('name')] = $(this).val();
+            });
+            console.log(json);
+            $.ajax({
+                url:Label.staticServePath+"/test/addTestQuestionnaire",
+                type:"post",
+                data:json,
+                success:function (data, state) {
+                    if(data.state == 'success'){
+                        Util.showTip($('#wholeTip'),data.msg,'alert alert-success',{time:5000});
+                    }
+                },
+                error:function(){
+                    Util.showTip($('#wholeTip'),'服务器错误','alert alert-danger',{time:5000});
+                },
+                complete:function(){
+                    btn.stop();
+                }
+            })
+        }
     },
     updateTestQuestion: function (method, id) {
         modalUtil.toggleClear($('#addTestQuestion'));

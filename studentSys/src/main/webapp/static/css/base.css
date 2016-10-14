@@ -6,7 +6,7 @@
     position: absolute;
 }
 
-.big-container {
+.whole-container {
     position: fixed;
     z-index: 131414;
     top: 0;

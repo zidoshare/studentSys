@@ -19,6 +19,8 @@ public class ObjectKit {
         }
         if(str.length()>1)
             str.deleteCharAt(str.length()-1);
+        else
+            str.append("-1");
         str.append(")");
         return str.toString();
     }

@@ -27,7 +27,7 @@ public class UserService extends Service {
             return null;
         return users.get(0);
     }
-    public User getUserById(String id){
+    public User getUserById(Integer id){
         return User.dao.findById(id);
     }
     public boolean _saveUser(User user){

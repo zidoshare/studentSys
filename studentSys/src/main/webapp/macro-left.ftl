@@ -53,7 +53,7 @@
 
 
 </nav>
-<div class="big-container">
+<div class="whole-container">
     <div class="tip" id="wholeTip" aria-label="0">
     </div>
 </div>

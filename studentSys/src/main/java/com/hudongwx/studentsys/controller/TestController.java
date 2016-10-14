@@ -5,8 +5,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.hudongwx.studentsys.common.BaseController;
 import com.hudongwx.studentsys.model.*;
 import com.hudongwx.studentsys.service.*;
+import com.hudongwx.studentsys.util.Common;
 import com.hudongwx.studentsys.util.ObjectKit;
 import com.hudongwx.studentsys.util.RenderKit;
+import com.hudongwx.studentsys.service.TestQuestionnaireQuestionService;
 import com.jfinal.aop.Before;
 import com.jfinal.ext.interceptor.POST;
 
@@ -25,6 +27,7 @@ public class TestController extends BaseController{
     public MappingService mappingService;
     public TestQuestionnaireService testQuestionnaireService;
     public TestDomainService testDomainService;
+    public TestQuestionnaireQuestionService testQuestionnaireQuestionService;
     /**
      * @return 返回mapping的title属性
      */
@@ -45,6 +48,11 @@ public class TestController extends BaseController{
         super.index();
         List<TestQuestionnaire> allTestQuestionnaire = testQuestionnaireService.getAllTestQuestionnaire();
         setAttr("questionnaires",allTestQuestionnaire);
+        Map<String,User> userMap = new HashMap<>();
+        for(TestQuestionnaire tq : allTestQuestionnaire){
+            userMap.put(tq.getId()+"",userService.getUserById(tq.getTestQuestionnaireOperaterId()));
+        }
+        setAttr("operaterMap",userMap);
         /*Map<String,String> msgMap = new HashMap<>();
         for(TestQuestionnaire tq : allTestQuestionnaire){
             testQuestionnaireService.getMsgMapByQuestionnaire(tq);
@@ -159,6 +167,36 @@ public class TestController extends BaseController{
             array.add(json);
         }
         RenderKit.renderSuccess(this,array);
+    }
+    @Before(POST.class)
+    public void addTestQuestionnaire(){
+        TestQuestionnaire model = getModel(TestQuestionnaire.class);
+        if(!model.save()){
+            RenderKit.renderError(this,"保存试卷失败");
+            return;
+        }
+        Enumeration<String> names = getParaNames();
+        while(names.hasMoreElements()){
+            log.info("-------------"+names.nextElement());
+        }
+        String para = getPara("questionnaireQuestions");
+        log.info(""+model.getId());
+        JSONArray array = JSONArray.parseArray(para);
+        for(int i = 0 ; i < array.size(); i++){
+            JSONObject obj = array.getJSONObject(i);
+            Integer questionId = obj.getInteger("testQuestionId");
+            Integer testQuestionScore = obj.getInteger("testQuestionScore");
+            TestQuestionnaireQuestion tqq = new TestQuestionnaireQuestion();
+            tqq.setTestQuestionnaireId(model.getId());
+            tqq.setTestQuestionId(questionId);
+            tqq.setTestQuestionScore(testQuestionScore);
+            tqq.setTestQuestionIsVisible(Common.VALUE_VISIBLE);
+            if(!testQuestionnaireQuestionService._saveTestQuestionnaireQuestion(tqq)){
+                RenderKit.renderError(this,"关联试题失败！");
+                return ;
+            }
+        }
+        RenderKit.renderSuccess(this,"添加成功");
     }
     @Before(POST.class)
     public void addTestQuestion(){

@@ -113,6 +113,7 @@
         var array = JSON.parse(s.val());
         var typeArray = array[0];
         var questionArray = array[1];
+        isChanged = true;
         if ($(dom).prop('checked')) {
             //默认按照id大小进行排序
             var result = Util.insertArrayByOrder(typeArray, tp);

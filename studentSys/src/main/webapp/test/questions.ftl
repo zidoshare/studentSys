@@ -1,5 +1,6 @@
 <#include "../macro-item.ftl">
 <#include "../macro-btn.ftl">
+<@initBtn map = map view=view></@initBtn>
 <@item>
 <div class="panel-heading">
     <div class="panel-heading title">
