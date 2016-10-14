@@ -64,7 +64,7 @@
                                    value="[[],[]]">
                         </div>
                         <div class="form-group sr-only">
-                            <label for="testQuestionnaireOperaterId">已选择的题目：</label>
+                            <label for="testQuestionnaireOperaterId">操作用户</label>
                             <input type="text" class="form-control" id="testQuestionnaireOperaterId" name="testQuestionnaire.testQuestionnaireOperaterId"
                                    value="${user.id}">
                         </div>
@@ -144,7 +144,8 @@
     var isChanged = true;
     $('#tabBtn2').on('shown.bs.tab', function (e) {
         e.preventDefault();
-
+        if($('#selectedQuestions').val().length < 2)
+            $('#selectedQuestions').val('[[],[]]');
         if (!$('#tab2_loading').hasClass('sr-only')) {
             $('#load_questions').load('${staticServePath}/test/selectQuestions', function (response, status, xhr) {
                 //TODO  当服务器重启而页面不刷新时，点击会发生错误，尚未处理掉，会发生错误

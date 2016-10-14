@@ -513,7 +513,9 @@ var func = {
                 data:json,
                 success:function (data, state) {
                     if(data.state == 'success'){
-                        Util.showTip($('#wholeTip'),data.msg,'alert alert-success',{time:5000});
+                        Util.showTip($('#wholeTip'),data.msg,'alert alert-success',{time:1000,complete:function(){
+                            $.reload('#page-inner');
+                        }});
                     }
                 },
                 error:function(){
