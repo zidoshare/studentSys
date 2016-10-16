@@ -6,6 +6,7 @@
         servePath: "${servePath}",
         isLogin:${isLogin?c},
         loginRole: "${loginRole}",
+        userId:"${user.id}",
         loginNameErrorLabel: "${loginNameErrorLabel}",
         invalidPasswordLabel: "${invalidPasswordLabel}"
     };

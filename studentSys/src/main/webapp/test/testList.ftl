@@ -56,7 +56,7 @@
                             <label for="testQuestionnaireCreateTime">试卷创建时间：</label>
                             <input type="email" class="form-control"
                                    name="testQuestionnaire.testQuestionnaireCreateTime"
-                                   id="testQuestionnaireCreateTime" placeholder="试卷总分">
+                                   id="testQuestionnaireCreateTime" placeholder="试卷创建时间">
                         </div>
                         <div class="form-group sr-only">
                             <label for="selectedQuestions">已选择的题目：</label>
@@ -66,7 +66,7 @@
                         <div class="form-group sr-only">
                             <label for="testQuestionnaireOperaterId">操作用户</label>
                             <input type="text" class="form-control" id="testQuestionnaireOperaterId" name="testQuestionnaire.testQuestionnaireOperaterId"
-                                   value="${user.id}">
+                                   >
                         </div>
                     </form>
                 </div>

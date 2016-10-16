@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50712
 File Encoding         : 65001
 
-Date: 2016-10-14 16:08:23
+Date: 2016-10-16 18:57:25
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -43,7 +43,7 @@ CREATE TABLE `stumanager_domain` (
   `domainOperaterId` int(11) NOT NULL,
   `domainCreateTime` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of stumanager_domain
@@ -370,12 +370,13 @@ CREATE TABLE `stumanager_test_questionnaire` (
   `testQuestionnaireOperaterId` int(11) NOT NULL,
   `testQuestionnaireMessage` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of stumanager_test_questionnaire
 -- ----------------------------
 INSERT INTO `stumanager_test_questionnaire` VALUES ('12', '123', '[[1,2,3],[[\"6\"],[\"7\"],[\"8\",\"11\",\"16\"]]]', '25', '1476432157726', '86', '123');
+INSERT INTO `stumanager_test_questionnaire` VALUES ('13', '123', '[[1,2,3],[[\"6\"],[\"7\"],[\"11\",\"16\"]]]', '20', '1476433733752', '86', '123');
 
 -- ----------------------------
 -- Table structure for `stumanager_test_questionnaire_class`
@@ -405,7 +406,7 @@ CREATE TABLE `stumanager_test_questionnaire_question` (
   `testQuestionScore` int(11) NOT NULL,
   `testQuestionIsVisible` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of stumanager_test_questionnaire_question
@@ -415,6 +416,10 @@ INSERT INTO `stumanager_test_questionnaire_question` VALUES ('10', '12', '7', '5
 INSERT INTO `stumanager_test_questionnaire_question` VALUES ('11', '12', '8', '5', '1');
 INSERT INTO `stumanager_test_questionnaire_question` VALUES ('12', '12', '11', '5', '1');
 INSERT INTO `stumanager_test_questionnaire_question` VALUES ('13', '12', '16', '5', '1');
+INSERT INTO `stumanager_test_questionnaire_question` VALUES ('14', '13', '6', '5', '1');
+INSERT INTO `stumanager_test_questionnaire_question` VALUES ('15', '13', '7', '5', '1');
+INSERT INTO `stumanager_test_questionnaire_question` VALUES ('16', '13', '11', '5', '1');
+INSERT INTO `stumanager_test_questionnaire_question` VALUES ('17', '13', '16', '5', '1');
 
 -- ----------------------------
 -- Table structure for `stumanager_test_tag`

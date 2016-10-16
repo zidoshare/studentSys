@@ -490,6 +490,7 @@ var func = {
             btn.start();
             var json = {};
             $('#testQuestionnaireCreateTime').val(new Date().getTime());
+            $('#testQuestionnaireOperaterId').val(Label.userId);
             var qqs = [];
             var sum = 0;
             $('.subject_list').find('.que').each(function(index,dom){
@@ -526,6 +527,9 @@ var func = {
                 }
             })
         }
+    },
+    updateTestQuestionnaire:function(method,id){
+        
     },
     updateTestQuestion: function (method, id) {
         modalUtil.toggleClear($('#addTestQuestion'));
