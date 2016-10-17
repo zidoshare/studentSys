@@ -7,9 +7,9 @@
     <span class="pull-right">${addBtn}</span>
 </div>
 <div class="panel-body">
-    <div class="panel panel-default" id="inputQuestionnairePanel">
+    <div class="panel panel-default" id="inputQuestionnairePanel" style="display: none">
         <div class="panel-heading">
-            <h3 align="center">组卷</h3>
+            <h3 align="center">组卷<a class="btn btn-default btn-sm pull-right" onclick="Util.clearPanel($('#inputQuestionnairePanel'))"><i class="fa fa-times" aria-hidden="true"></i></a></h3>
         </div>
         <div class="panel-body">
             <ul class="nav nav-pills nav-tabs nav-justified step step-arrow">
@@ -37,30 +37,41 @@
             <div id="tablesContent" class="tab-content">
                 <div class="tab-pane fade in active" id="tab1">
                     <form role="form" id="testQuestionnaire">
+                        <div class="form-group sr-only">
+                            <label for="testQuestionnaireId">试卷id：</label>
+                            <input type="text" class="form-control" name="testQuestionnaire.id"
+                                   id="testQuestionnaireId" placeholder="试卷标题">
+                        </div>
                         <div class="form-group">
                             <label for="testQuestionnaireTitle">试卷标题：</label>
-                            <input type="email" class="form-control" name="testQuestionnaire.testQuestionnaireTitle"
+                            <input type="text" class="form-control" name="testQuestionnaire.testQuestionnaireTitle"
                                    id="testQuestionnaireTitle" placeholder="试卷标题">
                         </div>
                         <div class="form-group">
                             <label for="testQuestionnaireMessage">试卷备注信息：</label>
-                            <input type="email" class="form-control" name="testQuestionnaire.testQuestionnaireMessage"
+                            <input type="text" class="form-control" name="testQuestionnaire.testQuestionnaireMessage"
                                    id="testQuestionnaireMessage" placeholder="试卷备注信息">
                         </div>
                         <div class="form-group sr-only">
                             <label for="testQuestionnaireScore">试卷总分：</label>
-                            <input type="email" class="form-control" name="testQuestionnaire.testQuestionnaireScore"
+                            <input type="text" class="form-control" name="testQuestionnaire.testQuestionnaireScore"
                                    id="testQuestionnaireScore" placeholder="试卷总分">
                         </div>
                         <div class="form-group sr-only">
                             <label for="testQuestionnaireCreateTime">试卷创建时间：</label>
-                            <input type="email" class="form-control"
+                            <input type="text" class="form-control"
                                    name="testQuestionnaire.testQuestionnaireCreateTime"
                                    id="testQuestionnaireCreateTime" placeholder="试卷创建时间">
                         </div>
                         <div class="form-group sr-only">
-                            <label for="selectedQuestions">已选择的题目：</label>
-                            <input type="text" class="form-control" id="selectedQuestions" name="testQuestionnaire.testQuestionnaireTypeList"
+                            <label for="testQuestionnaireUpdateTime">试卷修改时间：</label>
+                            <input type="text" class="form-control"
+                                   name="testQuestionnaire.testQuestionnaireUpdateTime"
+                                   id="testQuestionnaireUpdateTime" placeholder="试卷修改时间">
+                        </div>
+                        <div class="form-group sr-only">
+                            <label for="testQuestionnaireTypeList">已选择的题目：</label>
+                            <input type="text" class="form-control" id="testQuestionnaireTypeList" name="testQuestionnaire.testQuestionnaireTypeList"
                                    value="[[],[]]">
                         </div>
                         <div class="form-group sr-only">
@@ -92,7 +103,6 @@
                    id="dataTables-example" aria-describedby="dataTables-example_info">
                 <thead>
                 <tr>
-
                     <th>
                         试卷
                     </th>
@@ -115,11 +125,11 @@
                 <tbody>
 
                     <#list questionnaires as q>
-                    <tr>
-                        <td>${q.testQuestionnaireTitle}</td>
-                        <td>${(q.testQuestionnaireCreateTime?number)?number_to_datetime}</td>
-                        <td>${q.testQuestionnaireScore}</td>
-                        <td>${operaterMap["${q.id}"].userNickname}</td>
+                    <tr id="testQuestionnaire${q.id}">
+                        <td id="testQuestionnaireTitle${q.id}" data-label="${q.testQuestionnaireTitle?html}">${q.testQuestionnaireTitle}</td>
+                        <td id="testQuestionnaireCreateTime${q.id}" data-label="${q.testQuestionnaireCreateTime}">${(q.testQuestionnaireCreateTime?number)?number_to_datetime}</td>
+                        <td id="testQuestionnaireScore${q.id}" data-label="${q.testQuestionnaireScore}">${q.testQuestionnaireScore}</td>
+                        <td id="testQuestionnaireUserNickname${q.id}" data-label="${operaterMap["${q.id}"].userNickname}">${operaterMap["${q.id}"].userNickname}</td>
                         <#if updateAble || deleteAble>
                             <td>
                                 <#if updateAble>
@@ -128,6 +138,15 @@
                             ${InsertKit(deleteBtn,"${q.id}")}
                             </td>
                         </#if>
+                        <td id="testQuestionnaireMessage${q.id}" class="sr-only" data-label="${q.testQuestionnaireMessage?html}">
+
+                        </td>
+                        <td id="testQuestionnaireTypeList${q.id}" class="sr-only" data-label="${q.testQuestionnaireTypeList?html}">
+
+                        </td>
+                        <td id="testQuestionnaireUpdateTime${q.id}" class="sr-only" data-label="${q.testQuestionnaireUpdateTime}">
+                            ${q.testQuestionnaireUpdateTime}
+                        </td>
                     </tr>
                     </#list>
 
@@ -142,8 +161,8 @@
     var isChanged = true;
     $('#tabBtn2').on('shown.bs.tab', function (e) {
         e.preventDefault();
-        if($('#selectedQuestions').val().length < 2)
-            $('#selectedQuestions').val('[[],[]]');
+        if($('#testQuestionnaireTypeList').val().length < 2)
+            $('#testQuestionnaireTypeList').val('[[],[]]');
         if (!$('#tab2_loading').hasClass('sr-only')) {
             $('#load_questions').load('${staticServePath}/test/selectQuestions', function (response, status, xhr) {
                 //TODO  当服务器重启而页面不刷新时，点击会发生错误，尚未处理掉，会发生错误
@@ -159,7 +178,12 @@
 
         if (isChanged) {
             $('#tab3_loading').removeClass('sr-only');
-            $('#load_preview').load('${staticServePath}/test/preview?questions=' + $('#selectedQuestions').val(), function (response, status, xhr) {
+            var str = '';
+            var id = $('#testQuestionnaireId').val();
+            console.log('id = '+id);
+            if(id!=null)
+                    str='&id='+id;
+            $('#load_preview').load('${staticServePath}/test/preview?questions=' + $('#testQuestionnaireTypeList').val()+str, function (response, status, xhr) {
                 //TODO  当服务器重启而页面不刷新时，点击会发生错误，尚未处理掉，会发生错误
                 if (status == 'success') {
                     $('#tab3_loading').addClass('sr-only');

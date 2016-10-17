@@ -1,10 +1,9 @@
 <#macro macroBtn url title theme="res" isSave=false>
-    <#assign str = "">
     <#assign btnLabel = "">
     <#if isSave>
         <#assign btnLabel = "<button data-style=\"slide-up\" id=\"save-btn\" class=\"btn btn-${theme} ladda-button\"
-                onclick=\"func.${url}('up'${str});\"><span
-                class=\"ladda-label\">title</span></button>">
+                onclick=\"func.${url}('up','?');\"><span
+                class=\"ladda-label\">保存</span></button>">
     <#elseif theme == "res">
         <#assign btnLabel = "<a onclick=\"func.${url}('show','?');\" class=\"${theme}\">${title}</a>">
     <#else>

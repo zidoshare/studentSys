@@ -90,14 +90,14 @@
                 q.html('');
                 var str = '<ul>';
                 var checked = '';
-                var s = $('#selectedQuestions');
+                var s = $('#testQuestionnaireTypeList');
                 var selects = s.val();
                 var selectsVal = [];
                 if (selects.length > 0)
                     selectsVal = JSON.parse(selects);
                 $.each(array, function (index, obj) {
                     var index = $.inArray(obj.type,selectsVal[0]);
-                    if ($.inArray(obj.id + '', selectsVal[1][index]) >= 0)
+                    if ($.inArray(obj.id, selectsVal[1][index]) >= 0)
                         checked = 'checked';
                     str += '<li id = "' + obj.id + '"><div class="checkbox3 checkbox-round"> <input type="checkbox" id="question' + obj.id + '" onchange="changeSelected(\'' + obj.id + '\',\'' + obj.type + '\',this)"' + checked + '> <label for="question' + obj.id + '">' + obj.title + ' </label> </div></li>';
                     checked = '';
@@ -106,9 +106,10 @@
             }
         });
     }
-    function changeSelected(id, typeId, dom) {
+    function changeSelected(idstr, typeId, dom) {
         var tp = parseInt(typeId);
-        var s = $('#selectedQuestions');
+        var id = parseInt(idstr);
+        var s = $('#testQuestionnaireTypeList');
         var str = s.val();
         var array = JSON.parse(s.val());
         var typeArray = array[0];
@@ -127,7 +128,7 @@
             var index = $.inArray(tp, typeArray);
             if (index >= 0) {
                 $.each(questionArray[index], function (ind, obj) {
-                    if (obj + '' != id)
+                    if (obj != id)
                         temp.push(obj);
                 });
                 questionArray[index] = temp;

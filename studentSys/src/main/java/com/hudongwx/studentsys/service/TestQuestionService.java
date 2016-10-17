@@ -32,12 +32,14 @@ public class TestQuestionService extends Service {
     public List<TestQuestion> getQuestionsByTypeId(Integer typeId) {
         return TestQuestion.dao.find(TestQuestion.SEARCH_FROM_TEST_QUESTION + "where testQuestionTypeId = ?", typeId);
     }
-    public List<TestQuestion> getQuestionsByType(TestType type){
+
+    public List<TestQuestion> getQuestionsByType(TestType type) {
         return getQuestionsByTypeId(type.getId());
     }
+
     public List<TestQuestion> getQuestionsByTag(TestTag tag) {
         String str = testTagQuestionService.getQuestionStrByTag(tag);
-        return TestQuestion.dao.find(TestQuestion.SEARCH_FROM_TEST_QUESTION+"where id in ?",str);
+        return TestQuestion.dao.find(TestQuestion.SEARCH_FROM_TEST_QUESTION + "where id in ?", str);
     }
 
     public List<TestQuestion> getQuestionsByTypeIdAndTagId(Integer tagId, Integer typeId) {
@@ -50,11 +52,16 @@ public class TestQuestionService extends Service {
             return getQuestionsByTag(TestTag.dao.findById(tagId));
         }
         String str = testTagQuestionService.getQuestionStrByTag(TestTag.dao.findById(tagId));
-        return TestQuestion.dao.find(TestQuestion.SEARCH_FROM_TEST_QUESTION+"where testQuestionTypeId = ? and id in "+str,typeId);
+        return TestQuestion.dao.find(TestQuestion.SEARCH_FROM_TEST_QUESTION + "where testQuestionTypeId = ? and id in " + str, typeId);
     }
 
     public List<TestQuestion> getQuestionsByJSONArray(JSONArray array) {
         String str = ObjectKit.getStrByJSONArray(array);
-        return TestQuestion.dao.find(TestQuestion.SEARCH_FROM_TEST_QUESTION+"where id in "+str);
+        return TestQuestion.dao.find(TestQuestion.SEARCH_FROM_TEST_QUESTION + "where id in " + str);
+    }
+
+    public List<TestQuestion> getQuestionsByJSONArray(JSONArray array,String order){
+        //预留排序功能
+        return getQuestionsByJSONArray(array);
     }
 }

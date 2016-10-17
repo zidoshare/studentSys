@@ -8,4 +8,5 @@ import com.hudongwx.studentsys.common.BaseTestQuestionnaireQuestion;
 @SuppressWarnings("serial")
 public class TestQuestionnaireQuestion extends BaseTestQuestionnaireQuestion<TestQuestionnaireQuestion> {
 	public static final TestQuestionnaireQuestion dao = new TestQuestionnaireQuestion();
+	public static final String SEARCH_FROM_MODEL = "select * from stumanager_test_questionnaire_question ";
 }

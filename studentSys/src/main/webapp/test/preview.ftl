@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="wrapper" id="wrapper">
-    <h1 class="survey_to_title">试卷预览</h1>
+    <#--<h1 class="survey_to_title">试卷预览</h1>-->
     <ul class="subject_list">
         <#assign index = 0>
         <#assign bigNumber = ["一","二","三","四","五","六","七","八","九","十"]>
@@ -25,7 +25,7 @@
                     aria-label="0">
                     <#assign index++>
                     <h4 class="subject_title">${index}、${question.testQuestionTitle}·<label for="questionScore${question.id}">分数：</label><input id="${question.id}"  class="form-control que" style="width:100px"
-                                                                                           value="${question.testQuestionDefaultScore}"/></h4>
+                                                                                           value="<#if scoreMap["${question.id}"]??>${scoreMap["${question.id}"]}<#else>${question.testQuestionDefaultScore}</#if>"/></h4>
                     <#if (question.testQuestionContent?eval)?size gt 0>
                     <#list question.testQuestionContent?eval as node>
                         <label class="subject_option">

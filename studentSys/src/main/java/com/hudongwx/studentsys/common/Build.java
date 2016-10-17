@@ -243,7 +243,7 @@ public class Build{
         queue.offer(document.getRootElement());
         while (!queue.isEmpty()){
             Element now = queue.poll();
-            if(5 > now.attributeCount())
+            if(now.attributeCount() < 4)
                 throw new Exception(now.getPath()+"节点的元素个数不足");
             Mapping mapping = new Mapping();
             List<Attribute> attributes = now.attributes();

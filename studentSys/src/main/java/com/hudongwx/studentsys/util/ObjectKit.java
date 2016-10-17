@@ -1,8 +1,11 @@
 package com.hudongwx.studentsys.util;
 
 import com.alibaba.fastjson.JSONArray;
+import com.hudongwx.studentsys.model.TestQuestion;
+import com.jfinal.plugin.activerecord.Model;
 
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by wuhongxu on 2016/9/1 0001.
@@ -16,6 +19,19 @@ public class ObjectKit {
         StringBuilder str = new StringBuilder("(");
         while(iterator.hasNext()){
             str.append("\'").append(iterator.next()).append("\',");
+        }
+        if(str.length()>1)
+            str.deleteCharAt(str.length()-1);
+        else
+            str.append("-1");
+        str.append(")");
+        return str.toString();
+    }
+
+    public static String getStrByList(List<? extends Model> list) {
+        StringBuilder str = new StringBuilder("(");
+        for(Model model : list){
+            str.append("\'").append(model.get("id")).append("\',");
         }
         if(str.length()>1)
             str.deleteCharAt(str.length()-1);

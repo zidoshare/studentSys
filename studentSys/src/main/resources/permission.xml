@@ -72,6 +72,23 @@
                 </mapping>
             </mappings>
         </mapping>
+        <mapping id="1007" icon="fa fa-flag" url="/classManager" title="班级管理" function="2">
+            <mappings>
+                <mapping id="1008" icon="classList" url="/classManager/classList.ftl" title="班级列表" function="1">
+                    <mappings>
+                        <mapping id="1009" icon="addClass" title="添加" url="addClass" function="0">
+                            <mappings/>
+                        </mapping>
+                        <mapping id="1010" icon="updateClass" title="编辑" url="updateClass" function="0">
+                            <mappings/>
+                        </mapping>
+                        <mapping id="1011" icon="deleteClass" title="删除" url="deleteClass" function="0">
+                            <mappings/>
+                        </mapping>
+                    </mappings>
+                </mapping>
+            </mappings>
+        </mapping>
         <mapping id="2330" icon="fa fa-usd" url="/repaymentManager" title="还款管理" function="2">
             <mappings/>
         </mapping>

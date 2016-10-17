@@ -146,6 +146,32 @@ var Validate = {
 };
 
 var Util = {
+    clearPanel: function (dom, options) {
+        var defaults = {front: '', ends: ['eId', 'CreateTime', 'UpdateTime'], end: ''};
+        if (options != null) {
+            $.each(options, function (name, val) {
+                defaults[name] = options[name];
+            });
+        }
+        if (defaults.end != null && defaults.end.length > 0) {
+            dom.find('input').each(function (index, input) {
+
+                if ($(input).attr('id').indexOf(defaults.front) == 0 && $(input).attr('id').lastIndexOf(defaults.end) > 0) {
+                    $(input).val('');
+                }
+            });
+        } else {
+            for (var i = 0; i < defaults.ends.length; i++) {
+                dom.find('input').each(function (index, input) {
+                    console.log(input);
+                    if ($(input).attr('id').indexOf(defaults.front) == 0 && $(input).attr('id').lastIndexOf(defaults.ends[i]) > 0) {
+                        $(input).val('');
+                    }
+                });
+            }
+        }
+        dom.hide();
+    },
     showTip: function (tip, result, className, options) {
         var defaults = {
             time: 3000, before: function () {
@@ -236,13 +262,13 @@ var Util = {
     },
     insertArrayByOrder: function (array, value) {
         var str = '[';
-        var index = $.inArray(value,array);
+        var index = $.inArray(value, array);
         /*$.each(array,function (ind,a) {
-            if(a == value)
-                index = ind;
-        });*/
-        if(index >= 0)
-            return {'index':index,'arr':array};
+         if(a == value)
+         index = ind;
+         });*/
+        if (index >= 0)
+            return {'index': index, 'arr': array};
         index = 0;
         var flag = false;
         for (var i = 0; i < array.length; i++) {
@@ -254,15 +280,28 @@ var Util = {
             }
             str += array[i] + ',';
         }
-        if(flag == false){
-            str += value+',';
+        if (flag == false) {
+            str += value + ',';
             index = array.length;
         }
 
         str = str.substr(0, str.length - 1);
         str += ']';
         var arr = JSON.parse(str);
-        return {'index':index,'arr':arr};
+        return {'index': index, 'arr': arr};
+    },
+    update: function (front, id, child) {
+        var dd = id;
+        if (child == null)
+            child = 'td';
+        $('#' + front + id).children(child).each(function (index, dom) {
+            var len = $(dom).attr('id');
+            if (len == null)
+                return;
+            len = len.lastIndexOf(dd);
+            var id = $(dom).attr('id').substr(0, len);
+            $('#' + id).val($(dom).attr('data-label'));
+        });
     }
 };
 var Animate = {
@@ -482,24 +521,27 @@ var func = {
             });
         }
     },
-    addTestQuestionnaire: function (method, id) {
-        if(method == 'show')
-            $('#inputQuestionnairePanel').toggle();
-        else{
+    addTestQuestionnaire: function (method) {
+        if (method == 'show')
+            $('#inputQuestionnairePanel').show();
+        else {
             var btn = Ladda.create(document.querySelector("#save-btn"));
             btn.start();
             var json = {};
-            $('#testQuestionnaireCreateTime').val(new Date().getTime());
+            var id = $('#testQuestionnaireId').val();
+            if (id == null || id == '')
+                $('#testQuestionnaireCreateTime').val(new Date().getTime());
+            $('#testQuestionnaireUpdateTime').val(new Date().getTime());
             $('#testQuestionnaireOperaterId').val(Label.userId);
             var qqs = [];
             var sum = 0;
-            $('.subject_list').find('.que').each(function(index,dom){
+            $('.subject_list').find('.que').each(function (index, dom) {
                 var qj = {};
                 var qId = $(dom).attr('id');
                 var qVal = $(dom).val();
-                qj['testQuestionId'] = ''+qId;
-                qj['testQuestionScore'] = ''+qVal;
-                sum +=parseInt($(dom).val());
+                qj['testQuestionId'] = '' + qId;
+                qj['testQuestionScore'] = '' + qVal;
+                sum += parseInt($(dom).val());
                 qqs.push(qj);
             });
             json["questionnaireQuestions"] = JSON.stringify(qqs);
@@ -509,27 +551,31 @@ var func = {
             });
             console.log(json);
             $.ajax({
-                url:Label.staticServePath+"/test/addTestQuestionnaire",
-                type:"post",
-                data:json,
-                success:function (data, state) {
-                    if(data.state == 'success'){
-                        Util.showTip($('#wholeTip'),data.msg,'alert alert-success',{time:1000,complete:function(){
-                            $.reload('#page-inner');
-                        }});
+                url: Label.staticServePath + "/test/addTestQuestionnaire",
+                type: "post",
+                data: json,
+                success: function (data, state) {
+                    if (data.state == 'success') {
+                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-success', {
+                            time: 1000, complete: function () {
+                                $.reload('#page-inner');
+                            }
+                        });
                     }
                 },
-                error:function(){
-                    Util.showTip($('#wholeTip'),'服务器错误','alert alert-danger',{time:5000});
+                error: function () {
+                    Util.showTip($('#wholeTip'), '服务器错误', 'alert alert-danger', {time: 5000});
                 },
-                complete:function(){
+                complete: function () {
                     btn.stop();
                 }
             })
         }
     },
-    updateTestQuestionnaire:function(method,id){
-        
+    updateTestQuestionnaire: function (method, id) {
+        Util.update('testQuestionnaire', id);
+        $('#testQuestionnaireId').val(id);
+        $('#inputQuestionnairePanel').show();
     },
     updateTestQuestion: function (method, id) {
         modalUtil.toggleClear($('#addTestQuestion'));
