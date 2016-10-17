@@ -4,13 +4,15 @@
 <link rel="stylesheet" href="${staticServePath}/static/css/lib/bootstrap-select.min.css">
 <@item>
 <div class="panel-heading title">${view.title}
-    <span class="pull-right">${addBtn}</span>
+    <span class="pull-right">${addBtn}</span><span class="pull-right">&nbsp</span>
+    <span class="pull-right"><a class="btn btn-success">分配试卷</a></span>
 </div>
 <div class="panel-body">
     <div class="panel panel-default" id="inputQuestionnairePanel" style="display: none">
         <div class="panel-heading">
             <h3 align="center">组卷<a class="btn btn-default btn-sm pull-right" onclick="Util.clearPanel($('#inputQuestionnairePanel'))"><i class="fa fa-times" aria-hidden="true"></i></a></h3>
         </div>
+
         <div class="panel-body">
             <ul class="nav nav-pills nav-tabs nav-justified step step-arrow">
                 <li class="active">
@@ -138,13 +140,13 @@
                             ${InsertKit(deleteBtn,"${q.id}")}
                             </td>
                         </#if>
-                        <td id="testQuestionnaireMessage${q.id}" class="sr-only" data-label="${q.testQuestionnaireMessage?html}">
+                        <td id="testQuestionnaireMessage${q.id}" class="hidden" data-label="${q.testQuestionnaireMessage?html}">
 
                         </td>
-                        <td id="testQuestionnaireTypeList${q.id}" class="sr-only" data-label="${q.testQuestionnaireTypeList?html}">
+                        <td id="testQuestionnaireTypeList${q.id}" class="hidden" data-label="${q.testQuestionnaireTypeList?html}">
 
                         </td>
-                        <td id="testQuestionnaireUpdateTime${q.id}" class="sr-only" data-label="${q.testQuestionnaireUpdateTime}">
+                        <td id="testQuestionnaireUpdateTime${q.id}" class="hidden" data-label="${q.testQuestionnaireUpdateTime}">
                             ${q.testQuestionnaireUpdateTime}
                         </td>
                     </tr>

@@ -3,6 +3,7 @@ package com.hudongwx.studentsys.service;
 import com.hudongwx.studentsys.common.Service;
 import com.hudongwx.studentsys.model.*;
 import com.hudongwx.studentsys.model.Class;
+import com.hudongwx.surveys.model.Questionnaire;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -73,5 +74,9 @@ public class TestQuestionnaireService extends Service {
             list.add(map);
         }
         return list;
+    }
+
+    public TestQuestionnaire getQuestionnaireById(Integer id) {
+        return TestQuestionnaire.dao.findById(id);
     }
 }

@@ -19,6 +19,7 @@
     <#assign saveBtn = "">
     <#assign updateBtn = "">
     <#assign deleteBtn = "">
+
     <#if map??>
         <#list map["operators"+view.id] as op>
             <#if op.url?starts_with("add")>
@@ -27,13 +28,11 @@
                 <#assign addBtn = btnLabel>
                 <@macroBtn url = op.url title = op.title theme=theme isSave=true></@macroBtn>
                 <#assign saveBtn = btnLabel>
-            </#if>
-            <#if op.url?starts_with("update")>
+            <#elseif op.url?starts_with("update")>
                 <#assign updateAble = true>
                 <@macroBtn url = op.url title = op.title ></@macroBtn>
                 <#assign updateBtn = btnLabel>
-            </#if>
-            <#if op.url?starts_with("delete")>
+            <#elseif op.url?starts_with("delete")>
                 <#assign deleteAble = true>
                 <@macroBtn url = op.url title = op.title ></@macroBtn>
                 <#assign deleteBtn = btnLabel>

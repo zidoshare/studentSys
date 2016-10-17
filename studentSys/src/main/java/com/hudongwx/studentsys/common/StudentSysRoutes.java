@@ -26,7 +26,7 @@ public class StudentSysRoutes extends Routes {
         add("/certificateManager",CertificateController.class);
         add("/studentManager", StudentController.class,"/studentManager");
         add("/test", TestController.class);
-
+        add("/classManager",ClassController.class);
         //add("/index", IndexController.class,"/common");
         add("/", IndexController.class,"/common");
     }

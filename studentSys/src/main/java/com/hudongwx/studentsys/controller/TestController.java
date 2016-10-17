@@ -263,4 +263,19 @@ public class TestController extends BaseController {
     public void deleteTestQuestion() {
 
     }
+    @Before(POST.class)
+    public void deleteQuestionnaire(){
+        Integer id = getParaToInt(0);
+        if (id == null) {
+            RenderKit.renderError(this, "该试卷不存在或已被删除");
+            return ;
+        }
+        TestQuestionnaire tq= testQuestionnaireService.getQuestionnaireById(id);
+        if (tq == null) {
+            RenderKit.renderError(this, "该班级不存在或已被删除");
+            return ;
+        }
+        tq.delete();
+        RenderKit.renderSuccess(this,"删除成功");
+    }
 }

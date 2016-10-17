@@ -163,6 +163,11 @@
                                          function="0">
                                     <mappings/>
                                 </mapping>
+                                <!--<mapping id="3028" icon="distributeTestQuestionnaire" title="分配试卷"
+                                         url="distributeTestQuestionnaire"
+                                         function="0">
+                                    <mappings/>
+                                </mapping>-->
                                 <mapping id="3021" icon="updateTestQuestionnaire" title="修改"
                                          url="updateTestQuestionnaire"
                                          function="0">

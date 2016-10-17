@@ -65,4 +65,12 @@ public abstract class BaseTestQuestionnaire<M extends BaseTestQuestionnaire<M>> 
 		return get("testQuestionnaireMessage");
 	}
 
+	public void setTestQuestionnaireUpdateTime(java.lang.Long testQuestionnaireUpdateTime) {
+		set("testQuestionnaireUpdateTime", testQuestionnaireUpdateTime);
+	}
+
+	public java.lang.Long getTestQuestionnaireUpdateTime() {
+		return get("testQuestionnaireUpdateTime");
+	}
+
 }

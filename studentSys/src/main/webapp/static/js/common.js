@@ -163,7 +163,8 @@ var Util = {
         } else {
             for (var i = 0; i < defaults.ends.length; i++) {
                 dom.find('input').each(function (index, input) {
-                    console.log(input);
+                    if ($(input).attr('id') == null)
+                        return false;
                     if ($(input).attr('id').indexOf(defaults.front) == 0 && $(input).attr('id').lastIndexOf(defaults.ends[i]) > 0) {
                         $(input).val('');
                     }
@@ -549,7 +550,6 @@ var func = {
             $('#testQuestionnaire').find('.form-control').each(function () {
                 json[$(this).attr('name')] = $(this).val();
             });
-            console.log(json);
             $.ajax({
                 url: Label.staticServePath + "/test/addTestQuestionnaire",
                 type: "post",
@@ -571,6 +571,49 @@ var func = {
                 }
             })
         }
+    },
+    addClass: function (method) {
+        if (method == 'up') {
+            var btn = Ladda.create(document.querySelector("#save-btn"));
+            btn.start();
+            var json = {};
+            var id = $('#classId').val();
+            if (id == null || id == '')
+                $('#classCreateTime').val(new Date().getTime());
+            $('#classUpdateTime').val(new Date().getTime());
+            console.log(Label.userId);
+            $('#classOperaterId').val(Label.userId);
+            $('#class').find('.form-control').each(function () {
+                console.log($(this).attr('name') + "======" + $(this).val());
+                json[$(this).attr('name')] = $(this).val();
+            });
+            $.ajax({
+                url: Label.staticServePath + "/classManager/addClass",
+                type: "post",
+                data: json,
+                success: function (data, state) {
+                    if (data.state == 'success') {
+                        Util.showTip($('#saveClassTip'), data.msg, 'alert alert-success', {
+                            time: 1000, complete: function () {
+                                $('#addClassModel').modal('hide');
+                            }
+                        });
+                    }
+                },
+                error: function () {
+                    Util.showTip($('#saveClassTip'), '服务器错误', 'alert alert-danger', {time: 5000});
+                },
+                complete: function () {
+                    btn.stop();
+                }
+            })
+        }
+        else $('#addClassModel').modal(method);
+    },
+    updateClass: function (method, id) {
+        Util.update('class', id);
+        $('#classId').val(id);
+        $('#addClassModel').modal('show');
     },
     updateTestQuestionnaire: function (method, id) {
         Util.update('testQuestionnaire', id);
@@ -625,6 +668,42 @@ var func = {
             var name = $('#' + id).find('td').first().text();
             modal.find('input').first().val(name);
             $('#id').val(id);
+        }
+    },
+    deleteQuestionnaire: function (method, id) {
+        if (confirm("确认删除？")) {
+            $.ajax({
+                url: Label.staticServePath + "/test/deleteQuestionnaire/" + id,
+                type: 'post',
+                success: function (data, status) {
+                    Util.showTip($('#wholeTip'), data.msg, "alert alert-success", {
+                        before: function () {
+                            $('tr#testQuestionnaire' + id).remove();
+                        }
+                    });
+                },
+                error: function () {
+                    Util.showTip($('#wholeTip'), '服务器错误', "alert alert-danger");
+                }
+            });
+        }
+    }
+    , deleteClass: function (method, id) {
+        if (confirm("确认删除？")) {
+            $.ajax({
+                url: Label.staticServePath + "/classManager/deleteClass/" + id,
+                type: 'post',
+                success: function (data, status) {
+                    Util.showTip($('#wholeTip'), data.msg, "alert alert-success", {
+                        before: function () {
+                            $('tr#class' + id).remove();
+                        }
+                    });
+                },
+                error: function () {
+                    Util.showTip($('#wholeTip'), '服务器错误', "alert alert-danger");
+                }
+            });
         }
     },
     showPermissions: function (left, mappingId, divId, method) {
@@ -692,6 +771,34 @@ var modalUtil = {
         modal.find('textarea[id!="operater"]').val('');
         Util.removeSelect('all');
         modal.modal('toggle');
+    },
+    hideClear: function (model, form, options) {
+        var defaults = {front: '', ends: ['eId', 'CreateTime', 'UpdateTime'], end: ''};
+        if (options != null) {
+            $.each(options, function (name, val) {
+                defaults[name] = options[name];
+            });
+        }
+        console.log($(model));
+        if (defaults.end != null && defaults.end.length > 0) {
+            model.find('input').each(function (index, input) {
+
+                if ($(input).attr('id').indexOf(defaults.front) == 0 && $(input).attr('id').lastIndexOf(defaults.end) > 0) {
+                    $(input).val('');
+                }
+            });
+        } else {
+            for (var i = 0; i < defaults.ends.length; i++) {
+                model.find('input').each(function (index, input) {
+                    if ($(input).attr('id') == null)
+                        return false;
+                    if ($(input).attr('id').indexOf(defaults.front) == 0 && $(input).attr('id').lastIndexOf(defaults.ends[i]) > 0) {
+                        $(input).val('');
+                    }
+                });
+            }
+        }
+        modal.modal('hide');
     }
 };
 var Test = {

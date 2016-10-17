@@ -25,12 +25,12 @@ public abstract class BaseClass<M extends BaseClass<M>> extends Model<M> impleme
 		return get("className");
 	}
 
-	public void setHeadTeacherid(java.lang.Integer headTeacherid) {
-		set("headTeacherid", headTeacherid);
+	public void setHeadTeacher(java.lang.String headTeacher) {
+		set("headTeacher", headTeacher);
 	}
 
-	public java.lang.Integer getHeadTeacherid() {
-		return get("headTeacherid");
+	public java.lang.String getHeadTeacher() {
+		return get("headTeacher");
 	}
 
 	public void setAssistant(java.lang.String Assistant) {
@@ -41,12 +41,44 @@ public abstract class BaseClass<M extends BaseClass<M>> extends Model<M> impleme
 		return get("Assistant");
 	}
 
-	public void setTutorId(java.lang.Integer tutorId) {
-		set("tutorId", tutorId);
+	public void setTutor(java.lang.String tutor) {
+		set("tutor", tutor);
 	}
 
-	public java.lang.Integer getTutorId() {
-		return get("tutorId");
+	public java.lang.String getTutor() {
+		return get("tutor");
+	}
+
+	public void setStudentCnt(java.lang.Integer studentCnt) {
+		set("studentCnt", studentCnt);
+	}
+
+	public java.lang.Integer getStudentCnt() {
+		return get("studentCnt");
+	}
+
+	public void setClassCreateTime(java.lang.Long classCreateTime) {
+		set("classCreateTime", classCreateTime);
+	}
+
+	public java.lang.Long getClassCreateTime() {
+		return get("classCreateTime");
+	}
+
+	public void setClassUpdateTime(java.lang.Long classUpdateTime) {
+		set("classUpdateTime", classUpdateTime);
+	}
+
+	public java.lang.Long getClassUpdateTime() {
+		return get("classUpdateTime");
+	}
+
+	public void setClassOperaterId(java.lang.Integer classOperaterId) {
+		set("classOperaterId", classOperaterId);
+	}
+
+	public java.lang.Integer getClassOperaterId() {
+		return get("classOperaterId");
 	}
 
 }
