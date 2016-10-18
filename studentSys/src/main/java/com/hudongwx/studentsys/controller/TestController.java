@@ -12,6 +12,7 @@ import com.hudongwx.studentsys.util.RenderKit;
 import com.hudongwx.studentsys.service.TestQuestionnaireQuestionService;
 import com.jfinal.aop.Before;
 import com.jfinal.ext.interceptor.POST;
+import com.jfinal.plugin.ehcache.CacheKit;
 
 import java.util.*;
 
@@ -146,6 +147,8 @@ public class TestController extends BaseController {
             }
             map.put(types.get(i).getId() + "", testQuestions);
         }
+        String answers = CacheKit.get(Common.CACHE_LONG_TIME_LABEL, questionnaire.getTestQuestionnaireClassId() + "-" + questionnaire.getId() + "-" + student.getId());
+        setAttr("answers",answers == null ? "{}":answers);
         setAttr("types", types);
         setAttr("scoreMap", scoreMap);
         setAttr("questionMap", map);
@@ -154,7 +157,17 @@ public class TestController extends BaseController {
         setAttr("student",student);
         render("/test/questionnaire.ftl");
     }
-
+    @Before(POST.class)
+    public void cacheAnswer(){
+        String answers = getPara("answers");
+        Integer tqcId = getParaToInt("tqcId");
+        Integer questionnaireId = getParaToInt("questionnaireId");
+        Integer studentId = getParaToInt("studentId");
+        if(answers == null || tqcId == null || questionnaireId == null || studentId == null)
+            RenderKit.renderError(this,"你的信息出现了错误,这将导致你不能提交答案，请刷新重试，答案会自动回滚到上次自动保存的时间点");
+        CacheKit.put(Common.CACHE_LONG_TIME_LABEL,tqcId+"-"+questionnaireId+"-"+studentId,answers);
+        RenderKit.renderSuccess(this);
+    }
     public void questions() {
         setMapping(mappingService.getMappingByTitle("题库"));
         super.index();

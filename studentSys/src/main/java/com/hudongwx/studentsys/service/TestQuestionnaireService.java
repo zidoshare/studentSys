@@ -52,6 +52,7 @@ public class TestQuestionnaireService extends Service {
             return null;
         q.setTestQuestionnaireStartTime(tqc.getTestQuestionnaireStartTime());
         q.setTestQuestionnaireEndTime(tqc.getTestQuestionnaireEndTime());
+        q.setTestQuestionnaireClassId(tqc.getId());
         return q;
     }
     public TestQuestionnaire packingQuestionnaire(Integer testQuestionnaireClassId){

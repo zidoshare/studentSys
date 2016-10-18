@@ -52,7 +52,7 @@
                 <#list questionMap["${type.id}"] as question>
                     <li class="subject"
                         id="${questionnaire.id}S${question.id}"
-                        aria-label="0">
+                        aria-label="0" data-label='0'>
                         <#assign index++>
                         <h4 class="subject_title">${index}、${question.testQuestionTitle}
                         </h4>
@@ -61,14 +61,15 @@
                                 <#list question.testQuestionContent?eval as node>
                                     <label class="subject_option">
                                         <input class="iCheck" id="${question.id}S${node_index}" type="radio"
-                                               name="iCheck" value="${node_index}">
+                                               name="${question.id}" value="${node_index}">
                                     ${xx[node_index]}、${node}
                                     </label>
                                 </#list>
                             <#else>
                                 <#list question.testQuestionContent?eval as node>
                                     <label class="subject_option">
-                                        <input class="iCheck" type="checkbox" name="iCheck" value="${node?index}">
+                                        <input class="iCheck" id="${question.id}S${node_index}" type="checkbox"
+                                               name="${question.id}" value="${node?index}">
                                     ${xx[node_index]}、${node}
                                     </label>
                                 </#list>
@@ -76,8 +77,7 @@
 
                         <#else>
                             <textarea class="comment" rows="10" tabindex="4"
-                                      placeholder="答案"></textarea>
-
+                                      placeholder="答案" id="${question.id}S0"></textarea>
                         </#if>
                     </li>
                 </#list>
@@ -90,6 +90,10 @@
     </div>
 
 </div>
+<div class="whole-container">
+    <div class="tip" id="wholeTip" aria-label="0">
+    </div>
+</div>
 <script type="text/javascript"
         src="${staticServePath}/static/js/lib/jquery.cookie.js?${staticResourceVersion}"></script>
 <script type="text/javascript" src="${staticServePath}/static/js/common.js?${staticResourceVersion}"></script>
@@ -98,7 +102,7 @@
     var progressFlag;
     var proccer = 0;
     var max = ${questionSize};
-    var answers = {};
+    var answers = JSON.parse('${answers}');
     $(document).ready(function () {
         $('input').iCheck({
             checkboxClass: 'iradio_square-blue',
@@ -131,14 +135,113 @@
 
         if (check()) {
             //读取内容并初始化进度
-            proccer = readReply();
+            readAnswers();
             max = ${questionSize};
-            changeProgress(parseFloat((proccer / max * 100)).toFixed(2) + "%");
-            /*$("label").on("click", saveReply);
-            $("ins").on("click", saveReply);
-            $('textarea').on('input propertychange', saveReply);*/
-            $('li').on('ifChecked', saveReply);
+
+            $('input').on('ifChecked', addValue);
+            $('input').on('ifUnchecked', removeValue);
+            $('textarea').on('input propertychange', addText);
         }
+        function readAnswers() {
+            console.log('read');
+            var x = 0;
+            $('#questionnaire${questionnaire.id}').find('input,textarea').each(function (index, dom) {
+                var ans = answers[$(dom).attr('id')];
+                if (ans == 'checked'){
+                    $(dom).iCheck('check');
+                    var parent = $(dom).parent().parent().parent();
+                    var data = parseInt(parent.attr('data-label'));
+                    if (data + 1 == 1) {
+                        changeProgress(parseFloat((++proccer / max * 100)).toFixed(2) + "%");
+                    }
+                    parent.attr('data-label', data + 1);
+                }
+                else if (ans != null) {
+                    $(dom).val(ans);
+                    var parent = $(dom).parent();
+                    var data = parseInt(parent.attr('data-label'));
+                    changeProgress(parseFloat((++proccer / max * 100)).toFixed(2) + "%");
+                    parent.attr('data-label', data + 1);
+                }
+                else
+                    return true;
+                x++;
+                console.log(ans);
+            });
+            return x;
+        }
+
+        function addText() {
+            var val = $(this).val();
+            var parent = $(this).parent();
+            if (val != null && val != ''){
+                answers[$(this).attr('id')] = $(this).val();
+                var data = parseInt(parent.attr('data-label'));
+                parent.attr('data-label', data + 1);
+                if (data + 1 == 1) {
+                    changeProgress(parseFloat((++proccer / max * 100)).toFixed(2) + "%");
+                }
+            }
+
+            else{
+                delete answers[$(this).attr('id')];
+                var parent = $(this).parent();
+                var data = parseInt(parent.attr('data-label'));
+                parent.attr('data-label', data - 1);
+                if (data - 1 <= 0) {
+                    changeProgress(parseFloat((--proccer / max * 100)).toFixed(2) + "%");
+                }
+            }
+
+        }
+
+        function addValue() {
+            answers[$(this).attr('id')] = "checked";
+            var parent = $(this).parent().parent().parent();
+            var data = parseInt(parent.attr('data-label'));
+            parent.attr('data-label', data + 1);
+            if (data + 1 == 1) {
+                changeProgress(parseFloat((++proccer / max * 100)).toFixed(2) + "%");
+            }
+        }
+
+        function removeValue() {
+            delete answers[$(this).attr('id')];
+            var parent = $(this).parent().parent().parent();
+            var data = parseInt(parent.attr('data-label'));
+            parent.attr('data-label', data - 1);
+            if (data - 1 <= 0) {
+                changeProgress(parseFloat((--proccer / max * 100)).toFixed(2) + "%");
+            }
+        }
+
+        setTimeout(cacheAnswers, 30000);
+        function cacheAnswers() {
+            var ans = JSON.stringify(answers);
+            var json = {
+                'tqcId': '${questionnaire.testQuestionnaireClassId}'
+                , 'questionnaireId':${questionnaire.id}
+                , 'studentId':${student.id}
+                , 'answers': ans
+            };
+            $.ajax({
+                        url: "${staticServePath}/test/cacheAnswer",
+                        dataType: 'json',
+                        type: 'post',
+                        data: json,
+                        success: function (data, status) {
+                            if (data.state == 'success') {
+                                setTimeout(cacheAnswers, 30000);
+                            }
+                            else
+                                Util.showTip($('#wholeTip'), data.msg, 'alert alert-danger');
+                        }, error: function () {
+
+                        }
+                    }
+            );
+        }
+
         var minutes;
         var mm;
         var hours;
@@ -146,9 +249,8 @@
 
         function countDown() {
             var now = new Date().getTime();
-            console.log(end-now);
             $("#count-down").text(formatDuring(end - now));
-            if (days<=0 && hours <= 0 && minutes <= 0 && mm <= 0) {
+            if (days <= 0 && hours <= 0 && minutes <= 0 && mm <= 0) {
                 Util.showTip($('#submitTip'), "你已超时，将不能再提交");
                 $("#count-down").text(0);
                 return;
@@ -162,7 +264,6 @@
             minutes = parseInt((mss % (1000 * 60 * 60)) / (1000 * 60));
             //minutes = parseInt(mss / (1000 * 60));
             var seconds = parseInt((mss % (1000 * 60)) / 1000);
-            console.log(days+":"+hours+":"+minutes+":"+seconds+"");
             mm = parseInt(mss % 1000);
             var mmmin = get3zf(mm);
             return getzf(hours) + ":" + getzf(minutes) + ":"
@@ -203,94 +304,9 @@
             $('#min-progress').css("width", t);
             $.cookie("" + progressFlag, proccer, {expires: 1});
         }
-
-        function changeMax(ta) {
-            var tip = $('#' + ta.attr('id') + 'Tip');
-            var num = 200 - ta.val().length;
-            if (num > 0)
-                tip.html('剩余<span>' + num + '</span>字');
-            else
-                tip.html('剩余<span class="text-danger">' + num + '</span>字');
-        }
-
-        function saveReply() {
-            console.log("save");
-
-            //$.cookie($(this).attr('id'))
-            /*if ($(this).is('textarea')) {
-                var x = $(this).val();
-                changeMax($(this));
-                if ($(this).val().length >= 200) {
-                    //x = x.substr(0, 200);
-                }
-                /!*$.cookie($(this).attr('id'), x, {expires: 1});*!/
-
-                if ($(this).attr('aria-label') == 0) {
-                    $(this).attr('aria-label', 1);
-                    proccer++;
-                    changeProgress(parseFloat((proccer / max * 100)).toFixed(2) + "%");
-                }
-                else if ($(this).attr('aria-label') == 1 && $(this).val() == '') {
-                    $(this).attr('aria-label', 0);
-                    proccer--;
-                    changeProgress(parseFloat((proccer / max * 100)).toFixed(2) + "%");
-                }
-                return;
-            }
-            var radio;
-            if ($(this).is('ins'))
-                radio = $(this).prev();
-            else if ($(this).is('label'))
-                radio = $(this).find('input:radio,input:checkbox').first();
-            if (radio.attr('aria-label') == 0) {
-                radio.attr('aria-label', 1);
-            }
-
-            if (false) {
-                var label = radio.parent().parent();
-                label.siblings('label').find('input').each(function (index, dom) {
-                    $.cookie($(this).attr('id'), null);
-                });
-                if (radio.prop('checked') == true)
-                    $.cookie(radio.attr('id'), true, {expires: 1});
-                else if (radio.prop('checked') == false)
-                    $.cookie(radio.attr('id'), null);
-                var li = label.parent();
-                if (li.attr('aria-label') == 0) {
-                    changeProgress(parseFloat(((++proccer) / max * 100)).toFixed(2) + "%");
-                    li.attr('aria-label', 1);
-                }
-            }*/
-        }
-
-        function readReply() {
-            $('input:radio,input:checkbox').each(function (index, domEle) {
-                var id = $(this).attr("id");
-                if ($.cookie(id) == 'true') {
-                    $(this).prop("checked", true);
-                    $(this).parent().addClass("checked");
-                    $(this).parent().parent().parent().attr('aria-label', 1);
-                }
-            });
-            $('textarea').each(function (index, domEle) {
-                var id = $(this).attr("id");
-                if ($.cookie(id) != null && $.cookie(id) != '') {
-                    $("#" + id).val($.cookie(id));
-                    $(this).attr('aria-label', 1);
-                }
-                changeMax($(this));
-            });
-            var p = $.cookie("" + progressFlag);
-            if (p == null)
-                p = 0;
-            return 0;
-        }
-
         function check() {
-            if (window.navigator.cookieEnabled)
-                return true;
-            alert("浏览器配置错误，cookie不可用！");
-            return false;
+
+            return true;
         }
     });
     var score = 0;
