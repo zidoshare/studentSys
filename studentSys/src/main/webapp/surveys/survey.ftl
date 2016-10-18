@@ -104,13 +104,13 @@
 
         //时间控制
         var start = ${questionnaire.date};
-        var end = ${questionnaire.endTime};
+        var end = ${questionnaire.testQuestionnaireEndTime};
         progressFlag = ${questionnaire.id};
-        getMyDate(new Date(${questionnaire.date})) + "   " + getMyDate(${questionnaire.endTime});
+        getMyDate(new Date(${questionnaire.date})) + "   " + getMyDate(${questionnaire.testQuestionnaireEndTime});
         $('#start-time').text(getMyDate(start));
         $('#end-time').text(getMyDate(end));
         $('#now').text(getMyDate(new Date().getTime()));
-        var time = ${questionnaire.endTime?number}-new Date().getTime();
+        var time = ${questionnaire.testQuestionnaireEndTime?number}-new Date().getTime();
         formatDuring(time);
         countDown();
         $('#count').transition({opacity: 1, top: 0}, 1000);

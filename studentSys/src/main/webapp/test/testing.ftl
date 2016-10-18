@@ -9,7 +9,7 @@
     <div class="panel-body">
 
         <div class="jumbotron">
-            <h3>你有正在进行中的调查，快开始吧>></h3>
+            <h3>你有正在进行中的考试，快开始吧>></h3>
             <div class="table-responsive">
                 <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline" role="grid">
                     <table class="table table-striped table-bordered table-hover dataTable no-footer"
@@ -30,11 +30,11 @@
                                 <td>${((q.testQuestionnaireStartTime)?number)?number_to_datetime}</td>
                                 <td>${((q.testQuestionnaireEndTime)?number)?number_to_datetime}</td>
                                 <td><#if (q.testQuestionnaireStartTime?number) < (nowTime?number) && (q.testQuestionnaireEndTime?number) gt (nowTime?number)>
-                                    <a class="text-success">正在进行中</a>
+                                    <span class="text-success">正在进行中</span>
                                 <#elseif (q.testQuestionnaireStartTime?number) gt (nowTime?number)>
-                                    <a class="text-danger">尚未开始</a>
+                                    <span class="text-danger">尚未开始</span>
                                 <#else>
-                                    <a class="text-gray">已完结</a>
+                                    <span class="text-gray">已完结</span>
                                 </#if></td>
                                 <td>
                                     <a href="/surveys/questionnaire/${q.id}" class="text-success"

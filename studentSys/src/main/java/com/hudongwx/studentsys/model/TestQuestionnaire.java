@@ -9,4 +9,23 @@ import com.hudongwx.studentsys.common.BaseTestQuestionnaire;
 public class TestQuestionnaire extends BaseTestQuestionnaire<TestQuestionnaire> {
 	public static final TestQuestionnaire dao = new TestQuestionnaire();
 	public static final String SEARCH_FROM_TEST_QUESTIONNAIRE = "select * from stumanager_test_questionnaire ";
+	private Long testQuestionnaireStartTime;
+	private Long testQuestionnaireEndTime;
+
+
+    public Long getTestQuestionnaireEndTime() {
+        return testQuestionnaireEndTime;
+    }
+
+    public void setTestQuestionnaireEndTime(Long testQuestionnaireEndTime) {
+        this.testQuestionnaireEndTime = testQuestionnaireEndTime;
+    }
+
+    public Long getTestQuestionnaireStartTime() {
+        return testQuestionnaireStartTime;
+    }
+
+    public void setTestQuestionnaireStartTime(Long testQuestionnaireStartTime) {
+        this.testQuestionnaireStartTime = testQuestionnaireStartTime;
+    }
 }

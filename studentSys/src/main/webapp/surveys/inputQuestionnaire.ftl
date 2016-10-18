@@ -23,7 +23,7 @@
                 <td>${(questionnaire.date?number)?number_to_datetime}</td>
                 <td>${questionnaire.classChief}</td>
                 <td>${questionnaire.toUser}</td>
-                <td>${(questionnaire.endTime?number)?number_to_datetime}</td>
+                <td>${(questionnaire.testQuestionnaireEndTime?number)?number_to_datetime}</td>
                 <td><a>修改</a>/<a>删除</a></td>
             </tr>
         </#list>
@@ -142,14 +142,14 @@
                 ids += id + ",";
         });
         ids.substr(0, ids.length - 1);
-        var startTime = new Date($("#date").val()).getTime();
-        var endTime = new Date($("#end-time").val()).getTime();
+        var testQuestionnaireStartTime = new Date($("#date").val()).getTime();
+        var testQuestionnaireEndTime = new Date($("#end-time").val()).getTime();
         var jsonObj = {
             "questionnaire.class_name": $("#class-name").val(),
-            "questionnaire.date": startTime,
+            "questionnaire.date": testQuestionnaireStartTime,
             "questionnaire.class_chief": $("#class-chief").val(),
             "questionnaire.to_user": $("#to-user").val(),
-            "questionnaire.end_time": endTime,
+            "questionnaire.end_time": testQuestionnaireEndTime,
             "questionnaire.note": $("#note").val(),
             "questionsId": ids
         }

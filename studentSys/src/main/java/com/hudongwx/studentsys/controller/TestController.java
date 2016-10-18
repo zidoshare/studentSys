@@ -31,6 +31,7 @@ public class TestController extends BaseController {
     public TestQuestionnaireQuestionService testQuestionnaireQuestionService;
     public ClassService classService;
     public TestQuestionnaireClassService testQuestionnaireClassService;
+    public StudentService studentService;
     /**
      * @return 返回mapping的title属性
      */
@@ -43,7 +44,7 @@ public class TestController extends BaseController {
         setMapping(mappingService.getMappingByTitle("考试历史"));
         super.index();
         User user = getCurrentUser(this);
-        List<TestQuestionnaire> questionnaires = testQuestionnaireService.getQuestionnaireByUser(user);
+        List<TestQuestionnaire> questionnaires = testQuestionnaireService.getQuestionnairesByUser(user);
         setAttr("testing", questionnaires);
         setAttr("nowTime", System.currentTimeMillis());
     }
@@ -88,12 +89,29 @@ public class TestController extends BaseController {
         setMapping(mappingService.getMappingByTitle("参加考试"));
         super.index();
         User user = getCurrentUser(this);
-        List<Map<String, Object>> questionnaires = testQuestionnaireService.getNowQuestionnaireByUser(user);
+        List<TestQuestionnaire> questionnaires = testQuestionnaireService.getNowQuestionnaireByUser(user);
 
         setAttr("testing", questionnaires);
         setAttr("nowTime", System.currentTimeMillis());
     }
-
+    public void questionnaire(){
+        fillHeaderAndFooter();
+        Integer id = getParaToInt(0);
+        if (id == null) {
+            renderError(404);
+            return;
+        }
+        User user = userService.getCurrentUser(this);
+        if (null == user) {
+            renderError(403);
+            return;
+        }
+        Student student = studentService.getStudentByUser(user);
+        if (null == student) {
+            renderError(403);
+            return;
+        }
+    }
     public void questions() {
         setMapping(mappingService.getMappingByTitle("题库"));
         super.index();

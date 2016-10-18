@@ -3,7 +3,6 @@ package com.hudongwx.studentsys.service;
 import com.hudongwx.studentsys.common.Service;
 import com.hudongwx.studentsys.model.*;
 import com.hudongwx.studentsys.model.Class;
-import com.hudongwx.surveys.model.Questionnaire;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,55 +22,64 @@ public class TestQuestionnaireService extends Service {
     }
 
     public List<TestQuestionnaire> getQuestionnaireByClass(Class c) {
-        if(c == null)
+        if (c == null)
             return new ArrayList<>();
         return TestQuestionnaireClass.dao
                 .find(TestQuestionnaireClass.SEARCH_FROM_TEST_QUESTIONNAIRE_CLASS + "where classId = ?", c.getId())
-                .stream().map(tc -> TestQuestionnaire.dao.findById(tc.getTestQuestionnaireId()))
+                .stream().map(this::packingQuestionnaire)
                 .collect(Collectors.toList());
+        /*return TestQuestionnaireClass.dao
+                .find(TestQuestionnaireClass.SEARCH_FROM_TEST_QUESTIONNAIRE_CLASS + "where classId = ?", c.getId())
+                .stream().map(tc -> TestQuestionnaire.dao.findById(tc.getTestQuestionnaireId()))
+                .collect(Collectors.toList());*/
     }
 
     public List<TestQuestionnaire> getQuestionnaireByStudent(Student student) {
-        if(student == null)
+        if (student == null)
             return new ArrayList<>();
         return getQuestionnaireByClass(classService.getClassByStudent(student));
     }
 
-    public List<TestQuestionnaire> getQuestionnaireByUser(User user) {
-        if(user == null)
-            return new ArrayList<>();
+    public List<TestQuestionnaire> getQuestionnairesByUser(User user) {
         return getQuestionnaireByStudent(studentService.getStudentByUser(user));
+    }
+
+    public TestQuestionnaire packingQuestionnaire(TestQuestionnaireClass tqc) {
+        TestQuestionnaire q = TestQuestionnaire.dao.findById(tqc.getTestQuestionnaireId());
+        if (null == q)
+            return null;
+        q.setTestQuestionnaireStartTime(tqc.getTestQuestionnaireStartTime());
+        q.setTestQuestionnaireEndTime(tqc.getTestQuestionnaireEndTime());
+        return q;
     }
 
     public Map<String, String> getMsgMapByQuestionnaire(TestQuestionnaire tq) {
         List<TestQuestionnaireClass> questionnaireClasses = TestQuestionnaireClass.dao.find(TestQuestionnaireClass.SEARCH_FROM_TEST_QUESTIONNAIRE_CLASS + "where testQuestionnaireId = ?", tq.getId());
-        Map<String,String> msgMap = new HashMap<>();
-        for(TestQuestionnaireClass tqc : questionnaireClasses){
-            msgMap.put(tq.getId()+"-"+tqc.getClassId()+"StartTime",tqc.getTestQuestionnaireStartTime()+"");
-            msgMap.put(tq.getId()+"-"+tqc.getClassId()+"EndTime",tqc.getTestQuestionnaireEndTime()+"");
+        Map<String, String> msgMap = new HashMap<>();
+        for (TestQuestionnaireClass tqc : questionnaireClasses) {
+            msgMap.put(tq.getId() + "-" + tqc.getClassId() + "StartTime", tqc.getTestQuestionnaireStartTime() + "");
+            msgMap.put(tq.getId() + "-" + tqc.getClassId() + "EndTime", tqc.getTestQuestionnaireEndTime() + "");
             Class aClass = classService.getClassById(tqc.getClassId());
-            msgMap.put(tq.getId()+"-classId",aClass.getId()+"");
-            msgMap.put(tq.getId()+"-"+tqc.getClassId()+"className",aClass.getClassName());
+            msgMap.put(tq.getId() + "-classId", aClass.getId() + "");
+            msgMap.put(tq.getId() + "-" + tqc.getClassId() + "className", aClass.getClassName());
         }
         return msgMap;
 
     }
 
-    public List<Map<String,Object>> getNowQuestionnaireByUser(User user) {
+    public List<TestQuestionnaire> getNowQuestionnaireByUser(User user) {
         Class userClass = classService.getClassByStudent(studentService.getStudentByUser(user));
         long now = System.currentTimeMillis();
         List<TestQuestionnaireClass> testQuestionnaireClasses = TestQuestionnaireClass.dao.find(TestQuestionnaireClass.SEARCH_FROM_TEST_QUESTIONNAIRE_CLASS
-                + "where testQuestionnaireStartTime < ? and testQuestionnaireEndTime > ?", now, now);
-        List<Map<String,Object>> list = new ArrayList<>();
-        for(TestQuestionnaireClass tqc : testQuestionnaireClasses){
-            Map<String,Object> map = new HashMap<>();
+                + "where testQuestionnaireStartTime < ? and testQuestionnaireEndTime > ? and classId = ?", now, now, userClass.getId());
+        List<TestQuestionnaire> list = new ArrayList<>();
+        for (TestQuestionnaireClass tqc : testQuestionnaireClasses) {
             TestQuestionnaire q = TestQuestionnaire.dao.findById(tqc.getTestQuestionnaireId());
-            if(null == q)
+            if (null == q)
                 continue;
-            map.put("testQuestionnaire", q);
-            map.put("testQuestionnaireStartTime",tqc.getTestQuestionnaireStartTime());
-            map.put("testQuestionnaireEndTime",tqc.getTestQuestionnaireEndTime());
-            list.add(map);
+            q.setTestQuestionnaireStartTime(tqc.getTestQuestionnaireStartTime());
+            q.setTestQuestionnaireEndTime(tqc.getTestQuestionnaireEndTime());
+            list.add(q);
         }
         return list;
     }

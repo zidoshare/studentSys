@@ -638,6 +638,7 @@ var func = {
                             time: 1000, complete: function () {
                                 $('#addClassModel').modal('hide');
                                 $('#addClassModel').on('hidden.bs.modal',function(){
+                                    //刷新页面
                                     Util.reloadByPjax();
                                 })
                             }

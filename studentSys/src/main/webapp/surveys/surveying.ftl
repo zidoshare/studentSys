@@ -30,7 +30,7 @@ ${view.title}
                                 <td>${q.className}</td>
                                 <td>${q.toUser}</td>
                                 <td>${((q.date)?number)?number_to_datetime}</td>
-                                <td>${((q.endTime)?number)?number_to_datetime}</td>
+                                <td>${((q.testQuestionnaireEndTime)?number)?number_to_datetime}</td>
 
                                 <td>
                                     <#if states["${q.id}"] == "未提交">
@@ -85,8 +85,8 @@ ${view.title}
                                     <td>${q.className}</td>
                                     <td>${q.toUser}</td>
                                     <td>${((q.date)?number)?number_to_datetime}</td>
-                                    <td>${((q.endTime)?number)?number_to_datetime}</td>
-                                    <td><#if (q.date?number) < (nowTime?number) && (q.endTime?number) gt (nowTime?number)>
+                                    <td>${((q.testQuestionnaireEndTime)?number)?number_to_datetime}</td>
+                                    <td><#if (q.date?number) < (nowTime?number) && (q.testQuestionnaireEndTime?number) gt (nowTime?number)>
                                         <span class="text-success">正在进行中</span>
                                     <#elseif (q.date?number) gt (nowTime?number)>
                                         <span class="text-danger">尚未开始</span>
@@ -94,7 +94,7 @@ ${view.title}
                                         <span class="text-gray">已完结</span>
                                     </#if></td>
                                     <td>
-                                        <#if (q.endTime?number) < (nowTime?number)>
+                                        <#if (q.testQuestionnaireEndTime?number) < (nowTime?number)>
                                             <a href="#">查看</a>
                                         <#else>
                                             <span>无法查看</span>
