@@ -180,6 +180,9 @@
                                 </mapping>
                             </mappings>
                         </mapping>
+                        <mapping id="2025" icon="disList" title="已分配试卷" url="/test/disList.ftl" function="1">
+                            <mappings/>
+                        </mapping>
                     </mappings>
                 </mapping>
                 <mapping id="3004" icon="toCount" title="成绩统计" url="/test/count" function="3">

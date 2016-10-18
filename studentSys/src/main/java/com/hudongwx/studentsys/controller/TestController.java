@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.hudongwx.studentsys.common.BaseController;
 import com.hudongwx.studentsys.model.*;
+import com.hudongwx.studentsys.model.Class;
 import com.hudongwx.studentsys.service.*;
 import com.hudongwx.studentsys.util.Common;
 import com.hudongwx.studentsys.util.ObjectKit;
@@ -58,6 +59,17 @@ public class TestController extends BaseController {
         }
         setAttr("operaterMap", userMap);
         setAttr("classes",classService.getAllClass());
+
+        List<TestQuestionnaireClass> tqcs = testQuestionnaireClassService.getAllTQC();
+        Map<String,TestQuestionnaire> testQuestionnaireMap = new HashMap<>();
+        Map<String,Class> classMap = new HashMap<>();
+        for(TestQuestionnaireClass tqc : tqcs){
+            testQuestionnaireMap.put(tqc.getId()+"",testQuestionnaireService.getQuestionnaireById(tqc.getTestQuestionnaireId()));
+            classMap.put(tqc.getId()+"",classService.getClassById(tqc.getClassId()));
+        }
+        setAttr("disList",tqcs);
+        setAttr("testQuestionnaireMap",testQuestionnaireMap);
+        setAttr("classMap",classMap);
         /*Map<String,String> msgMap = new HashMap<>();
         for(TestQuestionnaire tq : allTestQuestionnaire){
             testQuestionnaireService.getMsgMapByQuestionnaire(tq);
