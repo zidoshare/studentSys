@@ -101,7 +101,8 @@ public class TestController extends BaseController {
     public void questionnaire() {
         fillHeaderAndFooter();
         Integer id = getParaToInt(0);
-        if (id == null) {
+        Integer qcId = getParaToInt(1);
+        if (id == null || qcId == null) {
             renderError(404);
             return;
         }
@@ -116,7 +117,7 @@ public class TestController extends BaseController {
             return;
         }
         log.info(String.format("班级为%s的学生\"%s\"开始了考试,ip为：%s", student.getClassName(), student.getName(), student.getIp()));
-        TestQuestionnaire questionnaire = testQuestionnaireService.packingQuestionnaire(testQuestionnaireService.getQuestionnaireById(id), classService.getClassByStudent(student));
+        TestQuestionnaire questionnaire = testQuestionnaireService.packingQuestionnaire(qcId);
 
         if (questionnaire == null) {
             renderError(404);

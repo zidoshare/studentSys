@@ -60,7 +60,8 @@
                             <#if type.id == 1>
                                 <#list question.testQuestionContent?eval as node>
                                     <label class="subject_option">
-                                        <input class="iCheck" id="${question.id}S${node_index}" type="radio" name="iCheck" value="${node_index}">
+                                        <input class="iCheck" id="${question.id}S${node_index}" type="radio"
+                                               name="iCheck" value="${node_index}">
                                     ${xx[node_index]}、${node}
                                     </label>
                                 </#list>
@@ -89,7 +90,8 @@
     </div>
 
 </div>
-<script type="text/javascript" src="${staticServePath}/static/js/lib/jquery.cookie.js?${staticResourceVersion}"></script>
+<script type="text/javascript"
+        src="${staticServePath}/static/js/lib/jquery.cookie.js?${staticResourceVersion}"></script>
 <script type="text/javascript" src="${staticServePath}/static/js/common.js?${staticResourceVersion}"></script>
 <script>
 
@@ -135,15 +137,18 @@
             /*$("label").on("click", saveReply);
             $("ins").on("click", saveReply);
             $('textarea').on('input propertychange', saveReply);*/
-            $('li').on('ifChecked',saveReply);
+            $('li').on('ifChecked', saveReply);
         }
         var minutes;
         var mm;
+        var hours;
+        var days;
 
         function countDown() {
             var now = new Date().getTime();
+            console.log(end-now);
             $("#count-down").text(formatDuring(end - now));
-            if (minutes <= 0 && mm <= 0) {
+            if (days<=0 && hours <= 0 && minutes <= 0 && mm <= 0) {
                 Util.showTip($('#submitTip'), "你已超时，将不能再提交");
                 $("#count-down").text(0);
                 return;
@@ -152,16 +157,15 @@
         }
 
         function formatDuring(mss) {
-            var days = parseInt(mss / (1000 * 60 * 60 * 24));
-            var hours = parseInt((mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            days = parseInt(mss / (1000 * 60 * 60 * 24));
+            hours = parseInt((mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             minutes = parseInt((mss % (1000 * 60 * 60)) / (1000 * 60));
             //minutes = parseInt(mss / (1000 * 60));
-            var min = getzf(minutes);
             var seconds = parseInt((mss % (1000 * 60)) / 1000);
-
+            console.log(days+":"+hours+":"+minutes+":"+seconds+"");
             mm = parseInt(mss % 1000);
             var mmmin = get3zf(mm);
-            return getzf(hours) + ":" + min + ":"
+            return getzf(hours) + ":" + getzf(minutes) + ":"
                     + getzf(seconds);
         }
 
@@ -211,6 +215,7 @@
 
         function saveReply() {
             console.log("save");
+
             //$.cookie($(this).attr('id'))
             /*if ($(this).is('textarea')) {
                 var x = $(this).val();
@@ -282,14 +287,10 @@
         }
 
         function check() {
-            if (window.navigator.cookieEnabled) {
+            if (window.navigator.cookieEnabled)
                 return true;
-            }
-
-            else {
-                alert("浏览器配置错误，cookie不可用！");
-                return false;
-            }
+            alert("浏览器配置错误，cookie不可用！");
+            return false;
         }
     });
     var score = 0;

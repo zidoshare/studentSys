@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class TestQuestionnaireService extends Service {
     private ClassService classService;
     private StudentService studentService;
-
+    private TestQuestionnaireClassService testQuestionnaireClassService;
     public List<TestQuestionnaire> getAllTestQuestionnaire() {
         return TestQuestionnaire.dao.find(TestQuestionnaire.SEARCH_FROM_TEST_QUESTIONNAIRE);
     }
@@ -54,13 +54,8 @@ public class TestQuestionnaireService extends Service {
         q.setTestQuestionnaireEndTime(tqc.getTestQuestionnaireEndTime());
         return q;
     }
-    public TestQuestionnaire packingQuestionnaire(TestQuestionnaire testQuestionnaire,Class cla){
-        if(null == testQuestionnaire || null == cla)
-            return null;
-        TestQuestionnaireClass first = TestQuestionnaireClass.dao
-                .findFirst(TestQuestionnaireClass.SEARCH_FROM_TEST_QUESTIONNAIRE_CLASS
-                        + "where testQuestionnaireId = ? and classId = ?", testQuestionnaire.getId(), cla.getId());
-        return packingQuestionnaire(first);
+    public TestQuestionnaire packingQuestionnaire(Integer testQuestionnaireClassId){
+        return packingQuestionnaire(testQuestionnaireClassService.getById(testQuestionnaireClassId));
     }
 
     public Map<String, String> getMsgMapByQuestionnaire(TestQuestionnaire tq) {
@@ -87,6 +82,7 @@ public class TestQuestionnaireService extends Service {
             TestQuestionnaire q = TestQuestionnaire.dao.findById(tqc.getTestQuestionnaireId());
             if (null == q)
                 continue;
+            q.setTestQuestionnaireClassId(tqc.getId());
             q.setTestQuestionnaireStartTime(tqc.getTestQuestionnaireStartTime());
             q.setTestQuestionnaireEndTime(tqc.getTestQuestionnaireEndTime());
             list.add(q);
