@@ -45,12 +45,22 @@ public class TestQuestionnaireService extends Service {
     }
 
     public TestQuestionnaire packingQuestionnaire(TestQuestionnaireClass tqc) {
+        if(tqc == null)
+            return null;
         TestQuestionnaire q = TestQuestionnaire.dao.findById(tqc.getTestQuestionnaireId());
         if (null == q)
             return null;
         q.setTestQuestionnaireStartTime(tqc.getTestQuestionnaireStartTime());
         q.setTestQuestionnaireEndTime(tqc.getTestQuestionnaireEndTime());
         return q;
+    }
+    public TestQuestionnaire packingQuestionnaire(TestQuestionnaire testQuestionnaire,Class cla){
+        if(null == testQuestionnaire || null == cla)
+            return null;
+        TestQuestionnaireClass first = TestQuestionnaireClass.dao
+                .findFirst(TestQuestionnaireClass.SEARCH_FROM_TEST_QUESTIONNAIRE_CLASS
+                        + "where testQuestionnaireId = ? and classId = ?", testQuestionnaire.getId(), cla.getId());
+        return packingQuestionnaire(first);
     }
 
     public Map<String, String> getMsgMapByQuestionnaire(TestQuestionnaire tq) {

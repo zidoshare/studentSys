@@ -37,7 +37,7 @@
                                     <span class="text-gray">已完结</span>
                                 </#if></td>
                                 <td>
-                                    <a href="/surveys/questionnaire/${q.id}" class="text-success"
+                                    <a href="/test/questionnaire/${q.id}" class="text-success"
                                        target="_blank">快速开始>></a>
                                 </td>
                             </tr>

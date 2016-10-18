@@ -18,7 +18,7 @@
             <td>${questionnaire.className}</td>
             <td>${questionnaire.toUser}</td>
             <td>${(questionnaire.date?number)?number_to_datetime}</td>
-            <td>${(questionnaire.testQuestionnaireEndTime?number)?number_to_datetime}</td>
+            <td>${(questionnaire.endTime?number)?number_to_datetime}</td>
         </tr>
         <tr class="sr-only tr-show">
             <td colspan="4">

@@ -32,6 +32,7 @@ public class TestController extends BaseController {
     public ClassService classService;
     public TestQuestionnaireClassService testQuestionnaireClassService;
     public StudentService studentService;
+
     /**
      * @return 返回mapping的title属性
      */
@@ -59,32 +60,34 @@ public class TestController extends BaseController {
             userMap.put(tq.getId() + "", userService.getUserById(tq.getTestQuestionnaireOperaterId()));
         }
         setAttr("operaterMap", userMap);
-        setAttr("classes",classService.getAllClass());
+        setAttr("classes", classService.getAllClass());
 
         List<TestQuestionnaireClass> tqcs = testQuestionnaireClassService.getAllTQC();
-        Map<String,TestQuestionnaire> testQuestionnaireMap = new HashMap<>();
-        Map<String,Class> classMap = new HashMap<>();
-        for(TestQuestionnaireClass tqc : tqcs){
-            testQuestionnaireMap.put(tqc.getId()+"",testQuestionnaireService.getQuestionnaireById(tqc.getTestQuestionnaireId()));
-            classMap.put(tqc.getId()+"",classService.getClassById(tqc.getClassId()));
+        Map<String, TestQuestionnaire> testQuestionnaireMap = new HashMap<>();
+        Map<String, Class> classMap = new HashMap<>();
+        for (TestQuestionnaireClass tqc : tqcs) {
+            testQuestionnaireMap.put(tqc.getId() + "", testQuestionnaireService.getQuestionnaireById(tqc.getTestQuestionnaireId()));
+            classMap.put(tqc.getId() + "", classService.getClassById(tqc.getClassId()));
         }
-        setAttr("disList",tqcs);
-        setAttr("testQuestionnaireMap",testQuestionnaireMap);
-        setAttr("classMap",classMap);
+        setAttr("disList", tqcs);
+        setAttr("testQuestionnaireMap", testQuestionnaireMap);
+        setAttr("classMap", classMap);
         /*Map<String,String> msgMap = new HashMap<>();
         for(TestQuestionnaire tq : allTestQuestionnaire){
             testQuestionnaireService.getMsgMapByQuestionnaire(tq);
         }*/
     }
+
     @Before(POST.class)
-    public void addQuestionnaireClass(){
+    public void addQuestionnaireClass() {
         TestQuestionnaireClass model = getModel(TestQuestionnaireClass.class);
-        if(testQuestionnaireClassService._saveTestQuestionnaireClass(model)){
-            RenderKit.renderSuccess(this,"保存成功");
+        if (testQuestionnaireClassService._saveTestQuestionnaireClass(model)) {
+            RenderKit.renderSuccess(this, "保存成功");
             return;
         }
-        RenderKit.renderError(this,"保存失败");
+        RenderKit.renderError(this, "保存失败");
     }
+
     public void to() {
         setMapping(mappingService.getMappingByTitle("参加考试"));
         super.index();
@@ -94,7 +97,8 @@ public class TestController extends BaseController {
         setAttr("testing", questionnaires);
         setAttr("nowTime", System.currentTimeMillis());
     }
-    public void questionnaire(){
+
+    public void questionnaire() {
         fillHeaderAndFooter();
         Integer id = getParaToInt(0);
         if (id == null) {
@@ -111,7 +115,45 @@ public class TestController extends BaseController {
             renderError(403);
             return;
         }
+        log.info(String.format("班级为%s的学生\"%s\"开始了考试,ip为：%s", student.getClassName(), student.getName(), student.getIp()));
+        TestQuestionnaire questionnaire = testQuestionnaireService.packingQuestionnaire(testQuestionnaireService.getQuestionnaireById(id), classService.getClassByStudent(student));
+
+        if (questionnaire == null) {
+            renderError(404);
+            return;
+        }
+        JSONArray qnArray = JSONArray.parseArray(questionnaire.getTestQuestionnaireTypeList());
+        JSONArray typeArray = qnArray.getJSONArray(0);
+        JSONArray questionsArray = qnArray.getJSONArray(1);
+        Iterator<Object> typeIds = typeArray.iterator();
+        String typeStr = ObjectKit.getStrByJSONArray(typeArray);
+        List<TestType> types = testTypeService.getTypesByJSONArray(typeArray);
+        Map<String, List<TestQuestion>> map = new HashMap<>();
+        Map<String, Integer> scoreMap = new HashMap<>();
+        int size = 0;
+        for (int i = 0; i < types.size(); i++) {
+            JSONArray qs = questionsArray.getJSONArray(i);
+            List<TestQuestion> testQuestions = testQuestionService.getQuestionsByJSONArray(qs);
+            //TODO 这里的写法与数据库交互太频繁
+            for (TestQuestion tq : testQuestions) {
+                size++;
+                TestQuestionnaireQuestion tqq = testQuestionnaireQuestionService.getByQuestionIdAndQuestionnaireId(tq.getId(), id);
+                if (tqq != null)
+                    scoreMap.put(tq.getId() + "", tqq.getTestQuestionScore());
+                else
+                    scoreMap.put(tq.getId() + "", tq.getTestQuestionDefaultScore());
+            }
+            map.put(types.get(i).getId() + "", testQuestions);
+        }
+        setAttr("types", types);
+        setAttr("scoreMap", scoreMap);
+        setAttr("questionMap", map);
+        setAttr("questionnaire",questionnaire);
+        setAttr("questionSize",size);
+        setAttr("student",student);
+        render("/test/questionnaire.ftl");
     }
+
     public void questions() {
         setMapping(mappingService.getMappingByTitle("题库"));
         super.index();
@@ -303,19 +345,20 @@ public class TestController extends BaseController {
     public void deleteTestQuestion() {
 
     }
+
     @Before(POST.class)
-    public void deleteQuestionnaire(){
+    public void deleteQuestionnaire() {
         Integer id = getParaToInt(0);
         if (id == null) {
             RenderKit.renderError(this, "该试卷不存在或已被删除");
-            return ;
+            return;
         }
-        TestQuestionnaire tq= testQuestionnaireService.getQuestionnaireById(id);
+        TestQuestionnaire tq = testQuestionnaireService.getQuestionnaireById(id);
         if (tq == null) {
             RenderKit.renderError(this, "该班级不存在或已被删除");
-            return ;
+            return;
         }
         tq.delete();
-        RenderKit.renderSuccess(this,"删除成功");
+        RenderKit.renderSuccess(this, "删除成功");
     }
 }

@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width" name="viewport">
-    <title>问卷调查</title>
-    <link href="${staticServePath}/static/css/css.css" rel="stylesheet">
-    <link href="${staticServePath}/static/css/base.css" rel="stylesheet">
-    <script src="${staticServePath}/static/js/lib/jquery-3.1.0.min.js"></script>
-    <script src="${staticServePath}/static/js/lib/icheck.min.js"></script>
-    <script src="${staticServePath}/static/js/lib/jquery.transit.js"></script>
+    <title>考试</title>
+    <link href="${staticServePath}/static/css/css.css?${staticResourceVersion}" rel="stylesheet">
+    <link href="${staticServePath}/static/css/base.css?${staticResourceVersion}" rel="stylesheet">
+    <script src="${staticServePath}/static/js/lib/jquery-3.1.0.min.js?${staticResourceVersion}"></script>
+    <script src="${staticServePath}/static/js/lib/icheck.min.js?${staticResourceVersion}"></script>
+    <script src="${staticServePath}/static/js/lib/jquery.transit.js?${staticResourceVersion}"></script>
 </head>
 <body>
 <div class="wrapper cs-wrapper" id="wrapper">
@@ -32,59 +32,71 @@
     <div class="tip" id="postTip"></div>
     <div class="container">
         <div class="survey_title">
-            <h1>学员调查问卷</h1>
+            <h1>${questionnaire.testQuestionnaireTitle}</h1>
+        <#if questionnaire.testQuestionnaireMessage??>
             <h4 class="survey_summary">
-                <span style="color: red">提示:</span>
-                "本问卷是一份用于了解在线学习情况的问卷，调查结果只会用于学术研究，我们保证不会对您的生活与学习带来任何的负面影响。希望您能抽出一点您宝贵的时间，帮我们填答一份问卷。我们非常感谢您的支持！
-                "
+                <span style="color: red">试卷提示:</span>
+            ${questionnaire.testQuestionnaireMessage?html}
             </h4>
+        </#if>
         </div>
-            <form method="get" id="questionnaire${questionnaire.id}">
-                <h1 class="survey_to_title">${questionnaire.toUser}满意度调查</h1>
-                <ul class="subject_list">
-                    <#list questionnaire.questionnaireNodeList as questionnaireNode>
-                        <li class="subject_big">
-                            <h3>${questionnaireNode.questionBigType.name}</h3>
-                        </li>
-                        <#list questionnaireNode.questionsList as question>
-                            <li class="subject"
-                                id="${questionnaire.id}T${questionnaireNode.questionBigType.id}T${question.id}"
-                                aria-label="0">
-                                <h4 class="subject_title">${question.title}</h4>
-                                <#list question.questionsNodes as node>
+        <form method="get" id="questionnaire${questionnaire.id}">
+        <#assign index = 0>
+        <#assign bigNumber = ["一","二","三","四","五","六","七","八","九","十"]>
+        <#assign xx = ['A','B','C','D','E','F','G']>
+            <ul class="subject_list">
+            <#list types as type>
+                <li class="subject_big">
+                    <h3>${type.typeName}</h3>
+                </li>
+                <#list questionMap["${type.id}"] as question>
+                    <li class="subject"
+                        id="${questionnaire.id}S${question.id}"
+                        aria-label="0">
+                        <#assign index++>
+                        <h4 class="subject_title">${index}、${question.testQuestionTitle}
+                        </h4>
+                        <#if (question.testQuestionContent?eval)?size gt 0>
+                            <#if type.id == 1>
+                                <#list question.testQuestionContent?eval as node>
                                     <label class="subject_option">
-                                        <input name="${questionnaire.id}T${questionnaireNode.questionBigType.id}T${question.id}"
-                                               id="${questionnaire.id}T${questionnaireNode.questionBigType.id}T${question.id}T${node.score}"
-                                               type="radio" name="iCheck" value="${node.score}">
-                                    ${node.select}
+                                        <input class="iCheck" id="${question.id}S${node_index}" type="radio" name="iCheck" value="${node_index}">
+                                    ${xx[node_index]}、${node}
                                     </label>
                                 </#list>
-                            </li>
-                        </#list>
-                    </#list>
-                </ul>
-                <div class="tip-container">
-                <textarea class="comment" name="comment" id="${questionnaire.id}comment" rows="10" tabindex="4"
-                          placeholder="输入评论内容...字数在两百字以内" aria-label="0"></textarea>
-                    <div class="absolute" id="${questionnaire.id}commentTip"
-                         style="right: 0px;bottom: 10px;color: #8b5e21;font-size:12px;">剩余<font id="wnum">0</font>字
-                    </div>
-                </div>
+                            <#else>
+                                <#list question.testQuestionContent?eval as node>
+                                    <label class="subject_option">
+                                        <input class="iCheck" type="checkbox" name="iCheck" value="${node?index}">
+                                    ${xx[node_index]}、${node}
+                                    </label>
+                                </#list>
+                            </#if>
 
-            </form>
+                        <#else>
+                            <textarea class="comment" rows="10" tabindex="4"
+                                      placeholder="答案"></textarea>
+
+                        </#if>
+                    </li>
+                </#list>
+            </#list>
+            </ul>
+        </form>
         <div style="text-align: right">
             <button class="submit" type="submit" onclick="postReply()">提交</button>
         </div>
     </div>
 
 </div>
-<script type="text/javascript" src="${staticServePath}/static/js/lib/jquery.cookie.js"></script>
-<script type="text/javascript" src="${staticServePath}/static/js/common.js"></script>
+<script type="text/javascript" src="${staticServePath}/static/js/lib/jquery.cookie.js?${staticResourceVersion}"></script>
+<script type="text/javascript" src="${staticServePath}/static/js/common.js?${staticResourceVersion}"></script>
 <script>
 
     var progressFlag;
     var proccer = 0;
     var max = ${questionSize};
+    var answers = {};
     $(document).ready(function () {
         $('input').iCheck({
             checkboxClass: 'iradio_square-blue',
@@ -103,14 +115,14 @@
         });
 
         //时间控制
-        var start = ${questionnaire.date};
-        var end = ${questionnaire.endTime};
+        var start = ${questionnaire.testQuestionnaireStartTime};
+        var end = ${questionnaire.testQuestionnaireEndTime};
         progressFlag = ${questionnaire.id};
-        getMyDate(new Date(${questionnaire.date})) + "   " + getMyDate(${questionnaire.endTime});
+        getMyDate(new Date(${questionnaire.testQuestionnaireStartTime})) + "   " + getMyDate(${questionnaire.testQuestionnaireEndTime});
         $('#start-time').text(getMyDate(start));
         $('#end-time').text(getMyDate(end));
         $('#now').text(getMyDate(new Date().getTime()));
-        var time = ${questionnaire.endTime?number}-new Date().getTime();
+        var time = ${questionnaire.testQuestionnaireEndTime?number}-new Date().getTime();
         formatDuring(time);
         countDown();
         $('#count').transition({opacity: 1, top: 0}, 1000);
@@ -120,9 +132,10 @@
             proccer = readReply();
             max = ${questionSize};
             changeProgress(parseFloat((proccer / max * 100)).toFixed(2) + "%");
-            $("label").on("click", saveReply);
+            /*$("label").on("click", saveReply);
             $("ins").on("click", saveReply);
-            $('textarea').on('input propertychange', saveReply);
+            $('textarea').on('input propertychange', saveReply);*/
+            $('li').on('ifChecked',saveReply);
         }
         var minutes;
         var mm;
@@ -148,7 +161,7 @@
 
             mm = parseInt(mss % 1000);
             var mmmin = get3zf(mm);
-            return getzf(hours)+":"+ min + ":"
+            return getzf(hours) + ":" + min + ":"
                     + getzf(seconds);
         }
 
@@ -197,15 +210,16 @@
         }
 
         function saveReply() {
-
-            if ($(this).is('textarea')) {
+            console.log("save");
+            //$.cookie($(this).attr('id'))
+            /*if ($(this).is('textarea')) {
                 var x = $(this).val();
                 changeMax($(this));
                 if ($(this).val().length >= 200) {
-                    x = x.substr(0, 200);
-                    Util.showTip($('#submitTip'), '评论长度大于200,将无法提交，并且下次保存仅保存前<font color="red" size="5">200</font>字', 'alert alert-warning');
+                    //x = x.substr(0, 200);
                 }
-                $.cookie($(this).attr('id'), x, {expires: 1});
+                /!*$.cookie($(this).attr('id'), x, {expires: 1});*!/
+
                 if ($(this).attr('aria-label') == 0) {
                     $(this).attr('aria-label', 1);
                     proccer++;
@@ -222,12 +236,12 @@
             if ($(this).is('ins'))
                 radio = $(this).prev();
             else if ($(this).is('label'))
-                radio = $(this).find('input:radio').first();
+                radio = $(this).find('input:radio,input:checkbox').first();
             if (radio.attr('aria-label') == 0) {
                 radio.attr('aria-label', 1);
             }
 
-            if (radio != null) {
+            if (false) {
                 var label = radio.parent().parent();
                 label.siblings('label').find('input').each(function (index, dom) {
                     $.cookie($(this).attr('id'), null);
@@ -241,21 +255,11 @@
                     changeProgress(parseFloat(((++proccer) / max * 100)).toFixed(2) + "%");
                     li.attr('aria-label', 1);
                 }
-            }
-
-            /*$('input:radio').each(function (index, domEle) {
-                var id = $(this).attr("id");
-
-                $.cookie(id, $(this).prop("checked"), {expires: 1});
-            });
-            $('textarea').each(function (index, domEle) {
-                var id = $(this).attr("id");
-                $.cookie(id, $(this).val(), {expires: 1});
-            });*/
+            }*/
         }
 
         function readReply() {
-            $('input:radio').each(function (index, domEle) {
+            $('input:radio,input:checkbox').each(function (index, domEle) {
                 var id = $(this).attr("id");
                 if ($.cookie(id) == 'true') {
                     $(this).prop("checked", true);
@@ -265,7 +269,6 @@
             });
             $('textarea').each(function (index, domEle) {
                 var id = $(this).attr("id");
-
                 if ($.cookie(id) != null && $.cookie(id) != '') {
                     $("#" + id).val($.cookie(id));
                     $(this).attr('aria-label', 1);
@@ -275,7 +278,7 @@
             var p = $.cookie("" + progressFlag);
             if (p == null)
                 p = 0;
-            return p;
+            return 0;
         }
 
         function check() {
@@ -301,7 +304,7 @@
         var mode;
         var btn;
         if (!validateComment($("#${questionnaire.id}comment").val())) {
-            Util.showTip($('#submitTip'), '${questionnaire.toUser}调查表的评论长度应在200字以内！', 'alert alert-warning');
+
             return;
         }
         mode = {
@@ -312,7 +315,7 @@
         var reply = new Array();
         var i = 0;
         score = 0;
-        $("#questionnaire${questionnaire.id}").find('input:radio').each(function (index, domEle) {
+        $("#questionnaire${questionnaire.id}").find('input:radio,input:checkbox').each(function (index, domEle) {
             if ($(this).prop("checked") == true) {
                 var id = $(this).attr("id");
                 var index = id.lastIndexOf("T");
@@ -333,16 +336,16 @@
             data: mode,
             success: function (data, textstatus) {
                 if (data.state == 'success') {
-                    Util.showTip($('#submitTip'), '${questionnaire.toUser}情况调查表 ' + data.msg, 'alert alert-success');
+                    Util.showTip($('#submitTip'), data.msg, 'alert alert-success');
                     setTimeout(function () {
                         window.location.href = "${staticServePath}/";
                     }, 1000);
                 }
                 if (data.state == 'error') {
-                    Util.showTip($('#submitTip'), '${questionnaire.toUser}情况调查表 ' + data.msg, 'alert alert-success');
+                    Util.showTip($('#submitTip'), data.msg, 'alert alert-success');
                 }
             }, error: function () {
-                Util.showTip($('#submitTip'), '${questionnaire.toUser}情况调查表 提交失败', 'alert alert-success');
+                Util.showTip($('#submitTip'), '提交失败，服务器错误', 'alert alert-success');
             },
             complete: function () {
 

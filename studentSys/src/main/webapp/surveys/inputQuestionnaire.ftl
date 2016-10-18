@@ -23,7 +23,7 @@
                 <td>${(questionnaire.date?number)?number_to_datetime}</td>
                 <td>${questionnaire.classChief}</td>
                 <td>${questionnaire.toUser}</td>
-                <td>${(questionnaire.testQuestionnaireEndTime?number)?number_to_datetime}</td>
+                <td>${(questionnaire.endTime?number)?number_to_datetime}</td>
                 <td><a>修改</a>/<a>删除</a></td>
             </tr>
         </#list>
@@ -65,6 +65,7 @@
                 </td>
                 <td>${question.type}</td>
                 <td>${question.title}</td>
+                <td class="hidden score">${question.maxScore}</td>
             </tr>
         </#list>
         </table>
@@ -135,11 +136,14 @@
         var ids = "";
         var btn = Ladda.create(document.querySelector("#save-btn"));
         btn.start();
+        var sum = 0;
         trs.each(function () {
             var b = $(this).find("input[type='checkbox']").first().is(':checked');
             var id = $(this).attr('id').replace("question", "");
-            if (b == true)
+            if (b == true){
                 ids += id + ",";
+                sum+=parseInt($(this).find('.score').first().text());
+            }
         });
         ids.substr(0, ids.length - 1);
         var testQuestionnaireStartTime = new Date($("#date").val()).getTime();
@@ -151,8 +155,9 @@
             "questionnaire.to_user": $("#to-user").val(),
             "questionnaire.end_time": testQuestionnaireEndTime,
             "questionnaire.note": $("#note").val(),
+            "questionnaire.maxScore":sum,
             "questionsId": ids
-        }
+        };
         $.ajax({
             url: "${staticServePath}/surveys/postQuestionnaire",
             type: "post",
