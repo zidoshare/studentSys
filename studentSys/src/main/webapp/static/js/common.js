@@ -146,8 +146,36 @@ var Validate = {
 };
 
 var Util = {
+    reloadByPjax: function (container) {
+        if (container == null)
+            container = '#page-inner'
+        $.pjax.reload(container, {
+            fragment: container,
+            type: 'get',
+            replace: false,
+            push: false,
+            timeout: 5000
+        });
+    },
+    getzf: function (num) {
+        if (parseInt(num) < 10) {
+            num = '0' + num;
+        }
+        return num;
+    },
+    getMyDate: function (str) {
+        var oDate = new Date(str),
+            oYear = oDate.getFullYear(),
+            oMonth = oDate.getMonth() + 1,
+            oDay = oDate.getDate(),
+            oHour = oDate.getHours(),
+            oMin = oDate.getMinutes(),
+            oSen = oDate.getSeconds(),
+            oTime = oYear + '/' + Util.getzf(oMonth) + '/' + Util.getzf(oDay) + ' ' + Util.getzf(oHour) + ':' + Util.getzf(oMin) + ':' + Util.getzf(oSen);//最后拼接时间
+        return oTime;
+    },
     clearPanel: function (dom, options) {
-        var defaults = {front: '', ends: ['eId', 'CreateTime', 'UpdateTime'], end: ''};
+        var defaults = {front: '', ends: ['eId', 'CreateTime', 'UpdateTime'], end: '', hidden: true};
         if (options != null) {
             $.each(options, function (name, val) {
                 defaults[name] = options[name];
@@ -171,7 +199,8 @@ var Util = {
                 });
             }
         }
-        dom.hide();
+        if (defaults.hidden)
+            dom.hide();
     },
     showTip: function (tip, result, className, options) {
         var defaults = {
@@ -505,7 +534,7 @@ var func = {
                             time: 5000,
                             complete: function () {
                                 modalUtil.toggleClear($('#addTestQuestion'));
-                                //TODO 这里是已经进行了pjax的方法了的,但是会请求两次，第二次是没有pjax请求的，暂时不清楚怎么回事
+                                //TODO 这里是已经进行了pjax的方法了的,但是会请求两次，第二次是没有pjax请求的，暂时不清楚怎么回事 √已解决，加入fragment就可以了
                                 $.pjax.reload("#page-inner");
                             }
                         });
@@ -523,8 +552,20 @@ var func = {
         }
     },
     addTestQuestionnaire: function (method) {
-        if (method == 'show')
-            $('#inputQuestionnairePanel').show();
+        if (method == 'show') {
+            // $('#inputQuestionnairePanel').show();
+            var modelNav = $('#model-nav');
+            var modelPane = $('#model-content');
+            var nav = $('#add-nav');
+            var content = $('#addTestQuestionnaire');
+            $('#distribute-nav').removeClass('active');
+            $('#distribute').removeClass('active');
+            nav.addClass('active');
+            content.addClass('active');
+            modelNav.removeClass('hidden');
+            modelNav.append(nav);
+            modelPane.append(content);
+        }
         else {
             var btn = Ladda.create(document.querySelector("#save-btn"));
             btn.start();
@@ -558,7 +599,7 @@ var func = {
                     if (data.state == 'success') {
                         Util.showTip($('#wholeTip'), data.msg, 'alert alert-success', {
                             time: 1000, complete: function () {
-                                $.reload('#page-inner');
+                                Util.reloadByPjax();
                             }
                         });
                     }
@@ -596,6 +637,9 @@ var func = {
                         Util.showTip($('#saveClassTip'), data.msg, 'alert alert-success', {
                             time: 1000, complete: function () {
                                 $('#addClassModel').modal('hide');
+                                $('#addClassModel').on('hidden.bs.modal',function(){
+                                    Util.reloadByPjax();
+                                })
                             }
                         });
                     }
@@ -610,6 +654,52 @@ var func = {
         }
         else $('#addClassModel').modal(method);
     },
+    distributeTestQuestionnaire: function (method) {
+        if (method == 'show') {
+            var modelNav = $('#model-nav');
+            var modelPane = $('#model-content');
+            var nav = $('#distribute-nav');
+            var content = $('#distribute');
+            $('#add-nav').removeClass('active');
+            $('#addTestQuestionnaire').removeClass('active');
+            nav.addClass('active');
+            content.addClass('active');
+            modelNav.removeClass('hidden');
+            modelNav.append(nav);
+            modelPane.append(content);
+            $('#testQuestionnaireStartTime').val(Util.getMyDate(new Date().getTime()));
+            $('#testQuestionnaireEndTime').val(Util.getMyDate(new Date().getTime()));
+        } else {
+            var st = $('#testQuestionnaireStartTime');
+            var end = $('#testQuestionnaireEndTime');
+            var btn = Ladda.create(document.querySelector("#save-d-btn"));
+            btn.start();
+            var json = {};
+            st.val(new Date(st.val()).getTime());
+            end.val(new Date(end.val()).getTime());
+            $('#testQuestionnaireClass').find('.form-control').each(function () {
+                if ($(this).attr('name') != null)
+                    json[$(this).attr('name')] = $(this).val();
+            });
+            $.ajax({
+                url: Label.staticServePath + "/test/addQuestionnaireClass",
+                type: "post",
+                data: json,
+                success: function (data, state) {
+                    if (data.state == 'success') {
+                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
+                        Util.reloadByPjax();
+                    }
+                },
+                error: function () {
+                    Util.showTip($('#wholeTip'), '服务器错误', 'alert alert-danger');
+                },
+                complete: function () {
+                    btn.stop();
+                }
+            })
+        }
+    },
     updateClass: function (method, id) {
         Util.update('class', id);
         $('#classId').val(id);
@@ -618,7 +708,18 @@ var func = {
     updateTestQuestionnaire: function (method, id) {
         Util.update('testQuestionnaire', id);
         $('#testQuestionnaireId').val(id);
-        $('#inputQuestionnairePanel').show();
+        // $('#inputQuestionnairePanel').show();
+        var modelNav = $('#model-nav');
+        var modelPane = $('#model-content');
+        var nav = $('#add-nav');
+        var content = $('#addTestQuestionnaire');
+        $('#distribute-nav').removeClass('active');
+        $('#distribute').removeClass('active');
+        nav.addClass('active');
+        content.addClass('active');
+        modelNav.removeClass('hidden');
+        modelNav.append(nav);
+        modelPane.append(content);
     },
     updateTestQuestion: function (method, id) {
         modalUtil.toggleClear($('#addTestQuestion'));
@@ -803,7 +904,13 @@ var modalUtil = {
 };
 var Test = {
     testPjaxReload: function () {
-        $.pjax.reload({container: '#page-inner'});
+        $.pjax.reload('#page-inner', {
+            fragment: '#page-inner',
+            type: 'get',
+            replace: false,
+            push: false,
+            timeout: 5000
+        });
     }
 };
 

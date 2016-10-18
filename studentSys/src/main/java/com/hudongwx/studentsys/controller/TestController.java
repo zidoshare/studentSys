@@ -28,7 +28,8 @@ public class TestController extends BaseController {
     public TestQuestionnaireService testQuestionnaireService;
     public TestDomainService testDomainService;
     public TestQuestionnaireQuestionService testQuestionnaireQuestionService;
-
+    public ClassService classService;
+    public TestQuestionnaireClassService testQuestionnaireClassService;
     /**
      * @return 返回mapping的title属性
      */
@@ -56,12 +57,21 @@ public class TestController extends BaseController {
             userMap.put(tq.getId() + "", userService.getUserById(tq.getTestQuestionnaireOperaterId()));
         }
         setAttr("operaterMap", userMap);
+        setAttr("classes",classService.getAllClass());
         /*Map<String,String> msgMap = new HashMap<>();
         for(TestQuestionnaire tq : allTestQuestionnaire){
             testQuestionnaireService.getMsgMapByQuestionnaire(tq);
         }*/
     }
-
+    @Before(POST.class)
+    public void addQuestionnaireClass(){
+        TestQuestionnaireClass model = getModel(TestQuestionnaireClass.class);
+        if(testQuestionnaireClassService._saveTestQuestionnaireClass(model)){
+            RenderKit.renderSuccess(this,"保存成功");
+            return;
+        }
+        RenderKit.renderError(this,"保存失败");
+    }
     public void to() {
         setMapping(mappingService.getMappingByTitle("参加考试"));
         super.index();

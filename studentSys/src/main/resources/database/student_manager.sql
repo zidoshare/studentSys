@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50712
 File Encoding         : 65001
 
-Date: 2016-10-16 18:57:25
+Date: 2016-10-18 09:51:19
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -21,12 +21,16 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `stumanager_class`;
 CREATE TABLE `stumanager_class` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `className` varchar(10) DEFAULT NULL,
-  `headTeacherid` int(40) DEFAULT NULL COMMENT '讲师',
+  `className` varchar(10) NOT NULL,
+  `headTeacher` varchar(10) NOT NULL COMMENT '讲师',
   `Assistant` varchar(10) DEFAULT NULL COMMENT '科目',
-  `tutorId` int(20) DEFAULT NULL,
+  `tutor` varchar(10) NOT NULL,
+  `studentCnt` int(11) NOT NULL DEFAULT '0',
+  `classCreateTime` bigint(20) NOT NULL,
+  `classUpdateTime` bigint(20) NOT NULL,
+  `classOperaterId` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of stumanager_class
@@ -112,17 +116,22 @@ CREATE TABLE `stumanager_mapping` (
   `visitCnt` int(11) NOT NULL DEFAULT '0' COMMENT '访问次数，用于统计',
   `function` int(11) NOT NULL DEFAULT '0' COMMENT '职能，0：功能，1：视图模块，2：菜单，3：二级菜单，以后多级菜单，依次类推',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3023 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3029 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of stumanager_mapping
 -- ----------------------------
+INSERT INTO `stumanager_mapping` VALUES ('1007', '班级管理', '/classManager', '', 'fa fa-flag', '1008', '2330', '2326', '1', '1', '0', '2');
+INSERT INTO `stumanager_mapping` VALUES ('1008', '班级列表', '/classManager/classList.ftl', '', 'classList', '1009', '0', '1007', '3', '2', '0', '1');
+INSERT INTO `stumanager_mapping` VALUES ('1009', '添加', 'addClass', '', 'addClass', '0', '1010', '1008', '0', '3', '0', '0');
+INSERT INTO `stumanager_mapping` VALUES ('1010', '编辑', 'updateClass', '', 'updateClass', '0', '1011', '1008', '0', '3', '0', '0');
+INSERT INTO `stumanager_mapping` VALUES ('1011', '删除', 'deleteClass', '', 'deleteClass', '0', '0', '1008', '0', '3', '0', '0');
 INSERT INTO `stumanager_mapping` VALUES ('1999', '数据管理', '/common/dataManager.ftl', '', 'dataManager', '0', '2000', '2327', '0', '2', '0', '1');
 INSERT INTO `stumanager_mapping` VALUES ('2000', '导航', '/common/routs.ftl', '', 'routs', '0', '2338', '2327', '0', '2', '0', '1');
-INSERT INTO `stumanager_mapping` VALUES ('2326', '根目录', 'url', '', 'fa', '2327', '0', '0', '10', '0', '0', '0');
+INSERT INTO `stumanager_mapping` VALUES ('2326', '根目录', 'url', '', 'fa', '2327', '0', '0', '11', '0', '0', '0');
 INSERT INTO `stumanager_mapping` VALUES ('2327', '首页', '/', '', 'fa fa-desktop', '2337', '2328', '2326', '6', '1', '0', '2');
 INSERT INTO `stumanager_mapping` VALUES ('2328', '用户管理', '/userManager', '', 'fa fa-users', '2341', '2329', '2326', '2', '1', '0', '2');
-INSERT INTO `stumanager_mapping` VALUES ('2329', '学生管理', '/studentManager', '', 'fa fa-calendar', '2343', '2330', '2326', '1', '1', '0', '2');
+INSERT INTO `stumanager_mapping` VALUES ('2329', '学生管理', '/studentManager', '', 'fa fa-calendar', '2343', '1007', '2326', '1', '1', '0', '2');
 INSERT INTO `stumanager_mapping` VALUES ('2330', '还款管理', '/repaymentManager', '', 'fa fa-usd', '0', '2331', '2326', '0', '1', '0', '2');
 INSERT INTO `stumanager_mapping` VALUES ('2331', '出勤管理', '/attendanceManager', '', 'fa fa-crosshairs', '2344', '2332', '2326', '1', '1', '0', '2');
 INSERT INTO `stumanager_mapping` VALUES ('2332', '证书管理', '/certificateManager', '', 'fa fa-book', '0', '2333', '2326', '0', '1', '0', '2');
@@ -203,7 +212,7 @@ CREATE TABLE `stumanager_role` (
 -- ----------------------------
 INSERT INTO `stumanager_role` VALUES ('78', 'admin', '1', '1999:2000:2326:2327:2328:2329:2330:2331:2332:2333:2334:2335:2336:2337:2338:2339:2340:2341:2342:2343:2344:2345:2346:2347:2348:2349:2350:2351:2352:2353:2354:2355:2356:2357:2358:2359:2360:2361:2362:2363:2364:2365:2366:2367:2368:2369:2370:2371:2372:2373:2374:2375:2376:3000:3001:3002:3003:3004:3005:3006:3007:3008:3009', '1476254934638', 'admin');
 INSERT INTO `stumanager_role` VALUES ('79', '学生', '77', '2000:2326:2327:2333:2334:2335:2337:2340:2345:2346:2347:2352:2353:2367:2368:2369', '1476174127857', 'admin');
-INSERT INTO `stumanager_role` VALUES ('80', '考试系统测试组', '2', '2000:2326:2327:2333:2334:2335:2337:2338:2339:2340:2345:2346:2347:2348:2349:2350:2351:2352:2353:2367:2368:2369:2370:2371:2372:2373:3000:3001:3002:3003:3004:3005:3006:3007:3008:3009:3020:3021:3022', '1476234458475', 'admin');
+INSERT INTO `stumanager_role` VALUES ('80', '考试系统测试组', '2', '1007:1008:1009:1010:1011:2000:2326:2327:2333:2334:2335:2337:2338:2339:2340:2345:2346:2347:2348:2349:2350:2351:2352:2353:2367:2368:2369:2370:2371:2372:2373:3000:3001:3002:3003:3004:3005:3006:3007:3008:3009:3020:3021:3022', '1476689956092', 'admin');
 
 -- ----------------------------
 -- Table structure for `stumanager_student`
@@ -369,31 +378,34 @@ CREATE TABLE `stumanager_test_questionnaire` (
   `testQuestionnaireCreateTime` bigint(20) NOT NULL,
   `testQuestionnaireOperaterId` int(11) NOT NULL,
   `testQuestionnaireMessage` varchar(200) DEFAULT NULL,
+  `testQuestionnaireUpdateTime` bigint(20) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of stumanager_test_questionnaire
 -- ----------------------------
-INSERT INTO `stumanager_test_questionnaire` VALUES ('12', '123', '[[1,2,3],[[\"6\"],[\"7\"],[\"8\",\"11\",\"16\"]]]', '25', '1476432157726', '86', '123');
-INSERT INTO `stumanager_test_questionnaire` VALUES ('13', '123', '[[1,2,3],[[\"6\"],[\"7\"],[\"11\",\"16\"]]]', '20', '1476433733752', '86', '123');
+INSERT INTO `stumanager_test_questionnaire` VALUES ('18', '123', '[[1],[[6]]]', '5', '1476754862805', '86', '123', '1476754862805');
 
 -- ----------------------------
 -- Table structure for `stumanager_test_questionnaire_class`
 -- ----------------------------
 DROP TABLE IF EXISTS `stumanager_test_questionnaire_class`;
 CREATE TABLE `stumanager_test_questionnaire_class` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `classId` int(11) NOT NULL,
   `testQuestionnaireId` int(11) NOT NULL,
   `testQuestionnaireStartTime` bigint(11) NOT NULL,
   `testQuestionnaireEndTime` bigint(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of stumanager_test_questionnaire_class
 -- ----------------------------
+INSERT INTO `stumanager_test_questionnaire_class` VALUES ('1', '2', '13', '1476726900000', '1476726900000');
+INSERT INTO `stumanager_test_questionnaire_class` VALUES ('2', '2', '13', '1476754792000', '1476754792000');
+INSERT INTO `stumanager_test_questionnaire_class` VALUES ('3', '2', '13', '1476754830000', '1476754830000');
 
 -- ----------------------------
 -- Table structure for `stumanager_test_questionnaire_question`
@@ -406,20 +418,40 @@ CREATE TABLE `stumanager_test_questionnaire_question` (
   `testQuestionScore` int(11) NOT NULL,
   `testQuestionIsVisible` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of stumanager_test_questionnaire_question
 -- ----------------------------
-INSERT INTO `stumanager_test_questionnaire_question` VALUES ('9', '12', '6', '5', '1');
-INSERT INTO `stumanager_test_questionnaire_question` VALUES ('10', '12', '7', '5', '1');
-INSERT INTO `stumanager_test_questionnaire_question` VALUES ('11', '12', '8', '5', '1');
-INSERT INTO `stumanager_test_questionnaire_question` VALUES ('12', '12', '11', '5', '1');
-INSERT INTO `stumanager_test_questionnaire_question` VALUES ('13', '12', '16', '5', '1');
 INSERT INTO `stumanager_test_questionnaire_question` VALUES ('14', '13', '6', '5', '1');
-INSERT INTO `stumanager_test_questionnaire_question` VALUES ('15', '13', '7', '5', '1');
-INSERT INTO `stumanager_test_questionnaire_question` VALUES ('16', '13', '11', '5', '1');
+INSERT INTO `stumanager_test_questionnaire_question` VALUES ('15', '13', '7', '10', '1');
+INSERT INTO `stumanager_test_questionnaire_question` VALUES ('16', '13', '11', '10', '1');
 INSERT INTO `stumanager_test_questionnaire_question` VALUES ('17', '13', '16', '5', '1');
+INSERT INTO `stumanager_test_questionnaire_question` VALUES ('29', '12', '7', '5', '1');
+INSERT INTO `stumanager_test_questionnaire_question` VALUES ('30', '12', '8', '10', '1');
+INSERT INTO `stumanager_test_questionnaire_question` VALUES ('31', '12', '11', '10', '1');
+INSERT INTO `stumanager_test_questionnaire_question` VALUES ('32', '12', '16', '10', '1');
+INSERT INTO `stumanager_test_questionnaire_question` VALUES ('33', '12', '20', '5', '1');
+INSERT INTO `stumanager_test_questionnaire_question` VALUES ('34', '12', '21', '5', '1');
+INSERT INTO `stumanager_test_questionnaire_question` VALUES ('35', '14', '3', '5', '1');
+INSERT INTO `stumanager_test_questionnaire_question` VALUES ('36', '14', '4', '5', '1');
+INSERT INTO `stumanager_test_questionnaire_question` VALUES ('37', '14', '6', '5', '1');
+INSERT INTO `stumanager_test_questionnaire_question` VALUES ('38', '15', '3', '5', '1');
+INSERT INTO `stumanager_test_questionnaire_question` VALUES ('39', '15', '4', '5', '1');
+INSERT INTO `stumanager_test_questionnaire_question` VALUES ('40', '15', '5', '5', '1');
+INSERT INTO `stumanager_test_questionnaire_question` VALUES ('41', '15', '6', '5', '1');
+INSERT INTO `stumanager_test_questionnaire_question` VALUES ('42', '15', '13', '5', '1');
+INSERT INTO `stumanager_test_questionnaire_question` VALUES ('43', '15', '7', '5', '1');
+INSERT INTO `stumanager_test_questionnaire_question` VALUES ('44', '15', '8', '5', '1');
+INSERT INTO `stumanager_test_questionnaire_question` VALUES ('45', '15', '11', '5', '1');
+INSERT INTO `stumanager_test_questionnaire_question` VALUES ('46', '15', '16', '5', '1');
+INSERT INTO `stumanager_test_questionnaire_question` VALUES ('47', '15', '20', '5', '1');
+INSERT INTO `stumanager_test_questionnaire_question` VALUES ('48', '16', '6', '5', '1');
+INSERT INTO `stumanager_test_questionnaire_question` VALUES ('49', '16', '7', '5', '1');
+INSERT INTO `stumanager_test_questionnaire_question` VALUES ('50', '16', '16', '5', '1');
+INSERT INTO `stumanager_test_questionnaire_question` VALUES ('51', '16', '20', '5', '1');
+INSERT INTO `stumanager_test_questionnaire_question` VALUES ('52', '17', '6', '5', '1');
+INSERT INTO `stumanager_test_questionnaire_question` VALUES ('53', '18', '6', '5', '1');
 
 -- ----------------------------
 -- Table structure for `stumanager_test_tag`
