@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50712
 File Encoding         : 65001
 
-Date: 2016-10-18 14:29:27
+Date: 2016-10-19 11:59:13
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -384,12 +384,13 @@ CREATE TABLE `stumanager_test_questionnaire` (
   `testQuestionnaireMessage` varchar(200) DEFAULT NULL,
   `testQuestionnaireUpdateTime` bigint(20) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of stumanager_test_questionnaire
 -- ----------------------------
-INSERT INTO `stumanager_test_questionnaire` VALUES ('19', '123', '[[1],[[6]]]', '10', '1476758169843', '86', '123', '1476758169843');
+INSERT INTO `stumanager_test_questionnaire` VALUES ('19', '123', '[[1,2,3],[[6],[7],[11,16]]]', '25', '1476758169843', '86', '123', '1476779389330');
+INSERT INTO `stumanager_test_questionnaire` VALUES ('20', '12434', '[[1,2,3],[[6],[7],[16,20,12,14]]]', '35', '1476783224315', '86', '3456456', '1476783224315');
 
 -- ----------------------------
 -- Table structure for `stumanager_test_questionnaire_class`
@@ -402,12 +403,14 @@ CREATE TABLE `stumanager_test_questionnaire_class` (
   `testQuestionnaireStartTime` bigint(11) NOT NULL,
   `testQuestionnaireEndTime` bigint(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of stumanager_test_questionnaire_class
 -- ----------------------------
 INSERT INTO `stumanager_test_questionnaire_class` VALUES ('4', '13', '19', '1476758271000', '1476787071000');
+INSERT INTO `stumanager_test_questionnaire_class` VALUES ('5', '13', '19', '1476783251000', '1476786851000');
+INSERT INTO `stumanager_test_questionnaire_class` VALUES ('6', '13', '19', '1476801961000', '1476974761000');
 
 -- ----------------------------
 -- Table structure for `stumanager_test_questionnaire_question`
@@ -420,12 +423,38 @@ CREATE TABLE `stumanager_test_questionnaire_question` (
   `testQuestionScore` int(11) NOT NULL,
   `testQuestionIsVisible` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of stumanager_test_questionnaire_question
 -- ----------------------------
-INSERT INTO `stumanager_test_questionnaire_question` VALUES ('54', '19', '6', '10', '1');
+INSERT INTO `stumanager_test_questionnaire_question` VALUES ('55', '19', '6', '10', '1');
+INSERT INTO `stumanager_test_questionnaire_question` VALUES ('56', '19', '7', '5', '1');
+INSERT INTO `stumanager_test_questionnaire_question` VALUES ('57', '19', '11', '5', '1');
+INSERT INTO `stumanager_test_questionnaire_question` VALUES ('58', '19', '16', '5', '1');
+INSERT INTO `stumanager_test_questionnaire_question` VALUES ('59', '20', '6', '10', '1');
+INSERT INTO `stumanager_test_questionnaire_question` VALUES ('60', '20', '7', '5', '1');
+INSERT INTO `stumanager_test_questionnaire_question` VALUES ('61', '20', '12', '5', '1');
+INSERT INTO `stumanager_test_questionnaire_question` VALUES ('62', '20', '14', '5', '1');
+INSERT INTO `stumanager_test_questionnaire_question` VALUES ('63', '20', '16', '5', '1');
+INSERT INTO `stumanager_test_questionnaire_question` VALUES ('64', '20', '20', '5', '1');
+
+-- ----------------------------
+-- Table structure for `stumanager_test_reply`
+-- ----------------------------
+DROP TABLE IF EXISTS `stumanager_test_reply`;
+CREATE TABLE `stumanager_test_reply` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `testQuestionnaireClassId` int(11) NOT NULL,
+  `answers` text NOT NULL,
+  `studentId` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of stumanager_test_reply
+-- ----------------------------
+INSERT INTO `stumanager_test_reply` VALUES ('1', '6', '{\"6S1\":\"checked\",\"11S0\":\"245243\",\"16S0\":\"354573\",\"7S2\":\"checked\",\"7S3\":\"checked\",\"7S1\":\"checked\"}', '1077');
 
 -- ----------------------------
 -- Table structure for `stumanager_test_tag`

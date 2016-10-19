@@ -27,6 +27,7 @@ public class _MappingKit {
 		arp.addMapping("stumanager_test_questionnaire", "id", TestQuestionnaire.class);
 		arp.addMapping("stumanager_test_questionnaire_class", "id", TestQuestionnaireClass.class);
 		arp.addMapping("stumanager_test_questionnaire_question", "id", TestQuestionnaireQuestion.class);
+		arp.addMapping("stumanager_test_reply", "id", TestReply.class);
 		arp.addMapping("stumanager_test_tag", "id", TestTag.class);
 		arp.addMapping("stumanager_test_tag_question", "id", TestTagQuestion.class);
 		arp.addMapping("stumanager_test_type", "id", TestType.class);

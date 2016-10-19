@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width" name="viewport">
+    <link rel="Shortcut Icon" href="${staticServePath}/images/favicon.ico"/>
     <title>考试</title>
     <link href="${staticServePath}/static/css/css.css?${staticResourceVersion}" rel="stylesheet">
     <link href="${staticServePath}/static/css/base.css?${staticResourceVersion}" rel="stylesheet">
@@ -52,7 +53,7 @@
                 <#list questionMap["${type.id}"] as question>
                     <li class="subject"
                         id="${questionnaire.id}S${question.id}"
-                        aria-label="0" data-label='0'>
+                        data-label='0'>
                         <#assign index++>
                         <h4 class="subject_title">${index}、${question.testQuestionTitle}
                         </h4>
@@ -86,6 +87,7 @@
         </form>
         <div style="text-align: right">
             <button class="submit" type="submit" onclick="postReply()">提交</button>
+
         </div>
     </div>
 
@@ -102,7 +104,9 @@
     var progressFlag;
     var proccer = 0;
     var max = ${questionSize};
-    var answers = JSON.parse('${answers}');
+    var reply = ${testReply};
+    var answers = JSON.parse(reply['answers']);
+
     $(document).ready(function () {
         $('input').iCheck({
             checkboxClass: 'iradio_square-blue',
@@ -133,21 +137,19 @@
         countDown();
         $('#count').transition({opacity: 1, top: 0}, 1000);
 
-        if (check()) {
-            //读取内容并初始化进度
-            readAnswers();
-            max = ${questionSize};
+        //读取内容并初始化进度
+        readAnswers();
+        max = ${questionSize};
+        $('input').on('ifChecked', addValue);
+        $('input').on('ifUnchecked', removeValue);
+        $('textarea').on('input propertychange', addText);
 
-            $('input').on('ifChecked', addValue);
-            $('input').on('ifUnchecked', removeValue);
-            $('textarea').on('input propertychange', addText);
-        }
         function readAnswers() {
             console.log('read');
             var x = 0;
             $('#questionnaire${questionnaire.id}').find('input,textarea').each(function (index, dom) {
                 var ans = answers[$(dom).attr('id')];
-                if (ans == 'checked'){
+                if (ans == 'checked') {
                     $(dom).iCheck('check');
                     var parent = $(dom).parent().parent().parent();
                     var data = parseInt(parent.attr('data-label'));
@@ -174,21 +176,21 @@
         function addText() {
             var val = $(this).val();
             var parent = $(this).parent();
-            if (val != null && val != ''){
-                answers[$(this).attr('id')] = $(this).val();
+            if (val != null && val != '') {
+                answers[$(this).attr('id')] = val;
                 var data = parseInt(parent.attr('data-label'));
-                parent.attr('data-label', data + 1);
-                if (data + 1 == 1) {
+                parent.attr('data-label', 1);
+                if (val.length > 0 && data == 0) {
                     changeProgress(parseFloat((++proccer / max * 100)).toFixed(2) + "%");
                 }
             }
 
-            else{
+            else {
                 delete answers[$(this).attr('id')];
                 var parent = $(this).parent();
                 var data = parseInt(parent.attr('data-label'));
-                parent.attr('data-label', data - 1);
-                if (data - 1 <= 0) {
+                parent.attr('data-label', 0);
+                if (val.length == 0 && data == 1) {
                     changeProgress(parseFloat((--proccer / max * 100)).toFixed(2) + "%");
                 }
             }
@@ -215,23 +217,17 @@
             }
         }
 
-        setTimeout(cacheAnswers, 30000);
+        setTimeout(cacheAnswers, 3000);
         function cacheAnswers() {
-            var ans = JSON.stringify(answers);
-            var json = {
-                'tqcId': '${questionnaire.testQuestionnaireClassId}'
-                , 'questionnaireId':${questionnaire.id}
-                , 'studentId':${student.id}
-                , 'answers': ans
-            };
+            reply['answers'] = JSON.stringify(answers);
             $.ajax({
                         url: "${staticServePath}/test/cacheAnswer",
                         dataType: 'json',
                         type: 'post',
-                        data: json,
+                        data: reply,
                         success: function (data, status) {
                             if (data.state == 'success') {
-                                setTimeout(cacheAnswers, 30000);
+                                setTimeout(cacheAnswers, 3000);
                             }
                             else
                                 Util.showTip($('#wholeTip'), data.msg, 'alert alert-danger');
@@ -251,16 +247,18 @@
             var now = new Date().getTime();
             $("#count-down").text(formatDuring(end - now));
             if (days <= 0 && hours <= 0 && minutes <= 0 && mm <= 0) {
-                Util.showTip($('#submitTip'), "你已超时，将不能再提交");
+                Util.showTip($('#submitTip'), "你已超时，将不能再提交", 'alert alert-danger');
                 $("#count-down").text(0);
                 return;
             }
-            setTimeout(countDown, 100);
+            setTimeout(countDown, 1000);
         }
 
         function formatDuring(mss) {
             days = parseInt(mss / (1000 * 60 * 60 * 24));
-            hours = parseInt((mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            //当大于24小时，依然全显示
+            //hours = parseInt((mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            hours = parseInt(mss / (1000 * 60 * 60));
             minutes = parseInt((mss % (1000 * 60 * 60)) / (1000 * 60));
             //minutes = parseInt(mss / (1000 * 60));
             var seconds = parseInt((mss % (1000 * 60)) / 1000);
@@ -302,11 +300,6 @@
         function changeProgress(t) {
             $('#min-progress').text(t);
             $('#min-progress').css("width", t);
-            $.cookie("" + progressFlag, proccer, {expires: 1});
-        }
-        function check() {
-
-            return true;
         }
     });
     var score = 0;
@@ -314,55 +307,25 @@
         return data.length <= 200;
     }
     function postReply() {
-        if (proccer < max) {
-            Util.showTip($('#submitTip'), '你尚未完成调查表，不能提交！', 'alert alert-warning');
-            return;
-        }
-        var mode;
-        var btn;
-        if (!validateComment($("#${questionnaire.id}comment").val())) {
-
-            return;
-        }
-        mode = {
-            "questionnaireResult.id_user": "${student.name}",
-            "questionnaireResult.id_questionnaire": "${questionnaire.id}",
-            "questionnaireResult.comment": $("#${questionnaire.id}comment").val()
-        };
-        var reply = new Array();
-        var i = 0;
-        score = 0;
-        $("#questionnaire${questionnaire.id}").find('input:radio,input:checkbox').each(function (index, domEle) {
-            if ($(this).prop("checked") == true) {
-                var id = $(this).attr("id");
-                var index = id.lastIndexOf("T");
-                var front = id.substr(0, index);
-                var behind = id.substr(index, id.length - 1);
-                var rp = $.parseJSON("{\"" + front + "\":\"" + behind + "\"}");
-                reply[i++] = rp;
-                score += Number($(this).val());
-
-            }
-        });
-        reply[i++] = $.parseJSON("{\"score\":\"" + score + "\"}");
-        mode["questionnaireResult.questions_reply"] = JSON.stringify(reply);
-
+        reply['answers'] = JSON.stringify(answers);
         $.ajax({
-            url: "${staticServePath}/surveys/postQresult",
+            url: "${staticServePath}/test/postReply",
             type: "post",
-            data: mode,
-            success: function (data, textstatus) {
+            data: reply,
+            success: function (data, status) {
                 if (data.state == 'success') {
-                    Util.showTip($('#submitTip'), data.msg, 'alert alert-success');
-                    setTimeout(function () {
-                        window.location.href = "${staticServePath}/";
-                    }, 1000);
+                    Util.showTip($('#submitTip'), data.msg, 'alert alert-success',{
+                        complete:function(){
+                            window.location.href = "${staticServePath}/";
+                        },
+                        time:1000
+                    });
                 }
-                if (data.state == 'error') {
-                    Util.showTip($('#submitTip'), data.msg, 'alert alert-success');
+                else if (data.state == 'error') {
+                    Util.showTip($('#submitTip'), data.msg, 'alert alert-warning');
                 }
             }, error: function () {
-                Util.showTip($('#submitTip'), '提交失败，服务器错误', 'alert alert-success');
+                Util.showTip($('#submitTip'), '提交失败，服务器错误', 'alert alert-warning');
             },
             complete: function () {
 

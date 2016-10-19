@@ -151,6 +151,16 @@ Table: stumanager_test_questionnaire_question
  testQuestionIsVisible | int(10) | NO   |     | 1       |         
 -----------------------+---------+------+-----+---------+---------
 
+Table: stumanager_test_reply
+--------------------------+-------------+------+-----+---------+---------
+ Field                    | Type        | Null | Key | Default | Remarks 
+--------------------------+-------------+------+-----+---------+---------
+ id                       | int(10)     | NO   | PRI |         |         
+ testQuestionnaireClassId | int(10)     | NO   |     |         |         
+ answers                  | text(65535) | NO   |     |         |         
+ studentId                | int(10)     | NO   |     |         |         
+--------------------------+-------------+------+-----+---------+---------
+
 Table: stumanager_test_tag
 -------------+-------------+------+-----+---------+---------
  Field       | Type        | Null | Key | Default | Remarks 

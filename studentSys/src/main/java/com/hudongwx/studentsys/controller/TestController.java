@@ -12,6 +12,7 @@ import com.hudongwx.studentsys.util.RenderKit;
 import com.hudongwx.studentsys.service.TestQuestionnaireQuestionService;
 import com.jfinal.aop.Before;
 import com.jfinal.ext.interceptor.POST;
+import com.jfinal.kit.JsonKit;
 import com.jfinal.plugin.ehcache.CacheKit;
 
 import java.util.*;
@@ -33,7 +34,7 @@ public class TestController extends BaseController {
     public ClassService classService;
     public TestQuestionnaireClassService testQuestionnaireClassService;
     public StudentService studentService;
-
+    public TestReplyService testReplyService;
     /**
      * @return 返回mapping的title属性
      */
@@ -147,8 +148,9 @@ public class TestController extends BaseController {
             }
             map.put(types.get(i).getId() + "", testQuestions);
         }
-        String answers = CacheKit.get(Common.CACHE_LONG_TIME_LABEL, questionnaire.getTestQuestionnaireClassId() + "-" + questionnaire.getId() + "-" + student.getId());
-        setAttr("answers",answers == null ? "{}":answers);
+        TestReply testReply = testReplyService.readByCache(questionnaire.getTestQuestionnaireClassId(),student.getId());
+        //TestReply testReply = CacheKit.get(Common.CACHE_LONG_TIME_LABEL, questionnaire.getTestQuestionnaireClassId() + "-" + student.getId());
+        setAttr("testReply",JsonKit.toJson(testReply));
         setAttr("types", types);
         setAttr("scoreMap", scoreMap);
         setAttr("questionMap", map);
@@ -159,14 +161,45 @@ public class TestController extends BaseController {
     }
     @Before(POST.class)
     public void cacheAnswer(){
-        String answers = getPara("answers");
-        Integer tqcId = getParaToInt("tqcId");
-        Integer questionnaireId = getParaToInt("questionnaireId");
-        Integer studentId = getParaToInt("studentId");
-        if(answers == null || tqcId == null || questionnaireId == null || studentId == null)
+        TestReply reply = new TestReply();
+        reply.setAnswers(getPara("answers"));
+        reply.setStudentId(getParaToInt("studentId"));
+        reply.setTestQuestionnaireClassId(getParaToInt("testQuestionnaireClassId"));
+        reply.setId(getParaToInt("id"));
+        if(reply.getAnswers() == null || reply.getTestQuestionnaireClassId() == null || reply.getStudentId() == null){
             RenderKit.renderError(this,"你的信息出现了错误,这将导致你不能提交答案，请刷新重试，答案会自动回滚到上次自动保存的时间点");
-        CacheKit.put(Common.CACHE_LONG_TIME_LABEL,tqcId+"-"+questionnaireId+"-"+studentId,answers);
+            return ;
+        }
+        testReplyService.putByCache(reply);
         RenderKit.renderSuccess(this);
+    }
+    @Before(POST.class)
+    public void postReply(){
+        long now = System.currentTimeMillis();
+        TestReply reply = new TestReply();
+        reply.setAnswers(getPara("answers"));
+        reply.setStudentId(getParaToInt("studentId"));
+        reply.setTestQuestionnaireClassId(getParaToInt("testQuestionnaireClassId"));
+        reply.setId(getParaToInt("id"));
+        if(reply.getAnswers() == null || reply.getTestQuestionnaireClassId() == null || reply.getStudentId() == null){
+            RenderKit.renderError(this,"你的信息出现了错误,这将导致你不能提交答案，请刷新重试，答案会自动回滚到上次自动保存的时间点");
+            return ;
+        }
+        Integer qcId = reply.getTestQuestionnaireClassId();
+        TestQuestionnaireClass tqc = testQuestionnaireClassService.getById(qcId);
+        if(tqc == null){
+            RenderKit.renderError(this,"获取试卷信息失败");
+            return ;
+        }
+        if (tqc.getTestQuestionnaireStartTime() > now || tqc.getTestQuestionnaireEndTime() < now) {
+            RenderKit.renderError(this,"你已超时，无法提交！");
+            return ;
+        }
+        if(testReplyService.putByCache(reply,true).getId() == null){
+            RenderKit.renderError(this,"保存失败");
+            return ;
+        }
+        RenderKit.renderSuccess(this,"保存成功");
     }
     public void questions() {
         setMapping(mappingService.getMappingByTitle("题库"));
