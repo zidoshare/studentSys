@@ -29,9 +29,12 @@ public class ObjectKit {
     }
 
     public static String getStrByList(List<? extends Model> list) {
+        return getStrByList(list,"id");
+    }
+    public static String getStrByList(List<? extends Model> list,String key){
         StringBuilder str = new StringBuilder("(");
         for(Model model : list){
-            str.append("\'").append(model.get("id")).append("\',");
+            str.append("\'").append(model.get(key)).append("\',");
         }
         if(str.length()>1)
             str.deleteCharAt(str.length()-1);

@@ -14,7 +14,6 @@
         if ($.support.pjax) {
             $(document).pjax('a[target!="_blank"]', '#page-inner', {
                 fragment: '#page-inner',
-                timeout: 8000,
                 cache: true,
                 maxCacheLength:5,
                 storage: false,
@@ -93,65 +92,15 @@
             sid--;
         }
     }
-    function loadResult(id,dom) {
-        var evt = arguments.callee.caller.arguments[0] || window.event;
+    function loadResult(dom,url) {
+        /*var evt = arguments.callee.caller.arguments[0] || window.event;
         evt.preventDefault();
-        evt.stopPropagation();
-        dom.find('.pan').first().load("${staticServePath}/surveys/getTable/" + id,function(){
-            dom.find('.panel_loading').first().addClass('sr-only');
+        evt.stopPropagation();*/
+        var load = dom.find('.panel_loading').first();
+        load.removeClass('sr-only');
+        dom.find('.pan').first().load(url,function(){
+            load.addClass('sr-only');
+            Util.showTip($('#wholeTip'),'打开了','alert alert-success');
         });
-
     }
-    /*
-        $(".navToggle1").click(function () {
-            $(this).toggleClass("open");
-        });
-
-        $(".navToggle2").click(function () {
-            $(this).toggleClass("open");
-        });
-
-        $(".navToggle3").click(function () {
-            $(this).toggleClass("open");
-        });
-
-        $(".navToggle4").click(function () {
-            $(this).toggleClass("open");
-        });
-
-        $(".navToggle5").click(function () {
-            $(this).toggleClass("open");
-        });
-
-        $(".navToggle6").click(function () {
-            $(this).toggleClass("open");
-        });
-
-        $(".navToggle7").click(function () {
-            $(this).toggleClass("open");
-        });
-
-        $(".navToggle8").click(function () {
-            $(this).toggleClass("open");
-        });
-
-        $(".navToggle9").click(function () {
-            $(this).toggleClass("open");
-        });
-
-        $(".navToggle10").click(function () {
-            $(this).toggleClass("open");
-        });
-
-        $(".navToggle11").click(function () {
-            $(this).toggleClass("open");
-        });
-
-        $(".navToggle12").click(function () {
-            $(this).toggleClass("open");
-        });
-
-        $(".navToggle13").click(function () {
-            $(this).toggleClass("open");
-        });*/
 </script>

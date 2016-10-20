@@ -161,7 +161,7 @@
                                    id="testQuestionContent">
                         </div>
                         <div class="form-group sr-only">
-                            <label for="testQuestionShortAnswer" class="control-label">选择题答案（多选用英文状态下的逗号隔开）:</label>
+                            <label for="testQuestionShortAnswer" class="control-label">选择题答案(请选用英文状态下的逗号隔开）:</label>
                             <input type="text" class="form-control" name="testQuestion.testQuestionShortAnswer"
                                    id="testQuestionShortAnswer">
                         </div>

@@ -13,7 +13,6 @@ import com.hudongwx.studentsys.service.TestQuestionnaireQuestionService;
 import com.jfinal.aop.Before;
 import com.jfinal.ext.interceptor.POST;
 import com.jfinal.kit.JsonKit;
-import com.jfinal.plugin.ehcache.CacheKit;
 
 import java.util.*;
 
@@ -35,6 +34,7 @@ public class TestController extends BaseController {
     public TestQuestionnaireClassService testQuestionnaireClassService;
     public StudentService studentService;
     public TestReplyService testReplyService;
+    public CorrectService correctService;
     /**
      * @return 返回mapping的title属性
      */
@@ -102,9 +102,8 @@ public class TestController extends BaseController {
 
     public void questionnaire() {
         fillHeaderAndFooter();
-        Integer id = getParaToInt(0);
-        Integer qcId = getParaToInt(1);
-        if (id == null || qcId == null) {
+        Integer qcId = getParaToInt(0);
+        if (qcId == null) {
             renderError(404);
             return;
         }
@@ -125,6 +124,7 @@ public class TestController extends BaseController {
             renderError(404);
             return;
         }
+        Integer id = questionnaire.getId();
         JSONArray qnArray = JSONArray.parseArray(questionnaire.getTestQuestionnaireTypeList());
         JSONArray typeArray = qnArray.getJSONArray(0);
         JSONArray questionsArray = qnArray.getJSONArray(1);
@@ -149,7 +149,6 @@ public class TestController extends BaseController {
             map.put(types.get(i).getId() + "", testQuestions);
         }
         TestReply testReply = testReplyService.readByCache(questionnaire.getTestQuestionnaireClassId(),student.getId());
-        //TestReply testReply = CacheKit.get(Common.CACHE_LONG_TIME_LABEL, questionnaire.getTestQuestionnaireClassId() + "-" + student.getId());
         setAttr("testReply",JsonKit.toJson(testReply));
         setAttr("types", types);
         setAttr("scoreMap", scoreMap);
@@ -158,6 +157,66 @@ public class TestController extends BaseController {
         setAttr("questionSize",size);
         setAttr("student",student);
         render("/test/questionnaire.ftl");
+    }
+    public void showCorrecting(){
+        fillHeaderAndFooter();
+        Integer qcId = getParaToInt(0);
+        Integer studentId = getParaToInt(1);
+        if (qcId == null) {
+            renderError(404);
+            return;
+        }
+        User user = userService.getCurrentUser(this);
+        if (null == user) {
+            renderError(403);
+            return;
+        }
+        Student student = studentService.getStudentById(studentId);
+        if (null == student) {
+            renderError(403);
+            return;
+        }
+        TestQuestionnaire questionnaire = testQuestionnaireService.packingQuestionnaire(qcId);
+
+        if (questionnaire == null) {
+            renderError(404);
+            return;
+        }
+        Integer id = questionnaire.getId();
+        JSONArray qnArray = JSONArray.parseArray(questionnaire.getTestQuestionnaireTypeList());
+        JSONArray typeArray = qnArray.getJSONArray(0);
+        JSONArray questionsArray = qnArray.getJSONArray(1);
+        Iterator<Object> typeIds = typeArray.iterator();
+        String typeStr = ObjectKit.getStrByJSONArray(typeArray);
+        List<TestType> types = testTypeService.getTypesByJSONArray(typeArray);
+        Map<String, List<TestQuestion>> map = new HashMap<>();
+        Map<String, Integer> scoreMap = new HashMap<>();
+        int size = 0;
+        for (int i = 0; i < types.size(); i++) {
+            JSONArray qs = questionsArray.getJSONArray(i);
+            List<TestQuestion> testQuestions = testQuestionService.getQuestionsByJSONArray(qs);
+            //TODO 这里的写法与数据库交互太频繁
+            for (TestQuestion tq : testQuestions) {
+                size++;
+                //你问我为什么要在这里写这一句？你删掉就知道了=。=
+                boolean x = true;
+                TestQuestionnaireQuestion tqq = testQuestionnaireQuestionService.getByQuestionIdAndQuestionnaireId(tq.getId(), id);
+                if (tqq != null)
+                    scoreMap.put(tq.getId() + "", tqq.getTestQuestionScore());
+                else
+                    scoreMap.put(tq.getId() + "", tq.getTestQuestionDefaultScore());
+            }
+            map.put(types.get(i).getId() + "", testQuestions);
+        }
+        TestReply testReply = testReplyService.readByCache(questionnaire.getTestQuestionnaireClassId(),student.getId());
+        setAttr("testReply",JsonKit.toJson(testReply));
+        setAttr("types", types);
+        setAttr("scoreMap", scoreMap);
+        setAttr("questionMap", map);
+        setAttr("questionnaire",questionnaire);
+        setAttr("questionSize",size);
+        setAttr("student",student);
+        render("/test/showCorrecting.ftl");
     }
     @Before(POST.class)
     public void cacheAnswer(){
@@ -176,14 +235,14 @@ public class TestController extends BaseController {
     @Before(POST.class)
     public void postReply(){
         long now = System.currentTimeMillis();
-        TestReply reply = new TestReply();
-        reply.setAnswers(getPara("answers"));
-        reply.setStudentId(getParaToInt("studentId"));
-        reply.setTestQuestionnaireClassId(getParaToInt("testQuestionnaireClassId"));
-        reply.setId(getParaToInt("id"));
-        if(reply.getAnswers() == null || reply.getTestQuestionnaireClassId() == null || reply.getStudentId() == null){
-            RenderKit.renderError(this,"你的信息出现了错误,这将导致你不能提交答案，请刷新重试，答案会自动回滚到上次自动保存的时间点");
-            return ;
+            TestReply reply = new TestReply();
+            reply.setAnswers(getPara("answers"));
+            reply.setStudentId(getParaToInt("studentId"));
+            reply.setTestQuestionnaireClassId(getParaToInt("testQuestionnaireClassId"));
+            reply.setId(getParaToInt("id"));
+            if(reply.getAnswers() == null || reply.getTestQuestionnaireClassId() == null || reply.getStudentId() == null){
+                RenderKit.renderError(this,"你的信息出现了错误,这将导致你不能提交答案，请刷新重试，答案会自动回滚到上次自动保存的时间点");
+                return ;
         }
         Integer qcId = reply.getTestQuestionnaireClassId();
         TestQuestionnaireClass tqc = testQuestionnaireClassService.getById(qcId);
@@ -199,6 +258,7 @@ public class TestController extends BaseController {
             RenderKit.renderError(this,"保存失败");
             return ;
         }
+        correctService.correct(reply);
         RenderKit.renderSuccess(this,"保存成功");
     }
     public void questions() {
@@ -234,7 +294,31 @@ public class TestController extends BaseController {
         }
         setAttr("userMap", userMap);
     }
-
+    public void count(){
+        setMapping(mappingService.getMappingByUrl("/test/count"));
+        super.index();
+        List<Class> classes = classService.getAllClass();
+        List<TestQuestionnaire> questionnaires = new ArrayList<>();
+        if(classes.size() > 0){
+            questionnaires = testQuestionnaireService.getQuestionnairesByClass(classes.get(0));
+        }
+        setAttr("nowTime",System.currentTimeMillis());
+        setAttr("questionnaires",questionnaires);
+        setAttr("classes",classes);
+    }
+    public void getResults(){
+        Integer qcId = getParaToInt(0);
+        TestQuestionnaireClass tqc = testQuestionnaireClassService.getById(qcId);
+        List<TestReply> replies = testReplyService.getReplies(qcId);
+        Map<String,Student> studentMap = new HashMap<>();
+        for(TestReply reply : replies){
+            studentMap.put(reply.getId()+"",studentService.getStudentById(reply.getStudentId()));
+        }
+        setAttr("studentMap",studentMap);
+        setAttr("replies",replies);
+        setAttr("testQuestionnaireClass",tqc);
+        render("/test/results.ftl");
+    }
     public void selectQuestions() {
         List<TestType> allTestTypes = testTypeService.getAllVisibleTypes();
         setAttr("types", allTestTypes);

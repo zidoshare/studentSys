@@ -60,17 +60,17 @@
                         <#if (question.testQuestionContent?eval)?size gt 0>
                             <#if type.id == 1>
                                 <#list question.testQuestionContent?eval as node>
-                                    <label class="subject_option">
-                                        <input class="iCheck" id="${question.id}S${node_index}" type="radio"
-                                               name="${question.id}" value="${node_index}">
+                                    <label class="subject_option point_item" id="${question.id}S${node_index}"
+                                           data-label="${questionnaire.id}S${question.id}" data-index="${node_index}">
+                                        <input class="iCheck" name="${questionnaire.id}S${question.id}" type="radio">
                                     ${xx[node_index]}、${node}
                                     </label>
                                 </#list>
                             <#else>
                                 <#list question.testQuestionContent?eval as node>
-                                    <label class="subject_option">
-                                        <input class="iCheck" id="${question.id}S${node_index}" type="checkbox"
-                                               name="${question.id}" value="${node?index}">
+                                    <label class="subject_option point_item" id="${question.id}S${node_index}"
+                                           data-label="${questionnaire.id}S${question.id}" data-index="${node_index}">
+                                        <input class="iCheck" name="${questionnaire.id}S${question.id}" type="checkbox">
                                     ${xx[node_index]}、${node}
                                     </label>
                                 </#list>
@@ -78,7 +78,7 @@
 
                         <#else>
                             <textarea class="comment" rows="10" tabindex="4"
-                                      placeholder="答案" id="${question.id}S0"></textarea>
+                                      placeholder="答案"></textarea>
                         </#if>
                     </li>
                 </#list>
@@ -140,36 +140,68 @@
         //读取内容并初始化进度
         readAnswers();
         max = ${questionSize};
-        $('input').on('ifChecked', addValue);
-        $('input').on('ifUnchecked', removeValue);
+
+        $('.point_item').on('ifChecked', addValue);
+        $('.point_item').on('ifUnchecked', addValue);
         $('textarea').on('input propertychange', addText);
 
         function readAnswers() {
             console.log('read');
             var x = 0;
-            $('#questionnaire${questionnaire.id}').find('input,textarea').each(function (index, dom) {
-                var ans = answers[$(dom).attr('id')];
-                if (ans == 'checked') {
-                    $(dom).iCheck('check');
-                    var parent = $(dom).parent().parent().parent();
-                    var data = parseInt(parent.attr('data-label'));
-                    if (data + 1 == 1) {
-                        changeProgress(parseFloat((++proccer / max * 100)).toFixed(2) + "%");
+            /*$('.point_item').each(function(index,dom){
+                if(answers[$(dom).attr('data-label')] != null){
+                    var ans = answers[$(dom).attr('data-label')];
+                    if($.inArray($(dom).val(),ans)){
+                        $(dom).find('input').first().iCheck('check');
                     }
-                    parent.attr('data-label', data + 1);
                 }
-                else if (ans != null) {
-                    $(dom).val(ans);
-                    var parent = $(dom).parent();
-                    var data = parseInt(parent.attr('data-label'));
+            });*/
+
+            for (var key in answers) {
+                var i = 0;
+                var dom = $('#'+key);
+                dom.find('input,textarea').each(function (index, dom) {
+                    if($(dom).is('textarea')){
+                        x++;
+                        $(dom).val(answers[key]);
+                        return false;
+                        i++;
+                    }
+                    var ind = $(dom).parent().parent().attr('data-index');
+                    if ($.inArray(ind, answers[key]) >= 0) {
+                        $(dom).iCheck('check');
+                        x++;
+                        i++;
+                    }
+                });
+                if (i > 0)
                     changeProgress(parseFloat((++proccer / max * 100)).toFixed(2) + "%");
-                    parent.attr('data-label', data + 1);
-                }
-                else
-                    return true;
-                x++;
-                console.log(ans);
-            });
+            }
+            /*$('#questionnaire${questionnaire.id}
+
+                        ').find('input,textarea').each(function (index, dom) {
+                                        var ans = answers[$(dom).attr('id')];
+                                        if (ans == 'checked') {
+                                            $(dom).iCheck('check');
+                                            var parent = $(dom).parent().parent().parent();
+                                            var data = parseInt(parent.attr('data-label'));
+                                            if (data + 1 == 1) {
+                                                changeProgress(parseFloat((++proccer / max * 100)).toFixed(2) + "%");
+                                            }
+                                            parent.attr('data-label', data + 1);
+                                        }
+                                        else if (ans != null) {
+                                            $(dom).val(ans);
+                                            var parent = $(dom).parent();
+                                            var data = parseInt(parent.attr('data-label'));
+                                            changeProgress(parseFloat((++proccer / max * 100)).toFixed(2) + "%");
+                                            parent.attr('data-label', data + 1);
+                                        }
+                                        else
+                                            return true;
+                                        x++;
+                                        console.log(ans);
+                                    });*/
             return x;
         }
 
@@ -177,7 +209,7 @@
             var val = $(this).val();
             var parent = $(this).parent();
             if (val != null && val != '') {
-                answers[$(this).attr('id')] = val;
+                answers[parent.attr('id')] = [val];
                 var data = parseInt(parent.attr('data-label'));
                 parent.attr('data-label', 1);
                 if (val.length > 0 && data == 0) {
@@ -186,8 +218,8 @@
             }
 
             else {
-                delete answers[$(this).attr('id')];
                 var parent = $(this).parent();
+                delete answers[parent.attr('id')];
                 var data = parseInt(parent.attr('data-label'));
                 parent.attr('data-label', 0);
                 if (val.length == 0 && data == 1) {
@@ -198,24 +230,48 @@
         }
 
         function addValue() {
-            answers[$(this).attr('id')] = "checked";
-            var parent = $(this).parent().parent().parent();
-            var data = parseInt(parent.attr('data-label'));
-            parent.attr('data-label', data + 1);
-            if (data + 1 == 1) {
+            var ans = [];
+            $(this).parent().find('input').each(function (index, dom) {
+                if ($(dom).prop('checked') == true) {
+                    ans.push(index+'');
+                }
+            });
+            var len = 0;
+            if (answers[$(this).attr('data-label')] != null) {
+                len = answers[$(this).attr('data-label')].length;
+            }
+            answers[$(this).attr('data-label')] = ans;
+            if (ans.length == 1 && len == 0) {
                 changeProgress(parseFloat((++proccer / max * 100)).toFixed(2) + "%");
+            }
+            if (ans.length <= 0) {
+                if (len == 1)
+                    changeProgress(parseFloat((--proccer / max * 100)).toFixed(2) + "%");
+                delete answers[$(this).attr('data-label')];
             }
         }
 
-        function removeValue() {
+        //移除
+        /*function removeValue() {
             delete answers[$(this).attr('id')];
             var parent = $(this).parent().parent().parent();
             var data = parseInt(parent.attr('data-label'));
             parent.attr('data-label', data - 1);
+
+
+            var ans = answers[$(this).attr('id')];
+            if(ans == null)
+                    ans = [];
+            var index = jQuery.inArray($(this).val(),ans);
+            ans.splice(index,1);
+            if(ans.length == 0)
+                delete answers[parent.attr('id')];
+
+
             if (data - 1 <= 0) {
                 changeProgress(parseFloat((--proccer / max * 100)).toFixed(2) + "%");
             }
-        }
+        }*/
 
         setTimeout(cacheAnswers, 3000);
         function cacheAnswers() {
@@ -314,11 +370,11 @@
             data: reply,
             success: function (data, status) {
                 if (data.state == 'success') {
-                    Util.showTip($('#submitTip'), data.msg, 'alert alert-success',{
-                        complete:function(){
+                    Util.showTip($('#submitTip'), data.msg, 'alert alert-success', {
+                        complete: function () {
                             window.location.href = "${staticServePath}/";
                         },
-                        time:1000
+                        time: 1000
                     });
                 }
                 else if (data.state == 'error') {

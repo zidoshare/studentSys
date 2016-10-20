@@ -2,10 +2,7 @@ package com.hudongwx.studentsys.service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.hudongwx.studentsys.common.Service;
-import com.hudongwx.studentsys.model.TestQuestion;
-import com.hudongwx.studentsys.model.TestTag;
-import com.hudongwx.studentsys.model.TestTagQuestion;
-import com.hudongwx.studentsys.model.TestType;
+import com.hudongwx.studentsys.model.*;
 import com.hudongwx.studentsys.util.ObjectKit;
 
 import java.util.ArrayList;
@@ -16,7 +13,7 @@ import java.util.List;
  */
 public class TestQuestionService extends Service {
     private TestTagQuestionService testTagQuestionService;
-
+    private TestQuestionnaireQuestionService testQuestionnaireQuestionService;
     public boolean _saveTestQuestion(TestQuestion testQuestion) {
         return testQuestion.save();
     }
@@ -54,7 +51,12 @@ public class TestQuestionService extends Service {
         String str = testTagQuestionService.getQuestionStrByTag(TestTag.dao.findById(tagId));
         return TestQuestion.dao.find(TestQuestion.SEARCH_FROM_TEST_QUESTION + "where testQuestionTypeId = ? and id in " + str, typeId);
     }
-
+    //当不强调顺序的时候使用此方法
+    public List<TestQuestion> getQuestionsByTestQuestionnaire(TestQuestionnaire testQuestionnaire){
+        List<TestQuestionnaireQuestion> tqqs = testQuestionnaireQuestionService.getByTestQuestionnaire(testQuestionnaire);
+        String str = ObjectKit.getStrByList(tqqs, "testQuestionId");
+        return TestQuestion.dao.find(TestQuestion.SEARCH_FROM_TEST_QUESTION+"where id in "+str);
+    }
     public List<TestQuestion> getQuestionsByJSONArray(JSONArray array) {
         String str = ObjectKit.getStrByJSONArray(array);
         return TestQuestion.dao.find(TestQuestion.SEARCH_FROM_TEST_QUESTION + "where id in " + str);
@@ -63,5 +65,9 @@ public class TestQuestionService extends Service {
     public List<TestQuestion> getQuestionsByJSONArray(JSONArray array,String order){
         //预留排序功能
         return getQuestionsByJSONArray(array);
+    }
+
+    public TestQuestion getQuestionById(Integer id) {
+        return TestQuestion.dao.findById(id);
     }
 }

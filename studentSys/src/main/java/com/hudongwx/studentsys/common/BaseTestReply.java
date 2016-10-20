@@ -41,4 +41,28 @@ public abstract class BaseTestReply<M extends BaseTestReply<M>> extends Model<M>
 		return get("studentId");
 	}
 
+	public void setCorrecting(java.lang.Integer Correcting) {
+		set("Correcting", Correcting);
+	}
+
+	public java.lang.Integer getCorrecting() {
+		return get("Correcting");
+	}
+
+	public void setScoreSituation(java.lang.String scoreSituation) {
+		set("scoreSituation", scoreSituation);
+	}
+
+	public java.lang.String getScoreSituation() {
+		return get("scoreSituation");
+	}
+
+	public void setScore(java.lang.Integer score) {
+		set("score", score);
+	}
+
+	public java.lang.Integer getScore() {
+		return get("score");
+	}
+
 }

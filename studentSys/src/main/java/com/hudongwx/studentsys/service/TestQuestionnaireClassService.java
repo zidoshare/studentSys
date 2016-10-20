@@ -1,6 +1,7 @@
 package com.hudongwx.studentsys.service;
 
 import com.hudongwx.studentsys.common.Service;
+import com.hudongwx.studentsys.model.Class;
 import com.hudongwx.studentsys.model.TestQuestionnaireClass;
 
 import java.util.List;
@@ -19,5 +20,9 @@ public class TestQuestionnaireClassService extends Service {
 
     public TestQuestionnaireClass getById(Integer testQuestionnaireClassId) {
         return TestQuestionnaireClass.dao.findById(testQuestionnaireClassId);
+    }
+
+    public List<TestQuestionnaireClass> getByClassId(Class aClass) {
+        return TestQuestionnaireClass.dao.find(TestQuestionnaireClass.SEARCH_FROM_TEST_QUESTIONNAIRE_CLASS+"where classId = ? order by id desc",aClass.getId());
     }
 }

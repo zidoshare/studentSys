@@ -2,7 +2,9 @@ package com.hudongwx.studentsys.service;
 
 import com.hudongwx.studentsys.common.Service;
 import com.hudongwx.studentsys.model.TestQuestionnaire;
+import com.hudongwx.studentsys.model.TestQuestionnaireClass;
 import com.hudongwx.studentsys.model.TestQuestionnaireQuestion;
+import com.hudongwx.studentsys.util.ObjectKit;
 import com.jfinal.plugin.activerecord.Model;
 
 import java.util.List;
@@ -10,17 +12,21 @@ import java.util.List;
 /**
  * Created by wuhongxu on 2016/10/14 0014.
  */
-public class TestQuestionnaireQuestionService extends Service{
-    public boolean _saveTestQuestionnaireQuestion(TestQuestionnaireQuestion testQuestionnaireQuestion){
+public class TestQuestionnaireQuestionService extends Service {
+    public boolean _saveTestQuestionnaireQuestion(TestQuestionnaireQuestion testQuestionnaireQuestion) {
         return testQuestionnaireQuestion.save();
     }
 
     public List<TestQuestionnaireQuestion> getByIn(String str) {
-        return TestQuestionnaireQuestion.dao.find(TestQuestionnaireQuestion.SEARCH_FROM_MODEL+"where testQuestionId in "+str);
+        return TestQuestionnaireQuestion.dao.find(TestQuestionnaireQuestion.SEARCH_FROM_MODEL + "where testQuestionId in " + str);
+    }
+
+    public List<TestQuestionnaireQuestion> getByTestQuestionnaire(TestQuestionnaire testQuestionnaire) {
+        return TestQuestionnaireQuestion.dao.find(TestQuestionnaireQuestion.SEARCH_FROM_MODEL + "where testQuestionnaireId = ?", testQuestionnaire.getId());
     }
 
     public TestQuestionnaireQuestion getByQuestionIdAndQuestionnaireId(Integer questionId, Integer questionnaireId) {
-        return TestQuestionnaireQuestion.dao.findFirst(TestQuestionnaireQuestion.SEARCH_FROM_MODEL + "where testQuestionId = ? and testQuestionnaireId = ?",questionId,questionnaireId);
+        return TestQuestionnaireQuestion.dao.findFirst(TestQuestionnaireQuestion.SEARCH_FROM_MODEL + "where testQuestionId = ? and testQuestionnaireId = ?", questionId, questionnaireId);
     }
 
     public boolean _deleteAllByQuestionnaire(TestQuestionnaire questionnaire) {

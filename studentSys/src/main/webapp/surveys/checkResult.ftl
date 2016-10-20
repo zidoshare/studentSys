@@ -67,7 +67,7 @@
         $(this).siblings('.tr-show').addClass('sr-only');
         var dom = $(this).next();
         dom.removeClass('sr-only');
-        loadResult($(this).attr('id'),dom);
+        loadResult(dom,"${staticServePath}/surveys/getTable/" + $(this).attr('id'));
     });
 </script>
 </body>

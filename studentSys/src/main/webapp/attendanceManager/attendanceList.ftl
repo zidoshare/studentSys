@@ -35,41 +35,42 @@
 
 
             <div class="panel-body">
-                <div class="table-responsive">
-                    <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline" role="grid">
-                        <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                               id="dataTables-example" aria-describedby="dataTables-example_info">
-                            <thead>
-                            <tr>
-                                <th>班级</th>
-                                <th>姓名</th>
-                                <th>日期</th>
-                                <th>联系方式</th>
-                                <th>入学时间</th>
-                                <th>迟到/请假/旷课时间</th>
-                                <th>辅导老师</th>
-                                <th>出勤</th>
-                                <th>操作</th>
-                                <th>操作人</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>nini</td>
-                                <td>nini</td>
-                                <td>nini</td>
-                                <td>nini</td>
-                                <td>nini</td>
-                                <td>nini</td>
-                                <td>nini</td>
-                                <td>nini</td>
-                                <td>查看</td>
-                                <td>nini</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+
+                <div id="dataTables-example_wrapper" class="table-responsive dataTables_wrapper form-inline"
+                     role="grid">
+                    <table class="table table-striped table-bordered table-hover dataTable no-footer"
+                           id="dataTables-example" aria-describedby="dataTables-example_info">
+                        <thead>
+                        <tr>
+                            <th>班级</th>
+                            <th>姓名</th>
+                            <th>日期</th>
+                            <th>联系方式</th>
+                            <th>入学时间</th>
+                            <th>迟到/请假/旷课时间</th>
+                            <th>辅导老师</th>
+                            <th>出勤</th>
+                            <th>操作</th>
+                            <th>操作人</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>nini</td>
+                            <td>nini</td>
+                            <td>nini</td>
+                            <td>nini</td>
+                            <td>nini</td>
+                            <td>nini</td>
+                            <td>nini</td>
+                            <td>nini</td>
+                            <td>查看</td>
+                            <td>nini</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
+
             </div>
         </div>
     </div>

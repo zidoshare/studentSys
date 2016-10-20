@@ -146,6 +146,13 @@ var Validate = {
 };
 
 var Util = {
+    redrawSelects:function(){
+        //从源码中找到的重绘selectpicker代码
+        $(".selectpicker").each(function () {
+            var b = $(this);
+            $.fn.selectpicker.call(b, b.data())
+        });
+    },
     reloadByPjax: function (container) {
         if (container == null)
             container = '#page-inner'
@@ -243,7 +250,7 @@ var Util = {
             s = s.prev();
         }
         item = String.fromCharCode(item.charCodeAt() + op);
-        var checkDom = '<div class="checkbox3 checkbox-success checkbox-inline checkbox-check checkbox-round  checkbox-light"> <input type="checkbox" id="' + item + '"> <label for="' + item + '"> ' + item + ' </label> </div>';
+        var checkDom = '<div class="checkbox3 checkbox-success checkbox-inline checkbox-check checkbox-round  checkbox-light"> <input type="checkbox" data-label = '+ op +' id="' + item + '"> <label for="' + item + '"> ' + item + ' </label> </div>';
         $("#add").before("<div class=\"select form-group\">" + checkDom + "<textarea class=\"form-control\" rows=\"2\" id='testQuestionOption" + op + "'></textarea>" +
             "</div>");
     },
@@ -507,12 +514,13 @@ var func = {
             var answers = [];
             var i = 0;
             var first = 'A';
-            while ($('#item' + i).is('textarea')) {
+            while ($('#testQuestionOption' + i).is('textarea')) {
                 var a = String.fromCharCode(first.charCodeAt() + i);
                 if ($('#' + a).prop('checked')) {
-                    answers.push(a);
+                    answers.push($('#' + a).attr('data-label'));
                 }
-                selects[i] = $('#item' + (i++)).val();
+                console.log(answers);
+                selects[i] = $('#testQuestionOption' + (i++)).val();
             }
             $('#testQuestionContent').val(JSON.stringify(selects));
             $('#testQuestionShortAnswer').val(JSON.stringify(answers));
@@ -530,12 +538,14 @@ var func = {
                 data: json,
                 success: function (data, status) {
                     if (data.state == 'success')
-                        Util.showTip($('#saveTestQuestionTip'), data.msg, "alert alert-success", {
-                            time: 5000,
+                        Util.showTip($('#wholeTip'), data.msg, "alert alert-success", {
+                            time: 1000,
                             complete: function () {
                                 modalUtil.toggleClear($('#addTestQuestion'));
-                                //TODO 这里是已经进行了pjax的方法了的,但是会请求两次，第二次是没有pjax请求的，暂时不清楚怎么回事 √已解决，加入fragment就可以了
-                                $.pjax.reload("#page-inner");
+                                $('#addTestQuestion').on('hidden.bs.modal',function(){
+                                    //刷新页面
+                                    Util.reloadByPjax('#page-inner');
+                                })
                             }
                         });
                     else {

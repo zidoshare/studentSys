@@ -159,6 +159,9 @@ Table: stumanager_test_reply
  testQuestionnaireClassId | int(10)     | NO   |     |         |         
  answers                  | text(65535) | NO   |     |         |         
  studentId                | int(10)     | NO   |     |         |         
+ Correcting               | int(10)     | NO   |     | 0       | 批改状态    
+ scoreSituation           | text(65535) | YES  |     |         | 得分情况    
+ score                    | int(10)     | NO   |     | 0       |         
 --------------------------+-------------+------+-----+---------+---------
 
 Table: stumanager_test_tag

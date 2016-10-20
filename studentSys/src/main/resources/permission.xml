@@ -187,10 +187,10 @@
                 </mapping>
                 <mapping id="3004" icon="toCount" title="成绩统计" url="/test/count" function="3">
                     <mappings>
-                        <mapping id="3005" icon="count" title="列表" url="/test/gradeList.ftl" function="1">
+                        <mapping id="3005" icon="count" title="试卷列表" url="/test/gradeList.ftl" function="1">
                             <mappings/>
                         </mapping>
-                        <mapping id="3006" icon="count" title="图表" url="/test/gradeChart.ftl" function="1">
+                        <mapping id="3006" icon="count" title="统计图表" url="/test/gradeChart.ftl" function="1">
                             <mappings/>
                         </mapping>
                     </mappings>

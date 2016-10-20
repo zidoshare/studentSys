@@ -6,7 +6,6 @@
     </@head>
 </head>
 <body class="bg-black">
-
 <div class="wrapper">
 <#include "macro-left.ftl">
 </div>

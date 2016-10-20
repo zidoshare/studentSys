@@ -5,6 +5,8 @@ import com.hudongwx.studentsys.model.TestReply;
 import com.hudongwx.studentsys.util.Common;
 import com.jfinal.plugin.ehcache.CacheKit;
 
+import java.util.List;
+
 /**
  * Created by wuhongxu on 2016/10/19 0019.
  */
@@ -44,5 +46,9 @@ public class TestReplyService extends Service {
 
     public TestReply putByCache(TestReply testReply) {
         return putByCache(testReply, false);
+    }
+
+    public List<TestReply> getReplies(Integer qcId) {
+        return TestReply.dao.find(TestReply.SEARCH_FROM_TEST_REPLY+"where testQuestionnaireClassId = ? order by id desc",qcId);
     }
 }

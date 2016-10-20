@@ -6,7 +6,7 @@
 <div class="panel-heading title">${view.title}
     <span class="pull-right">${addBtn}</span><span class="pull-right">&nbsp</span>
     <span class="pull-right"><a class="btn btn-success"
-                                onclick="func.distributeTestQuestionnaire('show');redrawSelects()">分配试卷</a></span>
+                                onclick="func.distributeTestQuestionnaire('show');Util.redrawSelects()">分配试卷</a></span>
 </div>
 <div class="panel-body">
     <ul id="model-nav" class="nav nav-tabs hidden">
@@ -16,72 +16,70 @@
 
 
     </div>
+    <div id="dataTables-example_wrapper" class="table-responsive dataTables_wrapper form-inline" role="grid">
+        <table class="table table-striped table-bordered table-hover dataTable no-footer"
+               id="dataTables-example" aria-describedby="dataTables-example_info">
+            <thead>
+            <tr>
+                <th>
+                    试卷
+                </th>
+                <th>
+                    创建时间
+                </th>
+                <th>
+                    分数
+                </th>
+                <th>
+                    创建者
+                </th>
+                <#if updateAble || deleteAble>
+                    <th>
+                        操作
+                    </th>
+                </#if>
+            </tr>
+            </thead>
+            <tbody>
 
-    <div class="table-responsive">
-        <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline" role="grid">
-            <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                   id="dataTables-example" aria-describedby="dataTables-example_info">
-                <thead>
-                <tr>
-                    <th>
-                        试卷
-                    </th>
-                    <th>
-                        创建时间
-                    </th>
-                    <th>
-                        分数
-                    </th>
-                    <th>
-                        创建者
-                    </th>
+                <#list questionnaires as q>
+                <tr id="testQuestionnaire${q.id}">
+                    <td id="testQuestionnaireTitle${q.id}"
+                        data-label="${q.testQuestionnaireTitle?html}">${q.testQuestionnaireTitle}</td>
+                    <td id="testQuestionnaireCreateTime${q.id}"
+                        data-label="${q.testQuestionnaireCreateTime}">${(q.testQuestionnaireCreateTime?number)?number_to_datetime}</td>
+                    <td id="testQuestionnaireScore${q.id}"
+                        data-label="${q.testQuestionnaireScore}">${q.testQuestionnaireScore}</td>
+                    <td id="testQuestionnaireUserNickname${q.id}"
+                        data-label="${operaterMap["${q.id}"].userNickname}">${operaterMap["${q.id}"].userNickname}</td>
                     <#if updateAble || deleteAble>
-                        <th>
-                            操作
-                        </th>
+                        <td>
+                            <#if updateAble>
+                            ${InsertKit(updateBtn,"${q.id}")}/
+                            </#if>
+                        ${InsertKit(deleteBtn,"${q.id}")}
+                        </td>
                     </#if>
+                    <td id="testQuestionnaireMessage${q.id}" class="hidden"
+                        data-label="${q.testQuestionnaireMessage?html}">
+
+                    </td>
+                    <td id="testQuestionnaireTypeList${q.id}" class="hidden"
+                        data-label="${q.testQuestionnaireTypeList?html}">
+
+                    </td>
+                    <td id="testQuestionnaireUpdateTime${q.id}" class="hidden"
+                        data-label="${q.testQuestionnaireUpdateTime}">
+                    ${q.testQuestionnaireUpdateTime}
+                    </td>
                 </tr>
-                </thead>
-                <tbody>
-
-                    <#list questionnaires as q>
-                    <tr id="testQuestionnaire${q.id}">
-                        <td id="testQuestionnaireTitle${q.id}"
-                            data-label="${q.testQuestionnaireTitle?html}">${q.testQuestionnaireTitle}</td>
-                        <td id="testQuestionnaireCreateTime${q.id}"
-                            data-label="${q.testQuestionnaireCreateTime}">${(q.testQuestionnaireCreateTime?number)?number_to_datetime}</td>
-                        <td id="testQuestionnaireScore${q.id}"
-                            data-label="${q.testQuestionnaireScore}">${q.testQuestionnaireScore}</td>
-                        <td id="testQuestionnaireUserNickname${q.id}"
-                            data-label="${operaterMap["${q.id}"].userNickname}">${operaterMap["${q.id}"].userNickname}</td>
-                        <#if updateAble || deleteAble>
-                            <td>
-                                <#if updateAble>
-                                ${InsertKit(updateBtn,"${q.id}")}/
-                                </#if>
-                            ${InsertKit(deleteBtn,"${q.id}")}
-                            </td>
-                        </#if>
-                        <td id="testQuestionnaireMessage${q.id}" class="hidden"
-                            data-label="${q.testQuestionnaireMessage?html}">
-
-                        </td>
-                        <td id="testQuestionnaireTypeList${q.id}" class="hidden"
-                            data-label="${q.testQuestionnaireTypeList?html}">
-
-                        </td>
-                        <td id="testQuestionnaireUpdateTime${q.id}" class="hidden"
-                            data-label="${q.testQuestionnaireUpdateTime}">
-                        ${q.testQuestionnaireUpdateTime}
-                        </td>
-                    </tr>
-                    </#list>
+                </#list>
 
 
-                </tbody>
-            </table>
-        </div>
+            </tbody>
+        </table>
     </div>
+
 </div>
 <div id="template" class="hidden">
     <ul class="nav nav-tabs">
@@ -289,12 +287,6 @@
         if (nav.children().length <= 0) {
             nav.addClass('hidden');
         }
-    }
-    function redrawSelects() {
-        $(".selectpicker").each(function (index, dom) {
-            var b = $(dom);
-            $.fn.selectpicker.call(b, b.data())
-        });
     }
 </script>
 </@item>

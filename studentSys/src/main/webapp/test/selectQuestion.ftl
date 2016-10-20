@@ -16,18 +16,9 @@
                 <label for="domainSelect" class="control-label">标签分类：</label>
 
                 <select id="domainSelect" class="selectpicker show-tick form-control" data-live-search="true">
-                <#--<option>cow</option>
-                <option data-subtext="option subtext">bull</option>
-                <option class="get-class" disabled>ox</option>
-                <optgroup label="test" data-subtext="optgroup subtext">
-                    <option>ASD</option>
-                    <option selected>Bla</option>
-                    <option>Ble</option>
-                </optgroup>-->
                 <#list domains as domain>
                     <option value="${domain.id}">${domain.domainTitle}</option>
                 </#list>
-
                 </select>
             </div>
         </div>
@@ -54,14 +45,13 @@
     </div>
 
 </div>
-<script type="text/javascript" src="${staticServePath}/static/js/lib/bootstrap-select.min.js"></script>
+<#--<script type="text/javascript" src="${staticServePath}/static/js/lib/bootstrap-select.min.js"></script>-->
 <script>
-    //从源码中找到的重绘selectpicker代码
     var ds = $('#domainSelect');
     var ts = $('#tagSelect');
     var tps = $('#testQuestionTypeId');
     $(function () {
-        redrawSelects();
+        //Util.redrawSelects();
         getTags(ds.val());
         ds.on('change', function () {
             getTags(ds.val());
@@ -69,12 +59,7 @@
         tps.on('change', function () {
         })
     });
-    function redrawSelects() {
-        $(".selectpicker").each(function () {
-            var b = $(this);
-            $.fn.selectpicker.call(b, b.data())
-        });
-    }
+
     function getQuestions() {
         var json = {};
         json['type'] = tps.val();
@@ -96,7 +81,7 @@
                 if (selects.length > 0)
                     selectsVal = JSON.parse(selects);
                 $.each(array, function (index, obj) {
-                    var index = $.inArray(obj.type,selectsVal[0]);
+                    var index = $.inArray(obj.type, selectsVal[0]);
                     if ($.inArray(obj.id, selectsVal[1][index]) >= 0)
                         checked = 'checked';
                     str += '<li id = "' + obj.id + '"><div class="checkbox3 checkbox-round"> <input type="checkbox" id="question' + obj.id + '" onchange="changeSelected(\'' + obj.id + '\',\'' + obj.type + '\',this)"' + checked + '> <label for="question' + obj.id + '">' + obj.title + ' </label> </div></li>';
@@ -169,7 +154,7 @@
                 });
                 str += '</div>';
                 parent.append(str);
-                redrawSelects();
+                Util.redrawSelects();
                 ts = $('#tagSelect');
                 ts.on('change', function () {
                     getQuestions();
