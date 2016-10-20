@@ -191,7 +191,5 @@ h1, h2, h3, h4, h5, h6, body, ul, li, a, div, p, span {
     to {top:0px;opacity: 1;}
 }
 .text-danger{
-    color:red;
-    font-weight: 700;
-    font-size:12px;
+    color:#a94442;
 }

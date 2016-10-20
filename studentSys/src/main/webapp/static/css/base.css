@@ -93,6 +93,9 @@
 
 label {
     /*font-weight: 500;*/
+    word-wrap: break-word;
+    word-break: keep-all;
+    overflow: hidden;
 }
 
 .far-left {
@@ -231,9 +234,9 @@ ul.nav li:hover {
     /*font-size: 32px;
     margin-left: 10px;*/
     font-family: inherit;
-    color:#ff6a16 !important;
+    color: #ff6a16 !important;
     font-weight: 500 !important;
-    font-size:36px !important;
+    font-size: 36px !important;
     position: relative;
 }
 
@@ -357,18 +360,22 @@ a:visited {
     text-decoration: none;
 }
 
+.right-border {
+    border-right: 1px solid #cdcdcd;
+}
+
 a {
     color: #000000;
 }
 
-.res,.btn-res {
+.res, .btn-res {
     font-size: 14px;
     color: #00cb66;
     position: relative;
     cursor: pointer;
 }
 
-.res:after,.btn-res:after {
+.res:after, .btn-res:after {
     content: "";
     position: absolute;
     width: 100%;
@@ -378,12 +385,12 @@ a {
     left: 0;
 }
 
-.res:hover,.btn-res:hover {
+.res:hover, .btn-res:hover {
     border: none;
     color: black;
 }
 
-.res:hover:after,.btn-res:after {
+.res:hover:after, .btn-res:after {
     height: 0;
 }
 
@@ -408,9 +415,11 @@ a {
     z-index: 999999;
     width: 100%;
 }
-.text-white{
-    color:white;
+
+.text-white {
+    color: white;
 }
+
 .big-img-none {
     width: 200px;
     height: 200px;
@@ -488,6 +497,10 @@ ul, li {
 
 .panel_loading {
     padding: 40px 0;
+}
+
+.text-red {
+    color: red;
 }
 
 .nav-btn {

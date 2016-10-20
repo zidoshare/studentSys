@@ -42,11 +42,11 @@
                     <td>${((q.testQuestionnaireStartTime)?number)?number_to_datetime}</td>
                     <td>${((q.testQuestionnaireEndTime)?number)?number_to_datetime}</td>
                     <td><#if (q.testQuestionnaireStartTime?number) < (nowTime?number) && (q.testQuestionnaireEndTime?number) gt (nowTime?number)>
-                        <a class="text-success">正在进行中</a>
+                        <span class="text-success">正在进行中</span>
                     <#elseif (q.testQuestionnaireStartTime?number) gt (nowTime?number)>
-                        <a class="text-danger">尚未开始</a>
+                        <span class="text-danger">尚未开始</span>
                     <#else>
-                        <a class="text-gray">已完结</a>
+                        <span class="text-gray">已完结</span>
                     </#if></td>
                 </tr>
                 <tr class="sr-only tr-show">

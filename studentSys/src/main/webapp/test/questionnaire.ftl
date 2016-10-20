@@ -100,8 +100,6 @@
         src="${staticServePath}/static/js/lib/jquery.cookie.js?${staticResourceVersion}"></script>
 <script type="text/javascript" src="${staticServePath}/static/js/common.js?${staticResourceVersion}"></script>
 <script>
-
-    var progressFlag;
     var proccer = 0;
     var max = ${questionSize};
     var reply = ${testReply};
@@ -127,7 +125,6 @@
         //时间控制
         var start = ${questionnaire.testQuestionnaireStartTime};
         var end = ${questionnaire.testQuestionnaireEndTime};
-        progressFlag = ${questionnaire.id};
         getMyDate(new Date(${questionnaire.testQuestionnaireStartTime})) + "   " + getMyDate(${questionnaire.testQuestionnaireEndTime});
         $('#start-time').text(getMyDate(start));
         $('#end-time').text(getMyDate(end));
@@ -148,15 +145,6 @@
         function readAnswers() {
             console.log('read');
             var x = 0;
-            /*$('.point_item').each(function(index,dom){
-                if(answers[$(dom).attr('data-label')] != null){
-                    var ans = answers[$(dom).attr('data-label')];
-                    if($.inArray($(dom).val(),ans)){
-                        $(dom).find('input').first().iCheck('check');
-                    }
-                }
-            });*/
-
             for (var key in answers) {
                 var i = 0;
                 var dom = $('#'+key);
@@ -164,8 +152,8 @@
                     if($(dom).is('textarea')){
                         x++;
                         $(dom).val(answers[key]);
-                        return false;
                         i++;
+                        return false;
                     }
                     var ind = $(dom).parent().parent().attr('data-index');
                     if ($.inArray(ind, answers[key]) >= 0) {
@@ -177,31 +165,6 @@
                 if (i > 0)
                     changeProgress(parseFloat((++proccer / max * 100)).toFixed(2) + "%");
             }
-            /*$('#questionnaire${questionnaire.id}
-
-                        ').find('input,textarea').each(function (index, dom) {
-                                        var ans = answers[$(dom).attr('id')];
-                                        if (ans == 'checked') {
-                                            $(dom).iCheck('check');
-                                            var parent = $(dom).parent().parent().parent();
-                                            var data = parseInt(parent.attr('data-label'));
-                                            if (data + 1 == 1) {
-                                                changeProgress(parseFloat((++proccer / max * 100)).toFixed(2) + "%");
-                                            }
-                                            parent.attr('data-label', data + 1);
-                                        }
-                                        else if (ans != null) {
-                                            $(dom).val(ans);
-                                            var parent = $(dom).parent();
-                                            var data = parseInt(parent.attr('data-label'));
-                                            changeProgress(parseFloat((++proccer / max * 100)).toFixed(2) + "%");
-                                            parent.attr('data-label', data + 1);
-                                        }
-                                        else
-                                            return true;
-                                        x++;
-                                        console.log(ans);
-                                    });*/
             return x;
         }
 
@@ -250,28 +213,6 @@
                 delete answers[$(this).attr('data-label')];
             }
         }
-
-        //移除
-        /*function removeValue() {
-            delete answers[$(this).attr('id')];
-            var parent = $(this).parent().parent().parent();
-            var data = parseInt(parent.attr('data-label'));
-            parent.attr('data-label', data - 1);
-
-
-            var ans = answers[$(this).attr('id')];
-            if(ans == null)
-                    ans = [];
-            var index = jQuery.inArray($(this).val(),ans);
-            ans.splice(index,1);
-            if(ans.length == 0)
-                delete answers[parent.attr('id')];
-
-
-            if (data - 1 <= 0) {
-                changeProgress(parseFloat((--proccer / max * 100)).toFixed(2) + "%");
-            }
-        }*/
 
         setTimeout(cacheAnswers, 3000);
         function cacheAnswers() {

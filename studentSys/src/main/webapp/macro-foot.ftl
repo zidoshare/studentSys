@@ -100,7 +100,6 @@
         load.removeClass('sr-only');
         dom.find('.pan').first().load(url,function(){
             load.addClass('sr-only');
-            Util.showTip($('#wholeTip'),'打开了','alert alert-success');
         });
     }
 </script>

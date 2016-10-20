@@ -41,12 +41,12 @@ public abstract class BaseTestReply<M extends BaseTestReply<M>> extends Model<M>
 		return get("studentId");
 	}
 
-	public void setCorrecting(java.lang.Integer Correcting) {
-		set("Correcting", Correcting);
+	public void setCorrecting(java.lang.Integer correcting) {
+		set("correcting", correcting);
 	}
 
 	public java.lang.Integer getCorrecting() {
-		return get("Correcting");
+		return get("correcting");
 	}
 
 	public void setScoreSituation(java.lang.String scoreSituation) {
