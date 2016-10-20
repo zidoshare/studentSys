@@ -91,7 +91,7 @@
     color: white;
 }
 
-label {
+label,h3,h4,p {
     /*font-weight: 500;*/
     word-wrap: break-word;
     word-break: keep-all;
@@ -179,8 +179,8 @@ label {
     cursor: pointer;;
 }
 
-.active-menu, .active-menu i {
-    /*background-color: #00cb66 !important;*/
+.active-menu, .active-menu {
+    background-color: #00cb66 !important;
     color: white !important;
 }
 
@@ -338,7 +338,7 @@ td, th:hover {
 
 td, th {
     /*text-align: center;*/
-    white-space: nowrap;
+    /*white-space: nowrap;*/
 }
 
 .text-black {
@@ -361,6 +361,7 @@ a:visited {
 }
 
 .right-border {
+    min-height: 100%;
     border-right: 1px solid #cdcdcd;
 }
 

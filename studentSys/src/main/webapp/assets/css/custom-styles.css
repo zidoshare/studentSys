@@ -635,7 +635,7 @@ div#sideNav:hover {
 }
 
 .active-menu i {
-    color: #F36A5A !important;
+    /*color: #F36A5A !important;*/
 }
 
 .arrow {

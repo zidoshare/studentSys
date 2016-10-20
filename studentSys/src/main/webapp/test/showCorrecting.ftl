@@ -45,7 +45,7 @@
                                                    data-label="${questionnaire.id}S${question.id}">
                                                 <input class="iCheck" name="${questionnaire.id}S${question.id}"
                                                        type="checkbox">
-                                            ${xx[node_index]}、${node}
+                                            ${xx[node_index]}、${node?html}
                                             </label>
                                         </#list>
                                     </#if>
@@ -53,7 +53,7 @@
                                 <#else>
                                 <#--<textarea class="comment" rows="10" tabindex="4"
                                           placeholder="答案"></textarea>-->
-                                    <pre style="margin-top: 34px;;"></pre>
+                                    <p style="margin-top: 34px;"></p>
                                 </#if>
                             </div>
                             <div class="col-md-6">
@@ -73,7 +73,7 @@
                                 </div>
                                 <#else>
                                     <label class="control-label">答案：</label>
-                                    <pre>${question.testQuestionLongAnswer?html}</pre>
+                                    <p>${question.testQuestionLongAnswer?html}</p>
                                 </#if>
 
                             </div>
@@ -136,8 +136,8 @@
             for (var key in answers) {
                 var i = 0;
                 var dom = $('#' + key);
-                dom.find('input,pre').each(function (index, dom) {
-                    if ($(dom).is('pre')) {
+                dom.find('input,p').each(function (index, dom) {
+                    if ($(dom).is('p')) {
                         x++;
                         $(dom).text(answers[key]);
                         i++;
@@ -204,8 +204,8 @@
         }
 
         function changeProgress(t) {
-            $('#min-progress').text(t);
-            $('#min-progress').css("width", t);
+            /*$('#min-progress').text(t);
+            $('#min-progress').css("width", t);*/
         }
     });
 </script>

@@ -6,7 +6,7 @@
         servePath: "${servePath}",
         isLogin:${isLogin?c},
         loginRole: "${loginRole}",
-        userId:"${user.id}",
+        userId: "${user.id}",
         loginNameErrorLabel: "${loginNameErrorLabel}",
         invalidPasswordLabel: "${invalidPasswordLabel}"
     };
@@ -15,9 +15,9 @@
             $(document).pjax('a[target!="_blank"]', '#page-inner', {
                 fragment: '#page-inner',
                 cache: true,
-                maxCacheLength:5,
+                maxCacheLength: 5,
                 storage: false,
-                replace:true
+                replace: true
             });
         }
     });
@@ -30,8 +30,8 @@
         Animate.loadWrapper();
     });
     $('#main-menu').find('li').on('click', function () {
+        $('#main-menu').find('li').removeClass('active-menu');
         $(this).addClass('active-menu');
-        $(this).siblings('li').removeClass('active-menu');
     });
     var sid = 0;
     var word = "a";
@@ -48,8 +48,8 @@
             content += $("#select"+i).val()+"\",";*/
             c[i] = $("#select" + i).val();
             s[i] = $("#score" + i).val();
-            if(parseInt(s[i])>max){
-                max=parseInt(s[i]);
+            if (parseInt(s[i]) > max) {
+                max = parseInt(s[i]);
             }
         }
         /*content = content.substring(0,content.length-1);
@@ -65,7 +65,7 @@
                 "questions.big_type_id": bigType,
                 "questions.content": content,
                 "questions.option_score": score,
-                "questions.maxScore":max
+                "questions.maxScore": max
             },
             success: function (data, textStatus) {
                 alert(data.msg);
@@ -92,13 +92,14 @@
             sid--;
         }
     }
-    function loadResult(dom,url) {
+    function loadResult(dom, url) {
         /*var evt = arguments.callee.caller.arguments[0] || window.event;
         evt.preventDefault();
         evt.stopPropagation();*/
         var load = dom.find('.panel_loading').first();
         load.removeClass('sr-only');
-        dom.find('.pan').first().load(url,function(){
+        dom.find('.pan').first().load(url, function () {
+            console.log('完成');
             load.addClass('sr-only');
         });
     }

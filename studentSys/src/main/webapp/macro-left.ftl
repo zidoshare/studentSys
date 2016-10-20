@@ -29,14 +29,14 @@
         <#assign start = 0>
         <#assign index = 0>
         <#list sides as side>
-            <li <#if side.title == now.title>class="active-menu"</#if>>
+            <li <#if side.id == now.id || now.parentId == side.id>class="active-menu active"</#if>>
                 <a href="${staticServePath}${side.url}"><i class="${side.icon}"></i>${side.title}<#if menuSize[tag] gt 0><span
                         class="fa arrow"></span></#if></a>
                 <#if menuSize[tag] gt 0>
                     <#assign index += menuSize[tag]>
                     <#list start..index-1 as x >
                         <ul class="nav nav-third-level collapse">
-                            <li>
+                            <li <#if childSides[x].id == now.id>class="active-menu active"</#if>>
                                 <a href="${staticServePath}${childSides[x].url}"><i
                                         class="${childSides[x].icon}"></i>${childSides[x].title}</a>
                             </li>

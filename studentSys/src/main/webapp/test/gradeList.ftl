@@ -79,4 +79,23 @@
 
     </script>
 </div>
+<div class="modal fade bs-example-modal-lg" id = "modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="width: 1200px;">
+
+        <div class="modal-content " id="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">阅卷</h3>
+            </div>
+            <div class="row">
+                <div class="table-bordered col-md-10 col-lg-offset-1">
+                    <div class="pan">
+                    </div>
+                    <div class="panel_loading">
+                        <img src="${staticServePath}/images/loading.gif" class="img-sm center-block"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </@item>

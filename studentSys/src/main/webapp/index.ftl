@@ -16,7 +16,7 @@
         <div class="row animate">
             <div class="col-md-12">
                 <div class="panel panel-default item">
-                    <h1 align="center">建设中...</h1>
+                    <h1 align="center">你没有权限或建设中...</h1>
                 </div>
             </div>
         </div>

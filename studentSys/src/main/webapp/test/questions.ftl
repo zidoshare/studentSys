@@ -48,10 +48,10 @@
                 <tr id="show-tr${question.id}" class="question-panel sr-only">
                     <td colspan="<#if updateAble || deleteAble>4<#else>3</#if>">
                         <div class="panel panel-success far-top">
-                            <div class="panel-heading">
-                                <label class="panel-title"
-                                       id="testQuestionTitle${question.id}">${question.testQuestionTitle}</label class="panel-title">
-                                <div class="pull-right">
+                            <div class="panel-heading row">
+                                <div class="col-md-10"><label class="panel-title"
+                                                              id="testQuestionTitle${question.id}">${question.testQuestionTitle}</label class="panel-title"></div>
+                                <div class="col-md-2">
                                     <#list map["operators"+view.id] as op>
                                         <#if op.title != "添加">
                                             <a onclick="func.${op.url}('show','${question.id}');"
@@ -196,9 +196,20 @@
     </div>
 </div>
 <script type="text/javascript">
-    $('.showQuestion').on('mouseenter', function () {
-        $(this).siblings('tr.question-panel').addClass("sr-only");
+    $('.showQuestion').on('click', function () {
         var trId = $(this).attr('id');
-        $('#show-' + trId).removeClass("sr-only");
+        var dom = $('#show-' + trId);
+        var isHave = dom.hasClass("sr-only");
+        $(this).siblings('tr.question-panel').addClass("sr-only");
+
+        if(isHave){
+
+            dom.removeClass("sr-only");
+        }
+
+        else{
+            dom.addClass("sr-only");
+        }
+
     });
 </script>
