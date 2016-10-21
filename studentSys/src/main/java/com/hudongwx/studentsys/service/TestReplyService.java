@@ -21,9 +21,18 @@ public class TestReplyService extends Service {
         return testReply.update();
     }
 
-    public TestReply readByCache(Integer qcId, Integer studentId) {
-        TestReply reply = TestReply.dao.findFirstByCache(Common.CACHE_LONG_TIME_LABEL, qcId + "-" + studentId,
+    public TestReply getByCache(Integer qcId, Integer studentId) {
+        return getReply(qcId,studentId,true);
+    }
+
+    public TestReply getReply(Integer qcId, Integer studentId,boolean useCache){
+        TestReply reply = null;
+
+        if(useCache)
+            reply = TestReply.dao.findFirstByCache(Common.CACHE_LONG_TIME_LABEL, qcId + "-" + studentId,
                 TestReply.SEARCH_FROM_TEST_REPLY + "where testQuestionnaireClassId = ? and studentId = ?", qcId, studentId);
+        else
+        reply = TestReply.dao.findFirst(TestReply.SEARCH_FROM_TEST_REPLY + "where testQuestionnaireClassId = ? and studentId = ?", qcId, studentId);
         if(reply == null){
             reply = new TestReply();
             reply.setTestQuestionnaireClassId(qcId);
@@ -50,5 +59,9 @@ public class TestReplyService extends Service {
 
     public List<TestReply> getReplies(Integer qcId) {
         return TestReply.dao.find(TestReply.SEARCH_FROM_TEST_REPLY+"where testQuestionnaireClassId = ? order by id desc",qcId);
+    }
+
+    public TestReply getReplyById(Integer replyId) {
+        return TestReply.dao.findById(replyId);
     }
 }

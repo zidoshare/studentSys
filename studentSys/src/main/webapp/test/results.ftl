@@ -13,13 +13,13 @@
             </thead>
             <tbody>
             <#list replies as reply>
-            <tr>
+            <tr id="${reply.id}">
                 <td>${studentMap["${reply.id}"].name}</td>
-                <td><#if reply.correcting == 0><span class="text-danger">未批改</span>
+                <td class="state"><#if reply.correcting == 0><span class="text-danger">未批改</span>
                     <#else>
                         <span class="text-success">已批改</span>
                 </#if></td>
-                <td>${reply.score}</td>
+                <td class="score">${reply.score}</td>
                 <td><a class="res" href="javascript:void(0)" onclick="showModal(${studentMap["${reply.id}"].id})">阅卷</a></td>
             </tr>
             </#list>
@@ -32,7 +32,6 @@
 
         var dom = $('#modal-content');
         dom.removeClass('sr-only');
-        console.log(dom);
         loadResult(dom,"${staticServePath}/test/showCorrecting/${testQuestionnaireClass.id}-"+studentId);
         $('#modal').modal('show');
     }

@@ -264,7 +264,6 @@
             $('#tab3_loading').removeClass('sr-only');
             var str = '';
             var id = $('#testQuestionnaireId').val();
-            console.log('id = ' + id);
             if (id != null)
                 str = '&id=' + id;
             $('#load_preview').load('${staticServePath}/test/preview?questions=' + $('#testQuestionnaireTypeList').val() + str, function (response, status, xhr) {

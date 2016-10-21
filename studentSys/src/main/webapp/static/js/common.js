@@ -146,6 +146,39 @@ var Validate = {
 };
 
 var Util = {
+    formatText:function(str){
+        str = str.replace(/\r/g,"");
+        str = str.replace(/on(load|click|dbclick|mouseover|mousedown|mouseup)="[^"]+"/ig,"");
+        str = str.replace(/<script[^>]*?>([\w\W]*?)<\/script>/ig,"");
+        str = str.replace(/<style[^>]*?>([\w\W]*?)<\/stylet>/ig,"");
+        str = str.replace(/<embed[^>]*?>([\w\W]*?)<\/embed>/ig,"");
+
+        str = str.replace(/<a[^>]+href="([^"]+)"[^>]*>(.*?)<\/a>/ig,"[url=$1]$2[/url]");
+        str = str.replace(/<font[^>]+color=([^ >]+)[^>]*>(.*?)<\/font>/ig,"[color=$1]$2[/color]");
+        str = str.replace(/<img[^>]+src="([^"]+)"[^>]*>/ig,"[img]$1[/img]");
+        str = str.replace(/<param NAME="Movie" value="([^>"]+\.swf)"[^>]*>/ig,"[flash]$1[/flash]");
+
+        str = str.replace(/<([\/]?)b>/ig,"[$1b]");
+        str = str.replace(/<([\/]?)strong>/ig,"[$1b]");
+        str = str.replace(/<([\/]?)u>/ig,"[$1u]");
+        str = str.replace(/<([\/]?)i>/ig,"[$1i]");
+
+        str = str.replace(/&nbsp;/g," ");
+        str = str.replace(/&amp;/g,"&");
+        str = str.replace(/&quot;/g,"\"");
+        str = str.replace(/&lt;/g,"<");
+        str = str.replace(/&gt;/g,">");
+
+        str = str.replace(/\[url=([^\]]+)]\[img]/g,"[img]");
+        str = str.replace(/\[\/img]\[\/url]/g,"[/img]");
+
+        //str = str.replace(/<br>/ig,"\n");
+        //str = str.replace(/<[^>]*?>/g,"");
+
+        //str = str.replace(/\n+/g,"\n");
+        str = str.replace(/\n/im,"<br/>");
+        return str;
+    },
     redrawSelects:function(){
         //从源码中找到的重绘selectpicker代码
         $(".selectpicker").each(function () {
@@ -402,7 +435,6 @@ var func = {
             data = data.sort(function (a, b) {
                 return a - b;
             });
-            console.log(data);
             var d = "";
             for (var i = 0; i < data.length; i++) {
                 d += data[i] + ":";
@@ -519,7 +551,6 @@ var func = {
                 if ($('#' + a).prop('checked')) {
                     answers.push($('#' + a).attr('data-label'));
                 }
-                console.log(answers);
                 selects[i] = $('#testQuestionOption' + (i++)).val();
             }
             $('#testQuestionContent').val(JSON.stringify(selects));
@@ -632,10 +663,8 @@ var func = {
             if (id == null || id == '')
                 $('#classCreateTime').val(new Date().getTime());
             $('#classUpdateTime').val(new Date().getTime());
-            console.log(Label.userId);
             $('#classOperaterId').val(Label.userId);
             $('#class').find('.form-control').each(function () {
-                console.log($(this).attr('name') + "======" + $(this).val());
                 json[$(this).attr('name')] = $(this).val();
             });
             $.ajax({
@@ -891,7 +920,6 @@ var modalUtil = {
                 defaults[name] = options[name];
             });
         }
-        console.log($(model));
         if (defaults.end != null && defaults.end.length > 0) {
             model.find('input').each(function (index, input) {
 

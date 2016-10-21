@@ -11,7 +11,7 @@
         </div>
         <form method="get" id="questionnaire${questionnaire.id}">
         <#assign index = 0>
-        <#assign scoreSituation = (testReply?eval)["scoreSituation"]?eval>
+        <#assign scoreSituation = testReply?eval["scoreSituation"]?eval>
         <#assign bigNumber = ["一","二","三","四","五","六","七","八","九","十"]>
         <#assign xx = ['A','B','C','D','E','F','G']>
             <ul class="subject_list">
@@ -42,7 +42,8 @@
                                     <#else>
                                         <#list question.testQuestionContent?eval as node>
                                             <label class="subject_option point_item" id="${question.id}S${node_index}"
-                                                   data-label="${questionnaire.id}S${question.id}">
+                                                   data-label="${questionnaire.id}S${question.id}"
+                                                   data-index="${node_index}">
                                                 <input class="iCheck" name="${questionnaire.id}S${question.id}"
                                                        type="checkbox">
                                             ${xx[node_index]}、${node?html}
@@ -53,7 +54,13 @@
                                 <#else>
                                 <#--<textarea class="comment" rows="10" tabindex="4"
                                           placeholder="答案"></textarea>-->
-                                    <p style="margin-top: 34px;"></p>
+
+                                    <div class="panel panel-warning">
+                                        <div class="panel-heading"></div>
+                                        <div class="panel-body">
+                                            <pre><p></p></pre>
+                                        </div>
+                                    </div>
                                 </#if>
                             </div>
                             <div class="col-md-6">
@@ -61,19 +68,25 @@
                                 <div class="form-group">
                                     <label for="score${question.id}" class="control-label">得分：</label>
                                     <input class="form-control" style="width:80px; " type="text"
-                                           id="score${question.id}"
+                                           id="score${question.id}" data-label="${questionnaire.id}S${question.id}"
                                            value="${scoreSituation["${questionnaire.id}S${question.id}"]}"/>
                                 </div>
                                 <br/>
                                 <#if (question.testQuestionContent?eval)?size gt 0>
-                                <div class="form-group">
-                                    <label class="control-label">答案：</label>
+                                    <div class="form-group">
+                                        <label class="control-label">答案：</label>
                                         <label class="text-red control-label"
                                                id="answer${question.id}"><#list ans as an>${xx[an?number]}</#list></label>
-                                </div>
+                                    </div>
                                 <#else>
-                                    <label class="control-label">答案：</label>
-                                    <p>${question.testQuestionLongAnswer?html}</p>
+                                    <div class="panel panel-warning">
+                                        <div class="panel-heading">
+                                            答案：
+                                        </div>
+                                        <div class="panel-body">
+                                            <pre>${question.testQuestionLongAnswer}</pre>
+                                        </div>
+                                    </div>
                                 </#if>
 
                             </div>
@@ -92,10 +105,9 @@
             </div>
         </div>
         <div style="text-align: right">
-            <button class="submit" type="submit" onclick="postReply()">提交</button>
+            <button class="submit" type="submit" onclick="updateReply()">提交</button>
         </div>
     </div>
-
 </div>
 <script type="text/javascript"
         src="${staticServePath}/static/js/lib/jquery.cookie.js?${staticResourceVersion}"></script>
@@ -105,7 +117,6 @@
     var max = ${questionSize};
     var reply = ${testReply};
     var answers = JSON.parse(reply['answers']);
-
     $(document).ready(function () {
         $('input').iCheck({
             checkboxClass: 'iradio_square-blue',
@@ -131,7 +142,6 @@
         $('textarea').on('input propertychange', addText);
 
         function readAnswers() {
-            console.log('read');
             var x = 0;
             for (var key in answers) {
                 var i = 0;
@@ -139,7 +149,8 @@
                 dom.find('input,p').each(function (index, dom) {
                     if ($(dom).is('p')) {
                         x++;
-                        $(dom).text(answers[key]);
+                        var str = Util.formatText(answers[key][0]);
+                        $(dom).html(str);
                         i++;
                         return false;
                     }
@@ -203,9 +214,40 @@
             }
         }
 
+
         function changeProgress(t) {
             /*$('#min-progress').text(t);
             $('#min-progress').css("width", t);*/
         }
     });
+    function updateReply() {
+        var count = 0;
+        var scoreSituation = {};
+        $('li.subject input[type=text]').each(function (index, dom) {
+            var key = $(dom).attr('data-label');
+            var score = parseInt($(dom).val());
+            scoreSituation[key] = score;
+            count += score;
+        });
+        $.ajax({
+            url: "${staticServePath}/test/postScore/${(testReply?eval)["id"]}",
+            data: {
+                "scoreSituation": JSON.stringify(scoreSituation),
+                "score": count
+            },
+            type:'post',
+            dataType: 'json',
+            success: function (data, status) {
+                $('#modal').modal('hide');
+                if (data.state == 'success') {
+                    Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
+                    $('tr#${(testReply?eval)["id"]}>.score').html(count);
+                    $('tr#${(testReply?eval)["id"]}>.state').html('<span class="text-success">已批改</span>');
+                } else {
+                    Util.showTip($('#wholeTip'), data.msg, 'alert alert-danger');
+                }
+            }
+        });
+    }
+
 </script>

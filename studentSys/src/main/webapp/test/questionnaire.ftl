@@ -143,29 +143,27 @@
         $('textarea').on('input propertychange', addText);
 
         function readAnswers() {
-            console.log('read');
-            var x = 0;
             for (var key in answers) {
                 var i = 0;
-                var dom = $('#'+key);
+                var dom = $('#' + key);
                 dom.find('input,textarea').each(function (index, dom) {
-                    if($(dom).is('textarea')){
-                        x++;
+                    if ($(dom).is('textarea')) {
                         $(dom).val(answers[key]);
                         i++;
+                        var parent = $(dom).parent();
+                        var data = parseInt(parent.attr('data-label'));
+                        parent.attr('data-label', 1);
                         return false;
                     }
                     var ind = $(dom).parent().parent().attr('data-index');
                     if ($.inArray(ind, answers[key]) >= 0) {
                         $(dom).iCheck('check');
-                        x++;
                         i++;
                     }
                 });
                 if (i > 0)
                     changeProgress(parseFloat((++proccer / max * 100)).toFixed(2) + "%");
             }
-            return x;
         }
 
         function addText() {
@@ -196,7 +194,7 @@
             var ans = [];
             $(this).parent().find('input').each(function (index, dom) {
                 if ($(dom).prop('checked') == true) {
-                    ans.push(index+'');
+                    ans.push(index + '');
                 }
             });
             var len = 0;
@@ -214,7 +212,7 @@
             }
         }
 
-        setTimeout(cacheAnswers, 3000);
+        setTimeout(cacheAnswers, 30000);
         function cacheAnswers() {
             reply['answers'] = JSON.stringify(answers);
             $.ajax({
@@ -224,7 +222,7 @@
                         data: reply,
                         success: function (data, status) {
                             if (data.state == 'success') {
-                                setTimeout(cacheAnswers, 3000);
+                                setTimeout(cacheAnswers, 30000);
                             }
                             else
                                 Util.showTip($('#wholeTip'), data.msg, 'alert alert-danger');

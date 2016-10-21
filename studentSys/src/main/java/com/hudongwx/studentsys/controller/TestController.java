@@ -35,6 +35,7 @@ public class TestController extends BaseController {
     public StudentService studentService;
     public TestReplyService testReplyService;
     public CorrectService correctService;
+
     /**
      * @return 返回mapping的title属性
      */
@@ -148,17 +149,18 @@ public class TestController extends BaseController {
             }
             map.put(types.get(i).getId() + "", testQuestions);
         }
-        TestReply testReply = testReplyService.readByCache(questionnaire.getTestQuestionnaireClassId(),student.getId());
-        setAttr("testReply",JsonKit.toJson(testReply));
+        TestReply testReply = testReplyService.getByCache(questionnaire.getTestQuestionnaireClassId(), student.getId());
+        setAttr("testReply", JsonKit.toJson(testReply));
         setAttr("types", types);
         setAttr("scoreMap", scoreMap);
         setAttr("questionMap", map);
-        setAttr("questionnaire",questionnaire);
-        setAttr("questionSize",size);
-        setAttr("student",student);
+        setAttr("questionnaire", questionnaire);
+        setAttr("questionSize", size);
+        setAttr("student", student);
         render("/test/questionnaire.ftl");
     }
-    public void showCorrecting(){
+
+    public void showCorrecting() {
         fillHeaderAndFooter();
         Integer qcId = getParaToInt(0);
         Integer studentId = getParaToInt(1);
@@ -208,59 +210,84 @@ public class TestController extends BaseController {
             }
             map.put(types.get(i).getId() + "", testQuestions);
         }
-        TestReply testReply = testReplyService.readByCache(questionnaire.getTestQuestionnaireClassId(),student.getId());
-        setAttr("testReply",JsonKit.toJson(testReply));
+        TestReply testReply = testReplyService.getReply(questionnaire.getTestQuestionnaireClassId(), student.getId(), false);
+        setAttr("testReply", JsonKit.toJson(testReply));
         setAttr("types", types);
         setAttr("scoreMap", scoreMap);
         setAttr("questionMap", map);
-        setAttr("questionnaire",questionnaire);
-        setAttr("questionSize",size);
-        setAttr("student",student);
+        setAttr("questionnaire", questionnaire);
+        setAttr("questionSize", size);
+        setAttr("student", student);
         render("/test/showCorrecting.ftl");
     }
+
     @Before(POST.class)
-    public void cacheAnswer(){
+    public void cacheAnswer() {
         TestReply reply = new TestReply();
         reply.setAnswers(getPara("answers"));
         reply.setStudentId(getParaToInt("studentId"));
         reply.setTestQuestionnaireClassId(getParaToInt("testQuestionnaireClassId"));
         reply.setId(getParaToInt("id"));
-        if(reply.getAnswers() == null || reply.getTestQuestionnaireClassId() == null || reply.getStudentId() == null){
-            RenderKit.renderError(this,"你的信息出现了错误,这将导致你不能提交答案，请刷新重试，答案会自动回滚到上次自动保存的时间点");
-            return ;
+        if (reply.getAnswers() == null || reply.getTestQuestionnaireClassId() == null || reply.getStudentId() == null) {
+            RenderKit.renderError(this, "你的信息出现了错误,这将导致你不能提交答案，请刷新重试，答案会自动回滚到上次自动保存的时间点");
+            return;
         }
         testReplyService.putByCache(reply);
         RenderKit.renderSuccess(this);
     }
+
     @Before(POST.class)
-    public void postReply(){
+    public void postScore() {
+        Integer replyId = getParaToInt(0);
+        if (replyId == null) {
+            RenderKit.renderError(this);
+            return;
+        }
+        TestReply tp = testReplyService.getReplyById(replyId);
+        if (tp == null) {
+            RenderKit.renderError(this);
+            return;
+        }
+        tp.setScoreSituation(getPara("scoreSituation"));
+        tp.setScore(getParaToInt("score"));
+        if (testReplyService._updateTestReply(tp)) {
+            RenderKit.renderSuccess(this, "提交成功");
+            return;
+        }
+        RenderKit.renderError(this, "提交失败");
+    }
+
+    @Before(POST.class)
+    public void postReply() {
         long now = System.currentTimeMillis();
-            TestReply reply = new TestReply();
-            reply.setAnswers(getPara("answers"));
-            reply.setStudentId(getParaToInt("studentId"));
-            reply.setTestQuestionnaireClassId(getParaToInt("testQuestionnaireClassId"));
-            reply.setId(getParaToInt("id"));
-            if(reply.getAnswers() == null || reply.getTestQuestionnaireClassId() == null || reply.getStudentId() == null){
-                RenderKit.renderError(this,"你的信息出现了错误,这将导致你不能提交答案，请刷新重试，答案会自动回滚到上次自动保存的时间点");
-                return ;
+        TestReply reply = new TestReply();
+        reply.setAnswers(getPara("answers"));
+        reply.setStudentId(getParaToInt("studentId"));
+        reply.setTestQuestionnaireClassId(getParaToInt("testQuestionnaireClassId"));
+        reply.setId(getParaToInt("id"));
+        if (reply.getAnswers() == null || reply.getTestQuestionnaireClassId() == null || reply.getStudentId() == null) {
+            log.info(reply.getAnswers());
+            RenderKit.renderError(this, "你的信息出现了错误,这将导致你不能提交答案，请刷新重试，答案会自动回滚到上次自动保存的时间点");
+            return;
         }
         Integer qcId = reply.getTestQuestionnaireClassId();
         TestQuestionnaireClass tqc = testQuestionnaireClassService.getById(qcId);
-        if(tqc == null){
-            RenderKit.renderError(this,"获取试卷信息失败");
-            return ;
+        if (tqc == null) {
+            RenderKit.renderError(this, "获取试卷信息失败");
+            return;
         }
         if (tqc.getTestQuestionnaireStartTime() > now || tqc.getTestQuestionnaireEndTime() < now) {
-            RenderKit.renderError(this,"你已超时，无法提交！");
-            return ;
+            RenderKit.renderError(this, "你已超时，无法提交！");
+            return;
         }
-        if(testReplyService.putByCache(reply,true).getId() == null){
-            RenderKit.renderError(this,"保存失败");
-            return ;
+        if (testReplyService.putByCache(reply, true).getId() == null) {
+            RenderKit.renderError(this, "保存失败");
+            return;
         }
         correctService.correct(reply);
-        RenderKit.renderSuccess(this,"保存成功");
+        RenderKit.renderSuccess(this, "保存成功");
     }
+
     public void questions() {
         setMapping(mappingService.getMappingByTitle("题库"));
         super.index();
@@ -294,31 +321,34 @@ public class TestController extends BaseController {
         }
         setAttr("userMap", userMap);
     }
-    public void count(){
+
+    public void count() {
         setMapping(mappingService.getMappingByUrl("/test/count"));
         super.index();
         List<Class> classes = classService.getAllClass();
         List<TestQuestionnaire> questionnaires = new ArrayList<>();
-        if(classes.size() > 0){
+        if (classes.size() > 0) {
             questionnaires = testQuestionnaireService.getQuestionnairesByClass(classes.get(0));
         }
-        setAttr("nowTime",System.currentTimeMillis());
-        setAttr("questionnaires",questionnaires);
-        setAttr("classes",classes);
+        setAttr("nowTime", System.currentTimeMillis());
+        setAttr("questionnaires", questionnaires);
+        setAttr("classes", classes);
     }
-    public void getResults(){
+
+    public void getResults() {
         Integer qcId = getParaToInt(0);
         TestQuestionnaireClass tqc = testQuestionnaireClassService.getById(qcId);
         List<TestReply> replies = testReplyService.getReplies(qcId);
-        Map<String,Student> studentMap = new HashMap<>();
-        for(TestReply reply : replies){
-            studentMap.put(reply.getId()+"",studentService.getStudentById(reply.getStudentId()));
+        Map<String, Student> studentMap = new HashMap<>();
+        for (TestReply reply : replies) {
+            studentMap.put(reply.getId() + "", studentService.getStudentById(reply.getStudentId()));
         }
-        setAttr("studentMap",studentMap);
-        setAttr("replies",replies);
-        setAttr("testQuestionnaireClass",tqc);
+        setAttr("studentMap", studentMap);
+        setAttr("replies", replies);
+        setAttr("testQuestionnaireClass", tqc);
         render("/test/results.ftl");
     }
+
     public void selectQuestions() {
         List<TestType> allTestTypes = testTypeService.getAllVisibleTypes();
         setAttr("types", allTestTypes);

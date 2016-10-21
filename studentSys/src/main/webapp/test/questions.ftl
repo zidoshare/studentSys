@@ -80,7 +80,7 @@
                                         </div>
                                     <#else>
                                         <p><label>答案:</label></p>
-                                        <span class="long-answer">${question.testQuestionLongAnswer}</span>
+                                        <pre class="long-answer">${question.testQuestionLongAnswer}</pre>
                                     </#if>
                                 </#list>
                             </div>

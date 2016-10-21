@@ -99,7 +99,6 @@
         var load = dom.find('.panel_loading').first();
         load.removeClass('sr-only');
         dom.find('.pan').first().load(url, function () {
-            console.log('完成');
             load.addClass('sr-only');
         });
     }
