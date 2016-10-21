@@ -49,4 +49,12 @@ public abstract class BaseTestQuestionnaireClass<M extends BaseTestQuestionnaire
 		return get("testQuestionnaireEndTime");
 	}
 
+	public void setTestQuestionnaireTempTime(java.lang.Long testQuestionnaireTempTime) {
+		set("testQuestionnaireTempTime", testQuestionnaireTempTime);
+	}
+
+	public java.lang.Long getTestQuestionnaireTempTime() {
+		return get("testQuestionnaireTempTime");
+	}
+
 }

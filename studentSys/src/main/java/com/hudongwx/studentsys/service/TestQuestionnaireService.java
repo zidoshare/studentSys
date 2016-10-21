@@ -54,6 +54,7 @@ public class TestQuestionnaireService extends Service {
         q.setTestQuestionnaireStartTime(tqc.getTestQuestionnaireStartTime());
         q.setTestQuestionnaireEndTime(tqc.getTestQuestionnaireEndTime());
         q.setTestQuestionnaireClassId(tqc.getId());
+        q.setTestQuestionnaireTempTime(tqc.getTestQuestionnaireTempTime());
         return q;
     }
     public TestQuestionnaire packingQuestionnaire(Integer testQuestionnaireClassId){
@@ -87,6 +88,7 @@ public class TestQuestionnaireService extends Service {
             q.setTestQuestionnaireClassId(tqc.getId());
             q.setTestQuestionnaireStartTime(tqc.getTestQuestionnaireStartTime());
             q.setTestQuestionnaireEndTime(tqc.getTestQuestionnaireEndTime());
+            q.setTestQuestionnaireTempTime(tqc.getTestQuestionnaireTempTime());
             list.add(q);
         }
         return list;

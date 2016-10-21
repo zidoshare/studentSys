@@ -64,4 +64,5 @@
 <!-- pjax -->
 <script type="text/javascript" src="${staticServePath}/static/js/lib/jquery.pjax.js?${staticResourceVersion}"></script>
 <script type="text/javascript" src="${staticServePath}/static/js/lib/jquery.cookie.js"></script>
+<script type="text/javascript" src="${staticServePath}/static/js/lib/bootstrap-select.min.js"></script>
 </#macro>

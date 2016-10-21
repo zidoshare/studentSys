@@ -21,11 +21,11 @@
             });
         }
     });
-    $(document).on('pjax:beforeSend', function () { //pjax链接点击后显示加载动画；
+    $('#page-inner').on('pjax:beforeSend', function () { //pjax链接点击后显示加载动画；
         $('#page-inner').html('');
         $('.pjax_loading').css("display", "block");
     });
-    $(document).on('pjax:complete', function () { //pjax链接加载完成后隐藏加载动画；
+    $('#page-inner').on('pjax:complete', function () { //pjax链接加载完成后隐藏加载动画；
         $('.pjax_loading').css('display', 'none');
         Animate.loadWrapper();
     });

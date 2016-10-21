@@ -1,7 +1,7 @@
 <link href="${staticServePath}/static/css/css.css?${staticResourceVersion}" rel="stylesheet">
 <script src="${staticServePath}/static/js/lib/icheck.min.js?${staticResourceVersion}"></script>
 
-<div class="wrapper cs-wrapper" id="wrapper">
+<div class="wrapper cs-wrapper scroll" id="wrapper">
     <div class="big-container">
         <div class="tip" id="submitTip" aria-label="0">
         </div>
@@ -26,7 +26,7 @@
                         <div class="row">
                             <div class="col-md-6 right-border">
                                 <#assign index++>
-                                <h3 class="subject_title">${index}、${question.testQuestionTitle}
+                                <h3 class="subject_title">${index}、${question.testQuestionTitle}    <span class="small">分数：${scoreMap["${question.id}"]}</span>
                                 </h3>
                                 <#if (question.testQuestionContent?eval)?size gt 0>
                                     <#if type.id == 1>
@@ -55,21 +55,20 @@
                                 <#--<textarea class="comment" rows="10" tabindex="4"
                                           placeholder="答案"></textarea>-->
 
-                                    <div class="panel panel-warning">
-                                        <div class="panel-heading"></div>
-                                        <div class="panel-body">
-                                            <pre><p></p></pre>
-                                        </div>
-                                    </div>
+                                    <pre><p></p></pre>
                                 </#if>
                             </div>
                             <div class="col-md-6">
                                 <#assign ans = question.testQuestionShortAnswer?eval>
-                                <div class="form-group">
-                                    <label for="score${question.id}" class="control-label">得分：</label>
-                                    <input class="form-control" style="width:80px; " type="text"
-                                           id="score${question.id}" data-label="${questionnaire.id}S${question.id}"
-                                           value="${scoreSituation["${questionnaire.id}S${question.id}"]}"/>
+                                <div class="form-inline">
+                                    <div class="form-group">
+                                        <label for="score${question.id}" class="control-label">得分：</label>
+                                        <input class="form-control score" style="width:80px; " type="text"
+                                               id="score${question.id}" data-label="${questionnaire.id}S${question.id}"
+                                               value="${scoreSituation["${questionnaire.id}S${question.id}"]}"/>
+                                        <label class="tip control-label" id="score${question.id}-tip" aria-label="0">
+                                        </label>
+                                    </div>
                                 </div>
                                 <br/>
                                 <#if (question.testQuestionContent?eval)?size gt 0>
@@ -96,22 +95,19 @@
             </#list>
             </ul>
         </form>
-        <div class="row">
-            <div id="survey_progress" class="col-md-12">
-                <div class="progress-bar" role="progressbar"
-                     style="width: 0;height:20px;" id="min-progress">
-                    0
-                </div>
+    <#--<div class="row">
+        <div id="survey_progress" class="col-md-12">
+            <div class="progress-bar" role="progressbar"
+                 style="width: 0;height:20px;" id="min-progress">
+                0
             </div>
         </div>
+    </div>-->
         <div style="text-align: right">
             <button class="submit" type="submit" onclick="updateReply()">提交</button>
         </div>
     </div>
 </div>
-<script type="text/javascript"
-        src="${staticServePath}/static/js/lib/jquery.cookie.js?${staticResourceVersion}"></script>
-<script type="text/javascript" src="${staticServePath}/static/js/common.js?${staticResourceVersion}"></script>
 <script type="text/javascript">
     var proccer = 0;
     var max = ${questionSize};
@@ -137,9 +133,28 @@
         readAnswers();
         max = ${questionSize};
 
-        $('.point_item').on('ifChecked', addValue);
+        /*$('.point_item').on('ifChecked', addValue);
         $('.point_item').on('ifUnchecked', addValue);
-        $('textarea').on('input propertychange', addText);
+        $('textarea').on('input propertychange', addText);*/
+        $('.score').on('input onpropertychange', addProgress);
+        function addProgress() {
+            var x = 0;
+            var score = 0;
+            $('#wrapper').find('.score').each(function (index, dom) {
+                var val = $(dom).val();
+                var id = $(dom).attr('id');
+                if (val != null && val != '') {
+                    x++;
+                    console.log(Validate.isNum(val));
+                    if (Validate.isNum(val))
+                        score += parseInt(val);
+                    else
+                        Util.showTip($('#'+id+'-tip'), '请输入数字！', 'bg-danger', {time: 1500});
+                }
+            });
+            changeProgress(parseFloat((x / max * 100)).toFixed(2) + "%");
+            $('#icon-span').text(score);
+        }
 
         function readAnswers() {
             var x = 0;
@@ -161,14 +176,13 @@
                         i++;
                     }
                 });
-                if (i > 0)
-                    changeProgress(parseFloat((++proccer / max * 100)).toFixed(2) + "%");
             }
             //$('input').iCheck('disable');
+            addProgress();
             return x;
         }
 
-        function addText() {
+        /*function addText() {
             var val = $(this).val();
             var parent = $(this).parent();
             if (val != null && val != '') {
@@ -190,9 +204,9 @@
                 }
             }
 
-        }
+        }*/
 
-        function addValue() {
+        /*function addValue() {
             var ans = [];
             $(this).parent().find('input').each(function (index, dom) {
                 if ($(dom).prop('checked') == true) {
@@ -212,12 +226,12 @@
                     changeProgress(parseFloat((--proccer / max * 100)).toFixed(2) + "%");
                 delete answers[$(this).attr('data-label')];
             }
-        }
+        }*/
 
 
         function changeProgress(t) {
-            /*$('#min-progress').text(t);
-            $('#min-progress').css("width", t);*/
+            /*$('#min-progress').text(t);*/
+            $('#min-progress').css("width", t);
         }
     });
     function updateReply() {
@@ -235,7 +249,7 @@
                 "scoreSituation": JSON.stringify(scoreSituation),
                 "score": count
             },
-            type:'post',
+            type: 'post',
             dataType: 'json',
             success: function (data, status) {
                 $('#modal').modal('hide');

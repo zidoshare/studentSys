@@ -28,7 +28,8 @@
                             <span class="text-danger">尚未开始</span>
                         <#else>
                             <span class="text-gray">已完结</span>
-                        </#if></td>
+                        </#if>
+                        </td>
                         <td>
                             <#if (q.testQuestionnaireEndTime?number) < (nowTime?number)>
                                 <a href="#">查看</a>

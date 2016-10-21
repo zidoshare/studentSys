@@ -250,6 +250,7 @@ public class TestController extends BaseController {
         }
         tp.setScoreSituation(getPara("scoreSituation"));
         tp.setScore(getParaToInt("score"));
+        tp.setCorrecting(Common.VALUE_VISIBLE);
         if (testReplyService._updateTestReply(tp)) {
             RenderKit.renderSuccess(this, "提交成功");
             return;
@@ -321,13 +322,32 @@ public class TestController extends BaseController {
         }
         setAttr("userMap", userMap);
     }
-
+    public void delayTest(){
+        Integer qcId = getParaToInt(0);
+        TestQuestionnaireClass tqc = testQuestionnaireClassService.getById(qcId);
+        if(tqc == null){
+            RenderKit.renderError(this,"未找到試卷");
+            return ;
+        }
+        Long temp = tqc.getTestQuestionnaireTempTime();
+        tqc.setTestQuestionnaireTempTime(tqc.getTestQuestionnaireEndTime());
+        tqc.setTestQuestionnaireEndTime(temp);
+        tqc.update();
+        RenderKit.renderSuccess(this,"成功");
+    }
+    public void closeTest(){
+        delayTest();
+    }
     public void count() {
         setMapping(mappingService.getMappingByUrl("/test/count"));
         super.index();
+        Integer classId = getParaToInt(0);
         List<Class> classes = classService.getAllClass();
         List<TestQuestionnaire> questionnaires = new ArrayList<>();
-        if (classes.size() > 0) {
+        Class ac = classService.getClassById(classId);
+        if(ac != null){
+            questionnaires = testQuestionnaireService.getQuestionnairesByClass(ac);
+        } else if (classes.size() > 0) {
             questionnaires = testQuestionnaireService.getQuestionnairesByClass(classes.get(0));
         }
         setAttr("nowTime", System.currentTimeMillis());
@@ -504,7 +524,18 @@ public class TestController extends BaseController {
 
     @Before(POST.class)
     public void deleteTestQuestion() {
-
+        Integer id = getParaToInt(0);
+        if (id == null) {
+            RenderKit.renderError(this, "该问题不存在或已被删除");
+            return;
+        }
+        TestQuestion tq = testQuestionService.getQuestionById(id);
+        if (tq == null) {
+            RenderKit.renderError(this, "该问题不存在或已被删除");
+            return;
+        }
+        tq.delete();
+        RenderKit.renderSuccess(this, "删除成功");
     }
 
     @Before(POST.class)

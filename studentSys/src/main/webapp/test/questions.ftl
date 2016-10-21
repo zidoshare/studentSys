@@ -75,7 +75,7 @@
                                             </div>
                                             <p><label>答案:</label></p>
                                             <#list question.testQuestionShortAnswer?eval as answer>
-                                                <span class="short-answer">${answer}</span>
+                                                <span class="short-answer">${xx[answer?number]}</span>
                                             </#list>
                                         </div>
                                     <#else>
@@ -203,10 +203,8 @@
         $(this).siblings('tr.question-panel').addClass("sr-only");
 
         if(isHave){
-
             dom.removeClass("sr-only");
         }
-
         else{
             dom.addClass("sr-only");
         }

@@ -142,48 +142,52 @@ var Validate = {
                 break;
         }
         return isValidate;
+    },
+    isNum: function (str) {
+        var reg = new RegExp("^[0-9]*$");
+        return reg.test(str);
     }
 };
 
 var Util = {
-    formatText:function(str){
-        str = str.replace(/\r/g,"");
-        str = str.replace(/on(load|click|dbclick|mouseover|mousedown|mouseup)="[^"]+"/ig,"");
-        str = str.replace(/<script[^>]*?>([\w\W]*?)<\/script>/ig,"");
-        str = str.replace(/<style[^>]*?>([\w\W]*?)<\/stylet>/ig,"");
-        str = str.replace(/<embed[^>]*?>([\w\W]*?)<\/embed>/ig,"");
+    formatText: function (str) {
+        str = str.replace(/\r/g, "");
+        str = str.replace(/on(load|click|dbclick|mouseover|mousedown|mouseup)="[^"]+"/ig, "");
+        str = str.replace(/<script[^>]*?>([\w\W]*?)<\/script>/ig, "");
+        str = str.replace(/<style[^>]*?>([\w\W]*?)<\/stylet>/ig, "");
+        str = str.replace(/<embed[^>]*?>([\w\W]*?)<\/embed>/ig, "");
 
-        str = str.replace(/<a[^>]+href="([^"]+)"[^>]*>(.*?)<\/a>/ig,"[url=$1]$2[/url]");
-        str = str.replace(/<font[^>]+color=([^ >]+)[^>]*>(.*?)<\/font>/ig,"[color=$1]$2[/color]");
-        str = str.replace(/<img[^>]+src="([^"]+)"[^>]*>/ig,"[img]$1[/img]");
-        str = str.replace(/<param NAME="Movie" value="([^>"]+\.swf)"[^>]*>/ig,"[flash]$1[/flash]");
+        str = str.replace(/<a[^>]+href="([^"]+)"[^>]*>(.*?)<\/a>/ig, "[url=$1]$2[/url]");
+        str = str.replace(/<font[^>]+color=([^ >]+)[^>]*>(.*?)<\/font>/ig, "[color=$1]$2[/color]");
+        str = str.replace(/<img[^>]+src="([^"]+)"[^>]*>/ig, "[img]$1[/img]");
+        str = str.replace(/<param NAME="Movie" value="([^>"]+\.swf)"[^>]*>/ig, "[flash]$1[/flash]");
 
-        str = str.replace(/<([\/]?)b>/ig,"[$1b]");
-        str = str.replace(/<([\/]?)strong>/ig,"[$1b]");
-        str = str.replace(/<([\/]?)u>/ig,"[$1u]");
-        str = str.replace(/<([\/]?)i>/ig,"[$1i]");
+        str = str.replace(/<([\/]?)b>/ig, "[$1b]");
+        str = str.replace(/<([\/]?)strong>/ig, "[$1b]");
+        str = str.replace(/<([\/]?)u>/ig, "[$1u]");
+        str = str.replace(/<([\/]?)i>/ig, "[$1i]");
 
-        str = str.replace(/&nbsp;/g," ");
-        str = str.replace(/&amp;/g,"&");
-        str = str.replace(/&quot;/g,"\"");
-        str = str.replace(/&lt;/g,"<");
-        str = str.replace(/&gt;/g,">");
+        str = str.replace(/&nbsp;/g, " ");
+        str = str.replace(/&amp;/g, "&");
+        str = str.replace(/&quot;/g, "\"");
+        str = str.replace(/&lt;/g, "<");
+        str = str.replace(/&gt;/g, ">");
 
-        str = str.replace(/\[url=([^\]]+)]\[img]/g,"[img]");
-        str = str.replace(/\[\/img]\[\/url]/g,"[/img]");
+        str = str.replace(/\[url=([^\]]+)]\[img]/g, "[img]");
+        str = str.replace(/\[\/img]\[\/url]/g, "[/img]");
 
         //str = str.replace(/<br>/ig,"\n");
         //str = str.replace(/<[^>]*?>/g,"");
 
         //str = str.replace(/\n+/g,"\n");
-        str = str.replace(/\n/im,"<br/>");
+        str = str.replace(/\n/im, "<br/>");
         return str;
     },
-    redrawSelects:function(){
+    redrawSelects: function () {
         //从源码中找到的重绘selectpicker代码
         $(".selectpicker").each(function () {
             var b = $(this);
-            $.fn.selectpicker.call(b, b.data())
+            $(this).selectpicker(b, b.data());
         });
     },
     reloadByPjax: function (container) {
@@ -283,7 +287,7 @@ var Util = {
             s = s.prev();
         }
         item = String.fromCharCode(item.charCodeAt() + op);
-        var checkDom = '<div class="checkbox3 checkbox-success checkbox-inline checkbox-check checkbox-round  checkbox-light"> <input type="checkbox" data-label = '+ op +' id="' + item + '"> <label for="' + item + '"> ' + item + ' </label> </div>';
+        var checkDom = '<div class="checkbox3 checkbox-success checkbox-inline checkbox-check checkbox-round  checkbox-light"> <input type="checkbox" data-label = ' + op + ' id="' + item + '"> <label for="' + item + '"> ' + item + ' </label> </div>';
         $("#add").before("<div class=\"select form-group\">" + checkDom + "<textarea class=\"form-control\" rows=\"2\" id='testQuestionOption" + op + "'></textarea>" +
             "</div>");
     },
@@ -573,7 +577,7 @@ var func = {
                             time: 1000,
                             complete: function () {
                                 modalUtil.toggleClear($('#addTestQuestion'));
-                                $('#addTestQuestion').on('hidden.bs.modal',function(){
+                                $('#addTestQuestion').on('hidden.bs.modal', function () {
                                     //刷新页面
                                     Util.reloadByPjax('#page-inner');
                                 })
@@ -676,7 +680,7 @@ var func = {
                         Util.showTip($('#saveClassTip'), data.msg, 'alert alert-success', {
                             time: 1000, complete: function () {
                                 $('#addClassModel').modal('hide');
-                                $('#addClassModel').on('hidden.bs.modal',function(){
+                                $('#addClassModel').on('hidden.bs.modal', function () {
                                     //刷新页面
                                     Util.reloadByPjax();
                                 })
@@ -828,6 +832,29 @@ var func = {
                 }
             });
         }
+    },
+    deleteTestQuestion: function (method, id) {
+        if (confirm("确认删除？")) {
+            $.ajax({
+                url: Label.staticServePath + "/test/deleteTestQuestion/" + id,
+                type: 'post',
+                success: function (data, status) {
+                    if(data.state == 'success'){
+                        Util.showTip($('#wholeTip'), data.msg, "alert alert-success", {
+                            before: function () {
+                                $('tr#tr' + id).remove();
+                                $('tr#show-tr'+id).remove();
+                            }
+                        });
+                    }else{
+                        Util.showTip($('#wholeTip'), data.msg, "alert alert-danger");
+                    }
+                },
+                error: function () {
+                    Util.showTip($('#wholeTip'), '服务器错误', "alert alert-danger");
+                }
+            });
+        }
     }
     , deleteClass: function (method, id) {
         if (confirm("确认删除？")) {
@@ -904,6 +931,35 @@ var func = {
                 }
             }
         });
+    },
+    tempTest:function(id,option){
+        $.ajax({
+            url:Label.staticServePath+'/test/delayTest/'+id,
+            dataType:'json',
+            success:function(data,status){
+                option(data);
+            }
+        })
+    },
+    delayTest:function(id){
+        func.tempTest(id,function(data){
+            if(data.state == 'success'){
+                Util.showTip($('#wholeTip'),data.msg,'alert alert-success');
+                Util.reloadByPjax();
+            }else{
+                Util.showTip($('#wholeTip'),data.msg,'alert alert-danger');
+            }
+        })
+    },
+    closeTest:function(id){
+        func.tempTest(id,function(data){
+            if(data.state == 'success'){
+                Util.showTip($('#wholeTip'),data.msg,'alert alert-success');
+                Util.reloadByPjax();
+            }else{
+                Util.showTip($('#wholeTip'),data.msg,'alert alert-danger');
+            }
+        })
     }
 };
 var modalUtil = {

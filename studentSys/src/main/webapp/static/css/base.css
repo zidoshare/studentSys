@@ -236,7 +236,7 @@ ul.nav li:hover {
     font-family: inherit;
     color: #ff6a16 !important;
     font-weight: 500 !important;
-    font-size: 36px !important;
+    font-size: 25px !important;
     position: relative;
 }
 
@@ -248,10 +248,10 @@ ul.nav li:hover {
 .title:before {
     content: '';
     display: inline-block;
-    width: 5px;
-    height: 39px;
+    width: 4px;
+    height: 25px;
     position: absolute;
-    top: 17px;
+    top: 16px;
     left: 0;
     background: #ff6a16;
 }

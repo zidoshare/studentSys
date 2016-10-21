@@ -145,9 +145,9 @@
         function readAnswers() {
             for (var key in answers) {
                 var i = 0;
-                var dom = $('#' + key);
+                var dom = $('#'+key);
                 dom.find('input,textarea').each(function (index, dom) {
-                    if ($(dom).is('textarea')) {
+                    if($(dom).is('textarea')){
                         $(dom).val(answers[key]);
                         i++;
                         var parent = $(dom).parent();
@@ -168,6 +168,7 @@
 
         function addText() {
             var val = $(this).val();
+
             var parent = $(this).parent();
             if (val != null && val != '') {
                 answers[parent.attr('id')] = [val];
@@ -194,7 +195,7 @@
             var ans = [];
             $(this).parent().find('input').each(function (index, dom) {
                 if ($(dom).prop('checked') == true) {
-                    ans.push(index + '');
+                    ans.push(index+'');
                 }
             });
             var len = 0;

@@ -1,7 +1,7 @@
 <a class="btn pull-right">&times;</a>
 <div class="panel-body">
-    <div id="dataTables-example_wrapper" class="table-responsive dataTables_wrapper form-inline" role="grid">
-        <table class="table table-striped table-bordered table-hover dataTable no-footer"
+    <div id="dataTables-example_wrapper" class="table-responsive" role="grid">
+        <table class="table"
                id="dataTables-example" aria-describedby="dataTables-example_info">
             <thead>
             <tr>

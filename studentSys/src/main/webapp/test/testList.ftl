@@ -240,7 +240,6 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="${staticServePath}/static/js/lib/bootstrap-select.min.js"></script>
 <script type="text/javascript">
     var isChanged = true;
     $('#tabBtn2').on('shown.bs.tab', function (e) {
@@ -250,8 +249,9 @@
         if (!$('#tab2_loading').hasClass('sr-only')) {
             $('#load_questions').load('${staticServePath}/test/selectQuestions', function (response, status, xhr) {
                 //TODO  当服务器重启而页面不刷新时，点击会发生错误，尚未处理掉，会发生错误
-                if (status == 'success')
+                if (status == 'success'){
                     $('#tab2_loading').addClass('sr-only');
+                }
                 else
                     window.location.href = '${staticServePath}/user/showLogin';
             });
