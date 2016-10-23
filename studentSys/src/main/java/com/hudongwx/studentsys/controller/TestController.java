@@ -322,22 +322,25 @@ public class TestController extends BaseController {
         }
         setAttr("userMap", userMap);
     }
-    public void delayTest(){
+
+    public void delayTest() {
         Integer qcId = getParaToInt(0);
         TestQuestionnaireClass tqc = testQuestionnaireClassService.getById(qcId);
-        if(tqc == null){
-            RenderKit.renderError(this,"未找到試卷");
-            return ;
+        if (tqc == null) {
+            RenderKit.renderError(this, "未找到試卷");
+            return;
         }
         Long temp = tqc.getTestQuestionnaireTempTime();
         tqc.setTestQuestionnaireTempTime(tqc.getTestQuestionnaireEndTime());
         tqc.setTestQuestionnaireEndTime(temp);
         tqc.update();
-        RenderKit.renderSuccess(this,"成功");
+        RenderKit.renderSuccess(this, "成功");
     }
-    public void closeTest(){
+
+    public void closeTest() {
         delayTest();
     }
+
     public void count() {
         setMapping(mappingService.getMappingByUrl("/test/count"));
         super.index();
@@ -345,14 +348,16 @@ public class TestController extends BaseController {
         List<Class> classes = classService.getAllClass();
         List<TestQuestionnaire> questionnaires = new ArrayList<>();
         Class ac = classService.getClassById(classId);
-        if(ac != null){
+        if (classes.size() > 0 && ac == null) {
+            ac = classes.get(0);
+        }
+        if (ac != null) {
             questionnaires = testQuestionnaireService.getQuestionnairesByClass(ac);
-        } else if (classes.size() > 0) {
-            questionnaires = testQuestionnaireService.getQuestionnairesByClass(classes.get(0));
         }
         setAttr("nowTime", System.currentTimeMillis());
         setAttr("questionnaires", questionnaires);
         setAttr("classes", classes);
+        setAttr("nowClass", ac);
     }
 
     public void getResults() {

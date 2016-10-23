@@ -279,6 +279,9 @@
 
         //补0操作
         function getzf(num) {
+            if(parseInt(num) > 100){
+                return 'max';
+            }
             if (parseInt(num) < 10) {
                 num = '0' + num;
             }

@@ -65,7 +65,7 @@
                                         <label for="score${question.id}" class="control-label">得分：</label>
                                         <input class="form-control score" style="width:80px; " type="text"
                                                id="score${question.id}" data-label="${questionnaire.id}S${question.id}"
-                                               value="${scoreSituation["${questionnaire.id}S${question.id}"]}"/>
+                                               value="<#if (question.testQuestionContent?eval)?size gt 0>${scoreSituation["${questionnaire.id}S${question.id}"]}</#if>"/>
                                         <label class="tip control-label" id="score${question.id}-tip" aria-label="0">
                                         </label>
                                     </div>

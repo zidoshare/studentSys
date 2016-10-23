@@ -1,4 +1,4 @@
-<a class="btn pull-right">&times;</a>
+<a class="btn pull-right" onclick="closeResults()">&times;</a>
 <div class="panel-body">
     <div id="dataTables-example_wrapper" class="table-responsive" role="grid">
         <table class="table"
@@ -34,5 +34,8 @@
         dom.removeClass('sr-only');
         loadResult(dom,"${staticServePath}/test/showCorrecting/${testQuestionnaireClass.id}-"+studentId);
         $('#modal').modal('show');
+    }
+    function closeResults(){
+        $('.tr-show').addClass('sr-only');
     }
 </script>

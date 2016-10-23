@@ -138,7 +138,7 @@ Table: stumanager_test_questionnaire_class
  testQuestionnaireId        | int(10)    | NO   |     |         |         
  testQuestionnaireStartTime | bigint(19) | NO   |     |         |         
  testQuestionnaireEndTime   | bigint(19) | NO   |     |         |         
- testQuestionnaireTempTime  | bigint(19) | YES  |     | 0       | 用于标记时间  
+ testQuestionnaireTempTime  | bigint(19) | NO   |     | 0       | 用于标记时间  
 ----------------------------+------------+------+-----+---------+---------
 
 Table: stumanager_test_questionnaire_question

@@ -14,7 +14,7 @@
                         class="selectpicker  show-menu-arrow form-control"
                         data-live-search="true">
                     <#list classes as class>
-                        <option value="${class.id}">${class.className}</option>
+                        <option value="${class.id}" <#if nowClass.id == class.id>selected</#if>>${class.className}</option>
                     </#list>
                 </select>
             </div>
@@ -42,7 +42,7 @@
                     <tr id="${q.testQuestionnaireClassId}" data-label="open-check">
                         <td>${q.testQuestionnaireTitle}</td>
                         <td>${((q.testQuestionnaireStartTime)?number)?number_to_datetime}</td>
-                        <td>${((q.testQuestionnaireEndTime)?number)?number_to_datetime}</td>
+                        <td><#if q.testQuestionnaireTempTime?number == 5000000000000>${((q.testQuestionnaireEndTime)?number)?number_to_datetime}<#else>max</#if></td>
                         <td><#if (q.testQuestionnaireStartTime?number) < (nowTime?number) && (q.testQuestionnaireEndTime?number) gt (nowTime?number)>
                             <span class="text-success">正在进行中</span>
                         <#elseif (q.testQuestionnaireStartTime?number) gt (nowTime?number)>
@@ -53,16 +53,16 @@
                         </td>
                         <td>
                             <#list map["operators"+view.id] as op>
-                                <#if q.testQuestionnaireTempTime == 0 && op.url="delayTest">
-                                    <a class="res" onclick="func.${op.url}('${q.testQuestionnaireClassId}'')">${op.title}</a>
-                                <#elseif  q.testQuestionnaireTempTime gt 0 && op.url="closeTest">
+                                <#if q.testQuestionnaireTempTime?number == 5000000000000 && op.url="delayTest">
+                                    <a class="res" onclick="func.${op.url}('${q.testQuestionnaireClassId}')">${op.title}</a>
+                                <#elseif  q.testQuestionnaireTempTime?number < 5000000000000 && op.url="closeTest">
                                     <a class="res" onclick="func.${op.url}('${q.testQuestionnaireClassId}')">${op.title}</a>
                                 </#if>
                             </#list>
                         </td>
                     </tr>
                     <tr class="sr-only tr-show">
-                        <td colspan="4">
+                        <td colspan="5">
                             <div class="pan"></div>
                             <div class="panel_loading">
                                 <img src="${staticServePath}/images/loading.gif" class="img-sm center-block"/>
@@ -116,23 +116,14 @@
         Util.redrawSelects();
     });
     $('.selectpicker').on('changed.bs.select', function (event, index, newValue, oldValue) {
-        console.log(event, index, newValue, oldValue);
         $.pjax({
             url: '${staticServePath}/test/count/' + classes[index],
-            container: '#table-inner',
-            fragment: '#table-inner',
+            container: '#page-inner',
+            fragment: '#page-inner',
             cache: true,
             maxCacheLength: 5,
             storage: false,
             replace: true
-        });
-        $('#table-inner').on('pjax:beforeSend', function () { //pjax链接点击后显示加载动画；
-            console.log('before');
-            event.preventDefault();
-        });
-        $('#table-inner').on('pjax:complete', function () { //pjax链接加载完成后隐藏加载动画；
-            console.log('complete');
-            event.preventDefault();
         });
     });
     $('tr[data-label="open-check"]').on("click", function () {
