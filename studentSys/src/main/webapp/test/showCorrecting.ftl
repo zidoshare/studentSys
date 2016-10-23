@@ -235,11 +235,19 @@
         }
     });
     function updateReply() {
+        if($('#min-progress').css("width")!='100%'){
+            if(!confirm('你尚未完成所有题目的阅卷，确认提交？')){
+                return ;
+            }
+        }
         var count = 0;
         var scoreSituation = {};
         $('li.subject input[type=text]').each(function (index, dom) {
             var key = $(dom).attr('data-label');
             var score = parseInt($(dom).val());
+            if(!Validate.isNum(score)){
+                return true;
+            }
             scoreSituation[key] = score;
             count += score;
         });
