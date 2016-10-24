@@ -10,11 +10,13 @@
             <table class="table table-striped table-bordered table-hover dataTable no-footer"
                    id="dataTables-example" aria-describedby="dataTables-example_info">
                 <thead>
-                <th>试卷</th>
-                <th>开始时间</th>
-                <th>结束时间</th>
-                <th>状态</th>
-                <th>操作</th>
+                <tr>
+                    <th>试卷</th>
+                    <th>开始时间</th>
+                    <th>结束时间</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
                 </thead>
                 <tbody>
                     <#list testing as q>

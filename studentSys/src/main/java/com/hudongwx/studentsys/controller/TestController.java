@@ -345,6 +345,7 @@ public class TestController extends BaseController {
         setMapping(mappingService.getMappingByUrl("/test/count"));
         super.index();
         Integer classId = getParaToInt(0);
+        Integer p = getParaToInt("p");
         List<Class> classes = classService.getAllClass();
         List<TestQuestionnaire> questionnaires = new ArrayList<>();
         Class ac = classService.getClassById(classId);
@@ -354,6 +355,7 @@ public class TestController extends BaseController {
         if (ac != null) {
             questionnaires = testQuestionnaireService.getQuestionnairesByClass(ac);
         }
+
         setAttr("nowTime", System.currentTimeMillis());
         setAttr("questionnaires", questionnaires);
         setAttr("classes", classes);

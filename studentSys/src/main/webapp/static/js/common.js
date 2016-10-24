@@ -150,6 +150,19 @@ var Validate = {
 };
 
 var Util = {
+    reBindPjax:function(selector){
+        if(selector == null)
+            selector = '#table-inner';
+        $(selector).on('pjax:beforeSend', function (event) { //如果是table层级发生事件，阻止冒泡
+            $(this).children('table').html('');
+            $(this).children('.table_pjax_loading').first().removeClass('sr-only');
+            event.stopPropagation();
+        });
+        $(selector).on('pjax:complete', function (event) { //如果是table层级发生事件，阻止冒泡
+            $(this).children('.table_pjax_loading').first().addClass('sr-only');
+            event.stopPropagation();
+        });
+    },
     formatText: function (str) {
         str = str.replace(/\r/g, "");
         str = str.replace(/on(load|click|dbclick|mouseover|mousedown|mouseup)="[^"]+"/ig, "");
@@ -945,7 +958,7 @@ var func = {
         func.tempTest(id,function(data){
             if(data.state == 'success'){
                 Util.showTip($('#wholeTip'),data.msg,'alert alert-success');
-                Util.reloadByPjax();
+                Util.reloadByPjax('#table-inner');
             }else{
                 Util.showTip($('#wholeTip'),data.msg,'alert alert-danger');
             }
@@ -955,7 +968,7 @@ var func = {
         func.tempTest(id,function(data){
             if(data.state == 'success'){
                 Util.showTip($('#wholeTip'),data.msg,'alert alert-success');
-                Util.reloadByPjax();
+                Util.reloadByPjax('#table-inner');
             }else{
                 Util.showTip($('#wholeTip'),data.msg,'alert alert-danger');
             }

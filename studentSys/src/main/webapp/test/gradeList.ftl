@@ -23,8 +23,9 @@
 </div>
 <div class="panel-body">
     <div id="table-inner">
-
-
+        <div class="table_pjax_loading sr-only">
+            <img src="${staticServePath}/images/loading.gif" class="img-sm center-block"/>
+        </div>
         <div id="dataTables-example_wrapper" class="table-responsive dataTables_wrapper form-inline" role="grid">
             <table class="table table-striped table-bordered table-hover dataTable no-footer"
                    id="dataTables-example" aria-describedby="dataTables-example_info">
@@ -118,10 +119,11 @@
     $('.selectpicker').on('changed.bs.select', function (event, index, newValue, oldValue) {
         $.pjax({
             url: '${staticServePath}/test/count/' + classes[index],
-            container: '#page-inner',
-            fragment: '#page-inner',
+            container: '#table-inner',
+            fragment: '#table-inner',
             cache: true,
             maxCacheLength: 5,
+            timeout:8000,
             storage: false,
             replace: true
         });

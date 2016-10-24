@@ -27,7 +27,7 @@
 <link rel="stylesheet" href="${staticServePath}/static/css/lib/bootstrap-datetimepicker.min.css?${staticResourceVersion}"/>
 
 <link rel="stylesheet" href="${staticServePath}/static/css/style.css?${staticResourceVersion}"/>
-
+<link rel="stylesheet" href="${staticServePath}/static/css/lib/kkpager_orange.css?${staticResourceVersion}">
 <script src="${staticServePath}/static/js/lib/jquery-2.1.1.min.js?${staticResourceVersion}"
         type="text/javascript"></script>
 <#--<script src="${staticServePath}/assets/js/jquery-1.10.2.js?${staticResourceVersion}"></script>-->
@@ -63,6 +63,7 @@
 <script type="text/javascript" src="assets/js/chartjs.js?${staticResourceVersion}"></script>-->
 <!-- pjax -->
 <script type="text/javascript" src="${staticServePath}/static/js/lib/jquery.pjax.js?${staticResourceVersion}"></script>
-<script type="text/javascript" src="${staticServePath}/static/js/lib/jquery.cookie.js"></script>
-<script type="text/javascript" src="${staticServePath}/static/js/lib/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="${staticServePath}/static/js/lib/jquery.cookie.js?${staticResourceVersion}"></script>
+<script type="text/javascript" src="${staticServePath}/static/js/lib/bootstrap-select.min.js?${staticResourceVersion}"></script>
+
 </#macro>

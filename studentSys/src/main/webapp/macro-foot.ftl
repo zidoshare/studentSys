@@ -19,16 +19,20 @@
                 storage: false,
                 replace: true
             });
+            $('#page-inner').on('pjax:beforeSend', function () { //pjax链接点击后显示加载动画；
+                $('#page-inner').html('');
+                $('.pjax_loading').css("display", "block");
+            });
+            $('#page-inner').on('pjax:complete', function () { //pjax链接加载完成后隐藏加载动画；
+                $('.pjax_loading').css('display', 'none');
+                Animate.loadWrapper();
+                //当pjax链接启用后，重新绑定
+                Util.reBindPjax();
+            });
+            Util.reBindPjax();
         }
     });
-    $('#page-inner').on('pjax:beforeSend', function () { //pjax链接点击后显示加载动画；
-        $('#page-inner').html('');
-        $('.pjax_loading').css("display", "block");
-    });
-    $('#page-inner').on('pjax:complete', function () { //pjax链接加载完成后隐藏加载动画；
-        $('.pjax_loading').css('display', 'none');
-        Animate.loadWrapper();
-    });
+
     $('#main-menu').find('li').on('click', function () {
         $('#main-menu').find('li').removeClass('active-menu');
         $(this).addClass('active-menu');
