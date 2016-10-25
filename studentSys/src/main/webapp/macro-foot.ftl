@@ -12,6 +12,13 @@
     };
     $(function () {
         if ($.support.pjax) {
+            $('#table-inner').pjax('a[data-label="#table-inner"]','#table-inner',{
+                fragment: '#table-inner',
+                cache: true,
+                maxCacheLength: 5,
+                storage: false,
+                replace: true
+            });
             $(document).pjax('a[target!="_blank"]', '#page-inner', {
                 fragment: '#page-inner',
                 cache: true,

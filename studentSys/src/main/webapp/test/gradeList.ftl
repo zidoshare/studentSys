@@ -1,4 +1,5 @@
 <#include "../macro-item.ftl">
+<#include "../macro-paginate.ftl">
 <link rel="stylesheet" href="${staticServePath}/static/css/lib/bootstrap-select.min.css">
 
 <@item>
@@ -75,7 +76,10 @@
                 </tbody>
             </table>
         </div>
+        <@paginate page = page url=holdPath+"?">
+        </@paginate>
     </div>
+
 </div>
 <div class="modal fade bs-example-modal-lg" id="modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
      aria-hidden="true">
@@ -126,6 +130,14 @@
             timeout:8000,
             storage: false,
             replace: true
+        });
+    });
+    $('#table-inner').on('pjax:complete',function(){
+        $('tr[data-label="open-check"]').on("click", function () {
+            $(this).siblings('.tr-show').addClass('sr-only');
+            var dom = $(this).next();
+            dom.removeClass('sr-only');
+            loadResult(dom, "${staticServePath}/test/getResults/" + $(this).attr('id'));
         });
     });
     $('tr[data-label="open-check"]').on("click", function () {

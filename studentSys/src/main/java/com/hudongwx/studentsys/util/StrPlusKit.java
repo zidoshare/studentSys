@@ -28,9 +28,9 @@ public class StrPlusKit extends StrKit {
 
     public static boolean isBlank(String str) {
         int strLen;
-        if(str != null && (strLen = str.length()) != 0) {
-            for(int i = 0; i < strLen; ++i) {
-                if(!Character.isWhitespace(str.charAt(i))) {
+        if (str != null && (strLen = str.length()) != 0) {
+            for (int i = 0; i < strLen; ++i) {
+                if (!Character.isWhitespace(str.charAt(i))) {
                     return false;
                 }
             }
@@ -45,43 +45,45 @@ public class StrPlusKit extends StrKit {
         return !isBlank(str);
     }
 
-    /** @deprecated */
+    /**
+     * @deprecated
+     */
     public static String clean(String str) {
-        return str == null?"":str.trim();
+        return str == null ? "" : str.trim();
     }
 
     public static String trim(String str) {
-        return str == null?null:str.trim();
+        return str == null ? null : str.trim();
     }
 
     public static String trimToNull(String str) {
         String ts = trim(str);
-        return isEmpty(ts)?null:ts;
+        return isEmpty(ts) ? null : ts;
     }
 
     public static String trimToEmpty(String str) {
-        return str == null?"":str.trim();
+        return str == null ? "" : str.trim();
     }
 
     public static String strip(String str) {
-        return strip(str, (String)null);
+        return strip(str, (String) null);
     }
 
     public static String stripToNull(String str) {
-        if(str == null) {
+        if (str == null) {
             return null;
         } else {
-            str = strip(str, (String)null);
-            return str.length() == 0?null:str;
+            str = strip(str, (String) null);
+            return str.length() == 0 ? null : str;
         }
     }
 
     public static String stripToEmpty(String str) {
-        return str == null?"":strip(str, (String)null);
+        return str == null ? "" : strip(str, (String) null);
     }
 
     public static String strip(String str, String stripChars) {
-        if(isEmpty(str)) {
+        if (isEmpty(str)) {
             return str;
         } else {
             str = stripStart(str, stripChars);
@@ -91,18 +93,18 @@ public class StrPlusKit extends StrKit {
 
     public static String stripStart(String str, String stripChars) {
         int strLen;
-        if(str != null && (strLen = str.length()) != 0) {
+        if (str != null && (strLen = str.length()) != 0) {
             int start = 0;
-            if(stripChars == null) {
-                while(start != strLen && Character.isWhitespace(str.charAt(start))) {
+            if (stripChars == null) {
+                while (start != strLen && Character.isWhitespace(str.charAt(start))) {
                     ++start;
                 }
             } else {
-                if(stripChars.length() == 0) {
+                if (stripChars.length() == 0) {
                     return str;
                 }
 
-                while(start != strLen && stripChars.indexOf(str.charAt(start)) != -1) {
+                while (start != strLen && stripChars.indexOf(str.charAt(start)) != -1) {
                     ++start;
                 }
             }
@@ -115,17 +117,17 @@ public class StrPlusKit extends StrKit {
 
     public static String stripEnd(String str, String stripChars) {
         int end;
-        if(str != null && (end = str.length()) != 0) {
-            if(stripChars == null) {
-                while(end != 0 && Character.isWhitespace(str.charAt(end - 1))) {
+        if (str != null && (end = str.length()) != 0) {
+            if (stripChars == null) {
+                while (end != 0 && Character.isWhitespace(str.charAt(end - 1))) {
                     --end;
                 }
             } else {
-                if(stripChars.length() == 0) {
+                if (stripChars.length() == 0) {
                     return str;
                 }
 
-                while(end != 0 && stripChars.indexOf(str.charAt(end - 1)) != -1) {
+                while (end != 0 && stripChars.indexOf(str.charAt(end - 1)) != -1) {
                     --end;
                 }
             }
@@ -137,15 +139,15 @@ public class StrPlusKit extends StrKit {
     }
 
     public static String[] stripAll(String[] strs) {
-        return stripAll(strs, (String)null);
+        return stripAll(strs, (String) null);
     }
 
     public static String[] stripAll(String[] strs, String stripChars) {
         int strsLen;
-        if(strs != null && (strsLen = strs.length) != 0) {
+        if (strs != null && (strsLen = strs.length) != 0) {
             String[] newArr = new String[strsLen];
 
-            for(int i = 0; i < strsLen; ++i) {
+            for (int i = 0; i < strsLen; ++i) {
                 newArr[i] = strip(strs[i], stripChars);
             }
 
@@ -156,23 +158,23 @@ public class StrPlusKit extends StrKit {
     }
 
     public static boolean equals(String str1, String str2) {
-        return str1 == null?str2 == null:str1.equals(str2);
+        return str1 == null ? str2 == null : str1.equals(str2);
     }
 
     public static boolean equalsIgnoreCase(String str1, String str2) {
-        return str1 == null?str2 == null:str1.equalsIgnoreCase(str2);
+        return str1 == null ? str2 == null : str1.equalsIgnoreCase(str2);
     }
 
     public static int indexOf(String str, char searchChar) {
-        return isEmpty(str)?-1:str.indexOf(searchChar);
+        return isEmpty(str) ? -1 : str.indexOf(searchChar);
     }
 
     public static int indexOf(String str, char searchChar, int startPos) {
-        return isEmpty(str)?-1:str.indexOf(searchChar, startPos);
+        return isEmpty(str) ? -1 : str.indexOf(searchChar, startPos);
     }
 
     public static int indexOf(String str, String searchStr) {
-        return str != null && searchStr != null?str.indexOf(searchStr):-1;
+        return str != null && searchStr != null ? str.indexOf(searchStr) : -1;
     }
 
     public static int ordinalIndexOf(String str, String searchStr, int ordinal) {
@@ -180,26 +182,26 @@ public class StrPlusKit extends StrKit {
     }
 
     private static int ordinalIndexOf(String str, String searchStr, int ordinal, boolean lastIndex) {
-        if(str != null && searchStr != null && ordinal > 0) {
-            if(searchStr.length() == 0) {
-                return lastIndex?str.length():0;
+        if (str != null && searchStr != null && ordinal > 0) {
+            if (searchStr.length() == 0) {
+                return lastIndex ? str.length() : 0;
             } else {
                 int found = 0;
-                int index = lastIndex?str.length():-1;
+                int index = lastIndex ? str.length() : -1;
 
                 do {
-                    if(lastIndex) {
+                    if (lastIndex) {
                         index = str.lastIndexOf(searchStr, index - 1);
                     } else {
                         index = str.indexOf(searchStr, index + 1);
                     }
 
-                    if(index < 0) {
+                    if (index < 0) {
                         return index;
                     }
 
                     ++found;
-                } while(found < ordinal);
+                } while (found < ordinal);
 
                 return index;
             }
@@ -209,7 +211,7 @@ public class StrPlusKit extends StrKit {
     }
 
     public static int indexOf(String str, String searchStr, int startPos) {
-        return str != null && searchStr != null?(searchStr.length() == 0 && startPos >= str.length()?str.length():str.indexOf(searchStr, startPos)):-1;
+        return str != null && searchStr != null ? (searchStr.length() == 0 && startPos >= str.length() ? str.length() : str.indexOf(searchStr, startPos)) : -1;
     }
 
     public static int indexOfIgnoreCase(String str, String searchStr) {
@@ -217,19 +219,19 @@ public class StrPlusKit extends StrKit {
     }
 
     public static int indexOfIgnoreCase(String str, String searchStr, int startPos) {
-        if(str != null && searchStr != null) {
-            if(startPos < 0) {
+        if (str != null && searchStr != null) {
+            if (startPos < 0) {
                 startPos = 0;
             }
 
             int endLimit = str.length() - searchStr.length() + 1;
-            if(startPos > endLimit) {
+            if (startPos > endLimit) {
                 return -1;
-            } else if(searchStr.length() == 0) {
+            } else if (searchStr.length() == 0) {
                 return startPos;
             } else {
-                for(int i = startPos; i < endLimit; ++i) {
-                    if(str.regionMatches(true, i, searchStr, 0, searchStr.length())) {
+                for (int i = startPos; i < endLimit; ++i) {
+                    if (str.regionMatches(true, i, searchStr, 0, searchStr.length())) {
                         return i;
                     }
                 }
@@ -242,15 +244,15 @@ public class StrPlusKit extends StrKit {
     }
 
     public static int lastIndexOf(String str, char searchChar) {
-        return isEmpty(str)?-1:str.lastIndexOf(searchChar);
+        return isEmpty(str) ? -1 : str.lastIndexOf(searchChar);
     }
 
     public static int lastIndexOf(String str, char searchChar, int startPos) {
-        return isEmpty(str)?-1:str.lastIndexOf(searchChar, startPos);
+        return isEmpty(str) ? -1 : str.lastIndexOf(searchChar, startPos);
     }
 
     public static int lastIndexOf(String str, String searchStr) {
-        return str != null && searchStr != null?str.lastIndexOf(searchStr):-1;
+        return str != null && searchStr != null ? str.lastIndexOf(searchStr) : -1;
     }
 
     public static int lastOrdinalIndexOf(String str, String searchStr, int ordinal) {
@@ -258,26 +260,26 @@ public class StrPlusKit extends StrKit {
     }
 
     public static int lastIndexOf(String str, String searchStr, int startPos) {
-        return str != null && searchStr != null?str.lastIndexOf(searchStr, startPos):-1;
+        return str != null && searchStr != null ? str.lastIndexOf(searchStr, startPos) : -1;
     }
 
     public static int lastIndexOfIgnoreCase(String str, String searchStr) {
-        return str != null && searchStr != null?lastIndexOfIgnoreCase(str, searchStr, str.length()):-1;
+        return str != null && searchStr != null ? lastIndexOfIgnoreCase(str, searchStr, str.length()) : -1;
     }
 
     public static int lastIndexOfIgnoreCase(String str, String searchStr, int startPos) {
-        if(str != null && searchStr != null) {
-            if(startPos > str.length() - searchStr.length()) {
+        if (str != null && searchStr != null) {
+            if (startPos > str.length() - searchStr.length()) {
                 startPos = str.length() - searchStr.length();
             }
 
-            if(startPos < 0) {
+            if (startPos < 0) {
                 return -1;
-            } else if(searchStr.length() == 0) {
+            } else if (searchStr.length() == 0) {
                 return startPos;
             } else {
-                for(int i = startPos; i >= 0; --i) {
-                    if(str.regionMatches(true, i, searchStr, 0, searchStr.length())) {
+                for (int i = startPos; i >= 0; --i) {
+                    if (str.regionMatches(true, i, searchStr, 0, searchStr.length())) {
                         return i;
                     }
                 }
@@ -290,20 +292,20 @@ public class StrPlusKit extends StrKit {
     }
 
     public static boolean contains(String str, char searchChar) {
-        return isEmpty(str)?false:str.indexOf(searchChar) >= 0;
+        return isEmpty(str) ? false : str.indexOf(searchChar) >= 0;
     }
 
     public static boolean contains(String str, String searchStr) {
-        return str != null && searchStr != null?str.indexOf(searchStr) >= 0:false;
+        return str != null && searchStr != null ? str.indexOf(searchStr) >= 0 : false;
     }
 
     public static boolean containsIgnoreCase(String str, String searchStr) {
-        if(str != null && searchStr != null) {
+        if (str != null && searchStr != null) {
             int len = searchStr.length();
             int max = str.length() - len;
 
-            for(int i = 0; i <= max; ++i) {
-                if(str.regionMatches(true, i, searchStr, 0, len)) {
+            for (int i = 0; i <= max; ++i) {
+                if (str.regionMatches(true, i, searchStr, 0, len)) {
                     return true;
                 }
             }
@@ -315,12 +317,12 @@ public class StrPlusKit extends StrKit {
     }
 
     public static int indexOfAny(String str, char[] searchChars) {
-        if(!isEmpty(str) && !ArrayKit.isEmpty(searchChars)) {
-            for(int i = 0; i < str.length(); ++i) {
+        if (!isEmpty(str) && !ArrayKit.isEmpty(searchChars)) {
+            for (int i = 0; i < str.length(); ++i) {
                 char ch = str.charAt(i);
 
-                for(int j = 0; j < searchChars.length; ++j) {
-                    if(searchChars[j] == ch) {
+                for (int j = 0; j < searchChars.length; ++j) {
+                    if (searchChars[j] == ch) {
                         return i;
                     }
                 }
@@ -333,16 +335,16 @@ public class StrPlusKit extends StrKit {
     }
 
     public static int indexOfAny(String str, String searchChars) {
-        return !isEmpty(str) && !isEmpty(searchChars)?indexOfAny(str, searchChars.toCharArray()):-1;
+        return !isEmpty(str) && !isEmpty(searchChars) ? indexOfAny(str, searchChars.toCharArray()) : -1;
     }
 
     public static boolean containsAny(String str, char[] searchChars) {
-        if(str != null && str.length() != 0 && searchChars != null && searchChars.length != 0) {
-            for(int i = 0; i < str.length(); ++i) {
+        if (str != null && str.length() != 0 && searchChars != null && searchChars.length != 0) {
+            for (int i = 0; i < str.length(); ++i) {
                 char ch = str.charAt(i);
 
-                for(int j = 0; j < searchChars.length; ++j) {
-                    if(searchChars[j] == ch) {
+                for (int j = 0; j < searchChars.length; ++j) {
+                    if (searchChars[j] == ch) {
                         return true;
                     }
                 }
@@ -355,17 +357,17 @@ public class StrPlusKit extends StrKit {
     }
 
     public static boolean containsAny(String str, String searchChars) {
-        return searchChars == null?false:containsAny(str, searchChars.toCharArray());
+        return searchChars == null ? false : containsAny(str, searchChars.toCharArray());
     }
 
     public static int indexOfAnyBut(String str, char[] searchChars) {
-        if(!isEmpty(str) && !ArrayKit.isEmpty(searchChars)) {
+        if (!isEmpty(str) && !ArrayKit.isEmpty(searchChars)) {
             label27:
-            for(int i = 0; i < str.length(); ++i) {
+            for (int i = 0; i < str.length(); ++i) {
                 char ch = str.charAt(i);
 
-                for(int j = 0; j < searchChars.length; ++j) {
-                    if(searchChars[j] == ch) {
+                for (int j = 0; j < searchChars.length; ++j) {
+                    if (searchChars[j] == ch) {
                         continue label27;
                     }
                 }
@@ -380,9 +382,9 @@ public class StrPlusKit extends StrKit {
     }
 
     public static int indexOfAnyBut(String str, String searchChars) {
-        if(!isEmpty(str) && !isEmpty(searchChars)) {
-            for(int i = 0; i < str.length(); ++i) {
-                if(searchChars.indexOf(str.charAt(i)) < 0) {
+        if (!isEmpty(str) && !isEmpty(searchChars)) {
+            for (int i = 0; i < str.length(); ++i) {
+                if (searchChars.indexOf(str.charAt(i)) < 0) {
                     return i;
                 }
             }
@@ -394,23 +396,23 @@ public class StrPlusKit extends StrKit {
     }
 
     public static boolean containsOnly(String str, char[] valid) {
-        return valid != null && str != null?(str.length() == 0?true:(valid.length == 0?false:indexOfAnyBut(str, valid) == -1)):false;
+        return valid != null && str != null ? (str.length() == 0 ? true : (valid.length == 0 ? false : indexOfAnyBut(str, valid) == -1)) : false;
     }
 
     public static boolean containsOnly(String str, String validChars) {
-        return str != null && validChars != null?containsOnly(str, validChars.toCharArray()):false;
+        return str != null && validChars != null ? containsOnly(str, validChars.toCharArray()) : false;
     }
 
     public static boolean containsNone(String str, char[] invalidChars) {
-        if(str != null && invalidChars != null) {
+        if (str != null && invalidChars != null) {
             int strSize = str.length();
             int validSize = invalidChars.length;
 
-            for(int i = 0; i < strSize; ++i) {
+            for (int i = 0; i < strSize; ++i) {
                 char ch = str.charAt(i);
 
-                for(int j = 0; j < validSize; ++j) {
-                    if(invalidChars[j] == ch) {
+                for (int j = 0; j < validSize; ++j) {
+                    if (invalidChars[j] == ch) {
                         return false;
                     }
                 }
@@ -427,38 +429,38 @@ public class StrPlusKit extends StrKit {
     }
 
     public static int indexOfAny(String str, String[] searchStrs) {
-        if(str != null && searchStrs != null) {
+        if (str != null && searchStrs != null) {
             int sz = searchStrs.length;
             int ret = 2147483647;
             boolean tmp = false;
 
-            for(int i = 0; i < sz; ++i) {
+            for (int i = 0; i < sz; ++i) {
                 String search = searchStrs[i];
-                if(search != null) {
+                if (search != null) {
                     int var7 = str.indexOf(search);
-                    if(var7 != -1 && var7 < ret) {
+                    if (var7 != -1 && var7 < ret) {
                         ret = var7;
                     }
                 }
             }
 
-            return ret == 2147483647?-1:ret;
+            return ret == 2147483647 ? -1 : ret;
         } else {
             return -1;
         }
     }
 
     public static int lastIndexOfAny(String str, String[] searchStrs) {
-        if(str != null && searchStrs != null) {
+        if (str != null && searchStrs != null) {
             int sz = searchStrs.length;
             int ret = -1;
             boolean tmp = false;
 
-            for(int i = 0; i < sz; ++i) {
+            for (int i = 0; i < sz; ++i) {
                 String search = searchStrs[i];
-                if(search != null) {
+                if (search != null) {
                     int var7 = str.lastIndexOf(search);
-                    if(var7 > ret) {
+                    if (var7 > ret) {
                         ret = var7;
                     }
                 }
@@ -471,45 +473,45 @@ public class StrPlusKit extends StrKit {
     }
 
     public static String substring(String str, int start) {
-        if(str == null) {
+        if (str == null) {
             return null;
         } else {
-            if(start < 0) {
+            if (start < 0) {
                 start += str.length();
             }
 
-            if(start < 0) {
+            if (start < 0) {
                 start = 0;
             }
 
-            return start > str.length()?"":str.substring(start);
+            return start > str.length() ? "" : str.substring(start);
         }
     }
 
     public static String substring(String str, int start, int end) {
-        if(str == null) {
+        if (str == null) {
             return null;
         } else {
-            if(end < 0) {
+            if (end < 0) {
                 end += str.length();
             }
 
-            if(start < 0) {
+            if (start < 0) {
                 start += str.length();
             }
 
-            if(end > str.length()) {
+            if (end > str.length()) {
                 end = str.length();
             }
 
-            if(start > end) {
+            if (start > end) {
                 return "";
             } else {
-                if(start < 0) {
+                if (start < 0) {
                     start = 0;
                 }
 
-                if(end < 0) {
+                if (end < 0) {
                     end = 0;
                 }
 
@@ -519,34 +521,34 @@ public class StrPlusKit extends StrKit {
     }
 
     public static String left(String str, int len) {
-        return str == null?null:(len < 0?"":(str.length() <= len?str:str.substring(0, len)));
+        return str == null ? null : (len < 0 ? "" : (str.length() <= len ? str : str.substring(0, len)));
     }
 
     public static String right(String str, int len) {
-        return str == null?null:(len < 0?"":(str.length() <= len?str:str.substring(str.length() - len)));
+        return str == null ? null : (len < 0 ? "" : (str.length() <= len ? str : str.substring(str.length() - len)));
     }
 
     public static String mid(String str, int pos, int len) {
-        if(str == null) {
+        if (str == null) {
             return null;
-        } else if(len >= 0 && pos <= str.length()) {
-            if(pos < 0) {
+        } else if (len >= 0 && pos <= str.length()) {
+            if (pos < 0) {
                 pos = 0;
             }
 
-            return str.length() <= pos + len?str.substring(pos):str.substring(pos, pos + len);
+            return str.length() <= pos + len ? str.substring(pos) : str.substring(pos, pos + len);
         } else {
             return "";
         }
     }
 
     public static String substringBefore(String str, String separator) {
-        if(!isEmpty(str) && separator != null) {
-            if(separator.length() == 0) {
+        if (!isEmpty(str) && separator != null) {
+            if (separator.length() == 0) {
                 return "";
             } else {
                 int pos = str.indexOf(separator);
-                return pos == -1?str:str.substring(0, pos);
+                return pos == -1 ? str : str.substring(0, pos);
             }
         } else {
             return str;
@@ -554,33 +556,33 @@ public class StrPlusKit extends StrKit {
     }
 
     public static String substringAfter(String str, String separator) {
-        if(isEmpty(str)) {
+        if (isEmpty(str)) {
             return str;
-        } else if(separator == null) {
+        } else if (separator == null) {
             return "";
         } else {
             int pos = str.indexOf(separator);
-            return pos == -1?"":str.substring(pos + separator.length());
+            return pos == -1 ? "" : str.substring(pos + separator.length());
         }
     }
 
     public static String substringBeforeLast(String str, String separator) {
-        if(!isEmpty(str) && !isEmpty(separator)) {
+        if (!isEmpty(str) && !isEmpty(separator)) {
             int pos = str.lastIndexOf(separator);
-            return pos == -1?str:str.substring(0, pos);
+            return pos == -1 ? str : str.substring(0, pos);
         } else {
             return str;
         }
     }
 
     public static String substringAfterLast(String str, String separator) {
-        if(isEmpty(str)) {
+        if (isEmpty(str)) {
             return str;
-        } else if(isEmpty(separator)) {
+        } else if (isEmpty(separator)) {
             return "";
         } else {
             int pos = str.lastIndexOf(separator);
-            return pos != -1 && pos != str.length() - separator.length()?str.substring(pos + separator.length()):"";
+            return pos != -1 && pos != str.length() - separator.length() ? str.substring(pos + separator.length()) : "";
         }
     }
 
@@ -588,26 +590,29 @@ public class StrPlusKit extends StrKit {
         return substringBetween(str, tag, tag);
     }
 
+    //注意此方法会连通close本身消除掉
     public static String substringBetween(String str, String open, String close) {
-        if(str != null && open != null && close != null) {
+        if (str != null && open != null && close != null) {
             int start = str.indexOf(open);
-            if(start != -1) {
-                int end = str.indexOf(close, start + open.length());
-                if(end != -1) {
-                    return str.substring(start + open.length(), end);
-                }
+            if (start != -1) {
+                int end = str.indexOf(close, start);
+                if (end == -1)
+                    end = str.length();
+                else
+                    end++;
+                return str.substring(start, end);
             }
 
-            return null;
+            return "";
         } else {
             return null;
         }
     }
 
     public static String[] substringsBetween(String str, String open, String close) {
-        if(str != null && !isEmpty(open) && !isEmpty(close)) {
+        if (str != null && !isEmpty(open) && !isEmpty(close)) {
             int strLen = str.length();
-            if(strLen == 0) {
+            if (strLen == 0) {
                 return ArrayKit.EMPTY_STRING_ARRAY;
             } else {
                 int closeLen = close.length();
@@ -615,40 +620,44 @@ public class StrPlusKit extends StrKit {
                 ArrayList list = new ArrayList();
 
                 int end;
-                for(int pos = 0; pos < strLen - closeLen; pos = end + closeLen) {
+                for (int pos = 0; pos < strLen - closeLen; pos = end + closeLen) {
                     int start = str.indexOf(open, pos);
-                    if(start < 0) {
+                    if (start < 0) {
                         break;
                     }
 
                     start += openLen;
                     end = str.indexOf(close, start);
-                    if(end < 0) {
+                    if (end < 0) {
                         break;
                     }
 
                     list.add(str.substring(start, end));
                 }
 
-                return list.isEmpty()?null:(String[])((String[])list.toArray(new String[list.size()]));
+                return list.isEmpty() ? null : (String[]) ((String[]) list.toArray(new String[list.size()]));
             }
         } else {
             return null;
         }
     }
 
-    /** @deprecated */
+    /**
+     * @deprecated
+     */
     public static String getNestedString(String str, String tag) {
         return substringBetween(str, tag, tag);
     }
 
-    /** @deprecated */
+    /**
+     * @deprecated
+     */
     public static String getNestedString(String str, String open, String close) {
         return substringBetween(str, open, close);
     }
 
     public static String[] split(String str) {
-        return split(str, (String)null, -1);
+        return split(str, (String) null, -1);
     }
 
     public static String[] split(String str, char separatorChar) {
@@ -680,25 +689,25 @@ public class StrPlusKit extends StrKit {
     }
 
     private static String[] splitByWholeSeparatorWorker(String str, String separator, int max, boolean preserveAllTokens) {
-        if(str == null) {
+        if (str == null) {
             return null;
         } else {
             int len = str.length();
-            if(len == 0) {
+            if (len == 0) {
                 return ArrayKit.EMPTY_STRING_ARRAY;
-            } else if(separator != null && !"".equals(separator)) {
+            } else if (separator != null && !"".equals(separator)) {
                 int separatorLength = separator.length();
                 ArrayList substrings = new ArrayList();
                 int numberOfSubstrings = 0;
                 int beg = 0;
                 int end = 0;
 
-                while(end < len) {
+                while (end < len) {
                     end = str.indexOf(separator, beg);
-                    if(end > -1) {
-                        if(end > beg) {
+                    if (end > -1) {
+                        if (end > beg) {
                             ++numberOfSubstrings;
-                            if(numberOfSubstrings == max) {
+                            if (numberOfSubstrings == max) {
                                 end = len;
                                 substrings.add(str.substring(beg));
                             } else {
@@ -706,9 +715,9 @@ public class StrPlusKit extends StrKit {
                                 beg = end + separatorLength;
                             }
                         } else {
-                            if(preserveAllTokens) {
+                            if (preserveAllTokens) {
                                 ++numberOfSubstrings;
-                                if(numberOfSubstrings == max) {
+                                if (numberOfSubstrings == max) {
                                     end = len;
                                     substrings.add(str.substring(beg));
                                 } else {
@@ -724,15 +733,15 @@ public class StrPlusKit extends StrKit {
                     }
                 }
 
-                return (String[])((String[])substrings.toArray(new String[substrings.size()]));
+                return (String[]) ((String[]) substrings.toArray(new String[substrings.size()]));
             } else {
-                return splitWorker(str, (String)null, max, preserveAllTokens);
+                return splitWorker(str, (String) null, max, preserveAllTokens);
             }
         }
     }
 
     public static String[] splitPreserveAllTokens(String str) {
-        return splitWorker(str, (String)null, -1, true);
+        return splitWorker(str, (String) null, -1, true);
     }
 
     public static String[] splitPreserveAllTokens(String str, char separatorChar) {
@@ -740,11 +749,11 @@ public class StrPlusKit extends StrKit {
     }
 
     private static String[] splitWorker(String str, char separatorChar, boolean preserveAllTokens) {
-        if(str == null) {
+        if (str == null) {
             return null;
         } else {
             int len = str.length();
-            if(len == 0) {
+            if (len == 0) {
                 return ArrayKit.EMPTY_STRING_ARRAY;
             } else {
                 ArrayList list = new ArrayList();
@@ -753,10 +762,10 @@ public class StrPlusKit extends StrKit {
                 boolean match = false;
                 boolean lastMatch = false;
 
-                while(true) {
-                    while(i < len) {
-                        if(str.charAt(i) == separatorChar) {
-                            if(match || preserveAllTokens) {
+                while (true) {
+                    while (i < len) {
+                        if (str.charAt(i) == separatorChar) {
+                            if (match || preserveAllTokens) {
                                 list.add(str.substring(start, i));
                                 match = false;
                                 lastMatch = true;
@@ -771,11 +780,11 @@ public class StrPlusKit extends StrKit {
                         }
                     }
 
-                    if(match || preserveAllTokens && lastMatch) {
+                    if (match || preserveAllTokens && lastMatch) {
                         list.add(str.substring(start, i));
                     }
 
-                    return (String[])((String[])list.toArray(new String[list.size()]));
+                    return (String[]) ((String[]) list.toArray(new String[list.size()]));
                 }
             }
         }
@@ -790,11 +799,11 @@ public class StrPlusKit extends StrKit {
     }
 
     private static String[] splitWorker(String str, String separatorChars, int max, boolean preserveAllTokens) {
-        if(str == null) {
+        if (str == null) {
             return null;
         } else {
             int len = str.length();
-            if(len == 0) {
+            if (len == 0) {
                 return ArrayKit.EMPTY_STRING_ARRAY;
             } else {
                 ArrayList list = new ArrayList();
@@ -803,19 +812,19 @@ public class StrPlusKit extends StrKit {
                 int start = 0;
                 boolean match = false;
                 boolean lastMatch = false;
-                if(separatorChars != null) {
-                    if(separatorChars.length() != 1) {
+                if (separatorChars != null) {
+                    if (separatorChars.length() != 1) {
                         label87:
-                        while(true) {
-                            while(true) {
-                                if(i >= len) {
+                        while (true) {
+                            while (true) {
+                                if (i >= len) {
                                     break label87;
                                 }
 
-                                if(separatorChars.indexOf(str.charAt(i)) >= 0) {
-                                    if(match || preserveAllTokens) {
+                                if (separatorChars.indexOf(str.charAt(i)) >= 0) {
+                                    if (match || preserveAllTokens) {
                                         lastMatch = true;
-                                        if(sizePlus1++ == max) {
+                                        if (sizePlus1++ == max) {
                                             i = len;
                                             lastMatch = false;
                                         }
@@ -837,16 +846,16 @@ public class StrPlusKit extends StrKit {
                         char sep = separatorChars.charAt(0);
 
                         label71:
-                        while(true) {
-                            while(true) {
-                                if(i >= len) {
+                        while (true) {
+                            while (true) {
+                                if (i >= len) {
                                     break label71;
                                 }
 
-                                if(str.charAt(i) == sep) {
-                                    if(match || preserveAllTokens) {
+                                if (str.charAt(i) == sep) {
+                                    if (match || preserveAllTokens) {
                                         lastMatch = true;
-                                        if(sizePlus1++ == max) {
+                                        if (sizePlus1++ == max) {
                                             i = len;
                                             lastMatch = false;
                                         }
@@ -867,16 +876,16 @@ public class StrPlusKit extends StrKit {
                     }
                 } else {
                     label103:
-                    while(true) {
-                        while(true) {
-                            if(i >= len) {
+                    while (true) {
+                        while (true) {
+                            if (i >= len) {
                                 break label103;
                             }
 
-                            if(Character.isWhitespace(str.charAt(i))) {
-                                if(match || preserveAllTokens) {
+                            if (Character.isWhitespace(str.charAt(i))) {
+                                if (match || preserveAllTokens) {
                                     lastMatch = true;
-                                    if(sizePlus1++ == max) {
+                                    if (sizePlus1++ == max) {
                                         i = len;
                                         lastMatch = false;
                                     }
@@ -896,11 +905,11 @@ public class StrPlusKit extends StrKit {
                     }
                 }
 
-                if(match || preserveAllTokens && lastMatch) {
+                if (match || preserveAllTokens && lastMatch) {
                     list.add(str.substring(start, i));
                 }
 
-                return (String[])((String[])list.toArray(new String[list.size()]));
+                return (String[]) ((String[]) list.toArray(new String[list.size()]));
             }
         }
     }
@@ -914,9 +923,9 @@ public class StrPlusKit extends StrKit {
     }
 
     private static String[] splitByCharacterType(String str, boolean camelCase) {
-        if(str == null) {
+        if (str == null) {
             return null;
-        } else if(str.length() == 0) {
+        } else if (str.length() == 0) {
             return ArrayKit.EMPTY_STRING_ARRAY;
         } else {
             char[] c = str.toCharArray();
@@ -924,12 +933,12 @@ public class StrPlusKit extends StrKit {
             int tokenStart = 0;
             int currentType = Character.getType(c[tokenStart]);
 
-            for(int pos = tokenStart + 1; pos < c.length; ++pos) {
+            for (int pos = tokenStart + 1; pos < c.length; ++pos) {
                 int type = Character.getType(c[pos]);
-                if(type != currentType) {
-                    if(camelCase && type == 2 && currentType == 1) {
+                if (type != currentType) {
+                    if (camelCase && type == 2 && currentType == 1) {
                         int newTokenStart = pos - 1;
-                        if(newTokenStart != tokenStart) {
+                        if (newTokenStart != tokenStart) {
                             list.add(new String(c, tokenStart, newTokenStart - tokenStart));
                             tokenStart = newTokenStart;
                         }
@@ -943,40 +952,42 @@ public class StrPlusKit extends StrKit {
             }
 
             list.add(new String(c, tokenStart, c.length - tokenStart));
-            return (String[])((String[])list.toArray(new String[list.size()]));
+            return (String[]) ((String[]) list.toArray(new String[list.size()]));
         }
     }
 
-    /** @deprecated */
+    /**
+     * @deprecated
+     */
     public static String concatenate(Object[] array) {
-        return join((Object[])array, (String)null);
+        return join((Object[]) array, (String) null);
     }
 
     public static String join(Object[] array) {
-        return join((Object[])array, (String)null);
+        return join((Object[]) array, (String) null);
     }
 
     public static String join(Object[] array, char separator) {
-        return array == null?null:join(array, separator, 0, array.length);
+        return array == null ? null : join(array, separator, 0, array.length);
     }
 
     public static String join(Object[] array, char separator, int startIndex, int endIndex) {
-        if(array == null) {
+        if (array == null) {
             return null;
         } else {
             int bufSize = endIndex - startIndex;
-            if(bufSize <= 0) {
+            if (bufSize <= 0) {
                 return "";
             } else {
-                bufSize *= (array[startIndex] == null?16:array[startIndex].toString().length()) + 1;
+                bufSize *= (array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1;
                 StringBuffer buf = new StringBuffer(bufSize);
 
-                for(int i = startIndex; i < endIndex; ++i) {
-                    if(i > startIndex) {
+                for (int i = startIndex; i < endIndex; ++i) {
+                    if (i > startIndex) {
                         buf.append(separator);
                     }
 
-                    if(array[i] != null) {
+                    if (array[i] != null) {
                         buf.append(array[i]);
                     }
                 }
@@ -987,30 +998,30 @@ public class StrPlusKit extends StrKit {
     }
 
     public static String join(Object[] array, String separator) {
-        return array == null?null:join(array, separator, 0, array.length);
+        return array == null ? null : join(array, separator, 0, array.length);
     }
 
     public static String join(Object[] array, String separator, int startIndex, int endIndex) {
-        if(array == null) {
+        if (array == null) {
             return null;
         } else {
-            if(separator == null) {
+            if (separator == null) {
                 separator = "";
             }
 
             int bufSize = endIndex - startIndex;
-            if(bufSize <= 0) {
+            if (bufSize <= 0) {
                 return "";
             } else {
-                bufSize *= (array[startIndex] == null?16:array[startIndex].toString().length()) + separator.length();
+                bufSize *= (array[startIndex] == null ? 16 : array[startIndex].toString().length()) + separator.length();
                 StringBuffer buf = new StringBuffer(bufSize);
 
-                for(int i = startIndex; i < endIndex; ++i) {
-                    if(i > startIndex) {
+                for (int i = startIndex; i < endIndex; ++i) {
+                    if (i > startIndex) {
                         buf.append(separator);
                     }
 
-                    if(array[i] != null) {
+                    if (array[i] != null) {
                         buf.append(array[i]);
                     }
                 }
@@ -1021,24 +1032,24 @@ public class StrPlusKit extends StrKit {
     }
 
     public static String join(Iterator iterator, char separator) {
-        if(iterator == null) {
+        if (iterator == null) {
             return null;
-        } else if(!iterator.hasNext()) {
+        } else if (!iterator.hasNext()) {
             return "";
         } else {
             Object first = iterator.next();
-            if(!iterator.hasNext()) {
+            if (!iterator.hasNext()) {
                 return ObjectKit.toString(first);
             } else {
                 StringBuffer buf = new StringBuffer(256);
-                if(first != null) {
+                if (first != null) {
                     buf.append(first);
                 }
 
-                while(iterator.hasNext()) {
+                while (iterator.hasNext()) {
                     buf.append(separator);
                     Object obj = iterator.next();
-                    if(obj != null) {
+                    if (obj != null) {
                         buf.append(obj);
                     }
                 }
@@ -1049,27 +1060,27 @@ public class StrPlusKit extends StrKit {
     }
 
     public static String join(Iterator iterator, String separator) {
-        if(iterator == null) {
+        if (iterator == null) {
             return null;
-        } else if(!iterator.hasNext()) {
+        } else if (!iterator.hasNext()) {
             return "";
         } else {
             Object first = iterator.next();
-            if(!iterator.hasNext()) {
+            if (!iterator.hasNext()) {
                 return ObjectKit.toString(first);
             } else {
                 StringBuffer buf = new StringBuffer(256);
-                if(first != null) {
+                if (first != null) {
                     buf.append(first);
                 }
 
-                while(iterator.hasNext()) {
-                    if(separator != null) {
+                while (iterator.hasNext()) {
+                    if (separator != null) {
                         buf.append(separator);
                     }
 
                     Object obj = iterator.next();
-                    if(obj != null) {
+                    if (obj != null) {
                         buf.append(obj);
                     }
                 }
@@ -1080,33 +1091,35 @@ public class StrPlusKit extends StrKit {
     }
 
     public static String join(Collection collection, char separator) {
-        return collection == null?null:join(collection.iterator(), separator);
+        return collection == null ? null : join(collection.iterator(), separator);
     }
 
     public static String join(Collection collection, String separator) {
-        return collection == null?null:join(collection.iterator(), separator);
+        return collection == null ? null : join(collection.iterator(), separator);
     }
 
-    /** @deprecated */
+    /**
+     * @deprecated
+     */
     public static String deleteSpaces(String str) {
-        return str == null?null:CharSetKit.delete(str, " \t\r\n\b");
+        return str == null ? null : CharSetKit.delete(str, " \t\r\n\b");
     }
 
     public static String deleteWhitespace(String str) {
-        if(isEmpty(str)) {
+        if (isEmpty(str)) {
             return str;
         } else {
             int sz = str.length();
             char[] chs = new char[sz];
             int count = 0;
 
-            for(int i = 0; i < sz; ++i) {
-                if(!Character.isWhitespace(str.charAt(i))) {
+            for (int i = 0; i < sz; ++i) {
+                if (!Character.isWhitespace(str.charAt(i))) {
                     chs[count++] = str.charAt(i);
                 }
             }
 
-            if(count == sz) {
+            if (count == sz) {
                 return str;
             } else {
                 return new String(chs, 0, count);
@@ -1115,32 +1128,32 @@ public class StrPlusKit extends StrKit {
     }
 
     public static String removeStart(String str, String remove) {
-        return !isEmpty(str) && !isEmpty(remove)?(str.startsWith(remove)?str.substring(remove.length()):str):str;
+        return !isEmpty(str) && !isEmpty(remove) ? (str.startsWith(remove) ? str.substring(remove.length()) : str) : str;
     }
 
     public static String removeStartIgnoreCase(String str, String remove) {
-        return !isEmpty(str) && !isEmpty(remove)?(startsWithIgnoreCase(str, remove)?str.substring(remove.length()):str):str;
+        return !isEmpty(str) && !isEmpty(remove) ? (startsWithIgnoreCase(str, remove) ? str.substring(remove.length()) : str) : str;
     }
 
     public static String removeEnd(String str, String remove) {
-        return !isEmpty(str) && !isEmpty(remove)?(str.endsWith(remove)?str.substring(0, str.length() - remove.length()):str):str;
+        return !isEmpty(str) && !isEmpty(remove) ? (str.endsWith(remove) ? str.substring(0, str.length() - remove.length()) : str) : str;
     }
 
     public static String removeEndIgnoreCase(String str, String remove) {
-        return !isEmpty(str) && !isEmpty(remove)?(endsWithIgnoreCase(str, remove)?str.substring(0, str.length() - remove.length()):str):str;
+        return !isEmpty(str) && !isEmpty(remove) ? (endsWithIgnoreCase(str, remove) ? str.substring(0, str.length() - remove.length()) : str) : str;
     }
 
     public static String remove(String str, String remove) {
-        return !isEmpty(str) && !isEmpty(remove)?replace(str, remove, "", -1):str;
+        return !isEmpty(str) && !isEmpty(remove) ? replace(str, remove, "", -1) : str;
     }
 
     public static String remove(String str, char remove) {
-        if(!isEmpty(str) && str.indexOf(remove) != -1) {
+        if (!isEmpty(str) && str.indexOf(remove) != -1) {
             char[] chars = str.toCharArray();
             int pos = 0;
 
-            for(int i = 0; i < chars.length; ++i) {
-                if(chars[i] != remove) {
+            for (int i = 0; i < chars.length; ++i) {
+                if (chars[i] != remove) {
                     chars[pos++] = chars[i];
                 }
             }
@@ -1160,23 +1173,23 @@ public class StrPlusKit extends StrKit {
     }
 
     public static String replace(String text, String searchString, String replacement, int max) {
-        if(!isEmpty(text) && !isEmpty(searchString) && replacement != null && max != 0) {
+        if (!isEmpty(text) && !isEmpty(searchString) && replacement != null && max != 0) {
             int start = 0;
             int end = text.indexOf(searchString, start);
-            if(end == -1) {
+            if (end == -1) {
                 return text;
             } else {
                 int replLength = searchString.length();
                 int increase = replacement.length() - replLength;
-                increase = increase < 0?0:increase;
-                increase *= max < 0?16:(max > 64?64:max);
+                increase = increase < 0 ? 0 : increase;
+                increase *= max < 0 ? 16 : (max > 64 ? 64 : max);
 
                 StringBuffer buf;
-                for(buf = new StringBuffer(text.length() + increase); end != -1; end = text.indexOf(searchString, start)) {
+                for (buf = new StringBuffer(text.length() + increase); end != -1; end = text.indexOf(searchString, start)) {
                     buf.append(text.substring(start, end)).append(replacement);
                     start = end + replLength;
                     --max;
-                    if(max == 0) {
+                    if (max == 0) {
                         break;
                     }
                 }
@@ -1194,18 +1207,18 @@ public class StrPlusKit extends StrKit {
     }
 
     public static String replaceEachRepeatedly(String text, String[] searchList, String[] replacementList) {
-        int timeToLive = searchList == null?0:searchList.length;
+        int timeToLive = searchList == null ? 0 : searchList.length;
         return replaceEach(text, searchList, replacementList, true, timeToLive);
     }
 
     private static String replaceEach(String text, String[] searchList, String[] replacementList, boolean repeat, int timeToLive) {
-        if(text != null && text.length() != 0 && searchList != null && searchList.length != 0 && replacementList != null && replacementList.length != 0) {
-            if(timeToLive < 0) {
+        if (text != null && text.length() != 0 && searchList != null && searchList.length != 0 && replacementList != null && replacementList.length != 0) {
+            if (timeToLive < 0) {
                 throw new IllegalStateException("TimeToLive of " + timeToLive + " is less than 0: " + text);
             } else {
                 int searchLength = searchList.length;
                 int replacementLength = replacementList.length;
-                if(searchLength != replacementLength) {
+                if (searchLength != replacementLength) {
                     throw new IllegalArgumentException("Search and Replace array lengths don\'t match: " + searchLength + " vs " + replacementLength);
                 } else {
                     boolean[] noMoreMatchesForReplIndex = new boolean[searchLength];
@@ -1215,29 +1228,29 @@ public class StrPlusKit extends StrKit {
 
                     int start;
                     int var16;
-                    for(start = 0; start < searchLength; ++start) {
-                        if(!noMoreMatchesForReplIndex[start] && searchList[start] != null && searchList[start].length() != 0 && replacementList[start] != null) {
+                    for (start = 0; start < searchLength; ++start) {
+                        if (!noMoreMatchesForReplIndex[start] && searchList[start] != null && searchList[start].length() != 0 && replacementList[start] != null) {
                             var16 = text.indexOf(searchList[start]);
-                            if(var16 == -1) {
+                            if (var16 == -1) {
                                 noMoreMatchesForReplIndex[start] = true;
-                            } else if(textIndex == -1 || var16 < textIndex) {
+                            } else if (textIndex == -1 || var16 < textIndex) {
                                 textIndex = var16;
                                 replaceIndex = start;
                             }
                         }
                     }
 
-                    if(textIndex == -1) {
+                    if (textIndex == -1) {
                         return text;
                     } else {
                         start = 0;
                         int increase = 0;
 
                         int textLength;
-                        for(int buf = 0; buf < searchList.length; ++buf) {
-                            if(searchList[buf] != null && replacementList[buf] != null) {
+                        for (int buf = 0; buf < searchList.length; ++buf) {
+                            if (searchList[buf] != null && replacementList[buf] != null) {
                                 textLength = replacementList[buf].length() - searchList[buf].length();
-                                if(textLength > 0) {
+                                if (textLength > 0) {
                                     increase += 3 * textLength;
                                 }
                             }
@@ -1246,8 +1259,8 @@ public class StrPlusKit extends StrKit {
                         increase = Math.min(increase, text.length() / 5);
                         StringBuffer var17 = new StringBuffer(text.length() + increase);
 
-                        while(textIndex != -1) {
-                            for(textLength = start; textLength < textIndex; ++textLength) {
+                        while (textIndex != -1) {
+                            for (textLength = start; textLength < textIndex; ++textLength) {
                                 var17.append(text.charAt(textLength));
                             }
 
@@ -1257,12 +1270,12 @@ public class StrPlusKit extends StrKit {
                             replaceIndex = -1;
                             tempIndex = true;
 
-                            for(textLength = 0; textLength < searchLength; ++textLength) {
-                                if(!noMoreMatchesForReplIndex[textLength] && searchList[textLength] != null && searchList[textLength].length() != 0 && replacementList[textLength] != null) {
+                            for (textLength = 0; textLength < searchLength; ++textLength) {
+                                if (!noMoreMatchesForReplIndex[textLength] && searchList[textLength] != null && searchList[textLength].length() != 0 && replacementList[textLength] != null) {
                                     var16 = text.indexOf(searchList[textLength], start);
-                                    if(var16 == -1) {
+                                    if (var16 == -1) {
                                         noMoreMatchesForReplIndex[textLength] = true;
-                                    } else if(textIndex == -1 || var16 < textIndex) {
+                                    } else if (textIndex == -1 || var16 < textIndex) {
                                         textIndex = var16;
                                         replaceIndex = textLength;
                                     }
@@ -1272,12 +1285,12 @@ public class StrPlusKit extends StrKit {
 
                         textLength = text.length();
 
-                        for(int result = start; result < textLength; ++result) {
+                        for (int result = start; result < textLength; ++result) {
                             var17.append(text.charAt(result));
                         }
 
                         String var18 = var17.toString();
-                        if(!repeat) {
+                        if (!repeat) {
                             return var18;
                         } else {
                             return replaceEach(var18, searchList, replacementList, repeat, timeToLive - 1);
@@ -1291,12 +1304,12 @@ public class StrPlusKit extends StrKit {
     }
 
     public static String replaceChars(String str, char searchChar, char replaceChar) {
-        return str == null?null:str.replace(searchChar, replaceChar);
+        return str == null ? null : str.replace(searchChar, replaceChar);
     }
 
     public static String replaceChars(String str, String searchChars, String replaceChars) {
-        if(!isEmpty(str) && !isEmpty(searchChars)) {
-            if(replaceChars == null) {
+        if (!isEmpty(str) && !isEmpty(searchChars)) {
+            if (replaceChars == null) {
                 replaceChars = "";
             }
 
@@ -1305,12 +1318,12 @@ public class StrPlusKit extends StrKit {
             int strLength = str.length();
             StringBuffer buf = new StringBuffer(strLength);
 
-            for(int i = 0; i < strLength; ++i) {
+            for (int i = 0; i < strLength; ++i) {
                 char ch = str.charAt(i);
                 int index = searchChars.indexOf(ch);
-                if(index >= 0) {
+                if (index >= 0) {
                     modified = true;
-                    if(index < replaceCharsLength) {
+                    if (index < replaceCharsLength) {
                         buf.append(replaceChars.charAt(index));
                     }
                 } else {
@@ -1318,7 +1331,7 @@ public class StrPlusKit extends StrKit {
                 }
             }
 
-            if(modified) {
+            if (modified) {
                 return buf.toString();
             } else {
                 return str;
@@ -1328,37 +1341,39 @@ public class StrPlusKit extends StrKit {
         }
     }
 
-    /** @deprecated */
+    /**
+     * @deprecated
+     */
     public static String overlayString(String text, String overlay, int start, int end) {
         return (new StringBuffer(start + overlay.length() + text.length() - end + 1)).append(text.substring(0, start)).append(overlay).append(text.substring(end)).toString();
     }
 
     public static String overlay(String str, String overlay, int start, int end) {
-        if(str == null) {
+        if (str == null) {
             return null;
         } else {
-            if(overlay == null) {
+            if (overlay == null) {
                 overlay = "";
             }
 
             int len = str.length();
-            if(start < 0) {
+            if (start < 0) {
                 start = 0;
             }
 
-            if(start > len) {
+            if (start > len) {
                 start = len;
             }
 
-            if(end < 0) {
+            if (end < 0) {
                 end = 0;
             }
 
-            if(end > len) {
+            if (end > len) {
                 end = len;
             }
 
-            if(start > end) {
+            if (start > end) {
                 int temp = start;
                 start = end;
                 end = temp;
@@ -1369,19 +1384,19 @@ public class StrPlusKit extends StrKit {
     }
 
     public static String chomp(String str) {
-        if(isEmpty(str)) {
+        if (isEmpty(str)) {
             return str;
-        } else if(str.length() == 1) {
+        } else if (str.length() == 1) {
             char var3 = str.charAt(0);
-            return var3 != 13 && var3 != 10?str:"";
+            return var3 != 13 && var3 != 10 ? str : "";
         } else {
             int lastIdx = str.length() - 1;
             char last = str.charAt(lastIdx);
-            if(last == 10) {
-                if(str.charAt(lastIdx - 1) == 13) {
+            if (last == 10) {
+                if (str.charAt(lastIdx - 1) == 13) {
                     --lastIdx;
                 }
-            } else if(last != 13) {
+            } else if (last != 13) {
                 ++lastIdx;
             }
 
@@ -1390,67 +1405,79 @@ public class StrPlusKit extends StrKit {
     }
 
     public static String chomp(String str, String separator) {
-        return !isEmpty(str) && separator != null?(str.endsWith(separator)?str.substring(0, str.length() - separator.length()):str):str;
+        return !isEmpty(str) && separator != null ? (str.endsWith(separator) ? str.substring(0, str.length() - separator.length()) : str) : str;
     }
 
-    /** @deprecated */
+    /**
+     * @deprecated
+     */
     public static String chompLast(String str) {
         return chompLast(str, "\n");
     }
 
-    /** @deprecated */
+    /**
+     * @deprecated
+     */
     public static String chompLast(String str, String sep) {
-        if(str.length() == 0) {
+        if (str.length() == 0) {
             return str;
         } else {
             String sub = str.substring(str.length() - sep.length());
-            return sep.equals(sub)?str.substring(0, str.length() - sep.length()):str;
+            return sep.equals(sub) ? str.substring(0, str.length() - sep.length()) : str;
         }
     }
 
-    /** @deprecated */
+    /**
+     * @deprecated
+     */
     public static String getChomp(String str, String sep) {
         int idx = str.lastIndexOf(sep);
-        return idx == str.length() - sep.length()?sep:(idx != -1?str.substring(idx):"");
+        return idx == str.length() - sep.length() ? sep : (idx != -1 ? str.substring(idx) : "");
     }
 
-    /** @deprecated */
+    /**
+     * @deprecated
+     */
     public static String prechomp(String str, String sep) {
         int idx = str.indexOf(sep);
-        return idx == -1?str:str.substring(idx + sep.length());
+        return idx == -1 ? str : str.substring(idx + sep.length());
     }
 
-    /** @deprecated */
+    /**
+     * @deprecated
+     */
     public static String getPrechomp(String str, String sep) {
         int idx = str.indexOf(sep);
-        return idx == -1?"":str.substring(0, idx + sep.length());
+        return idx == -1 ? "" : str.substring(0, idx + sep.length());
     }
 
     public static String chop(String str) {
-        if(str == null) {
+        if (str == null) {
             return null;
         } else {
             int strLen = str.length();
-            if(strLen < 2) {
+            if (strLen < 2) {
                 return "";
             } else {
                 int lastIdx = strLen - 1;
                 String ret = str.substring(0, lastIdx);
                 char last = str.charAt(lastIdx);
-                return last == 10 && ret.charAt(lastIdx - 1) == 13?ret.substring(0, lastIdx - 1):ret;
+                return last == 10 && ret.charAt(lastIdx - 1) == 13 ? ret.substring(0, lastIdx - 1) : ret;
             }
         }
     }
 
-    /** @deprecated */
+    /**
+     * @deprecated
+     */
     public static String chopNewline(String str) {
         int lastIdx = str.length() - 1;
-        if(lastIdx <= 0) {
+        if (lastIdx <= 0) {
             return "";
         } else {
             char last = str.charAt(lastIdx);
-            if(last == 10) {
-                if(str.charAt(lastIdx - 1) == 13) {
+            if (last == 10) {
+                if (str.charAt(lastIdx - 1) == 13) {
                     --lastIdx;
                 }
             } else {
@@ -1461,29 +1488,32 @@ public class StrPlusKit extends StrKit {
         }
     }
 
-/*    *//** @deprecated *//*
+/*    */
+
+    /**
+     * @deprecated
+     *//*
     public static String escape(String str) {
         return StringEscapeUtils.escapeJava(str);
     }*/
-
     public static String repeat(String str, int repeat) {
-        if(str == null) {
+        if (str == null) {
             return null;
-        } else if(repeat <= 0) {
+        } else if (repeat <= 0) {
             return "";
         } else {
             int inputLength = str.length();
-            if(repeat != 1 && inputLength != 0) {
-                if(inputLength == 1 && repeat <= 8192) {
+            if (repeat != 1 && inputLength != 0) {
+                if (inputLength == 1 && repeat <= 8192) {
                     return padding(repeat, str.charAt(0));
                 } else {
                     int outputLength = inputLength * repeat;
-                    switch(inputLength) {
+                    switch (inputLength) {
                         case 1:
                             char ch = str.charAt(0);
                             char[] output1 = new char[outputLength];
 
-                            for(int var11 = repeat - 1; var11 >= 0; --var11) {
+                            for (int var11 = repeat - 1; var11 >= 0; --var11) {
                                 output1[var11] = ch;
                             }
 
@@ -1493,7 +1523,7 @@ public class StrPlusKit extends StrKit {
                             char ch1 = str.charAt(1);
                             char[] output2 = new char[outputLength];
 
-                            for(int buf = repeat * 2 - 2; buf >= 0; --buf) {
+                            for (int buf = repeat * 2 - 2; buf >= 0; --buf) {
                                 output2[buf] = ch0;
                                 output2[buf + 1] = ch1;
                                 --buf;
@@ -1503,7 +1533,7 @@ public class StrPlusKit extends StrKit {
                         default:
                             StringBuffer var12 = new StringBuffer(outputLength);
 
-                            for(int i = 0; i < repeat; ++i) {
+                            for (int i = 0; i < repeat; ++i) {
                                 var12.append(str);
                             }
 
@@ -1517,7 +1547,7 @@ public class StrPlusKit extends StrKit {
     }
 
     public static String repeat(String str, String separator, int repeat) {
-        if(str != null && separator != null) {
+        if (str != null && separator != null) {
             String result = repeat(str + separator, repeat);
             return removeEnd(result, separator);
         } else {
@@ -1526,12 +1556,12 @@ public class StrPlusKit extends StrKit {
     }
 
     private static String padding(int repeat, char padChar) throws IndexOutOfBoundsException {
-        if(repeat < 0) {
+        if (repeat < 0) {
             throw new IndexOutOfBoundsException("Cannot pad a negative amount: " + repeat);
         } else {
             char[] buf = new char[repeat];
 
-            for(int i = 0; i < buf.length; ++i) {
+            for (int i = 0; i < buf.length; ++i) {
                 buf[i] = padChar;
             }
 
@@ -1544,38 +1574,38 @@ public class StrPlusKit extends StrKit {
     }
 
     public static String rightPad(String str, int size, char padChar) {
-        if(str == null) {
+        if (str == null) {
             return null;
         } else {
             int pads = size - str.length();
-            return pads <= 0?str:(pads > 8192?rightPad(str, size, String.valueOf(padChar)):str.concat(padding(pads, padChar)));
+            return pads <= 0 ? str : (pads > 8192 ? rightPad(str, size, String.valueOf(padChar)) : str.concat(padding(pads, padChar)));
         }
     }
 
     public static String rightPad(String str, int size, String padStr) {
-        if(str == null) {
+        if (str == null) {
             return null;
         } else {
-            if(isEmpty(padStr)) {
+            if (isEmpty(padStr)) {
                 padStr = " ";
             }
 
             int padLen = padStr.length();
             int strLen = str.length();
             int pads = size - strLen;
-            if(pads <= 0) {
+            if (pads <= 0) {
                 return str;
-            } else if(padLen == 1 && pads <= 8192) {
+            } else if (padLen == 1 && pads <= 8192) {
                 return rightPad(str, size, padStr.charAt(0));
-            } else if(pads == padLen) {
+            } else if (pads == padLen) {
                 return str.concat(padStr);
-            } else if(pads < padLen) {
+            } else if (pads < padLen) {
                 return str.concat(padStr.substring(0, pads));
             } else {
                 char[] padding = new char[pads];
                 char[] padChars = padStr.toCharArray();
 
-                for(int i = 0; i < pads; ++i) {
+                for (int i = 0; i < pads; ++i) {
                     padding[i] = padChars[i % padLen];
                 }
 
@@ -1589,38 +1619,38 @@ public class StrPlusKit extends StrKit {
     }
 
     public static String leftPad(String str, int size, char padChar) {
-        if(str == null) {
+        if (str == null) {
             return null;
         } else {
             int pads = size - str.length();
-            return pads <= 0?str:(pads > 8192?leftPad(str, size, String.valueOf(padChar)):padding(pads, padChar).concat(str));
+            return pads <= 0 ? str : (pads > 8192 ? leftPad(str, size, String.valueOf(padChar)) : padding(pads, padChar).concat(str));
         }
     }
 
     public static String leftPad(String str, int size, String padStr) {
-        if(str == null) {
+        if (str == null) {
             return null;
         } else {
-            if(isEmpty(padStr)) {
+            if (isEmpty(padStr)) {
                 padStr = " ";
             }
 
             int padLen = padStr.length();
             int strLen = str.length();
             int pads = size - strLen;
-            if(pads <= 0) {
+            if (pads <= 0) {
                 return str;
-            } else if(padLen == 1 && pads <= 8192) {
+            } else if (padLen == 1 && pads <= 8192) {
                 return leftPad(str, size, padStr.charAt(0));
-            } else if(pads == padLen) {
+            } else if (pads == padLen) {
                 return padStr.concat(str);
-            } else if(pads < padLen) {
+            } else if (pads < padLen) {
                 return padStr.substring(0, pads).concat(str);
             } else {
                 char[] padding = new char[pads];
                 char[] padChars = padStr.toCharArray();
 
-                for(int i = 0; i < pads; ++i) {
+                for (int i = 0; i < pads; ++i) {
                     padding[i] = padChars[i % padLen];
                 }
 
@@ -1630,7 +1660,7 @@ public class StrPlusKit extends StrKit {
     }
 
     public static int length(String str) {
-        return str == null?0:str.length();
+        return str == null ? 0 : str.length();
     }
 
     public static String center(String str, int size) {
@@ -1638,10 +1668,10 @@ public class StrPlusKit extends StrKit {
     }
 
     public static String center(String str, int size, char padChar) {
-        if(str != null && size > 0) {
+        if (str != null && size > 0) {
             int strLen = str.length();
             int pads = size - strLen;
-            if(pads <= 0) {
+            if (pads <= 0) {
                 return str;
             } else {
                 str = leftPad(str, strLen + pads / 2, padChar);
@@ -1654,14 +1684,14 @@ public class StrPlusKit extends StrKit {
     }
 
     public static String center(String str, int size, String padStr) {
-        if(str != null && size > 0) {
-            if(isEmpty(padStr)) {
+        if (str != null && size > 0) {
+            if (isEmpty(padStr)) {
                 padStr = " ";
             }
 
             int strLen = str.length();
             int pads = size - strLen;
-            if(pads <= 0) {
+            if (pads <= 0) {
                 return str;
             } else {
                 str = leftPad(str, strLen + pads / 2, padStr);
@@ -1674,54 +1704,58 @@ public class StrPlusKit extends StrKit {
     }
 
     public static String upperCase(String str) {
-        return str == null?null:str.toUpperCase();
+        return str == null ? null : str.toUpperCase();
     }
 
     public static String upperCase(String str, Locale locale) {
-        return str == null?null:str.toUpperCase(locale);
+        return str == null ? null : str.toUpperCase(locale);
     }
 
     public static String lowerCase(String str) {
-        return str == null?null:str.toLowerCase();
+        return str == null ? null : str.toLowerCase();
     }
 
     public static String lowerCase(String str, Locale locale) {
-        return str == null?null:str.toLowerCase(locale);
+        return str == null ? null : str.toLowerCase(locale);
     }
 
     public static String capitalize(String str) {
         int strLen;
-        return str != null && (strLen = str.length()) != 0?(new StringBuffer(strLen)).append(Character.toTitleCase(str.charAt(0))).append(str.substring(1)).toString():str;
+        return str != null && (strLen = str.length()) != 0 ? (new StringBuffer(strLen)).append(Character.toTitleCase(str.charAt(0))).append(str.substring(1)).toString() : str;
     }
 
-    /** @deprecated */
+    /**
+     * @deprecated
+     */
     public static String capitalise(String str) {
         return capitalize(str);
     }
 
     public static String uncapitalize(String str) {
         int strLen;
-        return str != null && (strLen = str.length()) != 0?(new StringBuffer(strLen)).append(Character.toLowerCase(str.charAt(0))).append(str.substring(1)).toString():str;
+        return str != null && (strLen = str.length()) != 0 ? (new StringBuffer(strLen)).append(Character.toLowerCase(str.charAt(0))).append(str.substring(1)).toString() : str;
     }
 
-    /** @deprecated */
+    /**
+     * @deprecated
+     */
     public static String uncapitalise(String str) {
         return uncapitalize(str);
     }
 
     public static String swapCase(String str) {
         int strLen;
-        if(str != null && (strLen = str.length()) != 0) {
+        if (str != null && (strLen = str.length()) != 0) {
             StringBuffer buffer = new StringBuffer(strLen);
             boolean ch = false;
 
-            for(int i = 0; i < strLen; ++i) {
+            for (int i = 0; i < strLen; ++i) {
                 char var5 = str.charAt(i);
-                if(Character.isUpperCase(var5)) {
+                if (Character.isUpperCase(var5)) {
                     var5 = Character.toLowerCase(var5);
-                } else if(Character.isTitleCase(var5)) {
+                } else if (Character.isTitleCase(var5)) {
                     var5 = Character.toLowerCase(var5);
-                } else if(Character.isLowerCase(var5)) {
+                } else if (Character.isLowerCase(var5)) {
                     var5 = Character.toUpperCase(var5);
                 }
 
@@ -1734,16 +1768,19 @@ public class StrPlusKit extends StrKit {
         }
     }
 
-/*    *//** @deprecated *//*
+/*    */
+
+    /**
+     * @deprecated
+     *//*
     public static String capitaliseAllWords(String str) {
         return WordUtils.capitalize(str);
     }*/
-
     public static int countMatches(String str, String sub) {
-        if(!isEmpty(str) && !isEmpty(sub)) {
+        if (!isEmpty(str) && !isEmpty(sub)) {
             int count = 0;
 
-            for(int idx = 0; (idx = str.indexOf(sub, idx)) != -1; idx += sub.length()) {
+            for (int idx = 0; (idx = str.indexOf(sub, idx)) != -1; idx += sub.length()) {
                 ++count;
             }
 
@@ -1754,13 +1791,13 @@ public class StrPlusKit extends StrKit {
     }
 
     public static boolean isAlpha(String str) {
-        if(str == null) {
+        if (str == null) {
             return false;
         } else {
             int sz = str.length();
 
-            for(int i = 0; i < sz; ++i) {
-                if(!Character.isLetter(str.charAt(i))) {
+            for (int i = 0; i < sz; ++i) {
+                if (!Character.isLetter(str.charAt(i))) {
                     return false;
                 }
             }
@@ -1770,13 +1807,13 @@ public class StrPlusKit extends StrKit {
     }
 
     public static boolean isAlphaSpace(String str) {
-        if(str == null) {
+        if (str == null) {
             return false;
         } else {
             int sz = str.length();
 
-            for(int i = 0; i < sz; ++i) {
-                if(!Character.isLetter(str.charAt(i)) && str.charAt(i) != 32) {
+            for (int i = 0; i < sz; ++i) {
+                if (!Character.isLetter(str.charAt(i)) && str.charAt(i) != 32) {
                     return false;
                 }
             }
@@ -1786,13 +1823,13 @@ public class StrPlusKit extends StrKit {
     }
 
     public static boolean isAlphanumeric(String str) {
-        if(str == null) {
+        if (str == null) {
             return false;
         } else {
             int sz = str.length();
 
-            for(int i = 0; i < sz; ++i) {
-                if(!Character.isLetterOrDigit(str.charAt(i))) {
+            for (int i = 0; i < sz; ++i) {
+                if (!Character.isLetterOrDigit(str.charAt(i))) {
                     return false;
                 }
             }
@@ -1802,13 +1839,13 @@ public class StrPlusKit extends StrKit {
     }
 
     public static boolean isAlphanumericSpace(String str) {
-        if(str == null) {
+        if (str == null) {
             return false;
         } else {
             int sz = str.length();
 
-            for(int i = 0; i < sz; ++i) {
-                if(!Character.isLetterOrDigit(str.charAt(i)) && str.charAt(i) != 32) {
+            for (int i = 0; i < sz; ++i) {
+                if (!Character.isLetterOrDigit(str.charAt(i)) && str.charAt(i) != 32) {
                     return false;
                 }
             }
@@ -1834,13 +1871,13 @@ public class StrPlusKit extends StrKit {
     }*/
 
     public static boolean isNumeric(String str) {
-        if(str == null) {
+        if (str == null) {
             return false;
         } else {
             int sz = str.length();
 
-            for(int i = 0; i < sz; ++i) {
-                if(!Character.isDigit(str.charAt(i))) {
+            for (int i = 0; i < sz; ++i) {
+                if (!Character.isDigit(str.charAt(i))) {
                     return false;
                 }
             }
@@ -1850,13 +1887,13 @@ public class StrPlusKit extends StrKit {
     }
 
     public static boolean isNumericSpace(String str) {
-        if(str == null) {
+        if (str == null) {
             return false;
         } else {
             int sz = str.length();
 
-            for(int i = 0; i < sz; ++i) {
-                if(!Character.isDigit(str.charAt(i)) && str.charAt(i) != 32) {
+            for (int i = 0; i < sz; ++i) {
+                if (!Character.isDigit(str.charAt(i)) && str.charAt(i) != 32) {
                     return false;
                 }
             }
@@ -1866,13 +1903,13 @@ public class StrPlusKit extends StrKit {
     }
 
     public static boolean isWhitespace(String str) {
-        if(str == null) {
+        if (str == null) {
             return false;
         } else {
             int sz = str.length();
 
-            for(int i = 0; i < sz; ++i) {
-                if(!Character.isWhitespace(str.charAt(i))) {
+            for (int i = 0; i < sz; ++i) {
+                if (!Character.isWhitespace(str.charAt(i))) {
                     return false;
                 }
             }
@@ -1882,11 +1919,11 @@ public class StrPlusKit extends StrKit {
     }
 
     public static boolean isAllLowerCase(String str) {
-        if(str != null && !isEmpty(str)) {
+        if (str != null && !isEmpty(str)) {
             int sz = str.length();
 
-            for(int i = 0; i < sz; ++i) {
-                if(!Character.isLowerCase(str.charAt(i))) {
+            for (int i = 0; i < sz; ++i) {
+                if (!Character.isLowerCase(str.charAt(i))) {
                     return false;
                 }
             }
@@ -1898,11 +1935,11 @@ public class StrPlusKit extends StrKit {
     }
 
     public static boolean isAllUpperCase(String str) {
-        if(str != null && !isEmpty(str)) {
+        if (str != null && !isEmpty(str)) {
             int sz = str.length();
 
-            for(int i = 0; i < sz; ++i) {
-                if(!Character.isUpperCase(str.charAt(i))) {
+            for (int i = 0; i < sz; ++i) {
+                if (!Character.isUpperCase(str.charAt(i))) {
                     return false;
                 }
             }
@@ -1914,19 +1951,19 @@ public class StrPlusKit extends StrKit {
     }
 
     public static String defaultString(String str) {
-        return str == null?"":str;
+        return str == null ? "" : str;
     }
 
     public static String defaultString(String str, String defaultStr) {
-        return str == null?defaultStr:str;
+        return str == null ? defaultStr : str;
     }
 
     public static String defaultIfEmpty(String str, String defaultStr) {
-        return isEmpty(str)?defaultStr:str;
+        return isEmpty(str) ? defaultStr : str;
     }
 
     public static String reverse(String str) {
-        return str == null?null:(new StringBuffer(str)).reverse().toString();
+        return str == null ? null : (new StringBuffer(str)).reverse().toString();
     }
 
     /*public static String reverseDelimited(String str, char separatorChar) {
@@ -1939,7 +1976,11 @@ public class StrPlusKit extends StrKit {
         }
     }
 
-    *//** @deprecated *//*
+    */
+
+    /**
+     * @deprecated
+     *//*
     public static String reverseDelimitedString(String str, String separatorChars) {
         if(str == null) {
             return null;
@@ -1949,40 +1990,39 @@ public class StrPlusKit extends StrKit {
             return separatorChars == null?join((Object[])strs, ' '):join((Object[])strs, separatorChars);
         }
     }*/
-
     public static String abbreviate(String str, int maxWidth) {
         return abbreviate(str, 0, maxWidth);
     }
 
     public static String abbreviate(String str, int offset, int maxWidth) {
-        if(str == null) {
+        if (str == null) {
             return null;
-        } else if(maxWidth < 4) {
+        } else if (maxWidth < 4) {
             throw new IllegalArgumentException("Minimum abbreviation width is 4");
-        } else if(str.length() <= maxWidth) {
+        } else if (str.length() <= maxWidth) {
             return str;
         } else {
-            if(offset > str.length()) {
+            if (offset > str.length()) {
                 offset = str.length();
             }
 
-            if(str.length() - offset < maxWidth - 3) {
+            if (str.length() - offset < maxWidth - 3) {
                 offset = str.length() - (maxWidth - 3);
             }
 
-            if(offset <= 4) {
+            if (offset <= 4) {
                 return str.substring(0, maxWidth - 3) + "...";
-            } else if(maxWidth < 7) {
+            } else if (maxWidth < 7) {
                 throw new IllegalArgumentException("Minimum abbreviation width with offset is 7");
             } else {
-                return offset + (maxWidth - 3) < str.length()?"..." + abbreviate(str.substring(offset), maxWidth - 3):"..." + str.substring(str.length() - (maxWidth - 3));
+                return offset + (maxWidth - 3) < str.length() ? "..." + abbreviate(str.substring(offset), maxWidth - 3) : "..." + str.substring(str.length() - (maxWidth - 3));
             }
         }
     }
 
     public static String abbreviateMiddle(String str, String middle, int length) {
-        if(!isEmpty(str) && !isEmpty(middle)) {
-            if(length < str.length() && length >= middle.length() + 2) {
+        if (!isEmpty(str) && !isEmpty(middle)) {
+            if (length < str.length() && length >= middle.length() + 2) {
                 int targetSting = length - middle.length();
                 int startOffset = targetSting / 2 + targetSting % 2;
                 int endOffset = str.length() - targetSting / 2;
@@ -2000,33 +2040,33 @@ public class StrPlusKit extends StrKit {
     }
 
     public static String difference(String str1, String str2) {
-        if(str1 == null) {
+        if (str1 == null) {
             return str2;
-        } else if(str2 == null) {
+        } else if (str2 == null) {
             return str1;
         } else {
             int at = indexOfDifference(str1, str2);
-            return at == -1?"":str2.substring(at);
+            return at == -1 ? "" : str2.substring(at);
         }
     }
 
     public static int indexOfDifference(String str1, String str2) {
-        if(str1 == str2) {
+        if (str1 == str2) {
             return -1;
-        } else if(str1 != null && str2 != null) {
+        } else if (str1 != null && str2 != null) {
             int i;
-            for(i = 0; i < str1.length() && i < str2.length() && str1.charAt(i) == str2.charAt(i); ++i) {
+            for (i = 0; i < str1.length() && i < str2.length() && str1.charAt(i) == str2.charAt(i); ++i) {
                 ;
             }
 
-            return i >= str2.length() && i >= str1.length()?-1:i;
+            return i >= str2.length() && i >= str1.length() ? -1 : i;
         } else {
             return 0;
         }
     }
 
     public static int indexOfDifference(String[] strs) {
-        if(strs != null && strs.length > 1) {
+        if (strs != null && strs.length > 1) {
             boolean anyStringNull = false;
             boolean allStringsNull = true;
             int arrayLen = strs.length;
@@ -2034,8 +2074,8 @@ public class StrPlusKit extends StrKit {
             int longestStrLen = 0;
 
             int firstDiff;
-            for(firstDiff = 0; firstDiff < arrayLen; ++firstDiff) {
-                if(strs[firstDiff] == null) {
+            for (firstDiff = 0; firstDiff < arrayLen; ++firstDiff) {
+                if (strs[firstDiff] == null) {
                     anyStringNull = true;
                     shortestStrLen = 0;
                 } else {
@@ -2045,29 +2085,29 @@ public class StrPlusKit extends StrKit {
                 }
             }
 
-            if(allStringsNull || longestStrLen == 0 && !anyStringNull) {
+            if (allStringsNull || longestStrLen == 0 && !anyStringNull) {
                 return -1;
-            } else if(shortestStrLen == 0) {
+            } else if (shortestStrLen == 0) {
                 return 0;
             } else {
                 firstDiff = -1;
 
-                for(int stringPos = 0; stringPos < shortestStrLen; ++stringPos) {
+                for (int stringPos = 0; stringPos < shortestStrLen; ++stringPos) {
                     char comparisonChar = strs[0].charAt(stringPos);
 
-                    for(int arrayPos = 1; arrayPos < arrayLen; ++arrayPos) {
-                        if(strs[arrayPos].charAt(stringPos) != comparisonChar) {
+                    for (int arrayPos = 1; arrayPos < arrayLen; ++arrayPos) {
+                        if (strs[arrayPos].charAt(stringPos) != comparisonChar) {
                             firstDiff = stringPos;
                             break;
                         }
                     }
 
-                    if(firstDiff != -1) {
+                    if (firstDiff != -1) {
                         break;
                     }
                 }
 
-                return firstDiff == -1 && shortestStrLen != longestStrLen?shortestStrLen:firstDiff;
+                return firstDiff == -1 && shortestStrLen != longestStrLen ? shortestStrLen : firstDiff;
             }
         } else {
             return -1;
@@ -2075,24 +2115,24 @@ public class StrPlusKit extends StrKit {
     }
 
     public static String getCommonPrefix(String[] strs) {
-        if(strs != null && strs.length != 0) {
+        if (strs != null && strs.length != 0) {
             int smallestIndexOfDiff = indexOfDifference(strs);
-            return smallestIndexOfDiff == -1?(strs[0] == null?"":strs[0]):(smallestIndexOfDiff == 0?"":strs[0].substring(0, smallestIndexOfDiff));
+            return smallestIndexOfDiff == -1 ? (strs[0] == null ? "" : strs[0]) : (smallestIndexOfDiff == 0 ? "" : strs[0].substring(0, smallestIndexOfDiff));
         } else {
             return "";
         }
     }
 
     public static int getLevenshteinDistance(String s, String t) {
-        if(s != null && t != null) {
+        if (s != null && t != null) {
             int n = s.length();
             int m = t.length();
-            if(n == 0) {
+            if (n == 0) {
                 return m;
-            } else if(m == 0) {
+            } else if (m == 0) {
                 return n;
             } else {
-                if(n > m) {
+                if (n > m) {
                     String p = s;
                     s = t;
                     t = p;
@@ -2104,16 +2144,16 @@ public class StrPlusKit extends StrKit {
                 int[] d = new int[n + 1];
 
                 int i;
-                for(i = 0; i <= n; var11[i] = i++) {
+                for (i = 0; i <= n; var11[i] = i++) {
                     ;
                 }
 
-                for(int j = 1; j <= m; ++j) {
+                for (int j = 1; j <= m; ++j) {
                     char t_j = t.charAt(j - 1);
                     d[0] = j;
 
-                    for(i = 1; i <= n; ++i) {
-                        int cost = s.charAt(i - 1) == t_j?0:1;
+                    for (i = 1; i <= n; ++i) {
+                        int cost = s.charAt(i - 1) == t_j ? 0 : 1;
                         d[i] = Math.min(Math.min(d[i - 1] + 1, var11[i] + 1), var11[i - 1] + cost);
                     }
 
@@ -2138,14 +2178,14 @@ public class StrPlusKit extends StrKit {
     }
 
     private static boolean startsWith(String str, String prefix, boolean ignoreCase) {
-        return str != null && prefix != null?(prefix.length() > str.length()?false:str.regionMatches(ignoreCase, 0, prefix, 0, prefix.length())):str == null && prefix == null;
+        return str != null && prefix != null ? (prefix.length() > str.length() ? false : str.regionMatches(ignoreCase, 0, prefix, 0, prefix.length())) : str == null && prefix == null;
     }
 
     public static boolean startsWithAny(String string, String[] searchStrings) {
-        if(!isEmpty(string) && !ArrayKit.isEmpty(searchStrings)) {
-            for(int i = 0; i < searchStrings.length; ++i) {
+        if (!isEmpty(string) && !ArrayKit.isEmpty(searchStrings)) {
+            for (int i = 0; i < searchStrings.length; ++i) {
                 String searchString = searchStrings[i];
-                if(startsWith(string, searchString)) {
+                if (startsWith(string, searchString)) {
                     return true;
                 }
             }
@@ -2165,8 +2205,8 @@ public class StrPlusKit extends StrKit {
     }
 
     private static boolean endsWith(String str, String suffix, boolean ignoreCase) {
-        if(str != null && suffix != null) {
-            if(suffix.length() > str.length()) {
+        if (str != null && suffix != null) {
+            if (suffix.length() > str.length()) {
                 return false;
             } else {
                 int strOffset = str.length() - suffix.length();

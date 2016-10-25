@@ -2,12 +2,15 @@ package com.hudongwx.studentsys.util;
 
 import com.jfinal.kit.Prop;
 import com.jfinal.kit.PropKit;
+import com.jfinal.plugin.activerecord.Model;
+import com.jfinal.plugin.activerecord.Page;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by wuhongxu on 2016/8/29 0029.
- *
+ * <p>
  * 用于存储各种常用的常量
  * 一般是各种get("",)/set("",) 中用到的常量值
  */
@@ -26,7 +29,7 @@ public class Common {
     public static final String LABEL_VIEWS = "views";
     public final static String LABEL_CATALOG = "Catalog";
     public static final int MAX_SIDE_CNT = 8;
-    public static final int MAX_PAGE_SIZE = 20;
+    public static final int MAX_PAGE_SIZE = 8;
     public static final int START_PAGE = 1;
     public static final String LABEL_ROLE_TREE = "roleTree";
     public static final String LABEL_NOW_VISIT = "now";
@@ -36,10 +39,11 @@ public class Common {
     public static final String LABEL_ID = "id";
     public static final String SEPARATOR = "&";
     public static final String LABEL_USER = "user";
-
+    public static final String COMMON_SELECT = "select *";
+    public static final Page EMPTY_PAGE = new Page<Model>(new ArrayList<Model>(), 1, 1, 1, 1);
     public static final Integer VALUE_VISIBLE = 1;
     public static final Integer VALUE_IN_VISIBLE = 0;
-
+    public static final String ORDER_BY_ID_DESC = " order by id desc";
     //缓存Label
     public static final String CACHE_FOREVER_LABEL = "forever";
     public static final String CACHE_LONG_TIME_LABEL = "longTime";
@@ -47,9 +51,8 @@ public class Common {
     public static final String LABEL_ROOT_MAPPING = "root";
 
 
-
     //此处得到主配置
-    public static Prop getMainProp(){
+    public static Prop getMainProp() {
         return PropKit.use("config.properties");
     }
 }

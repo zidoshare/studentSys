@@ -9,4 +9,5 @@ import com.hudongwx.studentsys.common.BaseTestQuestionnaireClass;
 public class TestQuestionnaireClass extends BaseTestQuestionnaireClass<TestQuestionnaireClass> {
 	public static final TestQuestionnaireClass dao = new TestQuestionnaireClass();
 	public static final String SEARCH_FROM_TEST_QUESTIONNAIRE_CLASS = "select * from stumanager_test_questionnaire_class ";
+	public static final String FROM_SQL = "from stumanager_test_questionnaire_class ";
 }

@@ -3,7 +3,10 @@ package com.hudongwx.studentsys.service;
 import com.hudongwx.studentsys.common.Service;
 import com.hudongwx.studentsys.model.*;
 import com.hudongwx.studentsys.model.Class;
+import com.hudongwx.studentsys.util.PageinateKit;
 import com.hudongwx.surveys.model.Questionnaire;
+import com.jfinal.plugin.activerecord.Model;
+import com.jfinal.plugin.activerecord.Page;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -106,5 +109,14 @@ public class TestQuestionnaireService extends Service {
             questionnaires.add(questionnaire);
         }
         return questionnaires;
+    }
+    public Page<TestQuestionnaire> getQuestionnairesByClass(int page, Class aClass){
+        Page<TestQuestionnaireClass> tqcs = testQuestionnaireClassService.getByClassId(page, aClass);
+        List<TestQuestionnaire> questionnaires = new ArrayList<>();
+        for(TestQuestionnaireClass tqc : tqcs.getList()){
+            TestQuestionnaire questionnaire = packingQuestionnaire(tqc);
+            questionnaires.add(questionnaire);
+        }
+        return PageinateKit.ClonePage(tqcs, questionnaires);
     }
 }

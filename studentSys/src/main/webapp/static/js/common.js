@@ -153,6 +153,13 @@ var Util = {
     reBindPjax:function(selector){
         if(selector == null)
             selector = '#table-inner';
+        $('#table-inner').pjax('a[data-label="#table-inner"]','#table-inner',{
+            fragment: '#table-inner',
+            cache: true,
+            maxCacheLength: 5,
+            storage: false,
+            replace: true
+        });
         $(selector).on('pjax:beforeSend', function (event) { //如果是table层级发生事件，阻止冒泡
             $(this).children('table').html('');
             $(this).children('.table_pjax_loading').first().removeClass('sr-only');

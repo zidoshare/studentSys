@@ -13,6 +13,7 @@ import com.hudongwx.studentsys.service.TestQuestionnaireQuestionService;
 import com.jfinal.aop.Before;
 import com.jfinal.ext.interceptor.POST;
 import com.jfinal.kit.JsonKit;
+import com.jfinal.plugin.activerecord.Page;
 
 import java.util.*;
 
@@ -65,14 +66,14 @@ public class TestController extends BaseController {
         setAttr("operaterMap", userMap);
         setAttr("classes", classService.getAllClass());
 
-        List<TestQuestionnaireClass> tqcs = testQuestionnaireClassService.getAllTQC();
+        Page<TestQuestionnaireClass> tqcs = testQuestionnaireClassService.getAllTQC(1);
         Map<String, TestQuestionnaire> testQuestionnaireMap = new HashMap<>();
         Map<String, Class> classMap = new HashMap<>();
-        for (TestQuestionnaireClass tqc : tqcs) {
+        for (TestQuestionnaireClass tqc : tqcs.getList()) {
             testQuestionnaireMap.put(tqc.getId() + "", testQuestionnaireService.getQuestionnaireById(tqc.getTestQuestionnaireId()));
             classMap.put(tqc.getId() + "", classService.getClassById(tqc.getClassId()));
         }
-        setAttr("disList", tqcs);
+        setAttr("disList", tqcs.getList());
         setAttr("testQuestionnaireMap", testQuestionnaireMap);
         setAttr("classMap", classMap);
         /*Map<String,String> msgMap = new HashMap<>();
@@ -346,18 +347,21 @@ public class TestController extends BaseController {
         super.index();
         Integer classId = getParaToInt(0);
         Integer p = getParaToInt("p");
+        if(p == null)
+            p = Common.START_PAGE;
         List<Class> classes = classService.getAllClass();
-        List<TestQuestionnaire> questionnaires = new ArrayList<>();
+        Page<TestQuestionnaire> questionnaires = Common.EMPTY_PAGE;
         Class ac = classService.getClassById(classId);
         if (classes.size() > 0 && ac == null) {
             ac = classes.get(0);
         }
         if (ac != null) {
-            questionnaires = testQuestionnaireService.getQuestionnairesByClass(ac);
+            questionnaires = testQuestionnaireService.getQuestionnairesByClass(p, ac);
         }
 
         setAttr("nowTime", System.currentTimeMillis());
-        setAttr("questionnaires", questionnaires);
+        setAttr("questionnaires", questionnaires.getList());
+        setAttr("page",questionnaires);
         setAttr("classes", classes);
         setAttr("nowClass", ac);
     }

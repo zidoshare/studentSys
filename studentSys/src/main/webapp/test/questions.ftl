@@ -2,11 +2,9 @@
 <#include "../macro-btn.ftl">
 <@initBtn map = map view=view></@initBtn>
 <@item>
-<div class="panel-heading">
-    <div class="panel-heading title">
+<div class="panel-heading title">
     ${view.title}
         <span class="pull-right">${addBtn}</span>
-    </div>
 </div>
 <div class="panel-body">
     <div class="table-responsive">

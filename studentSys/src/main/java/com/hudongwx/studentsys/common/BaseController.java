@@ -7,6 +7,7 @@ import com.hudongwx.studentsys.service.RoleService;
 import com.hudongwx.studentsys.util.ArrayTree;
 import com.hudongwx.studentsys.util.Common;
 import com.hudongwx.studentsys.util.LangConfig;
+import com.hudongwx.studentsys.util.StrPlusKit;
 import com.jfinal.core.Controller;
 import com.jfinal.kit.Prop;
 import com.jfinal.log.Log;
@@ -58,30 +59,30 @@ public abstract class BaseController extends Controller {
         //三个地址：static用于找资源、servePath用于得到去掉参数的网址、holdPath为带参数网址
         String uri = getRequest().getRequestURI();
         String url = String.valueOf(getRequest().getRequestURL());
-        String staticPath = Common.getMainProp().get("staticServePath");
+        String staticPath = getAttr(Common.LABEL_STATIC_SERVE_PATH);
         String para = getRequest().getQueryString();
-        if (null == para)
+        if (StrPlusKit.isEmpty(para))
             para = "";
-        else
+        //将pjax参数忽略掉
+        String pjax = StrPlusKit.substringBetween(para, "_pjax=", "&");
+        para = para.replace(pjax,"");
+        String p = StrPlusKit.substringBetween(para,"p=","&");
+        para = para.replace(p,"");
+        /*int pjaxIndex = para.indexOf("_pjax");
+        if(pjaxIndex >= 0){
+            int pjaxEnd = para.indexOf("&", pjaxIndex);
+            if(pjaxEnd < 0)
+                pjaxEnd = para.length();
+            String sub = para.substring(pjaxIndex, pjaxEnd);
+            para = para.replace(sub,"");
+        }*/
+        if(!StrPlusKit.isEmpty(para))
             para = "?" + para;
         String actionKey = getAttr(Common.LABEL_ACTION_KEY);
         String servePath = staticPath + actionKey;
-        /*if(staticPath.endsWith("/"))
-            staticPath = staticPath.substring(0,staticPath.length()-1);
-        if(servePath.endsWith("/"))
-            servePath = servePath.substring(0,servePath.length()-1);
-        if(url.endsWith("/"))
-            url = url.substring(0,url.length()-1);*/
         url += para;
-
-        /*log.info("static用于找资源:"+staticPath);
-        log.info("servePath用于得到去掉参数的网址:"+servePath);
-        log.info("holdPath为带参数网址:"+url);*/
-
-        //setAttr(Common.LABEL_STATIC_SERVE_PATH, staticPath);
         setAttr(Common.LABEL_SERVE_PATH, servePath);
         setAttr(Common.LABEL_HOLD_PATH, url);
-
         setAttr(Common.LABEL_STATIC_RESOURCE_VERSION, new Date().getTime());
         User currentUser = getCurrentUser(this);
 
