@@ -19,6 +19,11 @@ public class TestDomainService extends Service {
         return Domain.dao.paginate(currentPage, Common.MAX_PAGE_SIZE,Common.COMMON_SELECT,Domain.FROM_DQL+Common.ORDER_BY_ID_DESC);
     }
     public Domain getDomainById(Integer domainId) {
+        if(domainId == 0){
+            Domain d = new Domain();
+            d.setId(0);
+            return d;
+        }
         return Domain.dao.findById(domainId);
     }
 }

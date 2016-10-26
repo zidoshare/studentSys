@@ -1,10 +1,12 @@
 <div id="load_questions">
     <div class="row">
+
         <div class="col-md-4">
             <div class="form-group">
                 <label for="testQuestionTypeId" class="control-label">题目类型：</label>
                 <select class="form-control" name="testQuestion.testQuestionTypeId" id="testQuestionTypeId"
-                        onclick="getQuestions()">
+                        onclick="">
+                    <option id="option0" value="0">不限</option>
                 <#list types as type>
                     <option id="option${type.id}" value="${type.id}">${type.typeName}</option>
                 </#list>
@@ -16,6 +18,7 @@
                 <label for="domainSelect" class="control-label">标签分类：</label>
 
                 <select id="domainSelect" class="selectpicker show-tick form-control" data-live-search="true">
+                    <option value="0">不限</option>
                 <#list domains as domain>
                     <option value="${domain.id}">${domain.domainTitle}</option>
                 </#list>
@@ -26,7 +29,7 @@
             <div class="form-group">
                 <label for="tagSelect" class="control-label">标签：</label>
                 <select id="tagSelect" class="selectpicker show-tick form-control" data-live-search="true">
-
+                    <option value="0">不限</option>
                 <#list tags as tag>
                     <option value="${tag.id}">${tag.tagName}</option>
                 </#list>
@@ -57,6 +60,10 @@
             getTags(ds.val());
         });
         tps.on('change', function () {
+            getQuestions();
+        });
+        ts.on('change',function(){
+            getQuestions();
         })
     });
 
@@ -145,7 +152,8 @@
                 }
                 var array = data;
 
-                var str = '<select id="tagSelect" class="selectpicker show-tick form-control" data-live-search="true">';
+                var str = '<select id="tagSelect" class="selectpicker show-tick form-control" data-live-search="true">' +
+                        '<option value="0">不限</option>';
                 var parent = ts.parent();
                 ts.next().remove();
                 ts.remove();

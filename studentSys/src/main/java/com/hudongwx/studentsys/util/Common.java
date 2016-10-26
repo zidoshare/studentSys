@@ -49,6 +49,7 @@ public class Common {
     public static final String CACHE_LONG_TIME_LABEL = "longTime";
     public static final String CACHE_60TIME_LABEL = "60time";
     public static final String LABEL_ROOT_MAPPING = "root";
+    public static final String SQL_WHERE = " where ";
 
 
     //此处得到主配置

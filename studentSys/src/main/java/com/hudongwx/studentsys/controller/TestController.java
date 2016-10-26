@@ -54,7 +54,7 @@ public class TestController extends BaseController {
         List<TestQuestionnaire> questionnaires = testQuestionnaireService.getQuestionnairesByUser(user);
         Student student = studentService.getStudentByUser(user);
         setAttr("testing", questionnaires);
-        setAttr("student",student);
+        setAttr("student", student);
         setAttr("nowTime", System.currentTimeMillis());
     }
 
@@ -179,8 +179,8 @@ public class TestController extends BaseController {
             renderError(403);
             return;
         }
-        if(user.getUserRole().equals("学生")){
-            setAttr("edit",false);
+        if (user.getUserRole().equals("学生")) {
+            setAttr("edit", false);
         }
         Student student = studentService.getStudentById(studentId);
         if (null == student) {
@@ -308,23 +308,18 @@ public class TestController extends BaseController {
         Integer tagId = getParaToInt("tag");
         Integer domainId = getParaToInt("domain");
         List<TestType> testTypes = testTypeService.getAllVisibleTypes();
-        if (typeId == null && testTypes.size() > 0)
-            typeId = testTypes.get(0).getId();
-        else if (typeId == null)
+        if (typeId == null)
             typeId = 0;
         Map<String, TestType> testTypeMap = new HashMap<>();
         for (TestType t : testTypes) {
             testTypeMap.put(t.getId() + "", t);
         }
         List<Domain> allDomains = testDomainService.getAllDomains();
-        if (domainId == null && allDomains.size() > 0) {
-            domainId = allDomains.get(0).getId();
-        } else if (domainId == null)
+        if (domainId == null)
             domainId = 0;
-        List<TestTag> tags = testTagService.getTagsByDomain(testDomainService.getDomainById(domainId));
-        if (tagId == null && tags.size() > 0) {
-            tagId = tags.get(0).getId();
-        } else if (tagId == null)
+        List<TestTag> domainTags = testTagService.getTagsByDomain(testDomainService.getDomainById(domainId));
+        List<TestTag> tags = testTagService.getAllTestTag();
+        if (tagId == null)
             tagId = 0;
         Page<TestQuestion> allQuestions = testQuestionService.getQuestionsByTypeAndTag(p, typeId, tagId);
         Map<String, List<TestTag>> testQuestionTagsMap = new HashMap<>();
@@ -342,7 +337,8 @@ public class TestController extends BaseController {
         for (User user : users) {
             userMap.put(user.getId() + "", user);
         }
-        setAttr("tags", tags);
+        setAttr("domainTags", domainTags);
+        setAttr("tags",tags);
         setAttr("tagId", tagId);
         setAttr("domainId", domainId);
         setAttr("typeId", typeId);
@@ -374,23 +370,18 @@ public class TestController extends BaseController {
         setAttr("domains", domains);
     }
 
-    public void getDomainTags() {
+    public void panelTags() {
         Integer domainId = getParaToInt(0);
-        if (domainId == null) {
-            List<TestTag> allTestTag = testTagService.getAllTestTag();
-            setAttr("tags", allTestTag);
-            render("/test/tags.ftl");
-            setAttr("selects", new HashMap<String, Boolean>());
-            return;
-        }
-        Domain domain = testDomainService.getDomainById(domainId);
         List<TestTag> tags = testTagService.getAllTestTag();
-        List<TestTag> domainTags = testTagService.getTagsByDomain(domain);
         Map<String, Boolean> selects = new HashMap<>();
-        for (TestTag tag : tags) {
-            domainTags.stream().filter(tag1 -> tag.getTagName().equals(tag1.getTagName())).forEach(tag1 -> {
-                selects.put(tag.getId() + "", true);
-            });
+        if (domainId != null) {
+            Domain domain = testDomainService.getDomainById(domainId);
+            List<TestTag> domainTags = testTagService.getTagsByDomain(domain);
+            for (TestTag tag : tags) {
+                domainTags.stream().filter(tag1 -> tag.getTagName().equals(tag1.getTagName())).forEach(tag1 -> {
+                    selects.put(tag.getId() + "", true);
+                });
+            }
         }
         setAttr("tags", tags);
         setAttr("selects", selects);
@@ -458,9 +449,7 @@ public class TestController extends BaseController {
         setAttr("types", allTestTypes);
         List<Domain> allDomains = testDomainService.getAllDomains();
         setAttr("domains", allDomains);
-
-        //取得第一个domain下面的tag
-        List<TestTag> tags = testTagService.getTagsByDomain(allDomains.get(0));
+        List<TestTag> tags = testTagService.getAllTestTag();
         setAttr("tags", tags);
         //questions();
         render("/test/selectQuestion.ftl");
@@ -502,8 +491,7 @@ public class TestController extends BaseController {
     public void getTags() {
         Integer domainId = getParaToInt("domain");
         if (domainId == null) {
-            RenderKit.renderError(this, "参数不对");
-            return;
+            domainId = 0;
         }
         Domain domain = testDomainService.getDomainById(domainId);
         if (domain == null) {
@@ -525,6 +513,10 @@ public class TestController extends BaseController {
     public void getQuestions() {
         Integer tagId = getParaToInt("tag");
         Integer typeId = getParaToInt("type");
+        if(tagId == null)
+            tagId = 0;
+        if(typeId == null)
+            typeId = 0;
         List<TestQuestion> questions = testQuestionService.getQuestionsByTypeIdAndTagId(tagId, typeId);
         JSONArray array = new JSONArray();
         for (TestQuestion q : questions) {

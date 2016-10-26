@@ -38,11 +38,11 @@ public class TestTagService extends Service {
     public List<TestTag> getTagsByDomain(Domain domain) {
         if(domain == null)
             return new ArrayList<>();
-        String str = domainTagService.getTagsStrByDomain(domain);
         if(domain.getId() == 0){
-            return TestTag.dao.find(TestTag.SEARCH_FROM_TEST_TAG+"where id not in "+str);
+            return TestTag.dao.find(TestTag.SEARCH_FROM_TEST_TAG+Common.ORDER_BY_ID_DESC);
         }
-        return TestTag.dao.find(TestTag.SEARCH_FROM_TEST_TAG+"where id in "+str);
+        String str = domainTagService.getTagsStrByDomain(domain);
+        return TestTag.dao.find(TestTag.SEARCH_FROM_TEST_TAG+"where id in "+str+Common.ORDER_BY_ID_DESC);
     }
 
     public TestTag createTag(String tagName){

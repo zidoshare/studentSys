@@ -15,6 +15,7 @@ ${view.title}
                 <label for="testQuestionTypeId" class="control-label">题目类型：</label>
                 <select class="form-control" name="testQuestion.testQuestionTypeId" id="testQuestionTypeId"
                         onclick="">
+                    <option id="option0" value="0">不限</option>
                     <#list types as type>
                         <option id="option${type.id}" value="${type.id}" <#if type.id == typeId>selected</#if>>${type.typeName}</option>
                     </#list>
@@ -26,6 +27,7 @@ ${view.title}
                 <label for="domainSelect" class="control-label">标签分类：</label>
 
                 <select id="domainSelect" class="selectpicker show-tick form-control" data-live-search="true">
+                    <option value="0">不限</option>
                     <#list domains as domain>
                         <option value="${domain.id}" <#if domain.id == domainId>selected</#if>>${domain.domainTitle}</option>
                     </#list>
@@ -36,8 +38,8 @@ ${view.title}
             <div class="form-group">
                 <label for="tagSelect" class="control-label">标签：</label>
                 <select id="tagSelect" class="selectpicker show-tick form-control" data-live-search="true">
-
-                    <#list tags as tag>
+                    <option value="0">不限</option>
+                    <#list domainTags as tag>
                         <option value="${tag.id}" <#if tag.id == tagId>selected</#if>>${tag.tagName}</option>
                     </#list>
                 </select>
@@ -303,7 +305,8 @@ ${view.title}
                 }
                 var array = data;
 
-                var str = '<select id="tagSelect" class="selectpicker show-tick form-control" data-live-search="true">';
+                var str = '<select id="tagSelect" class="selectpicker show-tick form-control" data-live-search="true">' +
+                        '<option value="0">不限</option>';
                 var parent = ts.parent();
                 ts.next().remove();
                 ts.remove();

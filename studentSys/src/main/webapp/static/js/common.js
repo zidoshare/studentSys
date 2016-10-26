@@ -599,7 +599,7 @@ var func = {
                                 modalUtil.toggleClear($('#addTestQuestion'));
                                 $('#addTestQuestion').on('hidden.bs.modal', function () {
                                     //刷新页面
-                                    Util.reloadByPjax('#page-inner');
+                                    Util.reloadByPjax('#table-inner');
                                 })
                             }
                         });
@@ -721,7 +721,7 @@ var func = {
     addDomain:function(method){
         if(method == 'show'){
             $('#addDomainModel').modal(method);
-            loadResult($('#panel-container'),Label.staticServePath+"/test/getDomainTags");
+            loadResult($('#panel-container'),Label.staticServePath+"/test/panelTags");
         }else{
             var btn = Ladda.create(document.querySelector("#save-btn"));
             btn.start();
@@ -762,7 +762,7 @@ var func = {
         Util.update('domain',id);
         $('#domainId').val(id);
         $('#addDomainModel').modal('show');
-        loadResult($('#panel-container'),Label.staticServePath+"/test/getDomainTags/"+id);
+        loadResult($('#panel-container'),Label.staticServePath+"/test/panelTags/"+id);
     },
     deleteDomain:function(method,id){
         if (confirm("确认删除？")) {

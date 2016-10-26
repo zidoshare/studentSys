@@ -34,6 +34,7 @@ public class TestTagQuestionService extends Service {
         }
         if (str.length() > 1)
             str.deleteCharAt(str.length() - 1);
+        else str.append(0);
         str.append(")");
         return str.toString();
     }
