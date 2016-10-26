@@ -9,7 +9,7 @@ http://creativecommons.org/licenses/by/3.0/
 ------------------------------------------------*/
 body {
     font-family: 'Open Sans', sans-serif;
-    background: #3E3E3E;
+    background: #eee;
     /*background: #ffffff;*/
 }
 
@@ -28,7 +28,7 @@ body {
     margin: 0px 20px 0px 0px;
     background-color: transparent;
     padding: 15px 30px;
-    min-height: 1200px;
+    /*min-height: 800px;*/
 }
 
 .header .container-fluid {
@@ -106,9 +106,9 @@ p {
     background: #eee;
     position: relative;
     /*top: 55px;*/
-    box-shadow: 0 0 10px #757575;
+    /*box-shadow: 0 0 10px #757575;
     -moz-box-shadow: 0 0 10px #757575;
-    -webkit-box-shadow: 0 0 10px #757575;
+    -webkit-box-shadow: 0 0 10px #757575;*/
 }
 
 .top-navbar .nav > li > a:hover, .top-navbar .nav > li > a:focus {
@@ -796,7 +796,7 @@ ul.dropdown-menu.dropdown-messages li a div {
     #page-wrapper {
         margin: 0 0 0 260px;
         padding: 0;
-        min-height: 1200px;
+        /*min-height: 800px;*/
     }
 
     .navbar-side {

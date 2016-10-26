@@ -152,7 +152,7 @@
                 $.each(array, function (index, obj) {
                     str += '<option value="' + obj.id + '">' + obj.tagName + '</option>';
                 });
-                str += '</div>';
+                str += '</select>';
                 parent.append(str);
                 Util.redrawSelects();
                 ts = $('#tagSelect');

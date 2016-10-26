@@ -15,8 +15,6 @@ public class StudentSysRoutes extends Routes {
      */
     @Override
     public void config() {
-        String root =Common.getMainProp().get("servePath");
-        log.info("root = "+root);
         add("/user",UserController.class);
         add("/userManager",UserController.class);
         add("/option", OptionController.class);

@@ -3,7 +3,9 @@ package com.hudongwx.studentsys.service;
 import com.alibaba.fastjson.JSONArray;
 import com.hudongwx.studentsys.common.Service;
 import com.hudongwx.studentsys.model.*;
+import com.hudongwx.studentsys.util.Common;
 import com.hudongwx.studentsys.util.ObjectKit;
+import com.jfinal.plugin.activerecord.Page;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,15 @@ public class TestQuestionService extends Service {
         return TestQuestion.dao.find(TestQuestion.SEARCH_FROM_TEST_QUESTION);
     }
 
+    public Page<TestQuestion> getAllQuestions(int currentPage){
+        return TestQuestion.dao.paginate(currentPage, Common.MAX_PAGE_SIZE*2,Common.COMMON_SELECT,TestQuestion.FROM_SQL+Common.ORDER_BY_ID_DESC);
+    }
+
+    public Page<TestQuestion> getQuestionsByTypeAndTag(int currentPage,int type,int tag){
+        String str = testTagQuestionService.getQuestionStrByTag(tag);
+        return TestQuestion.dao.paginate(currentPage,Common.MAX_PAGE_SIZE*2,Common.COMMON_SELECT,TestQuestion.FROM_SQL+"where id in "+str+" and testQuestionTypeId = ?"+Common.ORDER_BY_ID_DESC,type);
+    }
+
     public List<TestQuestion> getQuestionsByTypeId(Integer typeId) {
         return TestQuestion.dao.find(TestQuestion.SEARCH_FROM_TEST_QUESTION + "where testQuestionTypeId = ?", typeId);
     }
@@ -34,8 +45,8 @@ public class TestQuestionService extends Service {
         return getQuestionsByTypeId(type.getId());
     }
 
-    public List<TestQuestion> getQuestionsByTag(TestTag tag) {
-        String str = testTagQuestionService.getQuestionStrByTag(tag);
+    public List<TestQuestion> getQuestionsByTag(Integer tagId) {
+        String str = testTagQuestionService.getQuestionStrByTag(tagId);
         return TestQuestion.dao.find(TestQuestion.SEARCH_FROM_TEST_QUESTION + "where id in ?", str);
     }
 
@@ -46,9 +57,9 @@ public class TestQuestionService extends Service {
             return getQuestionsByTypeId(typeId);
         }
         if (null == typeId) {
-            return getQuestionsByTag(TestTag.dao.findById(tagId));
+            return getQuestionsByTag(tagId);
         }
-        String str = testTagQuestionService.getQuestionStrByTag(TestTag.dao.findById(tagId));
+        String str = testTagQuestionService.getQuestionStrByTag(tagId);
         return TestQuestion.dao.find(TestQuestion.SEARCH_FROM_TEST_QUESTION + "where testQuestionTypeId = ? and id in " + str, typeId);
     }
     //当不强调顺序的时候使用此方法

@@ -590,7 +590,7 @@ public class StrPlusKit extends StrKit {
         return substringBetween(str, tag, tag);
     }
 
-    //注意此方法会连通close本身消除掉
+    //注意此方法会连同start前一个消除掉
     public static String substringBetween(String str, String open, String close) {
         if (str != null && open != null && close != null) {
             int start = str.indexOf(open);
@@ -598,8 +598,8 @@ public class StrPlusKit extends StrKit {
                 int end = str.indexOf(close, start);
                 if (end == -1)
                     end = str.length();
-                else
-                    end++;
+                if(start > 0)
+                    start--;
                 return str.substring(start, end);
             }
 

@@ -153,7 +153,7 @@ var Util = {
     reBindPjax:function(selector){
         if(selector == null)
             selector = '#table-inner';
-        $('#table-inner').pjax('a[data-label="#table-inner"]','#table-inner',{
+        $(selector).pjax('a[data-label="#table-inner"]','#table-inner',{
             fragment: '#table-inner',
             cache: true,
             maxCacheLength: 5,
@@ -717,6 +717,70 @@ var func = {
             })
         }
         else $('#addClassModel').modal(method);
+    },
+    addDomain:function(method){
+        if(method == 'show'){
+            $('#addDomainModel').modal(method);
+            loadResult($('#panel-container'),Label.staticServePath+"/test/getDomainTags");
+        }else{
+            var btn = Ladda.create(document.querySelector("#save-btn"));
+            btn.start();
+            var json = {};
+            $('#domainCreateTime').val(new Date().getTime());
+            $('#domainUpdateTime').val(new Date().getTime());
+            $('#domainOperaterId').val(Label.userId);
+            $('#domain').find('.form-control').each(function () {
+                json[$(this).attr('name')] = $(this).val();
+            });
+            $.ajax({
+                url: Label.staticServePath + "/test/addDomain",
+                type: "post",
+                data: json,
+                success: function (data, state) {
+                    if (data.state == 'success') {
+                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-success', {
+                            time: 1000, complete: function () {
+                                $('#addDomainModel').modal('hide');
+                                $('#addDomainModel').on('hidden.bs.modal', function () {
+                                    //刷新页面
+                                    Util.reloadByPjax('#table-inner');
+                                })
+                            }
+                        });
+                    }
+                },
+                error: function () {
+                    Util.showTip($('#saveClassTip'), '服务器错误', 'alert alert-danger', {time: 5000});
+                },
+                complete: function () {
+                    btn.stop();
+                }
+            })
+        }
+    },
+    updateDomain:function(method,id){
+        Util.update('domain',id);
+        $('#domainId').val(id);
+        $('#addDomainModel').modal('show');
+        loadResult($('#panel-container'),Label.staticServePath+"/test/getDomainTags/"+id);
+    },
+    deleteDomain:function(method,id){
+        if (confirm("确认删除？")) {
+            $.ajax({
+                url: Label.staticServePath + "/test/deleteDomain/" + id,
+                type: 'post',
+                success: function (data, status) {
+                    Util.showTip($('#wholeTip'), data.msg, "alert alert-success", {
+                        before: function () {
+                            Util.reloadByPjax('#table-inner');
+                        }
+                    });
+                },
+                error: function () {
+                    Util.showTip($('#wholeTip'), '服务器错误', "alert alert-danger");
+                }
+            });
+        }
     },
     distributeTestQuestionnaire: function (method) {
         if (method == 'show') {

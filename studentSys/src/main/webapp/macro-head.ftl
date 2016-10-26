@@ -5,7 +5,6 @@
 <title>${title}</title>
 <#nested>
 <meta name="copyright" content="stuManager" />
-<meta http-equiv="Window-target" content="_top" />
 <link rel="Shortcut Icon" href="${staticServePath}/images/favicon.ico" />
 <link rel="stylesheet" href="${staticServePath}/static/css/lib/bs-is-fun.css">
 <!-- Bootstrap Styles-->
@@ -28,6 +27,7 @@
 
 <link rel="stylesheet" href="${staticServePath}/static/css/style.css?${staticResourceVersion}"/>
 <link rel="stylesheet" href="${staticServePath}/static/css/lib/page.css?${staticResourceVersion}"/>
+<link rel="stylesheet" href="${staticServePath}/static/css/lib/bootstrap-select.min.css?${staticResourceVersion}">
 <script src="${staticServePath}/static/js/lib/jquery-2.1.1.min.js?${staticResourceVersion}"
         type="text/javascript"></script>
 <#--<script src="${staticServePath}/assets/js/jquery-1.10.2.js?${staticResourceVersion}"></script>-->

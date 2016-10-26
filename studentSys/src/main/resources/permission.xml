@@ -154,6 +154,23 @@
                         </mapping>
                     </mappings>
                 </mapping>
+                <mapping id="105" icon="tagManager" title="标签分类管理" url="/test/tagManager" function="3">
+                    <mappings>
+                        <mapping id="106" icon="domainList" title="大分类列表" url="/test/domainList.ftl" function="1">
+                            <mappings>
+                                <mapping id="107" icon="addDomain" title="添加" url="addDomain" function="0">
+                                    <mappings/>
+                                </mapping>
+                                <mapping id="108" icon="updateDomain" title="修改" url="updateDomain" function="0">
+                                    <mappings/>
+                                </mapping>
+                                <mapping id="109" icon="deleteDomain" title="删除" url="deleteDomain" function="0">
+                                    <mappings/>
+                                </mapping>
+                            </mappings>
+                        </mapping>
+                    </mappings>
+                </mapping>
                 <mapping id="3002" icon="testList" title="试卷列表" url="/test/testList" function="3">
                     <mappings>
                         <mapping id="3003" icon="testList" title="试卷列表" url="/test/testList.ftl" function="1">
@@ -193,6 +210,9 @@
                                     <mappings/>
                                 </mapping>
                                 <mapping id="1036" icon="closeTest" url="closeTest" title="关闭提交" function="0">
+                                    <mappings/>
+                                </mapping>
+                                <mapping id="237" icon="updateReply" url="updateReply" title="提交阅卷信息" function="0">
                                     <mappings/>
                                 </mapping>
                             </mappings>

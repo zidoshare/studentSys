@@ -45,7 +45,7 @@
                 </tbody>
             </table>
         </div>
-        <span class="center-block small">更多已分配试卷信息请到成绩统计中查看...</span>
+        <div class="text-center small">更多已分配试卷信息请到成绩统计中查看...</div>
     </div>
     </@item>
 </#if>

@@ -22,8 +22,12 @@ public class TestTagQuestionService extends Service {
         return TestTagQuestion.dao.find(TestTagQuestion.SEARCH_FROM_TEST_TAG_QUESTION + "where tagId = ?", tag.getId());
     }
 
-    public String getQuestionStrByTag(TestTag tag) {
-        List<TestTagQuestion> tqs = getTagQuestionByTag(tag);
+    public List<TestTagQuestion> getTagQuestionByTag(Integer tagId){
+        return TestTagQuestion.dao.find(TestTagQuestion.SEARCH_FROM_TEST_TAG_QUESTION + "where tagId = ?", tagId);
+    }
+
+    public String getQuestionStrByTag(Integer tagId) {
+        List<TestTagQuestion> tqs = getTagQuestionByTag(tagId);
         StringBuilder str = new StringBuilder("(");
         for (TestTagQuestion tq : tqs) {
             str.append(tq.getTestQuestionId()).append(",");

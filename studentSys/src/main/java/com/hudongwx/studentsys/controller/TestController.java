@@ -2,6 +2,7 @@ package com.hudongwx.studentsys.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.BooleanCodec;
 import com.hudongwx.studentsys.common.BaseController;
 import com.hudongwx.studentsys.model.*;
 import com.hudongwx.studentsys.model.Class;
@@ -36,6 +37,7 @@ public class TestController extends BaseController {
     public StudentService studentService;
     public TestReplyService testReplyService;
     public CorrectService correctService;
+    public TestDomainTagService testDomainTagService;
 
     /**
      * @return 返回mapping的title属性
@@ -50,7 +52,9 @@ public class TestController extends BaseController {
         super.index();
         User user = getCurrentUser(this);
         List<TestQuestionnaire> questionnaires = testQuestionnaireService.getQuestionnairesByUser(user);
+        Student student = studentService.getStudentByUser(user);
         setAttr("testing", questionnaires);
+        setAttr("student",student);
         setAttr("nowTime", System.currentTimeMillis());
     }
 
@@ -170,9 +174,13 @@ public class TestController extends BaseController {
             return;
         }
         User user = userService.getCurrentUser(this);
+
         if (null == user) {
             renderError(403);
             return;
+        }
+        if(user.getUserRole().equals("学生")){
+            setAttr("edit",false);
         }
         Student student = studentService.getStudentById(studentId);
         if (null == student) {
@@ -293,23 +301,36 @@ public class TestController extends BaseController {
     public void questions() {
         setMapping(mappingService.getMappingByTitle("题库"));
         super.index();
+        Integer p = getParaToInt("p");
+        if (p == null)
+            p = Common.START_PAGE;
+        Integer typeId = getParaToInt("type");
+        Integer tagId = getParaToInt("tag");
+        Integer domainId = getParaToInt("domain");
         List<TestType> testTypes = testTypeService.getAllVisibleTypes();
-        setAttr("types", testTypes);
+        if (typeId == null && testTypes.size() > 0)
+            typeId = testTypes.get(0).getId();
+        else if (typeId == null)
+            typeId = 0;
         Map<String, TestType> testTypeMap = new HashMap<>();
         for (TestType t : testTypes) {
             testTypeMap.put(t.getId() + "", t);
         }
-        setAttr("testTypeMap", testTypeMap);
-        List<TestTag> tags = testTagService.getAllTestTag();
-        setAttr("tags", tags);
-
-        List<TestQuestion> allQuestions = testQuestionService.getAllQuestions();
-        setAttr("questions", allQuestions);
+        List<Domain> allDomains = testDomainService.getAllDomains();
+        if (domainId == null && allDomains.size() > 0) {
+            domainId = allDomains.get(0).getId();
+        } else if (domainId == null)
+            domainId = 0;
+        List<TestTag> tags = testTagService.getTagsByDomain(testDomainService.getDomainById(domainId));
+        if (tagId == null && tags.size() > 0) {
+            tagId = tags.get(0).getId();
+        } else if (tagId == null)
+            tagId = 0;
+        Page<TestQuestion> allQuestions = testQuestionService.getQuestionsByTypeAndTag(p, typeId, tagId);
         Map<String, List<TestTag>> testQuestionTagsMap = new HashMap<>();
-        for (TestQuestion tq : allQuestions) {
+        for (TestQuestion tq : allQuestions.getList()) {
             testQuestionTagsMap.put(tq.getId() + "", testTagService.getTagsByQuestion(tq));
         }
-        setAttr("testQuestionTags", testQuestionTagsMap);
         //能够进行添加题目的角色
         Mapping mapping = mappingService.getMappingByUrl("addTestQuestion");
         List<Role> roles = roleService.getRoleByMapping(mapping);
@@ -321,7 +342,59 @@ public class TestController extends BaseController {
         for (User user : users) {
             userMap.put(user.getId() + "", user);
         }
+        setAttr("tags", tags);
+        setAttr("tagId", tagId);
+        setAttr("domainId", domainId);
+        setAttr("typeId", typeId);
+        setAttr("testQuestionTags", testQuestionTagsMap);
+        setAttr("testTypeMap", testTypeMap);
+        setAttr("types", testTypes);
+        setAttr("domains", allDomains);
+        setAttr("questions", allQuestions);
         setAttr("userMap", userMap);
+    }
+
+    public void tagManager() {
+        setMapping(mappingService.getMappingByUrl("/test/tagManager"));
+        super.index();
+        Integer p = getParaToInt("p");
+        if (p == null)
+            p = 1;
+        Page<Domain> domains = testDomainService.getAllDomains(p);
+        for (Domain domain : domains.getList()) {
+            List<TestTag> tags = testTagService.getTagsByDomain(domain);
+            String str = "";
+            for (TestTag tag : tags) {
+                str += tag.getTagName() + ",";
+            }
+            if (str.length() > 0)
+                str = str.substring(0, str.length() - 1);
+            domain.setTags(str);
+        }
+        setAttr("domains", domains);
+    }
+
+    public void getDomainTags() {
+        Integer domainId = getParaToInt(0);
+        if (domainId == null) {
+            List<TestTag> allTestTag = testTagService.getAllTestTag();
+            setAttr("tags", allTestTag);
+            render("/test/tags.ftl");
+            setAttr("selects", new HashMap<String, Boolean>());
+            return;
+        }
+        Domain domain = testDomainService.getDomainById(domainId);
+        List<TestTag> tags = testTagService.getAllTestTag();
+        List<TestTag> domainTags = testTagService.getTagsByDomain(domain);
+        Map<String, Boolean> selects = new HashMap<>();
+        for (TestTag tag : tags) {
+            domainTags.stream().filter(tag1 -> tag.getTagName().equals(tag1.getTagName())).forEach(tag1 -> {
+                selects.put(tag.getId() + "", true);
+            });
+        }
+        setAttr("tags", tags);
+        setAttr("selects", selects);
+        render("/test/tags.ftl");
     }
 
     public void delayTest() {
@@ -347,7 +420,7 @@ public class TestController extends BaseController {
         super.index();
         Integer classId = getParaToInt(0);
         Integer p = getParaToInt("p");
-        if(p == null)
+        if (p == null)
             p = Common.START_PAGE;
         List<Class> classes = classService.getAllClass();
         Page<TestQuestionnaire> questionnaires = Common.EMPTY_PAGE;
@@ -361,7 +434,7 @@ public class TestController extends BaseController {
 
         setAttr("nowTime", System.currentTimeMillis());
         setAttr("questionnaires", questionnaires.getList());
-        setAttr("page",questionnaires);
+        setAttr("page", questionnaires);
         setAttr("classes", classes);
         setAttr("nowClass", ac);
     }
@@ -496,6 +569,59 @@ public class TestController extends BaseController {
             }
         }
         RenderKit.renderSuccess(this, "添加成功");
+    }
+
+    @Before(POST.class)
+    public void deleteDomain() {
+        Integer domainId = getParaToInt(0);
+        if (domainId == null) {
+            RenderKit.renderError(this, "删除失败");
+            return;
+        }
+        ;
+        if (!Domain.dao.deleteById(domainId)) {
+            RenderKit.renderError(this, "没有此分类或已被删除");
+            return;
+        }
+        RenderKit.renderSuccess(this, "删除成功");
+    }
+
+    @Before(POST.class)
+    public void addDomain() {
+        Domain model = getModel(Domain.class);
+        boolean flag;
+        if (model.getId() == null)
+            flag = model.save();
+        else {
+            flag = model.update();
+        }
+        if (!flag) {
+            RenderKit.renderError(this, "保存分类失败");
+            return;
+        }
+        String para = getPara("tags");
+        String tagsPara = getPara("tags");
+        String[] tags = tagsPara.split(",");
+        List<TestTag> allTestTag = testTagService.getAllTestTag();
+        for (String tag : tags) {
+            TestTag now = null;
+            for (TestTag t : allTestTag) {
+                if (t.getTagName().equals(tag)) {
+                    now = t;
+                    break;
+                }
+            }
+            if (now == null) {
+                now = testTagService.createTag(tag);
+                testTagService._saveTestTag(now);
+            }
+            flag = testDomainTagService._saveDomainTag(model, now);
+        }
+        if (flag) {
+            RenderKit.renderSuccess(this, "保存成功");
+            return;
+        }
+        RenderKit.renderError(this, "保存失败");
     }
 
     @Before(POST.class)

@@ -5,7 +5,7 @@
 <@head title="${now.title}">
     </@head>
 </head>
-<body class="bg-black">
+<body>
 <div class="wrapper">
 <#include "macro-left.ftl">
 </div>

@@ -23,7 +23,7 @@
                     <tr>
                         <td>${q.testQuestionnaireTitle}</td>
                         <td>${((q.testQuestionnaireStartTime)?number)?number_to_datetime}</td>
-                        <td><#if q.testQuestionnaireTempTime?number == 5000000000000>${((q.testQuestionnaireEndTime)?number)?number_to_datetime}<#else>max</#if></td>
+                        <td>${((q.testQuestionnaireEndTime)?number)?number_to_datetime}</td>
                         <td><#if (q.testQuestionnaireStartTime?number) < (nowTime?number) && (q.testQuestionnaireEndTime?number) gt (nowTime?number)>
                             <span class="text-success">正在进行中</span>
                         <#elseif (q.testQuestionnaireStartTime?number) gt (nowTime?number)>
@@ -34,9 +34,9 @@
                         </td>
                         <td>
                             <#if (q.testQuestionnaireEndTime?number) < (nowTime?number)>
-                                <a href="#">查看</a>
+                                <a class="res" href="javascript:void(0)" onclick="showModal(${q.testQuestionnaireClassId})">查看</a>
                             <#else>
-                                <a>无法查看</a>
+                                <span class="text-danger">无法查看</span>
                             </#if>
                         </td>
                     </tr>
@@ -51,6 +51,46 @@
             <h3>暂无历史记录>></h3>
         </div>
     </#if>
-</div>
+    <div class="modal fade bs-example-modal-lg" id="modal" tabindex="-1" role="dialog"
+         aria-labelledby="myLargeModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" style="width: 1200px;">
+            <div class="modal-content " id="modal-content">
+                <div class="modal-header">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h3 class="modal-title">查看考试结果</h3>
+                        </div>
+                        <div class="col-md-4">
+                            <h3 class="modal-title">分数：<span id="icon-span" class="text-success"></span></h3>
+                        </div>
+                    </div>
+                    <div id="survey_progress" class="center-block" style="800px;height:1px;background: #dddddd">
+                        <div class="progress-bar" role="progressbar"
+                             style="width: 0;height:2px;" id="min-progress">
+                        </div>
+                    </div>
+                </div>
 
+                <div class="row">
+                    <div class="table-bordered col-md-10 col-lg-offset-1">
+                        <div class="pan">
+                        </div>
+                        <div class="panel_loading">
+                            <img src="${staticServePath}/images/loading.gif" class="img-sm center-block"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function showModal(qcId){
+        var dom = $('#modal-content');
+        dom.removeClass('sr-only');
+        loadResult(dom,"${staticServePath}/test/showCorrecting/"+qcId+"-${student.id}");
+        $('#modal').modal('show');
+    }
+</script>
 </@item>

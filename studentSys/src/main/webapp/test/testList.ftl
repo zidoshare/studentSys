@@ -2,7 +2,6 @@
 <#include "../macro-btn.ftl">
 <@item>
     <@initBtn map = map view=view></@initBtn>
-<link rel="stylesheet" href="${staticServePath}/static/css/lib/bootstrap-select.min.css">
 <div class="panel-heading title">${view.title}
     <span class="pull-right">${addBtn}</span><span class="pull-right">&nbsp</span>
     <span class="pull-right"><a class="btn btn-success"

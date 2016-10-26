@@ -3,6 +3,7 @@ package com.hudongwx.studentsys.service;
 import com.hudongwx.studentsys.common.Service;
 import com.hudongwx.studentsys.model.Domain;
 import com.hudongwx.studentsys.model.DomainTag;
+import com.hudongwx.studentsys.model.TestTag;
 
 import java.util.List;
 
@@ -27,5 +28,19 @@ public class TestDomainTagService extends Service {
             str.append("0");
         str.append(")");
         return str.toString();
+    }
+
+    public boolean _saveDomainTag(Domain domain, TestTag tag) {
+        if(getByDomainTag(domain,tag) == null){
+            DomainTag dt = new DomainTag();
+            dt.setDomainId(domain.getId());
+            dt.setTagId(tag.getId());
+            return dt.save();
+        }
+        return true;
+    }
+
+    private DomainTag getByDomainTag(Domain domain, TestTag tag) {
+        return DomainTag.dao.findFirst(DomainTag.SEARCH_FROM_DOMAIN_TAG+"where domainId = ? and tagId = ?",domain.getId(),tag.getId());
     }
 }

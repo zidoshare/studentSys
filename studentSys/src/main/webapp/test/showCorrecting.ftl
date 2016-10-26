@@ -2,112 +2,109 @@
 <script src="${staticServePath}/static/js/lib/icheck.min.js?${staticResourceVersion}"></script>
 
 <div class="wrapper cs-wrapper scroll" id="wrapper">
-    <div class="big-container">
-        <div class="tip" id="submitTip" aria-label="0">
-        </div>
-    </div>
-    <div class="">
-        <div class="survey_title">
-        </div>
-        <form method="get" id="questionnaire${questionnaire.id}">
-        <#assign index = 0>
-        <#assign scoreSituation = testReply?eval["scoreSituation"]?eval>
-        <#assign bigNumber = ["一","二","三","四","五","六","七","八","九","十"]>
-        <#assign xx = ['A','B','C','D','E','F','G']>
-            <ul class="subject_list">
-            <#list types as type>
-                <li class="subject_big">
-                    <h3>${type.typeName}</h3>
-                </li>
-                <#list questionMap["${type.id}"] as question>
-                    <li class="subject"
-                        id="${questionnaire.id}S${question.id}"
-                        data-label='0'>
-                        <div class="row">
-                            <div class="col-md-6 right-border">
-                                <#assign index++>
-                                <h3 class="subject_title">${index}、${question.testQuestionTitle}    <span class="small">分数：${scoreMap["${question.id}"]}</span>
-                                </h3>
-                                <#if (question.testQuestionContent?eval)?size gt 0>
-                                    <#if type.id == 1>
-                                        <#list question.testQuestionContent?eval as node>
-                                            <label class="subject_option point_item" id="${question.id}S${node_index}"
-                                                   data-label="${questionnaire.id}S${question.id}"
-                                                   data-index="${node_index}">
-                                                <input class="iCheck" name="${questionnaire.id}S${question.id}"
-                                                       type="radio">
-                                            ${xx[node_index]}、${node}
-                                            </label>
-                                        </#list>
-                                    <#else>
-                                        <#list question.testQuestionContent?eval as node>
-                                            <label class="subject_option point_item" id="${question.id}S${node_index}"
-                                                   data-label="${questionnaire.id}S${question.id}"
-                                                   data-index="${node_index}">
-                                                <input class="iCheck" name="${questionnaire.id}S${question.id}"
-                                                       type="checkbox">
-                                            ${xx[node_index]}、${node?html}
-                                            </label>
-                                        </#list>
-                                    </#if>
-
-                                <#else>
-                                <#--<textarea class="comment" rows="10" tabindex="4"
-                                          placeholder="答案"></textarea>-->
-
-                                    <pre><p></p></pre>
-                                </#if>
-                            </div>
-                            <div class="col-md-6">
-                                <#assign ans = question.testQuestionShortAnswer?eval>
-                                <div class="form-inline">
-                                    <div class="form-group">
-                                        <label for="score${question.id}" class="control-label">得分：</label>
-                                        <input class="form-control score" style="width:80px; " type="text"
-                                               id="score${question.id}" data-label="${questionnaire.id}S${question.id}"
-                                               value="<#if (question.testQuestionContent?eval)?size gt 0>${scoreSituation["${questionnaire.id}S${question.id}"]}</#if>"/>
-                                        <label class="tip control-label" id="score${question.id}-tip" aria-label="0">
-                                        </label>
-                                    </div>
-                                </div>
-                                <br/>
-                                <#if (question.testQuestionContent?eval)?size gt 0>
-                                    <div class="form-group">
-                                        <label class="control-label">答案：</label>
-                                        <label class="text-red control-label"
-                                               id="answer${question.id}"><#list ans as an>${xx[an?number]}</#list></label>
-                                    </div>
-                                <#else>
-                                    <div class="panel panel-warning">
-                                        <div class="panel-heading">
-                                            答案：
-                                        </div>
-                                        <div class="panel-body">
-                                            <pre>${question.testQuestionLongAnswer}</pre>
-                                        </div>
-                                    </div>
-                                </#if>
-
-                            </div>
-                        </div>
-                    </li>
-                </#list>
-            </#list>
-            </ul>
-        </form>
-    <#--<div class="row">
-        <div id="survey_progress" class="col-md-12">
-            <div class="progress-bar" role="progressbar"
-                 style="width: 0;height:20px;" id="min-progress">
-                0
+    <#if testReply?? && testReply?eval["scoreSituation"]??>
+        <div class="big-container">
+            <div class="tip" id="submitTip" aria-label="0">
             </div>
         </div>
-    </div>-->
-        <div style="text-align: right">
-            <button class="submit" type="submit" onclick="updateReply()">提交</button>
+        <div class="">
+            <div class="survey_title">
+            </div>
+            <form method="get" id="questionnaire${questionnaire.id}">
+                <#assign index = 0>
+                <#assign scoreSituation = testReply?eval["scoreSituation"]?eval>
+                <#assign bigNumber = ["一","二","三","四","五","六","七","八","九","十"]>
+                <#assign xx = ['A','B','C','D','E','F','G']>
+                <ul class="subject_list">
+                    <#list types as type>
+                        <li class="subject_big">
+                            <h3>${type.typeName}</h3>
+                        </li>
+                        <#list questionMap["${type.id}"] as question>
+                            <li class="subject"
+                                id="${questionnaire.id}S${question.id}"
+                                data-label='0'>
+                                <div class="row">
+                                    <div class="col-md-6 right-border">
+                                        <#assign index++>
+                                        <h3 class="subject_title">${index}、${question.testQuestionTitle}    <span class="small">分数：${scoreMap["${question.id}"]}</span>
+                                        </h3>
+                                        <#if (question.testQuestionContent?eval)?size gt 0>
+                                            <#if type.id == 1>
+                                                <#list question.testQuestionContent?eval as node>
+                                                    <label class="subject_option point_item" id="${question.id}S${node_index}"
+                                                           data-label="${questionnaire.id}S${question.id}"
+                                                           data-index="${node_index}">
+                                                        <input class="iCheck" name="${questionnaire.id}S${question.id}"
+                                                               type="radio">
+                                                    ${xx[node_index]}、${node}
+                                                    </label>
+                                                </#list>
+                                            <#else>
+                                                <#list question.testQuestionContent?eval as node>
+                                                    <label class="subject_option point_item" id="${question.id}S${node_index}"
+                                                           data-label="${questionnaire.id}S${question.id}"
+                                                           data-index="${node_index}">
+                                                        <input class="iCheck" name="${questionnaire.id}S${question.id}"
+                                                               type="checkbox">
+                                                    ${xx[node_index]}、${node?html}
+                                                    </label>
+                                                </#list>
+                                            </#if>
+
+                                        <#else>
+                                        <#--<textarea class="comment" rows="10" tabindex="4"
+                                                  placeholder="答案"></textarea>-->
+
+                                            <pre><p></p></pre>
+                                        </#if>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <#assign ans = question.testQuestionShortAnswer?eval>
+                                        <div class="form-inline">
+                                            <div class="form-group">
+                                                <label for="score${question.id}" class="control-label">得分：</label>
+                                                <input class="form-control score" style="width:80px; " type="text"
+                                                       id="score${question.id}" data-label="${questionnaire.id}S${question.id}"
+                                                       value="<#if (question.testQuestionContent?eval)?size gt 0>${scoreSituation["${questionnaire.id}S${question.id}"]}</#if>"/>
+                                                <label class="tip control-label" id="score${question.id}-tip" aria-label="0">
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <br/>
+                                        <#if (question.testQuestionContent?eval)?size gt 0>
+                                            <div class="form-group">
+                                                <label class="control-label">答案：</label>
+                                                <label class="text-red control-label"
+                                                       id="answer${question.id}"><#list ans as an>${xx[an?number]}</#list></label>
+                                            </div>
+                                        <#else>
+                                            <div class="panel panel-warning">
+                                                <div class="panel-heading">
+                                                    答案：
+                                                </div>
+                                                <div class="panel-body">
+                                                    <pre>${question.testQuestionLongAnswer}</pre>
+                                                </div>
+                                            </div>
+                                        </#if>
+
+                                    </div>
+                                </div>
+                            </li>
+                        </#list>
+                    </#list>
+                </ul>
+            </form>
+            <div style="text-align: right">
+                <button class="submit" type="submit" onclick="updateReply()">提交</button>
+            </div>
         </div>
-    </div>
+        <#else>
+        <h3 align="center">暂无提交记录</h3>
+    </#if>
 </div>
+<#if testReply?? && testReply?eval["scoreSituation"]??>
 <script type="text/javascript">
     var proccer = 0;
     var max = ${questionSize};
@@ -182,53 +179,6 @@
             return x;
         }
 
-        /*function addText() {
-            var val = $(this).val();
-            var parent = $(this).parent();
-            if (val != null && val != '') {
-                answers[parent.attr('id')] = [val];
-                var data = parseInt(parent.attr('data-label'));
-                parent.attr('data-label', 1);
-                if (val.length > 0 && data == 0) {
-                    changeProgress(parseFloat((++proccer / max * 100)).toFixed(2) + "%");
-                }
-            }
-
-            else {
-                var parent = $(this).parent();
-                delete answers[parent.attr('id')];
-                var data = parseInt(parent.attr('data-label'));
-                parent.attr('data-label', 0);
-                if (val.length == 0 && data == 1) {
-                    changeProgress(parseFloat((--proccer / max * 100)).toFixed(2) + "%");
-                }
-            }
-
-        }*/
-
-        /*function addValue() {
-            var ans = [];
-            $(this).parent().find('input').each(function (index, dom) {
-                if ($(dom).prop('checked') == true) {
-                    ans.push(index + '');
-                }
-            });
-            var len = 0;
-            if (answers[$(this).attr('data-label')] != null) {
-                len = answers[$(this).attr('data-label')].length;
-            }
-            answers[$(this).attr('data-label')] = ans;
-            if (ans.length == 1 && len == 0) {
-                changeProgress(parseFloat((++proccer / max * 100)).toFixed(2) + "%");
-            }
-            if (ans.length <= 0) {
-                if (len == 1)
-                    changeProgress(parseFloat((--proccer / max * 100)).toFixed(2) + "%");
-                delete answers[$(this).attr('data-label')];
-            }
-        }*/
-
-
         function changeProgress(t) {
             /*$('#min-progress').text(t);*/
             $('#min-progress').css("width", t);
@@ -273,3 +223,4 @@
     }
 
 </script>
+</#if>

@@ -17,14 +17,16 @@
                 cache: true,
                 maxCacheLength: 5,
                 storage: false,
-                replace: true
+                replace: true,
+                timeout:8000
             });
-            $(document).pjax('a[target!="_blank"]', '#page-inner', {
+            $(document).pjax('a[data-label="#page-inner"]', '#page-inner', {
                 fragment: '#page-inner',
                 cache: true,
                 maxCacheLength: 5,
                 storage: false,
-                replace: true
+                replace: true,
+                timeout:8000
             });
             $('#page-inner').on('pjax:beforeSend', function () { //pjax链接点击后显示加载动画；
                 $('#page-inner').html('');
