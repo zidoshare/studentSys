@@ -6,9 +6,9 @@
                 <label for="testQuestionTypeId" class="control-label">题目类型：</label>
                 <select class="form-control" name="testQuestion.testQuestionTypeId" id="testQuestionTypeId"
                         onclick="">
-                    <option id="option0" value="0">不限</option>
+                    <option value="0">不限</option>
                 <#list types as type>
-                    <option id="option${type.id}" value="${type.id}">${type.typeName}</option>
+                    <option id="option${type.id}" data-label="${type.typeLimit?html}"  value="${type.id}">${type.typeName}</option>
                 </#list>
                 </select>
             </div>
@@ -106,18 +106,21 @@
         var array = JSON.parse(s.val());
         var typeArray = array[0];
         var questionArray = array[1];
+        console.log(array);
         isChanged = true;
         if ($(dom).prop('checked')) {
             //默认按照id大小进行排序
             var result = Util.insertArrayByOrder(typeArray, tp);
             typeArray = result.arr;
-            if (questionArray.length <= result.index)
-                questionArray[result.index] = [];
+            if (questionArray.length >= result.index && result.isAdd){
+                questionArray.splice(result.index,0,[]);
+            }
             questionArray[result.index].push(id);
         }
         else {
             var temp = [];
             var index = $.inArray(tp, typeArray);
+            console.log('index = ',index);
             if (index >= 0) {
                 $.each(questionArray[index], function (ind, obj) {
                     if (obj != id)

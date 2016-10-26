@@ -150,10 +150,10 @@ var Validate = {
 };
 
 var Util = {
-    reBindPjax:function(selector){
-        if(selector == null)
+    reBindPjax: function (selector) {
+        if (selector == null)
             selector = '#table-inner';
-        $(selector).pjax('a[data-label="#table-inner"]','#table-inner',{
+        $(selector).pjax('a[data-label="#table-inner"]', '#table-inner', {
             fragment: '#table-inner',
             cache: true,
             maxCacheLength: 5,
@@ -342,6 +342,7 @@ var Util = {
         $('#longModel').addClass('sr-only');
         var val = select.val();
         var limit = $('#option' + val).attr('data-label');
+        console.log(select, val, limit);
         var limits = JSON.parse(limit);
         for (var i = 0; i < limits.length; i++) {
             $('#' + limits[i]).removeClass('sr-only');
@@ -365,24 +366,30 @@ var Util = {
             return {'index': index, 'arr': array};
         index = 0;
         var flag = false;
+        var isAdd = false;
         for (var i = 0; i < array.length; i++) {
-
-            if (value < parseInt(array[i])) {
+            if (value == parseInt(array[i])) {
+                index = i;
+                flag = true;
+            }
+            if (!flag && value < parseInt(array[i])) {
                 str += value + ',';
                 index = i;
                 flag = true;
+                isAdd = true;
             }
             str += array[i] + ',';
         }
         if (flag == false) {
             str += value + ',';
             index = array.length;
+            isAdd = true;
         }
 
         str = str.substr(0, str.length - 1);
         str += ']';
         var arr = JSON.parse(str);
-        return {'index': index, 'arr': arr};
+        return {'index': index, 'arr': arr, 'isAdd': isAdd};
     },
     update: function (front, id, child) {
         var dd = id;
@@ -560,6 +567,8 @@ var func = {
         if (method == 'show') {
             modalUtil.toggleClear($('#addTestQuestion'));
         } else {
+
+
             var btn = Ladda.create(document.querySelector("#saveTestQuestion-btn"));
             btn.start();
             //填充创建时间
@@ -579,6 +588,11 @@ var func = {
             }
             $('#testQuestionContent').val(JSON.stringify(selects));
             $('#testQuestionShortAnswer').val(JSON.stringify(answers));
+            if ((answers == '[[],[]]' || answers == null || answers == '') && ($('#testQuestionLongAnswer').val() == null || $('#testQuestionLongAnswer').val() == '')) {
+                Util.showTip($('#wholeTip'), '答案不能为空', 'alert alert-danger');
+                btn.stop();
+                return;
+            }
             //---------------填充选项及答案结束------------
 
             var json = {};
@@ -718,11 +732,11 @@ var func = {
         }
         else $('#addClassModel').modal(method);
     },
-    addDomain:function(method){
-        if(method == 'show'){
+    addDomain: function (method) {
+        if (method == 'show') {
             $('#addDomainModel').modal(method);
-            loadResult($('#panel-container'),Label.staticServePath+"/test/panelTags");
-        }else{
+            loadResult($('#panel-container'), Label.staticServePath + "/test/panelTags");
+        } else {
             var btn = Ladda.create(document.querySelector("#save-btn"));
             btn.start();
             var json = {};
@@ -758,13 +772,13 @@ var func = {
             })
         }
     },
-    updateDomain:function(method,id){
-        Util.update('domain',id);
+    updateDomain: function (method, id) {
+        Util.update('domain', id);
         $('#domainId').val(id);
         $('#addDomainModel').modal('show');
-        loadResult($('#panel-container'),Label.staticServePath+"/test/panelTags/"+id);
+        loadResult($('#panel-container'), Label.staticServePath + "/test/panelTags/" + id);
     },
-    deleteDomain:function(method,id){
+    deleteDomain: function (method, id) {
         if (confirm("确认删除？")) {
             $.ajax({
                 url: Label.staticServePath + "/test/deleteDomain/" + id,
@@ -923,14 +937,14 @@ var func = {
                 url: Label.staticServePath + "/test/deleteTestQuestion/" + id,
                 type: 'post',
                 success: function (data, status) {
-                    if(data.state == 'success'){
+                    if (data.state == 'success') {
                         Util.showTip($('#wholeTip'), data.msg, "alert alert-success", {
                             before: function () {
                                 $('tr#tr' + id).remove();
-                                $('tr#show-tr'+id).remove();
+                                $('tr#show-tr' + id).remove();
                             }
                         });
-                    }else{
+                    } else {
                         Util.showTip($('#wholeTip'), data.msg, "alert alert-danger");
                     }
                 },
@@ -1016,32 +1030,32 @@ var func = {
             }
         });
     },
-    tempTest:function(id,option){
+    tempTest: function (id, option) {
         $.ajax({
-            url:Label.staticServePath+'/test/delayTest/'+id,
-            dataType:'json',
-            success:function(data,status){
+            url: Label.staticServePath + '/test/delayTest/' + id,
+            dataType: 'json',
+            success: function (data, status) {
                 option(data);
             }
         })
     },
-    delayTest:function(id){
-        func.tempTest(id,function(data){
-            if(data.state == 'success'){
-                Util.showTip($('#wholeTip'),data.msg,'alert alert-success');
+    delayTest: function (id) {
+        func.tempTest(id, function (data) {
+            if (data.state == 'success') {
+                Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
                 Util.reloadByPjax('#table-inner');
-            }else{
-                Util.showTip($('#wholeTip'),data.msg,'alert alert-danger');
+            } else {
+                Util.showTip($('#wholeTip'), data.msg, 'alert alert-danger');
             }
         })
     },
-    closeTest:function(id){
-        func.tempTest(id,function(data){
-            if(data.state == 'success'){
-                Util.showTip($('#wholeTip'),data.msg,'alert alert-success');
+    closeTest: function (id) {
+        func.tempTest(id, function (data) {
+            if (data.state == 'success') {
+                Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
                 Util.reloadByPjax('#table-inner');
-            }else{
-                Util.showTip($('#wholeTip'),data.msg,'alert alert-danger');
+            } else {
+                Util.showTip($('#wholeTip'), data.msg, 'alert alert-danger');
             }
         })
     }

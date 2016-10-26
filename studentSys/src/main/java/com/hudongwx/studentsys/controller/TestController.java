@@ -338,7 +338,7 @@ public class TestController extends BaseController {
             userMap.put(user.getId() + "", user);
         }
         setAttr("domainTags", domainTags);
-        setAttr("tags",tags);
+        setAttr("tags", tags);
         setAttr("tagId", tagId);
         setAttr("domainId", domainId);
         setAttr("typeId", typeId);
@@ -468,6 +468,7 @@ public class TestController extends BaseController {
         List<TestType> types = testTypeService.getTypesByJSONArray(typeArray);
         Map<String, List<TestQuestion>> map = new HashMap<>();
         Map<String, Integer> scoreMap = new HashMap<>();
+        int score = 0;
         for (int i = 0; i < types.size(); i++) {
             JSONArray qs = questionsArray.getJSONArray(i);
             List<TestQuestion> testQuestions = testQuestionService.getQuestionsByJSONArray(qs);
@@ -475,8 +476,12 @@ public class TestController extends BaseController {
                 //TODO 这里的写法与数据库交互太频繁
                 for (TestQuestion tq : testQuestions) {
                     TestQuestionnaireQuestion tqq = testQuestionnaireQuestionService.getByQuestionIdAndQuestionnaireId(tq.getId(), id);
-                    if (tqq != null)
+                    if (tqq != null) {
                         scoreMap.put(tq.getId() + "", tqq.getTestQuestionScore());
+                        if (tqq.getTestQuestionScore() != null)
+                            score += tqq.getTestQuestionScore();
+                    }
+
                 }
             }
             map.put(types.get(i).getId() + "", testQuestions);
@@ -484,6 +489,7 @@ public class TestController extends BaseController {
         setAttr("types", types);
         setAttr("scoreMap", scoreMap);
         setAttr("questionMap", map);
+        setAttr("score",score);
         render("/test/preview.ftl");
     }
 
@@ -513,9 +519,9 @@ public class TestController extends BaseController {
     public void getQuestions() {
         Integer tagId = getParaToInt("tag");
         Integer typeId = getParaToInt("type");
-        if(tagId == null)
+        if (tagId == null)
             tagId = 0;
-        if(typeId == null)
+        if (typeId == null)
             typeId = 0;
         List<TestQuestion> questions = testQuestionService.getQuestionsByTypeIdAndTagId(tagId, typeId);
         JSONArray array = new JSONArray();

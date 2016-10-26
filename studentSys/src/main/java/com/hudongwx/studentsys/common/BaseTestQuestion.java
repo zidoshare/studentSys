@@ -89,4 +89,12 @@ public abstract class BaseTestQuestion<M extends BaseTestQuestion<M>> extends Mo
 		return get("testQuestionDefaultScore");
 	}
 
+	public void setTestQuestionMessage(java.lang.String testQuestionMessage) {
+		set("testQuestionMessage", testQuestionMessage);
+	}
+
+	public java.lang.String getTestQuestionMessage() {
+		return get("testQuestionMessage");
+	}
+
 }

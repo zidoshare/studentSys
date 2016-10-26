@@ -88,6 +88,8 @@
                                                 </div>
                                             </div>
                                         </#if>
+                                        <label>要点:</label>
+                                        <pre class="message text-danger"><#if question.testQuestionMessage??>${question.testQuestionMessage?html}<#else>暂无</#if></pre>
 
                                     </div>
                                 </div>

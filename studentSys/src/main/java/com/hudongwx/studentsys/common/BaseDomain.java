@@ -49,4 +49,12 @@ public abstract class BaseDomain<M extends BaseDomain<M>> extends Model<M> imple
 		return get("domainCreateTime");
 	}
 
+	public void setDomainUpdateTime(java.lang.Long domainUpdateTime) {
+		set("domainUpdateTime", domainUpdateTime);
+	}
+
+	public java.lang.Long getDomainUpdateTime() {
+		return get("domainUpdateTime");
+	}
+
 }

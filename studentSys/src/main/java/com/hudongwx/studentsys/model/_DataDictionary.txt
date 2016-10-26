@@ -22,6 +22,7 @@ Table: stumanager_domain
  domainMessage    | varchar(250) | YES  |     |         |         
  domainOperaterId | int(10)      | NO   |     |         |         
  domainCreateTime | bigint(19)   | NO   |     |         |         
+ domainUpdateTime | bigint(19)   | NO   |     | 0       |         
 ------------------+--------------+------+-----+---------+---------
 
 Table: stumanager_domain_tag
@@ -113,6 +114,7 @@ Table: stumanager_test_question
  testQuestionUpdateTime   | bigint(19)  | YES  |     |         |         
  testQuestionOperaterId   | int(10)     | NO   |     | 83      |         
  testQuestionDefaultScore | int(10)     | NO   |     | 0       |         
+ testQuestionMessage      | text(65535) | YES  |     |         | 题目备注    
 --------------------------+-------------+------+-----+---------+---------
 
 Table: stumanager_test_questionnaire
@@ -130,16 +132,16 @@ Table: stumanager_test_questionnaire
 -----------------------------+--------------+------+-----+---------+---------
 
 Table: stumanager_test_questionnaire_class
-----------------------------+------------+------+-----+---------+---------
- Field                      | Type       | Null | Key | Default | Remarks 
-----------------------------+------------+------+-----+---------+---------
- id                         | int(10)    | NO   | PRI |         |         
- classId                    | int(10)    | NO   |     |         |         
- testQuestionnaireId        | int(10)    | NO   |     |         |         
- testQuestionnaireStartTime | bigint(19) | NO   |     |         |         
- testQuestionnaireEndTime   | bigint(19) | NO   |     |         |         
- testQuestionnaireTempTime  | bigint(19) | NO   |     | 0       | 用于标记时间  
-----------------------------+------------+------+-----+---------+---------
+----------------------------+------------+------+-----+---------------+---------
+ Field                      | Type       | Null | Key | Default       | Remarks 
+----------------------------+------------+------+-----+---------------+---------
+ id                         | int(10)    | NO   | PRI |               |         
+ classId                    | int(10)    | NO   |     |               |         
+ testQuestionnaireId        | int(10)    | NO   |     |               |         
+ testQuestionnaireStartTime | bigint(19) | NO   |     |               |         
+ testQuestionnaireEndTime   | bigint(19) | NO   |     |               |         
+ testQuestionnaireTempTime  | bigint(19) | NO   |     | 5000000000000 | 用于标记时间  
+----------------------------+------------+------+-----+---------------+---------
 
 Table: stumanager_test_questionnaire_question
 -----------------------+---------+------+-----+---------+---------
