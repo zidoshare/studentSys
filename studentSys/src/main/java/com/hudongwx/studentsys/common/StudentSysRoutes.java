@@ -17,7 +17,6 @@ public class StudentSysRoutes extends Routes {
         add("/user",UserController.class);
         add("/userManager",UserController.class);
         add("/option", OptionController.class);
-        add("/personalAttendanceManager",PersonalAttendanceController.class);
         add("/attendanceManager", AttendanceController.class);
         add("/enrollManager",EnrollController.class);
         add("/repaymentManager",RepaymentController.class);

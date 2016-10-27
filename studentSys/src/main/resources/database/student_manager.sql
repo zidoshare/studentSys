@@ -10,10 +10,34 @@ Target Server Type    : MYSQL
 Target Server Version : 50712
 File Encoding         : 65001
 
-Date: 2016-10-26 17:55:47
+Date: 2016-10-27 22:45:27
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for `stumanager_attendance`
+-- ----------------------------
+DROP TABLE IF EXISTS `stumanager_attendance`;
+CREATE TABLE `stumanager_attendance` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `studentId` int(11) NOT NULL,
+  `classId` int(11) NOT NULL,
+  `createTime` bigint(20) NOT NULL,
+  `type` varchar(20) NOT NULL,
+  `time` bigint(20) NOT NULL,
+  `operaterId` int(11) NOT NULL,
+  `message` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of stumanager_attendance
+-- ----------------------------
+INSERT INTO `stumanager_attendance` VALUES ('1', '1', '1', '1', '1', '1', '1', '1');
+INSERT INTO `stumanager_attendance` VALUES ('2', '2', '2', '2', '2', '2', '2', '2');
+INSERT INTO `stumanager_attendance` VALUES ('3', '3', '3', '3', '3', '3', '3', '3');
+INSERT INTO `stumanager_attendance` VALUES ('4', '4', '4', '4', '2', '4', '4', '4');
 
 -- ----------------------------
 -- Table structure for `stumanager_class`
@@ -103,7 +127,7 @@ DROP TABLE IF EXISTS `stumanager_mapping`;
 CREATE TABLE `stumanager_mapping` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `title` varchar(20) DEFAULT NULL COMMENT '标题',
-  `url` varchar(40) DEFAULT NULL COMMENT '对应路径',
+  `url` varchar(100) DEFAULT NULL COMMENT '对应路径',
   `message` varchar(100) DEFAULT '' COMMENT '一个基本信息',
   `icon` varchar(30) DEFAULT NULL COMMENT '图标',
   `leftChildId` int(20) DEFAULT '0' COMMENT '左儿子Id',
@@ -114,7 +138,7 @@ CREATE TABLE `stumanager_mapping` (
   `visitCnt` int(11) NOT NULL DEFAULT '0' COMMENT '访问次数，用于统计',
   `function` int(11) NOT NULL DEFAULT '0' COMMENT '职能，0：功能，1：视图模块，2：菜单，3：二级菜单，以后多级菜单，依次类推',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3023 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3854 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of stumanager_mapping
@@ -124,22 +148,23 @@ INSERT INTO `stumanager_mapping` VALUES ('106', '大分类列表', '/test/domain
 INSERT INTO `stumanager_mapping` VALUES ('107', '添加', 'addDomain', '', 'addDomain', '0', '108', '106', '0', '4', '0', '0');
 INSERT INTO `stumanager_mapping` VALUES ('108', '修改', 'updateDomain', '', 'updateDomain', '0', '109', '106', '0', '4', '0', '0');
 INSERT INTO `stumanager_mapping` VALUES ('109', '删除', 'deleteDomain', '', 'deleteDomain', '0', '0', '106', '0', '4', '0', '0');
+INSERT INTO `stumanager_mapping` VALUES ('237', '提交阅卷信息', 'updateReply', '', 'updateReply', '0', '0', '3005', '0', '4', '0', '0');
 INSERT INTO `stumanager_mapping` VALUES ('1007', '班级管理', '/classManager', '', 'fa fa-flag', '1008', '2330', '2326', '1', '1', '0', '2');
 INSERT INTO `stumanager_mapping` VALUES ('1008', '班级列表', '/classManager/classList.ftl', '', 'classList', '1009', '0', '1007', '3', '2', '0', '1');
 INSERT INTO `stumanager_mapping` VALUES ('1009', '添加', 'addClass', '', 'addClass', '0', '1010', '1008', '0', '3', '0', '0');
 INSERT INTO `stumanager_mapping` VALUES ('1010', '编辑', 'updateClass', '', 'updateClass', '0', '1011', '1008', '0', '3', '0', '0');
 INSERT INTO `stumanager_mapping` VALUES ('1011', '删除', 'deleteClass', '', 'deleteClass', '0', '0', '1008', '0', '3', '0', '0');
 INSERT INTO `stumanager_mapping` VALUES ('1035', '开启提交', 'delayTest', '', 'delayTest', '0', '1036', '3005', '0', '4', '0', '0');
-INSERT INTO `stumanager_mapping` VALUES ('1036', '关闭提交', 'closeTest', '', 'closeTest', '0', '0', '3005', '0', '4', '0', '0');
+INSERT INTO `stumanager_mapping` VALUES ('1036', '关闭提交', 'closeTest', '', 'closeTest', '0', '237', '3005', '0', '4', '0', '0');
 INSERT INTO `stumanager_mapping` VALUES ('1999', '数据管理', '/common/dataManager.ftl', '', 'dataManager', '0', '2000', '2327', '0', '2', '0', '1');
 INSERT INTO `stumanager_mapping` VALUES ('2000', '导航', '/common/routs.ftl', '', 'routs', '0', '2338', '2327', '0', '2', '0', '1');
 INSERT INTO `stumanager_mapping` VALUES ('2025', '已分配试卷', '/test/disList.ftl', '', 'disList', '0', '0', '3002', '0', '3', '0', '1');
-INSERT INTO `stumanager_mapping` VALUES ('2326', '根目录', 'url', '', 'fa', '2327', '0', '0', '11', '0', '0', '0');
+INSERT INTO `stumanager_mapping` VALUES ('2326', '根目录', 'url', '', 'fa', '2327', '0', '0', '12', '0', '0', '0');
 INSERT INTO `stumanager_mapping` VALUES ('2327', '首页', '/', '', 'fa fa-desktop', '2337', '2328', '2326', '6', '1', '0', '2');
 INSERT INTO `stumanager_mapping` VALUES ('2328', '用户管理', '/userManager', '', 'fa fa-users', '2341', '2329', '2326', '2', '1', '0', '2');
 INSERT INTO `stumanager_mapping` VALUES ('2329', '学生管理', '/studentManager', '', 'fa fa-calendar', '2343', '1007', '2326', '1', '1', '0', '2');
-INSERT INTO `stumanager_mapping` VALUES ('2330', '还款管理', '/repaymentManager', '', 'fa fa-usd', '0', '2331', '2326', '0', '1', '0', '2');
-INSERT INTO `stumanager_mapping` VALUES ('2331', '出勤管理', '/attendanceManager', '', 'fa fa-crosshairs', '2344', '2332', '2326', '1', '1', '0', '2');
+INSERT INTO `stumanager_mapping` VALUES ('2330', '还款管理', '/repaymentManager', '', 'fa fa-usd', '0', '3851', '2326', '0', '1', '0', '2');
+INSERT INTO `stumanager_mapping` VALUES ('2331', '出勤管理', '/attendanceManager/attendance', '', 'fa fa-crosshairs', '2344', '2332', '2326', '1', '1', '0', '2');
 INSERT INTO `stumanager_mapping` VALUES ('2332', '证书管理', '/certificateManager', '', 'fa fa-book', '0', '2333', '2326', '0', '1', '0', '2');
 INSERT INTO `stumanager_mapping` VALUES ('2333', '我的考试', '/test', '', 'fa fa-pencil', '2345', '2334', '2326', '6', '1', '0', '2');
 INSERT INTO `stumanager_mapping` VALUES ('2334', '我的调查', '/#', '', 'fa fa-file-text', '2347', '2335', '2326', '5', '1', '0', '2');
@@ -190,7 +215,7 @@ INSERT INTO `stumanager_mapping` VALUES ('3001', '中心题库', '/test/question
 INSERT INTO `stumanager_mapping` VALUES ('3002', '试卷列表', '/test/testList', '', 'testList', '3003', '3004', '2333', '2', '2', '0', '3');
 INSERT INTO `stumanager_mapping` VALUES ('3003', '试卷列表', '/test/testList.ftl', '', 'testList', '3020', '2025', '3002', '3', '3', '0', '1');
 INSERT INTO `stumanager_mapping` VALUES ('3004', '成绩统计', '/test/count', '', 'toCount', '3005', '0', '2333', '2', '2', '0', '3');
-INSERT INTO `stumanager_mapping` VALUES ('3005', '试卷列表', '/test/gradeList.ftl', '', 'count', '1035', '3006', '3004', '2', '3', '0', '1');
+INSERT INTO `stumanager_mapping` VALUES ('3005', '试卷列表', '/test/gradeList.ftl', '', 'count', '1035', '3006', '3004', '3', '3', '0', '1');
 INSERT INTO `stumanager_mapping` VALUES ('3006', '统计图表', '/test/gradeChart.ftl', '', 'count', '0', '0', '3004', '0', '3', '0', '1');
 INSERT INTO `stumanager_mapping` VALUES ('3007', '添加', 'addTestQuestion', '', 'addTestQuestion', '0', '3008', '3001', '0', '4', '0', '0');
 INSERT INTO `stumanager_mapping` VALUES ('3008', '修改', 'updateTestQuestion', '', 'updateTestQuestion', '0', '3009', '3001', '0', '4', '0', '0');
@@ -198,6 +223,9 @@ INSERT INTO `stumanager_mapping` VALUES ('3009', '删除', 'deleteTestQuestion',
 INSERT INTO `stumanager_mapping` VALUES ('3020', '添加试卷', 'addTestQuestionnaire', '', 'addTestQuestionnaire', '0', '3021', '3003', '0', '4', '0', '0');
 INSERT INTO `stumanager_mapping` VALUES ('3021', '修改', 'updateTestQuestionnaire', '', 'updateTestQuestionnaire', '0', '3022', '3003', '0', '4', '0', '0');
 INSERT INTO `stumanager_mapping` VALUES ('3022', '删除', 'deleteQuestionnaire', '', 'deleteTestQuestionnaire', '0', '0', '3003', '0', '4', '0', '0');
+INSERT INTO `stumanager_mapping` VALUES ('3851', '我的考勤', '/attendanceManager/personalAttendance', '', 'fa fa-crosshairs', '3852', '2331', '2326', '2', '1', '0', '2');
+INSERT INTO `stumanager_mapping` VALUES ('3852', '考勤信息列表', '/attendanceManager/personalAttendanceList.ftl', '', 'personalAttendanceList', '0', '3853', '3851', '0', '2', '0', '1');
+INSERT INTO `stumanager_mapping` VALUES ('3853', '考勤信息图表', '/attendanceManager/personalAttendanceChart.ftl', '', 'personalAttendanceChart', '0', '0', '3851', '0', '2', '0', '1');
 
 -- ----------------------------
 -- Table structure for `stumanager_role`
@@ -218,7 +246,7 @@ CREATE TABLE `stumanager_role` (
 -- ----------------------------
 INSERT INTO `stumanager_role` VALUES ('78', 'admin', '1', '1999:2000:2326:2327:2328:2329:2330:2331:2332:2333:2334:2335:2336:2337:2338:2339:2340:2341:2342:2343:2344:2345:2346:2347:2348:2349:2350:2351:2352:2353:2354:2355:2356:2357:2358:2359:2360:2361:2362:2363:2364:2365:2366:2367:2368:2369:2370:2371:2372:2373:2374:2375:2376:3000:3001:3002:3003:3004:3005:3006:3007:3008:3009', '1476254934638', 'admin');
 INSERT INTO `stumanager_role` VALUES ('79', '学生', '77', '2000:2326:2327:2333:2334:2335:2337:2340:2345:2346:2347:2352:2353:2367:2368:2369', '1476174127857', 'admin');
-INSERT INTO `stumanager_role` VALUES ('80', '考试系统测试组', '2', '105:106:107:108:109:1007:1008:1009:1010:1011:1035:1036:2000:2025:2326:2327:2333:2334:2335:2337:2338:2339:2340:2345:2346:2347:2348:2349:2350:2351:2352:2353:2367:2368:2369:2370:2371:2372:2373:3000:3001:3002:3003:3004:3005:3006:3007:3008:3009:3020:3021:3022', '1477388795922', 'admin');
+INSERT INTO `stumanager_role` VALUES ('80', '考试系统测试组', '2', '105:106:107:108:109:1007:1008:1009:1010:1011:1035:1036:2000:2025:2326:2327:2331:2333:2334:2335:2337:2338:2339:2340:2344:2345:2346:2347:2348:2349:2350:2351:2352:2353:2367:2368:2369:2370:2371:2372:2373:3000:3001:3002:3003:3004:3005:3006:3007:3008:3009:3020:3021:3022:3851:3852:3853', '1477536521750', 'admin');
 
 -- ----------------------------
 -- Table structure for `stumanager_student`
@@ -346,7 +374,7 @@ CREATE TABLE `stumanager_test_question` (
   `testQuestionDefaultScore` int(11) NOT NULL DEFAULT '0',
   `testQuestionMessage` text COMMENT '题目备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of stumanager_test_question
@@ -357,7 +385,6 @@ INSERT INTO `stumanager_test_question` VALUES ('37', '第三道题', '4', '[]', 
 INSERT INTO `stumanager_test_question` VALUES ('38', '第四道题', '2', '[\"daefef\",\"dfgrethryr\"]', '[\"0\",\"1\"]', null, '1477471552552', null, '83', '0', null);
 INSERT INTO `stumanager_test_question` VALUES ('39', '第五道题', '2', '[\"daefrg\"]', '[\"0\"]', null, '1477473475542', null, '83', '0', null);
 INSERT INTO `stumanager_test_question` VALUES ('40', '第六道题', '3', '[]', '[]', '大娃娃打我打我打我打我打我', '1477474578670', null, '83', '0', '165468498497');
-INSERT INTO `stumanager_test_question` VALUES ('41', '第七道题', '3', '[]', '[]', 'dawfefgeg', '1477475595907', null, '83', '0', 'dwafaegrgteh');
 
 -- ----------------------------
 -- Table structure for `stumanager_test_questionnaire`
@@ -452,7 +479,7 @@ CREATE TABLE `stumanager_test_tag` (
   `tagName` varchar(20) NOT NULL,
   `questionCnt` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of stumanager_test_tag
@@ -467,7 +494,6 @@ INSERT INTO `stumanager_test_tag` VALUES ('32', 'jyhjtguktukgy', '4');
 INSERT INTO `stumanager_test_tag` VALUES ('33', 'gvaargs', '1');
 INSERT INTO `stumanager_test_tag` VALUES ('34', '1561', '3');
 INSERT INTO `stumanager_test_tag` VALUES ('35', 'regthg', '1');
-INSERT INTO `stumanager_test_tag` VALUES ('36', '', '1');
 
 -- ----------------------------
 -- Table structure for `stumanager_test_tag_question`

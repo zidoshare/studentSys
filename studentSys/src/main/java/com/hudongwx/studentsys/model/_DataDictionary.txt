@@ -1,3 +1,16 @@
+Table: stumanager_attendance
+------------+-------------+------+-----+---------+---------
+ Field      | Type        | Null | Key | Default | Remarks 
+------------+-------------+------+-----+---------+---------
+ id         | int(10)     | NO   | PRI |         |         
+ studentId  | int(10)     | NO   |     |         |         
+ createTime | bigint(19)  | NO   |     |         |         
+ type       | varchar(20) | NO   |     |         |         
+ time       | bigint(19)  | NO   |     |         |         
+ operaterId | int(10)     | NO   |     |         |         
+ message    | text(65535) | YES  |     |         |         
+------------+-------------+------+-----+---------+---------
+
 Table: stumanager_class
 -----------------+-------------+------+-----+---------+---------
  Field           | Type        | Null | Key | Default | Remarks 
@@ -51,7 +64,7 @@ Table: stumanager_mapping
 ---------------+--------------+------+-----+---------+---------
  id            | int(10)      | NO   | PRI |         |         
  title         | varchar(20)  | YES  |     |         | 标题      
- url           | varchar(40)  | YES  |     |         | 对应路径    
+ url           | varchar(100) | YES  |     |         | 对应路径    
  message       | varchar(100) | YES  |     |         | 一个基本信息  
  icon          | varchar(30)  | YES  |     |         | 图标      
  leftChildId   | int(10)      | YES  |     | 0       | 左儿子Id   

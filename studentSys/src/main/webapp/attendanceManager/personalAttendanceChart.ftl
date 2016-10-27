@@ -18,7 +18,7 @@ ${view.title}
             <label>选择时间范围:</label>
             <div class="row">
                 <div class="col-md-6">
-                    <label for="start_time_list" class="sr-only control-label">选择起始时间</label>
+                    <label for="start_time_chart" class="sr-only control-label">选择起始时间</label>
                     <div class="date datetimepicker input-group datetimepicker-inline"
                          data-date-format="yyyy-mm-dd">
                         <input id="start_time_chart" class="form-control input-sm" type="text"
@@ -29,7 +29,7 @@ ${view.title}
                     </div>
                 </div>
                 <div class="col-md-6 front-line">
-                    <label for="end_time_list" class="sr-only control-label">选择结束时间</label>
+                    <label for="end_time_chart" class="sr-only control-label">选择结束时间</label>
                     <div class="date datetimepicker input-group datetimepicker-inline"
                          data-date-format="dd-mm-yyyy">
                         <input id="end_time_chart" placeholder="结束时间" class="form-control input-sm" type="text"
@@ -103,9 +103,9 @@ ${view.title}
 <script type="text/javascript">
     $(function(){
         var defaultTime = new Date();
-        $('#start_time_chart').val(defaultTime.getFullYear()+'-'+getzf(defaultTime.getMonth())+'-01');
-        $('#end_time_chart').val(defaultTime.getFullYear()+'-'+getzf(defaultTime.getMonth())+'-'+getzf(defaultTime.getDate()));
-    })
+        $('#start_time_chart').val(defaultTime.getFullYear()+'-'+getzf(defaultTime.getMonth()+1)+'-01');
+        $('#end_time_chart').val(defaultTime.getFullYear()+'-'+getzf(defaultTime.getMonth()+1)+'-'+getzf(defaultTime.getDate()));
+    });
     $(document).on('pjax:complete', function () {
         Animate.reDraw();
     })

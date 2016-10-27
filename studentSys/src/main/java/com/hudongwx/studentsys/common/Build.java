@@ -111,7 +111,7 @@ public class Build{
         attendanceManager.setUrl("/attendanceManager");
         attendanceManager.setFunction(Mapping.FUNCTION_MENUITEM);
         tree.insertChild(attendanceManager, root, null);
-        Mapping attendanceList = new Mapping("attendanceList","考勤信息列表","/attendanceManager/attendanceList.ftl",Mapping.FUNCTION_VIEW);
+        Mapping attendanceList = new Mapping("personalAttendanceList","考勤信息列表","/attendanceManager/personalAttendanceList.ftl",Mapping.FUNCTION_VIEW);
         tree.insertChild(attendanceList,attendanceManager);
         tree.insertChild(new Mapping("addAttendance","添加","addAttendance",Mapping.FUNCTION_OPERATE),attendanceList);
         tree.insertChild(new Mapping("updateAttendance","修改","updateAttendance",Mapping.FUNCTION_OPERATE));

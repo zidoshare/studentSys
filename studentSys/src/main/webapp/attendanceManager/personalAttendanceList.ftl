@@ -91,8 +91,8 @@ ${view.title}
     $(function () {
         console.log('ready');
         var defaultTime = new Date();
-        $('#start_time_list').val(defaultTime.getFullYear()+'-'+getzf(defaultTime.getMonth())+'-01');
-        $('#end_time_list').val(defaultTime.getFullYear()+'-'+getzf(defaultTime.getMonth())+'-'+getzf(defaultTime.getDate()));
+        $('#start_time_list').val(defaultTime.getFullYear()+'-'+getzf(defaultTime.getMonth()+1)+'-01');
+        $('#end_time_list').val(defaultTime.getFullYear()+'-'+getzf(defaultTime.getMonth()+1)+'-'+getzf(defaultTime.getDate()));
         $('.datetimepicker').datetimepicker({
             format: 'yyyy-mm-dd',
             Integer: 1,
