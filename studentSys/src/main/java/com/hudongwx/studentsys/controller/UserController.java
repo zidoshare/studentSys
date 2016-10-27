@@ -26,13 +26,6 @@ import java.util.Map;
 public class UserController extends BaseController {
     public UserService userService;
 
-    /**
-     * @return 返回mapping的title属性
-     */
-    @Override
-    public String init() {
-        return "用户管理";
-    }
 
     @Override
     public void index() {
@@ -45,6 +38,15 @@ public class UserController extends BaseController {
         }
         setAttr("roleMap",map);
     }
+
+    /**
+     * @return 返回一级菜单的mapping
+     */
+    @Override
+    public Mapping init() {
+        return mappingService.getMappingByUrl("/userManager");
+    }
+
     @Clear
     @Before(POST.class)
     public void login(){

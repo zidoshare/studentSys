@@ -9,17 +9,20 @@ import com.hudongwx.studentsys.service.RoleService;
  * Created by wuhongxu on 2016/9/21 0021.
  */
 public class OptionController extends BaseController {
-    /**
-     * @return 返回mapping的title属性
-     */
-    @Override
-    public String init() {
-        return "通用设置";
-    }
+
+
 
     @Override
     public void index() {
         super.index();
         render("index.ftl");
+    }
+
+    /**
+     * @return 返回一级菜单的mapping
+     */
+    @Override
+    public Mapping init() {
+        return mappingService.getMappingByUrl("/option");
     }
 }

@@ -19,16 +19,22 @@ import java.util.Map;
  */
 public class IndexController extends BaseController{
 
-    @Override
-    public String init() {
-        return "首页";
-    }
+
 
     public void index(){
         super.index();
         setMapping(mappingService.getMappingByTitle("首页"));
         fillOutLink();
     }
+
+    /**
+     * @return 返回一级菜单的mapping
+     */
+    @Override
+    public Mapping init() {
+        return mappingService.getMappingByUrl("/");
+    }
+
     public void admin(){
         String methodName = getPara("data");
         if(methodName.equals("initWebMap")){

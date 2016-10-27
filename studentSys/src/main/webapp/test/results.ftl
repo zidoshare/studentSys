@@ -32,7 +32,7 @@
 
         var dom = $('#modal-content');
         dom.removeClass('sr-only');
-        loadResult(dom,"${staticServePath}/test/showCorrecting/${testQuestionnaireClass.id}-"+studentId);
+        loadResult(dom,"${staticServePath}/test/showCorrecting/${testQuestionnaireClass.id}-"+studentId+'-true');
         $('#modal').modal('show');
     }
     function closeResults(){

@@ -20,13 +20,7 @@ public class StudentController extends BaseController {
     public StudentService studentService;
     public UserService userService;
     public ClassService classService;
-    /**
-     * @return 返回mapping的title属性
-     */
-    @Override
-    public String init() {
-        return "学生管理";
-    }
+
 
     @Override
     public void index() {
@@ -38,6 +32,15 @@ public class StudentController extends BaseController {
         List<Class> allClass = classService.getAllClass();
         setAttr("classes",allClass);
     }
+
+    /**
+     * @return 返回一级菜单的mapping
+     */
+    @Override
+    public Mapping init() {
+        return mappingService.getMappingByUrl("/studentManager");
+    }
+
     @Before(POST.class)
     public void addStudent(){
         Student model = getModel(Student.class);

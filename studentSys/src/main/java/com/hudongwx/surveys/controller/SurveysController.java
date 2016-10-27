@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.hudongwx.studentsys.common.BaseController;
+import com.hudongwx.studentsys.model.Mapping;
 import com.hudongwx.studentsys.model.Student;
 import com.hudongwx.studentsys.model.User;
 import com.hudongwx.studentsys.service.ClassService;
@@ -371,8 +372,12 @@ public class SurveysController extends BaseController {
             RenderKit.renderError(this, "提交失败");
     }
 
+
+    /**
+     * @return 返回一级菜单的mapping
+     */
     @Override
-    public String init() {
-        return "我的调查";
+    public Mapping init() {
+        return mappingService.getMappingByUrl("/surveys");
     }
 }

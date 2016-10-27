@@ -11,10 +11,10 @@ import com.hudongwx.studentsys.service.RoleService;
 public class CertificateController extends BaseController {
 
     /**
-     * @return 返回mapping的title属性
+     * @return 返回一级菜单的mapping
      */
     @Override
-    public String init() {
-        return "证书管理";
+    public Mapping init() {
+        return mappingService.getMappingByUrl("/certificateManager");
     }
 }

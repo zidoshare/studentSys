@@ -92,6 +92,16 @@
         <mapping id="2330" icon="fa fa-usd" url="/repaymentManager" title="还款管理" function="2">
             <mappings/>
         </mapping>
+        <mapping id="3851" icon="fa fa-crosshairs" url="/personalAttendanceManager" title="出勤管理" function="2">
+            <mappings>
+                <mapping id="3852" icon="personalAttendanceList" url="/attendanceManager/personalAttendanceList.ftl" title="考勤信息列表" function="1">
+                    <mappings/>
+                </mapping>
+                <mapping id="3853" icon="personalAttendanceChart" url="/attendanceManager/personalAttendanceChart.ftl" title="考勤信息图表" function="1">
+                    <mappings/>
+                </mapping>
+            </mappings>
+        </mapping>
         <mapping id="2331" icon="fa fa-crosshairs" url="/attendanceManager" title="出勤管理" function="2">
             <mappings>
                 <mapping id="2344" icon="attendanceList" url="/attendanceManager/attendanceList.ftl" title="考勤信息列表"

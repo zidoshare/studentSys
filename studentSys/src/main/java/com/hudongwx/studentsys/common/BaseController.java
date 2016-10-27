@@ -39,7 +39,7 @@ public abstract class BaseController extends Controller {
                 }
             }
         }
-        mapping = mappingService.getMappingByTitle(init());
+        mapping = init();
     }
 
     public void index() {
@@ -51,9 +51,9 @@ public abstract class BaseController extends Controller {
         render("/index.ftl");
     }
     /**
-     * @return 返回mapping的title属性
+     * @return 返回一级菜单的mapping
      */
-    public abstract String init();
+    public abstract Mapping init();
 
     public void fillHeader() {
         //三个地址：static用于找资源、servePath用于得到去掉参数的网址、holdPath为带参数网址

@@ -1,7 +1,6 @@
 package com.hudongwx.studentsys.common;
 
 import com.hudongwx.studentsys.controller.*;
-import com.hudongwx.studentsys.util.Common;
 import com.jfinal.config.Routes;
 import com.jfinal.log.Log;
 
@@ -18,9 +17,10 @@ public class StudentSysRoutes extends Routes {
         add("/user",UserController.class);
         add("/userManager",UserController.class);
         add("/option", OptionController.class);
+        add("/personalAttendanceManager",PersonalAttendanceController.class);
         add("/attendanceManager", AttendanceController.class);
         add("/enrollManager",EnrollController.class);
-        add("/repaymentManager",PaymentController.class);
+        add("/repaymentManager",RepaymentController.class);
         add("/certificateManager",CertificateController.class);
         add("/studentManager", StudentController.class,"/studentManager");
         add("/test", TestController.class);

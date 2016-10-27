@@ -4,6 +4,9 @@ import com.hudongwx.studentsys.common.BaseController;
 import com.hudongwx.studentsys.model.Mapping;
 import com.hudongwx.studentsys.service.MappingService;
 import com.hudongwx.studentsys.service.RoleService;
+import com.hudongwx.studentsys.util.Common;
+
+import java.util.List;
 
 /**
  * Created by wuhongxu on 2016/9/21 0021.
@@ -11,10 +14,15 @@ import com.hudongwx.studentsys.service.RoleService;
 public class AttendanceController extends BaseController {
 
     /**
-     * @return  返回mapping的title属性
+     * @return  返回一级菜单的mapping
      */
     @Override
-    public String init() {
-        return "出勤管理";
+    public Mapping init() {
+        return mappingService.getMappingByUrl("/attendanceManager");
+    }
+
+    public void index(){
+        super.index();
+
     }
 }

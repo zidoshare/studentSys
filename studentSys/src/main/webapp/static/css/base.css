@@ -543,8 +543,21 @@ ul, li {
     top: -20px;
 }
 
+.front-line{
+    position:relative;
+}
+.front-line:before{
+    width:5%;
+    height:1px;
+    background: black;
+    content: "";
+    position:absolute;
+    top:50%;
+    left:-5%;
+}
+
 .pjax_loading {
-    background: white;
+    background: rgba(255, 255, 255, 0);
     position: fixed;
     left: 260px;
     top: 0;

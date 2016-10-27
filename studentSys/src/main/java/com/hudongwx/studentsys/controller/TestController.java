@@ -39,13 +39,7 @@ public class TestController extends BaseController {
     public CorrectService correctService;
     public TestDomainTagService testDomainTagService;
 
-    /**
-     * @return 返回mapping的title属性
-     */
-    @Override
-    public String init() {
-        return "我的考试";
-    }
+
 
     public void history() {
         setMapping(mappingService.getMappingByTitle("考试历史"));
@@ -169,6 +163,9 @@ public class TestController extends BaseController {
         fillHeaderAndFooter();
         Integer qcId = getParaToInt(0);
         Integer studentId = getParaToInt(1);
+        Boolean canEdit = getParaToBoolean(2);
+        if(canEdit == null)
+            canEdit = false;
         if (qcId == null) {
             renderError(404);
             return;
@@ -227,6 +224,7 @@ public class TestController extends BaseController {
         setAttr("questionnaire", questionnaire);
         setAttr("questionSize", size);
         setAttr("student", student);
+        setAttr("canEdit",canEdit);
         render("/test/showCorrecting.ftl");
     }
 
@@ -687,5 +685,13 @@ public class TestController extends BaseController {
         }
         tq.delete();
         RenderKit.renderSuccess(this, "删除成功");
+    }
+
+    /**
+     * @return 返回一级菜单的mapping
+     */
+    @Override
+    public Mapping init() {
+        return mappingService.getMappingByUrl("/test");
     }
 }

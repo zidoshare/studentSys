@@ -2,6 +2,7 @@ package com.hudongwx.studentsys.controller;
 
 import com.hudongwx.studentsys.common.BaseController;
 import com.hudongwx.studentsys.model.Class;
+import com.hudongwx.studentsys.model.Mapping;
 import com.hudongwx.studentsys.model.User;
 import com.hudongwx.studentsys.service.ClassService;
 import com.hudongwx.studentsys.service.StudentService;
@@ -23,19 +24,21 @@ public class ClassController extends BaseController {
     public StudentService studentService;
     public UserService userService;
 
-    /**
-     * @return 返回mapping的title属性
-     */
-    @Override
-    public String init() {
-        return "班级管理";
-    }
+
 
     public void index() {
         super.index();
         log.info("==============" + getRequest().getQueryString());
         List<Class> allClass = classService.getAllClass();
         setAttr("classes", allClass);
+    }
+
+    /**
+     * @return 返回一级菜单的mapping
+     */
+    @Override
+    public Mapping init() {
+        return mappingService.getMappingByUrl("/classManager");
     }
 
     @Before(POST.class)
