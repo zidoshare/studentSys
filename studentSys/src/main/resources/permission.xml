@@ -110,13 +110,16 @@
                         <mapping id="2364" icon="addAttendance" url="addAttendance" title="添加" function="0">
                             <mappings/>
                         </mapping>
-                        <mapping id="2365" icon="updateAttendance" url="updateAttendance" title="修改" function="0">
+                        <mapping id="2365" icon="updateAttendance" url="updateAttendance" title="查看详情" function="0">
                             <mappings/>
                         </mapping>
                         <mapping id="2366" icon="deleteStudent" url="deleteStudent" title="删除" function="0">
                             <mappings/>
                         </mapping>
                     </mappings>
+                </mapping>
+                <mapping id="3854" icon="attendanceChart" url="/attendanceManager/attendanceChart.ftl" title="考勤信息图表" function="1">
+                    <mappings/>
                 </mapping>
             </mappings>
         </mapping>

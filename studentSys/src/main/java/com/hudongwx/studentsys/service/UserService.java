@@ -4,6 +4,7 @@ import com.hudongwx.studentsys.common.Service;
 import com.hudongwx.studentsys.exceptions.ServiceException;
 import com.hudongwx.studentsys.model.Mapping;
 import com.hudongwx.studentsys.model.Role;
+import com.hudongwx.studentsys.model.Student;
 import com.hudongwx.studentsys.model.User;
 import com.hudongwx.studentsys.util.Common;
 import com.hudongwx.studentsys.util.StrPlusKit;
@@ -77,5 +78,9 @@ public class UserService extends Service {
         if(null == role)
             return new ArrayList<>();
         return User.dao.find(User.SEARCH_FROM_USER +"where userRole = ?",role.getName());
+    }
+
+    public User getUserByStudent(Student student) {
+        return User.dao.findFirst(User.SEARCH_FROM_USER+"where userNickName = ?"+student.getName());
     }
 }

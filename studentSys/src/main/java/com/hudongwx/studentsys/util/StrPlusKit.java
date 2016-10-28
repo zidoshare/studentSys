@@ -590,6 +590,16 @@ public class StrPlusKit extends StrKit {
         return substringBetween(str, tag, tag);
     }
 
+    public static String ignoreQueryString(String queryString,String... paras){
+        if(isEmpty(queryString))
+            return queryString;
+        for(String para : paras){
+            String p = StrPlusKit.substringBetween(queryString,para+"=","&");
+            queryString = queryString.replace(p,"");
+        }
+        return queryString;
+    }
+
     //注意此方法会连同start前一个消除掉
     public static String substringBetween(String str, String open, String close) {
         if (str != null && open != null && close != null) {

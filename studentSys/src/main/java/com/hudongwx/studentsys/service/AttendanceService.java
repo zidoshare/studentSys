@@ -24,24 +24,24 @@ public class AttendanceService extends Service {
         return Attendance.dao.paginate(currentPage, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, Attendance.SQL_FROM + "where time > ? and time < ? and studentId = ? and type = ?" + Common.ORDER_BY_ID_DESC, startTime, endTime, studentId, type);
     }
 
-    public Map<String, Integer> getCountAttendanceByClassId(Integer classId, long startTime, long endTime) {
+    public Map<String, Long> getCountAttendanceByClassId(Integer classId, long startTime, long endTime) {
         List<Record> records = new ArrayList<>();
         if (classId > 0)
             records = Db.find("select type,count(*) as count " + Attendance.SQL_FROM + Common.SQL_WHERE + "time > ? and time < ? and classId = ? group by type", startTime, endTime, classId);
         else
             records = Db.find("select type,count(*) as count " + Attendance.SQL_FROM + Common.SQL_WHERE + "time > ? and time < ? group by type", startTime, endTime);
-        Map<String, Integer> map = new HashMap<>();
+        Map<String, Long> map = new HashMap<>();
         for (Record record : records) {
-            map.put(record.getStr("type"), record.getInt("count"));
+            map.put(record.getStr("type"), record.getLong("count"));
         }
         return map;
     }
 
-    public Map<String, Integer> getCountAttendanceByStudentId(Integer studentId, long startTime, long endTime) {
+    public Map<String, Long> getCountAttendanceByStudentId(Integer studentId, long startTime, long endTime) {
         List<Record> records = Db.find("select type,count(*) as count " + Attendance.SQL_FROM + Common.SQL_WHERE + "time > ? and time < ? and studentId = ? group by type", startTime, endTime, studentId);
-        Map<String, Integer> map = new HashMap<>();
+        Map<String, Long> map = new HashMap<>();
         for (Record record : records) {
-            map.put(record.getStr("type"), record.getInt("count"));
+            map.put(record.getStr("type"), record.getLong("count"));
         }
         return map;
     }

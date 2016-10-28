@@ -170,6 +170,53 @@ var Util = {
             event.stopPropagation();
         });
     },
+    loadByPjax:function(url,options){
+        console.log(url);
+        var defaults={
+            showWholeAnimate:false,
+            showMinAnimate:true,
+            before:function(){},
+            complete:function(){},
+            container:'#table-inner',
+        };
+        var opts = $.extend(defaults,options);
+        $(opts.container).off('pjax:beforeSend');
+        $(opts.container).off('pjax:complete');
+        $(opts.container).on('pjax:beforeSend',function(event){
+            opts.before();
+            if(opts.showWholeAnimate){
+                $('#page-inner').html('');
+                $('.pjax_loading').css("display", "block");
+            }
+            if(opts.showMinAnimate){
+                var width = $(this).width();
+                var height = $(this).height();
+                var str = '<div id="tab3_loading" style="width:'+width+'px;height:'+height+'px" class="panel_loading"> <img src="'+Label.staticServePath+'/images/loading.gif" class="img-sm center-block"/> </div>';
+                $(this).html(str);
+            }
+            event.stopPropagation();
+        });
+        $(opts.container).on('pjax:complete',function(event){
+            opts.complete();
+            if(opts.showWholeAnimate){
+                $('.pjax_loading').css("display", "none");
+                Animate.loadWrapper();
+            }
+            event.stopPropagation();
+        });
+        $.pjax({
+            url:url,
+            container:opts.container,
+            fragment:opts.container,
+            cache: true,
+            maxCacheLength: 5,
+            timeout:8000,
+            storage: false,
+            replace: true
+        });
+        console.log(opts);
+
+    },
     formatText: function (str) {
         str = str.replace(/\r/g, "");
         str = str.replace(/on(load|click|dbclick|mouseover|mousedown|mouseup)="[^"]+"/ig, "");
@@ -403,6 +450,12 @@ var Util = {
             var id = $(dom).attr('id').substr(0, len);
             $('#' + id).val($(dom).attr('data-label'));
         });
+    },
+    getzf:function(num){
+        if (parseInt(num) < 10) {
+            num = '0' + num;
+        }
+        return num;
     }
 };
 var Animate = {
@@ -452,6 +505,9 @@ var Animate = {
     }
 };
 var func = {
+    addAttendance:function(method){
+        
+    },
     addRole: function (method) {
         if (method == 'show') {
             modalUtil.toggleClear($('#myModal'));

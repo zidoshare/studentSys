@@ -1,4 +1,7 @@
 <#include "../macro-item.ftl">
+<#include "../macro-btn.ftl">
+<#include "../macro-paginate.ftl">
+<@initBtn map = map view=view theme="res"></@initBtn>
 <@item>
 <div class="panel-heading title">
 ${view.title}
@@ -11,26 +14,20 @@ ${view.title}
 
                 <select id="classSelect_list" class="selectpicker show-tick form-control" data-live-search="true">
                     <option value="0">不限</option>
+                    <#list allClass as class>
+                        <option value="${class.id}">${class.className}</option>
+                    </#list>
                 </select>
             </div>
         </div>
         <div class="col-md-2">
-            <div class="form-group">
-                <label for="domainSelect_list" class="control-label">类型：</label>
-
-                <select id="domainSelect_list" class="selectpicker show-tick form-control" data-live-search="true">
-                    <option value="0">不限</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-md-2">
-            <label for="all-search">搜索</label>
+            <label for="student_search_list">搜索</label>
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="学生...">
+                <input type="text" id="student_search_list" class="form-control" placeholder="学生...">
                 <span class="input-group-btn">
-                    <button type="button" class="btn btn-success">
+                    <a class="btn btn-success" id="student_search_btn_list">
                         <i class="glyphicon glyphicon-search"></i>
-                    </button>
+                    </a>
                 </span>
             </div>
         </div>
@@ -38,10 +35,10 @@ ${view.title}
             <label>选择时间范围:</label>
             <div class="row">
                 <div class="col-md-6">
-                    <label for="start_time_list" class="sr-only control-label">选择起始时间</label>
+                    <label for="all_start_time_list" class="sr-only control-label">选择起始时间</label>
                     <div class="date datetimepicker input-group datetimepicker-inline"
                          data-date-format="yyyy-mm-dd">
-                        <input id="start_time_list" class="form-control input-sm" type="text"
+                        <input id="all_start_time_list" class="form-control input-sm" type="text"
                                readonly placeholder="开始时间">
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
@@ -49,10 +46,10 @@ ${view.title}
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <label for="end_time_list" class="sr-only control-label">选择结束时间</label>
+                    <label for="all_end_time_list" class="sr-only control-label">选择结束时间</label>
                     <div class="date datetimepicker input-group datetimepicker-inline"
                          data-date-format="dd-mm-yyyy">
-                        <input id="end_time_list" placeholder="结束时间" class="form-control input-sm" type="text"
+                        <input id="all_end_time_list" placeholder="结束时间" class="form-control input-sm" type="text"
                                readonly>
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
@@ -69,30 +66,182 @@ ${view.title}
                 <thead>
                 <tr>
                     <th>
-                        添加时间
+                        姓名
                     </th>
                     <th>
-                        类型
+                        班级
                     </th>
                     <th>
-                        记录时间
+                        旷课
                     </th>
                     <th>
-                        记录人
+                        请假
                     </th>
                     <th>
-                        备注
+                        迟到
                     </th>
+                    <th>
+                        早退
+                    </th>
+                    <#if addAble||updateAble||deleteAble>
+                        <th>
+                            操作
+                        </th>
+                    </#if>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td colspan="5">
-                        <h5 align="center">暂无记录</h5>
-                    </td>
-                </tr>
+                    <#list counts as count>
+                    <tr id="${count.student.id}">
+                        <td>
+                        ${count.student.name}
+                        </td>
+                        <td>
+                        ${count.aClass.className}
+                        </td>
+                        <td>
+                            <#if count.perTypeMap["旷课"]??>
+                            ${count.perTypeMap["旷课"]}
+                            <#else>
+                                0
+                            </#if>
+                            <#if claTypeMap["${count.aClass.id}"]["旷课"]??>
+                                /${claTypeMap["${count.aClass.id}"]["旷课"]}
+                            <#else>
+                                /0
+                            </#if>
+                        </td>
+                        <td>
+                            <#if count.perTypeMap["请假"]??>
+                            ${count.perTypeMap["请假"]}
+                            <#else>
+                                0
+                            </#if>
+                            <#if claTypeMap["${count.aClass.id}"]["请假"]??>
+                                /${claTypeMap["${count.aClass.id}"]["请假"]}
+                            <#else>
+                                /0
+                            </#if>
+                        </td>
+                        <td>
+                            <#if count.perTypeMap["迟到"]??>
+                            ${count.perTypeMap["迟到"]}
+                            <#else>
+                                0
+                            </#if>
+                            <#if claTypeMap["${count.aClass.id}"]["迟到"]??>
+                                /${claTypeMap["${count.aClass.id}"]["迟到"]}
+                            <#else>
+                                /0
+                            </#if>
+                        </td>
+                        <td>
+                            <#if count.perTypeMap["早退"]??>
+                            ${count.perTypeMap["早退"]}
+                            <#else>
+                                0
+                            </#if>
+                            <#if claTypeMap["${count.aClass.id}"]["早退"]??>
+                                /${claTypeMap["${count.aClass.id}"]["早退"]}
+                            <#else>
+                                /0
+                            </#if>
+                        </td>
+                        <#if addAble||updateAble||deleteAble>
+                            <td>
+                                ${InsertKit(updateBtn,"${count.student.id}")}/${InsertKit(addBtn,"${count.student.id}")}
+                                /${InsertKit(deleteBtn,"${count.student.id}")}
+                            </td>
+                        </#if>
+                    </tr>
+                    </#list>
+                    <#if counts?size < 1>
+                    <tr>
+                        <td colspan="<#if addAble||updateAble||deleteAble>7<#else>6</#if>">
+                            <h5 align="center">暂无记录</h5>
+                        </td>
+                    </tr>
+                    </#if>
                 </tbody>
             </table>
+            <#if page??>
+                <#assign str = "?">
+                <#if holdPath?contains("?")><#assign str = "&"></#if>
+                <@paginate page = page url=holdPath+str pageAfter="list_p">
+                </@paginate>
+            </#if>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="addAttendanceModel" tabindex="-1" role="dialog" aria-labelledby="addDomainModelLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">添加考勤信息</h4>
+            </div>
+            <div class="modal-body">
+                <form id="attendance" role="form">
+                    <div class="form-group sr-only">
+                        <label for="attendanceId" class="col-sm-2 control-label">分类id</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="domain.id" id="domainId"
+                                   placeholder="分类id">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="domainTitle" class="control-label">分类名称</label>
+                        <input type="text" class="form-control" name="domain.domainTitle" id="domainTitle"
+                               placeholder="分类名称">
+                    </div>
+                    <div class="form-group">
+                        <label for="domainMessage" class="control-label">分类信息</label>
+                        <input type="text" class="form-control" name="domain.domainMessage" id="domainMessage"
+                               placeholder="分类信息">
+                    </div>
+                    <div class="form-group sr-only">
+                        <label for="domainCreateTime" class="control-label">创建时间</label>
+                        <input type="text" class="form-control" name="domain.domainCreateTime"
+                               id="domainCreateTime"
+                               placeholder="创建时间" disabled>
+                    </div>
+                    <div class="form-group sr-only">
+                        <label for="domainUpdateTime" class="control-label">更新时间</label>
+                        <input type="text" class="form-control" name="domain.domainUpdateTime"
+                               id="domainUpdateTime"
+                               placeholder="更新时间" disabled>
+                    </div>
+                    <div class="form-group sr-only">
+                        <label for="domainOperaterId" class="control-label">operater</label>
+                        <input type="text" class="form-control" name="domain.domainOperaterId"
+                               id="domainOperaterId"
+                               placeholder="创建者"
+                               value="${user.userNickname}"
+                               disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="tags" class="control-label">关联标签（英文状态下逗号隔开）<a class="res"
+                                                                                  onclick="$('.tag-container').toggle()">选择</a></label>
+                        <input type="text" class="form-control" name="tags" id="tags"
+                               placeholder="关联标签（可输入已有标签，也可输入没有出现过的标签）">
+                        <div id="panel-container">
+                            <div class="pan"></div>
+                            <div class="panel_loading">
+                                <img src="${staticServePath}/images/loading.gif" class="img-sm center-block"/>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="tip-container">
+                    <div class="tip" id="saveDomainTip" aria-label="0">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <span class="pull-right">${saveBtn}</span>
+            </div>
         </div>
     </div>
 </div>
@@ -108,31 +257,46 @@ ${view.title}
         meridiem: ["上午", "下午"]
     };
     $(function () {
-        console.log('ready');
         var defaultTime = new Date();
-        $('#start_time_list').val(defaultTime.getFullYear()+'-'+getzf(defaultTime.getMonth()+1)+'-01');
-        $('#end_time_list').val(defaultTime.getFullYear()+'-'+getzf(defaultTime.getMonth()+1)+'-'+getzf(defaultTime.getDate()));
+        $('#all_start_time_list').val(defaultTime.getFullYear() + '-' + Util.getzf(defaultTime.getMonth() + 1) + '-01');
+        $('#all_end_time_list').val(defaultTime.getFullYear() + '-' + Util.getzf(defaultTime.getMonth() + 1) + '-' + Util.getzf(defaultTime.getDate()));
         $('.datetimepicker').datetimepicker({
             format: 'yyyy-mm-dd',
             Integer: 1,
             minView: 2,
             bootcssVer: 3,
-            endDate : new Date(),
+            endDate: new Date(),
             showMeridian: true,
             autoclose: true,
             todayBtn: true,
             language: 'zh-CN',
             todayHighlight: true
         });
+        $('#student_search_btn_list').on('click', loadAttendance);
+        $('#all_start_time_list,#all_end_time_list,#classSelect_list').on('change', loadAttendance);
+        $('#student_search_list').keydown(function (e) {
+            if (e.keyCode == 13) {
+                loadAttendance();
+            }
+        });
     });
     $(document).on('pjax:complete', function () {
         Util.redrawSelects();
     });
-    function getzf(num) {
-        if (parseInt(num) < 10) {
-            num = '0' + num;
+    function loadAttendance() {
+        var start_chart = new Date($("#start_time_chart").val().replace(/-/g, "/"));
+        var end_chart = new Date($('#end_time_chart').val().replace(/-/g, '/'));
+        var start_list = new Date($("#all_start_time_list").val().replace(/-/g, "/"));
+        var end_list = new Date($('#all_end_time_list').val().replace(/-/g, '/'));
+        if (start_chart <= end_chart && start_list <= end_list) {
+            end_chart.setDate(end_chart.getDate() + 1);
+            end_list.setDate(end_list.getDate() + 1);
+            var names = $('#student_search_list').val().trim();
+            var cla = $('#classSelect_list').val();
+            Util.loadByPjax('${staticServePath}/attendanceManager/attendance?start_time_list=' + start_list.getTime() + '&end_time_list=' + end_list.getTime() + '&class=' + cla + '&student=' + names + '&list_p=' + 1 + '&start_time_chart=' + start_chart.getTime() + '&end_time_chart=' + end_chart.getTime() + '&chart_p=' + 1);
+        } else {
+            Util.showTip($('#wholeTip'), '结束时间应大于开始时间', 'alert alert-danger');
         }
-        return num;
     }
 </script>
 </@item>

@@ -44,6 +44,7 @@ public class Common {
     public static final Integer VALUE_VISIBLE = 1;
     public static final Integer VALUE_IN_VISIBLE = 0;
     public static final String ORDER_BY_ID_DESC = " order by id desc";
+    public static final String IGNORE_WORD = "ignoreWord";
     //缓存Label
     public static final String CACHE_FOREVER_LABEL = "forever";
     public static final String CACHE_LONG_TIME_LABEL = "longTime";

@@ -1,4 +1,5 @@
 <#include "../macro-item.ftl">
+<#include "../macro-paginate.ftl">
 <@item>
 <div class="panel-heading title">
 ${view.title}
@@ -7,10 +8,14 @@ ${view.title}
     <div class="row">
         <div class="col-md-2">
             <div class="form-group">
-                <label for="domainSelect_list" class="control-label">类型：</label>
+                <label for="typeSelect_list" class="control-label">类型：</label>
 
-                <select id="domainSelect_list" class="selectpicker show-tick form-control" data-live-search="true">
-                    <option value="0">不限</option>
+                <select id="typeSelect_list" class="selectpicker show-tick form-control" data-live-search="true">
+                    <option value="">不限</option>
+                    <option value="旷课">旷课</option>
+                    <option value="请假">请假</option>
+                    <option value="迟到">迟到</option>
+                    <option value="早退">早退</option>
                 </select>
             </div>
         </div>
@@ -67,13 +72,38 @@ ${view.title}
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td colspan="5">
-                        <h5 align="center">暂无记录</h5>
-                    </td>
-                </tr>
+                    <#list personalAttendancePage.list as at>
+                    <tr>
+                        <td>
+                        ${at.createTime?number_to_datetime}
+                        </td>
+                        <td>
+                        ${at.type}
+                        </td>
+                        <td>
+                        ${at.time?number_to_datetime}
+                        </td>
+                        <td>
+                        ${userMap["${at.operaterId}"].userNickname}
+                        </td>
+                        <td>
+                        ${at.message}
+                        </td>
+                    </tr>
+                    </#list>
+                    <#if personalAttendancePage.list?size == 0>
+                    <tr>
+                        <td colspan="5">
+                            <h5 align="center">暂无记录</h5>
+                        </td>
+                    </tr>
+                    </#if>
                 </tbody>
             </table>
+            <#assign str = "?">
+            <#if holdPath?contains("?")><#assign str = "&"></#if>
+            <@paginate page = personalAttendancePage url=holdPath+str pageAfter="list_p">
+            </@paginate>
         </div>
     </div>
 </div>
@@ -89,21 +119,34 @@ ${view.title}
         meridiem: ["上午", "下午"]
     };
     $(function () {
-        console.log('ready');
         var defaultTime = new Date();
-        $('#start_time_list').val(defaultTime.getFullYear()+'-'+getzf(defaultTime.getMonth()+1)+'-01');
-        $('#end_time_list').val(defaultTime.getFullYear()+'-'+getzf(defaultTime.getMonth()+1)+'-'+getzf(defaultTime.getDate()));
+        $('#start_time_list').val(defaultTime.getFullYear() + '-' + getzf(defaultTime.getMonth() + 1) + '-01');
+        $('#end_time_list').val(defaultTime.getFullYear() + '-' + getzf(defaultTime.getMonth() + 1) + '-' + getzf(defaultTime.getDate()));
         $('.datetimepicker').datetimepicker({
             format: 'yyyy-mm-dd',
             Integer: 1,
             minView: 2,
             bootcssVer: 3,
-            endDate : new Date(),
+            endDate: new Date(),
             showMeridian: true,
             autoclose: true,
             todayBtn: true,
             language: 'zh-CN',
             todayHighlight: true
+        });
+        $('#start_time_list,#end_time_list,#typeSelect_list').on('change', function () {
+            var start_chart = new Date($("#start_time_chart").val().replace(/-/g, "/"));
+            var end_chart = new Date($('#end_time_chart').val().replace(/-/g, '/'));
+            var start_list = new Date($("#start_time_list").val().replace(/-/g, "/"));
+            var end_list = new Date($('#end_time_list').val().replace(/-/g, '/'));
+            if (start_chart <= end_chart && start_list <= end_list) {
+                end_chart.setDate(end_chart.getDate() + 1);
+                end_list.setDate(end_list.getDate() + 1);
+                var type = $('#typeSelect_list').val();
+                Util.loadByPjax('${staticServePath}/attendanceManager/personalAttendance?start_time_list=' + start_list.getTime() + '&end_time_list=' + end_list.getTime() + '&type=' + type + '&list_p=' + 1 + '&start_time_chart=' + start_chart.getTime() + '&end_time_chart=' + end_chart.getTime() + '&chart_p=' + 1);
+            } else {
+                Util.showTip($('#wholeTip'), '结束时间应大于开始时间', 'alert alert-danger');
+            }
         });
     });
     $(document).on('pjax:complete', function () {

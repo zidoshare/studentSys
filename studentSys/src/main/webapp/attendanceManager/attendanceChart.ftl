@@ -5,6 +5,26 @@ ${view.title}
 </div>
 <div class="panel-body">
     <div class="row">
+        <div class="col-md-2">
+            <div class="form-group">
+                <label for="classSelect_list" class="control-label">班级：</label>
+
+                <select id="classSelect_list" class="selectpicker show-tick form-control" data-live-search="true">
+                    <option value="0">不限</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <label for="all-search">搜索</label>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="学生...">
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-success">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
         <div class="col-md-6">
             <label>选择时间范围:</label>
             <div class="row">
@@ -40,20 +60,7 @@ ${view.title}
             <#list keys as key>
                 <div class="col-md-6">
                     <div class="panel panel-default">
-                        <div class="panel-body easypiechart-panel">
-                            <h4>${key}：<#if studentCountAttendanceMap[key]??>${studentCountAttendanceMap[key]}<#else>
-                                0</#if>次</h4>
-                            <div class="easypiechart" id="${colors[key?index]}"
-                                 data-percent="<#if percentMap[key]??>${percentMap[key]?string("percent")}<#else>0%</#if>"><span
-                                    class="percent">
-                                <#if percentMap[key]??>${percentMap[key]?string("percent")}<#else>0%</#if>
-                        </span>
-
-                            </div>
-                            <div>
-                                <span class="small text-danger">提示：占全班旷课百分比</span>
-                            </div>
-                        </div>
+                        暂无记录
                     </div>
                 </div>
             </#list>

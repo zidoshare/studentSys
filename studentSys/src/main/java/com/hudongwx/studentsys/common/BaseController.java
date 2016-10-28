@@ -50,6 +50,7 @@ public abstract class BaseController extends Controller {
         }
         render("/index.ftl");
     }
+
     /**
      * @return 返回一级菜单的mapping
      */
@@ -60,14 +61,9 @@ public abstract class BaseController extends Controller {
         String uri = getRequest().getRequestURI();
         String url = String.valueOf(getRequest().getRequestURL());
         String staticPath = getAttr(Common.LABEL_STATIC_SERVE_PATH);
-        String para = getRequest().getQueryString();
-        if (StrPlusKit.isEmpty(para))
-            para = "";
-        //将pjax参数忽略掉
-        String pjax = StrPlusKit.substringBetween(para, "_pjax=", "&");
-        para = para.replace(pjax,"");
-        String p = StrPlusKit.substringBetween(para,"p=","&");
-        para = para.replace(p,"");
+
+        //将不需要的参数忽略掉
+        String para = StrPlusKit.ignoreQueryString(getRequest().getQueryString(), "_pjax", "list_p", "chart_p", "p");
         /*int pjaxIndex = para.indexOf("_pjax");
         if(pjaxIndex >= 0){
             int pjaxEnd = para.indexOf("&", pjaxIndex);
@@ -76,18 +72,19 @@ public abstract class BaseController extends Controller {
             String sub = para.substring(pjaxIndex, pjaxEnd);
             para = para.replace(sub,"");
         }*/
-        if(!StrPlusKit.isEmpty(para))
+        if (!StrPlusKit.isEmpty(para))
             para = "?" + para;
         String actionKey = getAttr(Common.LABEL_ACTION_KEY);
         String servePath = staticPath + actionKey;
-        url += para;
+        if (para != null)
+            url += para;
         setAttr(Common.LABEL_SERVE_PATH, servePath);
         setAttr(Common.LABEL_HOLD_PATH, url);
         setAttr(Common.LABEL_STATIC_RESOURCE_VERSION, new Date().getTime());
         User currentUser = getCurrentUser(this);
 
         setAttr(Common.LABEL_IS_LOGIN, currentUser == null);
-            setAttr(Common.LABEL_LOGIN_ROLE, currentUser!=null?currentUser.getUserRole():"");
+        setAttr(Common.LABEL_LOGIN_ROLE, currentUser != null ? currentUser.getUserRole() : "");
         setAttr(Common.LABEL_USER, currentUser);
         Prop langProp = LangConfig.getLangProp();
         setAttr(Common.LABEL_LOGIN_NAME_ERROR, langProp.get(Common.LABEL_LOGIN_NAME_ERROR));
@@ -161,7 +158,7 @@ public abstract class BaseController extends Controller {
         setAttr(Common.LABEL_NOW_VISIT, mapping);
         //base处理通用的，其他处理继续下放
         setAttr(Common.LABEL_ROLE_TREE, roleTree);
-        setAttr(Common.LABEL_ROOT_MAPPING,roleTree.root());
+        setAttr(Common.LABEL_ROOT_MAPPING, roleTree.root());
         return true;
     }
 
@@ -202,23 +199,25 @@ public abstract class BaseController extends Controller {
         fillHeader();
         fillFooter();
     }
-    protected void fillOutLink(){
+
+    protected void fillOutLink() {
         String outLinkNames = Common.getMainProp().get("outLinkNames");
         String[] linkNames = outLinkNames.split(",");
         String outLinkUrls = Common.getMainProp().get("outLinkUrls");
         String[] linkUrls = outLinkUrls.split(",");
         String outLinkIcons = Common.getMainProp().get("outLinkIcons");
         String[] linkIcons = outLinkIcons.split(",");
-        List<Map<String,String>> list= new ArrayList<>();
-        for(int i = 0; i < linkNames.length; i++){
-            Map<String,String> map = new HashMap<>();
-            map.put("name",linkNames[i]);
-            map.put("url",linkUrls[i]);
-            map.put("icon",linkIcons[i]);
+        List<Map<String, String>> list = new ArrayList<>();
+        for (int i = 0; i < linkNames.length; i++) {
+            Map<String, String> map = new HashMap<>();
+            map.put("name", linkNames[i]);
+            map.put("url", linkUrls[i]);
+            map.put("icon", linkIcons[i]);
             list.add(map);
         }
-        setAttr("outLinks",list);
+        setAttr("outLinks", list);
     }
+
     public static User getCurrentUser(HttpServletRequest request) {
         /*User user = new User();
         user.setUserNickname("管理员");
@@ -226,11 +225,13 @@ public abstract class BaseController extends Controller {
         return user;*/
         return (User) request.getSession().getAttribute("user");
     }
-    public static User getCurrentUser(Controller me){
+
+    public static User getCurrentUser(Controller me) {
         return getCurrentUser(me.getRequest());
     }
+
     //如果是从二级菜单导航出去，一定要setMapping
-    public void setMapping(Mapping mapping){
+    public void setMapping(Mapping mapping) {
         this.mapping = mapping;
     }
 }
