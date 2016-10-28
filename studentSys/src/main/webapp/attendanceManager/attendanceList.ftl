@@ -149,7 +149,7 @@ ${view.title}
                         </td>
                         <#if addAble||updateAble||deleteAble>
                             <td>
-                                ${InsertKit(updateBtn,"${count.student.id}")}/${InsertKit(addBtn,"${count.student.id}")}
+                            ${InsertKit(updateBtn,"${count.student.id}")}/${InsertKit(addBtn,"${count.student.id}")}
                                 /${InsertKit(deleteBtn,"${count.student.id}")}
                             </td>
                         </#if>
@@ -173,7 +173,25 @@ ${view.title}
         </div>
     </div>
 </div>
-<div class="modal fade" id="addAttendanceModel" tabindex="-1" role="dialog" aria-labelledby="addDomainModelLabel"
+<div class="modal fade bs-example-modal-lg" id="modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="width: 1200px;">
+        <div class="modal-content " id="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">查看详情</h3>
+            </div>
+
+            <div id="load_pre">
+                <div class="panel_loading">
+                    <img src="${staticServePath}/images/loading.gif" class="img-sm center-block"/>
+                </div>
+                <div class="pan">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="addAttendanceModal" tabindex="-1" role="dialog" aria-labelledby="addAttendanceModelLabel"
      aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -185,59 +203,67 @@ ${view.title}
             <div class="modal-body">
                 <form id="attendance" role="form">
                     <div class="form-group sr-only">
-                        <label for="attendanceId" class="col-sm-2 control-label">分类id</label>
+                        <label for="attendanceId" class="col-sm-2 control-label">考勤id</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="domain.id" id="domainId"
-                                   placeholder="分类id">
+                            <input type="text" class="form-control" name="attendance.id" id="attendanceId"
+                                   placeholder="考勤id">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="domainTitle" class="control-label">分类名称</label>
-                        <input type="text" class="form-control" name="domain.domainTitle" id="domainTitle"
-                               placeholder="分类名称">
+                    <div class="form-group sr-only ">
+                        <label for="studentId" class="control-label">学生id</label>
+                        <input type="text" class="form-control" name="attendance.studentId" id="studentId"
+                               placeholder="学生id">
                     </div>
                     <div class="form-group">
-                        <label for="domainMessage" class="control-label">分类信息</label>
-                        <input type="text" class="form-control" name="domain.domainMessage" id="domainMessage"
-                               placeholder="分类信息">
+                        <label for="studentName" class="control-label">学生姓名</label>
+                        <input type="text" class="form-control" id="studentName"
+                               placeholder="学生姓名" readonly>
                     </div>
                     <div class="form-group sr-only">
-                        <label for="domainCreateTime" class="control-label">创建时间</label>
-                        <input type="text" class="form-control" name="domain.domainCreateTime"
-                               id="domainCreateTime"
+                        <label for="createTime" class="control-label">创建时间</label>
+                        <input type="text" class="form-control" name="attendance.createTime"
+                               id="createTime"
                                placeholder="创建时间" disabled>
                     </div>
                     <div class="form-group sr-only">
-                        <label for="domainUpdateTime" class="control-label">更新时间</label>
-                        <input type="text" class="form-control" name="domain.domainUpdateTime"
-                               id="domainUpdateTime"
-                               placeholder="更新时间" disabled>
+                        <label for="time" class="control-label">记录时间</label>
+                        <input name="attendance.time" class="form-control input-sm" type="text"
+                               id="time"
+                               placeholder="创建时间" disabled>
+                    </div>
+                    <label for="time_temp" class="control-label">记录时间</label>
+                    <div class="date datetimepicker input-group"
+                         data-date-format="yyyy-mm-dd">
+                        <input id="time_temp" class="form-control input-sm" type="text"
+                               readonly placeholder="记录时间">
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="type" class="control-label">记录类型</label>
+                        <select class="form-control" name="attendance.type" id="type">
+                            <option value="旷课">旷课</option>
+                            <option value="请假">请假</option>
+                            <option value="迟到">迟到</option>
+                            <option value="早退">早退</option>
+                        </select>
                     </div>
                     <div class="form-group sr-only">
-                        <label for="domainOperaterId" class="control-label">operater</label>
-                        <input type="text" class="form-control" name="domain.domainOperaterId"
-                               id="domainOperaterId"
-                               placeholder="创建者"
-                               value="${user.userNickname}"
+                        <label for="operaterId" class="control-label">操作人</label>
+                        <input type="text" class="form-control" name="attendance.operaterId"
+                               id="operaterId"
+                               placeholder="操作人"
+                               value="${user.id}"
                                disabled>
                     </div>
                     <div class="form-group">
-                        <label for="tags" class="control-label">关联标签（英文状态下逗号隔开）<a class="res"
-                                                                                  onclick="$('.tag-container').toggle()">选择</a></label>
-                        <input type="text" class="form-control" name="tags" id="tags"
-                               placeholder="关联标签（可输入已有标签，也可输入没有出现过的标签）">
-                        <div id="panel-container">
-                            <div class="pan"></div>
-                            <div class="panel_loading">
-                                <img src="${staticServePath}/images/loading.gif" class="img-sm center-block"/>
-                            </div>
-                        </div>
+                        <label for="message" class="control-label">备注信息</label>
+                        <input type="text" class="form-control" name="attendance.message"
+                               id="message"
+                               placeholder="备注信息">
                     </div>
                 </form>
-                <div class="tip-container">
-                    <div class="tip" id="saveDomainTip" aria-label="0">
-                    </div>
-                </div>
             </div>
             <div class="modal-footer">
                 <span class="pull-right">${saveBtn}</span>

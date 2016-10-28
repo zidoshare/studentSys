@@ -66,7 +66,7 @@ ${view.title}
     $(function () {
         var defaultTime = new Date();
         $('#start_time_chart').val(defaultTime.getFullYear() + '-' + Util.getzf(defaultTime.getMonth() + 1) + '-01');
-        $('#end_time_chart').val(defaultTime.getFullYear() + '-' + Util.getzf(defaultTime.getMonth() + 1) + '-' + Util.getzf(defaultTime.getDate()));
+        $('#end_time_chart').val(defaultTime.getFullYear() + '-' + Util.getzf(defaultTime.getMonth() + 1) + '-' + getzf(defaultTime.getDate()));
         $('#start_time_chart,#end_time_chart').on('change', function () {
             var start_chart = new Date($("#start_time_chart").val().replace(/-/g, "/"));
             var end_chart = new Date($('#end_time_chart').val().replace(/-/g, '/'));

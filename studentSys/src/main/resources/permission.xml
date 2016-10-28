@@ -107,7 +107,7 @@
                 <mapping id="2344" icon="attendanceList" url="/attendanceManager/attendanceList.ftl" title="考勤信息列表"
                          function="1">
                     <mappings>
-                        <mapping id="2364" icon="addAttendance" url="addAttendance" title="添加" function="0">
+                        <mapping id="2364" icon="addAttendance" url="addAttendance" title="添加详情" function="0">
                             <mappings/>
                         </mapping>
                         <mapping id="2365" icon="updateAttendance" url="updateAttendance" title="查看详情" function="0">

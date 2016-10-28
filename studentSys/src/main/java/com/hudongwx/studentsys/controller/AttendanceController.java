@@ -5,8 +5,11 @@ import com.hudongwx.studentsys.model.*;
 import com.hudongwx.studentsys.model.Class;
 import com.hudongwx.studentsys.service.*;
 import com.hudongwx.studentsys.util.Common;
+import com.hudongwx.studentsys.util.RenderKit;
 import com.hudongwx.studentsys.util.StrPlusKit;
 import com.hudongwx.studentsys.util.TimeKit;
+import com.jfinal.aop.Before;
+import com.jfinal.ext.interceptor.POST;
 import com.jfinal.plugin.activerecord.Page;
 
 import java.util.*;
@@ -38,8 +41,8 @@ public class AttendanceController extends BaseController {
         Integer list_p = getParaToInt("list_p");
         if (list_p == null)
             list_p = Common.START_PAGE;
-        if (start_time_list == null || end_time_list == null || start_time_list > TimeKit.getNowTime()) {
-            end_time_list = TimeKit.getNowTime();
+        if (start_time_list == null || end_time_list == null || start_time_list > TimeKit.getTomarrow()) {
+            end_time_list = TimeKit.getTomarrow();
             start_time_list = 0L;
         }
         if (classId == null)
@@ -114,6 +117,31 @@ public class AttendanceController extends BaseController {
         setAttr("counts", counts);
         setAttr("claTypeMap", claTypeMap);
     }
+    @Before(POST.class)
+    public void postAttendance(){
+        Attendance model = getModel(Attendance.class);
+        Integer classId = classService.getClassByStudent(studentService.getStudentById(model.getStudentId())).getId();
+        model.setClassId(classId);
+        if(model.getId() == null){
+            if(attendanceService._saveAttendance(model)){
+                RenderKit.renderSuccess(this,"保存成功");
+            }else{
+                RenderKit.renderError(this,"保存失败");
+            }
+        }else{
+            if(attendanceService._updateAttendance(model)){
+                RenderKit.renderSuccess(this,"修改成功");
+            }else{
+                RenderKit.renderError(this,"修改失败");
+            }
+        }
+    }
+
+    public void prevewAttendanceList(){
+        fillHeaderAndFooter();
+        personalAttendanceList();
+        render("/attendanceManager/personCore.ftl");
+    }
 
     public void personalAttendance() {
         setMapping(mappingService.getMappingByUrl("/attendanceManager/personalAttendance"));
@@ -137,10 +165,15 @@ public class AttendanceController extends BaseController {
         Integer studentId = getParaToInt("student");
         if (list_p == null || list_p < 1)
             list_p = 1;
-        if (start_time_list == null || end_time_list == null || start_time_list > TimeKit.getNowTime()) {
-            end_time_list = TimeKit.getNowTime();
+        setAttr("start_time_list",start_time_list);
+        if (start_time_list == null || end_time_list == null || start_time_list > TimeKit.getTomarrow()) {
+            end_time_list = TimeKit.getTomarrow();
             start_time_list = 0L;
+            setAttr("start_time_list",null);
         }
+        setAttr("end_time_list",end_time_list);
+
+
         if (studentId == null) {
             studentId = studentService.getStudentByUser(getCurrentUser(this)).getId();
         }
@@ -150,7 +183,11 @@ public class AttendanceController extends BaseController {
         for (Attendance attendance : list_attendance.getList()) {
             userMap.put(attendance.getOperaterId() + "", userService.getUserById(attendance.getOperaterId()));
         }
+        if(StrPlusKit.isEmpty(typeName))
+            typeName = "不限";
+        setAttr("typeName",typeName);
         setAttr("userMap", userMap);
+        setAttr("studentId",studentId);
     }
 
     public void personalAttendanceChart() {
@@ -164,10 +201,12 @@ public class AttendanceController extends BaseController {
         }
         if (p_chart == null || p_chart < 1)
             p_chart = 1;
-        if (start_time_chart == null || end_time_chart == null || start_time_chart > TimeKit.getNowTime() || end_time_chart > TimeKit.getNowTime()) {
-            end_time_chart = TimeKit.getNowTime();
+        if (start_time_chart == null || end_time_chart == null || start_time_chart > TimeKit.getTomarrow() || end_time_chart > TimeKit.getTomarrow()) {
+            end_time_chart = TimeKit.getTomarrow();
             start_time_chart = 0L;
         }
+        setAttr("end_time_chart",end_time_chart);
+        setAttr("start_time_chart",start_time_chart);
         if (classId == null) {
             /*List<Class> allClass = classService.getAllClass();
             if (!allClass.isEmpty()) {

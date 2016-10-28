@@ -1,7 +1,7 @@
-<#macro paginate page url container="#table-inner" pageAfter="p">
-    <div class="pageTest"></div>
+<#macro paginate page url selector="pageTest" container="#table-inner" pageAfter="p">
+    <div class="${selector}"></div>
     <script type="text/javascript">
-        $('.pageTest').page({
+        $('.${selector}').page({
             leng: ${page.totalPage},//分页总数
             activeClass: 'activP',  //active 类样式定义
             url:'${url}',

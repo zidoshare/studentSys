@@ -26,7 +26,7 @@
                 <#assign addAble = true>
                 <@macroBtn url = op.url title = op.title theme=theme></@macroBtn>
                 <#assign addBtn = btnLabel>
-                <@macroBtn url = op.url title = op.title theme=theme isSave=true></@macroBtn>
+                <@macroBtn url = op.url title = op.title theme="success" isSave=true></@macroBtn>
                 <#assign saveBtn = btnLabel>
             <#elseif op.url?starts_with("update")>
                 <#assign updateAble = true>

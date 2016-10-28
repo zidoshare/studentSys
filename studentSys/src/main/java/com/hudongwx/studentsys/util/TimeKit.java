@@ -18,4 +18,10 @@ public class TimeKit {
     public static long getNowTime(){
         return Calendar.getInstance().getTimeInMillis();
     }
+
+    public static long getTomarrow(){
+        Calendar instance = Calendar.getInstance();
+        instance.set(Calendar.DATE,instance.get(Calendar.DATE)+1);
+        return instance.getTimeInMillis();
+    }
 }

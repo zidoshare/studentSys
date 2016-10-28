@@ -170,47 +170,49 @@ var Util = {
             event.stopPropagation();
         });
     },
-    loadByPjax:function(url,options){
+    loadByPjax: function (url, options) {
         console.log(url);
-        var defaults={
-            showWholeAnimate:false,
-            showMinAnimate:true,
-            before:function(){},
-            complete:function(){},
-            container:'#table-inner',
+        var defaults = {
+            showWholeAnimate: false,
+            showMinAnimate: true,
+            before: function () {
+            },
+            complete: function () {
+            },
+            container: '#table-inner',
         };
-        var opts = $.extend(defaults,options);
+        var opts = $.extend(defaults, options);
         $(opts.container).off('pjax:beforeSend');
         $(opts.container).off('pjax:complete');
-        $(opts.container).on('pjax:beforeSend',function(event){
+        $(opts.container).on('pjax:beforeSend', function (event) {
             opts.before();
-            if(opts.showWholeAnimate){
+            if (opts.showWholeAnimate) {
                 $('#page-inner').html('');
                 $('.pjax_loading').css("display", "block");
             }
-            if(opts.showMinAnimate){
+            if (opts.showMinAnimate) {
                 var width = $(this).width();
                 var height = $(this).height();
-                var str = '<div id="tab3_loading" style="width:'+width+'px;height:'+height+'px" class="panel_loading"> <img src="'+Label.staticServePath+'/images/loading.gif" class="img-sm center-block"/> </div>';
+                var str = '<div id="tab3_loading" style="width:' + width + 'px;height:' + height + 'px" class="panel_loading"> <img src="' + Label.staticServePath + '/images/loading.gif" class="img-sm center-block"/> </div>';
                 $(this).html(str);
             }
             event.stopPropagation();
         });
-        $(opts.container).on('pjax:complete',function(event){
+        $(opts.container).on('pjax:complete', function (event) {
             opts.complete();
-            if(opts.showWholeAnimate){
+            if (opts.showWholeAnimate) {
                 $('.pjax_loading').css("display", "none");
                 Animate.loadWrapper();
             }
             event.stopPropagation();
         });
         $.pjax({
-            url:url,
-            container:opts.container,
-            fragment:opts.container,
+            url: url,
+            container: opts.container,
+            fragment: opts.container,
             cache: true,
             maxCacheLength: 5,
-            timeout:8000,
+            timeout: 8000,
             storage: false,
             replace: true
         });
@@ -451,7 +453,7 @@ var Util = {
             $('#' + id).val($(dom).attr('data-label'));
         });
     },
-    getzf:function(num){
+    getzf: function (num) {
         if (parseInt(num) < 10) {
             num = '0' + num;
         }
@@ -505,8 +507,54 @@ var Animate = {
     }
 };
 var func = {
-    addAttendance:function(method){
-        
+    addAttendance: function (method, id) {
+        if (method == 'show') {
+            modalUtil.show($('#addAttendanceModal'));
+            $('#studentId').val(id);
+            var name = $('#' + id).find('td').first().text().replace(/ /g, '');
+            $('#studentName').val(name);
+            var defaultTime = new Date();
+            $('#time_temp').val(defaultTime.getFullYear() + '-' + Util.getzf(defaultTime.getMonth() + 1) + '-' + Util.getzf(defaultTime.getDate()));
+        } else {
+            $('#createTime').val(new Date().getTime());
+            $('#time').val(new Date($('#time_temp').val().replace(/-/g, '/')).getTime());
+            var btn = Ladda.create(document.querySelector("#save-btn"));
+            btn.start();
+            var json = {};
+            $('#attendance').find('input,select').each(function () {
+                json[$(this).attr('name')] = $(this).val();
+            });
+            $.ajax({
+                url: Label.staticServePath + '/attendanceManager/postAttendance',
+                data: json,
+                type: 'post',
+                success: function (data, status) {
+                    if (data.state == 'success') {
+                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
+                        modalUtil.hideClear($('#addAttendanceModal'), '');
+                        Util.reloadByPjax('#table-inner');
+                    } else
+                        Util.showTip($('#wholeTip'), '操作失败', 'alert alert-danger');
+                },
+                error: function () {
+
+                },
+                complete: function () {
+                    btn.stop();
+                }
+            })
+        }
+    },
+    updateAttendance: function (method, id) {
+        modalUtil.show($('#modal'));
+        var start_list = new Date($("#all_start_time_list").val().replace(/-/g, "/"));
+        var end_list = new Date($('#all_end_time_list').val().replace(/-/g, '/'));
+        end_list.setDate(end_list.getDate() + 1);
+        loadResult($('#load_pre'),
+            Label.staticServePath + '/attendanceManager/prevewAttendanceList?student=' +
+            id + '&start_time_list=' + start_list.getTime() + '&end_time_list=' + end_list.getTime(), {
+                after: Util.redrawSelects
+            });
     },
     addRole: function (method) {
         if (method == 'show') {
@@ -1117,6 +1165,9 @@ var func = {
     }
 };
 var modalUtil = {
+    show: function (modal) {
+        modal.modal('show');
+    },
     toggleClear: function (modal) {
         modal.find('input[id!="operater"]').val('');
         modal.find('textarea[id!="operater"]').val('');
@@ -1148,7 +1199,7 @@ var modalUtil = {
                 });
             }
         }
-        modal.modal('hide');
+        model.modal('hide');
     }
 };
 var Test = {

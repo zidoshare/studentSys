@@ -25,6 +25,14 @@ public abstract class BaseAttendance<M extends BaseAttendance<M>> extends Model<
 		return get("studentId");
 	}
 
+	public void setClassId(java.lang.Integer classId) {
+		set("classId", classId);
+	}
+
+	public java.lang.Integer getClassId() {
+		return get("classId");
+	}
+
 	public void setCreateTime(java.lang.Long createTime) {
 		set("createTime", createTime);
 	}

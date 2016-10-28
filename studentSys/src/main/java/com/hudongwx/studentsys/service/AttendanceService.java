@@ -17,6 +17,15 @@ import java.util.Map;
  * Created by wuhongxu on 2016/10/27 0027.
  */
 public class AttendanceService extends Service {
+
+    public boolean _saveAttendance(Attendance attendance){
+        return attendance.save();
+    }
+
+    public boolean _updateAttendance(Attendance attendance){
+        return attendance.update();
+    }
+
     public Page<Attendance> getPersonalAttendance(int currentPage, Integer studentId, String type, long startTime, long endTime) {
         if (StrPlusKit.isEmpty(type)) {
             return Attendance.dao.paginate(currentPage, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, Attendance.SQL_FROM + "where time > ? and time < ? and studentId = ?" + Common.ORDER_BY_ID_DESC, startTime, endTime, studentId);

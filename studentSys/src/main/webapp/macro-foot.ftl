@@ -12,13 +12,13 @@
     };
     $(function () {
         if ($.support.pjax) {
-            $('#table-inner').pjax('a[data-label="#table-inner"]','#table-inner',{
+            $('#table-inner').pjax('a[data-label="#table-inner"]', '#table-inner', {
                 fragment: '#table-inner',
                 cache: true,
                 maxCacheLength: 5,
                 storage: false,
                 replace: true,
-                timeout:8000
+                timeout: 8000
             });
             $(document).pjax('a[data-label="#page-inner"]', '#page-inner', {
                 fragment: '#page-inner',
@@ -26,7 +26,7 @@
                 maxCacheLength: 5,
                 storage: false,
                 replace: true,
-                timeout:8000
+                timeout: 8000
             });
             $('#page-inner').on('pjax:beforeSend', function () { //pjax链接点击后显示加载动画；
                 $('#page-inner').html('');
@@ -105,14 +105,23 @@
             sid--;
         }
     }
-    function loadResult(dom, url) {
+    function loadResult(dom, url, options) {
         /*var evt = arguments.callee.caller.arguments[0] || window.event;
         evt.preventDefault();
         evt.stopPropagation();*/
+        var defaults = {
+            before: function () {
+            },
+            after: function () {
+            }
+        };
+        var opts = $.extend(defaults,options);
         var load = dom.find('.panel_loading').first();
         load.removeClass('sr-only');
+        opts.before();
         dom.find('.pan').first().load(url, function () {
             load.addClass('sr-only');
+            opts.after();
         });
     }
 </script>

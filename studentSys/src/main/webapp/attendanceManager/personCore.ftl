@@ -1,76 +1,77 @@
 <#include "../macro-item.ftl">
 <#include "../macro-paginate.ftl">
-<@item>
-<div class="panel-heading title">
-${view.title}
-</div>
-<div class="panel-body">
-    <div class="row">
-        <div class="col-md-2">
-            <div class="form-group">
-                <label for="typeSelect_list" class="control-label">类型：</label>
+
+
+<div class="panel panel-default">
+    <div class="panel-body">
+
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="typeSelect_list" class="control-label">类型：</label>
+
                 <#assign types=["旷课","请假","迟到","早退"]>
-                <select id="typeSelect_list" class="selectpicker show-tick form-control" data-live-search="true">
-                    <option value="" <#if typeName == "不限">selected</#if>>不限</option>
+                    <select id="typeSelect_list" class="selectpicker show-tick form-control" data-live-search="true">
+                        <option value="" <#if typeName == "不限">selected</#if>>不限</option>
                     <#list types as t>
                         <option value="${t}" <#if typeName == t>selected</#if>>${t}</option>
                     </#list>
-                </select>
+                    </select>
+                </div>
             </div>
-        </div>
-        <div class="col-md-6">
-            <label>选择时间范围:</label>
-            <div class="row">
-                <div class="col-md-6">
-                    <label for="start_time_list" class="sr-only control-label">选择起始时间</label>
-                    <div class="date datetimepicker input-group datetimepicker-inline"
-                         data-date-format="yyyy-mm-dd">
-                        <input id="start_time_list" class="form-control input-sm" type="text"
-                               readonly placeholder="开始时间">
+            <div class="col-md-6">
+                <label>选择时间范围:</label>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="start_time_list" class="sr-only control-label">选择起始时间</label>
+                        <div class="date datetimepicker input-group datetimepicker-inline"
+                             data-date-format="yyyy-mm-dd">
+                            <input id="start_time_list" class="form-control input-sm" type="text"
+                                   readonly placeholder="开始时间">
 
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
                         </span>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-6 front-line">
-                    <label for="end_time_list" class="sr-only control-label">选择结束时间</label>
-                    <div class="date datetimepicker input-group datetimepicker-inline"
-                         data-date-format="dd-mm-yyyy">
-                        <input id="end_time_list" placeholder="结束时间" class="form-control input-sm" type="text"
-                               readonly>
+                    <div class="col-md-6 front-line">
+                        <label for="end_time_list" class="sr-only control-label">选择结束时间</label>
+                        <div class="date datetimepicker input-group datetimepicker-inline"
+                             data-date-format="dd-mm-yyyy">
+                            <input id="end_time_list" placeholder="结束时间" class="form-control input-sm" type="text"
+                                   readonly>
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
                         </span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div id="table-inner">
-        <div id="dataTables-example_wrapper" class="table-responsive dataTables_wrapper form-inline" role="grid">
-            <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                   id="dataTables-example" aria-describedby="dataTables-example_info">
-                <thead>
-                <tr>
-                    <th>
-                        添加时间
-                    </th>
-                    <th>
-                        类型
-                    </th>
-                    <th>
-                        记录时间
-                    </th>
-                    <th>
-                        记录人
-                    </th>
-                    <th>
-                        备注
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
+        <div id="per-list">
+            <div id="dataTables-example_wrapper" class="table-responsive dataTables_wrapper form-inline" role="grid">
+                <table class="table table-striped table-bordered table-hover dataTable no-footer"
+                       id="dataTables-example" aria-describedby="dataTables-example_info">
+                    <thead>
+                    <tr>
+                        <th>
+                            添加时间
+                        </th>
+                        <th>
+                            类型
+                        </th>
+                        <th>
+                            记录时间
+                        </th>
+                        <th>
+                            记录人
+                        </th>
+                        <th>
+                            备注
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
                     <#list personalAttendancePage.list as at>
                     <tr>
                         <td>
@@ -97,15 +98,19 @@ ${view.title}
                         </td>
                     </tr>
                     </#if>
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
             <#assign str = "?">
             <#if holdPath?contains("?")><#assign str = "&"></#if>
-            <@paginate page = personalAttendancePage url=holdPath+str pageAfter="list_p">
+            <@paginate page = personalAttendancePage url=holdPath+str pageAfter="list_p" selector="core-page">
             </@paginate>
+            </div>
         </div>
+
     </div>
 </div>
+
+
 <script type="text/javascript">
     $.fn.datetimepicker.dates['zh-CN'] = {
         days: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"],
@@ -120,14 +125,14 @@ ${view.title}
     $(function () {
         var start = new Date(<#if start_time_list??>${start_time_list}</#if>);
         var end = new Date(<#if end_time_list??>${end_time_list}</#if>);
-        <#if end_time_list??>
-            end.setDate(end.getDate() - 1);
-        </#if>
-        <#if start_time_list??>
-            $('#start_time_list').val(start.getFullYear() + '-' + getzf(start.getMonth() + 1) + '-' + getzf(start.getDate()));
-        <#else>
-            $('#start_time_list').val(start.getFullYear() + '-' + getzf(start.getMonth() + 1) + '-01');
-        </#if>
+    <#if end_time_list??>
+        end.setDate(end.getDate() - 1);
+    </#if>
+    <#if start_time_list??>
+        $('#start_time_list').val(start.getFullYear() + '-' + getzf(start.getMonth() + 1) + '-' + getzf(start.getDate()));
+    <#else>
+        $('#start_time_list').val(start.getFullYear() + '-' + getzf(start.getMonth() + 1) + '-01');
+    </#if>
         $('#end_time_list').val(end.getFullYear() + '-' + getzf(end.getMonth() + 1) + '-' + getzf(end.getDate()));
         $('.datetimepicker').datetimepicker({
             format: 'yyyy-mm-dd',
@@ -150,7 +155,9 @@ ${view.title}
                 end_chart.setDate(end_chart.getDate() + 1);
                 end_list.setDate(end_list.getDate() + 1);
                 var type = $('#typeSelect_list').val();
-                Util.loadByPjax('${staticServePath}/attendanceManager/personalAttendance?start_time_list=' + start_list.getTime() + '&end_time_list=' + end_list.getTime() + '&list_type=' + type + '&list_p=' + 1 + '&start_time_chart=' + start_chart.getTime() + '&end_time_chart=' + end_chart.getTime() + '&chart_p=' + 1);
+                loadResult($('#load_pre'), '${staticServePath}/attendanceManager/prevewAttendanceList?start_time_list=' + start_list.getTime() + '&end_time_list=' + end_list.getTime() + '&list_type=' + type + '&list_p=' + 1 + '&student=${studentId}', {
+                    after: Util.redrawSelects
+                });
             } else {
                 Util.showTip($('#wholeTip'), '结束时间应大于开始时间', 'alert alert-danger');
             }
@@ -166,4 +173,3 @@ ${view.title}
         return num;
     }
 </script>
-</@item>

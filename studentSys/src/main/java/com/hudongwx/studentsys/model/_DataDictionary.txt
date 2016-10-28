@@ -4,6 +4,7 @@ Table: stumanager_attendance
 ------------+-------------+------+-----+---------+---------
  id         | int(10)     | NO   | PRI |         |         
  studentId  | int(10)     | NO   |     |         |         
+ classId    | int(10)     | NO   |     |         |         
  createTime | bigint(19)  | NO   |     |         |         
  type       | varchar(20) | NO   |     |         |         
  time       | bigint(19)  | NO   |     |         |         
