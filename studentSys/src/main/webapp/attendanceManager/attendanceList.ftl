@@ -150,7 +150,6 @@ ${view.title}
                         <#if addAble||updateAble||deleteAble>
                             <td>
                             ${InsertKit(updateBtn,"${count.student.id}")}/${InsertKit(addBtn,"${count.student.id}")}
-                                /${InsertKit(deleteBtn,"${count.student.id}")}
                             </td>
                         </#if>
                     </tr>

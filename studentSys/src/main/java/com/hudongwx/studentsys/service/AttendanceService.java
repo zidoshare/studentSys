@@ -54,4 +54,8 @@ public class AttendanceService extends Service {
         }
         return map;
     }
+
+    public boolean _deleteAttendance(Integer id) {
+        return Attendance.dao.deleteById(id);
+    }
 }

@@ -36,7 +36,7 @@ ${view.title}<span class="pull-right">${addBtn}</span>
                         <td id="domainTitle${domain.id}"
                             data-label="${domain.domainTitle?html}">${domain.domainTitle}</td>
                         <td id="domainMessage${domain.id}"
-                            data-label="${domain.domainMessage}">${domain.domainMessage?html}</td>
+                            data-label="<#if domain.domainMessage??>${domain.domainMessage}</#if>"><#if domain.domainMessage??>${domain.domainMessage?html}</#if></td>
                         <td id="domainCreateTime${domain.id}"
                             data-label="${domain.domainCreateTime}">${(domain.domainCreateTime?number)?number_to_datetime}</td>
                         <#if updateAble || deleteAble>

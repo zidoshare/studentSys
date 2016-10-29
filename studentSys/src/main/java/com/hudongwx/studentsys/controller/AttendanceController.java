@@ -92,13 +92,13 @@ public class AttendanceController extends BaseController {
         if (students.size() > 0) {
             int size = students.size();
             int totalPage = students.size() % 8 > 0 ? students.size() / 8 + 1 : students.size() / 8;
-            students = students.subList((list_p - 1) * Common.MAX_PAGE_SIZE, list_p * Common.MAX_PAGE_SIZE<=size?list_p * Common.MAX_PAGE_SIZE:size);
+            students = students.subList((list_p - 1) * Common.MAX_PAGE_SIZE, list_p * Common.MAX_PAGE_SIZE <= size ? list_p * Common.MAX_PAGE_SIZE : size);
             Page<Student> page = new Page<>(students, list_p,
                     Common.MAX_PAGE_SIZE,
                     totalPage,
                     size
             );
-            setAttr("page",page);
+            setAttr("page", page);
         }
         for (Student student : students) {
             Class aClass = classService.getClassByStudent(student);
@@ -117,44 +117,91 @@ public class AttendanceController extends BaseController {
         setAttr("counts", counts);
         setAttr("claTypeMap", claTypeMap);
     }
+
     @Before(POST.class)
-    public void postAttendance(){
+    public void postAttendance() {
         Attendance model = getModel(Attendance.class);
         Integer classId = classService.getClassByStudent(studentService.getStudentById(model.getStudentId())).getId();
         model.setClassId(classId);
-        if(model.getId() == null){
-            if(attendanceService._saveAttendance(model)){
-                RenderKit.renderSuccess(this,"保存成功");
-            }else{
-                RenderKit.renderError(this,"保存失败");
+        if (model.getId() == null) {
+            if (attendanceService._saveAttendance(model)) {
+                RenderKit.renderSuccess(this, "保存成功");
+            } else {
+                RenderKit.renderError(this, "保存失败");
             }
-        }else{
-            if(attendanceService._updateAttendance(model)){
-                RenderKit.renderSuccess(this,"修改成功");
-            }else{
-                RenderKit.renderError(this,"修改失败");
+        } else {
+            if (attendanceService._updateAttendance(model)) {
+                RenderKit.renderSuccess(this, "修改成功");
+            } else {
+                RenderKit.renderError(this, "修改失败");
             }
         }
     }
 
-    public void prevewAttendanceList(){
+    public void previewAttendanceList() {
         fillHeaderAndFooter();
         personalAttendanceList();
+        Integer studentId = getParaToInt("student");
+        setAttr("student", studentService.getStudentById(studentId));
         render("/attendanceManager/personCore.ftl");
+    }
+
+    public void previewAttendanceChart() {
+        fillHeaderAndFooter();
+        Integer classId = getParaToInt("class");
+        Long start_time_chart = getParaToLong("start_time_chart");
+        Long end_time_chart = getParaToLong("end_time_chart");
+        Integer studentId = getParaToInt("student");
+        if (studentId == null) {
+            studentId = studentService.getStudentByUser(getCurrentUser(this)).getId();
+        }
+        if (start_time_chart == null || end_time_chart == null || start_time_chart > TimeKit.getTomarrow() || end_time_chart > TimeKit.getTomarrow()) {
+            end_time_chart = TimeKit.getTomarrow();
+            start_time_chart = 0L;
+        }
+        setAttr("end_time_chart", end_time_chart);
+        setAttr("start_time_chart", start_time_chart);
+        if (classId == null) {
+            /*List<Class> allClass = classService.getAllClass();
+            if (!allClass.isEmpty()) {
+                classId = allClass.get(0).getId();
+            } else*/
+            classId = classService.getClassByStudent(studentService.getStudentById(studentId)).getId();
+        }
+        Map<String, Long> countAttendance =
+                attendanceService.getCountAttendanceByClassId(classId, start_time_chart, end_time_chart);
+        Map<String, Long> studentCountAttendance =
+                attendanceService.getCountAttendanceByStudentId(studentId, start_time_chart, end_time_chart);
+        setAttr("countAttendanceMap", countAttendance);
+
+        setAttr("studentCountAttendanceMap", studentCountAttendance);
+        Map<String, Float> percentMap = new HashMap<>();
+        for (String key : studentCountAttendance.keySet()) {
+            Long parent = countAttendance.get(key);
+            Long child = studentCountAttendance.get(key);
+            if (parent != null && child != null && parent != 0L) {
+                percentMap.put(key, child.floatValue() / parent.floatValue());
+            } else {
+                percentMap.put(key, 0F);
+            }
+        }
+        setAttr("percentMap", percentMap);
+
+    }
+
+    public void deleteAttendance() {
+        Integer id = getParaToInt(0);
+        if (attendanceService._deleteAttendance(id)) {
+            RenderKit.renderSuccess(this, "删除成功");
+        } else
+            RenderKit.renderError(this, "删除失败");
     }
 
     public void personalAttendance() {
         setMapping(mappingService.getMappingByUrl("/attendanceManager/personalAttendance"));
         super.index();
-        List<Mapping> views = getAttr(Common.LABEL_VIEWS);
-        //分发view,因为个人的会重复使用
-        for (Mapping view : views) {
-            if (view.getIcon().equals("personalAttendanceList")) {
-                personalAttendanceList();
-            } else {
-                personalAttendanceChart();
-            }
-        }
+        personalAttendanceList();
+        personalAttendanceChart();
     }
 
     public void personalAttendanceList() {
@@ -165,13 +212,13 @@ public class AttendanceController extends BaseController {
         Integer studentId = getParaToInt("student");
         if (list_p == null || list_p < 1)
             list_p = 1;
-        setAttr("start_time_list",start_time_list);
+        setAttr("start_time_list", start_time_list);
         if (start_time_list == null || end_time_list == null || start_time_list > TimeKit.getTomarrow()) {
             end_time_list = TimeKit.getTomarrow();
             start_time_list = 0L;
-            setAttr("start_time_list",null);
+            setAttr("start_time_list", null);
         }
-        setAttr("end_time_list",end_time_list);
+        setAttr("end_time_list", end_time_list);
 
 
         if (studentId == null) {
@@ -183,11 +230,11 @@ public class AttendanceController extends BaseController {
         for (Attendance attendance : list_attendance.getList()) {
             userMap.put(attendance.getOperaterId() + "", userService.getUserById(attendance.getOperaterId()));
         }
-        if(StrPlusKit.isEmpty(typeName))
+        if (StrPlusKit.isEmpty(typeName))
             typeName = "不限";
-        setAttr("typeName",typeName);
+        setAttr("typeName", typeName);
         setAttr("userMap", userMap);
-        setAttr("studentId",studentId);
+        setAttr("studentId", studentId);
     }
 
     public void personalAttendanceChart() {
@@ -205,8 +252,8 @@ public class AttendanceController extends BaseController {
             end_time_chart = TimeKit.getTomarrow();
             start_time_chart = 0L;
         }
-        setAttr("end_time_chart",end_time_chart);
-        setAttr("start_time_chart",start_time_chart);
+        setAttr("end_time_chart", end_time_chart);
+        setAttr("start_time_chart", start_time_chart);
         if (classId == null) {
             /*List<Class> allClass = classService.getAllClass();
             if (!allClass.isEmpty()) {

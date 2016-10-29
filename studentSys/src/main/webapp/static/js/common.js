@@ -453,11 +453,34 @@ var Util = {
             $('#' + id).val($(dom).attr('data-label'));
         });
     },
-    getzf: function (num) {
-        if (parseInt(num) < 10) {
-            num = '0' + num;
+    mScroll: function (id,model) {
+        if(model == null)
+            model = $("html,body");
+        model.stop(true);
+        model.animate({scrollTop: $("#" + id).offset().top}, 1000);
+    },
+    loadResult:function(dom, url, options) {
+        /*var evt = arguments.callee.caller.arguments[0] || window.event;
+         evt.preventDefault();
+         evt.stopPropagation();*/
+        var defaults = {
+            showAnimation:true,
+            before: function () {
+            },
+            after: function () {
+            }
+        };
+        var opts = $.extend(defaults,options);
+        opts.before();
+        if(opts.showAnimation){
+            var width = dom.width();
+            var height = dom.height();
+            var str = '<div style="width:' + width + 'px;height:' + height + 'px" class="panel_loading"> <img src="' + Label.staticServePath + '/images/loading.gif" class="img-sm center-block"/> </div>';
+            $(dom).html(str);
         }
-        return num;
+        dom.load(url, function () {
+            opts.after();
+        });
     }
 };
 var Animate = {
@@ -508,7 +531,37 @@ var Animate = {
 };
 var func = {
     addAttendance: function (method, id) {
-        if (method == 'show') {
+        if (method == 'table') {
+            $('tr#core_form').show(1000);
+            $('#core_studentId').val(id);
+            Util.mScroll('core_form',$('#modal'));
+            var defaultTime = new Date();
+            $('#core_time_temp').val(defaultTime.getFullYear() + '-' + Util.getzf(defaultTime.getMonth() + 1) + '-' + Util.getzf(defaultTime.getDate()));
+            return;
+        }else if(method == 'table-save'){
+            $('#core_createTime').val(new Date().getTime());
+            $('#core_time').val(new Date($('#core_time_temp').val().replace(/-/g, '/')).getTime());
+            var json = {};
+            $('#core_form').find('input,select').each(function () {
+                json[$(this).attr('name')] = $(this).val();
+            });
+            $.ajax({
+                url: Label.staticServePath + '/attendanceManager/postAttendance',
+                data: json,
+                type: 'post',
+                success: function (data, status) {
+                    if (data.state == 'success') {
+                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
+                        modalUtil.hideClear($('#modal'), '');
+                        Util.reloadByPjax('#table-inner');
+                    } else
+                        Util.showTip($('#wholeTip'), '操作失败', 'alert alert-danger');
+                },
+                error: function () {
+                    Util.showTip($('#wholeTip'),'服务器错误','alert alert-danger');
+                }
+            })
+        } else if (method == 'show') {
             modalUtil.show($('#addAttendanceModal'));
             $('#studentId').val(id);
             var name = $('#' + id).find('td').first().text().replace(/ /g, '');
@@ -545,13 +598,21 @@ var func = {
             })
         }
     },
-    updateAttendance: function (method, id) {
+    updateAttendance: function (method, id,sid) {
+        if (method == 'table') {
+            $('tr#core_form').show(1000);
+            $('#core_studentId').val(sid);
+            $('#core_attendanceId').val(id);
+            $('#core_message').val($('#core_message'+id).text().replace(/ /g,''));
+            $('#core_time_temp').val($('#core_time'+id).text().replace(/ /g,''));
+            return;
+        }
         modalUtil.show($('#modal'));
         var start_list = new Date($("#all_start_time_list").val().replace(/-/g, "/"));
         var end_list = new Date($('#all_end_time_list').val().replace(/-/g, '/'));
         end_list.setDate(end_list.getDate() + 1);
         loadResult($('#load_pre'),
-            Label.staticServePath + '/attendanceManager/prevewAttendanceList?student=' +
+            Label.staticServePath + '/attendanceManager/previewAttendanceList?student=' +
             id + '&start_time_list=' + start_list.getTime() + '&end_time_list=' + end_list.getTime(), {
                 after: Util.redrawSelects
             });
@@ -881,6 +942,25 @@ var func = {
         $('#domainId').val(id);
         $('#addDomainModel').modal('show');
         loadResult($('#panel-container'), Label.staticServePath + "/test/panelTags/" + id);
+    },
+    deleteAttendance:function(id){
+        if (confirm("确认删除？")) {
+            $.ajax({
+                url: Label.staticServePath + "/attendanceManager/deleteAttendance/" + id,
+                type: 'post',
+                success: function (data, status) {
+                    Util.showTip($('#wholeTip'), data.msg, "alert alert-success", {
+                        before: function () {
+                            $('tr#attendance'+id).remove();
+                            Util.reloadByPjax('#table-inner');
+                        }
+                    });
+                },
+                error: function () {
+                    Util.showTip($('#wholeTip'), '服务器错误', "alert alert-danger");
+                }
+            });
+        }
     },
     deleteDomain: function (method, id) {
         if (confirm("确认删除？")) {

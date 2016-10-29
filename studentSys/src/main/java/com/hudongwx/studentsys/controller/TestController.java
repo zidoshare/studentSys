@@ -405,7 +405,7 @@ public class TestController extends BaseController {
     }
 
     public void count() {
-        setMapping(mappingService.getMappingByUrl("/test/Count"));
+        setMapping(mappingService.getMappingByUrl("/test/count"));
         super.index();
         Integer classId = getParaToInt(0);
         Integer p = getParaToInt("p");

@@ -69,49 +69,145 @@
                         <th>
                             备注
                         </th>
+                        <th>
+                            操作
+                        </th>
                     </tr>
                     </thead>
                     <tbody>
+                    <form id="attendance" role="form">
+                        <tr id="core_form" style="display: none">
+                            <td><span class="small text-success">无需填写</span></td>
+                            <td>
+                                <div class="form-group">
+                                    <label for="core_type" class="control-label sr-only">记录类型</label>
+                                    <select class="form-control no-border input-sm" name="attendance.type"
+                                            id="core_type">
+                                        <option value="旷课">旷课</option>
+                                        <option value="请假">请假</option>
+                                        <option value="迟到">迟到</option>
+                                        <option value="早退">早退</option>
+                                    </select>
+                                </div>
+                            </td>
+
+                            <td>
+                                <div class="form-group sr-only">
+                                    <label for="core_attendanceId" class="col-sm-2 control-label">考勤id</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="attendance.id"
+                                               id="core_attendanceId"
+                                               placeholder="考勤id">
+                                    </div>
+                                </div>
+                                <div class="form-group sr-only ">
+                                    <label for="core_studentId" class="control-label">学生id</label>
+                                    <input type="text" class="form-control" name="attendance.studentId"
+                                           id="core_studentId"
+                                           placeholder="学生id">
+                                </div>
+                                <div class="form-group sr-only">
+                                    <label for="core_createTime" class="control-label">创建时间</label>
+                                    <input type="text" class="form-control no-border input-sm"
+                                           name="attendance.createTime"
+                                           id="core_createTime"
+                                           placeholder="创建时间" disabled>
+                                </div>
+                                <div class="form-group sr-only">
+                                    <label for="core_time" class="control-label">记录时间</label>
+                                    <input name="attendance.time" class="form-control input-sm no-border" type="text"
+                                           id="core_time"
+                                           placeholder="创建时间" disabled>
+                                </div>
+
+                                <label for="core_time_temp" class="control-label sr-only">记录时间</label>
+                                <div class="date datetimepicker input-group no-border input-sm"
+                                     data-date-format="yyyy-mm-dd" style="padding: 0;margin: 0;border: none;">
+                                    <input id="core_time_temp" class="form-control input-sm" type="text"
+                                           readonly placeholder="记录时间">
+                                    <span class="input-group-addon input-sm">
+                                        <span class="glyphicon glyphicon-calendar">
+                                        </span>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="small text-success">无需填写</span>
+                                <div class="form-group sr-only">
+                                    <label for="core_operaterId" class="control-label sr-only">操作人</label>
+                                    <input type="text" class="form-control no-border input-sm"
+                                           name="attendance.operaterId"
+                                           id="core_operaterId"
+                                           placeholder="操作人"
+                                           value="${user.id}"
+                                           disabled>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <label for="core_message" class="control-label sr-only">备注信息</label>
+                                    <input type="text" class="form-control no-border input-sm" name="attendance.message"
+                                           id="core_message"
+                                           placeholder="备注信息">
+                                </div>
+                            </td>
+                            <td>
+                                <a class="res" onclick="func.addAttendance('table-save')">保存</a>
+                                <a class="res" onclick="hideTr()">取消</a>
+                            </td>
+                        </tr>
+                    </form>
                     <#list personalAttendancePage.list as at>
-                    <tr>
+                    <tr id="attendance${at.id}">
                         <td>
                         ${at.createTime?number_to_datetime}
                         </td>
-                        <td>
+                        <td id="core_type${at.id}">
                         ${at.type}
                         </td>
-                        <td>
-                        ${at.time?number_to_datetime}
+                        <td id="core_time${at.id}">
+                        ${at.time?number_to_date}
                         </td>
                         <td>
                         ${userMap["${at.operaterId}"].userNickname}
                         </td>
-                        <td>
+                        <td id="core_message${at.id}">
                         ${at.message}
+                        </td>
+                        <td>
+                            <a class="res" onclick="func.addAttendance('table','${at.studentId}')">添加</a>
+                            /<a class="res" onclick="func.updateAttendance('table','${at.id}','${at.studentId}')">修改</a>
+                            /<a class="res" onclick="func.deleteAttendance('${at.id}')">删除</a>
                         </td>
                     </tr>
                     </#list>
                     <#if personalAttendancePage.list?size == 0>
                     <tr>
-                        <td colspan="5">
-                            <h5 align="center">暂无记录</h5>
+                        <td colspan="6">
+                            <h5 align="center">暂无记录,你可以进行<a class="res"
+                                                            onclick="func.addAttendance('table','${student.id}')">添加考勤信息</a>
+                            </h5>
                         </td>
                     </tr>
                     </#if>
                     </tbody>
                 </table>
-            <#assign str = "?">
-            <#if holdPath?contains("?")><#assign str = "&"></#if>
-            <@paginate page = personalAttendancePage url=holdPath+str pageAfter="list_p" selector="core-page">
-            </@paginate>
-            </div>
-        </div>
 
+            </div>
+
+        </div>
+    <#assign str = "?">
+    <#if holdPath?contains("?")><#assign str = "&"></#if>
+    <@paginate page = personalAttendancePage url=holdPath+str pageAfter="list_p" selector="core-page" method="load" container="#per-list">
+    </@paginate>
     </div>
+
 </div>
 
-
 <script type="text/javascript">
+    function hideTr() {
+        $('#core_form').hide(300);
+    }
     $.fn.datetimepicker.dates['zh-CN'] = {
         days: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"],
         daysShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六", "周日"],
@@ -155,16 +251,13 @@
                 end_chart.setDate(end_chart.getDate() + 1);
                 end_list.setDate(end_list.getDate() + 1);
                 var type = $('#typeSelect_list').val();
-                loadResult($('#load_pre'), '${staticServePath}/attendanceManager/prevewAttendanceList?start_time_list=' + start_list.getTime() + '&end_time_list=' + end_list.getTime() + '&list_type=' + type + '&list_p=' + 1 + '&student=${studentId}', {
+                loadResult($('#load_pre'), '${staticServePath}/attendanceManager/previewAttendanceList?start_time_list=' + start_list.getTime() + '&end_time_list=' + end_list.getTime() + '&list_type=' + type + '&list_p=' + 1 + '&student=${studentId}', {
                     after: Util.redrawSelects
                 });
             } else {
                 Util.showTip($('#wholeTip'), '结束时间应大于开始时间', 'alert alert-danger');
             }
         });
-    });
-    $(document).on('pjax:complete', function () {
-        Util.redrawSelects();
     });
     function getzf(num) {
         if (parseInt(num) < 10) {

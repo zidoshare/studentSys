@@ -9,6 +9,8 @@
         currentPage: 1,//当前页数
         url: '',//链接前缀，用于填充每一项的链接
         pageAfter: 'p',
+        method:'href',//页面方式
+        container:'#table-inner',
         activeClass: 'page-active',//active类
         firstPage: '首页',//
         lastPage: '末页',
@@ -31,44 +33,44 @@
                 if (l > 1 && l < 10) {
                     for (var i = 1; i < l + 1; i++) {
                         if (i == opts.currentPage) {
-                            str += '<li><a href="' + opts.url + opts.pageAfter + '=' + i + '" data-label="#table-inner"  class="' + opts.activeClass + '">' + i + '</a></li>';
+                            str += '<li><a href="' + opts.url + opts.pageAfter + '=' + i + '" data-label="'+opts.container+'"  class="' + opts.activeClass + '">' + i + '</a></li>';
                             continue;
                         }
-                        str += '<li><a href="' + opts.url + opts.pageAfter + '=' + i + '" data-label="#table-inner" >' + i + '</a></li>';
+                        str += '<li><a href="' + opts.url + opts.pageAfter + '=' + i + '" data-label="'+opts.container+'" >' + i + '</a></li>';
                     }
                 } else if (l > 9) {
                     if (opts.currentPage > 5) {
                         for (i = opts.currentPage - 4; i <= opts.currentPage + 4 && i <= l; i++) {
                             if (i == opts.currentPage) {
-                                str += '<li><a href="' + opts.url + opts.pageAfter + '=' + i + '" data-label="#table-inner" class="' + opts.activeClass + '">' + i + '</a></li>';
+                                str += '<li><a href="' + opts.url + opts.pageAfter + '=' + i + '" data-label="'+opts.container+'" class="' + opts.activeClass + '">' + i + '</a></li>';
                                 continue;
                             }
-                            str += '<li><a href="' + opts.url + opts.pageAfter + '=' + i + '" data-label="#table-inner">' + i + '</a></li>';
+                            str += '<li><a href="' + opts.url + opts.pageAfter + '=' + i + '" data-label="'+opts.container+'">' + i + '</a></li>';
                         }
                     } else if (opts.currentPage <= 5) {
                         for (i = 1; i < 10; i++) {
                             if (i == opts.currentPage) {
-                                str += '<li><a href="' + opts.url + opts.pageAfter + '=' + i + '" data-label="#table-inner" class="' + opts.activeClass + '">' + i + '</a></li>';
+                                str += '<li><a href="' + opts.url + opts.pageAfter + '=' + i + '" data-label="'+opts.container+'" class="' + opts.activeClass + '">' + i + '</a></li>';
                                 continue;
                             }
-                            str += '<li><a href="' + opts.url + opts.pageAfter + '=' + i + '" data-label="#table-inner">' + i + '</a></li>';
+                            str += '<li><a href="' + opts.url + opts.pageAfter + '=' + i + '" data-label="'+opts.container+'">' + i + '</a></li>';
                         }
                     }
                     //str += '<li><a href="javascript:">...</a></li>'
                 } else {
-                    str = '<li><a href="' + opts.url + opts.pageAfter + '=1"  class="' + opts.activeClass + '" data-label="#table-inner">' + 1 + '</a></li>';
+                    str = '<li><a href="' + opts.url + opts.pageAfter + '=1"  class="' + opts.activeClass + '" data-label="'+opts.container+'">' + 1 + '</a></li>';
                 }
                 var next = '';
                 if (opts.currentPage + 1 <= l)
-                    next = '<a class="next" style="float:right;display: block" href="' + opts.url + opts.pageAfter + '=' + (opts.currentPage + 1) + '" data-label="#table-inner">' + opts.next + '</a>';
+                    next = '<a class="next" style="float:right;display: block" href="' + opts.url + opts.pageAfter + '=' + (opts.currentPage + 1) + '" data-label="'+opts.container+'">' + opts.next + '</a>';
                 else
-                    next = '<a class="next" style="float:right;display: block" data-label="#table-inner">' + opts.next + '</a>';
+                    next = '<a class="next" style="float:right;display: block" data-label="'+opts.container+'">' + opts.next + '</a>';
                 var prv = '';
                 if (opts.currentPage - 1 > 0)
-                    prv = '<a class="prv" style="float:right;display: block" href="' + opts.url + opts.pageAfter + '=' + (opts.currentPage - 1) + '" data-label="#table-inner">' + opts.prv + '</a>';
+                    prv = '<a class="prv" style="float:right;display: block" href="' + opts.url + opts.pageAfter + '=' + (opts.currentPage - 1) + '" data-label="'+opts.container+'">' + opts.prv + '</a>';
                 else
-                    prv = '<a class="prv" style="float:right;display: block" data-label="#table-inner">' + opts.prv + '</a>';
-                obj.html(next + '<a class="last" href="' + opts.url + opts.pageAfter + '=' + l + '" style="float:right;display: block" data-label="#table-inner">' + opts.lastPage + '</a><ul class="pagingUl">' + str + '</ul><a class="first" href="' + opts.url + opts.pageAfter + '=1" style="float:right;display: block" data-label="#table-inner">' + opts.firstPage + '</a>' + prv);
+                    prv = '<a class="prv" style="float:right;display: block" data-label="'+opts.container+'">' + opts.prv + '</a>';
+                obj.html(next + '<a class="last" href="' + opts.url + opts.pageAfter + '=' + l + '" style="float:right;display: block" data-label="'+opts.container+'">' + opts.lastPage + '</a><ul class="pagingUl">' + str + '</ul><a class="first" href="' + opts.url + opts.pageAfter + '=1" style="float:right;display: block" data-label="'+opts.container+'">' + opts.firstPage + '</a>' + prv);
 
                 obj.on('click', '.next', function () {
                     var pageshow = parseInt($('.' + opts.activeClass).html());
