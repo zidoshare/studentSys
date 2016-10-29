@@ -309,8 +309,8 @@ ${view.title}
         Util.redrawSelects();
     });
     function loadAttendance() {
-        var start_chart = new Date($("#start_time_chart").val().replace(/-/g, "/"));
-        var end_chart = new Date($('#end_time_chart').val().replace(/-/g, '/'));
+        var start_chart = new Date($("#all_start_time_chart").val().replace(/-/g, "/"));
+        var end_chart = new Date($('#all_end_time_chart').val().replace(/-/g, '/'));
         var start_list = new Date($("#all_start_time_list").val().replace(/-/g, "/"));
         var end_list = new Date($('#all_end_time_list').val().replace(/-/g, '/'));
         if (start_chart <= end_chart && start_list <= end_list) {
@@ -318,7 +318,13 @@ ${view.title}
             end_list.setDate(end_list.getDate() + 1);
             var names = $('#student_search_list').val().trim();
             var cla = $('#classSelect_list').val();
-            Util.loadByPjax('${staticServePath}/attendanceManager/attendance?start_time_list=' + start_list.getTime() + '&end_time_list=' + end_list.getTime() + '&class=' + cla + '&student=' + names + '&list_p=' + 1 + '&start_time_chart=' + start_chart.getTime() + '&end_time_chart=' + end_chart.getTime() + '&chart_p=' + 1);
+            var chartCla = $('#classSelect_chart').val();
+            var chartNames = $('#student_search_chart').val().trim();
+            Util.loadByPjax('${staticServePath}/attendanceManager/attendance?start_time_list='
+                    + start_list.getTime() + '&end_time_list=' + end_list.getTime()
+                    + '&class=' + cla + '&student=' + names + '&list_p=' + 1
+                    + '&start_time_chart=' + start_chart.getTime()
+                    + '&end_time_chart=' + end_chart.getTime() + '&class_chart=' + chartCla+'&student_chart='+chartNames);
         } else {
             Util.showTip($('#wholeTip'), '结束时间应大于开始时间', 'alert alert-danger');
         }

@@ -45,6 +45,10 @@ public class AttendanceController extends BaseController {
             end_time_list = TimeKit.getTomarrow();
             start_time_list = 0L;
         }
+        setAttr("start_time_list", start_time_list);
+        setAttr("end_time_list", end_time_list);
+        setAttr("studentNames", studentNames);
+        setAttr("classId", classId);
         if (classId == null)
             classId = 0;
         if (StrPlusKit.isEmpty(studentNames))
@@ -116,6 +120,64 @@ public class AttendanceController extends BaseController {
         setAttr("allClass", allClass);
         setAttr("counts", counts);
         setAttr("claTypeMap", claTypeMap);
+        previewAttendanceChart();
+    }
+
+    private void previewAttendanceChart() {
+        Integer classId = getParaToInt("class_chart");
+        Long start_time_chart = getParaToLong("start_time_chart");
+        Long end_time_chart = getParaToLong("end_time_chart");
+        String studentName = getPara("student_chart");
+        if (start_time_chart == null || end_time_chart == null || start_time_chart > TimeKit.getTomarrow() || end_time_chart > TimeKit.getTomarrow()) {
+            end_time_chart = TimeKit.getTomarrow();
+            start_time_chart = 0L;
+        }
+        setAttr("end_time_chart", end_time_chart);
+        setAttr("start_time_chart", start_time_chart);
+        setAttr("student_chart", studentName);
+        setAttr("class_chart", classId);
+        Map<String, Long> childCount = new HashMap<>();
+        Map<String, Long> parentCount = new HashMap<>();
+        if (StrPlusKit.isNotEmpty(studentName)&& classId != null) {
+            setAttr("state", 0);
+            Student student = studentService.getStudentByName(studentName);
+            if(student != null){
+                childCount =
+                        attendanceService.getCountAttendanceByStudentId(student.getId(), start_time_chart, end_time_chart);
+                classId = classService.getClassByStudent(student).getId();
+                parentCount =
+                        attendanceService.getCountAttendanceByClassId(classId, start_time_chart, end_time_chart);
+            }else{
+                setAttr("find",false);
+            }
+        } else if (classId != null && classId != 0) {
+            setAttr("state", 1);
+            childCount = attendanceService.getCountAttendanceByClassId(classId, start_time_chart, end_time_chart);
+            parentCount = attendanceService.getCountAttendanceByClassId(0, start_time_chart, end_time_chart);
+        } else {
+            setAttr("state", 2);
+            List<Class> allClass = classService.getAllClass();
+            if (!allClass.isEmpty()) {
+                Class aClass = allClass.get(0);
+                childCount = attendanceService.getCountAttendanceByClassId(aClass.getId(), start_time_chart, end_time_chart);
+                parentCount = attendanceService.getCountAttendanceByClassId(0, start_time_chart, end_time_chart);
+            }
+        }
+        setAttr("childCount", childCount);
+        setAttr("parentCount", parentCount);
+        Map<String, Float> percentMap = new HashMap<>();
+        for (String key : childCount.keySet()) {
+            //强迫症...
+            boolean x = false;
+            Long parent = parentCount.get(key);
+            Long child = childCount.get(key);
+            if (parent != null && child != null && parent != 0L) {
+                percentMap.put(key, child.floatValue() / parent.floatValue());
+            } else {
+                percentMap.put(key, 0F);
+            }
+        }
+        setAttr("percentMap", percentMap);
     }
 
     @Before(POST.class)
@@ -146,48 +208,6 @@ public class AttendanceController extends BaseController {
         render("/attendanceManager/personCore.ftl");
     }
 
-    public void previewAttendanceChart() {
-        fillHeaderAndFooter();
-        Integer classId = getParaToInt("class");
-        Long start_time_chart = getParaToLong("start_time_chart");
-        Long end_time_chart = getParaToLong("end_time_chart");
-        Integer studentId = getParaToInt("student");
-        if (studentId == null) {
-            studentId = studentService.getStudentByUser(getCurrentUser(this)).getId();
-        }
-        if (start_time_chart == null || end_time_chart == null || start_time_chart > TimeKit.getTomarrow() || end_time_chart > TimeKit.getTomarrow()) {
-            end_time_chart = TimeKit.getTomarrow();
-            start_time_chart = 0L;
-        }
-        setAttr("end_time_chart", end_time_chart);
-        setAttr("start_time_chart", start_time_chart);
-        if (classId == null) {
-            /*List<Class> allClass = classService.getAllClass();
-            if (!allClass.isEmpty()) {
-                classId = allClass.get(0).getId();
-            } else*/
-            classId = classService.getClassByStudent(studentService.getStudentById(studentId)).getId();
-        }
-        Map<String, Long> countAttendance =
-                attendanceService.getCountAttendanceByClassId(classId, start_time_chart, end_time_chart);
-        Map<String, Long> studentCountAttendance =
-                attendanceService.getCountAttendanceByStudentId(studentId, start_time_chart, end_time_chart);
-        setAttr("countAttendanceMap", countAttendance);
-
-        setAttr("studentCountAttendanceMap", studentCountAttendance);
-        Map<String, Float> percentMap = new HashMap<>();
-        for (String key : studentCountAttendance.keySet()) {
-            Long parent = countAttendance.get(key);
-            Long child = studentCountAttendance.get(key);
-            if (parent != null && child != null && parent != 0L) {
-                percentMap.put(key, child.floatValue() / parent.floatValue());
-            } else {
-                percentMap.put(key, 0F);
-            }
-        }
-        setAttr("percentMap", percentMap);
-
-    }
 
     public void deleteAttendance() {
         Integer id = getParaToInt(0);

@@ -172,7 +172,7 @@
                         ${userMap["${at.operaterId}"].userNickname}
                         </td>
                         <td id="core_message${at.id}">
-                        ${at.message}
+                        <#if at.message??>${at.message}<#else>暂无</#if>
                         </td>
                         <td>
                             <a class="res" onclick="func.addAttendance('table','${at.studentId}')">添加</a>

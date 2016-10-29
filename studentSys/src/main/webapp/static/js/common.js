@@ -171,7 +171,6 @@ var Util = {
         });
     },
     loadByPjax: function (url, options) {
-        console.log(url);
         var defaults = {
             showWholeAnimate: false,
             showMinAnimate: true,
@@ -216,7 +215,6 @@ var Util = {
             storage: false,
             replace: true
         });
-        console.log(opts);
 
     },
     formatText: function (str) {
@@ -453,11 +451,14 @@ var Util = {
             $('#' + id).val($(dom).attr('data-label'));
         });
     },
-    mScroll: function (id,model) {
-        if(model == null)
-            model = $("html,body");
-        model.stop(true);
-        model.animate({scrollTop: $("#" + id).offset().top}, 1000);
+    mScroll: function (id,options) {
+        var defaults = {
+            model:$("html,body"),
+            speed:1000
+        };
+        var opts = $.extend(defaults,options);
+        opts.model.stop(true);
+        opts.model.animate({scrollTop: $("#" + id).offset().top}, opts.speed);
     },
     loadResult:function(dom, url, options) {
         /*var evt = arguments.callee.caller.arguments[0] || window.event;
@@ -534,7 +535,7 @@ var func = {
         if (method == 'table') {
             $('tr#core_form').show(1000);
             $('#core_studentId').val(id);
-            Util.mScroll('core_form',$('#modal'));
+            Util.mScroll('core_form',{model:$('#modal')});
             var defaultTime = new Date();
             $('#core_time_temp').val(defaultTime.getFullYear() + '-' + Util.getzf(defaultTime.getMonth() + 1) + '-' + Util.getzf(defaultTime.getDate()));
             return;
