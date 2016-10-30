@@ -1,16 +1,16 @@
 Table: stumanager_attendance
-------------+-------------+------+-----+---------+---------
- Field      | Type        | Null | Key | Default | Remarks 
-------------+-------------+------+-----+---------+---------
- id         | int(10)     | NO   | PRI |         |         
- studentId  | int(10)     | NO   |     |         |         
- classId    | int(10)     | NO   |     |         |         
- createTime | bigint(19)  | NO   |     |         |         
- type       | varchar(20) | NO   |     |         |         
- time       | bigint(19)  | NO   |     |         |         
- operaterId | int(10)     | NO   |     |         |         
- message    | text(65535) | YES  |     |         |         
-------------+-------------+------+-----+---------+---------
+------------+--------------+------+-----+---------+---------
+ Field      | Type         | Null | Key | Default | Remarks 
+------------+--------------+------+-----+---------+---------
+ id         | int(10)      | NO   | PRI |         |         
+ studentId  | int(10)      | NO   |     |         |         
+ classId    | int(10)      | NO   |     |         |         
+ createTime | bigint(19)   | NO   |     |         |         
+ type       | varchar(20)  | NO   |     |         |         
+ time       | bigint(19)   | NO   |     |         |         
+ operaterId | int(10)      | NO   |     |         |         
+ message    | varchar(200) | YES  |     | 暂无      |         
+------------+--------------+------+-----+---------+---------
 
 Table: stumanager_class
 -----------------+-------------+------+-----+---------+---------
@@ -76,6 +76,26 @@ Table: stumanager_mapping
  visitCnt      | int(10)      | NO   |     | 0       | 访问次数，用于统计
  function      | int(10)      | NO   |     | 0       | 职能，0：功能，1：视图模块，2：菜单，3：二级菜单，以后多级菜单，依次类推
 ---------------+--------------+------+-----+---------+---------
+
+Table: stumanager_repayment
+------------+--------------+------+-----+---------+---------
+ Field      | Type         | Null | Key | Default | Remarks 
+------------+--------------+------+-----+---------+---------
+ id         | int(10)      | NO   | PRI |         |         
+ studentId  | int(10)      | NO   |     |         |         
+ enrollTime | bigint(19)   | NO   |     |         |         
+ type       | int(10)      | NO   |     |         |         
+ message    | varchar(200) | YES  |     |         |         
+------------+--------------+------+-----+---------+---------
+
+Table: stumanager_repayment_type
+----------+--------------+------+-----+---------+---------
+ Field    | Type         | Null | Key | Default | Remarks 
+----------+--------------+------+-----+---------+---------
+ id       | int(10)      | NO   | PRI |         |         
+ typeName | varchar(20)  | NO   |     |         |         
+ message  | varchar(200) | YES  |     |         |         
+----------+--------------+------+-----+---------+---------
 
 Table: stumanager_role
 ------------+----------------------+------+-----+---------+---------

@@ -557,7 +557,7 @@ ul, li {
 }
 
 .pjax_loading {
-    background: rgba(255, 255, 255, 0);
+    background: white;
     position: fixed;
     left: 260px;
     top: 0;

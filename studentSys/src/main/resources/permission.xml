@@ -90,14 +90,32 @@
             </mappings>
         </mapping>
         <mapping id="2330" icon="fa fa-usd" url="/repaymentManager" title="还款管理" function="2">
-            <mappings/>
-        </mapping>
-        <mapping id="3851" icon="fa fa-crosshairs" url="/attendanceManager/personalAttendance" title="我的考勤" function="2">
             <mappings>
-                <mapping id="3852" icon="personalAttendanceList" url="/attendanceManager/personalAttendanceList.ftl" title="考勤信息列表" function="1">
+                <mapping id="3700" icon="repaymentList" title="还款管理" url="/repaymentManager/repaymentList.ftl"
+                         function="1">
+                    <mappings>
+                        <mapping id="3701" icon="addRepayment" url="addRepayment" title="添加" function="0">
+                            <mappings/>
+                        </mapping>
+                        <mapping id="3702" icon="updateRepayment" url="updateRepayment" title="修改" function="0">
+                            <mappings/>
+                        </mapping>
+                        <mapping id="3703" icon="deleteRepayment" url="deleteRepayment" title="删除" function="0">
+                            <mappings/>
+                        </mapping>
+                    </mappings>
+                </mapping>
+            </mappings>
+        </mapping>
+        <mapping id="3851" icon="fa fa-crosshairs" url="/attendanceManager/personalAttendance" title="我的考勤"
+                 function="2">
+            <mappings>
+                <mapping id="3852" icon="personalAttendanceList" url="/attendanceManager/personalAttendanceList.ftl"
+                         title="考勤信息列表" function="1">
                     <mappings/>
                 </mapping>
-                <mapping id="3853" icon="personalAttendanceChart" url="/attendanceManager/personalAttendanceChart.ftl" title="考勤信息图表" function="1">
+                <mapping id="3853" icon="personalAttendanceChart" url="/attendanceManager/personalAttendanceChart.ftl"
+                         title="考勤信息图表" function="1">
                     <mappings/>
                 </mapping>
             </mappings>
@@ -118,13 +136,28 @@
                         </mapping>
                     </mappings>
                 </mapping>
-                <mapping id="3854" icon="attendanceChart" url="/attendanceManager/attendanceChart.ftl" title="考勤信息图表" function="1">
+                <mapping id="3854" icon="attendanceChart" url="/attendanceManager/attendanceChart.ftl" title="考勤信息图表"
+                         function="1">
                     <mappings/>
                 </mapping>
             </mappings>
         </mapping>
         <mapping id="2332" icon="fa fa-book" url="/certificateManager" title="证书管理" function="2">
-            <mappings/>
+            <mappings>
+                <mapping id="2004" icon="certificateList" url="/certificateManager/certificateList" title="证书管理" function="1">
+                    <mappings>
+                        <mapping id="2005" icon="addCertificate" url="addCertificate" title="添加" function="0">
+                            <mappings/>
+                        </mapping>
+                        <mapping id="2006" icon="updateCertificate" url="updateCertificate" title="修改" function="0">
+                            <mappings/>
+                        </mapping>
+                        <mapping id="2007" icon="deleteCertificate" url="deleteCertificate" title="删除" function="0">
+                            <mappings/>
+                        </mapping>
+                    </mappings>
+                </mapping>
+            </mappings>
         </mapping>
         <mapping id="2333" icon="fa fa-pencil" url="/test" title="我的考试" function="2">
             <mappings>

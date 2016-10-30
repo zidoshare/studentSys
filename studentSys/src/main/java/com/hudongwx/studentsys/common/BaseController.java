@@ -64,14 +64,6 @@ public abstract class BaseController extends Controller {
 
         //将不需要的参数忽略掉
         String para = StrPlusKit.ignoreQueryString(getRequest().getQueryString(), "_pjax", "list_p", "chart_p", "p");
-        /*int pjaxIndex = para.indexOf("_pjax");
-        if(pjaxIndex >= 0){
-            int pjaxEnd = para.indexOf("&", pjaxIndex);
-            if(pjaxEnd < 0)
-                pjaxEnd = para.length();
-            String sub = para.substring(pjaxIndex, pjaxEnd);
-            para = para.replace(sub,"");
-        }*/
         if (!StrPlusKit.isEmpty(para))
             para = "?" + para;
         String actionKey = getAttr(Common.LABEL_ACTION_KEY);

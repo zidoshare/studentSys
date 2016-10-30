@@ -451,29 +451,29 @@ var Util = {
             $('#' + id).val($(dom).attr('data-label'));
         });
     },
-    mScroll: function (id,options) {
+    mScroll: function (id, options) {
         var defaults = {
-            model:$("html,body"),
-            speed:1000
+            model: $("html,body"),
+            speed: 1000
         };
-        var opts = $.extend(defaults,options);
+        var opts = $.extend(defaults, options);
         opts.model.stop(true);
         opts.model.animate({scrollTop: $("#" + id).offset().top}, opts.speed);
     },
-    loadResult:function(dom, url, options) {
+    loadResult: function (dom, url, options) {
         /*var evt = arguments.callee.caller.arguments[0] || window.event;
          evt.preventDefault();
          evt.stopPropagation();*/
         var defaults = {
-            showAnimation:true,
+            showAnimation: true,
             before: function () {
             },
             after: function () {
             }
         };
-        var opts = $.extend(defaults,options);
+        var opts = $.extend(defaults, options);
         opts.before();
-        if(opts.showAnimation){
+        if (opts.showAnimation) {
             var width = dom.width();
             var height = dom.height();
             var str = '<div style="width:' + width + 'px;height:' + height + 'px" class="panel_loading"> <img src="' + Label.staticServePath + '/images/loading.gif" class="img-sm center-block"/> </div>';
@@ -531,15 +531,63 @@ var Animate = {
     }
 };
 var func = {
+    addRepayment: function (method) {
+        if (method == 'show') {
+            modalUtil.show($('#addRepaymentModel'));
+        } else {
+            var json = {};
+            $('#repayment').find('input,select').each(function () {
+                json[$(this).attr('name')] = $(this).val();
+            });
+            $.ajax({
+                url: Label.staticServePath + '/repaymentManager/postRepayment',
+                data: json,
+                type: 'post',
+                success: function (data, status) {
+                    if (data.state == 'success') {
+                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
+                        modalUtil.hideClear($('#addRepaymentModel'), '');
+                        Util.reloadByPjax('#table-inner');
+                    } else
+                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-danger');
+                },
+                error: function () {
+                    Util.showTip($('#wholeTip'), '服务器错误', 'alert alert-danger');
+                }
+            })
+        }
+    },
+    updateRepayment: function (method, id) {
+        $('#repaymentId').val(id);
+        modalUtil.show($('#addRepaymentModel'));
+    },
+    deleteRepayment:function(method,id){
+        if (confirm("确认删除？")) {
+            $.ajax({
+                url: Label.staticServePath + "/repaymentManager/deleteRepayment/" + id,
+                type: 'post',
+                success: function (data, status) {
+                    Util.showTip($('#wholeTip'), data.msg, "alert alert-success", {
+                        before: function () {
+                            Util.reloadByPjax('#table-inner');
+                        }
+                    });
+                },
+                error: function () {
+                    Util.showTip($('#wholeTip'), '服务器错误', "alert alert-danger");
+                }
+            });
+        }
+    },
     addAttendance: function (method, id) {
         if (method == 'table') {
             $('tr#core_form').show(1000);
             $('#core_studentId').val(id);
-            Util.mScroll('core_form',{model:$('#modal')});
+            Util.mScroll('core_form', {model: $('#modal')});
+            //noinspection JSDuplicatedDeclaration
             var defaultTime = new Date();
             $('#core_time_temp').val(defaultTime.getFullYear() + '-' + Util.getzf(defaultTime.getMonth() + 1) + '-' + Util.getzf(defaultTime.getDate()));
-            return;
-        }else if(method == 'table-save'){
+        } else if (method == 'table-save') {
             $('#core_createTime').val(new Date().getTime());
             $('#core_time').val(new Date($('#core_time_temp').val().replace(/-/g, '/')).getTime());
             var json = {};
@@ -559,7 +607,7 @@ var func = {
                         Util.showTip($('#wholeTip'), '操作失败', 'alert alert-danger');
                 },
                 error: function () {
-                    Util.showTip($('#wholeTip'),'服务器错误','alert alert-danger');
+                    Util.showTip($('#wholeTip'), '服务器错误', 'alert alert-danger');
                 }
             })
         } else if (method == 'show') {
@@ -599,13 +647,13 @@ var func = {
             })
         }
     },
-    updateAttendance: function (method, id,sid) {
+    updateAttendance: function (method, id, sid) {
         if (method == 'table') {
             $('tr#core_form').show(1000);
             $('#core_studentId').val(sid);
             $('#core_attendanceId').val(id);
-            $('#core_message').val($('#core_message'+id).text().replace(/ /g,''));
-            $('#core_time_temp').val($('#core_time'+id).text().replace(/ /g,''));
+            $('#core_message').val($('#core_message' + id).text().replace(/ /g, ''));
+            $('#core_time_temp').val($('#core_time' + id).text().replace(/ /g, ''));
             return;
         }
         modalUtil.show($('#modal'));
@@ -944,7 +992,7 @@ var func = {
         $('#addDomainModel').modal('show');
         loadResult($('#panel-container'), Label.staticServePath + "/test/panelTags/" + id);
     },
-    deleteAttendance:function(id){
+    deleteAttendance: function (id) {
         if (confirm("确认删除？")) {
             $.ajax({
                 url: Label.staticServePath + "/attendanceManager/deleteAttendance/" + id,
@@ -952,7 +1000,7 @@ var func = {
                 success: function (data, status) {
                     Util.showTip($('#wholeTip'), data.msg, "alert alert-success", {
                         before: function () {
-                            $('tr#attendance'+id).remove();
+                            $('tr#attendance' + id).remove();
                             Util.reloadByPjax('#table-inner');
                         }
                     });

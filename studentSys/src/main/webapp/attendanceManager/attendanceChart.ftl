@@ -137,6 +137,6 @@ ${view.title}
             }
         });
     });
-
+    $(document).on('pjax:complete',Animate.reDraw);
 </script>
 </@item>
