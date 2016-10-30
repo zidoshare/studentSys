@@ -1,5 +1,6 @@
 <#macro paginate page url selector="pageTest" container="#table-inner" pageAfter="p" method="href">
 <div class="${selector}"></div>
+
     <#if page.totalPage gt 1>
     <script type="text/javascript">
         $('.${selector}').page({
@@ -18,6 +19,19 @@
                 Util.loadResult($('${container}'), $(this).attr('href') + ' ${container}');
             });
             </#if>
+    </script>
+    </#if>
+    <#if page.pageNumber gt page.totalPage && page.totalPage gt 0>
+    <script type="text/javascript">
+        $(function () {
+            Util.showTip($('#wholeTip'), '当前页数大于总页数，已自动回滚末页', 'alert alert-warning', {
+                before: function () {
+                    Util.loadByPjax('${url+pageAfter+'='+page.totalPage}', {
+                        container: '${container}'
+                    });
+                }
+            });
+        })
     </script>
     </#if>
 </#macro>

@@ -48,7 +48,6 @@
     </div>
 
 </div>
-<#--<script type="text/javascript" src="${staticServePath}/static/js/lib/bootstrap-select.min.js"></script>-->
 <script>
     var ds = $('#domainSelect');
     var ts = $('#tagSelect');

@@ -19,7 +19,7 @@
         <#--<button type="button" id="login-button" onclick="Login.login()">登录</button>-->
         </form>
         <div class="tip-container">
-            <div class="tip" id="loginTip" aria-label="0">
+            <div class="tip" id="wholeTip" aria-label="0">
             </div>
         </div>
     </div>
@@ -78,11 +78,11 @@
                         window.location.href = data.msg;
                     }, 1000);
                 } else {
-                    Util.showTip($("#loginTip"), data.msg, 'alert alert-danger');
+                    Util.showTip($("#wholeTip"), data.msg, 'alert alert-danger');
                 }
             },
             error: function () {
-                Util.showTip($("#loginTip"), "服务器错误!", 'alert alert-danger');
+                Util.showTip($("#wholeTip"), "服务器错误!", 'alert alert-danger');
 
             },
             complete: function () {

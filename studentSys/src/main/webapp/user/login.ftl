@@ -19,7 +19,7 @@
         <#--<button type="button" id="login-button" onclick="Login.login()">登录</button>-->
         </form>
         <div class="tip-container">
-            <div class="tip" id="loginTip" aria-label="0">
+            <div class="tip" id="wholeTip" aria-label="0">
             </div>
         </div>
     </div>

@@ -69,7 +69,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group sr-only">
+                            <div class="form-group">
                                 <label for="message" class="col-sm-2 control-label">备注信息</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" name="repayment.message" id="message"
@@ -87,7 +87,7 @@
                     </div>
                 </div>
             </div>
-        </div
+        </div>
         <div id="dataTables-example_wrapper" class="table-responsive dataTables_wrapper form-inline" role="grid">
             <table class="table table-striped table-bordered table-hover dataTable no-footer"
                    id="dataTables-example" aria-describedby="dataTables-example_info">
@@ -161,7 +161,9 @@
     </div>
 </div>
 <script type="text/javascript">
+    $('#table-inner').on('pjax:complete',Util.redrawSelects);
     $(function(){
+
         $.fn.datetimepicker.dates['zh-CN'] = {
             days: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"],
             daysShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六", "周日"],
@@ -188,7 +190,7 @@
     });
     $(document).on('pjax:complete',function(){
         Util.redrawSelects();
+    });
 
-    })
 </script>
 </@item>

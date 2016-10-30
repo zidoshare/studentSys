@@ -14,7 +14,7 @@
 <body>
 <div class="wrapper cs-wrapper" id="wrapper">
     <div class="big-container">
-        <div class="tip" id="submitTip" aria-label="0">
+        <div class="tip" id="wholeTip" aria-label="0">
         </div>
     </div>
     <div id="survey_progress" class="progress">
@@ -131,7 +131,7 @@
             var now = new Date().getTime();
             $("#count-down").text(formatDuring(end - now));
             if (minutes <= 0 && mm <= 0) {
-                Util.showTip($('#submitTip'), "你已超时，将不能再提交");
+                Util.showTip($('#wholeTip'), "你已超时，将不能再提交");
                 $("#count-down").text(0);
                 return;
             }
@@ -203,7 +203,7 @@
                 changeMax($(this));
                 if ($(this).val().length >= 200) {
                     x = x.substr(0, 200);
-                    Util.showTip($('#submitTip'), '评论长度大于200,将无法提交，并且下次保存仅保存前<font color="red" size="5">200</font>字', 'alert alert-warning');
+                    Util.showTip($('#wholeTip'), '评论长度大于200,将无法提交，并且下次保存仅保存前<font color="red" size="5">200</font>字', 'alert alert-warning');
                 }
                 $.cookie($(this).attr('id'), x, {expires: 1});
                 if ($(this).attr('aria-label') == 0) {
@@ -295,13 +295,13 @@
     }
     function postReply() {
         if (proccer < max) {
-            Util.showTip($('#submitTip'), '你尚未完成调查表，不能提交！', 'alert alert-warning');
+            Util.showTip($('#wholeTip'), '你尚未完成调查表，不能提交！', 'alert alert-warning');
             return;
         }
         var mode;
         var btn;
         if (!validateComment($("#${questionnaire.id}comment").val())) {
-            Util.showTip($('#submitTip'), '${questionnaire.toUser}调查表的评论长度应在200字以内！', 'alert alert-warning');
+            Util.showTip($('#wholeTip'), '${questionnaire.toUser}调查表的评论长度应在200字以内！', 'alert alert-warning');
             return;
         }
         mode = {
@@ -333,16 +333,16 @@
             data: mode,
             success: function (data, textstatus) {
                 if (data.state == 'success') {
-                    Util.showTip($('#submitTip'), '${questionnaire.toUser}情况调查表 ' + data.msg, 'alert alert-success');
+                    Util.showTip($('#wholeTip'), '${questionnaire.toUser}情况调查表 ' + data.msg, 'alert alert-success');
                     setTimeout(function () {
                         window.location.href = "${staticServePath}/";
                     }, 1000);
                 }
                 if (data.state == 'error') {
-                    Util.showTip($('#submitTip'), '${questionnaire.toUser}情况调查表 ' + data.msg, 'alert alert-success');
+                    Util.showTip($('#wholeTip'), '${questionnaire.toUser}情况调查表 ' + data.msg, 'alert alert-success');
                 }
             }, error: function () {
-                Util.showTip($('#submitTip'), '${questionnaire.toUser}情况调查表 提交失败', 'alert alert-success');
+                Util.showTip($('#wholeTip'), '${questionnaire.toUser}情况调查表 提交失败', 'alert alert-success');
             },
             complete: function () {
 

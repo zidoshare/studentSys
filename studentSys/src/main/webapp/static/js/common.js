@@ -43,11 +43,11 @@ var Login = {
                             location.href = Label.staticServePath + "/";
                         }, 1000);
                     } else {
-                        Util.showTip($("#loginTip"), "账号或密码错误!", 'alert alert-danger');
+                        Util.showTip($("#wholeTip"), "账号或密码错误!", 'alert alert-danger');
                     }
                 },
                 error: function () {
-                    Util.showTip($("#loginTip"), "服务器错误!", 'alert alert-danger');
+                    Util.showTip($("#wholeTip"), "服务器错误!", 'alert alert-danger');
                 },
                 complete: function () {
                     btn.stop();
@@ -181,8 +181,8 @@ var Util = {
             container: '#table-inner',
         };
         var opts = $.extend(defaults, options);
-        $(opts.container).off('pjax:beforeSend');
-        $(opts.container).off('pjax:complete');
+        /*$(opts.container).off('pjax:beforeSend');
+        $(opts.container).off('pjax:complete');*/
         $(opts.container).on('pjax:beforeSend', function (event) {
             opts.before();
             if (opts.showWholeAnimate) {
@@ -251,15 +251,18 @@ var Util = {
         return str;
     },
     redrawSelects: function () {
-        //从源码中找到的重绘selectpicker代码
-        $(".selectpicker").each(function () {
-            var b = $(this);
-            $(this).selectpicker(b, b.data());
-        });
+        console.log('redraw');
+        $('.selectpicker').selectpicker();
     },
-    reloadByPjax: function (container) {
+    reloadByPjax: function (container, options) {
+        var defaults = {
+            before: function () {
+            }, after: function () {
+            }
+        };
+        var opts = $.extend(defaults, options);
         if (container == null)
-            container = '#page-inner'
+            container = '#page-inner';
         $.pjax.reload(container, {
             fragment: container,
             type: 'get',
@@ -267,6 +270,8 @@ var Util = {
             push: false,
             timeout: 5000
         });
+        $(container).on('pjax:beforeSend', opts.before);
+        $(container).on('pjax:complete', opts.after);
     },
     getzf: function (num) {
         if (parseInt(num) < 10) {
@@ -313,7 +318,17 @@ var Util = {
         if (defaults.hidden)
             dom.hide();
     },
+    tips:[]
+    ,
     showTip: function (tip, result, className, options) {
+        var dom = tip.clone();
+        dom.attr('id','');
+        dom.appendTo(tip.parent());
+        Util.tips.push(dom);
+        if(Util.tips.length > 5){
+            Util.tips[0].remove();
+            Util.tips.shift();
+        }
         var defaults = {
             time: 3000, before: function () {
             }, complete: function () {
@@ -325,23 +340,37 @@ var Util = {
                     defaults[name] = value;
             });
         defaults.before();
-        if (tip.is(':animated')) {
+        /*if (tip.attr('class').length > 0) {
+            console.log('isAnimation');
             //将动画停止
-            tip.stop(true, true);
+            tip.stop(true, false);
+            tip.addClass(className);
+            tip.html(result);
+            tip.css("display", "block");
             //初始化tip状态
-            tip.css({"display": "none", "opacity": "0", "y": "0px"});
-            /*tip.transition({opacity: 0, y: 0}, 0);*/
-        }
-        tip.addClass(className);
-        tip.html(result);
-        tip.css("display", "block");
-        tip.transition({opacity: 1, y: 10}, 500)
+            /!*tip.css({"display": "none", "opacity": "0", "y": "0px"});*!/
+            tip.transition({opacity: 0, y: 0}, 0)
+                .transition({opacity: 1, y: 10}, 500)
+                .transition({opacity: 1}, defaults.time)
+                .transition({opacity: 0, y: 0}, 500, function () {
+                    tip.css("display", "none");
+                    tip.attr("aria-label", "0");
+                    defaults.complete();
+                    tip.attr('class', '');
+                });
+            return ;
+        }*/
+        dom.addClass(className);
+        dom.html(result);
+        dom.css("display", "block");
+        dom.transition({opacity: 1, y: 10}, 500)
             .transition({opacity: 1}, defaults.time)
             .transition({opacity: 0, y: 0}, 500, function () {
                 tip.css("display", "none");
                 tip.attr("aria-label", "0");
                 defaults.complete();
                 tip.attr('class', '');
+                dom.remove();
             });
 
     },
@@ -535,6 +564,9 @@ var func = {
         if (method == 'show') {
             modalUtil.show($('#addRepaymentModel'));
         } else {
+            var time = new Date($('#enrollTime_temp').val().replace(/-/g, '/')).getTime();
+            $('#enrollTime').val(time);
+            console.log(time);
             var json = {};
             $('#repayment').find('input,select').each(function () {
                 json[$(this).attr('name')] = $(this).val();
@@ -546,8 +578,12 @@ var func = {
                 success: function (data, status) {
                     if (data.state == 'success') {
                         Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
-                        modalUtil.hideClear($('#addRepaymentModel'), '');
-                        Util.reloadByPjax('#table-inner');
+                        modalUtil.hideClear($('#addRepaymentModel'), '', {
+                            after: function () {
+                                Util.reloadByPjax('#table-inner');
+                            }
+                        });
+
                     } else
                         Util.showTip($('#wholeTip'), data.msg, 'alert alert-danger');
                 },
@@ -561,7 +597,7 @@ var func = {
         $('#repaymentId').val(id);
         modalUtil.show($('#addRepaymentModel'));
     },
-    deleteRepayment:function(method,id){
+    deleteRepayment: function (method, id) {
         if (confirm("确认删除？")) {
             $.ajax({
                 url: Label.staticServePath + "/repaymentManager/deleteRepayment/" + id,
@@ -701,12 +737,12 @@ var func = {
                 dataType: "json",
                 success: function (data) {
                     if (data.state == 'success') {
-                        Util.showTip($('#saveRoleTip'), '添加成功', 'alert alert-success');
+                        Util.showTip($('#wholeTip'), '添加成功', 'alert alert-success');
                     } else
-                        Util.showTip($('#saveRoleTip'), '添加失败', 'alert alert-warning');
+                        Util.showTip($('#wholeTip'), '添加失败', 'alert alert-warning');
                 },
                 error: function () {
-                    Util.showTip($('#saveRoleTip'), '服务器错误', 'alert alert-danger');
+                    Util.showTip($('#wholeTip'), '服务器错误', 'alert alert-danger');
                 },
                 complete: function () {
                     btn.stop();
@@ -733,12 +769,12 @@ var func = {
                 dataType: "json",
                 success: function (data) {
                     if (data.state == 'success') {
-                        Util.showTip($('#saveUserTip'), '添加成功', 'alert alert-success');
+                        Util.showTip($('#wholeTip'), '添加成功', 'alert alert-success');
                     } else
-                        Util.showTip($('#saveUserTip'), '添加失败', 'alert alert-warning');
+                        Util.showTip($('#wholeTip'), '添加失败', 'alert alert-warning');
                 },
                 error: function () {
-                    Util.showTip($('#saveUserTip'), '服务器错误', 'alert alert-danger');
+                    Util.showTip($('#wholeTip'), '服务器错误', 'alert alert-danger');
                 },
                 complete: function () {
                     btn.stop();
@@ -764,12 +800,12 @@ var func = {
                 dataType: "json",
                 success: function (data) {
                     if (data.state == 'success') {
-                        Util.showTip($('#saveTip'), '添加成功', 'alert alert-success');
+                        Util.showTip($('#wholeTip'), '添加成功', 'alert alert-success');
                     } else
-                        Util.showTip($('#saveTip'), '添加失败', 'alert alert-warning');
+                        Util.showTip($('#wholeTip'), '添加失败', 'alert alert-warning');
                 },
                 error: function () {
-                    Util.showTip($('#saveTip'), '服务器错误', 'alert alert-danger');
+                    Util.showTip($('#wholeTip'), '服务器错误', 'alert alert-danger');
                 },
                 complete: function () {
                     btn.stop();
@@ -832,13 +868,13 @@ var func = {
                             }
                         });
                     else {
-                        Util.showTip($('#saveTestQuestionTip'), data.msg, "alert alert-warning");
+                        Util.showTip($('#wholeTip'), data.msg, "alert alert-warning");
                         btn.stop();
                     }
 
                 },
                 error: function () {
-                    Util.showTip($('#saveTestQuestionTip'), "服务器错误", "alert alert-danger");
+                    Util.showTip($('#wholeTip'), "服务器错误", "alert alert-danger");
                     btn.stop();
                 }
             });
@@ -925,7 +961,7 @@ var func = {
                 data: json,
                 success: function (data, state) {
                     if (data.state == 'success') {
-                        Util.showTip($('#saveClassTip'), data.msg, 'alert alert-success', {
+                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-success', {
                             time: 1000, complete: function () {
                                 $('#addClassModel').modal('hide');
                                 $('#addClassModel').on('hidden.bs.modal', function () {
@@ -937,7 +973,7 @@ var func = {
                     }
                 },
                 error: function () {
-                    Util.showTip($('#saveClassTip'), '服务器错误', 'alert alert-danger', {time: 5000});
+                    Util.showTip($('#wholeTip'), '服务器错误', 'alert alert-danger', {time: 5000});
                 },
                 complete: function () {
                     btn.stop();
@@ -978,7 +1014,7 @@ var func = {
                     }
                 },
                 error: function () {
-                    Util.showTip($('#saveClassTip'), '服务器错误', 'alert alert-danger', {time: 5000});
+                    Util.showTip($('#wholeTip'), '服务器错误', 'alert alert-danger', {time: 5000});
                 },
                 complete: function () {
                     btn.stop();
@@ -1298,20 +1334,21 @@ var modalUtil = {
         modal.modal('show');
     },
     toggleClear: function (modal) {
-        modal.find('input[id!="operater"]').val('');
-        modal.find('textarea[id!="operater"]').val('');
-        Util.removeSelect('all');
         modal.modal('toggle');
     },
     hideClear: function (model, form, options) {
-        var defaults = {front: '', ends: ['eId', 'CreateTime', 'UpdateTime'], end: ''};
+        var defaults = {
+            front: '', ends: ['eId', 'CreateTime', 'UpdateTime'], end: '', before: function () {
+            }, after: function () {
+            }
+        };
         if (options != null) {
             $.each(options, function (name, val) {
                 defaults[name] = options[name];
             });
         }
         if (defaults.end != null && defaults.end.length > 0) {
-            model.find('input').each(function (index, input) {
+            model.find('input,select').each(function (index, input) {
 
                 if ($(input).attr('id').indexOf(defaults.front) == 0 && $(input).attr('id').lastIndexOf(defaults.end) > 0) {
                     $(input).val('');
@@ -1319,7 +1356,7 @@ var modalUtil = {
             });
         } else {
             for (var i = 0; i < defaults.ends.length; i++) {
-                model.find('input').each(function (index, input) {
+                model.find('input,select').each(function (index, input) {
                     if ($(input).attr('id') == null)
                         return false;
                     if ($(input).attr('id').indexOf(defaults.front) == 0 && $(input).attr('id').lastIndexOf(defaults.ends[i]) > 0) {
@@ -1329,6 +1366,11 @@ var modalUtil = {
             }
         }
         model.modal('hide');
+        model.on('hidden.bs.modal', function (e) {
+            defaults.after();
+            model.off('hidden.bs.modal');
+        })
+
     }
 };
 var Test = {

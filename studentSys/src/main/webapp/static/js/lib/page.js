@@ -81,7 +81,6 @@
                         $('.' + opts.activeClass).removeClass(opts.activeClass).parent().next().find('a').addClass(opts.activeClass);
                     } else {
                         $('.' + opts.activeClass).removeClass(opts.activeClass).parent().next().find('a').addClass(opts.activeClass);
-                        fpageShow();
                     }
                 });
             });

@@ -15,7 +15,7 @@
 <body>
 <div class="wrapper cs-wrapper" id="wrapper">
     <div class="big-container">
-        <div class="tip" id="submitTip" aria-label="0">
+        <div class="tip" id="wholeTip" aria-label="0">
         </div>
     </div>
     <div id="survey_progress" class="progress">
@@ -243,7 +243,7 @@
             var now = new Date().getTime();
             $("#count-down").text(formatDuring(end - now));
             if (days <= 0 && hours <= 0 && minutes <= 0 && mm <= 0) {
-                Util.showTip($('#submitTip'), "你已超时，将不能再提交", 'alert alert-danger');
+                Util.showTip($('#wholeTip'), "你已超时，将不能再提交", 'alert alert-danger');
                 $("#count-down").text(0);
                 return;
             }
@@ -313,7 +313,7 @@
             data: reply,
             success: function (data, status) {
                 if (data.state == 'success') {
-                    Util.showTip($('#submitTip'), data.msg, 'alert alert-success', {
+                    Util.showTip($('#wholeTip'), data.msg, 'alert alert-success', {
                         complete: function () {
                             window.location.href = "${staticServePath}/";
                         },
@@ -321,10 +321,10 @@
                     });
                 }
                 else if (data.state == 'error') {
-                    Util.showTip($('#submitTip'), data.msg, 'alert alert-warning');
+                    Util.showTip($('#wholeTip'), data.msg, 'alert alert-warning');
                 }
             }, error: function () {
-                Util.showTip($('#submitTip'), '提交失败，服务器错误', 'alert alert-warning');
+                Util.showTip($('#wholeTip'), '提交失败，服务器错误', 'alert alert-warning');
             },
             complete: function () {
 

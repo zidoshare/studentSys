@@ -40,7 +40,6 @@ public class TestController extends BaseController {
     public TestDomainTagService testDomainTagService;
 
 
-
     public void history() {
         setMapping(mappingService.getMappingByTitle("考试历史"));
         super.index();
@@ -164,7 +163,7 @@ public class TestController extends BaseController {
         Integer qcId = getParaToInt(0);
         Integer studentId = getParaToInt(1);
         Boolean canEdit = getParaToBoolean(2);
-        if(canEdit == null)
+        if (canEdit == null)
             canEdit = false;
         if (qcId == null) {
             renderError(404);
@@ -224,7 +223,7 @@ public class TestController extends BaseController {
         setAttr("questionnaire", questionnaire);
         setAttr("questionSize", size);
         setAttr("student", student);
-        setAttr("canEdit",canEdit);
+        setAttr("canEdit", canEdit);
         render("/test/showCorrecting.ftl");
     }
 
@@ -321,19 +320,13 @@ public class TestController extends BaseController {
             tagId = 0;
         Page<TestQuestion> allQuestions = testQuestionService.getQuestionsByTypeAndTag(p, typeId, tagId);
         Map<String, List<TestTag>> testQuestionTagsMap = new HashMap<>();
+        Map<String, User> userMap = new HashMap<>();
         for (TestQuestion tq : allQuestions.getList()) {
             testQuestionTagsMap.put(tq.getId() + "", testTagService.getTagsByQuestion(tq));
-        }
-        //能够进行添加题目的角色
-        Mapping mapping = mappingService.getMappingByUrl("addTestQuestion");
-        List<Role> roles = roleService.getRoleByMapping(mapping);
-        Map<String, User> userMap = new HashMap<>();
-        List<User> users = new ArrayList<>();
-        for (Role role : roles) {
-            users.addAll(userService.getUsersByRole(role));
-        }
-        for (User user : users) {
-            userMap.put(user.getId() + "", user);
+            if (userMap.get(tq.getTestQuestionOperaterId() + "") == null) {
+                User user = userService.getUserById(tq.getTestQuestionOperaterId());
+                userMap.put(user.getId() + "", user);
+            }
         }
         setAttr("domainTags", domainTags);
         setAttr("tags", tags);
@@ -487,7 +480,7 @@ public class TestController extends BaseController {
         setAttr("types", types);
         setAttr("scoreMap", scoreMap);
         setAttr("questionMap", map);
-        setAttr("score",score);
+        setAttr("score", score);
         render("/test/preview.ftl");
     }
 

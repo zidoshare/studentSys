@@ -154,7 +154,7 @@
                     if (Validate.isNum(val))
                         score += parseInt(val);
                     else
-                        Util.showTip($('#' + id + '-tip'), '请输入数字！', 'bg-danger', {time: 1500});
+                        Util.showTip($('#wholeTip'), '请输入数字！', 'bg-danger', {time: 1500});
                 }
             });
             changeProgress(parseFloat((x / max * 100)).toFixed(2) + "%");
