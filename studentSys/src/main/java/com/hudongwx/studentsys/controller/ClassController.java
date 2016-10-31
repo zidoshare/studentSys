@@ -7,9 +7,14 @@ import com.hudongwx.studentsys.model.User;
 import com.hudongwx.studentsys.service.ClassService;
 import com.hudongwx.studentsys.service.StudentService;
 import com.hudongwx.studentsys.service.UserService;
+import com.hudongwx.studentsys.util.ASMKit;
 import com.hudongwx.studentsys.util.RenderKit;
+import com.hudongwx.studentsys.util.TableComment;
+import com.hudongwx.studentsys.util.TableCommentMapping;
 import com.jfinal.aop.Before;
 import com.jfinal.ext.interceptor.POST;
+import com.jfinal.plugin.activerecord.Table;
+import com.jfinal.plugin.activerecord.TableMapping;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,7 +33,6 @@ public class ClassController extends BaseController {
 
     public void index() {
         super.index();
-        log.info("==============" + getRequest().getQueryString());
         List<Class> allClass = classService.getAllClass();
         setAttr("classes", allClass);
     }
@@ -45,6 +49,7 @@ public class ClassController extends BaseController {
     public void addClass() {
         Class model = getModel(Class.class);
         boolean flag;
+        log.info(TableCommentMapping.me().getTableComment(model.getClass()).getColumnComment("className"));
         if (model.getId() == null)
             flag = model.save();
         else {

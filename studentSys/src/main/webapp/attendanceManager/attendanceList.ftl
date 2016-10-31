@@ -14,9 +14,11 @@ ${view.title}
 
                 <select id="classSelect_list" class="selectpicker show-tick form-control" data-live-search="true">
                     <option value="0">不限</option>
-                    <#list allClass as class>
-                        <option value="${class.id}">${class.className}</option>
-                    </#list>
+                    <#if allClass??>
+                        <#list allClass as class>
+                            <option value="${class.id}">${class.className}</option>
+                        </#list>
+                    </#if>
                 </select>
             </div>
         </div>

@@ -71,7 +71,7 @@ var Validate = {
         for (var i = 0; i < obj.data.length; i++) {
             if (!Validate.validate(obj.data[i])) {
                 tipHTML += obj.data[i].msg;
-                Util.showTip(obj.target, obj.data[i].msg, "alert alert-danger");
+                Util.showTip($('#wholeTip'), obj.data[i].msg, "alert alert-danger");
                 return false;
             }
         }
@@ -182,7 +182,7 @@ var Util = {
         };
         var opts = $.extend(defaults, options);
         /*$(opts.container).off('pjax:beforeSend');
-        $(opts.container).off('pjax:complete');*/
+         $(opts.container).off('pjax:complete');*/
         $(opts.container).on('pjax:beforeSend', function (event) {
             opts.before();
             if (opts.showWholeAnimate) {
@@ -318,14 +318,14 @@ var Util = {
         if (defaults.hidden)
             dom.hide();
     },
-    tips:[]
+    tips: []
     ,
     showTip: function (tip, result, className, options) {
         var dom = tip.clone();
-        dom.attr('id','');
+        dom.attr('id', '');
         dom.appendTo(tip.parent());
         Util.tips.push(dom);
-        if(Util.tips.length > 5){
+        if (Util.tips.length > 5) {
             Util.tips[0].remove();
             Util.tips.shift();
         }
@@ -334,32 +334,28 @@ var Util = {
             }, complete: function () {
             }
         };
-        if (options != null)
-            $.each(options, function (name, value) {
-                if (value != null)
-                    defaults[name] = value;
-            });
+        defaults = $.extend(defaults, options);
         defaults.before();
         /*if (tip.attr('class').length > 0) {
-            console.log('isAnimation');
-            //将动画停止
-            tip.stop(true, false);
-            tip.addClass(className);
-            tip.html(result);
-            tip.css("display", "block");
-            //初始化tip状态
-            /!*tip.css({"display": "none", "opacity": "0", "y": "0px"});*!/
-            tip.transition({opacity: 0, y: 0}, 0)
-                .transition({opacity: 1, y: 10}, 500)
-                .transition({opacity: 1}, defaults.time)
-                .transition({opacity: 0, y: 0}, 500, function () {
-                    tip.css("display", "none");
-                    tip.attr("aria-label", "0");
-                    defaults.complete();
-                    tip.attr('class', '');
-                });
-            return ;
-        }*/
+         console.log('isAnimation');
+         //将动画停止
+         tip.stop(true, false);
+         tip.addClass(className);
+         tip.html(result);
+         tip.css("display", "block");
+         //初始化tip状态
+         /!*tip.css({"display": "none", "opacity": "0", "y": "0px"});*!/
+         tip.transition({opacity: 0, y: 0}, 0)
+         .transition({opacity: 1, y: 10}, 500)
+         .transition({opacity: 1}, defaults.time)
+         .transition({opacity: 0, y: 0}, 500, function () {
+         tip.css("display", "none");
+         tip.attr("aria-label", "0");
+         defaults.complete();
+         tip.attr('class', '');
+         });
+         return ;
+         }*/
         dom.addClass(className);
         dom.html(result);
         dom.css("display", "block");
@@ -932,6 +928,8 @@ var func = {
                             }
                         });
                     }
+                    else
+                        Util.showTip($('#wholeTip'),data.msg,'alert alert-danger');
                 },
                 error: function () {
                     Util.showTip($('#wholeTip'), '服务器错误', 'alert alert-danger', {time: 5000});
@@ -970,9 +968,11 @@ var func = {
                                 })
                             }
                         });
+                    } else {
+                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-danger');
                     }
                 },
-                error: function () {
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
                     Util.showTip($('#wholeTip'), '服务器错误', 'alert alert-danger', {time: 5000});
                 },
                 complete: function () {
@@ -1011,6 +1011,8 @@ var func = {
                                 })
                             }
                         });
+                    } else {
+                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-danger');
                     }
                 },
                 error: function () {
@@ -1034,12 +1036,15 @@ var func = {
                 url: Label.staticServePath + "/attendanceManager/deleteAttendance/" + id,
                 type: 'post',
                 success: function (data, status) {
-                    Util.showTip($('#wholeTip'), data.msg, "alert alert-success", {
-                        before: function () {
-                            $('tr#attendance' + id).remove();
-                            Util.reloadByPjax('#table-inner');
-                        }
-                    });
+                    if (data == 'success')
+                        Util.showTip($('#wholeTip'), data.msg, "alert alert-success", {
+                            before: function () {
+                                $('tr#attendance' + id).remove();
+                                Util.reloadByPjax('#table-inner');
+                            }
+                        });
+                    else
+                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-danger');
                 },
                 error: function () {
                     Util.showTip($('#wholeTip'), '服务器错误', "alert alert-danger");
@@ -1053,11 +1058,14 @@ var func = {
                 url: Label.staticServePath + "/test/deleteDomain/" + id,
                 type: 'post',
                 success: function (data, status) {
-                    Util.showTip($('#wholeTip'), data.msg, "alert alert-success", {
-                        before: function () {
-                            Util.reloadByPjax('#table-inner');
-                        }
-                    });
+                    if (data.state = 'success')
+                        Util.showTip($('#wholeTip'), data.msg, "alert alert-success", {
+                            before: function () {
+                                Util.reloadByPjax('#table-inner');
+                            }
+                        });
+                    else
+                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-danger');
                 },
                 error: function () {
                     Util.showTip($('#wholeTip'), '服务器错误', "alert alert-danger");
@@ -1100,7 +1108,8 @@ var func = {
                     if (data.state == 'success') {
                         Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
                         Util.reloadByPjax();
-                    }
+                    } else
+                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-danger');
                 },
                 error: function () {
                     Util.showTip($('#wholeTip'), '服务器错误', 'alert alert-danger');
@@ -1229,11 +1238,19 @@ var func = {
                 url: Label.staticServePath + "/classManager/deleteClass/" + id,
                 type: 'post',
                 success: function (data, status) {
-                    Util.showTip($('#wholeTip'), data.msg, "alert alert-success", {
-                        before: function () {
-                            $('tr#class' + id).remove();
-                        }
-                    });
+
+                    if(data.state=='success')
+                        Util.showTip($('#wholeTip'), data.msg, "alert alert-success", {
+                            before: function () {
+                                $('tr#class' + id).remove();
+                            }
+                        });
+                    else
+                        Util.showTip($('#wholeTip'), data.msg, "alert alert-success", {
+                            before: function () {
+                                $('tr#class' + id).remove();
+                            }
+                        });
                 },
                 error: function () {
                     Util.showTip($('#wholeTip'), '服务器错误', "alert alert-danger");

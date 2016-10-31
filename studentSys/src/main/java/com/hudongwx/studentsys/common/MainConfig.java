@@ -60,6 +60,8 @@ public class MainConfig extends JFinalConfig{
         com.hudongwx.surveys.model._MappingKit.mapping(surveysRecordPlugin);
         //-------------
         me.add(surveysRecordPlugin);
+
+        me.add(new SqlMessagePlugin());
         //加载缓存插件ehcache
         me.add(new EhCachePlugin());
     }

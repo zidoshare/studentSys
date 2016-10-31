@@ -86,7 +86,12 @@ ${view.title}
                         ${userMap["${at.operaterId}"].userNickname}
                         </td>
                         <td>
-                        ${at.message}
+                            <#if at.message??>
+                                ${at.message}
+                                <#else>
+                                暂无
+                            </#if>
+
                         </td>
                     </tr>
                     </#list>
