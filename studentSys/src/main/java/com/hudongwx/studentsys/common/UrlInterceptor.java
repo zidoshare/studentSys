@@ -37,6 +37,9 @@ public class UrlInterceptor implements Interceptor {
         } catch (Exception e) {
             String header = controller.getRequest().getHeader("x-requested-with");
             if ("XMLHttpRequest".equals(header)) {
+                if("get".equals(controller.getRequest().getMethod())){
+
+                }
                 if (null == BaseController.getCurrentUser(controller)) {
                     RenderKit.renderError(controller, "未获取到你的登录信息，请尝试刷新登陆重试!");
                     return;

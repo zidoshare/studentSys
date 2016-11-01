@@ -122,19 +122,6 @@ public class UserController extends BaseController {
             return true;
         });
         log.info(jsonArray.toString());
-        /*tree.checkTree(now -> {
-            if(now == tree.root())
-                return true;
-            JSONObject json = new JSONObject();
-            json.put(Common.LABEL_ID,now.getId());
-            json.put(Mapping.LABEL_ICON,now.getIcon());
-            json.put(Mapping.LABEL_TITLE,now.getTitle());
-            json.put(Mapping.LABEL_URL,now.getUrl());
-            json.put(Mapping.LABEL_CHILD_COUNT,now.getChildCount());
-            json.put("isChecked",ids.contains(String.valueOf(now.getId())));
-            jsonArray.add(json);
-            return false;
-        });*/
         RenderKit.renderSuccess(this,jsonArray.toString());
     }
     public void showPermissions(){

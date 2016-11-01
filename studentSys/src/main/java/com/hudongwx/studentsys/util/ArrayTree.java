@@ -10,7 +10,6 @@ public class ArrayTree<T extends TreeNode> {
     private List<T> tree;
     //暂时缓存上次添加的父节点，方便下次添加到同一父节点下时直接添加不需要传入父节点参数
     private T parent;
-
     //暂定层数最多一百层
     private int[] index = new int[Common.MAX_DEGREE];
     //这里得到的是复制，不能操作树本身
@@ -20,6 +19,7 @@ public class ArrayTree<T extends TreeNode> {
     }
     public ArrayTree<T> setTree(List<T> tree){
         this.tree = tree;
+
         return this;
     }
     public void addGoodNode(T node){

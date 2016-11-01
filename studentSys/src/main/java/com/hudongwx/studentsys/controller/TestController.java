@@ -2,7 +2,6 @@ package com.hudongwx.studentsys.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.serializer.BooleanCodec;
 import com.hudongwx.studentsys.common.BaseController;
 import com.hudongwx.studentsys.model.*;
 import com.hudongwx.studentsys.model.Class;
@@ -13,6 +12,7 @@ import com.hudongwx.studentsys.util.RenderKit;
 import com.hudongwx.studentsys.service.TestQuestionnaireQuestionService;
 import com.jfinal.aop.Before;
 import com.jfinal.ext.interceptor.POST;
+import com.jfinal.json.Json;
 import com.jfinal.kit.JsonKit;
 import com.jfinal.plugin.activerecord.Page;
 

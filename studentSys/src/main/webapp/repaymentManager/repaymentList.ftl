@@ -7,87 +7,88 @@
     <span class="pull-right">${addBtn}</span>
 </div>
 <div class="panel-body">
-    <div id="table-inner">
-        <div class="modal fade" id="addRepaymentModel" tabindex="-1"
-             aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
-                                class="sr-only">Close</span></button>
-                        <h4 class="modal-title" id="myModalLabel">填写还款信息</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form id="repayment" role="form" class="form-horizontal">
-                            <div class="form-group sr-only">
-                                <label for="repaymentId" class="col-sm-2 control-label">还款记录id</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="repayment.id" id="repaymentId"
-                                           placeholder="还款记录id">
-                                </div>
+    <div class="modal fade" id="addRepaymentModel" tabindex="-1"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                            class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">填写还款信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="repayment" role="form" class="form-horizontal">
+                        <div class="form-group sr-only">
+                            <label for="repaymentId" class="col-sm-2 control-label">还款记录id</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="repayment.id" id="repaymentId"
+                                       placeholder="还款记录id">
                             </div>
-                            <div class="form-group">
-                                <label for="studentId" class="col-sm-2 control-label">学生姓名</label>
-                                <div class="col-sm-10">
-                                    <select class="selectpicker show-tick form-control" name="repayment.studentId"
-                                            id="studentId" data-live-search="true">
-                                        <#list studentList as stu>
-                                            <option value="${stu.id}">${stu.name}</option>
-                                        </#list>
-                                    </select>
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="studentId" class="col-sm-2 control-label">学生姓名</label>
+                            <div class="col-sm-10">
+                                <select class="selectpicker show-tick form-control" name="repayment.studentId"
+                                        id="studentId" data-live-search="true">
+                                    <#list studentList as stu>
+                                        <option value="${stu.id}">${stu.name}</option>
+                                    </#list>
+                                </select>
                             </div>
-                            <div class="form-group sr-only">
-                                <label for="enrollTime" class="col-sm-2 control-label">入学时间</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="repayment.enrollTime" id="enrollTime"
-                                           placeholder="入学时间">
-                                </div>
+                        </div>
+                        <div class="form-group sr-only">
+                            <label for="enrollTime" class="col-sm-2 control-label">入学时间</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="repayment.enrollTime" id="enrollTime"
+                                       placeholder="入学时间">
                             </div>
-                            <div class="form-group">
-                                <label for="enrollTime_temp" class="col-sm-2 control-label">入学时间</label>
-                                <div class="col-sm-10">
-                                    <div class="date datetimepicker input-group datetimepicker-inline"
-                                         data-date-format="yyyy-mm-dd">
-                                        <input id="enrollTime_temp" class="form-control input-sm"
-                                               type="text" value="${.now?date}"
-                                               readonly placeholder="入学时间">
+                        </div>
+                        <div class="form-group">
+                            <label for="enrollTime_temp" class="col-sm-2 control-label">入学时间</label>
+                            <div class="col-sm-10">
+                                <div class="date datetimepicker input-group datetimepicker-inline"
+                                     data-date-format="yyyy-mm-dd">
+                                    <input id="enrollTime_temp" class="form-control input-sm"
+                                           type="text" value="${.now?date}"
+                                           readonly placeholder="入学时间">
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-calendar"></span>
                                         </span>
-                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="type" class="col-sm-2 control-label">类型</label>
-                                <div class="col-sm-10">
-                                    <select class="selectpicker show-tick form-control" name="repayment.type"
-                                            id="type" data-live-search="true">
-                                        <#list typeList as t>
-                                            <option value="${t.id}">${t.typeName}</option>
-                                        </#list>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="message" class="col-sm-2 control-label">备注信息</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="repayment.message" id="message"
-                                           placeholder="备注信息">
-                                </div>
-                            </div>
-                        </form>
-                        <div class="tip-container">
-                            <div class="tip" id="saveClassTip" aria-label="0">
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="type" class="col-sm-2 control-label">类型</label>
+                            <div class="col-sm-10">
+                                <select class="selectpicker show-tick form-control" name="repayment.type"
+                                        id="type" data-live-search="true">
+                                    <#list typeList as t>
+                                        <option value="${t.id}">${t.typeName}</option>
+                                    </#list>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="message" class="col-sm-2 control-label">备注信息</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="repayment.message" id="message"
+                                       placeholder="备注信息">
+                            </div>
+                        </div>
+                    </form>
+                    <div class="tip-container">
+                        <div class="tip" id="saveClassTip" aria-label="0">
+                        </div>
                     </div>
-                    <div class="modal-footer">
-                        <span class="pull-right">${saveBtn}</span>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <span class="pull-right">${saveBtn}</span>
                 </div>
             </div>
         </div>
+    </div>
+    <div id="table-inner">
+
         <div id="dataTables-example_wrapper" class="table-responsive dataTables_wrapper form-inline" role="grid">
             <table class="table table-striped table-bordered table-hover dataTable no-footer"
                    id="dataTables-example" aria-describedby="dataTables-example_info">

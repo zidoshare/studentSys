@@ -12,12 +12,24 @@ Table: stumanager_attendance
  message    | varchar(200) | YES  |     | 暂无      |         
 ------------+--------------+------+-----+---------+---------
 
+Table: stumanager_certificate
+------------+-------------+------+-----+---------+---------
+ Field      | Type        | Null | Key | Default | Remarks 
+------------+-------------+------+-----+---------+---------
+ id         | int(10)     | NO   | PRI |         |         
+ studentId  | int(10)     | NO   |     |         |         
+ enrollTime | bigint(19)  | YES  |     |         |         
+ endTime    | bigint(19)  | YES  |     |         |         
+ addTime    | bigint(19)  | YES  |     |         |         
+ code       | varchar(20) | YES  |     |         |         
+------------+-------------+------+-----+---------+---------
+
 Table: stumanager_class
 -----------------+-------------+------+-----+---------+---------
  Field           | Type        | Null | Key | Default | Remarks 
 -----------------+-------------+------+-----+---------+---------
  id              | int(10)     | NO   | PRI |         |         
- className       | varchar(10) | NO   |     |         |         
+ className       | varchar(10) | NO   |     |         | 班级名字    
  headTeacher     | varchar(10) | NO   |     |         | 讲师      
  Assistant       | varchar(10) | YES  |     |         | 科目      
  tutor           | varchar(10) | NO   |     |         |         

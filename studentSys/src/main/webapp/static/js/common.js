@@ -251,7 +251,6 @@ var Util = {
         return str;
     },
     redrawSelects: function () {
-        console.log('redraw');
         $('.selectpicker').selectpicker();
     },
     reloadByPjax: function (container, options) {
@@ -556,10 +555,81 @@ var Animate = {
     }
 };
 var func = {
+    addCertificate:function(method){
+        if (method == 'show') {
+            modalUtil.show($('#addCertificateModel'));
+        }else{
+            var btn = Ladda.create(document.querySelector("#save-btn"));
+            btn.start();
+            var enrollTime = new Date($('#enrollTime_temp').val().replace(/-/g, '/')).getTime();
+            var endTime = new Date($('#endTime_temp').val().replace(/-/g, '/')).getTime();
+            var addTime = new Date($('#addTime_temp').val().replace(/-/g, '/')).getTime();
+            $('#addTime').val(addTime);
+            $('#endTime').val(endTime);
+            $('#enrollTime').val(enrollTime);
+            var json = {};
+            $('#certificate').find('input,select').each(function () {
+                json[$(this).attr('name')] = $(this).val();
+            });
+            $.ajax({
+                url: Label.staticServePath + '/certificateManager/postCertificate',
+                data: json,
+                type: 'post',
+                success: function (data, status) {
+                    if (data.state == 'success') {
+                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
+                        modalUtil.hideClear($('#addCertificateModel'), '', {
+                            after: function () {
+                                Util.reloadByPjax('#table-inner');
+                            }
+                        });
+
+                    } else
+                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-danger');
+                },
+                error: function () {
+                    Util.showTip($('#wholeTip'), '服务器错误', 'alert alert-danger');
+                },
+                complete:function(){
+                    btn.stop();
+                }
+            })
+        }
+    },
+    updateCertificate:function(method,id){
+        modalUtil.show($('#addCertificateModel'));
+        $('#studentId').selectpicker('val',$('#name'+id).attr('data-label'));
+        $('#addTime_temp').val($('#addTime'+id).text());
+        $('#enrollTime_temp').val($('#enrollTime'+id).text());
+        $('#endTime_temp').val($('#endTime'+id).text());
+        $('#certificateId').val(id);
+        $('#code').val($('#code'+id).text());
+
+    },
+    deleteCertificate:function(method,id){
+        if (confirm("确认删除？")) {
+            $.ajax({
+                url: Label.staticServePath + "/certificateManager/deleteCertificate/" + id,
+                type: 'post',
+                success: function (data, status) {
+                    Util.showTip($('#wholeTip'), data.msg, "alert alert-success", {
+                        before: function () {
+                            Util.reloadByPjax('#table-inner');
+                        }
+                    });
+                },
+                error: function () {
+                    Util.showTip($('#wholeTip'), '服务器错误', "alert alert-danger");
+                }
+            });
+        }
+    },
     addRepayment: function (method) {
         if (method == 'show') {
             modalUtil.show($('#addRepaymentModel'));
         } else {
+            var btn = Ladda.create(document.querySelector("#save-btn"));
+            btn.start();
             var time = new Date($('#enrollTime_temp').val().replace(/-/g, '/')).getTime();
             $('#enrollTime').val(time);
             console.log(time);
@@ -585,13 +655,17 @@ var func = {
                 },
                 error: function () {
                     Util.showTip($('#wholeTip'), '服务器错误', 'alert alert-danger');
+                },
+                complete:function(){
+                    btn.stop();
                 }
             })
         }
     },
     updateRepayment: function (method, id) {
-        $('#repaymentId').val(id);
         modalUtil.show($('#addRepaymentModel'));
+        $('#repaymentId').val(id);
+
     },
     deleteRepayment: function (method, id) {
         if (confirm("确认删除？")) {
@@ -622,6 +696,8 @@ var func = {
         } else if (method == 'table-save') {
             $('#core_createTime').val(new Date().getTime());
             $('#core_time').val(new Date($('#core_time_temp').val().replace(/-/g, '/')).getTime());
+            var btn = Ladda.create(document.querySelector("#save-btn"));
+            btn.start();
             var json = {};
             $('#core_form').find('input,select').each(function () {
                 json[$(this).attr('name')] = $(this).val();
@@ -640,6 +716,9 @@ var func = {
                 },
                 error: function () {
                     Util.showTip($('#wholeTip'), '服务器错误', 'alert alert-danger');
+                },
+                complete:function(){
+                    btn.stop();
                 }
             })
         } else if (method == 'show') {
@@ -1348,6 +1427,9 @@ var func = {
 };
 var modalUtil = {
     show: function (modal) {
+        modal.one('hide.bs.modal',function(){
+            modal.find('input[name]').val('');
+        });
         modal.modal('show');
     },
     toggleClear: function (modal) {
