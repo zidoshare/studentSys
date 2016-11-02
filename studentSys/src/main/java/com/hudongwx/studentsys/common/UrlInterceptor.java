@@ -23,36 +23,39 @@ public class UrlInterceptor implements Interceptor {
     public void intercept(Invocation inv) {
         String actionKey = inv.getActionKey();
         String controllerKey = inv.getControllerKey();
-        Controller controller = (BaseController) inv.getController();
+        Controller controller = inv.getController();
         controller.setAttr(Common.LABEL_ACTION_KEY, actionKey);
         controller.setAttr(Common.LABEL_CONTROLLER_KEY, controllerKey);
-        /*if (null == BaseController.getCurrentUser(controller)) {
+        if (null == BaseController.getCurrentUser(controller)) {
+            String header = controller.getRequest().getHeader("x-requested-with");
+            if ("XMLHttpRequest".equals(header)) {
+                String method = controller.getRequest().getMethod();
+                if ("GET".equals(method)) {
+                    controller.renderError(403);
+                    return;
+                }
+                RenderKit.renderError(controller, "未获取到你的登录信息，请尝试刷新以重新登录!");
+                return;
+            }
             controller.setAttr("code", 403);
-            controller.setAttr("msg", "你尚未登录");
+            controller.setAttr("msg", "未获取到你的登录信息，已自动跳转至登录页面");
             controller.forwardAction("/userManager/showLogin");
             return;
-        }*/
+        }
         try {
             inv.invoke();
         } catch (Exception e) {
             String header = controller.getRequest().getHeader("x-requested-with");
             if ("XMLHttpRequest".equals(header)) {
-                if("get".equals(controller.getRequest().getMethod())){
-
-                }
-                if (null == BaseController.getCurrentUser(controller)) {
-                    RenderKit.renderError(controller, "未获取到你的登录信息，请尝试刷新登陆重试!");
-                    return;
+                if ("get".equals(controller.getRequest().getMethod())) {
+                    controller.renderError(403);
                 }
                 RenderKit.renderError(controller, e.getCause().getMessage());
                 return;
             }
-            header = controller.getRequest().getHeader("X-PJAX");
-            if (null != header) {
-                controller.setAttr("code", 403);
-                controller.setAttr("msg", e.getCause().getMessage());
-                controller.forwardAction("/userManager/showLogin");
-            }
+            controller.setAttr("code", 403);
+            controller.setAttr("msg", e.getCause().getMessage());
+            controller.forwardAction("/userManager/showLogin");
         }
     }
 }

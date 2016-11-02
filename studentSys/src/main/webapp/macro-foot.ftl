@@ -119,7 +119,19 @@
         var load = dom.find('.panel_loading').first();
         load.removeClass('sr-only');
         opts.before();
-        dom.find('.pan').first().load(url, function () {
+        dom.find('.pan').first().load(url, function(response,status,xhr) {
+            console.log(response,status,xhr);
+            if(xhr.status == 403){
+                Util.showTip($('#wholeTip'),'请刷新以重新登录','alert alert-danger');
+            }
+            /*var json = response;
+
+            if(json.state=='error'){
+
+                $(this).html('');
+                return false;
+            }
+*/
             load.addClass('sr-only');
             opts.after();
         });

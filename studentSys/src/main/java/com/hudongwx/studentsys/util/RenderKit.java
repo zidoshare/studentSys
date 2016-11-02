@@ -2,6 +2,7 @@ package com.hudongwx.studentsys.util;
 
 import com.alibaba.fastjson.JSONObject;
 import com.jfinal.core.Controller;
+import com.jfinal.kit.JsonKit;
 
 /**
  * Created by wuhongxu on 2016/8/31 0031.
@@ -26,10 +27,11 @@ public class RenderKit {
         renderMsgWidthLocation(me,msg,state,"");
     }
     public static void renderMsgWidthLocation(Controller me,Object msg,Object state,Object url){
-        JSONObject obj = new JSONObject();
-        obj.put("state",state);
+        /*JSONObject obj = new JSONObject();*/
+        Resp resp = new Resp(state,msg,url);
+        /*obj.put("state",state);
         obj.put("msg",msg);
-        obj.put("url",url);
-        me.renderJson(obj);
+        obj.put("url",url);*/
+        me.renderJson(JsonKit.toJson(resp));
     }
 }

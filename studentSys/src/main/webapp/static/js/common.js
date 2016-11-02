@@ -40,7 +40,10 @@ var Login = {
                         $(".wrapper").addClass("form-success");
                         //Util.showTip($("#loginTip"), data.msg, 'alert alert-success');
                         setTimeout(function () {
-                            location.href = Label.staticServePath + "/";
+                            if(Label.holdPath != null){
+                                window.location.href=Label.holdPath;
+                            }else
+                                window.location.href=Label.staticServePath+'/';
                         }, 1000);
                     } else {
                         Util.showTip($("#wholeTip"), "账号或密码错误!", 'alert alert-danger');

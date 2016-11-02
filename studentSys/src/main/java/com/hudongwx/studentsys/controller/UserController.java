@@ -96,7 +96,7 @@ public class UserController extends BaseController {
     @Clear
     public void loginOut(){
         setSessionAttr("user",null);
-        forwardAction("/user/showLogin");
+        redirect("/");
     }
     public void showAllPermissons(){
         Integer id = getParaToInt(0);
