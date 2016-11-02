@@ -3,9 +3,8 @@ package com.hudongwx.studentsys.service;
 import com.hudongwx.studentsys.common.Service;
 import com.hudongwx.studentsys.model.*;
 import com.hudongwx.studentsys.model.Class;
+import com.hudongwx.studentsys.util.Common;
 import com.hudongwx.studentsys.util.PageinateKit;
-import com.hudongwx.surveys.model.Questionnaire;
-import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.Page;
 
 import java.util.ArrayList;
@@ -25,6 +24,10 @@ public class TestQuestionnaireService extends Service {
         return TestQuestionnaire.dao.find(TestQuestionnaire.SEARCH_FROM_TEST_QUESTIONNAIRE);
     }
 
+    public Page<TestQuestionnaire> getAllTestQuestionnaire(Integer currentPage){
+        return TestQuestionnaire.dao.paginate(currentPage, Common.MAX_PAGE_SIZE,Common.COMMON_SELECT,TestQuestionnaire.SQL_FROM);
+    }
+
     public List<TestQuestionnaire> getQuestionnaireByClass(Class c) {
         if (c == null)
             return new ArrayList<>();
@@ -38,14 +41,33 @@ public class TestQuestionnaireService extends Service {
                 .collect(Collectors.toList());*/
     }
 
+    public Page<TestQuestionnaire> getQuestionnaireByClass(Integer currentPage, Class c){
+        if(c == null)
+            return Common.EMPTY_PAGE;
+        Page<TestQuestionnaireClass> paginate = TestQuestionnaireClass.dao
+                .paginate(currentPage, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, TestQuestionnaireClass.SQL_FROM + Common.SQL_WHERE + " classId = ? ", c.getId());
+        List<TestQuestionnaire> collect = paginate.getList()
+                .stream().map(this::packingQuestionnaire)
+                .collect(Collectors.toList());
+        return PageinateKit.ClonePage(paginate,collect);
+    }
+
     public List<TestQuestionnaire> getQuestionnaireByStudent(Student student) {
         if (student == null)
             return new ArrayList<>();
         return getQuestionnaireByClass(classService.getClassByStudent(student));
     }
-
+    public Page<TestQuestionnaire> getQuestionnaireByStudent(Integer currentPage,Student student) {
+        if (student == null)
+            return Common.EMPTY_PAGE;
+        return getQuestionnaireByClass(currentPage,classService.getClassByStudent(student));
+    }
     public List<TestQuestionnaire> getQuestionnairesByUser(User user) {
         return getQuestionnaireByStudent(studentService.getStudentByUser(user));
+    }
+
+    public Page<TestQuestionnaire> getQuestionnairesByUser(Integer p,User user){
+        return getQuestionnaireByStudent(p,studentService.getStudentByUser(user));
     }
 
     public TestQuestionnaire packingQuestionnaire(TestQuestionnaireClass tqc) {
@@ -57,7 +79,6 @@ public class TestQuestionnaireService extends Service {
         q.setTestQuestionnaireStartTime(tqc.getTestQuestionnaireStartTime());
         q.setTestQuestionnaireEndTime(tqc.getTestQuestionnaireEndTime());
         q.setTestQuestionnaireClassId(tqc.getId());
-        q.setTestQuestionnaireTempTime(tqc.getTestQuestionnaireTempTime());
         return q;
     }
     public TestQuestionnaire packingQuestionnaire(Integer testQuestionnaireClassId){
@@ -78,23 +99,20 @@ public class TestQuestionnaireService extends Service {
 
     }
 
+    public Page<TestQuestionnaire> getNowQuestionnaireByUser(Integer currentPage,User user){
+        Class userClass = classService.getClassByStudent(studentService.getStudentByUser(user));
+        long now = System.currentTimeMillis();
+        Page<TestQuestionnaireClass> testQuestionnaireClasses = TestQuestionnaireClass.dao.paginate(currentPage,Common.MAX_PAGE_SIZE,Common.COMMON_SELECT,TestQuestionnaireClass.SQL_FROM+Common.SQL_WHERE
+                + "testQuestionnaireStartTime < ? and testQuestionnaireEndTime > ? and classId = ?", now, now, userClass.getId());
+        List<TestQuestionnaire> list = testQuestionnaireClasses.getList().stream().map(this::packingQuestionnaire).collect(Collectors.toList());
+        return PageinateKit.ClonePage(testQuestionnaireClasses,list);
+    }
     public List<TestQuestionnaire> getNowQuestionnaireByUser(User user) {
         Class userClass = classService.getClassByStudent(studentService.getStudentByUser(user));
         long now = System.currentTimeMillis();
         List<TestQuestionnaireClass> testQuestionnaireClasses = TestQuestionnaireClass.dao.find(TestQuestionnaireClass.SEARCH_FROM_TEST_QUESTIONNAIRE_CLASS
                 + "where testQuestionnaireStartTime < ? and testQuestionnaireEndTime > ? and classId = ?", now, now, userClass.getId());
-        List<TestQuestionnaire> list = new ArrayList<>();
-        for (TestQuestionnaireClass tqc : testQuestionnaireClasses) {
-            TestQuestionnaire q = TestQuestionnaire.dao.findById(tqc.getTestQuestionnaireId());
-            if (null == q)
-                continue;
-            q.setTestQuestionnaireClassId(tqc.getId());
-            q.setTestQuestionnaireStartTime(tqc.getTestQuestionnaireStartTime());
-            q.setTestQuestionnaireEndTime(tqc.getTestQuestionnaireEndTime());
-            q.setTestQuestionnaireTempTime(tqc.getTestQuestionnaireTempTime());
-            list.add(q);
-        }
-        return list;
+        return testQuestionnaireClasses.stream().map(this::packingQuestionnaire).collect(Collectors.toList());
     }
 
     public TestQuestionnaire getQuestionnaireById(Integer id) {

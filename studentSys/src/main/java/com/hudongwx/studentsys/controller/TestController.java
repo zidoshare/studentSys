@@ -43,8 +43,10 @@ public class TestController extends BaseController {
     public void history() {
         setMapping(mappingService.getMappingByTitle("考试历史"));
         super.index();
+        Integer p = getParaToInt("p", Common.START_PAGE);
         User user = getCurrentUser(this);
-        List<TestQuestionnaire> questionnaires = testQuestionnaireService.getQuestionnairesByUser(user);
+        //List<TestQuestionnaire> questionnaires = testQuestionnaireService.getQuestionnairesByUser(user);
+        Page<TestQuestionnaire> questionnaires = testQuestionnaireService.getQuestionnairesByUser(p, user);
         Student student = studentService.getStudentByUser(user);
         setAttr("testing", questionnaires);
         setAttr("student", student);
@@ -54,10 +56,11 @@ public class TestController extends BaseController {
     public void testList() {
         setMapping(mappingService.getMappingByUrl("/test/testList"));
         super.index();
-        List<TestQuestionnaire> allTestQuestionnaire = testQuestionnaireService.getAllTestQuestionnaire();
+        Integer p = getParaToInt("p", Common.START_PAGE);
+        Page<TestQuestionnaire> allTestQuestionnaire = testQuestionnaireService.getAllTestQuestionnaire(p);
         setAttr("questionnaires", allTestQuestionnaire);
         Map<String, User> userMap = new HashMap<>();
-        for (TestQuestionnaire tq : allTestQuestionnaire) {
+        for (TestQuestionnaire tq : allTestQuestionnaire.getList()) {
             userMap.put(tq.getId() + "", userService.getUserById(tq.getTestQuestionnaireOperaterId()));
         }
         setAttr("operaterMap", userMap);
@@ -92,9 +95,10 @@ public class TestController extends BaseController {
     public void to() {
         setMapping(mappingService.getMappingByTitle("参加考试"));
         super.index();
+        Integer p = getParaToInt("p", 1);
         User user = getCurrentUser(this);
-        List<TestQuestionnaire> questionnaires = testQuestionnaireService.getNowQuestionnaireByUser(user);
-
+        //List<TestQuestionnaire> questionnaires = testQuestionnaireService.getNowQuestionnaireByUser(user);
+        Page<TestQuestionnaire> questionnaires = testQuestionnaireService.getNowQuestionnaireByUser(p, user);
         setAttr("testing", questionnaires);
         setAttr("nowTime", System.currentTimeMillis());
     }
@@ -386,15 +390,21 @@ public class TestController extends BaseController {
             RenderKit.renderError(this, "未找到試卷");
             return;
         }
-        Long temp = tqc.getTestQuestionnaireTempTime();
-        tqc.setTestQuestionnaireTempTime(tqc.getTestQuestionnaireEndTime());
-        tqc.setTestQuestionnaireEndTime(temp);
+        tqc.setTestQuestionnaireEndTime(System.currentTimeMillis()+3600000);
         tqc.update();
-        RenderKit.renderSuccess(this, "成功");
+        RenderKit.renderSuccess(this, "开启成功");
     }
 
     public void closeTest() {
-        delayTest();
+        Integer qcId = getParaToInt(0);
+        TestQuestionnaireClass tqc = testQuestionnaireClassService.getById(qcId);
+        if (tqc == null) {
+            RenderKit.renderError(this, "未找到試卷");
+            return;
+        }
+        tqc.setTestQuestionnaireEndTime(tqc.getTestQuestionnaireEndTime()-3600000);
+        tqc.update();
+        RenderKit.renderSuccess(this, "关闭成功");
     }
 
     public void count() {

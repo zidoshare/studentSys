@@ -1,49 +1,59 @@
 <#include "../macro-item.ftl">
+<#include "../macro-paginate.ftl">
 <@item>
 <div class="panel-heading title">
     考试历史
 </div>
 <div class="panel-body">
-    <#if testing?size gt 0>
+    <#if testing.list?size gt 0>
 
-        <div id="dataTables-example_wrapper" class="table-responsive dataTables_wrapper form-inline" role="grid">
-            <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                   id="dataTables-example" aria-describedby="dataTables-example_info">
-                <thead>
-                <tr>
-                    <th>试卷</th>
-                    <th>开始时间</th>
-                    <th>结束时间</th>
-                    <th>状态</th>
-                    <th>操作</th>
-                </tr>
-                </thead>
-                <tbody>
-                    <#list testing as q>
+        <div id="table-inner">
+            <div id="dataTables-example_wrapper" class="table-responsive dataTables_wrapper form-inline" role="grid">
+                <table class="table table-striped table-bordered table-hover dataTable no-footer"
+                       id="dataTables-example" aria-describedby="dataTables-example_info">
+                    <thead>
                     <tr>
-                        <td>${q.testQuestionnaireTitle}</td>
-                        <td>${((q.testQuestionnaireStartTime)?number)?number_to_datetime}</td>
-                        <td>${((q.testQuestionnaireEndTime)?number)?number_to_datetime}</td>
-                        <td><#if (q.testQuestionnaireStartTime?number) < (nowTime?number) && (q.testQuestionnaireEndTime?number) gt (nowTime?number)>
-                            <span class="text-success">正在进行中</span>
-                        <#elseif (q.testQuestionnaireStartTime?number) gt (nowTime?number)>
-                            <span class="text-danger">尚未开始</span>
-                        <#else>
-                            <span class="text-gray">已完结</span>
-                        </#if>
-                        </td>
-                        <td>
-                            <#if (q.testQuestionnaireEndTime?number) < (nowTime?number)>
-                                <a class="res" href="javascript:void(0)" onclick="showModal(${q.testQuestionnaireClassId})">查看</a>
-                            <#else>
-                                <span class="text-danger">无法查看</span>
-                            </#if>
-                        </td>
+                        <th>试卷</th>
+                        <th>开始时间</th>
+                        <th>结束时间</th>
+                        <th>状态</th>
+                        <th>操作</th>
                     </tr>
-                    </#list>
+                    </thead>
+                    <tbody>
+                        <#list testing.list as q>
+                        <tr>
+                            <td>${q.testQuestionnaireTitle}</td>
+                            <td>${((q.testQuestionnaireStartTime)?number)?number_to_datetime}</td>
+                            <td>${((q.testQuestionnaireEndTime)?number)?number_to_datetime}</td>
+                            <td><#if (q.testQuestionnaireStartTime?number) < (nowTime?number) && (q.testQuestionnaireEndTime?number) gt (nowTime?number)>
+                                <span class="text-success">正在进行中</span>
+                            <#elseif (q.testQuestionnaireStartTime?number) gt (nowTime?number)>
+                                <span class="text-danger">尚未开始</span>
+                            <#else>
+                                <span class="text-gray">已完结</span>
+                            </#if>
+                            </td>
+                            <td>
+                                <#if (q.testQuestionnaireEndTime?number) < (nowTime?number)>
+                                    <a class="res" href="javascript:void(0)"
+                                       onclick="showModal(${q.testQuestionnaireClassId})">查看</a>
+                                <#else>
+                                    <span class="text-danger">无法查看</span>
+                                </#if>
+                            </td>
+                        </tr>
+                        </#list>
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
+            <#if testing??>
+                <#assign str = "?">
+                <#if holdPath?contains("?")><#assign str = "&"></#if>
+                <@paginate page = testing url=holdPath+str pageAfter="p">
+                </@paginate>
+            </#if>
         </div>
 
     <#else>
@@ -86,10 +96,10 @@
     </div>
 </div>
 <script type="text/javascript">
-    function showModal(qcId){
+    function showModal(qcId) {
         var dom = $('#modal-content');
         dom.removeClass('sr-only');
-        loadResult(dom,"${staticServePath}/test/showCorrecting/"+qcId+"-${student.id}");
+        loadResult(dom, "${staticServePath}/test/showCorrecting/" + qcId + "-${student.id}");
         $('#modal').modal('show');
     }
 </script>

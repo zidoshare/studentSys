@@ -45,6 +45,7 @@ public class UrlInterceptor implements Interceptor {
         try {
             inv.invoke();
         } catch (Exception e) {
+            e.printStackTrace();
             String header = controller.getRequest().getHeader("x-requested-with");
             if ("XMLHttpRequest".equals(header)) {
                 if ("get".equals(controller.getRequest().getMethod())) {

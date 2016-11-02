@@ -13,6 +13,7 @@ import com.hudongwx.studentsys.util.TableComment;
 import com.hudongwx.studentsys.util.TableCommentMapping;
 import com.jfinal.aop.Before;
 import com.jfinal.ext.interceptor.POST;
+import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Table;
 import com.jfinal.plugin.activerecord.TableMapping;
 
@@ -33,7 +34,8 @@ public class ClassController extends BaseController {
 
     public void index() {
         super.index();
-        List<Class> allClass = classService.getAllClass();
+        Integer p = getParaToInt("p", 1);
+        Page<Class> allClass = classService.getAllClass(p);
         setAttr("classes", allClass);
     }
 

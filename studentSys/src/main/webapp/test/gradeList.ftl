@@ -44,7 +44,7 @@
                     <tr id="${q.testQuestionnaireClassId}" data-label="open-check">
                         <td>${q.testQuestionnaireTitle}</td>
                         <td>${((q.testQuestionnaireStartTime)?number)?number_to_datetime}</td>
-                        <td><#if q.testQuestionnaireTempTime?number == 5000000000000>${((q.testQuestionnaireEndTime)?number)?number_to_datetime}<#else>max</#if></td>
+                        <td>${((q.testQuestionnaireEndTime)?number)?number_to_datetime}</td>
                         <td><#if (q.testQuestionnaireStartTime?number) < (nowTime?number) && (q.testQuestionnaireEndTime?number) gt (nowTime?number)>
                             <span class="text-success">正在进行中</span>
                         <#elseif (q.testQuestionnaireStartTime?number) gt (nowTime?number)>
@@ -55,9 +55,9 @@
                         </td>
                         <td>
                             <#list map["operators"+view.id] as op>
-                                <#if q.testQuestionnaireTempTime?number == 5000000000000 && op.url="delayTest">
+                                <#if q.testQuestionnaireEndTime?number_to_datetime < .now?datetime && op.url="delayTest">
                                     <a class="res" onclick="func.${op.url}('${q.testQuestionnaireClassId}')">${op.title}</a>
-                                <#elseif  q.testQuestionnaireTempTime?number < 5000000000000 && op.url="closeTest">
+                                <#elseif  q.testQuestionnaireEndTime?number_to_datetime gt .now?datetime && op.url="closeTest">
                                     <a class="res" onclick="func.${op.url}('${q.testQuestionnaireClassId}')">${op.title}</a>
                                 </#if>
                             </#list>

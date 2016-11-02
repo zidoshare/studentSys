@@ -2,7 +2,6 @@
  * Created by wuhongxu on 2016/8/30 0030.
  */
 
-var closeTiptimeOut;
 
 var Login = {
     login: function () {
@@ -186,7 +185,7 @@ var Util = {
         var opts = $.extend(defaults, options);
         /*$(opts.container).off('pjax:beforeSend');
          $(opts.container).off('pjax:complete');*/
-        $(opts.container).on('pjax:beforeSend', function (event) {
+        $(opts.container).one('pjax:beforeSend', function (event) {
             opts.before();
             if (opts.showWholeAnimate) {
                 $('#page-inner').html('');
@@ -200,7 +199,7 @@ var Util = {
             }
             event.stopPropagation();
         });
-        $(opts.container).on('pjax:complete', function (event) {
+        $(opts.container).one('pjax:complete', function (event) {
             opts.complete();
             if (opts.showWholeAnimate) {
                 $('.pjax_loading').css("display", "none");
@@ -257,23 +256,50 @@ var Util = {
         $('.selectpicker').selectpicker();
     },
     reloadByPjax: function (container, options) {
+        if (container == null)
+            container = '#table-inner';
         var defaults = {
+            showWholeAnimate: false,
+            showMinAnimate: true,
             before: function () {
-            }, after: function () {
-            }
+            },
+            complete: function () {
+            },
+            fragment: '#table-inner',
         };
         var opts = $.extend(defaults, options);
-        if (container == null)
-            container = '#page-inner';
-        $.pjax.reload(container, {
-            fragment: container,
-            type: 'get',
-            replace: false,
-            push: false,
-            timeout: 5000
+        /*$(opts.container).off('pjax:beforeSend');
+         $(opts.container).off('pjax:complete');*/
+        $(opts.container).one('pjax:beforeSend', function (event) {
+            opts.before();
+            if (opts.showWholeAnimate) {
+                $('#page-inner').html('');
+                $('.pjax_loading').css("display", "block");
+            }
+            if (opts.showMinAnimate) {
+                var width = $(this).width();
+                var height = $(this).height();
+                var str = '<div id="tab3_loading" style="width:' + width + 'px;height:' + height + 'px" class="panel_loading"> <img src="' + Label.staticServePath + '/images/loading.gif" class="img-sm center-block"/> </div>';
+                $(this).html(str);
+            }
+            event.stopPropagation();
         });
-        $(container).on('pjax:beforeSend', opts.before);
-        $(container).on('pjax:complete', opts.after);
+        $(opts.container).one('pjax:complete', function (event) {
+            opts.complete();
+            if (opts.showWholeAnimate) {
+                $('.pjax_loading').css("display", "none");
+                Animate.loadWrapper();
+            }
+            event.stopPropagation();
+        });
+        $.pjax.reload(container,{
+            fragment: opts.fragment,
+            cache: true,
+            maxCacheLength: 5,
+            timeout: 8000,
+            storage: false,
+            replace: true
+        });
     },
     getzf: function (num) {
         if (parseInt(num) < 10) {
@@ -288,19 +314,22 @@ var Util = {
             oDay = oDate.getDate(),
             oHour = oDate.getHours(),
             oMin = oDate.getMinutes(),
-            oSen = oDate.getSeconds(),
-            oTime = oYear + '/' + Util.getzf(oMonth) + '/' + Util.getzf(oDay) + ' ' + Util.getzf(oHour) + ':' + Util.getzf(oMin) + ':' + Util.getzf(oSen);//最后拼接时间
-        return oTime;
+            oSen = oDate.getSeconds();//最后拼接时间
+        return oYear + '/' + Util.getzf(oMonth) + '/' + Util.getzf(oDay) + ' ' + Util.getzf(oHour) + ':' + Util.getzf(oMin) + ':' + Util.getzf(oSen);
     },
     clearPanel: function (dom, options) {
-        var defaults = {front: '', ends: ['eId', 'CreateTime', 'UpdateTime'], end: '', hidden: true};
+        var defaults = {
+            front: '', ends: ['eId', 'CreateTime', 'UpdateTime'], end: '', before: function () {
+            }, after: function () {
+            }
+        };
         if (options != null) {
             $.each(options, function (name, val) {
                 defaults[name] = options[name];
             });
         }
         if (defaults.end != null && defaults.end.length > 0) {
-            dom.find('input').each(function (index, input) {
+            dom.find('input,select').each(function (index, input) {
 
                 if ($(input).attr('id').indexOf(defaults.front) == 0 && $(input).attr('id').lastIndexOf(defaults.end) > 0) {
                     $(input).val('');
@@ -308,7 +337,7 @@ var Util = {
             });
         } else {
             for (var i = 0; i < defaults.ends.length; i++) {
-                dom.find('input').each(function (index, input) {
+                dom.find('input,select').each(function (index, input) {
                     if ($(input).attr('id') == null)
                         return false;
                     if ($(input).attr('id').indexOf(defaults.front) == 0 && $(input).attr('id').lastIndexOf(defaults.ends[i]) > 0) {
@@ -317,8 +346,10 @@ var Util = {
                 });
             }
         }
-        if (defaults.hidden)
+        if (defaults.hidden){
             dom.hide();
+        }
+
     },
     tips: []
     ,
@@ -338,26 +369,6 @@ var Util = {
         };
         defaults = $.extend(defaults, options);
         defaults.before();
-        /*if (tip.attr('class').length > 0) {
-         console.log('isAnimation');
-         //将动画停止
-         tip.stop(true, false);
-         tip.addClass(className);
-         tip.html(result);
-         tip.css("display", "block");
-         //初始化tip状态
-         /!*tip.css({"display": "none", "opacity": "0", "y": "0px"});*!/
-         tip.transition({opacity: 0, y: 0}, 0)
-         .transition({opacity: 1, y: 10}, 500)
-         .transition({opacity: 1}, defaults.time)
-         .transition({opacity: 0, y: 0}, 500, function () {
-         tip.css("display", "none");
-         tip.attr("aria-label", "0");
-         defaults.complete();
-         tip.attr('class', '');
-         });
-         return ;
-         }*/
         dom.addClass(className);
         dom.html(result);
         dom.css("display", "block");
@@ -370,7 +381,6 @@ var Util = {
                 tip.attr('class', '');
                 dom.remove();
             });
-
     },
     addSelect: function () {
         var item = 'A';
@@ -1006,7 +1016,9 @@ var func = {
                     if (data.state == 'success') {
                         Util.showTip($('#wholeTip'), data.msg, 'alert alert-success', {
                             time: 1000, complete: function () {
-                                Util.reloadByPjax();
+                                Util.reloadByPjax('#table-inner');
+                                closePanel('#add-nav','#addTestQuestionnaire');
+                                Util.clearPanel($('#inputQuestionnairePanel'),{hidden:false});
                             }
                         });
                     }
@@ -1046,7 +1058,7 @@ var func = {
                                 $('#addClassModel').modal('hide');
                                 $('#addClassModel').on('hidden.bs.modal', function () {
                                     //刷新页面
-                                    Util.reloadByPjax();
+                                    Util.reloadByPjax('#page-inner');
                                 })
                             }
                         });
@@ -1189,7 +1201,7 @@ var func = {
                 success: function (data, state) {
                     if (data.state == 'success') {
                         Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
-                        Util.reloadByPjax();
+                        Util.reloadByPjax('#page-inner');
                     } else
                         Util.showTip($('#wholeTip'), data.msg, 'alert alert-danger');
                 },
@@ -1398,34 +1410,33 @@ var func = {
             }
         });
     },
-    tempTest: function (id, option) {
+    delayTest: function (id) {
         $.ajax({
             url: Label.staticServePath + '/test/delayTest/' + id,
             dataType: 'json',
-            success: function (data, status) {
-                option(data);
+            success: function (data) {
+                if (data.state == 'success') {
+                    Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
+                    Util.reloadByPjax('#table-inner');
+                } else {
+                    Util.showTip($('#wholeTip'), data.msg, 'alert alert-danger');
+                }
             }
-        })
-    },
-    delayTest: function (id) {
-        func.tempTest(id, function (data) {
-            if (data.state == 'success') {
-                Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
-                Util.reloadByPjax('#table-inner');
-            } else {
-                Util.showTip($('#wholeTip'), data.msg, 'alert alert-danger');
-            }
-        })
+        });
     },
     closeTest: function (id) {
-        func.tempTest(id, function (data) {
-            if (data.state == 'success') {
-                Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
-                Util.reloadByPjax('#table-inner');
-            } else {
-                Util.showTip($('#wholeTip'), data.msg, 'alert alert-danger');
+        $.ajax({
+            url: Label.staticServePath + '/test/closeTest/' + id,
+            dataType: 'json',
+            success: function (data) {
+                if (data.state == 'success') {
+                    Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
+                    Util.reloadByPjax('#table-inner');
+                } else {
+                    Util.showTip($('#wholeTip'), data.msg, 'alert alert-danger');
+                }
             }
-        })
+        });
     }
 };
 var modalUtil = {

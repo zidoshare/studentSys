@@ -9,7 +9,8 @@ import com.hudongwx.studentsys.common.BaseTestQuestionnaire;
 public class TestQuestionnaire extends BaseTestQuestionnaire<TestQuestionnaire> {
 	public static final TestQuestionnaire dao = new TestQuestionnaire();
 	public static final String SEARCH_FROM_TEST_QUESTIONNAIRE = "select * from stumanager_test_questionnaire ";
-	private Long testQuestionnaireStartTime;
+    public static final String SQL_FROM = " from stumanager_test_questionnaire ";
+    private Long testQuestionnaireStartTime;
 	private Long testQuestionnaireEndTime;
     private Integer testQuestionnaireClassId;
     private Long testQuestionnaireTempTime;

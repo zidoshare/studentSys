@@ -3,6 +3,8 @@ package com.hudongwx.studentsys.service;
 import com.hudongwx.studentsys.common.Service;
 import com.hudongwx.studentsys.model.Class;
 import com.hudongwx.studentsys.model.Student;
+import com.hudongwx.studentsys.util.Common;
+import com.jfinal.plugin.activerecord.Page;
 
 import java.util.List;
 
@@ -21,5 +23,8 @@ public class ClassService extends Service {
     }
     public List<Class> getAllClass() {
         return Class.dao.find(Class.SEARCH_FROM_CLASS);
+    }
+    public Page<Class> getAllClass(Integer currentPage){
+        return Class.dao.paginate(currentPage, Common.MAX_PAGE_SIZE,Common.COMMON_SELECT,Class.SQL_FROM);
     }
 }

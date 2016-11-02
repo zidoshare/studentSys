@@ -39,7 +39,7 @@
                         <td id="testQuestionnaireStartTime${q.id}"
                             data-label="${q.testQuestionnaireStartTime}">${(q.testQuestionnaireStartTime?number)?number_to_datetime}</td>
                         <td id="testQuestionnaireEndTime${q.id}"
-                            data-label="${q.testQuestionnaireEndTime}}"><#if q.testQuestionnaireTempTime?number == 5000000000000>${((q.testQuestionnaireEndTime)?number)?number_to_datetime}<#else>max</#if></td>
+                            data-label="${q.testQuestionnaireEndTime}}">${((q.testQuestionnaireEndTime)?number)?number_to_datetime}</td>
                     </tr>
                     </#list>
                 </tbody>

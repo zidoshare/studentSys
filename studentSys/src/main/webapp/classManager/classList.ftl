@@ -1,5 +1,6 @@
 <#include "../macro-item.ftl">
 <#include "../macro-btn.ftl">
+<#include "../macro-paginate.ftl">
 <@initBtn map = map view=view></@initBtn>
 <@item>
 <div class="panel-heading title">
@@ -7,62 +8,70 @@ ${view.title}
     <span class="pull-right">${addBtn}</span>
 </div>
 <div class="panel-body">
+    <div id="table-inner">
 
-    <div id="dataTables-example_wrapper" class="table-responsive dataTables_wrapper form-inline" role="grid">
-        <table class="table table-striped table-bordered table-hover dataTable no-footer"
-               id="dataTables-example" aria-describedby="dataTables-example_info">
-            <thead>
-            <tr>
-                <th>
-                    班级名称
-                </th>
-                <th>
-                    讲师
-                </th>
-                <th>
-                    辅导
-                </th>
-                <th>
-                    人数
-                </th>
-                <th>
-                    创建时间
-                </th>
-                <#if updateAble || deleteAble>
+
+        <div id="dataTables-example_wrapper" class="table-responsive dataTables_wrapper form-inline" role="grid">
+            <table class="table table-striped table-bordered table-hover dataTable no-footer"
+                   id="dataTables-example" aria-describedby="dataTables-example_info">
+                <thead>
+                <tr>
                     <th>
-                        操作
+                        班级名称
                     </th>
-                </#if>
-            </tr>
-            </thead>
-            <tbody>
-
-                <#list classes as class>
-                <tr id="class${class.id}">
-                    <td id="className${class.id}" data-label="${class.className?html}">${class.className}</td>
-                    <td id="headTeacher${class.id}" data-label="${class.headTeacher}">${class.headTeacher}</td>
-                    <td id="tutor${class.id}" data-label="${class.tutor}">${class.tutor}</td>
-                    <td id="studentCnt${class.id}" data-label="${class.studentCnt}">${class.studentCnt}</td>
-                    <td id="classCreateTime${class.id}"
-                        data-label="${class.classCreateTime}">${(class.classCreateTime?number)?number_to_datetime}</td>
+                    <th>
+                        讲师
+                    </th>
+                    <th>
+                        辅导
+                    </th>
+                    <th>
+                        人数
+                    </th>
+                    <th>
+                        创建时间
+                    </th>
                     <#if updateAble || deleteAble>
-                        <td>
-                            <#if updateAble>
-                            ${InsertKit(updateBtn,"${class.id}")}/
-                            </#if>
-                        ${InsertKit(deleteBtn,"${class.id}")}
-                        </td>
+                        <th>
+                            操作
+                        </th>
                     </#if>
-                    <td id="classUpdateTime${class.id}" class="hidden" data-label="${class.classUpdateTime}">
-                    </td>
                 </tr>
-                </#list>
+                </thead>
+                <tbody>
 
+                    <#list classes.list as class>
+                    <tr id="class${class.id}">
+                        <td id="className${class.id}" data-label="${class.className?html}">${class.className}</td>
+                        <td id="headTeacher${class.id}" data-label="${class.headTeacher}">${class.headTeacher}</td>
+                        <td id="tutor${class.id}" data-label="${class.tutor}">${class.tutor}</td>
+                        <td id="studentCnt${class.id}" data-label="${class.studentCnt}">${class.studentCnt}</td>
+                        <td id="classCreateTime${class.id}"
+                            data-label="${class.classCreateTime}">${(class.classCreateTime?number)?number_to_datetime}</td>
+                        <#if updateAble || deleteAble>
+                            <td>
+                                <#if updateAble>
+                                ${InsertKit(updateBtn,"${class.id}")}/
+                                </#if>
+                            ${InsertKit(deleteBtn,"${class.id}")}
+                            </td>
+                        </#if>
+                        <td id="classUpdateTime${class.id}" class="hidden" data-label="${class.classUpdateTime}">
+                        </td>
+                    </tr>
+                    </#list>
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
+
+        <#if classes??>
+            <#assign str = "?">
+            <#if holdPath?contains("?")><#assign str = "&"></#if>
+            <@paginate page = classes url=holdPath+str pageAfter="p">
+            </@paginate>
+        </#if>
     </div>
-
 </div>
 </@item>
 <div class="modal fade" id="addClassModel" tabindex="-1" role="dialog" aria-labelledby="addUserModelLabel"
