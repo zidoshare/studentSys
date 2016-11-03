@@ -17,7 +17,7 @@ public class TestQuestionnaireClassService extends Service {
     }
 
     public List<TestQuestionnaireClass> getAllTQC() {
-        return TestQuestionnaireClass.dao.find(TestQuestionnaireClass.SEARCH_FROM_TEST_QUESTIONNAIRE_CLASS);
+        return TestQuestionnaireClass.dao.find(TestQuestionnaireClass.SEARCH_FROM_TEST_QUESTIONNAIRE_CLASS+Common.ORDER_BY_ID_DESC);
     }
 
     public TestQuestionnaireClass getById(Integer testQuestionnaireClassId) {

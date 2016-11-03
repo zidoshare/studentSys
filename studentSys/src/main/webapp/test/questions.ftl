@@ -48,109 +48,109 @@ ${view.title}
             </div>
         </div>
     </div>
-    <div id="table-inner">
-        <div class="modal fade" id="addTestQuestion" tabindex="-1" role="dialog" aria-labelledby="addTestQuestionLabel"
-             aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
-                                class="sr-only">Close</span></button>
-                        <h4 class="modal-title" id="myModalLabel">添加题目</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form id="testQuestion" role="form">
-                            <div class="form-group">
-                                <label for="testQuestionTitle" class="control-label">题目</label>
-                        <textarea class="form-control" rows="3" name="testQuestion.testQuestionTitle"
+    <div class="modal fade" id="addTestQuestion" tabindex="-1" role="dialog" aria-labelledby="addTestQuestionLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                            class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">添加题目</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="testQuestion" role="form">
+                        <div class="form-group">
+                            <label for="testQuestionTitle" class="control-label">题目</label>
+                        <textarea class="form-control pre" rows="3" name="testQuestion.testQuestionTitle"
                                   id="testQuestionTitle"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="testQuestionTypeId" class="control-label">题目类型</label>
-                                <select class="form-control" name="testQuestion.testQuestionTypeId"
-                                        id="testQuestionTypeId"
-                                        onchange="Util.changeModel($('#testQuestionTypeId'))">
-                                    <#list types as type>
-                                        <option id="option${type.id}" value="${type.id}"
-                                                data-label="${type.typeLimit?html}">${type.typeName}</option>
-                                    </#list>
-                                </select>
-                            </div>
-                            <div class="form-group sr-only">
-                                <label for="id" class="col-sm-2 control-label">id</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="testQuestion.id" id="id"
-                                           placeholder="id" disabled>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="tags">标签（使用英文输入状态下的逗号进行分隔）：<a class="res"
-                                                                          onclick="$('.tag-container').toggle()">选择</a></label>
-                                <input class="form-control" type="text" id="tags" name="tags">
-                                <div class="tag-container" style="display: none">
-                                    <#list tags as tag>
-                                        <div class="checkbox3 checkbox-success checkbox-inline checkbox-check checkbox-round  checkbox-light">
-                                            <input type="checkbox" id="tagCheckbox${tag.id}"
-                                                   onchange="Util.changeTag('${tag.tagName}',$('input#tagCheckbox${tag.id}'))">
-                                            <label for="tagCheckbox${tag.id}">
-                                            ${tag.tagName}
-                                            </label>
-                                        </div>
-                                    </#list>
-                                </div>
-                            </div>
-                            <hr/>
-                            <div id="shortModel">
-                                <a class="res" id="add" onclick="Util.addSelect()">添加选项</a>
-                                <a class="res" id="remove" onclick="Util.removeSelect()">删除选项</a>
-                                <div class="form-group sr-only">
-                                    <label for="testQuestionContent" class="control-label">选项</label>
-                                    <input type="text" class="form-control" name="testQuestion.testQuestionContent"
-                                           id="testQuestionContent">
-                                </div>
-                                <div class="form-group sr-only">
-                                    <label for="testQuestionShortAnswer"
-                                           class="control-label">选择题答案(请选用英文状态下的逗号隔开）:</label>
-                                    <input type="text" class="form-control" name="testQuestion.testQuestionShortAnswer"
-                                           id="testQuestionShortAnswer">
-                                </div>
-                            </div>
-                            <div id="longModel" class="sr-only">
-                                <div class="form-group">
-                                    <label for="testQuestionLongAnswer" class="control-label">答案:</label>
-                        <textarea rows="3" class="form-control" name="testQuestion.testQuestionLongAnswer"
-                                  id="testQuestionLongAnswer"></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="testQuestionMessage">题目要点</label>
-                                <textarea class="form-control" rows="3"
-                                       name="testQuestion.testQuestionMessage"
-                                       id="testQuestionMessage" placeholder="题目要点">
-                                    </textarea>
-                            </div>
-                            <div class="sr-only">
-                                <label for="testQuestionCreateTime"></label><input class="form-control"
-                                                                                   name="testQuestion.testQuestionCreateTime"
-                                                                                   id="testQuestionCreateTime">
-                            </div>
-
-                        </form>
-                        <div class="tip-container">
-                            <div class="tip" id="saveTestQuestionTip" aria-label="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="testQuestionTypeId" class="control-label">题目类型</label>
+                            <select class="form-control" name="testQuestion.testQuestionTypeId"
+                                    id="testQuestionTypeId"
+                                    onchange="Util.changeModel($('#testQuestionTypeId'))">
+                                <#list types as type>
+                                    <option id="option${type.id}" value="${type.id}"
+                                            data-label="${type.typeLimit?html}">${type.typeName}</option>
+                                </#list>
+                            </select>
+                        </div>
+                        <div class="form-group sr-only">
+                            <label for="id" class="col-sm-2 control-label">id</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="testQuestion.id" id="id"
+                                       placeholder="id" disabled>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="tags">标签（使用英文输入状态下的逗号进行分隔）：<a class="res"
+                                                                      onclick="$('.tag-container').toggle()">选择</a></label>
+                            <input class="form-control" type="text" id="tags" name="tags">
+                            <div class="tag-container" style="display: none">
+                                <#list tags as tag>
+                                    <div class="checkbox3 checkbox-success checkbox-inline checkbox-check checkbox-round  checkbox-light">
+                                        <input type="checkbox" id="tagCheckbox${tag.id}"
+                                               onchange="Util.changeTag('${tag.tagName}',$('input#tagCheckbox${tag.id}'))">
+                                        <label for="tagCheckbox${tag.id}">
+                                        ${tag.tagName}
+                                        </label>
+                                    </div>
+                                </#list>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div id="shortModel">
+                            <a class="res" id="add" onclick="Util.addSelect()">添加选项</a>
+                            <a class="res" id="remove" onclick="Util.removeSelect()">删除选项</a>
+                            <div class="form-group sr-only">
+                                <label for="testQuestionContent" class="control-label">选项</label>
+                                <input type="text" class="form-control" name="testQuestion.testQuestionContent"
+                                       id="testQuestionContent">
+                            </div>
+                            <div class="form-group sr-only">
+                                <label for="testQuestionShortAnswer"
+                                       class="control-label">选择题答案(请选用英文状态下的逗号隔开）:</label>
+                                <input type="text" class="form-control" name="testQuestion.testQuestionShortAnswer"
+                                       id="testQuestionShortAnswer">
+                            </div>
+                        </div>
+                        <div id="longModel" class="sr-only">
+                            <div class="form-group">
+                                <label for="testQuestionLongAnswer" class="control-label">答案:</label>
+                        <textarea rows="3" class="form-control pre" name="testQuestion.testQuestionLongAnswer"
+                                  id="testQuestionLongAnswer"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="testQuestionMessage">题目要点</label>
+                                <textarea class="form-control pre" rows="3"
+                                          name="testQuestion.testQuestionMessage"
+                                          id="testQuestionMessage" placeholder="题目要点"></textarea>
+                        </div>
+                        <div class="sr-only">
+                            <label for="testQuestionCreateTime"></label><input class="form-control"
+                                                                               name="testQuestion.testQuestionCreateTime"
+                                                                               id="testQuestionCreateTime">
+                        </div>
+
+                    </form>
+                    <div class="tip-container">
+                        <div class="tip" id="saveTestQuestionTip" aria-label="0">
+                        </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                        <button data-style="slide-up" id="saveTestQuestion-btn" class="btn btn-primary ladda-button"
-                                onclick="func.addTestQuestion('up')">
-                            <span class="ladda-label">保存</span>
-                        </button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button data-style="slide-up" id="saveTestQuestion-btn" class="btn btn-primary ladda-button"
+                            onclick="func.addTestQuestion('up')">
+                        <span class="ladda-label">保存</span>
+                    </button>
                 </div>
             </div>
         </div>
+    </div>
+    <div id="table-inner">
+
         <div class="table-responsive">
 
             <table style="table-layout: fixed" class="table table-striped table-bordered table-hover"
@@ -175,12 +175,14 @@ ${view.title}
                     <#list questions.list as question>
                     <tr id="tr${question.id}" class="showQuestion">
                         <td width="40%"
-                            style="overflow:hidden;WORD-WRAP: break-word;white-space:nowrap;text-overflow:ellipsis;">${question.testQuestionTitle?html}</td>
-                        <td width="20%" id="type${question.id}"
+                            style="overflow:hidden;WORD-WRAP: break-word;white-space:nowrap;text-overflow:ellipsis;"
+                            data-target="#testQuestionTitle">${question.testQuestionTitle?html}</td>
+                        <td width="20%" id="type${question.id}" data-target="#testQuestionTypeId" data-method="prop"
                             data-label="${testTypeMap["${question.testQuestionTypeId}"].id}">
                         ${testTypeMap["${question.testQuestionTypeId}"].typeName}
                         </td>
-                        <td width="20%">
+                        <td width="20%" data-target="#testQuestionCreateTime" data-method="prop"
+                            data-label="${question.testQuestionCreateTime}">
                         ${((question.testQuestionCreateTime)?number)?number_to_datetime}
                         </td>
                         <td width="20%">
@@ -191,10 +193,7 @@ ${view.title}
                         <td colspan="<#if updateAble || deleteAble>4<#else>3</#if>">
                             <div class="panel panel-success far-top">
                                 <div class="panel-heading clearfix">
-                                    <div class="col-md-10"><label class="panel-title"
-                                                                  id="testQuestionTitle${question.id}">${question.testQuestionTitle}</label class="panel-title">
-                                    </div>
-                                    <div class="col-md-2">
+                                    <div class="pull-right">
                                         <#list map["operators"+view.id] as op>
                                             <#if op.title != "添加">
                                                 <a onclick="func.${op.url}('show','${question.id}');"
@@ -205,6 +204,8 @@ ${view.title}
                                     </div>
                                 </div>
                                 <div class="panel-body" id="item${question.id}">
+                                    <p><label>题目:</label></p>
+                                    <pre class="banner" data-target="#testQuestionTitle" id="testQuestionTitle${question.id}">${question.testQuestionTitle}</pre>
                                     <#assign xx = ['A','B','C','D','E','F','G']>
                                     <#list testTypeMap["${question.testQuestionTypeId}"].typeLimit?eval as model>
                                         <#if model="shortModel">
@@ -223,20 +224,16 @@ ${view.title}
                                             </div>
                                         <#else>
                                             <p><label>答案:</label></p>
-                                            <pre class="long-answer">${question.testQuestionLongAnswer}</pre>
+                                            <pre class="long-answer"
+                                                 data-target="#testQuestionLongAnswer">${question.testQuestionLongAnswer}</pre>
                                         </#if>
                                     </#list>
                                     <p><label>要点:</label></p>
-                                    <pre class="message text-danger"><#if question.testQuestionMessage??>${question.testQuestionMessage?html}<#else>
-                                        暂无</#if></pre>
+                                    <pre class="message text-danger" data-target="#testQuestionMessage"><#if question.testQuestionMessage??>${question.testQuestionMessage?html}<#else>暂无</#if></pre>
                                 </div>
                                 <div class="panel-footer">
                                     <label>标签:</label>
-                                <span id="tagsLabel${question.id}">
-                                    <#list testQuestionTags["${question.id}"] as tag>
-                                        <span data-label="${tag.id}">${tag.tagName}</span>
-                                    </#list>
-                                </span>
+                                <span id="tagsLabel${question.id}" data-target="#tags"><#list testQuestionTags["${question.id}"] as tag><#if tag_index gt 0>,</#if><span data-label="${tag.id}">${tag.tagName}</span></#list></span>
                                 </div>
                             </div>
                         </td>

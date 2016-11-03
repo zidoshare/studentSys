@@ -2,7 +2,7 @@
 <script src="${staticServePath}/static/js/lib/icheck.min.js?${staticResourceVersion}"></script>
 
 <div class="wrapper cs-wrapper scroll" id="wrapper">
-<#if testReply?? && testReply?eval["scoreSituation"]??>
+<#if testReply?? && testReply.scoreSituation??>
     <div class="big-container">
         <div class="tip" id="submitTip" aria-label="0">
         </div>
@@ -12,7 +12,7 @@
         </div>
         <form method="get" id="questionnaire${questionnaire.id}">
             <#assign index = 0>
-            <#assign scoreSituation = testReply?eval["scoreSituation"]?eval>
+            <#assign scoreSituation = testReply.scoreSituation?eval>
             <#assign bigNumber = ["一","二","三","四","五","六","七","八","九","十"]>
             <#assign xx = ['A','B','C','D','E','F','G']>
             <ul class="subject_list">
@@ -27,9 +27,11 @@
                             <div class="row">
                                 <div class="col-md-6 right-border">
                                     <#assign index++>
-                                    <h3 class="subject_title">${index}、${question.testQuestionTitle} <span
+                                    <pre class="subject_title banner ">${index}、${question.testQuestionTitle}</pre>
+                                    <label
+                                            for="questionScore${question.id}" class="control-label">分数：</label>
+                                    <span
                                             class="small">分数：${scoreMap["${question.id}"]}</span>
-                                    </h3>
                                     <#if (question.testQuestionContent?eval)?size gt 0>
                                         <#if type.id == 1>
                                             <#list question.testQuestionContent?eval as node>
@@ -70,7 +72,7 @@
                                             <input class="form-control score" style="width:80px; " type="number"
                                                    id="score${question.id}" <#if !canEdit>disabled</#if>
                                                    data-label="${questionnaire.id}S${question.id}"
-                                                   value="<#if (question.testQuestionContent?eval)?size gt 0>${scoreSituation["${questionnaire.id}S${question.id}"]}</#if>"/>
+                                                   value="<#if scoreSituation["${questionnaire.id}S${question.id}"]??>${scoreSituation["${questionnaire.id}S${question.id}"]}</#if>"/>
                                             <label class="tip control-label" id="score${question.id}-tip"
                                                    aria-label="0">
                                             </label>
@@ -112,12 +114,11 @@
     <h3 align="center">暂无提交记录</h3>
 </#if>
 </div>
-<#if testReply?? && testReply?eval["scoreSituation"]??>
+<#if testReply?? && testReply.scoreSituation??>
 <script type="text/javascript">
     var proccer = 0;
     var max = ${questionSize};
-    var reply = ${testReply};
-    var answers = JSON.parse(reply['answers']);
+    var answers = JSON.parse('${testReply.answers?json_string}');
     $(document).ready(function () {
         $('input').iCheck({
             checkboxClass: 'iradio_square-blue',
@@ -143,13 +144,13 @@
         $('textarea').on('input propertychange', addText);*/
         $('.score').on('input onpropertychange', addProgress);
         function addProgress() {
-            var x = 0;
+            proccer = 0;
             var score = 0;
             $('#wrapper').find('.score').each(function (index, dom) {
                 var val = $(dom).val();
                 var id = $(dom).attr('id');
                 if (val != null && val != '') {
-                    x++;
+                    proccer++;
                     console.log(Validate.isNum(val));
                     if (Validate.isNum(val))
                         score += parseInt(val);
@@ -157,7 +158,7 @@
                         Util.showTip($('#wholeTip'), '请输入数字！', 'bg-danger', {time: 1500});
                 }
             });
-            changeProgress(parseFloat((x / max * 100)).toFixed(2) + "%");
+            changeProgress(parseFloat((proccer / max * 100)).toFixed(2) + "%");
             $('#icon-span').text(score);
         }
 
@@ -193,14 +194,14 @@
         }
     });
     function updateReply() {
-        if ($('#min-progress').css("width") != '100%') {
+        if (proccer != max) {
             if (!confirm('你尚未完成所有题目的阅卷，确认提交？')) {
                 return;
             }
         }
         var count = 0;
         var scoreSituation = {};
-        $('li.subject input[type=text]').each(function (index, dom) {
+        $('.subject_list input[type="number"]').each(function (index, dom) {
             var key = $(dom).attr('data-label');
             var score = parseInt($(dom).val());
             if (!Validate.isNum(score)) {
@@ -210,7 +211,7 @@
             count += score;
         });
         $.ajax({
-            url: "${staticServePath}/test/postScore/${(testReply?eval)["id"]}",
+            url: "${staticServePath}/test/postScore/${testReply.id}",
             data: {
                 "scoreSituation": JSON.stringify(scoreSituation),
                 "score": count
@@ -221,8 +222,8 @@
                 $('#modal').modal('hide');
                 if (data.state == 'success') {
                     Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
-                    $('tr#${(testReply?eval)["id"]}>.score').html(count);
-                    $('tr#${(testReply?eval)["id"]}>.state').html('<span class="text-success">已批改</span>');
+                    $('tr#${testReply.id}>.score').html(count);
+                    $('tr#${testReply.id}>.state').html('<span class="text-success">已批改</span>');
                 } else {
                     Util.showTip($('#wholeTip'), data.msg, 'alert alert-danger');
                 }

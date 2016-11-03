@@ -55,8 +55,7 @@
                         id="${questionnaire.id}S${question.id}"
                         data-label='0'>
                         <#assign index++>
-                        <h4 class="subject_title">${index}、${question.testQuestionTitle}
-                        </h4>
+                        <pre class="subject_title banner">${index}、${question.testQuestionTitle}</pre>
                         <#if (question.testQuestionContent?eval)?size gt 0>
                             <#if type.id == 1>
                                 <#list question.testQuestionContent?eval as node>
@@ -148,7 +147,7 @@
                 var dom = $('#'+key);
                 dom.find('input,textarea').each(function (index, dom) {
                     if($(dom).is('textarea')){
-                        $(dom).val(answers[key]);
+                        $(dom).val(Util.reformatText(answers[key][0]));
                         i++;
                         var parent = $(dom).parent();
                         var data = parseInt(parent.attr('data-label'));
@@ -167,7 +166,7 @@
         }
 
         function addText() {
-            var val = $(this).val();
+            var val = Util.formatText($(this).val());
 
             var parent = $(this).parent();
             if (val != null && val != '') {
@@ -243,7 +242,7 @@
             var now = new Date().getTime();
             $("#count-down").text(formatDuring(end - now));
             if (days <= 0 && hours <= 0 && minutes <= 0 && mm <= 0) {
-                Util.showTip($('#wholeTip'), "你已超时，将不能再提交", 'alert alert-danger');
+                Util.showTip($('#wholeTip'), "你已超时，将不能再提交", 'alert alert-warning');
                 $("#count-down").text(0);
                 return;
             }

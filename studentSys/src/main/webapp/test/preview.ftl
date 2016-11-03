@@ -31,12 +31,13 @@
                     id="${question.id}"
                     aria-label="0">
                     <#assign index++>
-                    <h4 class="subject_title">${index}、${question.testQuestionTitle}·<label
-                            for="questionScore${question.id}">分数：</label><input id="${question.id}"
+                    <pre class="subject_title banner">${index}、${question.testQuestionTitle}</pre>
+                    <label
+                            for="questionScore${question.id}" class="control-label">分数：</label><input id="${question.id}"
                                                                                 class="form-control que"
                                                                                 style="width:100px" type="number"
                                                                                 value="<#if scoreMap["${question.id}"]??>${scoreMap["${question.id}"]}<#else>${question.testQuestionDefaultScore}</#if>"/>
-                    </h4>
+
                     <#if (question.testQuestionContent?eval)?size gt 0>
                         <#list question.testQuestionContent?eval as node>
                             <label class="subject_option">

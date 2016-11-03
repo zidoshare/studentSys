@@ -1,9 +1,8 @@
-<#if disList?size gt 0>
-    <#include "../macro-item.ftl">
-    <@item>
-    <div class="panel-heading title">${view.title}</div>
-    <div class="panel-body">
-
+<#include "../macro-item.ftl">
+<@item>
+<div class="panel-heading title">${view.title}</div>
+<div class="panel-body">
+    <div id="chart-inner">
         <div id="dataTables-example_wrapper" class="table-responsive dataTables_wrapper form-inline" role="grid">
             <table class="table table-striped table-bordered table-hover dataTable no-footer"
                    id="dataTables-example" aria-describedby="dataTables-example_info">
@@ -45,7 +44,12 @@
                 </tbody>
             </table>
         </div>
-        <div class="text-center small">更多已分配试卷信息请到成绩统计中查看...</div>
+        <#if disList?size <= 0>
+            <div class="text-center small">暂无数据...</div>
+        <#else>
+            <div class="text-center small">更多已分配试卷信息请到成绩统计中查看...</div>
+        </#if>
+
     </div>
-    </@item>
-</#if>
+</div>
+</@item>

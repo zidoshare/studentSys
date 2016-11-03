@@ -39,10 +39,10 @@ var Login = {
                         $(".wrapper").addClass("form-success");
                         //Util.showTip($("#loginTip"), data.msg, 'alert alert-success');
                         setTimeout(function () {
-                            if(Label.holdPath != null){
-                                window.location.href=Label.holdPath;
-                            }else
-                                window.location.href=Label.staticServePath+'/';
+                            if (Label.holdPath != null) {
+                                window.location.href = Label.holdPath;
+                            } else
+                                window.location.href = Label.staticServePath + '/';
                         }, 1000);
                     } else {
                         Util.showTip($("#wholeTip"), "账号或密码错误!", 'alert alert-danger');
@@ -152,6 +152,27 @@ var Validate = {
 };
 
 var Util = {
+    mapping: function (originParent, targetParent) {
+        //映射方法
+        //参数：源dom，目标dom。
+        //源属性需要的定义：data-target='target' target可以是任何符合jquery的选择器,data-method='源值获取方式(默认text,可选text、prop)',data-origin='data-label(默认,可选)'
+        //目标属性需要的定：data-inject='val(默认)'暂不可选）
+        originParent.find('[data-target]').each(function (index, dom) {
+            var method = $(dom).attr('data-method');
+            if (method == null || method == '') {
+                method = 'text';
+            }
+            if (method == 'text') {
+                targetParent.find($(dom).attr('data-target')).val($(dom).text());
+            } else if (method == 'prop') {
+                if ($(dom).attr('data-origin') != null && $(dom).val('data-origin') != '') {
+                    targetParent.find($(dom).attr('data-target')).val($(dom).attr($(dom).attr('data-origin')));
+                } else {
+                    targetParent.find($(dom).attr('data-target')).val($(dom).attr('data-label'));
+                }
+            }
+        });
+    },
     reBindPjax: function (selector) {
         if (selector == null)
             selector = '#table-inner';
@@ -220,36 +241,27 @@ var Util = {
 
     },
     formatText: function (str) {
-        str = str.replace(/\r/g, "");
-        str = str.replace(/on(load|click|dbclick|mouseover|mousedown|mouseup)="[^"]+"/ig, "");
-        str = str.replace(/<script[^>]*?>([\w\W]*?)<\/script>/ig, "");
-        str = str.replace(/<style[^>]*?>([\w\W]*?)<\/stylet>/ig, "");
-        str = str.replace(/<embed[^>]*?>([\w\W]*?)<\/embed>/ig, "");
-
-        str = str.replace(/<a[^>]+href="([^"]+)"[^>]*>(.*?)<\/a>/ig, "[url=$1]$2[/url]");
-        str = str.replace(/<font[^>]+color=([^ >]+)[^>]*>(.*?)<\/font>/ig, "[color=$1]$2[/color]");
-        str = str.replace(/<img[^>]+src="([^"]+)"[^>]*>/ig, "[img]$1[/img]");
-        str = str.replace(/<param NAME="Movie" value="([^>"]+\.swf)"[^>]*>/ig, "[flash]$1[/flash]");
-
-        str = str.replace(/<([\/]?)b>/ig, "[$1b]");
-        str = str.replace(/<([\/]?)strong>/ig, "[$1b]");
-        str = str.replace(/<([\/]?)u>/ig, "[$1u]");
-        str = str.replace(/<([\/]?)i>/ig, "[$1i]");
-
-        str = str.replace(/&nbsp;/g, " ");
+        str = str.replace(/(\r\n)/g, "<br/>");
+        str = str.replace(/ /g,"&nbsp;");
+        /*str = str.replace(/&nbsp;/g, " ");
         str = str.replace(/&amp;/g, "&");
         str = str.replace(/&quot;/g, "\"");
         str = str.replace(/&lt;/g, "<");
-        str = str.replace(/&gt;/g, ">");
-
-        str = str.replace(/\[url=([^\]]+)]\[img]/g, "[img]");
-        str = str.replace(/\[\/img]\[\/url]/g, "[/img]");
-
-        //str = str.replace(/<br>/ig,"\n");
-        //str = str.replace(/<[^>]*?>/g,"");
-
-        //str = str.replace(/\n+/g,"\n");
-        str = str.replace(/\n/im, "<br/>");
+        str = str.replace(/&gt;/g, ">");*/
+        str = str.replace(/\n/g, "<br/>");
+        return str;
+    },
+    reformatText:function(str){
+        if(str == null || str == '')
+            return str;
+        console.log(str);
+        str = str.replace(/&nbsp;/g," ");
+        /*str = str.replace(/&nbsp;/g, " ");
+         str = str.replace(/&amp;/g, "&");
+         str = str.replace(/&quot;/g, "\"");
+         str = str.replace(/&lt;/g, "<");
+         str = str.replace(/&gt;/g, ">");*/
+        str = str.replace(/<br\/>/g, "\r\n");
         return str;
     },
     redrawSelects: function () {
@@ -265,12 +277,12 @@ var Util = {
             },
             complete: function () {
             },
-            fragment: '#table-inner',
+            fragment: '#table-inner'
         };
         var opts = $.extend(defaults, options);
         /*$(opts.container).off('pjax:beforeSend');
          $(opts.container).off('pjax:complete');*/
-        $(opts.container).one('pjax:beforeSend', function (event) {
+        $(container).one('pjax:beforeSend', function (event) {
             opts.before();
             if (opts.showWholeAnimate) {
                 $('#page-inner').html('');
@@ -284,7 +296,7 @@ var Util = {
             }
             event.stopPropagation();
         });
-        $(opts.container).one('pjax:complete', function (event) {
+        $(container).one('pjax:complete', function (event) {
             opts.complete();
             if (opts.showWholeAnimate) {
                 $('.pjax_loading').css("display", "none");
@@ -292,7 +304,7 @@ var Util = {
             }
             event.stopPropagation();
         });
-        $.pjax.reload(container,{
+        $.pjax.reload(container, {
             fragment: opts.fragment,
             cache: true,
             maxCacheLength: 5,
@@ -346,7 +358,7 @@ var Util = {
                 });
             }
         }
-        if (defaults.hidden){
+        if (defaults.hidden) {
             dom.hide();
         }
 
@@ -568,10 +580,10 @@ var Animate = {
     }
 };
 var func = {
-    addCertificate:function(method){
+    addCertificate: function (method) {
         if (method == 'show') {
             modalUtil.show($('#addCertificateModel'));
-        }else{
+        } else {
             var btn = Ladda.create(document.querySelector("#save-btn"));
             btn.start();
             var enrollTime = new Date($('#enrollTime_temp').val().replace(/-/g, '/')).getTime();
@@ -603,23 +615,23 @@ var func = {
                 error: function () {
                     Util.showTip($('#wholeTip'), '服务器错误', 'alert alert-danger');
                 },
-                complete:function(){
+                complete: function () {
                     btn.stop();
                 }
             })
         }
     },
-    updateCertificate:function(method,id){
+    updateCertificate: function (method, id) {
         modalUtil.show($('#addCertificateModel'));
-        $('#studentId').selectpicker('val',$('#name'+id).attr('data-label'));
-        $('#addTime_temp').val($('#addTime'+id).text());
-        $('#enrollTime_temp').val($('#enrollTime'+id).text());
-        $('#endTime_temp').val($('#endTime'+id).text());
+        $('#studentId').selectpicker('val', $('#name' + id).attr('data-label'));
+        $('#addTime_temp').val($('#addTime' + id).text());
+        $('#enrollTime_temp').val($('#enrollTime' + id).text());
+        $('#endTime_temp').val($('#endTime' + id).text());
         $('#certificateId').val(id);
-        $('#code').val($('#code'+id).text());
+        $('#code').val($('#code' + id).text());
 
     },
-    deleteCertificate:function(method,id){
+    deleteCertificate: function (method, id) {
         if (confirm("确认删除？")) {
             $.ajax({
                 url: Label.staticServePath + "/certificateManager/deleteCertificate/" + id,
@@ -669,7 +681,7 @@ var func = {
                 error: function () {
                     Util.showTip($('#wholeTip'), '服务器错误', 'alert alert-danger');
                 },
-                complete:function(){
+                complete: function () {
                     btn.stop();
                 }
             })
@@ -730,7 +742,7 @@ var func = {
                 error: function () {
                     Util.showTip($('#wholeTip'), '服务器错误', 'alert alert-danger');
                 },
-                complete:function(){
+                complete: function () {
                     btn.stop();
                 }
             })
@@ -903,10 +915,9 @@ var func = {
     },
     addTestQuestion: function (method) {
         if (method == 'show') {
-            modalUtil.toggleClear($('#addTestQuestion'));
+            modalUtil.show($('#addTestQuestion'));
+            Util.changeModel($('#testQuestionTypeId'));
         } else {
-
-
             var btn = Ladda.create(document.querySelector("#saveTestQuestion-btn"));
             btn.start();
             //填充创建时间
@@ -936,7 +947,10 @@ var func = {
             var json = {};
             $('#testQuestion').find('.form-control').each(function () {
                 if ($(this).attr('name') != null)
-                    json[$(this).attr('name')] = $(this).val();
+                    json[$(this).attr('name')] = Util.formatText($(this).val());
+                /*if($(this).val() != null && $(this).val().length > 20){
+                    alert();
+                }*/
             });
             $.ajax({
                 url: Label.staticServePath + "/test/addTestQuestion",
@@ -944,25 +958,18 @@ var func = {
                 type: 'post',
                 data: json,
                 success: function (data, status) {
-                    if (data.state == 'success')
-                        Util.showTip($('#wholeTip'), data.msg, "alert alert-success", {
-                            time: 1000,
-                            complete: function () {
-                                modalUtil.toggleClear($('#addTestQuestion'));
-                                $('#addTestQuestion').on('hidden.bs.modal', function () {
-                                    //刷新页面
-                                    Util.reloadByPjax('#table-inner');
-                                })
-                            }
-                        });
-                    else {
-                        Util.showTip($('#wholeTip'), data.msg, "alert alert-warning");
-                        btn.stop();
+                    if (data.state == 'success') {
+                        modalUtil.toggleClear($('#addTestQuestion'));
+                        Util.reloadByPjax('#table-inner');
+                        Util.showTip($('#wholeTip'), data.msg, "alert alert-success");
                     }
+                    else
+                        Util.showTip($('#wholeTip'), data.msg, "alert alert-warning");
 
                 },
                 error: function () {
                     Util.showTip($('#wholeTip'), "服务器错误", "alert alert-danger");
+                }, complete: function () {
                     btn.stop();
                 }
             });
@@ -1017,13 +1024,13 @@ var func = {
                         Util.showTip($('#wholeTip'), data.msg, 'alert alert-success', {
                             time: 1000, complete: function () {
                                 Util.reloadByPjax('#table-inner');
-                                closePanel('#add-nav','#addTestQuestionnaire');
-                                Util.clearPanel($('#inputQuestionnairePanel'),{hidden:false});
+                                closePanel('#add-nav', '#addTestQuestionnaire');
+                                Util.clearPanel($('#inputQuestionnairePanel'), {hidden: false});
                             }
                         });
                     }
                     else
-                        Util.showTip($('#wholeTip'),data.msg,'alert alert-danger');
+                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-danger');
                 },
                 error: function () {
                     Util.showTip($('#wholeTip'), '服务器错误', 'alert alert-danger', {time: 5000});
@@ -1201,7 +1208,9 @@ var func = {
                 success: function (data, state) {
                     if (data.state == 'success') {
                         Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
-                        Util.reloadByPjax('#page-inner');
+                        Util.reloadByPjax('#chart-inner',{fragment:'#chart-inner'});
+                        closePanel('#distribute-nav','#distribute');
+                        Util.mScroll('page-inner');
                     } else
                         Util.showTip($('#wholeTip'), data.msg, 'alert alert-danger');
                 },
@@ -1236,26 +1245,32 @@ var func = {
         modelPane.append(content);
     },
     updateTestQuestion: function (method, id) {
-        modalUtil.toggleClear($('#addTestQuestion'));
-        $('#id').val(id);
-        $('#testQuestionTitle').val($('#testQuestionTitle' + id).text());
-        $('#testQuestionTypeId').val($('#type' + id).attr('data-label'));
-        var tags = [];
-        $('#tagsLabel' + id).find('span').each(function (index, dom) {
-            tags.push($(this).text());
-            $('#tagCheckbox' + $(this).attr("data-label")).prop('checked', true);
+        modalUtil.show($('#addTestQuestion'));
+        $('div#shortModel').find('div').each(function (index, dom) {
+            $(dom).remove();
         });
-        var tagVal = tags.join(',');
-        $('input#tags').val(tagVal);
+        $('#id').val(id);
+
+        Util.mapping($('tr#tr' + id), $('form#testQuestion'));
+        Util.mapping($('tr#show-tr' + id), $('form#testQuestion'));
         Util.changeModel($('#testQuestionTypeId'));
-        $('#testQuestionLongAnswer').val($('#item' + id).find('span.long-answer').first().text());
+        //$('#testQuestionTitle').val($('#testQuestionTitle' + id).text());
+        //$('#testQuestionTypeId').val($('#type' + id).attr('data-label'));
+        /*var tags = [];
+         $('#tagsLabel' + id).find('span').each(function (index, dom) {
+         tags.push($(this).text());
+         $('#tagCheckbox' + $(this).attr("data-label")).prop('checked', true);
+         });*/
+        //var tagVal = tags.join(',');
+        //$('input#tags').val(tagVal);
+        //$('#testQuestionLongAnswer').val($('#item' + id + '>pre.long-answer:tnd(1)').find('').first().text());
         //填充选项
         var op = $('#testQuestionSelect' + id).children();
         var len = op.length;
         var optionValues = [];
         var optionAnswer = [];
         op.each(function (index, dom) {
-            optionValues.push($(this).find('.optionValue').first().text());
+            optionValues.push($(dom).find('.optionValue').first().text());
         });
 
         var item = 'A';
@@ -1333,7 +1348,7 @@ var func = {
                 type: 'post',
                 success: function (data, status) {
 
-                    if(data.state=='success')
+                    if (data.state == 'success')
                         Util.showTip($('#wholeTip'), data.msg, "alert alert-success", {
                             before: function () {
                                 $('tr#class' + id).remove();
@@ -1441,8 +1456,9 @@ var func = {
 };
 var modalUtil = {
     show: function (modal) {
-        modal.one('hide.bs.modal',function(){
-            modal.find('input[name]').val('');
+        modal.one('hide.bs.modal', function () {
+            modal.find('input[name],textarea[name]').val('');
+            modal.find('select[name] option:first').prop('selected', 'selected');
         });
         modal.modal('show');
     },

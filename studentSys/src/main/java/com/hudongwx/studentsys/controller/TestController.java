@@ -220,7 +220,7 @@ public class TestController extends BaseController {
             map.put(types.get(i).getId() + "", testQuestions);
         }
         TestReply testReply = testReplyService.getReply(questionnaire.getTestQuestionnaireClassId(), student.getId(), false);
-        setAttr("testReply", JsonKit.toJson(testReply));
+        setAttr("testReply", testReply);
         setAttr("types", types);
         setAttr("scoreMap", scoreMap);
         setAttr("questionMap", map);
@@ -390,7 +390,7 @@ public class TestController extends BaseController {
             RenderKit.renderError(this, "未找到試卷");
             return;
         }
-        tqc.setTestQuestionnaireEndTime(System.currentTimeMillis()+3600000);
+        tqc.setTestQuestionnaireEndTime(System.currentTimeMillis() + 3600000);
         tqc.update();
         RenderKit.renderSuccess(this, "开启成功");
     }
@@ -402,7 +402,7 @@ public class TestController extends BaseController {
             RenderKit.renderError(this, "未找到試卷");
             return;
         }
-        tqc.setTestQuestionnaireEndTime(tqc.getTestQuestionnaireEndTime()-3600000);
+        tqc.setTestQuestionnaireEndTime(tqc.getTestQuestionnaireEndTime() - 3600000);
         tqc.update();
         RenderKit.renderSuccess(this, "关闭成功");
     }
@@ -635,8 +635,15 @@ public class TestController extends BaseController {
         String[] tags = tagsPara.split(",");
         List<TestTag> allTestTag = testTagService.getAllTestTag();
         for (String tag : tags) {
+            if ("".equals(tag)){
+                continue;
+            }
             TestTag now = null;
             for (TestTag t : allTestTag) {
+                if("".equals(t.getTagName())){
+                    t.delete();
+                    continue;
+                }
                 if (t.getTagName().equals(tag)) {
                     now = t;
                 }
