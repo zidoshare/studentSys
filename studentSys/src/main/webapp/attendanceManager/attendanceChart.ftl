@@ -108,7 +108,6 @@ ${view.title}
             var names = $('#student_search_list').val().trim();
             var cla = $('#classSelect_list').val();
             var chartCla = $('#classSelect_chart').val();
-            console.log(chartCla);
             var chartNames = $('#student_search_chart').val().trim();
             Util.loadByPjax('${staticServePath}/attendanceManager/attendance?start_time_list='
                     + start_list.getTime() + '&end_time_list=' + end_list.getTime()

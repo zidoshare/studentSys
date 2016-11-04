@@ -254,7 +254,6 @@ var Util = {
     reformatText:function(str){
         if(str == null || str == '')
             return str;
-        console.log(str);
         str = str.replace(/&nbsp;/g," ");
         /*str = str.replace(/&nbsp;/g, " ");
          str = str.replace(/&amp;/g, "&");
@@ -438,7 +437,6 @@ var Util = {
         $('#longModel').addClass('sr-only');
         var val = select.val();
         var limit = $('#option' + val).attr('data-label');
-        console.log(select, val, limit);
         var limits = JSON.parse(limit);
         for (var i = 0; i < limits.length; i++) {
             $('#' + limits[i]).removeClass('sr-only');
@@ -657,7 +655,6 @@ var func = {
             btn.start();
             var time = new Date($('#enrollTime_temp').val().replace(/-/g, '/')).getTime();
             $('#enrollTime').val(time);
-            console.log(time);
             var json = {};
             $('#repayment').find('input,select').each(function () {
                 json[$(this).attr('name')] = $(this).val();
@@ -1279,7 +1276,8 @@ var func = {
             item = String.fromCharCode(item.charCodeAt() + i);
             $('#testQuestionOption' + i).val(optionValues[i]);
         }
-        $('.short-answer').each(function (index, dom) {
+        $('#show-tr'+id+' .short-answer').each(function (index, dom) {
+            console.log($(dom).text());
             $('#' + $(this).text()).prop('checked', true);
         })
     },

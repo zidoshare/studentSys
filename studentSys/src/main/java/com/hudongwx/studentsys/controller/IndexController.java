@@ -2,12 +2,15 @@ package com.hudongwx.studentsys.controller;
 
 import com.hudongwx.studentsys.common.BaseController;
 import com.hudongwx.studentsys.common.Build;
+import com.hudongwx.studentsys.common.MyTx;
 import com.hudongwx.studentsys.model.Mapping;
 import com.hudongwx.studentsys.service.MappingService;
 import com.hudongwx.studentsys.service.RoleService;
 import com.hudongwx.studentsys.util.ArrayTree;
 import com.hudongwx.studentsys.util.Common;
 import com.hudongwx.studentsys.util.RenderKit;
+import com.jfinal.aop.Before;
+import com.jfinal.plugin.activerecord.tx.Tx;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,6 +38,7 @@ public class IndexController extends BaseController{
         return mappingService.getMappingByUrl("/");
     }
 
+    @Before(MyTx.class)
     public void admin(){
         String methodName = getPara("data");
         if(methodName.equals("initWebMap")){

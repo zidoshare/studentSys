@@ -8,6 +8,10 @@ ${view.title}
             onclick="adminData('initWebMap','#init-map-btn')">
         <span class="ladda-label">从xml文件中初始化网站地图</span>
     </button>
+    <button data-style="slide-up" id="init-user-btn" class="btn btn-primary ladda-button"
+            onclick="adminData('initWebRole','#init-user-btn')">
+        <span class="ladda-label">初始化用户、角色</span>
+    </button>
 </div>
 </@item>
 <script type="text/javascript">

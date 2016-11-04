@@ -286,39 +286,6 @@ public class Build{
             return now.save();
         });
         CacheKit.put(Common.CACHE_60TIME_LABEL,"mappingTree",null);
-        /*Queue<Element> queue = new LinkedList<>();
-        queue.offer(document.getRootElement());
-        Map<Element,Mapping> map = new HashMap<>();
-        while (!queue.isEmpty()){
-            Element nowe = queue.poll();
-            final Attribute ida = nowe.attribute(Common.LABEL_ID);
-            final Attribute icona = nowe.attribute(Mapping.LABEL_ICON);
-            final Attribute titlea = nowe.attribute(Mapping.LABEL_TITLE);
-            final Attribute urla = nowe.attribute(Mapping.LABEL_URL);
-            final Attribute functiona = nowe.attribute(Mapping.LABEL_FUNCTION);
-            if(icona == null || titlea == null || urla == null)
-                throw new Exception("icon/title/url不存在");
-            final Integer id = Integer.valueOf(ida.getStringValue());
-            final String icon = icona.getStringValue();
-            final String title = titlea.getStringValue();
-            final String url = urla.getStringValue();
-            Integer function = Mapping.FUNCTION_DEFAULT;
-            if(null != functiona)
-                function = Integer.valueOf(functiona.getStringValue());
-            if(StrPlusKit.isEmpty(url) || StrPlusKit.isEmpty(icon) || StrPlusKit.isEmpty(title))
-                throw new Exception("icon/title/url不能为空值");
-            Mapping now = new Mapping(icon,title,url,function);
-            now.setId(id);
-            if(!nowe.isRootElement()){
-                tree.insertChild(now,map.get(nowe.getParent()));
-            }else{
-                tree.initTree(now);
-            }
-            map.put(nowe,now);
-            Element children = nowe.element("mappings");
-            List<Element> elements = children.elements();
-            queue.addAll(elements);
-        }*/
     }
     public static void initUser(){
 

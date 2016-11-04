@@ -151,7 +151,6 @@
                 var id = $(dom).attr('id');
                 if (val != null && val != '') {
                     proccer++;
-                    console.log(Validate.isNum(val));
                     if (Validate.isNum(val))
                         score += parseInt(val);
                     else

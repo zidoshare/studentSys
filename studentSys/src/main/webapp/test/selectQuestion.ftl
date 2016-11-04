@@ -105,7 +105,6 @@
         var array = JSON.parse(s.val());
         var typeArray = array[0];
         var questionArray = array[1];
-        console.log(array);
         isChanged = true;
         if ($(dom).prop('checked')) {
             //默认按照id大小进行排序
@@ -119,7 +118,6 @@
         else {
             var temp = [];
             var index = $.inArray(tp, typeArray);
-            console.log('index = ',index);
             if (index >= 0) {
                 $.each(questionArray[index], function (ind, obj) {
                     if (obj != id)
