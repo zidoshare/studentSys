@@ -917,6 +917,7 @@ var func = {
         } else {
             var btn = Ladda.create(document.querySelector("#saveTestQuestion-btn"));
             btn.start();
+
             //填充创建时间
             $('#testQuestionCreateTime').val(new Date().getTime());
             //---------------填充选择题选项------------
@@ -940,7 +941,6 @@ var func = {
                 return;
             }
             //---------------填充选项及答案结束------------
-
             var json = {};
             $('#testQuestion').find('.form-control').each(function () {
                 if ($(this).attr('name') != null)
@@ -1244,8 +1244,10 @@ var func = {
     updateTestQuestion: function (method, id) {
         modalUtil.show($('#addTestQuestion'));
         $('div#shortModel').find('div').each(function (index, dom) {
+            console.log($(dom).attr('id'));
             $(dom).remove();
         });
+        console.log($('#testQuestionContent').attr('class'));
         $('#id').val(id);
 
         Util.mapping($('tr#tr' + id), $('form#testQuestion'));

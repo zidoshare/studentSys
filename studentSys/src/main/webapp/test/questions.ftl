@@ -102,17 +102,17 @@ ${view.title}
                         <div id="shortModel">
                             <a class="res" id="add" onclick="Util.addSelect()">添加选项</a>
                             <a class="res" id="remove" onclick="Util.removeSelect()">删除选项</a>
-                            <div class="form-group sr-only">
-                                <label for="testQuestionContent" class="control-label">选项</label>
-                                <input type="text" class="form-control" name="testQuestion.testQuestionContent"
-                                       id="testQuestionContent">
-                            </div>
-                            <div class="form-group sr-only">
-                                <label for="testQuestionShortAnswer"
-                                       class="control-label">选择题答案(请选用英文状态下的逗号隔开）:</label>
-                                <input type="text" class="form-control" name="testQuestion.testQuestionShortAnswer"
-                                       id="testQuestionShortAnswer">
-                            </div>
+                        </div>
+                        <div class="form-group sr-only">
+                            <label for="testQuestionContent" class="control-label">选项</label>
+                            <input type="text" class="form-control" name="testQuestion.testQuestionContent"
+                                   id="testQuestionContent"/>
+                        </div>
+                        <div class="form-group sr-only">
+                            <label for="testQuestionShortAnswer"
+                                   class="control-label">选择题答案(请选用英文状态下的逗号隔开）:</label>
+                            <input type="text" class="form-control" name="testQuestion.testQuestionShortAnswer"
+                                   id="testQuestionShortAnswer"/>
                         </div>
                         <div id="longModel" class="sr-only">
                             <div class="form-group">
