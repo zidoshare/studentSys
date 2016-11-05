@@ -61,7 +61,7 @@ public class MainConfig extends JFinalConfig{
         //-------------
         me.add(surveysRecordPlugin);
 
-        me.add(new SqlMessagePlugin());
+        //me.add(new SqlMessagePlugin());
         //加载缓存插件ehcache
         me.add(new EhCachePlugin());
     }

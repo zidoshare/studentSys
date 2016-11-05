@@ -163,7 +163,7 @@ var Util = {
                 method = 'text';
             }
             if (method == 'text') {
-                targetParent.find($(dom).attr('data-target')).val($(dom).text());
+                targetParent.find($(dom).attr('data-target')).val(Util.reformatText($(dom).text()));
             } else if (method == 'prop') {
                 if ($(dom).attr('data-origin') != null && $(dom).val('data-origin') != '') {
                     targetParent.find($(dom).attr('data-target')).val($(dom).attr($(dom).attr('data-origin')));
@@ -241,26 +241,30 @@ var Util = {
 
     },
     formatText: function (str) {
-        str = str.replace(/(\r\n)/g, "<br/>");
+        console.log(str.lastIndexOf('\n'));
+        str = str.replace(/(\r\n)/g, "<br>");
+
         str = str.replace(/ /g,"&nbsp;");
         /*str = str.replace(/&nbsp;/g, " ");
         str = str.replace(/&amp;/g, "&");
         str = str.replace(/&quot;/g, "\"");
         str = str.replace(/&lt;/g, "<");
         str = str.replace(/&gt;/g, ">");*/
-        str = str.replace(/\n/g, "<br/>");
+        str = str.replace(/\n/g, "<br>");
         return str;
     },
     reformatText:function(str){
+        //console.log(str);
         if(str == null || str == '')
             return str;
-        str = str.replace(/&nbsp;/g," ");
+        str = str.replace(/ /g,'');
         /*str = str.replace(/&nbsp;/g, " ");
          str = str.replace(/&amp;/g, "&");
          str = str.replace(/&quot;/g, "\"");
          str = str.replace(/&lt;/g, "<");
          str = str.replace(/&gt;/g, ">");*/
-        str = str.replace(/<br\/>/g, "\r\n");
+        console.log(str.lastIndexOf('<br>'));
+        str = str.replace(/<br>/g, '\n');
         return str;
     },
     redrawSelects: function () {
@@ -1244,10 +1248,8 @@ var func = {
     updateTestQuestion: function (method, id) {
         modalUtil.show($('#addTestQuestion'));
         $('div#shortModel').find('div').each(function (index, dom) {
-            console.log($(dom).attr('id'));
             $(dom).remove();
         });
-        console.log($('#testQuestionContent').attr('class'));
         $('#id').val(id);
 
         Util.mapping($('tr#tr' + id), $('form#testQuestion'));
