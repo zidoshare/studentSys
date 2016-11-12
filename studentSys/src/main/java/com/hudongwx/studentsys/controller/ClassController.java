@@ -1,5 +1,6 @@
 package com.hudongwx.studentsys.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.hudongwx.studentsys.common.BaseController;
 import com.hudongwx.studentsys.model.Class;
 import com.hudongwx.studentsys.model.Mapping;
@@ -51,7 +52,6 @@ public class ClassController extends BaseController {
     public void addClass() {
         Class model = getModel(Class.class);
         boolean flag;
-        log.info(TableCommentMapping.me().getTableComment(model.getClass()).getColumnComment("className"));
         if (model.getId() == null)
             flag = model.save();
         else {

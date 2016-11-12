@@ -1064,9 +1064,9 @@ var func = {
                         Util.showTip($('#wholeTip'), data.msg, 'alert alert-success', {
                             time: 1000, complete: function () {
                                 $('#addClassModel').modal('hide');
-                                $('#addClassModel').on('hidden.bs.modal', function () {
+                                $('#addClassModel').one('hidden.bs.modal', function () {
                                     //刷新页面
-                                    Util.reloadByPjax('#page-inner');
+                                    Util.reloadByPjax();
                                 })
                             }
                         });
@@ -1107,9 +1107,9 @@ var func = {
                         Util.showTip($('#wholeTip'), data.msg, 'alert alert-success', {
                             time: 1000, complete: function () {
                                 $('#addDomainModel').modal('hide');
-                                $('#addDomainModel').on('hidden.bs.modal', function () {
+                                $('#addDomainModel').one('hidden.bs.modal', function () {
                                     //刷新页面
-                                    Util.reloadByPjax('#table-inner');
+                                    Util.reloadByPjax();
                                 })
                             }
                         });
@@ -1497,9 +1497,8 @@ var modalUtil = {
             }
         }
         model.modal('hide');
-        model.on('hidden.bs.modal', function (e) {
+        model.one('hidden.bs.modal', function (e) {
             defaults.after();
-            model.off('hidden.bs.modal');
         })
 
     }
