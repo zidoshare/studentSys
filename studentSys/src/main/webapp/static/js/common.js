@@ -155,7 +155,8 @@ var Util = {
     mapping: function (originParent, targetParent) {
         //映射方法
         //参数：源dom，目标dom。
-        //源属性需要的定义：data-target='target' target可以是任何符合jquery的选择器,data-method='源值获取方式(默认text,可选text、prop)',data-origin='data-label(默认,可选)'
+        //源属性需要的定义：data-target='target' target可以是任何符合jquery的选择器,
+        //  data-method='源值获取方式(默认text,可选text、prop)',data-origin='data-label(默认,可选)'
         //目标属性需要的定：data-inject='val(默认)'暂不可选）
         originParent.find('[data-target]').each(function (index, dom) {
             var method = $(dom).attr('data-method');
@@ -244,20 +245,20 @@ var Util = {
         console.log(str.lastIndexOf('\n'));
         str = str.replace(/(\r\n)/g, "<br>");
 
-        str = str.replace(/ /g,"&nbsp;");
+        str = str.replace(/ /g, "&nbsp;");
         /*str = str.replace(/&nbsp;/g, " ");
-        str = str.replace(/&amp;/g, "&");
-        str = str.replace(/&quot;/g, "\"");
-        str = str.replace(/&lt;/g, "<");
-        str = str.replace(/&gt;/g, ">");*/
+         str = str.replace(/&amp;/g, "&");
+         str = str.replace(/&quot;/g, "\"");
+         str = str.replace(/&lt;/g, "<");
+         str = str.replace(/&gt;/g, ">");*/
         str = str.replace(/\n/g, "<br>");
         return str;
     },
-    reformatText:function(str){
+    reformatText: function (str) {
         //console.log(str);
-        if(str == null || str == '')
+        if (str == null || str == '')
             return str;
-        str = str.replace(/ /g,'');
+        str = str.replace(/ /g, '');
         /*str = str.replace(/&nbsp;/g, " ");
          str = str.replace(/&amp;/g, "&");
          str = str.replace(/&quot;/g, "\"");
@@ -950,8 +951,8 @@ var func = {
                 if ($(this).attr('name') != null)
                     json[$(this).attr('name')] = Util.formatText($(this).val());
                 /*if($(this).val() != null && $(this).val().length > 20){
-                    alert();
-                }*/
+                 alert();
+                 }*/
             });
             $.ajax({
                 url: Label.staticServePath + "/test/addTestQuestion",
@@ -1061,15 +1062,10 @@ var func = {
                 data: json,
                 success: function (data, state) {
                     if (data.state == 'success') {
-                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-success', {
-                            time: 1000, complete: function () {
-                                $('#addClassModel').modal('hide');
-                                $('#addClassModel').one('hidden.bs.modal', function () {
-                                    //刷新页面
-                                    Util.reloadByPjax();
-                                })
-                            }
-                        });
+                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
+                        $('#addClassModel').modal('hide');
+                        //刷新页面
+                        Util.reloadByPjax();
                     } else {
                         Util.showTip($('#wholeTip'), data.msg, 'alert alert-danger');
                     }
@@ -1082,7 +1078,10 @@ var func = {
                 }
             })
         }
-        else $('#addClassModel').modal(method);
+        else{
+            modalUtil.show($('#addClassModel'));
+            $('#studentCnt').val(0);
+        }
     },
     addDomain: function (method) {
         if (method == 'show') {
@@ -1209,8 +1208,8 @@ var func = {
                 success: function (data, state) {
                     if (data.state == 'success') {
                         Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
-                        Util.reloadByPjax('#chart-inner',{fragment:'#chart-inner'});
-                        closePanel('#distribute-nav','#distribute');
+                        Util.reloadByPjax('#chart-inner', {fragment: '#chart-inner'});
+                        closePanel('#distribute-nav', '#distribute');
                         Util.mScroll('page-inner');
                     } else
                         Util.showTip($('#wholeTip'), data.msg, 'alert alert-danger');
@@ -1227,7 +1226,8 @@ var func = {
     updateClass: function (method, id) {
         Util.update('class', id);
         $('#classId').val(id);
-        $('#addClassModel').modal('show');
+        modalUtil.show($('#addClassModel'));
+        Util.mapping($('tr#class' + id), $('#form'));
     },
     updateTestQuestionnaire: function (method, id) {
         Util.update('testQuestionnaire', id);
@@ -1280,7 +1280,7 @@ var func = {
             item = String.fromCharCode(item.charCodeAt() + i);
             $('#testQuestionOption' + i).val(optionValues[i]);
         }
-        $('#show-tr'+id+' .short-answer').each(function (index, dom) {
+        $('#show-tr' + id + ' .short-answer').each(function (index, dom) {
             console.log($(dom).text());
             $('#' + $(this).text()).prop('checked', true);
         })
@@ -1350,18 +1350,13 @@ var func = {
                 type: 'post',
                 success: function (data, status) {
 
-                    if (data.state == 'success')
-                        Util.showTip($('#wholeTip'), data.msg, "alert alert-success", {
-                            before: function () {
-                                $('tr#class' + id).remove();
-                            }
-                        });
-                    else
-                        Util.showTip($('#wholeTip'), data.msg, "alert alert-success", {
-                            before: function () {
-                                $('tr#class' + id).remove();
-                            }
-                        });
+                    if (data.state == 'success') {
+                        Util.showTip($('#wholeTip'), data.msg, "alert alert-success");
+                        Util.reloadByPjax();
+                    }
+                    else{
+                        Util.showTip($('#wholeTip'), data.msg, "alert alert-danger");
+                    }
                 },
                 error: function () {
                     Util.showTip($('#wholeTip'), '服务器错误', "alert alert-danger");

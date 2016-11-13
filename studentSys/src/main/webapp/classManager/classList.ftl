@@ -41,13 +41,13 @@ ${view.title}
                 <tbody>
 
                     <#list classes.list as class>
-                    <tr id="class${class.id}">
-                        <td id="className${class.id}" data-label="${class.className?html}">${class.className}</td>
-                        <td id="headTeacher${class.id}" data-label="${class.headTeacher}">${class.headTeacher}</td>
-                        <td id="tutor${class.id}" data-label="${class.tutor}">${class.tutor}</td>
-                        <td id="studentCnt${class.id}" data-label="${class.studentCnt}">${class.studentCnt}</td>
+                    <tr id="class${class.id}" data-label="${class.id}"  data-target="#classId" data-method="prop">
+                        <td id="className${class.id}" data-label="${class.className?html}" data-target="#className">${class.className}</td>
+                        <td id="headTeacher${class.id}" data-label="${class.headTeacher}" data-target="#headTeacher">${class.headTeacher}</td>
+                        <td id="tutor${class.id}" data-label="${class.tutor}" data-target="#tutor">${class.tutor}</td>
+                        <td id="studentCnt${class.id}" data-label="${class.studentCnt}" data-target="studentCnt">${class.studentCnt}</td>
                         <td id="classCreateTime${class.id}"
-                            data-label="${class.classCreateTime}">${(class.classCreateTime?number)?number_to_datetime}</td>
+                            data-label="${class.classCreateTime}" data-target="#classCreateTime" data-method="prop">${(class.classCreateTime?number)?number_to_datetime}</td>
                         <#if updateAble || deleteAble>
                             <td>
                                 <#if updateAble>
@@ -56,7 +56,7 @@ ${view.title}
                             ${InsertKit(deleteBtn,"${class.id}")}
                             </td>
                         </#if>
-                        <td id="classUpdateTime${class.id}" class="hidden" data-label="${class.classUpdateTime}">
+                        <td id="classUpdateTime${class.id}" class="hidden" data-label="${class.classUpdateTime}" data-target="#classUpdateTime" data-method="prop">
                         </td>
                     </tr>
                     </#list>
@@ -111,6 +111,13 @@ ${view.title}
                         <div class="col-sm-10">
                             <input type="text" class="form-control" name="class.tutor" id="tutor"
                                    placeholder="辅导">
+                        </div>
+                    </div>
+                    <div class="form-group sr-only">
+                        <label for="studentCnt" class="col-sm-2 control-label">创建时间</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="class.studentCnt" id="studentCnt"
+                                   placeholder="创建时间" disabled>
                         </div>
                     </div>
                     <div class="form-group sr-only">
