@@ -14,7 +14,7 @@
             <th>结束时间</th>
         </tr>
     <#list questionnaires.list as questionnaire>
-        <tr data-label="open-check" id="${questionnaire.id}">
+        <tr data-label="open-check" onclick="loadCount($(this),'${questionnaire.id}')">
             <td>${questionnaire.className}</td>
             <td>${questionnaire.toUser}</td>
             <td>${(questionnaire.date?number)?number_to_datetime}</td>
@@ -61,14 +61,14 @@
 
         </div>
     </div>
-</div><script type="text/javascript">
-    $('tr[data-label="open-check"]').on("click", function () {
-
-        $(this).siblings('.tr-show').addClass('sr-only');
-        var dom = $(this).next();
+</div>
+<script type="text/javascript">
+    function loadCount(d,id) {
+        d.siblings('.tr-show').addClass('sr-only');
+        var dom = d.next();
         dom.removeClass('sr-only');
-        loadResult(dom,"${staticServePath}/surveys/getTable/" + $(this).attr('id'));
-    });
+        loadResult(dom,"${staticServePath}/surveys/getTable/" + id);
+    }
 </script>
 </body>
 </html>

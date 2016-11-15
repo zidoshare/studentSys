@@ -3,7 +3,7 @@
     <div class="col-md-12">
         <div class="panel panel-default item">
             <div class="panel-heading title">
-                统计
+                统计 <span class="small" style="color:#565656">(本模块暂不可用)</span>
             </div>
 
             <div class="panel-body">
