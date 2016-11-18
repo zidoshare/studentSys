@@ -10,7 +10,6 @@ public class User extends BaseUser<User> {
 	public static final User dao = new User();
 	public static final String SEARCH_FROM_USER = "select * from stumanager_user ";
 	public User getByAccount(){
-
 		return null;
 	}
 }
