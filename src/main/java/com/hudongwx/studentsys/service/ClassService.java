@@ -4,6 +4,7 @@ import com.hudongwx.studentsys.common.Service;
 import com.hudongwx.studentsys.model.Class;
 import com.hudongwx.studentsys.model.Student;
 import com.hudongwx.studentsys.util.Common;
+import com.jfinal.aop.Before;
 import com.jfinal.plugin.activerecord.Page;
 
 import java.util.List;
