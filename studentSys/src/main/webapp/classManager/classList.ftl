@@ -9,8 +9,6 @@ ${view.title}
 </div>
 <div class="panel-body">
     <div id="table-inner">
-
-
         <div id="dataTables-example_wrapper" class="table-responsive dataTables_wrapper form-inline" role="grid">
             <table class="table table-striped table-bordered table-hover dataTable no-footer"
                    id="dataTables-example" aria-describedby="dataTables-example_info">
