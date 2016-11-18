@@ -57,7 +57,7 @@ public abstract class BaseController extends Controller {
     public abstract Mapping init();
 
     public void fillHeader() {
-        //三个地址：static用于找资源、servePath用于得到去掉参数的网址、holdPath为带参数网址
+        //三个地址：servePath用于得到去掉参数的网址、holdPath为带参数网址
         String uri = getRequest().getRequestURI();
         String url = String.valueOf(getRequest().getRequestURL());
         String staticPath = getAttr(Common.LABEL_STATIC_SERVE_PATH);
