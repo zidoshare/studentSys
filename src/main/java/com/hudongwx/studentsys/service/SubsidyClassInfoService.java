@@ -67,7 +67,7 @@ public class SubsidyClassInfoService extends Service {
      *
      * @return
      */
-    public List<SubsidyClassinfo> _queryAllSubsidyClassInfo() {
+    public List<SubsidyClassinfo> getAllSubsidyClassInfo() {
         return SubsidyClassinfo.dao.find(SubsidyClassinfo.SEARCH_FROM_SUBSIDY_CLASSINFO);
     }
 }

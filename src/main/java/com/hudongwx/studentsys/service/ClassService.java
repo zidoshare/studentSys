@@ -31,4 +31,9 @@ public class ClassService extends Service {
     public Page<Class> getAllClass(Integer currentPage) {
         return Class.dao.paginate(currentPage, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, Class.SQL_FROM);
     }
+
+    public List<Class> getClassInfoByArea(String area) {
+        String myarea="%"+area+"%";
+        return Class.dao.find(Class.SEARCH_FROM_CLASS+"where area like ?",myarea);
+    }
 }

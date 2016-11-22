@@ -1,9 +1,11 @@
 package com.hudongwx.studentsys.controller;
 
 import com.hudongwx.studentsys.common.BaseController;
+import com.hudongwx.studentsys.model.Class;
 import com.hudongwx.studentsys.model.Mapping;
 import com.hudongwx.studentsys.model.SubsidyClassinfo;
 import com.hudongwx.studentsys.model.SubsidyHistory;
+import com.hudongwx.studentsys.service.ClassService;
 import com.hudongwx.studentsys.service.SubsidyApplicationService;
 import com.hudongwx.studentsys.service.SubsidyClassInfoService;
 import com.hudongwx.studentsys.service.SubsidyHistoryService;
@@ -23,6 +25,7 @@ public class SubsidyController extends BaseController {
     public SubsidyApplicationService subsidyApplicationService;
     public SubsidyClassInfoService subsidyClassInfoService;
     public SubsidyHistoryService subsidyHistoryService;
+    public ClassService classService;
 
     @Override
     public void index() {
@@ -151,4 +154,16 @@ public class SubsidyController extends BaseController {
 
     }
 
+    /**
+     *补助管理添加班级时选择指定区域班级
+     */
+    public void showClassInfo(){
+        List<Class> area = classService.getClassInfoByArea(getPara("area"));
+        if(area.size()!=0){
+            String s = JsonKit.toJson(area);
+            RenderKit.renderSuccess(this,s);
+        }else{
+            RenderKit.renderError(this,"你所查区域无相关信息！");
+        }
+    }
 }

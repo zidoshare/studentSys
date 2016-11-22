@@ -57,6 +57,14 @@ public abstract class BaseClass<M extends BaseClass<M>> extends Model<M> impleme
 		return get("studentCnt");
 	}
 
+	public void setClassOpeningTime(java.lang.Long classOpeningTime) {
+		set("classOpeningTime", classOpeningTime);
+	}
+
+	public java.lang.Long getClassOpeningTime() {
+		return get("classOpeningTime");
+	}
+
 	public void setClassCreateTime(java.lang.Long classCreateTime) {
 		set("classCreateTime", classCreateTime);
 	}
