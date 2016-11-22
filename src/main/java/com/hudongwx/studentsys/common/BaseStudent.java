@@ -17,12 +17,100 @@ public abstract class BaseStudent<M extends BaseStudent<M>> extends Model<M> imp
 		return get("id");
 	}
 
+	public void setUserId(java.lang.Integer userId) {
+		set("userId", userId);
+	}
+
+	public java.lang.Integer getUserId() {
+		return get("userId");
+	}
+
 	public void setName(java.lang.String name) {
 		set("name", name);
 	}
 
 	public java.lang.String getName() {
 		return get("name");
+	}
+
+	public void setSex(java.lang.String sex) {
+		set("sex", sex);
+	}
+
+	public java.lang.String getSex() {
+		return get("sex");
+	}
+
+	public void setIdNumber(java.lang.String idNumber) {
+		set("idNumber", idNumber);
+	}
+
+	public java.lang.String getIdNumber() {
+		return get("idNumber");
+	}
+
+	public void setContactInformation(java.lang.String contactInformation) {
+		set("contactInformation", contactInformation);
+	}
+
+	public java.lang.String getContactInformation() {
+		return get("contactInformation");
+	}
+
+	public void setQq(java.lang.String qq) {
+		set("qq", qq);
+	}
+
+	public java.lang.String getQq() {
+		return get("qq");
+	}
+
+	public void setEmail(java.lang.String email) {
+		set("email", email);
+	}
+
+	public java.lang.String getEmail() {
+		return get("email");
+	}
+
+	public void setEmergencyContact(java.lang.String emergencyContact) {
+		set("emergencyContact", emergencyContact);
+	}
+
+	public java.lang.String getEmergencyContact() {
+		return get("emergencyContact");
+	}
+
+	public void setEducationBackground(java.lang.String educationBackground) {
+		set("educationBackground", educationBackground);
+	}
+
+	public java.lang.String getEducationBackground() {
+		return get("educationBackground");
+	}
+
+	public void setMajor(java.lang.String major) {
+		set("major", major);
+	}
+
+	public java.lang.String getMajor() {
+		return get("major");
+	}
+
+	public void setCollege(java.lang.String college) {
+		set("college", college);
+	}
+
+	public java.lang.String getCollege() {
+		return get("college");
+	}
+
+	public void setGraduationTime(java.lang.String graduationTime) {
+		set("graduationTime", graduationTime);
+	}
+
+	public java.lang.String getGraduationTime() {
+		return get("graduationTime");
 	}
 
 	public void setClassId(java.lang.Integer classId) {
@@ -41,6 +129,22 @@ public abstract class BaseStudent<M extends BaseStudent<M>> extends Model<M> imp
 		return get("className");
 	}
 
+	public void setSubject(java.lang.String subject) {
+		set("subject", subject);
+	}
+
+	public java.lang.String getSubject() {
+		return get("subject");
+	}
+
+	public void setCredit(java.lang.Integer credit) {
+		set("credit", credit);
+	}
+
+	public java.lang.Integer getCredit() {
+		return get("credit");
+	}
+
 	public void setTutor(java.lang.String tutor) {
 		set("tutor", tutor);
 	}
@@ -57,60 +161,84 @@ public abstract class BaseStudent<M extends BaseStudent<M>> extends Model<M> imp
 		return get("tutorId");
 	}
 
-	public void setSubject(java.lang.Integer subject) {
-		set("subject", subject);
-	}
-
-	public java.lang.Integer getSubject() {
-		return get("subject");
-	}
-
-	public void setContactInformation(java.lang.String contactInformation) {
-		set("contactInformation", contactInformation);
-	}
-
-	public java.lang.String getContactInformation() {
-		return get("contactInformation");
-	}
-
-	public void setAdmission(java.lang.Long admission) {
+	public void setAdmission(java.lang.String admission) {
 		set("admission", admission);
 	}
 
-	public java.lang.Long getAdmission() {
+	public java.lang.String getAdmission() {
 		return get("admission");
 	}
 
-	public void setCredit(java.lang.Integer credit) {
-		set("credit", credit);
+	public void setTrainingGraduationTime(java.lang.String trainingGraduationTime) {
+		set("trainingGraduationTime", trainingGraduationTime);
 	}
 
-	public java.lang.Integer getCredit() {
-		return get("credit");
+	public java.lang.String getTrainingGraduationTime() {
+		return get("trainingGraduationTime");
 	}
 
-	public void setGrade(java.lang.Integer grade) {
-		set("grade", grade);
+	public void setTuition(java.lang.Integer tuition) {
+		set("tuition", tuition);
 	}
 
-	public java.lang.Integer getGrade() {
-		return get("grade");
+	public java.lang.Integer getTuition() {
+		return get("tuition");
 	}
 
-	public void setState(java.lang.String state) {
+	public void setPaymentMethod(java.lang.String paymentMethod) {
+		set("paymentMethod", paymentMethod);
+	}
+
+	public java.lang.String getPaymentMethod() {
+		return get("paymentMethod");
+	}
+
+	public void setArea(java.lang.String area) {
+		set("area", area);
+	}
+
+	public java.lang.String getArea() {
+		return get("area");
+	}
+
+	public void setConsultant(java.lang.String consultant) {
+		set("consultant", consultant);
+	}
+
+	public java.lang.String getConsultant() {
+		return get("consultant");
+	}
+
+	public void setSubsidyPer(java.lang.Integer subsidyPer) {
+		set("subsidyPer", subsidyPer);
+	}
+
+	public java.lang.Integer getSubsidyPer() {
+		return get("subsidyPer");
+	}
+
+	public void setBonus(java.lang.Integer bonus) {
+		set("bonus", bonus);
+	}
+
+	public java.lang.Integer getBonus() {
+		return get("bonus");
+	}
+
+	public void setResidualFrequency(java.lang.Integer residualFrequency) {
+		set("residualFrequency", residualFrequency);
+	}
+
+	public java.lang.Integer getResidualFrequency() {
+		return get("residualFrequency");
+	}
+
+	public void setState(java.lang.Integer state) {
 		set("state", state);
 	}
 
-	public java.lang.String getState() {
+	public java.lang.Integer getState() {
 		return get("state");
-	}
-
-	public void setEmployment(java.lang.String employment) {
-		set("employment", employment);
-	}
-
-	public java.lang.String getEmployment() {
-		return get("employment");
 	}
 
 	public void setCreateTime(java.lang.Long createTime) {
@@ -145,20 +273,12 @@ public abstract class BaseStudent<M extends BaseStudent<M>> extends Model<M> imp
 		return get("operater");
 	}
 
-	public void setConsultantId(java.lang.Integer consultantId) {
-		set("consultantId", consultantId);
+	public void setRemark(java.lang.String remark) {
+		set("remark", remark);
 	}
 
-	public java.lang.Integer getConsultantId() {
-		return get("consultantId");
-	}
-
-	public void setUserId(java.lang.Integer userId) {
-		set("userId", userId);
-	}
-
-	public java.lang.Integer getUserId() {
-		return get("userId");
+	public java.lang.String getRemark() {
+		return get("remark");
 	}
 
 }
