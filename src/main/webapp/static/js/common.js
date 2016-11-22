@@ -1043,6 +1043,46 @@ var func = {
             })
         }
     },
+    addApplyClass:function (method) {
+        if (method == 'up') {
+            var btn = Ladda.create(document.querySelector("#save-btn"));
+            btn.start();
+            var json = {};
+            var id = $('#classId').val();
+            if (id == null || id == '')
+                $('#classCreateTime').val(new Date().getTime());
+            $('#classUpdateTime').val(new Date().getTime());
+            $('#classOperaterId').val(Label.userId);
+            $('#class').find('.form-control').each(function () {
+                json[$(this).attr('name')] = $(this).val();
+            });
+            $.ajax({
+                url: Label.staticServePath + "/subsidyManager/addApply",
+                type: "post",
+                data: json,
+                success: function (data, state) {
+                    if (data.state == 'success') {
+                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
+                        $('#addApplyModel').modal('hide');
+                        //刷新页面
+                        Util.reloadByPjax();
+                    } else {
+                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-danger');
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    Util.showTip($('#wholeTip'), '服务器错误', 'alert alert-danger', {time: 5000});
+                },
+                complete: function () {
+                    btn.stop();
+                }
+            })
+        }
+        else{
+            modalUtil.show($('#addApplyModel'));
+            // $('#studentCnt').val(0);
+        }
+    },
     addClass: function (method) {
         if (method == 'up') {
             var btn = Ladda.create(document.querySelector("#save-btn"));
@@ -1509,4 +1549,3 @@ var Test = {
         });
     }
 };
-

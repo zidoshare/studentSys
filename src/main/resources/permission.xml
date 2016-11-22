@@ -89,6 +89,43 @@
                 </mapping>
             </mappings>
         </mapping>
+        <mapping id="5000" icon="fa fa-usd" url="/subsidyManager" title="补助管理" function="2">
+            <mappings>
+                <mapping id="5001" icon="apply" url="/subsidyManager/applyList.ftl" title="申请列表信息" function="1">
+                    <mappings>
+                        <mapping id="5002" icon="seeApply" title="查看" url="seeApply" function="0">
+                            <mappings/>
+                        </mapping>
+                        <mapping id="5003" icon="updateApply" title="修改" url="updateApply" function="0">
+                            <mappings/>
+                        </mapping>
+                        <mapping id="5004" icon="deleteApply" title="删除" url="deleteApply" function="0">
+                            <mappings/>
+                        </mapping>
+                        <mapping id="5005" icon="addApplyClass" title="+添加申请班级" url="addApplyClass" function="0">
+                            <mappings/>
+                        </mapping>
+                    </mappings>
+                </mapping>
+            </mappings>
+        </mapping>
+        <mapping id="5100" icon="fa fa-usd" url="/approvalManager" title="补助审批" function="2">
+            <mappings>
+                <mapping id="5101" icon="approval" url="approvalManager/approvalList.ftl" title="补助申请列表" function="1">
+                    <mappings>
+                        <mapping id="5102" icon="seeApproval" title="查看" url="seeApproval" function="0">
+                            <mappings/>
+                        </mapping>
+                        <mapping id="5103" icon="updateApproval" title="同意" url="updateApproval" function="0">
+                            <mappings/>
+                        </mapping>
+                        <mapping id="5104" icon="deleteApproval" title="驳回" url="deleteApproval" function="0">
+                            <mappings/>
+                        </mapping>
+                    </mappings>
+                </mapping>
+            </mappings>
+        </mapping>
         <mapping id="2330" icon="fa fa-usd" url="/repaymentManager" title="还款管理" function="2">
             <mappings>
                 <mapping id="3700" icon="repaymentList" title="还款管理" url="/repaymentManager/repaymentList.ftl"
