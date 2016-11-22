@@ -73,6 +73,14 @@ public abstract class BaseClass<M extends BaseClass<M>> extends Model<M> impleme
 		return get("classUpdateTime");
 	}
 
+	public void setArea(java.lang.String area) {
+		set("area", area);
+	}
+
+	public java.lang.String getArea() {
+		return get("area");
+	}
+
 	public void setClassOperaterId(java.lang.Integer classOperaterId) {
 		set("classOperaterId", classOperaterId);
 	}

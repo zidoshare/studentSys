@@ -58,7 +58,7 @@ public class ObtainEmploymentService extends Service {
      * @param id
      * @return
      */
-    public List<ObtainEmployment> _queryObtainEmploymentById(String id) {
+    public List<ObtainEmployment> getObtainEmploymentById(String id) {
         return ObtainEmployment.dao.find(ObtainEmployment.SEARCH_FROM_OBTAIN_EMPLOYMENT + "where id=?", id);
     }
 

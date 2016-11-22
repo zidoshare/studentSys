@@ -7,8 +7,10 @@ import com.hudongwx.studentsys.model.SubsidyHistory;
 import com.hudongwx.studentsys.service.SubsidyApplicationService;
 import com.hudongwx.studentsys.service.SubsidyClassInfoService;
 import com.hudongwx.studentsys.service.SubsidyHistoryService;
+import com.hudongwx.studentsys.util.RenderKit;
 import com.jfinal.aop.Before;
 import com.jfinal.ext.interceptor.POST;
+import com.jfinal.kit.JsonKit;
 
 import java.util.List;
 
@@ -87,11 +89,16 @@ public class SubsidyController extends BaseController {
     }
 
     /**
-     * 获取正在申请的班级
+     * 获取正在申请的班级详情(classid)
      */
     public void getSubsidyClassInfo() {
-        List<SubsidyClassinfo> scList = subsidyClassInfoService._querySubsidyClassInfoById(getPara("classId"));
-        setAttr("scList", scList);
+        List<SubsidyClassinfo> scList = subsidyClassInfoService.getSubsidyClassInfoById(getPara("classId"));
+        if(scList.size()!=0){
+            String s = JsonKit.toJson(scList);
+            RenderKit.renderSuccess(this,s);
+        }else {
+            RenderKit.renderError(this,"你所查找的数据不存在或已删除！");
+        }
     }
 
     /*****************************申请历史记录******************************/
@@ -115,19 +122,33 @@ public class SubsidyController extends BaseController {
     }
 
     /**
+     *
      * 获取历史申请信息
      */
     public void getSubsidyHistory() {
-        List<SubsidyHistory> scList = subsidyHistoryService._querySubsidyHistoryById(getPara("shId"));
-        setAttr("scList", scList);
+        List<SubsidyHistory> shList = subsidyHistoryService.getSubsidyHistoryById(getPara("shId"));
+        //
+
+        if(shList.size()!=0){
+            String s = JsonKit.toJson(shList);
+            RenderKit.renderSuccess(this,s);
+        }else {
+            RenderKit.renderError(this,"你所查找的数据不存在或已删除！");
+        }
     }
 
     /**
      * 获取所有历史申请信息
      */
     public void getAllSubsidyHistory() {
-        List<SubsidyHistory> scList = subsidyHistoryService._queryAllSubsidyClassInfo();
-        setAttr("scList", scList);
+        List<SubsidyHistory> shList = subsidyHistoryService.getAllSubsidyClassInfo();
+        if(shList.size()!=0){
+            String s = JsonKit.toJson(shList);
+            RenderKit.renderSuccess(this,s);
+        }else {
+            RenderKit.renderError(this,"你所查找的数据不存在或已删除！");
+        }
+
     }
 
 }

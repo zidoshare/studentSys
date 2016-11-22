@@ -17,12 +17,12 @@ public abstract class BaseRoleRegion<M extends BaseRoleRegion<M>> extends Model<
 		return get("id");
 	}
 
-	public void setRegion(java.lang.String region) {
-		set("region", region);
+	public void setArea(java.lang.String area) {
+		set("area", area);
 	}
 
-	public java.lang.String getRegion() {
-		return get("region");
+	public java.lang.String getArea() {
+		return get("area");
 	}
 
 	public void setRoleId(java.lang.Integer roleId) {

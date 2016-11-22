@@ -4,8 +4,10 @@ import com.hudongwx.studentsys.common.BaseController;
 import com.hudongwx.studentsys.model.Mapping;
 import com.hudongwx.studentsys.model.ObtainEmployment;
 import com.hudongwx.studentsys.service.ObtainEmploymentService;
+import com.hudongwx.studentsys.util.RenderKit;
 import com.jfinal.aop.Before;
 import com.jfinal.ext.interceptor.POST;
+import com.jfinal.kit.JsonKit;
 
 import java.util.List;
 
@@ -59,11 +61,15 @@ public class StudentEmploymentController extends BaseController{
     }
 
     /**
-     * 获取正在申请的班级
+     * 获取指定id的就业信息
      */
     public void getObtainEmploymentInfo() {
-        List<ObtainEmployment> oelist = obtainEmploymentService._queryObtainEmploymentById(getPara("oeId"));
-        setAttr("oeList", oelist);
+        List<ObtainEmployment> oeList = obtainEmploymentService.getObtainEmploymentById(getPara("oeId"));
+        if(oeList.size()!=0){
+            RenderKit.renderSuccess(this,JsonKit.toJson(oeList));
+        }else{
+            RenderKit.renderError(this,"你查询的信息不存在或已删除！");
+        }
     }
 
 }

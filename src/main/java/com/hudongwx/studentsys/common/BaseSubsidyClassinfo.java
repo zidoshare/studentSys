@@ -33,6 +33,14 @@ public abstract class BaseSubsidyClassinfo<M extends BaseSubsidyClassinfo<M>> ex
 		return get("className");
 	}
 
+	public void setArea(java.lang.String area) {
+		set("area", area);
+	}
+
+	public java.lang.String getArea() {
+		return get("area");
+	}
+
 	public void setStudentId(java.lang.Integer studentId) {
 		set("studentId", studentId);
 	}
