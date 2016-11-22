@@ -41,6 +41,14 @@ public abstract class BaseSubsidyApplication<M extends BaseSubsidyApplication<M>
 		return get("applicationDate");
 	}
 
+	public void setArea(java.lang.String area) {
+		set("area", area);
+	}
+
+	public java.lang.String getArea() {
+		return get("area");
+	}
+
 	public void setClassName(java.lang.String className) {
 		set("className", className);
 	}
@@ -87,14 +95,6 @@ public abstract class BaseSubsidyApplication<M extends BaseSubsidyApplication<M>
 
 	public java.lang.Integer getApproveStatus() {
 		return get("approveStatus");
-	}
-
-	public void setRegion(java.lang.String region) {
-		set("region", region);
-	}
-
-	public java.lang.String getRegion() {
-		return get("region");
 	}
 
 }

@@ -152,6 +152,12 @@ var Validate = {
 };
 
 var Util = {
+    jsonToString: function (str,param) {
+        var reg = /{([^{}]+)}/gm;
+        return str.replace(reg, function (match, name) {
+            return param[name];
+        });
+    },
     mapping: function (originParent, targetParent) {
         //映射方法
         //参数：源dom，目标dom。
@@ -1042,6 +1048,39 @@ var func = {
                 }
             })
         }
+    },
+    seeApply:function (method,id) {
+            modalUtil.show($('#seeApplyModel'));
+            $.ajax(Label.staticServePath+"/subsidyManager/getSubsidyClassInfo",{
+               type:'post',
+                dataType:'json',
+                data:{
+                    'classId':id
+                },
+                success:function(data,status){
+                    if(data.state == 'success'){
+                        var json = JSON.parse(data.msg);
+                        json.map(function(elem,num){
+                            var str = '<tr id="{id}">' +
+                                '<td>{studentName}</td>' +
+                                '<td>{subsidyAmount}</td>' +
+                                '<td>{residualFrequency}</td>' +
+                                '<td>{bonus}</td>' +
+                                '<td>{state}</td>' +
+                                '<td>{remark}</td>' +
+                                '</tr>';
+                            str = Util.jsonToString(str,elem);
+                            console.log(str);
+                            $('#seeApplyModel').find('tbody:first').append(str);
+                        });
+                        $('#seeApplyModel').one('hidden.bs.modal',function(){
+                            $(this).find('tbody:first').html('');
+                        });
+                    }
+                }
+            });
+            // $('#studentCnt').val(0);
+
     },
     addApplyClass:function (method) {
         if (method == 'up') {

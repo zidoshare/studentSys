@@ -64,7 +64,7 @@ ${view.title}
                         <#if op.url == "seeApproval">
                             <@macroBtn url = op.url title = op.title></@macroBtn>
                             <#assign op = map["operators"+view.id][0]>
-                        ${InsertKit(btnLabel,op.title)}/
+                        ${InsertKit(btnLabel,5)}/
                         </#if>
                     </#list>
                 </#if>

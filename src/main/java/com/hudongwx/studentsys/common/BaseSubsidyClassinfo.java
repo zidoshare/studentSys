@@ -33,6 +33,14 @@ public abstract class BaseSubsidyClassinfo<M extends BaseSubsidyClassinfo<M>> ex
 		return get("className");
 	}
 
+	public void setArea(java.lang.String area) {
+		set("area", area);
+	}
+
+	public java.lang.String getArea() {
+		return get("area");
+	}
+
 	public void setStudentId(java.lang.Integer studentId) {
 		set("studentId", studentId);
 	}
@@ -63,6 +71,14 @@ public abstract class BaseSubsidyClassinfo<M extends BaseSubsidyClassinfo<M>> ex
 
 	public java.lang.Integer getBonus() {
 		return get("bonus");
+	}
+
+	public void setResidualFrequency(java.lang.Integer residualFrequency) {
+		set("residualFrequency", residualFrequency);
+	}
+
+	public java.lang.Integer getResidualFrequency() {
+		return get("residualFrequency");
 	}
 
 	public void setState(java.lang.String state) {
