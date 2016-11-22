@@ -40,7 +40,7 @@ ${view.title}
     <tbody>
     <tr>
         <td>
-            0719班
+            成都
         </td>
         <td>
             11

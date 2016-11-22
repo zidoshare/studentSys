@@ -11,7 +11,9 @@ ${view.title}
     <div class="row">
         <div class="col-lg-6">
             <div class="input-group col-md-5">
-                <span class="input-group-addon">表名:</span>
+                <span class="input-group-addon">
+                     表名:
+                </span>
                 <input type="text" class="form-control">
             </div>
         </div>
@@ -170,7 +172,13 @@ ${view.title}
             <#--<#if holdPath?contains("?")><#assign str = "&"></#if>-->
             <#--<@paginate page = classes url=holdPath+str pageAfter="p">-->
             <#--</@paginate>-->
-            <span class="center-block text-center">${addBtn}</span>
+            <#--<#if user?exists>-->
+
+
+            <#--<#else >-->
+                <span class="center-block text-center">${addBtn}</span>
+            <#--</#if>-->
+
             <span class="pull-right text-center">${saveBtn}</span>
         </div>
     </div>

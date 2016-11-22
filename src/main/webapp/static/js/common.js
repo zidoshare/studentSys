@@ -1079,7 +1079,7 @@ var func = {
                     }
                 }
             });
-            // $('#studentCnt').val(0);
+
 
     },
     addApplyClass:function (method) {
@@ -1119,6 +1119,7 @@ var func = {
         }
         else{
             modalUtil.show($('#addApplyModel'));
+            
             // $('#studentCnt').val(0);
         }
     },

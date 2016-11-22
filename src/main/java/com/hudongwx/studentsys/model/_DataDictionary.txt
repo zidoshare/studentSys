@@ -137,15 +137,6 @@ Table: stumanager_role
  operater   | varchar(20)          | YES  |     |         |         
 ------------+----------------------+------+-----+---------+---------
 
-Table: stumanager_role_region
---------+--------------+------+-----+---------+---------
- Field  | Type         | Null | Key | Default | Remarks 
---------+--------------+------+-----+---------+---------
- id     | int(10)      | NO   | PRI |         | 区域id    
- area   | varchar(255) | YES  |     |         | 区域名     
- roleId | int(10)      | YES  |     |         | 该区负责人   
---------+--------------+------+-----+---------+---------
-
 Table: stumanager_student
 ------------------------+--------------+------+-----+---------+---------
  Field                  | Type         | Null | Key | Default | Remarks 
@@ -359,4 +350,13 @@ Table: stumanager_user
  userUpdateTime  | bigint(19)           | YES  |     |         | 用户更新时间  
  operater        | varchar(20)          | YES  |     | admin   | 创建者     
 -----------------+----------------------+------+-----+---------+---------
+
+Table: stumanager_user_region
+--------+--------------+------+-----+---------+---------
+ Field  | Type         | Null | Key | Default | Remarks 
+--------+--------------+------+-----+---------+---------
+ id     | int(10)      | NO   | PRI |         | 区域id    
+ area   | varchar(255) | YES  |     |         | 区域名     
+ userId | int(10)      | YES  |     |         | 该区负责人   
+--------+--------------+------+-----+---------+---------
 
