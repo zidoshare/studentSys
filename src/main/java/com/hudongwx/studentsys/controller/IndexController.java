@@ -12,6 +12,7 @@ import com.hudongwx.studentsys.util.RenderKit;
 import com.jfinal.aop.Before;
 import com.jfinal.plugin.activerecord.tx.Tx;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,11 +21,10 @@ import java.util.Map;
 /**
  * Created by wuhongxu on 2016/9/2 0002.
  */
-public class IndexController extends BaseController{
+public class IndexController extends BaseController {
 
 
-
-    public void index(){
+    public void index() {
         super.index();
         setMapping(mappingService.getMappingByTitle("首页"));
         fillOutLink();
@@ -39,22 +39,29 @@ public class IndexController extends BaseController{
     }
 
     @Before(MyTx.class)
-    public void admin(){
+    public void admin() {
         String methodName = getPara("data");
-        if(methodName.equals("initWebMap")){
-            Build.clearMapping();
+        if (methodName.equals("initWebMap")) {
             try {
-                Build.readXML(new ArrayTree<>(),Common.getMainProp().get("permissonPath"));
+                String fileSeparator = System.getProperty("file.separator");
+                String path = Common.getMainProp().get("permissonPath");
+                String s = path.replace("\\", fileSeparator);
+
+                File file = new File(path);
+                if (!file.exists())
+                    throw new Exception(path + "文件不存在");
+                Build.clearMapping();
+                Build.readXML(new ArrayTree<>(), s);
             } catch (Exception e) {
-                RenderKit.renderError(this,e.toString());
-                return ;
+                RenderKit.renderError(this, e.toString());
+                return;
             }
-            RenderKit.renderSuccess(this,"初始化地图成功");
-        }else if(methodName.equals("initWebRole")){
+            RenderKit.renderSuccess(this, "初始化地图成功");
+        } else if (methodName.equals("initWebRole")) {
             Build.clearRole();
             Build.initRole();
             Build.initUser();
-            RenderKit.renderSuccess(this,"初始化用户&角色成功");
+            RenderKit.renderSuccess(this, "初始化用户&角色成功");
         }
     }
 }
