@@ -11,7 +11,7 @@
                 <mapping id="1999" icon="dataManager" url="/common/dataManager.ftl" title="数据管理" function="1">
                     <mappings/>
                 </mapping>
-                <mapping id="1999" icon="routs" url="/common/routs.ftl" title="导航" function="1">
+                <mapping id="2000" icon="routs" url="/common/routs.ftl" title="导航" function="1">
                     <mappings/>
                 </mapping>
                 <mapping id="2338" icon="fast" url="/common/fastOprator.ftl" title="快捷操作" function="1">
@@ -144,7 +144,8 @@
         </mapping>
         <mapping id="2332" icon="fa fa-book" url="/certificateManager" title="证书管理" function="2">
             <mappings>
-                <mapping id="2004" icon="certificateList" url="/certificateManager/certificateList.ftl" title="证书管理" function="1">
+                <mapping id="2004" icon="certificateList" url="/certificateManager/certificateList.ftl" title="证书管理"
+                         function="1">
                     <mappings>
                         <mapping id="2005" icon="addCertificate" url="addCertificate" title="添加" function="0">
                             <mappings/>

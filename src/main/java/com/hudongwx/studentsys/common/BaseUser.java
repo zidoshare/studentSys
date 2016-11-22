@@ -41,14 +41,6 @@ public abstract class BaseUser<M extends BaseUser<M>> extends Model<M> implement
 		return get("userNickname");
 	}
 
-	public void setUserEmail(java.lang.String userEmail) {
-		set("userEmail", userEmail);
-	}
-
-	public java.lang.String getUserEmail() {
-		return get("userEmail");
-	}
-
 	public void setUserRole(java.lang.String userRole) {
 		set("userRole", userRole);
 	}
@@ -57,12 +49,44 @@ public abstract class BaseUser<M extends BaseUser<M>> extends Model<M> implement
 		return get("userRole");
 	}
 
+	public void setUserPhone(java.lang.String userPhone) {
+		set("userPhone", userPhone);
+	}
+
+	public java.lang.String getUserPhone() {
+		return get("userPhone");
+	}
+
+	public void setUserEmail(java.lang.String userEmail) {
+		set("userEmail", userEmail);
+	}
+
+	public java.lang.String getUserEmail() {
+		return get("userEmail");
+	}
+
+	public void setUserAddress(java.lang.String userAddress) {
+		set("userAddress", userAddress);
+	}
+
+	public java.lang.String getUserAddress() {
+		return get("userAddress");
+	}
+
 	public void setUserPurikura(java.lang.String userPurikura) {
 		set("userPurikura", userPurikura);
 	}
 
 	public java.lang.String getUserPurikura() {
 		return get("userPurikura");
+	}
+
+	public void setUserMessage(java.lang.String userMessage) {
+		set("userMessage", userMessage);
+	}
+
+	public java.lang.String getUserMessage() {
+		return get("userMessage");
 	}
 
 	public void setUserLastLoginIp(java.lang.String userLastLoginIp) {
@@ -87,30 +111,6 @@ public abstract class BaseUser<M extends BaseUser<M>> extends Model<M> implement
 
 	public java.lang.Long getUserUpdateTime() {
 		return get("userUpdateTime");
-	}
-
-	public void setUserPhone(java.lang.String userPhone) {
-		set("userPhone", userPhone);
-	}
-
-	public java.lang.String getUserPhone() {
-		return get("userPhone");
-	}
-
-	public void setUserAddress(java.lang.String userAddress) {
-		set("userAddress", userAddress);
-	}
-
-	public java.lang.String getUserAddress() {
-		return get("userAddress");
-	}
-
-	public void setUserMessage(java.lang.String userMessage) {
-		set("userMessage", userMessage);
-	}
-
-	public java.lang.String getUserMessage() {
-		return get("userMessage");
 	}
 
 	public void setOperater(java.lang.String operater) {
