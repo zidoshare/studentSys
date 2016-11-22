@@ -9,7 +9,6 @@ import com.hudongwx.studentsys.util.Common;
 import com.hudongwx.studentsys.util.StrPlusKit;
 import com.jfinal.plugin.activerecord.Page;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -79,8 +78,9 @@ public class StudentService extends Service {
             student.setTutor(Common.getMainProp().get("defaultTutor"));
         if (StrPlusKit.isEmpty(student.getContactInformation()))
             student.setContactInformation(Common.getMainProp().get("defaultContactInformation"));
-        if (null == student.getAdmission())
+        if (null == student.getAdmission()) {
             student.setAdmission(System.currentTimeMillis());
+        }
     }
 
     public List<Student> getStudentByClass(Class aClass) {

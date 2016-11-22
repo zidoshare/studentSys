@@ -21,7 +21,6 @@ public class StudentController extends BaseController {
     public UserService userService;
     public ClassService classService;
 
-
     @Override
     public void index() {
         super.index();

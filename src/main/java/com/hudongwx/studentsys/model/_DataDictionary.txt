@@ -89,6 +89,20 @@ Table: stumanager_mapping
  function      | int(10)      | NO   |     | 0       | 职能，0：功能，1：视图模块，2：菜单，3：二级菜单，以后多级菜单，依次类推
 ---------------+--------------+------+-----+---------+---------
 
+Table: stumanager_obtainemployment
+------------------+--------------+------+-----+---------+---------
+ Field            | Type         | Null | Key | Default | Remarks 
+------------------+--------------+------+-----+---------+---------
+ id               | int(10)      | NO   | PRI |         |         
+ className        | varchar(255) | YES  |     |         |         
+ name             | varchar(255) | YES  |     |         | 学生姓名    
+ employmentStatus | varchar(255) | YES  |     |         | 就业状态    
+ trackTime        | bigint(19)   | YES  |     |         | 追踪时间    
+ remark           | varchar(255) | YES  |     |         |         
+ approveStatus    | tinyint(3)   | YES  |     |         | 批准状态    
+ approver         | varchar(255) | YES  |     |         | 批准人     
+------------------+--------------+------+-----+---------+---------
+
 Table: stumanager_repayment
 ------------+--------------+------+-----+---------+---------
  Field      | Type         | Null | Key | Default | Remarks 
@@ -121,30 +135,97 @@ Table: stumanager_role
  operater   | varchar(20)          | YES  |     |         |         
 ------------+----------------------+------+-----+---------+---------
 
+Table: stumanager_role_region
+--------+--------------+------+-----+---------+---------
+ Field  | Type         | Null | Key | Default | Remarks 
+--------+--------------+------+-----+---------+---------
+ id     | int(10)      | NO   | PRI |         | 区域id    
+ region | varchar(255) | YES  |     |         | 区域名     
+ roleId | int(10)      | YES  |     |         | 该区负责人   
+--------+--------------+------+-----+---------+---------
+
 Table: stumanager_student
---------------------+--------------+------+-----+---------+---------
- Field              | Type         | Null | Key | Default | Remarks 
---------------------+--------------+------+-----+---------+---------
- id                 | int(10)      | NO   | PRI |         |         
- name               | varchar(255) | YES  |     |         |         
- classId            | int(10)      | YES  |     |         |         
- className          | varchar(20)  | YES  |     |         |         
- tutor              | varchar(20)  | YES  |     |         |         
- tutorId            | int(10)      | YES  |     |         | 辅导老师    
- subject            | int(10)      | YES  |     |         | 学习科目    
- contactInformation | varchar(255) | YES  |     |         | 联系方式    
- admission          | bigint(19)   | YES  |     |         | 入学时间    
- credit             | int(10)      | YES  |     |         | 学分      
- grade              | int(10)      | YES  |     |         | 成绩      
- state              | varchar(255) | YES  |     |         | 状态      
- employment         | varchar(255) | YES  |     |         | 就业跟踪    
- createTime         | bigint(19)   | YES  |     |         | 用户创建时间  
- ip                 | varchar(20)  | YES  |     | 0.0.0.0 | 最后登录的ip地址
- operaterId         | int(10)      | YES  |     |         | 操作人     
- operater           | varchar(20)  | YES  |     | admin   |         
- consultantId       | int(10)      | YES  |     |         |         
- userId             | int(10)      | YES  |     |         |         
---------------------+--------------+------+-----+---------+---------
+------------------------+--------------+------+-----+---------+---------
+ Field                  | Type         | Null | Key | Default | Remarks 
+------------------------+--------------+------+-----+---------+---------
+ id                     | int(10)      | NO   | PRI |         |         
+ userId                 | int(10)      | YES  |     |         |         
+ name                   | varchar(255) | YES  |     |         |         
+ sex                    | varchar(255) | YES  |     |         |         
+ idNumber               | varchar(255) | YES  |     |         |         
+ contactInformation     | varchar(255) | YES  |     |         | 联系方式    
+ qq                     | varchar(255) | YES  |     |         |         
+ email                  | varchar(255) | YES  |     |         |         
+ emergencyContact       | varchar(255) | YES  |     |         |         
+ educationBackground    | varchar(255) | YES  |     |         |         
+ major                  | varchar(255) | YES  |     |         |         
+ college                | varchar(255) | YES  |     |         |         
+ graduationTime         | bigint(19)   | YES  |     |         |         
+ classId                | int(10)      | YES  |     |         |         
+ className              | varchar(255) | YES  |     |         |         
+ subject                | varchar(255) | YES  |     |         | 学习科目    
+ credit                 | int(10)      | YES  |     |         | 学分      
+ tutor                  | varchar(255) | YES  |     |         |         
+ tutorId                | int(10)      | YES  |     |         | 辅导老师    
+ admission              | bigint(19)   | YES  |     |         | 入学时间    
+ trainingGraduationTime | bigint(19)   | YES  |     |         |         
+ tuition                | int(10)      | YES  |     |         |         
+ paymentMethod          | varchar(255) | YES  |     |         |         
+ area                   | varchar(255) | YES  |     |         |         
+ consultant             | varchar(255) | YES  |     |         |         
+ subsidyPer             | int(10)      | YES  |     |         |         
+ bonus                  | int(10)      | YES  |     |         |         
+ residualFrequency      | tinyint(3)   | YES  |     |         |         
+ state                  | tinyint(3)   | YES  |     |         | 在读、毕业or休学状态
+ createTime             | bigint(19)   | YES  |     |         | 用户创建时间  
+ ip                     | varchar(20)  | YES  |     | 0.0.0.0 | 最后登录的ip地址
+ operaterId             | int(10)      | YES  |     |         | 操作人     
+ operater               | varchar(255) | YES  |     | admin   |         
+ remark                 | varchar(255) | YES  |     |         |         
+------------------------+--------------+------+-----+---------+---------
+
+Table: stumanager_subsidy_application
+-----------------+--------------+------+-----+---------+---------
+ Field           | Type         | Null | Key | Default | Remarks 
+-----------------+--------------+------+-----+---------+---------
+ id              | int(10)      | NO   | PRI |         |         
+ title           | varchar(255) | YES  |     |         |         
+ applicant       | varchar(255) | YES  |     |         |         
+ applicationDate | bigint(19)   | YES  |     |         |         
+ className       | varchar(255) | YES  |     |         |         
+ number          | int(10)      | YES  |     |         | 申请人数    
+ totalSubsidy    | int(10)      | YES  |     |         | 总补助     
+ totalBonus      | int(10)      | YES  |     |         | 总奖金     
+ aggregateAmount | int(10)      | YES  |     |         | 总计      
+ approveStatus   | tinyint(3)   | YES  |     |         | 批准状态    
+ region          | varchar(255) | YES  |     |         | 班级所在区   
+-----------------+--------------+------+-----+---------+---------
+
+Table: stumanager_subsidy_classinfo
+---------------+--------------+------+-----+---------+---------
+ Field         | Type         | Null | Key | Default | Remarks 
+---------------+--------------+------+-----+---------+---------
+ id            | int(10)      | NO   | PRI |         |         
+ classId       | int(10)      | YES  |     |         |         
+ className     | varchar(255) | YES  |     |         |         
+ studentId     | int(10)      | YES  |     |         |         
+ studentName   | varchar(255) | YES  |     |         |         
+ subsidyAmount | int(10)      | YES  |     |         |         
+ bonus         | int(10)      | YES  |     |         |         
+ state         | varchar(255) | YES  |     |         |         
+ remark        | varchar(255) | YES  |     |         |         
+---------------+--------------+------+-----+---------+---------
+
+Table: stumanager_subsidy_history
+-----------------+--------------+------+-----+---------+---------
+ Field           | Type         | Null | Key | Default | Remarks 
+-----------------+--------------+------+-----+---------+---------
+ id              | int(10)      | NO   | PRI |         |         
+ title           | varchar(255) | YES  |     |         |         
+ applicant       | varchar(255) | YES  |     |         |         
+ applicationDate | bigint(19)   | YES  |     |         |         
+ state           | tinyint(3)   | YES  |     |         | 状态      
+-----------------+--------------+------+-----+---------+---------
 
 Table: stumanager_test_question
 --------------------------+-------------+------+-----+---------+---------
@@ -243,6 +324,18 @@ Table: stumanager_test_type
  testQuestionIsVisible | int(10)     | NO   |     | 1                          |         
 -----------------------+-------------+------+-----+----------------------------+---------
 
+Table: stumanager_training_project
+-------------+--------------+------+-----+---------+---------
+ Field       | Type         | Null | Key | Default | Remarks 
+-------------+--------------+------+-----+---------+---------
+ id          | int(10)      | NO   | PRI |         |         
+ className   | varchar(255) | YES  |     |         |         
+ studentId   | int(10)      | YES  |     |         |         
+ studentName | varchar(255) | YES  |     |         |         
+ projectName | varchar(255) | YES  |     |         |         
+ score       | int(10)      | YES  |     |         |         
+-------------+--------------+------+-----+---------+---------
+
 Table: stumanager_user
 -----------------+----------------------+------+-----+---------+---------
  Field           | Type                 | Null | Key | Default | Remarks 
@@ -251,15 +344,15 @@ Table: stumanager_user
  userAccount     | varchar(20)          | YES  |     |         | 用户账户    
  userPassword    | varchar(20)          | YES  |     |         | 用户密码    
  userNickname    | varchar(20)          | YES  |     |         | 用户昵称    
- userEmail       | varchar(40)          | YES  |     |         | 用户邮箱    
  userRole        | varchar(20)          | YES  |     |         | 用户角色    
+ userPhone       | varchar(20)          | YES  |     |         | 用户联系号码  
+ userEmail       | varchar(40)          | YES  |     |         | 用户邮箱    
+ userAddress     | varchar(20)          | YES  |     |         | 用户地址    
  userPurikura    | varchar(40)          | YES  |     |         | 用户头像链接  
+ userMessage     | mediumtext(16777215) | YES  |     |         | 用户个人签名等信息
  userLastLoginIp | varchar(12)          | YES  |     | 0.0.0.0 | 最后登录Ip  
  userCreateTime  | bigint(19)           | YES  |     |         | 用户创建时间  
  userUpdateTime  | bigint(19)           | YES  |     |         | 用户更新时间  
- userPhone       | varchar(20)          | YES  |     |         | 用户联系号码  
- userAddress     | varchar(20)          | YES  |     |         | 用户地址    
- userMessage     | mediumtext(16777215) | YES  |     |         | 用户个人签名等信息
  operater        | varchar(20)          | YES  |     | admin   | 创建者     
 -----------------+----------------------+------+-----+---------+---------
 

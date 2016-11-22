@@ -112,6 +112,7 @@ public abstract class BaseController extends Controller {
             renderError(403);
             return false;
         }
+
         ArrayTree<Mapping> roleTree = roleService.getRoleTree(roleService.getRoleByName(user.getUserRole()));
         List<Mapping> sides = new ArrayList<>();
         List<Mapping> childSides = new ArrayList<>();
