@@ -8,4 +8,5 @@ import com.hudongwx.studentsys.common.BaseObtainEmployment;
 @SuppressWarnings("serial")
 public class ObtainEmployment extends BaseObtainEmployment<ObtainEmployment> {
 	public static final ObtainEmployment dao = new ObtainEmployment();
+	public static final String SEARCH_FROM_OBTAIN_EMPLOYMENT="select * from stumanager_obtain_employment ";
 }

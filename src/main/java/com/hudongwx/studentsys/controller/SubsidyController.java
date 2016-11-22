@@ -13,6 +13,7 @@ import com.jfinal.ext.interceptor.POST;
 import java.util.List;
 
 /**
+ * 补助管理
  * Created by wu on 2016/11/19.
  */
 public class SubsidyController extends BaseController {
@@ -24,6 +25,7 @@ public class SubsidyController extends BaseController {
     @Override
     public void index() {
         super.index();
+
 
     }
 
@@ -71,8 +73,7 @@ public class SubsidyController extends BaseController {
      * 删除申请班级信息
      */
     public boolean deleteSubsidyClassInfo() {
-        String subsidyClassInfoId = getPara("sciid");
-        return subsidyClassInfoService._deleteSubsidyClassInfoById(subsidyClassInfoId);
+        return subsidyClassInfoService._deleteSubsidyClassInfoById(getPara("sciId"));
     }
 
     /**
@@ -89,8 +90,8 @@ public class SubsidyController extends BaseController {
      * 获取正在申请的班级
      */
     public void getSubsidyClassInfo() {
-        List<SubsidyClassinfo> sclist = subsidyClassInfoService._querySubsidyClassInfoById(getPara("classId"));
-        setAttr("sc", sclist);
+        List<SubsidyClassinfo> scList = subsidyClassInfoService._querySubsidyClassInfoById(getPara("classId"));
+        setAttr("scList", scList);
     }
 
     /*****************************申请历史记录******************************/
@@ -110,23 +111,23 @@ public class SubsidyController extends BaseController {
      * 删除历史申请信息
      */
     public boolean deleteSubsidyHistory() {
-        return subsidyHistoryService._deleteSubsidyHistoryById(getPara("sciid"));
+        return subsidyHistoryService._deleteSubsidyHistoryById(getPara("sciId"));
     }
 
     /**
      * 获取历史申请信息
      */
     public void getSubsidyHistory() {
-        List<SubsidyHistory> sclist = subsidyHistoryService._querySubsidyHistoryById(getPara("shid"));
-        setAttr("sc", sclist);
+        List<SubsidyHistory> scList = subsidyHistoryService._querySubsidyHistoryById(getPara("shId"));
+        setAttr("scList", scList);
     }
 
     /**
      * 获取所有历史申请信息
      */
     public void getAllSubsidyHistory() {
-        List<SubsidyHistory> sclist = subsidyHistoryService._queryAllSubsidyClassInfo();
-        setAttr("sc", sclist);
+        List<SubsidyHistory> scList = subsidyHistoryService._queryAllSubsidyClassInfo();
+        setAttr("scList", scList);
     }
 
 }
