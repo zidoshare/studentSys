@@ -144,7 +144,8 @@
         </mapping>
         <mapping id="2332" icon="fa fa-book" url="/certificateManager" title="证书管理" function="2">
             <mappings>
-                <mapping id="2004" icon="certificateList" url="/certificateManager/certificateList.ftl" title="证书管理" function="1">
+                <mapping id="2004" icon="certificateList" url="/certificateManager/certificateList.ftl" title="证书管理"
+                         function="1">
                     <mappings>
                         <mapping id="2005" icon="addCertificate" url="addCertificate" title="添加" function="0">
                             <mappings/>
