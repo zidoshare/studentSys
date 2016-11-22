@@ -1,15 +1,22 @@
 package com.hudongwx.studentsys.controller;
 
 import com.hudongwx.studentsys.common.BaseController;
+import com.hudongwx.studentsys.model.Class;
 import com.hudongwx.studentsys.model.Mapping;
 import com.hudongwx.studentsys.model.SubsidyClassinfo;
 import com.hudongwx.studentsys.model.SubsidyHistory;
 import com.hudongwx.studentsys.service.SubsidyApplicationService;
 import com.hudongwx.studentsys.service.SubsidyClassInfoService;
 import com.hudongwx.studentsys.service.SubsidyHistoryService;
+import com.hudongwx.studentsys.util.Common;
+import com.hudongwx.studentsys.util.ModelKit;
+import com.hudongwx.studentsys.util.PageinateKit;
 import com.jfinal.aop.Before;
 import com.jfinal.ext.interceptor.POST;
+import com.jfinal.plugin.activerecord.Model;
+import com.jfinal.plugin.activerecord.Page;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,7 +31,15 @@ public class SubsidyController extends BaseController {
     @Override
     public void index() {
         super.index();
+        Page<Class> classP = Class.dao.paginate(1, Common.MAX_PAGE_SIZE,Common.COMMON_SELECT,Class.SQL_FROM);
 
+        List<SubsidyClassinfo> subList = new ArrayList<>();
+        for(int i = 0; i < 20; i++){
+            Model model = ModelKit.simulateModelByRandom(SubsidyClassinfo.class, 5);
+            subList.add((SubsidyClassinfo) model);
+        }
+        Page<SubsidyClassinfo> subsidyClassInfoPage = PageinateKit.ClonePage(classP, subList);
+        setAttr("page",subsidyClassInfoPage);
     }
 
     @Override
