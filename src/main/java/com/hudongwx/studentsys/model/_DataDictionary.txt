@@ -89,7 +89,7 @@ Table: stumanager_mapping
  function      | int(10)      | NO   |     | 0       | 职能，0：功能，1：视图模块，2：菜单，3：二级菜单，以后多级菜单，依次类推
 ---------------+--------------+------+-----+---------+---------
 
-Table: stumanager_obtainemployment
+Table: stumanager_obtain_employment
 ------------------+--------------+------+-----+---------+---------
  Field            | Type         | Null | Key | Default | Remarks 
 ------------------+--------------+------+-----+---------+---------
