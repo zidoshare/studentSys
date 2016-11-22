@@ -89,7 +89,7 @@ Table: stumanager_mapping
  function      | int(10)      | NO   |     | 0       | 职能，0：功能，1：视图模块，2：菜单，3：二级菜单，以后多级菜单，依次类推
 ---------------+--------------+------+-----+---------+---------
 
-Table: stumanager_obtainemployment
+Table: stumanager_obtain_employment
 ------------------+--------------+------+-----+---------+---------
  Field            | Type         | Null | Key | Default | Remarks 
 ------------------+--------------+------+-----+---------+---------
@@ -99,7 +99,7 @@ Table: stumanager_obtainemployment
  employmentStatus | varchar(255) | YES  |     |         | 就业状态    
  trackTime        | bigint(19)   | YES  |     |         | 追踪时间    
  remark           | varchar(255) | YES  |     |         |         
- approveStatus    | varchar(255) | YES  |     |         | 批准状态    
+ approveStatus    | tinyint(3)   | YES  |     |         | 批准状态    
  approver         | varchar(255) | YES  |     |         | 批准人     
 ------------------+--------------+------+-----+---------+---------
 
@@ -160,15 +160,15 @@ Table: stumanager_student
  educationBackground    | varchar(255) | YES  |     |         |         
  major                  | varchar(255) | YES  |     |         |         
  college                | varchar(255) | YES  |     |         |         
- graduationTime         | varchar(255) | YES  |     |         |         
+ graduationTime         | bigint(19)   | YES  |     |         |         
  classId                | int(10)      | YES  |     |         |         
  className              | varchar(255) | YES  |     |         |         
  subject                | varchar(255) | YES  |     |         | 学习科目    
  credit                 | int(10)      | YES  |     |         | 学分      
  tutor                  | varchar(255) | YES  |     |         |         
  tutorId                | int(10)      | YES  |     |         | 辅导老师    
- admission              | varchar(255) | YES  |     |         | 入学时间    
- trainingGraduationTime | varchar(255) | YES  |     |         |         
+ admission              | bigint(19)   | YES  |     |         | 入学时间    
+ trainingGraduationTime | bigint(19)   | YES  |     |         |         
  tuition                | int(10)      | YES  |     |         |         
  paymentMethod          | varchar(255) | YES  |     |         |         
  area                   | varchar(255) | YES  |     |         |         
@@ -197,7 +197,7 @@ Table: stumanager_subsidy_application
  totalSubsidy    | int(10)      | YES  |     |         | 总补助     
  totalBonus      | int(10)      | YES  |     |         | 总奖金     
  aggregateAmount | int(10)      | YES  |     |         | 总计      
- approveStatus   | varchar(255) | YES  |     |         | 批准状态    
+ approveStatus   | tinyint(3)   | YES  |     |         | 批准状态    
  region          | varchar(255) | YES  |     |         | 班级所在区   
 -----------------+--------------+------+-----+---------+---------
 

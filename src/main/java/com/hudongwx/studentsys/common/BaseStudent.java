@@ -105,11 +105,11 @@ public abstract class BaseStudent<M extends BaseStudent<M>> extends Model<M> imp
 		return get("college");
 	}
 
-	public void setGraduationTime(java.lang.String graduationTime) {
+	public void setGraduationTime(java.lang.Long graduationTime) {
 		set("graduationTime", graduationTime);
 	}
 
-	public java.lang.String getGraduationTime() {
+	public java.lang.Long getGraduationTime() {
 		return get("graduationTime");
 	}
 
@@ -161,19 +161,19 @@ public abstract class BaseStudent<M extends BaseStudent<M>> extends Model<M> imp
 		return get("tutorId");
 	}
 
-	public void setAdmission(java.lang.String admission) {
+	public void setAdmission(java.lang.Long admission) {
 		set("admission", admission);
 	}
 
-	public java.lang.String getAdmission() {
+	public java.lang.Long getAdmission() {
 		return get("admission");
 	}
 
-	public void setTrainingGraduationTime(java.lang.String trainingGraduationTime) {
+	public void setTrainingGraduationTime(java.lang.Long trainingGraduationTime) {
 		set("trainingGraduationTime", trainingGraduationTime);
 	}
 
-	public java.lang.String getTrainingGraduationTime() {
+	public java.lang.Long getTrainingGraduationTime() {
 		return get("trainingGraduationTime");
 	}
 

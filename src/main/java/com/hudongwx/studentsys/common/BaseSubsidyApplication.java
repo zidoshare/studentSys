@@ -81,11 +81,11 @@ public abstract class BaseSubsidyApplication<M extends BaseSubsidyApplication<M>
 		return get("aggregateAmount");
 	}
 
-	public void setApproveStatus(java.lang.String approveStatus) {
+	public void setApproveStatus(java.lang.Integer approveStatus) {
 		set("approveStatus", approveStatus);
 	}
 
-	public java.lang.String getApproveStatus() {
+	public java.lang.Integer getApproveStatus() {
 		return get("approveStatus");
 	}
 
