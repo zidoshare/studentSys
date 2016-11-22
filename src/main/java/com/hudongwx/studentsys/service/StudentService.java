@@ -78,9 +78,9 @@ public class StudentService extends Service {
             student.setTutor(Common.getMainProp().get("defaultTutor"));
         if (StrPlusKit.isEmpty(student.getContactInformation()))
             student.setContactInformation(Common.getMainProp().get("defaultContactInformation"));
-        //TODO 记得改
-        //if (null == student.getAdmission())
-            //student.setAdmission(System.currentTimeMillis());
+        if (null == student.getAdmission()) {
+            student.setAdmission(System.currentTimeMillis());
+        }
     }
 
     public List<Student> getStudentByClass(Class aClass) {

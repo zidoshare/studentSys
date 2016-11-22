@@ -8,4 +8,5 @@ import com.hudongwx.studentsys.common.BaseRoleRegion;
 @SuppressWarnings("serial")
 public class RoleRegion extends BaseRoleRegion<RoleRegion> {
 	public static final RoleRegion dao = new RoleRegion();
+	public static final String SELECT_FROM_ROLEREGION="select * from stumanager_role_region ";
 }

@@ -8,4 +8,6 @@ import com.hudongwx.studentsys.common.BaseSubsidyApplication;
 @SuppressWarnings("serial")
 public class SubsidyApplication extends BaseSubsidyApplication<SubsidyApplication> {
 	public static final SubsidyApplication dao = new SubsidyApplication();
+	public static final String SEARCH_FROM_SUBSIDY_APPLICATION = "select * from stumanager_subsidy_application ";
+
 }

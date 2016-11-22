@@ -8,4 +8,6 @@ import com.hudongwx.studentsys.common.BaseSubsidyHistory;
 @SuppressWarnings("serial")
 public class SubsidyHistory extends BaseSubsidyHistory<SubsidyHistory> {
 	public static final SubsidyHistory dao = new SubsidyHistory();
+	public static final String SEARCH_FROM_SUBSIDY_HISTORY = "select * from stumanager_subsidy_history ";
+
 }

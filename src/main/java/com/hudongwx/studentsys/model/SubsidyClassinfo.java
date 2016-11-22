@@ -8,4 +8,5 @@ import com.hudongwx.studentsys.common.BaseSubsidyClassinfo;
 @SuppressWarnings("serial")
 public class SubsidyClassinfo extends BaseSubsidyClassinfo<SubsidyClassinfo> {
 	public static final SubsidyClassinfo dao = new SubsidyClassinfo();
+	public static final String SEARCH_FROM_SUBSIDY_CLASSINFO = "select * from stumanager_subsidy_classinfo ";
 }
