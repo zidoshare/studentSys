@@ -11,8 +11,10 @@ import com.hudongwx.studentsys.service.SubsidyHistoryService;
 import com.hudongwx.studentsys.util.Common;
 import com.hudongwx.studentsys.util.ModelKit;
 import com.hudongwx.studentsys.util.PageinateKit;
+import com.hudongwx.studentsys.util.RenderKit;
 import com.jfinal.aop.Before;
 import com.jfinal.ext.interceptor.POST;
+import com.jfinal.kit.JsonKit;
 import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.Page;
 
@@ -77,7 +79,7 @@ public class SubsidyController extends BaseController {
      */
     @Before(POST.class)
     public boolean addSubsidyClassInfo() {
-        String subsidyClassInfo = getPara("sci");
+        String subsidyClassInfo = getPara("user");
         SubsidyClassinfo sc = new SubsidyClassinfo();
         return subsidyClassInfoService._saveSubsidyClassInfo(sc);
     }
@@ -104,8 +106,12 @@ public class SubsidyController extends BaseController {
      * 获取正在申请的班级
      */
     public void getSubsidyClassInfo() {
-        List<SubsidyClassinfo> sclist = subsidyClassInfoService._querySubsidyClassInfoById(getPara("classId"));
-        setAttr("sc", sclist);
+//        Model model = ModelKit.simulateModelByRandom(SubsidyClassinfo.class, 5);
+        List<SubsidyClassinfo> scList = subsidyClassInfoService._querySubsidyClassInfoById(getPara("classId"));
+//        scList.add((SubsidyClassinfo) model);
+        String s = JsonKit.toJson(scList);
+        RenderKit.renderSuccess(this,s);
+        //setAttr("scList", scList);
     }
 
     /*****************************申请历史记录******************************/

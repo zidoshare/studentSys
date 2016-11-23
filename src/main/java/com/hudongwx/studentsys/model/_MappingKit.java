@@ -27,7 +27,6 @@ public class _MappingKit {
 		arp.addMapping("stumanager_repayment", "id", Repayment.class);
 		arp.addMapping("stumanager_repayment_type", "id", RepaymentType.class);
 		arp.addMapping("stumanager_role", "id", Role.class);
-		arp.addMapping("stumanager_role_region", "id", RoleRegion.class);
 		arp.addMapping("stumanager_student", "id", Student.class);
 		arp.addMapping("stumanager_subsidy_application", "id", SubsidyApplication.class);
 		arp.addMapping("stumanager_subsidy_classinfo", "id", SubsidyClassinfo.class);
@@ -42,6 +41,7 @@ public class _MappingKit {
 		arp.addMapping("stumanager_test_type", "id", TestType.class);
 		arp.addMapping("stumanager_training_project", "id", TrainingProject.class);
 		arp.addMapping("stumanager_user", "id", User.class);
+		arp.addMapping("stumanager_user_region", "id", UserRegion.class);
 	}
 }
 
