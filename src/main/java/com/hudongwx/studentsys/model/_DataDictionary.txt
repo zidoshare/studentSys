@@ -25,19 +25,21 @@ Table: stumanager_certificate
 ------------+-------------+------+-----+---------+---------
 
 Table: stumanager_class
------------------+-------------+------+-----+---------+---------
- Field           | Type        | Null | Key | Default | Remarks 
------------------+-------------+------+-----+---------+---------
- id              | int(10)     | NO   | PRI |         |         
- className       | varchar(10) | NO   |     |         | 班级名字    
- headTeacher     | varchar(10) | NO   |     |         | 讲师      
- Assistant       | varchar(10) | YES  |     |         | 科目      
- tutor           | varchar(10) | NO   |     |         |         
- studentCnt      | int(10)     | NO   |     | 0       |         
- classCreateTime | bigint(19)  | NO   |     |         |         
- classUpdateTime | bigint(19)  | NO   |     |         |         
- classOperaterId | int(10)     | NO   |     |         |         
------------------+-------------+------+-----+---------+---------
+------------------+--------------+------+-----+---------+---------
+ Field            | Type         | Null | Key | Default | Remarks 
+------------------+--------------+------+-----+---------+---------
+ id               | int(10)      | NO   | PRI |         |         
+ className        | varchar(10)  | NO   |     |         | 班级名字    
+ headTeacher      | varchar(10)  | NO   |     |         | 讲师      
+ Assistant        | varchar(10)  | YES  |     |         | 科目      
+ tutor            | varchar(10)  | NO   |     |         |         
+ studentCnt       | int(10)      | NO   |     | 0       |         
+ classOpeningTime | bigint(19)   | YES  |     |         |         
+ classCreateTime  | bigint(19)   | NO   |     |         |         
+ classUpdateTime  | bigint(19)   | NO   |     |         |         
+ area             | varchar(255) | YES  |     |         |         
+ classOperaterId  | int(10)      | NO   |     |         |         
+------------------+--------------+------+-----+---------+---------
 
 Table: stumanager_domain
 ------------------+--------------+------+-----+---------+---------
@@ -135,15 +137,6 @@ Table: stumanager_role
  operater   | varchar(20)          | YES  |     |         |         
 ------------+----------------------+------+-----+---------+---------
 
-Table: stumanager_role_region
---------+--------------+------+-----+---------+---------
- Field  | Type         | Null | Key | Default | Remarks 
---------+--------------+------+-----+---------+---------
- id     | int(10)      | NO   | PRI |         | 区域id    
- region | varchar(255) | YES  |     |         | 区域名     
- roleId | int(10)      | YES  |     |         | 该区负责人   
---------+--------------+------+-----+---------+---------
-
 Table: stumanager_student
 ------------------------+--------------+------+-----+---------+---------
  Field                  | Type         | Null | Key | Default | Remarks 
@@ -192,29 +185,31 @@ Table: stumanager_subsidy_application
  title           | varchar(255) | YES  |     |         |         
  applicant       | varchar(255) | YES  |     |         |         
  applicationDate | bigint(19)   | YES  |     |         |         
+ area            | varchar(255) | YES  |     |         | 班级所在区   
  className       | varchar(255) | YES  |     |         |         
  number          | int(10)      | YES  |     |         | 申请人数    
  totalSubsidy    | int(10)      | YES  |     |         | 总补助     
  totalBonus      | int(10)      | YES  |     |         | 总奖金     
  aggregateAmount | int(10)      | YES  |     |         | 总计      
  approveStatus   | tinyint(3)   | YES  |     |         | 批准状态    
- region          | varchar(255) | YES  |     |         | 班级所在区   
 -----------------+--------------+------+-----+---------+---------
 
 Table: stumanager_subsidy_classinfo
----------------+--------------+------+-----+---------+---------
- Field         | Type         | Null | Key | Default | Remarks 
----------------+--------------+------+-----+---------+---------
- id            | int(10)      | NO   | PRI |         |         
- classId       | int(10)      | YES  |     |         |         
- className     | varchar(255) | YES  |     |         |         
- studentId     | int(10)      | YES  |     |         |         
- studentName   | varchar(255) | YES  |     |         |         
- subsidyAmount | int(10)      | YES  |     |         |         
- bonus         | int(10)      | YES  |     |         |         
- state         | varchar(255) | YES  |     |         |         
- remark        | varchar(255) | YES  |     |         |         
----------------+--------------+------+-----+---------+---------
+-------------------+--------------+------+-----+---------+---------
+ Field             | Type         | Null | Key | Default | Remarks 
+-------------------+--------------+------+-----+---------+---------
+ id                | int(10)      | NO   | PRI |         |         
+ classId           | int(10)      | YES  |     |         |         
+ className         | varchar(255) | YES  |     |         |         
+ area              | varchar(255) | YES  |     |         |         
+ studentId         | int(10)      | YES  |     |         |         
+ studentName       | varchar(255) | YES  |     |         |         
+ subsidyAmount     | int(10)      | YES  |     |         |         
+ bonus             | int(10)      | YES  |     |         |         
+ residualFrequency | tinyint(3)   | YES  |     |         | 补助剩余次数  
+ state             | varchar(255) | YES  |     |         |         
+ remark            | varchar(255) | YES  |     |         |         
+-------------------+--------------+------+-----+---------+---------
 
 Table: stumanager_subsidy_history
 -----------------+--------------+------+-----+---------+---------
@@ -355,4 +350,13 @@ Table: stumanager_user
  userUpdateTime  | bigint(19)           | YES  |     |         | 用户更新时间  
  operater        | varchar(20)          | YES  |     | admin   | 创建者     
 -----------------+----------------------+------+-----+---------+---------
+
+Table: stumanager_user_region
+--------+--------------+------+-----+---------+---------
+ Field  | Type         | Null | Key | Default | Remarks 
+--------+--------------+------+-----+---------+---------
+ id     | int(10)      | NO   | PRI |         | 区域id    
+ area   | varchar(255) | YES  |     |         | 区域名     
+ userId | int(10)      | YES  |     |         | 该区负责人   
+--------+--------------+------+-----+---------+---------
 

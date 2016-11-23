@@ -11,7 +11,9 @@ ${view.title}
     <div class="row">
         <div class="col-lg-6">
             <div class="input-group col-md-5">
-                <span class="input-group-addon">表名:</span>
+                <span class="input-group-addon">
+                     表名:
+                </span>
                 <input type="text" class="form-control">
             </div>
         </div>
@@ -70,7 +72,7 @@ ${view.title}
                                     <#if op.url == "seeApply">
                                         <@macroBtn url = op.url title = op.title></@macroBtn>
                                         <#assign op = map["operators"+view.id][0]>
-                                    ${InsertKit(btnLabel,5)}/
+                                    ${InsertKit(btnLabel,20160824)}/
                                     </#if>
                                 </#list>
                             </#if>
@@ -170,7 +172,12 @@ ${view.title}
             <#--<#if holdPath?contains("?")><#assign str = "&"></#if>-->
             <#--<@paginate page = classes url=holdPath+str pageAfter="p">-->
             <#--</@paginate>-->
-            <span class="center-block text-center">${addBtn}</span>
+            <#if user?exists>
+                <span class="center-block text-center">${addBtn}</span>
+            <#else >
+
+            </#if>
+
             <span class="pull-right text-center">${saveBtn}</span>
         </div>
     </div>
@@ -312,3 +319,49 @@ ${view.title}
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="seeApplyModel" tabindex="-1" role="dialog" aria-labelledby="addApplyModelLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">查看详情</h4>
+            </div>
+            <div id="dataTables-list" class="table-responsive dataTables_wrapper form-inline" role="grid">
+                <table class="table table-striped table-bordered table-hover dataTable no-footer"
+                       id="dataTables-example" aria-describedby="dataTables-example_apply">
+                    <thead>
+                    <tr>
+                        <th>
+                            姓名
+                        </th>
+                        <th>
+                            补助金额
+                        </th>
+                        <th>
+                            剩余补助次数
+                        </th>
+                        <th>
+                            奖金
+                        </th>
+                        <th>
+                            就读状态
+                        </th>
+                        <th>
+                            备注
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
