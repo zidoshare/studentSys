@@ -1065,7 +1065,7 @@ var func = {
                                 '<td>{studentName}</td>' +
                                 '<td>{subsidyAmount}</td>' +
                                 '<td>{residualFrequency}</td>' +
-                                '<td>{bonus}</td>' +
+                                '<td><input class="input-group" ></td>' +
                                 '<td>{state}</td>' +
                                 '<td>{remark}</td>' +
                                 '</tr>';

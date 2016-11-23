@@ -84,66 +84,6 @@ ${view.title}
                     </#if>
                 </tr>
                 </#list>
-                <tr>
-                    <td>
-                        0719班
-                    </td>
-                    <td>
-                        11
-                    </td>
-                    <td>
-                        2100
-                    </td>
-                    <td>
-                        300
-                    </td>
-                    <td>
-                        2400
-                    </td>
-                    <#if  addAble || updateAble || deleteAble>
-                        <td>
-                            <#if addAble>
-                            <#list map["operators"+view.id] as op>
-                            <#if op.url == "seeApply">
-                            <@macroBtn url = op.url title = op.title></@macroBtn>
-                            <#assign op = map["operators"+view.id][0]>
-                            ${InsertKit(btnLabel,5)}/
-                            </#if>
-                            </#list>
-                            </#if>
-                            <#if updateAble>
-                            ${InsertKit(updateBtn,"修改")}/
-                            </#if>
-                             ${InsertKit(deleteBtn,"删除")}
-                        </td>
-                    </#if>
-                </tr>
-                <tr>
-                    <td>
-                        0719班
-                    </td>
-                    <td>
-                        11
-                    </td>
-                    <td>
-                        2100
-                    </td>
-                    <td>
-                        300
-                    </td>
-                    <td>
-                        2400
-                    </td>
-
-                    <#if addAble || updateAble || deleteAble>
-                        <td>
-                            <#if updateAble>
-                            ${InsertKit(updateBtn,"修改")}/
-                            </#if>
-                        ${InsertKit(deleteBtn,"删除")}
-                        </td>
-                    </#if>
-                </tr>
                 <#--<#list classes.list as class>-->
                 <#--<tr id="class${class.id}" data-label="${class.id}"  data-target="#classId" data-method="prop">-->
                 <#--<td id="className${class.id}" data-label="${class.className?html}" data-target="#className">${class.className}</td>-->
@@ -194,6 +134,9 @@ ${view.title}
             </div>
             <div class="modal-body">
                 <ul class="nav nav-tabs" role="tablist">
+                    <#--<#list page.list as sub>-->
+                        <#--<li role="presentation"><a href="#{sub.className}" data-toggle="tab" role="tab">${sub.className}</a></li>-->
+                    <#--</#list>-->
                     <li role="presentation" class="active"><a href="#home" role="tab" data-toggle="tab">成都</a></li>
                     <li role="presentation"><a href="#profile" role="tab" data-toggle="tab">重庆</a></li>
                 </ul>

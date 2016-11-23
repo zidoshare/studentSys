@@ -30,7 +30,6 @@ public class _MappingKit {
 		arp.addMapping("stumanager_student", "id", Student.class);
 		arp.addMapping("stumanager_subsidy_application", "id", SubsidyApplication.class);
 		arp.addMapping("stumanager_subsidy_classinfo", "id", SubsidyClassinfo.class);
-		arp.addMapping("stumanager_subsidy_history", "id", SubsidyHistory.class);
 		arp.addMapping("stumanager_test_question", "id", TestQuestion.class);
 		arp.addMapping("stumanager_test_questionnaire", "id", TestQuestionnaire.class);
 		arp.addMapping("stumanager_test_questionnaire_class", "id", TestQuestionnaireClass.class);

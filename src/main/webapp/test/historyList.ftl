@@ -77,7 +77,7 @@
                     </div>
                     <div id="survey_progress" class="center-block" style="800px;height:1px;background: #dddddd">
                         <div class="progress-bar" role="progressbar"
-                             style="width: 0;height:2px;" id="min-progress">
+                             tyle="width: 0;height:2px;" id="min-progress">s
                         </div>
                     </div>
                 </div>
