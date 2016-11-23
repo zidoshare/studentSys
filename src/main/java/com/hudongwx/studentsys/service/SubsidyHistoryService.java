@@ -57,7 +57,7 @@ public class SubsidyHistoryService extends Service {
      * @param id
      * @return
      */
-    public List<SubsidyHistory> _querySubsidyHistoryById(String id) {
+    public List<SubsidyHistory> getSubsidyHistoryById(String id) {
         return SubsidyHistory.dao.find(SubsidyHistory.SEARCH_FROM_SUBSIDY_HISTORY + "where id=?", id);
     }
 
@@ -66,7 +66,7 @@ public class SubsidyHistoryService extends Service {
      *
      * @return
      */
-    public List<SubsidyHistory> _queryAllSubsidyClassInfo() {
+    public List<SubsidyHistory> getAllSubsidyClassInfo() {
         return SubsidyHistory.dao.find(SubsidyHistory.SEARCH_FROM_SUBSIDY_HISTORY);
     }
 }
