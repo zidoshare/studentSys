@@ -5,6 +5,7 @@ import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Table;
 import com.jfinal.plugin.activerecord.TableMapping;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -48,10 +49,14 @@ public class ModelKit {
                     model.set(s, stringBuilder.toString());
                     continue;
                 }
-                model.set(s, (int)(Math.random() * pow));
+                Constructor<?> constructor = aClass.getConstructor(String.class);
+                if(constructor == null){
+                    throw new Exception("---------------错误：类型不支持-----------------");
+                }
+                model.set(s, constructor.newInstance(((int) (Math.random() * pow))+""));
             }
             return model;
-        } catch (InstantiationException | IllegalAccessException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
