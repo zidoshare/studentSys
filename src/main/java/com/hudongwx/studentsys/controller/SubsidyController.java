@@ -170,8 +170,8 @@ public class SubsidyController extends BaseController {
     /**
      * 显示对应用户下的辖区
      */
-    public void showRoleRegionInfo(){
-        List<UserRegion> userareas = userRegionService.getUserRegionInfoByRoleId(getPara("roleid"));
+    public void showUserRegionInfo(){
+        List<UserRegion> userareas = userRegionService.getUserRegionInfoByUserId(getCurrentUser(this).getId().toString());
         if(userareas.size()!=0){
             RenderKit.renderSuccess(this,JsonKit.toJson(userareas));
         }else{
