@@ -2,7 +2,6 @@ package com.hudongwx.studentsys.service;
 
 import com.hudongwx.studentsys.common.Service;
 import com.hudongwx.studentsys.model.ObtainEmployment;
-import com.hudongwx.studentsys.model.SubsidyHistory;
 
 import java.util.List;
 
@@ -35,7 +34,7 @@ public class ObtainEmploymentService extends Service {
      * @return
      */
     public boolean _deleteAllObtainEmployment() {
-        List<ObtainEmployment> obtainEmployments = ObtainEmployment.dao.find(SubsidyHistory.SEARCH_FROM_SUBSIDY_HISTORY);
+        List<ObtainEmployment> obtainEmployments = ObtainEmployment.dao.find(ObtainEmployment.SEARCH_FROM_OBTAIN_EMPLOYMENT);
         for (ObtainEmployment oe : obtainEmployments) {
             oe.delete();
         }

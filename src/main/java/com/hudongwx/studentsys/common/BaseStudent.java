@@ -249,6 +249,14 @@ public abstract class BaseStudent<M extends BaseStudent<M>> extends Model<M> imp
 		return get("createTime");
 	}
 
+	public void setChecked(java.lang.Integer checked) {
+		set("checked", checked);
+	}
+
+	public java.lang.Integer getChecked() {
+		return get("checked");
+	}
+
 	public void setIp(java.lang.String ip) {
 		set("ip", ip);
 	}

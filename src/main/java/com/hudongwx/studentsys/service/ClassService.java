@@ -33,7 +33,6 @@ public class ClassService extends Service {
     }
 
     public List<Class> getClassInfoByArea(String area) {
-        String myarea="%"+area+"%";
-        return Class.dao.find(Class.SEARCH_FROM_CLASS+"where area like ?",myarea);
+        return Class.dao.find(Class.SEARCH_FROM_CLASS + "where area like ?", area);
     }
 }

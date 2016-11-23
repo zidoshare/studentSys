@@ -171,6 +171,7 @@ Table: stumanager_student
  residualFrequency      | tinyint(3)   | YES  |     |         |         
  state                  | tinyint(3)   | YES  |     |         | 在读、毕业or休学状态
  createTime             | bigint(19)   | YES  |     |         | 用户创建时间  
+ checked                | tinyint(3)   | YES  |     |         |         
  ip                     | varchar(20)  | YES  |     | 0.0.0.0 | 最后登录的ip地址
  operaterId             | int(10)      | YES  |     |         | 操作人     
  operater               | varchar(255) | YES  |     | admin   |         
@@ -183,6 +184,7 @@ Table: stumanager_subsidy_application
 -----------------+--------------+------+-----+---------+---------
  id              | int(10)      | NO   | PRI |         |         
  title           | varchar(255) | YES  |     |         |         
+ applicantId     | int(10)      | YES  |     |         |         
  applicant       | varchar(255) | YES  |     |         |         
  applicationDate | bigint(19)   | YES  |     |         |         
  area            | varchar(255) | YES  |     |         | 班级所在区   
@@ -210,17 +212,6 @@ Table: stumanager_subsidy_classinfo
  state             | varchar(255) | YES  |     |         |         
  remark            | varchar(255) | YES  |     |         |         
 -------------------+--------------+------+-----+---------+---------
-
-Table: stumanager_subsidy_history
------------------+--------------+------+-----+---------+---------
- Field           | Type         | Null | Key | Default | Remarks 
------------------+--------------+------+-----+---------+---------
- id              | int(10)      | NO   | PRI |         |         
- title           | varchar(255) | YES  |     |         |         
- applicant       | varchar(255) | YES  |     |         |         
- applicationDate | bigint(19)   | YES  |     |         |         
- state           | tinyint(3)   | YES  |     |         | 状态      
------------------+--------------+------+-----+---------+---------
 
 Table: stumanager_test_question
 --------------------------+-------------+------+-----+---------+---------

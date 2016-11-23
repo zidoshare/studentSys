@@ -63,6 +63,17 @@ public class SubsidyClassInfoService extends Service {
     }
 
     /**
+     * 查询指定区域班级申请信息
+     *
+     * @param area
+     * @return
+     */
+    public List<SubsidyClassinfo> getSubsidyClassInfoByArea(String area) {
+        return SubsidyClassinfo.dao.find(SubsidyClassinfo.SEARCH_FROM_SUBSIDY_CLASSINFO + "where area like ?", area);
+    }
+
+
+    /**
      * 查询所有班级申请信息
      *
      * @return

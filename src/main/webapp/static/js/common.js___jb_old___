@@ -1063,12 +1063,12 @@ var func = {
                         json.map(function(elem,num){
                             var str = '<tr id="{id}">' +
                                 '<td>{studentName}</td>' +
-                            '<td>{subsidyAmount}</td>' +
-                            '<td>{residualFrequency}</td>' +
-                            '<td>{bonus}</td>' +
-                            '<td>{state}</td>' +
-                            '<td>{remark}</td>' +
-                            '</tr>';
+                                '<td>{subsidyAmount}</td>' +
+                                '<td>{residualFrequency}</td>' +
+                                '<td>{bonus}</td>' +
+                                '<td>{state}</td>' +
+                                '<td>{remark}</td>' +
+                                '</tr>';
                             str = Util.jsonToString(str,elem);
                             console.log(str);
                             $('#seeApplyModel').find('tbody:first').append(str);

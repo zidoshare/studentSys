@@ -6,7 +6,6 @@ import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.Page;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by wuhongxu on 2016/8/29 0029.
@@ -51,7 +50,8 @@ public class Common {
     public static final String CACHE_60TIME_LABEL = "60time";
     public static final String LABEL_ROOT_MAPPING = "root";
     public static final String SQL_WHERE = " where ";
-
+    //提示
+    public static final String RENDER_ERROR_TIPS="无相关信息";
 
     //此处得到主配置
     public static Prop getMainProp() {
