@@ -1,9 +1,12 @@
 package com.hudongwx.studentsys.controller;
 
 import com.hudongwx.studentsys.common.BaseController;
-import com.hudongwx.studentsys.model.Class;
 import com.hudongwx.studentsys.model.*;
-import com.hudongwx.studentsys.service.*;
+import com.hudongwx.studentsys.model.Class;
+import com.hudongwx.studentsys.service.ClassService;
+import com.hudongwx.studentsys.service.SubsidyApplicationService;
+import com.hudongwx.studentsys.service.SubsidyClassInfoService;
+import com.hudongwx.studentsys.service.UserRegionService;
 import com.hudongwx.studentsys.util.Common;
 import com.hudongwx.studentsys.util.ModelKit;
 import com.hudongwx.studentsys.util.PageinateKit;
@@ -15,9 +18,7 @@ import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.Page;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 补助管理
@@ -151,21 +152,22 @@ public class SubsidyController extends BaseController {
     /**
      * 补助管理添加班级区块信息[需要前台的参数：无]
      */
-    public void showAreaClassInfo() {
+
+    public void showArea() {
         User user = getCurrentUser(this);
-        if (user != null) {
-            Map<String, List<Class>> map = new HashMap<>();
-            List<UserRegion> arealist = userRegionService.getUserRegionInfoByUserId(user.getId() + "");
-            if (arealist.size() != 0) {
-                for (UserRegion ur : arealist) {
-                    map.put(ur.getArea(), classService.getClassInfoByArea(ur.getArea()));
-                }
-                String s = JsonKit.toJson(map);
-                RenderKit.renderSuccess(this, s);
-            } else {
-                RenderKit.renderError(this, "你所查找的数据不存在！");
-            }
+        List<UserRegion> areas = userRegionService.getUserRegionInfoByUserId(user.getId());
+        if (areas.size() != 0) {
+            RenderKit.renderSuccess(this, JsonKit.toJson(areas));
+        } else {
+            RenderKit.renderError(this);
         }
     }
 
+    public void showAreaClassInfo() {
+        Integer id = getParaToInt(0);
+        if (id == null) {
+            RenderKit.renderError(this);
+        }
+
+    }
 }

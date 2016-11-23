@@ -193,14 +193,6 @@ public abstract class BaseStudent<M extends BaseStudent<M>> extends Model<M> imp
 		return get("paymentMethod");
 	}
 
-	public void setArea(java.lang.String area) {
-		set("area", area);
-	}
-
-	public java.lang.String getArea() {
-		return get("area");
-	}
-
 	public void setConsultant(java.lang.String consultant) {
 		set("consultant", consultant);
 	}
@@ -231,6 +223,14 @@ public abstract class BaseStudent<M extends BaseStudent<M>> extends Model<M> imp
 
 	public java.lang.Integer getResidualFrequency() {
 		return get("residualFrequency");
+	}
+
+	public void setRegionId(java.lang.Integer regionId) {
+		set("regionId", regionId);
+	}
+
+	public java.lang.Integer getRegionId() {
+		return get("regionId");
 	}
 
 	public void setState(java.lang.Integer state) {

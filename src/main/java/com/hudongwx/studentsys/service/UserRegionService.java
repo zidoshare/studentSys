@@ -27,7 +27,7 @@ public class UserRegionService extends Service {
         return true;
     }
 
-    public List<UserRegion> getUserRegionInfoByUserId(String userid) {
+    public List<UserRegion> getUserRegionInfoByUserId(int userid) {
         return UserRegion.dao.find(UserRegion.SELECT_FROM_USERREGION + "userId=?", userid);
     }
 }

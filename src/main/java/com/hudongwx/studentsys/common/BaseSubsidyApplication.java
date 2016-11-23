@@ -49,12 +49,12 @@ public abstract class BaseSubsidyApplication<M extends BaseSubsidyApplication<M>
 		return get("applicationDate");
 	}
 
-	public void setArea(java.lang.String area) {
-		set("area", area);
+	public void setRegionId(java.lang.Integer regionId) {
+		set("regionId", regionId);
 	}
 
-	public java.lang.String getArea() {
-		return get("area");
+	public java.lang.Integer getRegionId() {
+		return get("regionId");
 	}
 
 	public void setClassName(java.lang.String className) {
