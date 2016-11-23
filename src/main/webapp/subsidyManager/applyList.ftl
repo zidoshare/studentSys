@@ -48,26 +48,25 @@ ${view.title}
 
                 </thead>
                 <tbody>
-                <#list page.list as sub>
-                <tr>
-                    <td>
-                        ${sub.className}
-                    </td>
-                    <td>
-                        11
-                    </td>
-                    <td>
-                        2100
-                    </td>
-                    <td>
-                        300
-                    </td>
-                    <td>
-                        2400
-                    </td>
-                    <#if  addAble || updateAble || deleteAble>
+                    <#list page.list as sub>
+                    <tr>
                         <td>
-                            <#if addAble>
+                        ${sub.className}
+                        </td>
+                        <td>
+                            11
+                        </td>
+                        <td>
+                            2100
+                        </td>
+                        <td>
+                            300
+                        </td>
+                        <td>
+                            2400
+                        </td>
+                        <#if  addAble || updateAble || deleteAble>
+                            <td>
                                 <#list map["operators"+view.id] as op>
                                     <#if op.url == "seeApply">
                                         <@macroBtn url = op.url title = op.title></@macroBtn>
@@ -75,15 +74,14 @@ ${view.title}
                                     ${InsertKit(btnLabel,20160824)}/
                                     </#if>
                                 </#list>
-                            </#if>
-                            <#if updateAble>
-                            ${InsertKit(updateBtn,"修改")}/
-                            </#if>
-                        ${InsertKit(deleteBtn,"删除")}
-                        </td>
-                    </#if>
-                </tr>
-                </#list>
+                                <#if updateAble>
+                                ${InsertKit(updateBtn,"修改")}/
+                                </#if>
+                            ${InsertKit(deleteBtn,"删除")}
+                            </td>
+                        </#if>
+                    </tr>
+                    </#list>
                 <#--<#list classes.list as class>-->
                 <#--<tr id="class${class.id}" data-label="${class.id}"  data-target="#classId" data-method="prop">-->
                 <#--<td id="className${class.id}" data-label="${class.className?html}" data-target="#className">${class.className}</td>-->
@@ -107,17 +105,16 @@ ${view.title}
 
                 </tbody>
             </table>
-            <#--<-- 分頁 &ndash;&gt;-->
-            <#--<#assign str = "?">-->
-            <#--<#if holdPath?contains("?")><#assign str = "&"></#if>-->
-            <#--<@paginate page = classes url=holdPath+str pageAfter="p">-->
-            <#--</@paginate>-->
+        <#--<-- 分頁 &ndash;&gt;-->
+        <#--<#assign str = "?">-->
+        <#--<#if holdPath?contains("?")><#assign str = "&"></#if>-->
+        <#--<@paginate page = classes url=holdPath+str pageAfter="p">-->
+        <#--</@paginate>-->
             <#if user?exists>
                 <span class="center-block text-center">${addBtn}</span>
             <#else >
 
             </#if>
-
             <span class="pull-right text-center">${saveBtn}</span>
         </div>
     </div>
@@ -125,18 +122,20 @@ ${view.title}
 </@item>
 
 
-<div class="modal fade" id="addApplyModel" tabindex="-1" role="dialog" aria-labelledby="addApplyModelLabel" aria-hidden="true">
+<div class="modal fade" id="addApplyModel" tabindex="-1" role="dialog" aria-labelledby="addApplyModelLabel"
+     aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
                 <h4 class="modal-title" id="myModalLabel">班级添加</h4>
             </div>
             <div class="modal-body">
                 <ul class="nav nav-tabs" role="tablist">
-                    <#--<#list page.list as sub>-->
-                        <#--<li role="presentation"><a href="#{sub.className}" data-toggle="tab" role="tab">${sub.className}</a></li>-->
-                    <#--</#list>-->
+                <#--<#list page.list as sub>-->
+                <#--<li role="presentation"><a href="#{sub.className}" data-toggle="tab" role="tab">${sub.className}</a></li>-->
+                <#--</#list>-->
                     <li role="presentation" class="active"><a href="#home" role="tab" data-toggle="tab">成都</a></li>
                     <li role="presentation"><a href="#profile" role="tab" data-toggle="tab">重庆</a></li>
                 </ul>
@@ -145,7 +144,8 @@ ${view.title}
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="home">
                         <div id="table-apply">
-                            <div id="dataTables-example_subsidy" class="table-responsive dataTables_wrapper form-inline" role="grid">
+                            <div id="dataTables-example_subsidy" class="table-responsive dataTables_wrapper form-inline"
+                                 role="grid">
                                 <table class="table table-striped table-bordered table-hover dataTable no-footer"
                                        id="dataTables-example" aria-describedby="dataTables-example_apply">
                                     <thead>
@@ -200,18 +200,19 @@ ${view.title}
                     </div>
                     <div role="tabpanel" class="tab-pane" id="profile">
                         <div id="table-apply">
-                            <div id="dataTables-example_subsidy" class="table-responsive dataTables_wrapper form-inline" role="grid">
+                            <div id="dataTables-example_subsidy" class="table-responsive dataTables_wrapper form-inline"
+                                 role="grid">
                                 <table class="table table-striped table-bordered table-hover dataTable no-footer"
                                        id="dataTables-example" aria-describedby="dataTables-example_apply">
                                     <thead>
                                     <tr>
                                         <th>
-                                        <div class="checkbox3 checkbox-round">
-                                            <input type="checkbox" id="all-check">
-                                            <label for="all-check" class="td-check center-block">
-                                            </label>
-                                        </div>
-                                    </th>
+                                            <div class="checkbox3 checkbox-round">
+                                                <input type="checkbox" id="all-check">
+                                                <label for="all-check" class="td-check center-block">
+                                                </label>
+                                            </div>
+                                        </th>
                                         <th>
                                             序号
                                         </th>
@@ -249,7 +250,7 @@ ${view.title}
                                         </td>
                                     </tr>
                                     </tbody>
-                                    </table>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -264,11 +265,13 @@ ${view.title}
 </div>
 
 
-<div class="modal fade" id="seeApplyModel" tabindex="-1" role="dialog" aria-labelledby="addApplyModelLabel" aria-hidden="true">
+<div class="modal fade" id="seeApplyModel" tabindex="-1" role="dialog" aria-labelledby="addApplyModelLabel"
+     aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
                 <h4 class="modal-title" id="myModalLabel">查看详情</h4>
             </div>
             <div id="dataTables-list" class="table-responsive dataTables_wrapper form-inline" role="grid">

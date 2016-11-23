@@ -1049,6 +1049,10 @@ var func = {
             })
         }
     },
+    seeApproval:function (methed,id) {
+        modalUtil.show($('#seeApprovalModel'));
+        
+    },
     seeApply:function (method,id) {
             modalUtil.show($('#seeApplyModel'));
             $.ajax(Label.staticServePath+"/subsidyManager/getSubsidyClassInfo",{
@@ -1083,75 +1087,47 @@ var func = {
 
     },
     addApplyClass:function (method) {
-        if (method == 'up') {
-            var btn = Ladda.create(document.querySelector("#save-btn"));
-            btn.start();
-            var json = {};
-            var id = $('#classId').val();
-            if (id == null || id == '')
-                $('#classCreateTime').val(new Date().getTime());
-            $('#classUpdateTime').val(new Date().getTime());
-            $('#classOperaterId').val(Label.userId);
-            $('#class').find('.form-control').each(function () {
-                json[$(this).attr('name')] = $(this).val();
-            });
-            $.ajax({
-                url: Label.staticServePath + "/subsidyManager/addApply",
-                type: "post",
-                data: json,
-                success: function (data, state) {
-                    if (data.state == 'success') {
-                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
-                        $('#addApplyModel').modal('hide');
-                        //刷新页面
-                        Util.reloadByPjax();
-                    } else {
-                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-danger');
-                    }
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    Util.showTip($('#wholeTip'), '服务器错误', 'alert alert-danger', {time: 5000});
-                },
-                complete: function () {
-                    btn.stop();
-                }
-            })
-        }
-        else{
+        if(method=="show"){
             modalUtil.show($('#addApplyModel'));
             $.ajax(Label.staticServePath+"/subsidyManager/getSubsidyClassInfo",{
                 type:'post',
                 dataType:'json',
-                data:{
-                    'classId':id
-                },
                 success:function(data,status){
                     if(data.state == 'success'){
                         var json = JSON.parse(data.msg);
-                        json.map(function(elem,num){
-                            var str = '<tr id="{id}">' +
-                                '<td>{studentName}</td>' +
-                                '<td>{subsidyAmount}</td>' +
-                                '<td>{residualFrequency}</td>' +
-                                '<td>{bonus}</td>' +
-                                '<td>{state}</td>' +
-                                '<td>{remark}</td>' +
-                                '</tr>';
-                            str = Util.jsonToString(str,elem);
-                            console.log(str);
-                            $('#seeApplyModel').find('tbody:first').append(str);
+                        json.map(function (elems,index) {
+
+                            var rol = '<li role="presentation" {className}><a href="#sb{id}" role="tab" data-toggle="tab">{area}</a></li>'
+                            if(index == 0){
+                                Util.jsonToString(rol,{'className':'class="active"'});
+                            }else{
+                                Util.jsonToString(rol,{'className':''});
+                            }
+                            Util.jsonToString(rol,elems);
                         });
+                        if (json.length > 0){
+                            $.ajax({
+                                type:'post',
+                                url:Label.staticServePath+"/subsidyManager/getSubsidyClassInfo/"+json[0]['areaId'],
+                                success:function (data, status) {
+
+                                }
+                            })
+                        }
                         $('#seeApplyModel').one('hidden.bs.modal',function(){
                             $(this).find('tbody:first').html('');
                         });
                     }
                 }
             });
+        }else {
+
+        }
 
 
 
             // $('#studentCnt').val(0);
-        }
+        
     },
     addClass: function (method) {
         if (method == 'up') {
