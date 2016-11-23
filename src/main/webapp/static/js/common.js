@@ -1119,7 +1119,37 @@ var func = {
         }
         else{
             modalUtil.show($('#addApplyModel'));
-            
+            $.ajax(Label.staticServePath+"/subsidyManager/getSubsidyClassInfo",{
+                type:'post',
+                dataType:'json',
+                data:{
+                    'classId':id
+                },
+                success:function(data,status){
+                    if(data.state == 'success'){
+                        var json = JSON.parse(data.msg);
+                        json.map(function(elem,num){
+                            var str = '<tr id="{id}">' +
+                                '<td>{studentName}</td>' +
+                                '<td>{subsidyAmount}</td>' +
+                                '<td>{residualFrequency}</td>' +
+                                '<td>{bonus}</td>' +
+                                '<td>{state}</td>' +
+                                '<td>{remark}</td>' +
+                                '</tr>';
+                            str = Util.jsonToString(str,elem);
+                            console.log(str);
+                            $('#seeApplyModel').find('tbody:first').append(str);
+                        });
+                        $('#seeApplyModel').one('hidden.bs.modal',function(){
+                            $(this).find('tbody:first').html('');
+                        });
+                    }
+                }
+            });
+
+
+
             // $('#studentCnt').val(0);
         }
     },

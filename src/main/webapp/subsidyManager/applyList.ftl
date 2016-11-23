@@ -172,12 +172,11 @@ ${view.title}
             <#--<#if holdPath?contains("?")><#assign str = "&"></#if>-->
             <#--<@paginate page = classes url=holdPath+str pageAfter="p">-->
             <#--</@paginate>-->
-            <#--<#if user?exists>-->
-
-
-            <#--<#else >-->
+            <#if user?exists>
                 <span class="center-block text-center">${addBtn}</span>
-            <#--</#if>-->
+            <#else >
+
+            </#if>
 
             <span class="pull-right text-center">${saveBtn}</span>
         </div>

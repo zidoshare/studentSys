@@ -79,7 +79,7 @@ public class SubsidyController extends BaseController {
      */
     @Before(POST.class)
     public boolean addSubsidyClassInfo() {
-        String subsidyClassInfo = getPara("sci");
+        String subsidyClassInfo = getPara("user");
         SubsidyClassinfo sc = new SubsidyClassinfo();
         return subsidyClassInfoService._saveSubsidyClassInfo(sc);
     }
