@@ -355,7 +355,7 @@ ${view.title}
     </div>
 </div>
 
-<div>
+<div class="sr-only" id="template">
     <div id="table-apply">
         <div id="dataTables-example_subsidy" class="table-responsive dataTables_wrapper form-inline"
              role="grid">
@@ -390,8 +390,4 @@ ${view.title}
             </table>
         </div>
     </div>
-</div>
-
-<div class="sr-only" id="template">
-    <input class="form-control" id="template-input">
 </div>

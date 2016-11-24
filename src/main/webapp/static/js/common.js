@@ -1080,12 +1080,18 @@ var func = {
                     if(data.state == 'success'){
                         var json = JSON.parse(data.msg);
                         json.map(function(elem,num){
+                            var sta;
+                            if (elem['state']==1){
+                                sta:'在读';
+                            }else if (elem['state']==0){
+                                sta:'毕业';
+                            }
                             var str = '<tr id="{id}">' +
                                 '<td>{studentName}</td>' +
                                 '<td>{subsidyAmount}</td>' +
                                 '<td>{residualFrequency}</td>' +
                                 '<td><input placeholder="{bonus}" class="form-control" id="{id}"></td>' +
-                                '<td>{state}</td>' +
+                                '<td>{sta}</td>' +
                                 '<td>{remark}</td>' +
                                 '</tr>';
                             str = Util.jsonToString(str,elem);

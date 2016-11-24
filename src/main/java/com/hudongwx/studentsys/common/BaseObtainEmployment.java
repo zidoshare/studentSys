@@ -25,12 +25,12 @@ public abstract class BaseObtainEmployment<M extends BaseObtainEmployment<M>> ex
 		return get("className");
 	}
 
-	public void setName(java.lang.String name) {
-		set("name", name);
+	public void setStudentName(java.lang.String studentName) {
+		set("studentName", studentName);
 	}
 
-	public java.lang.String getName() {
-		return get("name");
+	public java.lang.String getStudentName() {
+		return get("studentName");
 	}
 
 	public void setEmploymentStatus(java.lang.String employmentStatus) {
@@ -55,6 +55,22 @@ public abstract class BaseObtainEmployment<M extends BaseObtainEmployment<M>> ex
 
 	public java.lang.String getRemark() {
 		return get("remark");
+	}
+
+	public void setCounselorId(java.lang.Integer counselorId) {
+		set("counselorId", counselorId);
+	}
+
+	public java.lang.Integer getCounselorId() {
+		return get("counselorId");
+	}
+
+	public void setCounselorName(java.lang.String counselorName) {
+		set("counselorName", counselorName);
+	}
+
+	public java.lang.String getCounselorName() {
+		return get("counselorName");
 	}
 
 	public void setApproveStatus(java.lang.Integer approveStatus) {
