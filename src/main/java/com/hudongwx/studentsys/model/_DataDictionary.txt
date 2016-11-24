@@ -111,7 +111,8 @@ Table: stumanager_region
 ------------+--------------+------+-----+---------+---------
  Field      | Type         | Null | Key | Default | Remarks 
 ------------+--------------+------+-----+---------+---------
- regionId   | int(10)      | NO   | PRI |         |         
+ id         | int(10)      | NO   | PRI |         |         
+ regionId   | int(10)      | NO   |     |         |         
  regionName | varchar(255) | NO   |     |         |         
 ------------+--------------+------+-----+---------+---------
 
@@ -204,6 +205,7 @@ Table: stumanager_subsidy_application
  totalSubsidy    | int(10)      | YES  |     |         | 总补助     
  totalBonus      | int(10)      | YES  |     |         | 总奖金     
  aggregateAmount | int(10)      | YES  |     |         | 总计      
+ approverId      | int(10)      | YES  |     |         | 审批人Id   
  approveStatus   | tinyint(3)   | YES  |     |         | 批准状态    
 -----------------+--------------+------+-----+---------+---------
 
@@ -357,7 +359,8 @@ Table: stumanager_user_region
 ----------+---------+------+-----+---------+---------
  Field    | Type    | Null | Key | Default | Remarks 
 ----------+---------+------+-----+---------+---------
+ id       | int(10) | NO   | PRI |         |         
  regionId | int(10) | NO   |     |         | 区域Id    
- userId   | int(10) | YES  |     |         | 区域负责人   
+ userId   | int(10) | NO   |     |         | 区域负责人   
 ----------+---------+------+-----+---------+---------
 

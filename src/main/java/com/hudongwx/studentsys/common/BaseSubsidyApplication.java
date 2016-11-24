@@ -97,6 +97,14 @@ public abstract class BaseSubsidyApplication<M extends BaseSubsidyApplication<M>
 		return get("aggregateAmount");
 	}
 
+	public void setApproverId(java.lang.Integer approverId) {
+		set("approverId", approverId);
+	}
+
+	public java.lang.Integer getApproverId() {
+		return get("approverId");
+	}
+
 	public void setApproveStatus(java.lang.Integer approveStatus) {
 		set("approveStatus", approveStatus);
 	}

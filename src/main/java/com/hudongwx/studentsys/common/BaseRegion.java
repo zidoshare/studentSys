@@ -9,6 +9,14 @@ import com.jfinal.plugin.activerecord.IBean;
 @SuppressWarnings("serial")
 public abstract class BaseRegion<M extends BaseRegion<M>> extends Model<M> implements IBean {
 
+	public void setId(java.lang.Integer id) {
+		set("id", id);
+	}
+
+	public java.lang.Integer getId() {
+		return get("id");
+	}
+
 	public void setRegionId(java.lang.Integer regionId) {
 		set("regionId", regionId);
 	}

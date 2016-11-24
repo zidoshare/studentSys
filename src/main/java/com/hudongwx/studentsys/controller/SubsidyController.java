@@ -92,15 +92,32 @@ public class SubsidyController extends BaseController {
     /**
      * 获取申请表[需要前台的参数：aid （申请人id）]
      */
-    public void getApplication() {
-        List<SubsidyApplication> salist = subsidyApplicationService.getSubsidyApplicationByApplicantId(getPara("aid"));
-        if (salist.size() != 0) {
-            RenderKit.renderSuccess(this, JsonKit.toJson(salist));
+    public void getApplicantApplication() {
+        Integer aid = getParaToInt("aid");
+        if (aid == null) {
+            RenderKit.renderError(this);
         } else {
-            RenderKit.renderError(this, Common.RENDER_ERROR_TIPS);
+            List<SubsidyApplication> salist = subsidyApplicationService.getSubsidyApplicationByApplicantId(aid);
+            if (salist.size() != 0) {
+                RenderKit.renderSuccess(this, JsonKit.toJson(salist));
+            } else {
+                RenderKit.renderError(this);
+            }
         }
     }
 
+    /**
+     * 获取申请表[需要前台的参数：无（当前用户）]
+     */
+    public void getApproverApplication() {
+        User user = getCurrentUser(this);
+        List<SubsidyApplication> salist = subsidyApplicationService.getSubsidyApplicationByUserId(user.getId());
+        if (salist.size() != 0) {
+            RenderKit.renderSuccess(this, JsonKit.toJson(salist));
+        } else {
+            RenderKit.renderError(this, "当前用户没有需要审批的申请表信息！");
+        }
+    }
 
     /***************************申请班级信息******************************/
 

@@ -72,9 +72,17 @@ public class SubsidyApplicationService extends Service {
      * @param applicantid
      * @return
      */
-    public List<SubsidyApplication> getSubsidyApplicationByApplicantId(String applicantid) {
+    public List<SubsidyApplication> getSubsidyApplicationByApplicantId(int applicantid) {
         return SubsidyApplication.dao.find(SubsidyApplication.SEARCH_FROM_SUBSIDY_APPLICATION + "where applicantId=?", applicantid);
     }
 
+    /**
+     * 通过申请人id查询申请表信息
+     * @param userid
+     * @return
+     */
+    public List<SubsidyApplication> getSubsidyApplicationByUserId(int userid) {
+        return SubsidyApplication.dao.find(SubsidyApplication.SEARCH_FROM_SUBSIDY_APPLICATION + "where approverId=?", userid);
+    }
 
 }
