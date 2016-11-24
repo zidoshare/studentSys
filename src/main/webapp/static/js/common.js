@@ -152,6 +152,13 @@ var Validate = {
 };
 
 var Util = {
+    region:function (dom) {
+        var regionDiv =$("#template").clone();
+        regionDiv.css('width','100%');
+        var ckeckAll = regionDiv.find('thead:first').find('div:first');
+        dom.after(regionDiv);
+        return regionDiv;
+    },
     input:function (dom,name,id) {
         var width = dom.width()+80;
         var height = dom.height();
@@ -213,6 +220,26 @@ var Util = {
         $(selector).on('pjax:complete', function (event) { //如果是table层级发生事件，阻止冒泡
             $(this).children('.table_pjax_loading').first().addClass('sr-only');
             event.stopPropagation();
+        });
+    },
+    loadPageByPjax:function(url){
+        Util.loadByPjax(url,{
+            container:'#page-inner',
+            showWholeAnimate: true,
+            showMinAnimate: false,
+            complete:function(){
+                Util.loadByPjax(url,{
+                    container:'#main-menu',
+                    showWholeAnimate: false,
+                    showMinAnimate: false,
+                    complete:function(){
+                        $('#main-menu').find('li').on('click', function () {
+                            $('#main-menu').find('li').removeClass('active-menu');
+                            $(this).addClass('active-menu');
+                        });
+                    }
+                });
+            }
         });
     },
     loadByPjax: function (url, options) {
@@ -1068,6 +1095,9 @@ var func = {
         modalUtil.show($('#seeApprovalModel'));
         
     },
+    deleteApply:function(){
+        Util.loadPageByPjax(Label.staticServePath+'/approvalManager');
+    },
     seeApply:function (method,id) {
             modalUtil.show($('#seeApplyModel'));
             $.ajax(Label.staticServePath+"/subsidyManager/getSubsidyClassInfo",{
@@ -1082,16 +1112,16 @@ var func = {
                         json.map(function(elem,num){
                             var sta;
                             if (elem['state']==1){
-                                sta:'在读';
+                                sta='在读';
                             }else if (elem['state']==0){
-                                sta:'毕业';
+                                sta='毕业';
                             }
                             var str = '<tr id="{id}">' +
                                 '<td>{studentName}</td>' +
                                 '<td>{subsidyAmount}</td>' +
                                 '<td>{residualFrequency}</td>' +
                                 '<td><input placeholder="{bonus}" class="form-control" id="{id}"></td>' +
-                                '<td>{sta}</td>' +
+                                '<td>'+sta+'</td>' +
                                 '<td>{remark}</td>' +
                                 '</tr>';
                             str = Util.jsonToString(str,elem);
@@ -1112,7 +1142,6 @@ var func = {
                         });
                         $('#seeApplyModel').one('hidden.bs.modal',function(){
                             $(this).find('tbody:first').html('');
-                            // $('tr#'+elem['id']).find('span').off('click');
                         });
                     }
                 }
@@ -1121,16 +1150,17 @@ var func = {
     addApplyClass:function (method) {
         if(method=="show"){
             modalUtil.show($('#addApplyModel'));
-            $.ajax(Label.staticServePath+"/subsidyManager/getSubsidyClassInfo",{
+            $.ajax(Label.staticServePath+"/subsidyManager/showRegion",{
                 type:'post',
                 dataType:'json',
                 success:function(data,status){
+                    console.log(data);
                     if(data.state == 'success'){
                         var json = JSON.parse(data.msg);
                         json.map(function (elems,index) {
 
-                            var head = '<li role="presentation" {headClassName}><a href="#role{id}" role="tab" data-toggle="tab">{area}</a></li>';
-                            var body='<div role="tabpanel" {bodyClassName} id="role{id}"></div>';
+                            var head = '<li role="presentation" {headClassName}><a href="#role{id}" role="tab" data-toggle="tab">{regionName}</a></li>';
+                            var body = '<div role="tabpanel" {bodyClassName} id="role{id}"></div>';
                             if(index == 0){
                                 Util.jsonToString(head,{'headClassName':'class="active"'});
                                 Util.jsonToString(body,{'bodyClassName':'class="tab-pane active"'})
@@ -1140,20 +1170,27 @@ var func = {
                             }
                             head=Util.jsonToString(head,elems);
                             body=Util.jsonToString(body,elems);
+
                             $('#addApplyModel').find('ul:first').append(head);
                             $('#addApplyModel').find('#classBody').append(body);
+                            // var regionDiv = Util.region(this);
+                            // regionDiv=Util.jsonToString(regionDiv);
+                            // $('#addApplyModel').find('#body-role1').append(regionDiv);
+
                         });
+
+
                         if (json.length > 0){
                             $.ajax({
                                 type:'post',
-                                url:Label.staticServePath+"/subsidyManager/getSubsidyClassInfo/"+json[0]['areaId'],
+                                url:Label.staticServePath+"/subsidyManager/getSubsidyClassInfo/"+json[0]['regionId'],
                                 success:function (data, status) {
 
                                 }
                             })
                         }
-                        $('#seeApplyModel').one('hidden.bs.modal',function(){
-                            $(this).find('tbody:first').html('');
+                        $('#addApplyModel').one('hidden.bs.modal',function(){
+                            $(this).find('#class-add-ul').html('');
                         });
                     }
                 }

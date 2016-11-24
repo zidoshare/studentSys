@@ -3,10 +3,7 @@ package com.hudongwx.studentsys.controller;
 import com.hudongwx.studentsys.common.BaseController;
 import com.hudongwx.studentsys.model.*;
 import com.hudongwx.studentsys.model.Class;
-import com.hudongwx.studentsys.service.ClassService;
-import com.hudongwx.studentsys.service.SubsidyApplicationService;
-import com.hudongwx.studentsys.service.SubsidyClassInfoService;
-import com.hudongwx.studentsys.service.UserRegionService;
+import com.hudongwx.studentsys.service.*;
 import com.hudongwx.studentsys.util.Common;
 import com.hudongwx.studentsys.util.ModelKit;
 import com.hudongwx.studentsys.util.PageinateKit;
@@ -30,6 +27,7 @@ public class SubsidyController extends BaseController {
     public SubsidyClassInfoService subsidyClassInfoService;
     public ClassService classService;
     public UserRegionService userRegionService;
+    public RegionService regionService;
 
     @Override
     public void index() {
@@ -98,6 +96,8 @@ public class SubsidyController extends BaseController {
             RenderKit.renderError(this);
         } else {
             List<SubsidyApplication> salist = subsidyApplicationService.getSubsidyApplicationByApplicantId(aid);
+
+
             if (salist.size() != 0) {
                 RenderKit.renderSuccess(this, JsonKit.toJson(salist));
             } else {
@@ -169,11 +169,19 @@ public class SubsidyController extends BaseController {
      */
     public void showRegion() {
         User user = getCurrentUser(this);
-        List<UserRegion> areas = userRegionService.getUserRegionInfoByUserId(user.getId());
-        if (areas.size() != 0) {
-            RenderKit.renderSuccess(this, JsonKit.toJson(areas));
-        } else {
+        List<UserRegion> urlist = userRegionService.getUserRegionInfoByUserId(user.getId());
+        List<Region> areas = new ArrayList<>();
+        if (urlist.size() <= 0) {
             RenderKit.renderError(this);
+        } else {
+            for (UserRegion ur : urlist) {
+                areas.add(regionService.getRegionById(ur.getRegionId()).get(0));
+            }
+            if (areas.size() != 0) {
+                RenderKit.renderSuccess(this, JsonKit.toJson(areas));
+            } else {
+                RenderKit.renderError(this);
+            }
         }
     }
 

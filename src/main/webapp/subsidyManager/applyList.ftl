@@ -163,7 +163,7 @@ ${view.title}
             </div>
             <div class="modal-footer text-center">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary">提交</button>
+                <button type="button" class="btn btn-primary" onclick="func.deleteApply(this)">提交</button>
             </div>
         </div>
     </div>
@@ -180,127 +180,14 @@ ${view.title}
                 <h4 class="modal-title" id="myModalLabel">班级添加</h4>
             </div>
             <div class="modal-body">
-                <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#home" role="tab" data-toggle="tab">成都</a></li>
-                    <li role="presentation"><a href="#profile" role="tab" data-toggle="tab">重庆</a></li>
+                <ul class="nav nav-tabs" role="tablist" id="class-add-ul">
                 </ul>
                 <!-- Tab panes -->
                 <div class="tab-content" id="classBody">
-                    <div role="tabpanel" class="tab-pane active" id="home">
-                        <div id="table-apply">
-                            <div id="dataTables-example_subsidy" class="table-responsive dataTables_wrapper form-inline"
-                                 role="grid">
-                                <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                                       id="dataTables-example" aria-describedby="dataTables-example_apply">
-                                    <thead>
-                                    <tr>
-                                        <th>
-                                            <div class="checkbox3 checkbox-round">
-                                                <input type="checkbox" id="all-check">
-                                                <label for="all-check" class="td-check center-block">
-                                                </label>
-                                            </div>
-                                        </th>
-                                        <th>
-                                            序号
-                                        </th>
-                                        <th>
-                                            班级名称
-                                        </th>
-                                        <th>
-                                            人数
-                                        </th>
-                                        <th>
-                                            开班日期
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>
-                                            <div class="checkbox3 checkbox-round">
-                                                <input type="checkbox" id="checkbox-2">
-                                                <label for="checkbox-2" class="td-check center-block">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            1
-                                        </td>
-                                        <td>
-                                            0719班
-                                        </td>
-                                        <td>
-                                            12
-                                        </td>
-                                        <td>
-                                            2016.07.19
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div role="tabpanel" class="tab-pane" id="profile">
-                        <div id="table-apply">
-                            <div id="dataTables-example_subsidy" class="table-responsive dataTables_wrapper form-inline"
-                                 role="grid">
-                                <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                                       id="dataTables-example" aria-describedby="dataTables-example_apply">
-                                    <thead>
-                                    <tr>
-                                        <th>
-                                            <div class="checkbox3 checkbox-round">
-                                                <input type="checkbox" id="all-check">
-                                                <label for="all-check" class="td-check center-block">
-                                                </label>
-                                            </div>
-                                        </th>
-                                        <th>
-                                            序号
-                                        </th>
-                                        <th>
-                                            班级名称
-                                        </th>
-                                        <th>
-                                            人数
-                                        </th>
-                                        <th>
-                                            开班日期
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>
-                                            <div class="checkbox3 checkbox-round">
-                                                <input type="checkbox" id="checkbox-2">
-                                                <label for="checkbox-2" class="td-check center-block">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            2
-                                        </td>
-                                        <td>
-                                            0719班
-                                        </td>
-                                        <td>
-                                            12
-                                        </td>
-                                        <td>
-                                            2016.07.19
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer" >
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                 <button type="button" class="btn btn-primary">提交</button>
             </div>
@@ -356,17 +243,16 @@ ${view.title}
 </div>
 
 <div class="sr-only" id="template">
-    <div id="table-apply">
-        <div id="dataTables-example_subsidy" class="table-responsive dataTables_wrapper form-inline"
+        <div  class="table-responsive dataTables_wrapper form-inline"
              role="grid">
             <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                   id="dataTables-example" aria-describedby="dataTables-example_apply">
+                    aria-describedby="dataTables-example_apply">
                 <thead>
                 <tr>
                     <th>
                         <div class="checkbox3 checkbox-round">
-                            <input type="checkbox" id="all-check">
-                            <label for="all-check" class="td-check center-block">
+                            <input type="checkbox" >
+                            <label class="td-check center-block">
                             </label>
                         </div>
                     </th>
@@ -389,5 +275,10 @@ ${view.title}
                 </tbody>
             </table>
         </div>
-    </div>
+
 </div>
+<script type="text/javascript">
+    $('#myBtnaa').on('click', function () {
+        Util.loadPageByPjax(Label.staticServePath+'/approvalManager');
+    })
+</script>
