@@ -152,6 +152,21 @@ var Validate = {
 };
 
 var Util = {
+    input:function (dom,name,id) {
+        var width = dom.width()+80;
+        var height = dom.height();
+        var input=$("#template-input").clone();
+        input.width(width);
+        // input.height(height);
+        console.log(id);
+        input.attr('id',id);
+        input.css('position','relative');
+        input.attr('name',name);
+
+        dom.addClass('sr-only');
+        dom.after(input);
+        return input;
+    },
     jsonToString: function (str,param) {
         var reg = /{([^{}]+)}/gm;
         return str.replace(reg, function (match, name) {
@@ -1049,6 +1064,10 @@ var func = {
             })
         }
     },
+    seeApproval:function (methed,id) {
+        modalUtil.show($('#seeApprovalModel'));
+        
+    },
     seeApply:function (method,id) {
             modalUtil.show($('#seeApplyModel'));
             $.ajax(Label.staticServePath+"/subsidyManager/getSubsidyClassInfo",{
@@ -1061,97 +1080,92 @@ var func = {
                     if(data.state == 'success'){
                         var json = JSON.parse(data.msg);
                         json.map(function(elem,num){
+                            var sta;
+                            if (elem['state']==1){
+                                sta:'在读';
+                            }else if (elem['state']==0){
+                                sta:'毕业';
+                            }
                             var str = '<tr id="{id}">' +
                                 '<td>{studentName}</td>' +
                                 '<td>{subsidyAmount}</td>' +
                                 '<td>{residualFrequency}</td>' +
-                                '<td>{bonus}</td>' +
-                                '<td>{state}</td>' +
+                                '<td><input placeholder="{bonus}" class="form-control" id="{id}"></td>' +
+                                '<td>{sta}</td>' +
                                 '<td>{remark}</td>' +
                                 '</tr>';
                             str = Util.jsonToString(str,elem);
                             console.log(str);
                             $('#seeApplyModel').find('tbody:first').append(str);
+                            // $('tr#'+elem['id']).find('span').on('click',function () {
+                            //     var input = Util.input($(this),name,elem['id']);
+                            //     input.on('');
+                            //     var dom = $(this);
+                            //     input.on('blur',function () {
+                            //         var value = input.val();
+                            //         if(value != null && value!='')
+                            //             dom.text(value);
+                            //         $(this).remove();
+                            //         dom.removeClass('sr-only');
+                            //     });
+                            // })
                         });
                         $('#seeApplyModel').one('hidden.bs.modal',function(){
                             $(this).find('tbody:first').html('');
+                            // $('tr#'+elem['id']).find('span').off('click');
                         });
                     }
                 }
             });
-
-
     },
     addApplyClass:function (method) {
-        if (method == 'up') {
-            var btn = Ladda.create(document.querySelector("#save-btn"));
-            btn.start();
-            var json = {};
-            var id = $('#classId').val();
-            if (id == null || id == '')
-                $('#classCreateTime').val(new Date().getTime());
-            $('#classUpdateTime').val(new Date().getTime());
-            $('#classOperaterId').val(Label.userId);
-            $('#class').find('.form-control').each(function () {
-                json[$(this).attr('name')] = $(this).val();
-            });
-            $.ajax({
-                url: Label.staticServePath + "/subsidyManager/addApply",
-                type: "post",
-                data: json,
-                success: function (data, state) {
-                    if (data.state == 'success') {
-                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
-                        $('#addApplyModel').modal('hide');
-                        //刷新页面
-                        Util.reloadByPjax();
-                    } else {
-                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-danger');
-                    }
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    Util.showTip($('#wholeTip'), '服务器错误', 'alert alert-danger', {time: 5000});
-                },
-                complete: function () {
-                    btn.stop();
-                }
-            })
-        }
-        else{
+        if(method=="show"){
             modalUtil.show($('#addApplyModel'));
             $.ajax(Label.staticServePath+"/subsidyManager/getSubsidyClassInfo",{
                 type:'post',
                 dataType:'json',
-                data:{
-                    'classId':id
-                },
                 success:function(data,status){
                     if(data.state == 'success'){
                         var json = JSON.parse(data.msg);
-                        json.map(function(elem,num){
-                            var str = '<tr id="{id}">' +
-                                '<td>{studentName}</td>' +
-                                '<td>{subsidyAmount}</td>' +
-                                '<td>{residualFrequency}</td>' +
-                                '<td>{bonus}</td>' +
-                                '<td>{state}</td>' +
-                                '<td>{remark}</td>' +
-                                '</tr>';
-                            str = Util.jsonToString(str,elem);
-                            console.log(str);
-                            $('#seeApplyModel').find('tbody:first').append(str);
+                        json.map(function (elems,index) {
+
+                            var head = '<li role="presentation" {headClassName}><a href="#role{id}" role="tab" data-toggle="tab">{area}</a></li>';
+                            var body='<div role="tabpanel" {bodyClassName} id="role{id}"></div>';
+                            if(index == 0){
+                                Util.jsonToString(head,{'headClassName':'class="active"'});
+                                Util.jsonToString(body,{'bodyClassName':'class="tab-pane active"'})
+                            }else{
+                                Util.jsonToString(head,{'headClassName':''});
+                                Util.jsonToString(body,{'bodyClassName':'class="tab-pane"'})
+                            }
+                            head=Util.jsonToString(head,elems);
+                            body=Util.jsonToString(body,elems);
+                            $('#addApplyModel').find('ul:first').append(head);
+                            $('#addApplyModel').find('#classBody').append(body);
                         });
+                        if (json.length > 0){
+                            $.ajax({
+                                type:'post',
+                                url:Label.staticServePath+"/subsidyManager/getSubsidyClassInfo/"+json[0]['areaId'],
+                                success:function (data, status) {
+
+                                }
+                            })
+                        }
                         $('#seeApplyModel').one('hidden.bs.modal',function(){
                             $(this).find('tbody:first').html('');
                         });
                     }
                 }
             });
+        }else {
+            modalUtil.show($('#submitApplyModel'));
+        }
 
 
 
             // $('#studentCnt').val(0);
-        }
+        
     },
     addClass: function (method) {
         if (method == 'up') {

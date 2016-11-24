@@ -25,12 +25,20 @@ public abstract class BaseSubsidyApplication<M extends BaseSubsidyApplication<M>
 		return get("title");
 	}
 
-	public void setApplicant(java.lang.String applicant) {
-		set("applicant", applicant);
+	public void setApplicantId(java.lang.Integer applicantId) {
+		set("applicantId", applicantId);
 	}
 
-	public java.lang.String getApplicant() {
-		return get("applicant");
+	public java.lang.Integer getApplicantId() {
+		return get("applicantId");
+	}
+
+	public void setApplicantName(java.lang.String applicantName) {
+		set("applicantName", applicantName);
+	}
+
+	public java.lang.String getApplicantName() {
+		return get("applicantName");
 	}
 
 	public void setApplicationDate(java.lang.Long applicationDate) {
@@ -41,12 +49,12 @@ public abstract class BaseSubsidyApplication<M extends BaseSubsidyApplication<M>
 		return get("applicationDate");
 	}
 
-	public void setArea(java.lang.String area) {
-		set("area", area);
+	public void setRegionId(java.lang.Integer regionId) {
+		set("regionId", regionId);
 	}
 
-	public java.lang.String getArea() {
-		return get("area");
+	public java.lang.Integer getRegionId() {
+		return get("regionId");
 	}
 
 	public void setClassName(java.lang.String className) {
@@ -87,6 +95,14 @@ public abstract class BaseSubsidyApplication<M extends BaseSubsidyApplication<M>
 
 	public java.lang.Integer getAggregateAmount() {
 		return get("aggregateAmount");
+	}
+
+	public void setApproverId(java.lang.Integer approverId) {
+		set("approverId", approverId);
+	}
+
+	public java.lang.Integer getApproverId() {
+		return get("approverId");
 	}
 
 	public void setApproveStatus(java.lang.Integer approveStatus) {

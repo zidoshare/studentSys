@@ -4,10 +4,8 @@ import com.hudongwx.studentsys.common.BaseController;
 import com.hudongwx.studentsys.model.Class;
 import com.hudongwx.studentsys.model.Mapping;
 import com.hudongwx.studentsys.model.SubsidyClassinfo;
-import com.hudongwx.studentsys.model.SubsidyHistory;
 import com.hudongwx.studentsys.service.SubsidyApplicationService;
 import com.hudongwx.studentsys.service.SubsidyClassInfoService;
-import com.hudongwx.studentsys.service.SubsidyHistoryService;
 import com.hudongwx.studentsys.util.Common;
 import com.hudongwx.studentsys.util.ModelKit;
 import com.hudongwx.studentsys.util.PageinateKit;
@@ -31,7 +29,6 @@ public class SubsidyController extends BaseController {
 
     public SubsidyApplicationService subsidyApplicationService;
     public SubsidyClassInfoService subsidyClassInfoService;
-    public SubsidyHistoryService subsidyHistoryService;
     public ClassService classService;
     public UserRegionService userRegionService;
 
@@ -46,8 +43,11 @@ public class SubsidyController extends BaseController {
             subList.add((SubsidyClassinfo) model);
         }
         Page<SubsidyClassinfo> subsidyClassInfoPage = PageinateKit.ClonePage(classP, subList);
+
         setAttr("page", subsidyClassInfoPage);
+
     }
+
 
     @Override
     public Mapping init() {
@@ -121,54 +121,6 @@ public class SubsidyController extends BaseController {
         }
     }
 
-    /*****************************申请历史记录******************************/
-
-    /**
-     * 添加历史申请信息
-     */
-    @Before(POST.class)
-    public boolean addSubsidyHistory() {
-        String subsidyHistory = getPara("sh");
-        SubsidyHistory sh = new SubsidyHistory();
-        //// TODO: 2016/11/22 获取json
-        return subsidyHistoryService._saveSubsidyHistory(sh);
-    }
-
-    /**
-     * 删除历史申请信息
-     */
-    public boolean deleteSubsidyHistory() {
-        return subsidyHistoryService._deleteSubsidyHistoryById(getPara("sciId"));
-    }
-
-    /**
-     * 获取历史申请信息
-     */
-    public void getSubsidyHistory() {
-        List<SubsidyHistory> shList = subsidyHistoryService.getSubsidyHistoryById(getPara("shId"));
-        //
-
-        if (shList.size() != 0) {
-            String s = JsonKit.toJson(shList);
-            RenderKit.renderSuccess(this, s);
-        } else {
-            RenderKit.renderError(this, "你所查找的数据不存在或已删除！");
-        }
-    }
-
-    /**
-     * 获取所有历史申请信息
-     */
-    public void getAllSubsidyHistory() {
-        List<SubsidyHistory> shList = subsidyHistoryService.getAllSubsidyClassInfo();
-        if (shList.size() != 0) {
-            String s = JsonKit.toJson(shList);
-            RenderKit.renderSuccess(this, s);
-        } else {
-            RenderKit.renderError(this, "你所查找的数据不存在或已删除！");
-        }
-
-    }
 
     /**
      * 补助管理添加班级时选择指定区域班级

@@ -193,20 +193,20 @@ public abstract class BaseStudent<M extends BaseStudent<M>> extends Model<M> imp
 		return get("paymentMethod");
 	}
 
-	public void setArea(java.lang.String area) {
-		set("area", area);
+	public void setCounselorId(java.lang.Integer counselorId) {
+		set("counselorId", counselorId);
 	}
 
-	public java.lang.String getArea() {
-		return get("area");
+	public java.lang.Integer getCounselorId() {
+		return get("counselorId");
 	}
 
-	public void setConsultant(java.lang.String consultant) {
-		set("consultant", consultant);
+	public void setCounselorName(java.lang.String counselorName) {
+		set("counselorName", counselorName);
 	}
 
-	public java.lang.String getConsultant() {
-		return get("consultant");
+	public java.lang.String getCounselorName() {
+		return get("counselorName");
 	}
 
 	public void setSubsidyPer(java.lang.Integer subsidyPer) {
@@ -233,6 +233,14 @@ public abstract class BaseStudent<M extends BaseStudent<M>> extends Model<M> imp
 		return get("residualFrequency");
 	}
 
+	public void setRegionId(java.lang.Integer regionId) {
+		set("regionId", regionId);
+	}
+
+	public java.lang.Integer getRegionId() {
+		return get("regionId");
+	}
+
 	public void setState(java.lang.Integer state) {
 		set("state", state);
 	}
@@ -247,6 +255,14 @@ public abstract class BaseStudent<M extends BaseStudent<M>> extends Model<M> imp
 
 	public java.lang.Long getCreateTime() {
 		return get("createTime");
+	}
+
+	public void setChecked(java.lang.Integer checked) {
+		set("checked", checked);
+	}
+
+	public java.lang.Integer getChecked() {
+		return get("checked");
 	}
 
 	public void setIp(java.lang.String ip) {
