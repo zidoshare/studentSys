@@ -1,7 +1,7 @@
 package com.hudongwx.studentsys.service;
 
 import com.hudongwx.studentsys.common.Service;
-import com.hudongwx.studentsys.model.SubsidyClassinfo;
+import com.hudongwx.studentsys.model.SubsidyClassInfo;
 
 import java.util.List;
 
@@ -12,11 +12,11 @@ public class SubsidyClassInfoService extends Service {
     /**
      * 添加申请班级
      *
-     * @param subsidyClassinfo
+     * @param subsidyClassInfo
      * @return
      */
-    public boolean _saveSubsidyClassInfo(SubsidyClassinfo subsidyClassinfo) {
-        return subsidyClassinfo.save();
+    public boolean _saveSubsidyClassInfo(SubsidyClassInfo subsidyClassInfo) {
+        return subsidyClassInfo.save();
     }
 
     /**
@@ -26,7 +26,7 @@ public class SubsidyClassInfoService extends Service {
      * @return
      */
     public boolean _deleteSubsidyClassInfoById(String id) {
-        return SubsidyClassinfo.dao.deleteById(id);
+        return SubsidyClassInfo.dao.deleteById(id);
     }
 
     /**
@@ -35,8 +35,8 @@ public class SubsidyClassInfoService extends Service {
      * @return
      */
     public boolean _deleteAllSubsidyClassInfo() {
-        List<SubsidyClassinfo> subsidyClassinfos = SubsidyClassinfo.dao.find(SubsidyClassinfo.SEARCH_FROM_SUBSIDY_CLASSINFO);
-        for (SubsidyClassinfo sc : subsidyClassinfos) {
+        List<SubsidyClassInfo> subsidyClassInfos = SubsidyClassInfo.dao.find(SubsidyClassInfo.SEARCH_FROM_SUBSIDY_CLASSINFO);
+        for (SubsidyClassInfo sc : subsidyClassInfos) {
             sc.delete();
         }
         return true;
@@ -48,7 +48,7 @@ public class SubsidyClassInfoService extends Service {
      * @param sc
      * @return
      */
-    public boolean _updateSubsidyClassInfo(SubsidyClassinfo sc) {
+    public boolean _updateSubsidyClassInfo(SubsidyClassInfo sc) {
         return sc.update();
     }
 
@@ -58,8 +58,8 @@ public class SubsidyClassInfoService extends Service {
      * @param classid
      * @return
      */
-    public List<SubsidyClassinfo> getSubsidyClassInfoById(String classid) {
-        return SubsidyClassinfo.dao.find(SubsidyClassinfo.SEARCH_FROM_SUBSIDY_CLASSINFO + "where classId=?", classid);
+    public List<SubsidyClassInfo> getSubsidyClassInfoById(String classid) {
+        return SubsidyClassInfo.dao.find(SubsidyClassInfo.SEARCH_FROM_SUBSIDY_CLASSINFO + "where classId=?", classid);
     }
 
     /**
@@ -68,8 +68,8 @@ public class SubsidyClassInfoService extends Service {
      * @param area
      * @return
      */
-    public List<SubsidyClassinfo> getSubsidyClassInfoByArea(String area) {
-        return SubsidyClassinfo.dao.find(SubsidyClassinfo.SEARCH_FROM_SUBSIDY_CLASSINFO + "where area like ?", area);
+    public List<SubsidyClassInfo> getSubsidyClassInfoByArea(String area) {
+        return SubsidyClassInfo.dao.find(SubsidyClassInfo.SEARCH_FROM_SUBSIDY_CLASSINFO + "where area like ?", area);
     }
 
 
@@ -78,7 +78,7 @@ public class SubsidyClassInfoService extends Service {
      *
      * @return
      */
-    public List<SubsidyClassinfo> getAllSubsidyClassInfo() {
-        return SubsidyClassinfo.dao.find(SubsidyClassinfo.SEARCH_FROM_SUBSIDY_CLASSINFO);
+    public List<SubsidyClassInfo> getAllSubsidyClassInfo() {
+        return SubsidyClassInfo.dao.find(SubsidyClassInfo.SEARCH_FROM_SUBSIDY_CLASSINFO);
     }
 }

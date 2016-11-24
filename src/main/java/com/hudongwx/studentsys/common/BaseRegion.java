@@ -17,14 +17,6 @@ public abstract class BaseRegion<M extends BaseRegion<M>> extends Model<M> imple
 		return get("id");
 	}
 
-	public void setRegionId(java.lang.Integer regionId) {
-		set("regionId", regionId);
-	}
-
-	public java.lang.Integer getRegionId() {
-		return get("regionId");
-	}
-
 	public void setRegionName(java.lang.String regionName) {
 		set("regionName", regionName);
 	}

@@ -36,12 +36,12 @@ public class SubsidyController extends BaseController {
         super.index();
         Page<Class> classP = Class.dao.paginate(1, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, Class.SQL_FROM);
 
-        List<SubsidyClassinfo> subList = new ArrayList<>();
+        List<SubsidyClassInfo> subList = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
-            Model model = ModelKit.simulateModelByRandom(SubsidyClassinfo.class, 5);
-            subList.add((SubsidyClassinfo) model);
+            Model model = ModelKit.simulateModelByRandom(SubsidyClassInfo.class, 5);
+            subList.add((SubsidyClassInfo) model);
         }
-        Page<SubsidyClassinfo> subsidyClassInfoPage = PageinateKit.ClonePage(classP, subList);
+        Page<SubsidyClassInfo> subsidyClassInfoPage = PageinateKit.ClonePage(classP, subList);
         setAttr("page", subsidyClassInfoPage);
     }
 
@@ -127,7 +127,7 @@ public class SubsidyController extends BaseController {
     @Before(POST.class)
     public boolean addSubsidyClassInfo() {
         String subsidyClassInfo = getPara("sci");
-        SubsidyClassinfo sci = new SubsidyClassinfo();
+        SubsidyClassInfo sci = new SubsidyClassInfo();
         //// TODO: 2016/11/23 获取班级数据 
         String studentid = "";
         //// TODO: 2016/11/23 通过学生id checked状态统计信息
@@ -146,7 +146,7 @@ public class SubsidyController extends BaseController {
      */
     public boolean updateSubsidyClassInfo() {
         String subsidyClassInfo = getPara("nsci");
-        SubsidyClassinfo sc = new SubsidyClassinfo();
+        SubsidyClassInfo sc = new SubsidyClassInfo();
         //// TODO: 2016/11/21 修改数据
         return subsidyClassInfoService._updateSubsidyClassInfo(sc);
     }
@@ -155,7 +155,7 @@ public class SubsidyController extends BaseController {
      * 获取正在申请的班级详情[需要前台的参数：classid(班级id)]
      */
     public void getSubsidyClassInfo() {
-        List<SubsidyClassinfo> scList = subsidyClassInfoService.getSubsidyClassInfoById(getPara("classId"));
+        List<SubsidyClassInfo> scList = subsidyClassInfoService.getSubsidyClassInfoById(getPara("classId"));
         if (scList.size() != 0) {
             String s = JsonKit.toJson(scList);
             RenderKit.renderSuccess(this, s);
