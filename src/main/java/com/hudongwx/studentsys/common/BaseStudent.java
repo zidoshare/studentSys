@@ -233,6 +233,14 @@ public abstract class BaseStudent<M extends BaseStudent<M>> extends Model<M> imp
 		return get("residualFrequency");
 	}
 
+	public void setRegionId(java.lang.Integer regionId) {
+		set("regionId", regionId);
+	}
+
+	public java.lang.Integer getRegionId() {
+		return get("regionId");
+	}
+
 	public void setState(java.lang.Integer state) {
 		set("state", state);
 	}
