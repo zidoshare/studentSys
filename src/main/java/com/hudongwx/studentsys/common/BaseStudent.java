@@ -193,12 +193,20 @@ public abstract class BaseStudent<M extends BaseStudent<M>> extends Model<M> imp
 		return get("paymentMethod");
 	}
 
-	public void setConsultant(java.lang.String consultant) {
-		set("consultant", consultant);
+	public void setCounselorId(java.lang.Integer counselorId) {
+		set("counselorId", counselorId);
 	}
 
-	public java.lang.String getConsultant() {
-		return get("consultant");
+	public java.lang.Integer getCounselorId() {
+		return get("counselorId");
+	}
+
+	public void setCounselorName(java.lang.String counselorName) {
+		set("counselorName", counselorName);
+	}
+
+	public java.lang.String getCounselorName() {
+		return get("counselorName");
 	}
 
 	public void setSubsidyPer(java.lang.Integer subsidyPer) {

@@ -33,12 +33,12 @@ public abstract class BaseSubsidyApplication<M extends BaseSubsidyApplication<M>
 		return get("applicantId");
 	}
 
-	public void setApplicant(java.lang.String applicant) {
-		set("applicant", applicant);
+	public void setApplicantName(java.lang.String applicantName) {
+		set("applicantName", applicantName);
 	}
 
-	public java.lang.String getApplicant() {
-		return get("applicant");
+	public java.lang.String getApplicantName() {
+		return get("applicantName");
 	}
 
 	public void setApplicationDate(java.lang.Long applicationDate) {

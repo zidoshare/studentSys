@@ -32,7 +32,7 @@ public class ClassService extends Service {
         return Class.dao.paginate(currentPage, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, Class.SQL_FROM);
     }
 
-    public List<Class> getClassInfoByArea(String area) {
-        return Class.dao.find(Class.SEARCH_FROM_CLASS + "where area like ?", area);
+    public List<Class> getClassInfoByRegionId(int regionid) {
+        return Class.dao.find(Class.SEARCH_FROM_CLASS + "where regionId = ?", regionid);
     }
 }

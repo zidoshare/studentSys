@@ -24,7 +24,7 @@ public class ObtainEmploymentService extends Service {
      * @param id
      * @return
      */
-    public boolean _deleteObtainEmploymentById(String id) {
+    public boolean _deleteObtainEmploymentById(int id) {
         return ObtainEmployment.dao.deleteById(id);
     }
 
@@ -57,7 +57,7 @@ public class ObtainEmploymentService extends Service {
      * @param id
      * @return
      */
-    public List<ObtainEmployment> getObtainEmploymentById(String id) {
+    public List<ObtainEmployment> getObtainEmploymentById(int id) {
         return ObtainEmployment.dao.find(ObtainEmployment.SEARCH_FROM_OBTAIN_EMPLOYMENT + "where id=?", id);
     }
 
@@ -66,7 +66,7 @@ public class ObtainEmploymentService extends Service {
      *
      * @return
      */
-    public List<ObtainEmployment> _queryAllObtainEmploymentInfo() {
+    public List<ObtainEmployment> getAllObtainEmploymentInfo() {
         return ObtainEmployment.dao.find(ObtainEmployment.SEARCH_FROM_OBTAIN_EMPLOYMENT);
     }
 

@@ -146,14 +146,11 @@ public class SubsidyController extends BaseController {
             RenderKit.renderError(this, "你所查找的数据不存在或已删除！");
         }
     }
-
     /**************************拓展功能区******************************/
-
     /**
      * 补助管理添加班级区块信息[需要前台的参数：无]
      */
-
-    public void showArea() {
+    public void showRegion() {
         User user = getCurrentUser(this);
         List<UserRegion> areas = userRegionService.getUserRegionInfoByUserId(user.getId());
         if (areas.size() != 0) {
@@ -163,11 +160,20 @@ public class SubsidyController extends BaseController {
         }
     }
 
-    public void showAreaClassInfo() {
-        Integer id = getParaToInt(0);
-        if (id == null) {
+    /**
+     * 补助管理添加班级区块信息[需要前台的参数：rid(区域id)]
+     */
+    public void showRegionClassInfo() {
+        Integer rid = getParaToInt("rid");
+        if (rid == null) {
             RenderKit.renderError(this);
+        } else {
+            List<Class> classList = classService.getClassInfoByRegionId(rid);
+            if (classList.size() != 0) {
+                RenderKit.renderSuccess(this, JsonKit.toJson(classList));
+            } else {
+                RenderKit.renderError(this);
+            }
         }
-
     }
 }
