@@ -169,9 +169,11 @@ public class SubsidyController extends BaseController {
      */
     public void showRegion() {
         User user = getCurrentUser(this);
-        List<UserRegion> areas = userRegionService.getUserRegionInfoByUserId(user.getId());
-        if (areas.size() != 0) {
-            RenderKit.renderSuccess(this, JsonKit.toJson(areas));
+        List<UserRegion> urlist = userRegionService.getUserRegionInfoByUserId(user.getId());
+        
+        
+        if (urlist.size() != 0) {
+            RenderKit.renderSuccess(this, JsonKit.toJson(urlist));
         } else {
             RenderKit.renderError(this);
         }
