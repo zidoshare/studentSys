@@ -111,15 +111,63 @@ ${view.title}
         <#--<@paginate page = classes url=holdPath+str pageAfter="p">-->
         <#--</@paginate>-->
             <#if user?exists>
-                <span class="center-block text-center">${addBtn}</span>
+            <div class="modal-footer text-center" >
+                ${addBtn}
+                ${saveBtn}
+            </div>
+
             <#else >
 
             </#if>
-            <span class="pull-right text-center">${saveBtn}</span>
+
         </div>
     </div>
 </div>
 </@item>
+
+<div class="modal fade" id="submitApplyModel" tabindex="-1" role="dialog" aria-labelledby="submitApplyModelLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg " style="width:600px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">申请提交信息:</h4>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon">审批人:</span>
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                        Dropdown
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="input-group">
+                <h4 class="modal-title" id="myModalLabel">备注:</h4>
+                <input type="text" class="form-control" id="submit-remarks">
+            </div>
+            <br>
+            <div  class="table table-bordered">
+                <h5>申请班级数:<span id="submit-class">2</span></h5>
+                <h5>申请总人数:<span id="submit-student">20</span></h5>
+                <h5>总补助:<span id="submit-subsidy">14000</span></h5>
+                <h5>总奖金:<span id="submit-bonus">6000</span></h5>
+                <h5>合计:<span id="submit-total">20000</span></h5>
+            </div>
+            <div class="modal-footer text-center">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <div class="modal fade" id="addApplyModel" tabindex="-1" role="dialog" aria-labelledby="addApplyModelLabel"
@@ -133,15 +181,11 @@ ${view.title}
             </div>
             <div class="modal-body">
                 <ul class="nav nav-tabs" role="tablist">
-                <#--<#list page.list as sub>-->
-                <#--<li role="presentation"><a href="#{sub.className}" data-toggle="tab" role="tab">${sub.className}</a></li>-->
-                <#--</#list>-->
                     <li role="presentation" class="active"><a href="#home" role="tab" data-toggle="tab">成都</a></li>
                     <li role="presentation"><a href="#profile" role="tab" data-toggle="tab">重庆</a></li>
                 </ul>
-
                 <!-- Tab panes -->
-                <div class="tab-content">
+                <div class="tab-content" id="classBody">
                     <div role="tabpanel" class="tab-pane active" id="home">
                         <div id="table-apply">
                             <div id="dataTables-example_subsidy" class="table-responsive dataTables_wrapper form-inline"
@@ -311,3 +355,43 @@ ${view.title}
     </div>
 </div>
 
+<div>
+    <div id="table-apply">
+        <div id="dataTables-example_subsidy" class="table-responsive dataTables_wrapper form-inline"
+             role="grid">
+            <table class="table table-striped table-bordered table-hover dataTable no-footer"
+                   id="dataTables-example" aria-describedby="dataTables-example_apply">
+                <thead>
+                <tr>
+                    <th>
+                        <div class="checkbox3 checkbox-round">
+                            <input type="checkbox" id="all-check">
+                            <label for="all-check" class="td-check center-block">
+                            </label>
+                        </div>
+                    </th>
+                    <th>
+                        序号
+                    </th>
+                    <th>
+                        班级名称
+                    </th>
+                    <th>
+                        人数
+                    </th>
+                    <th>
+                        开班日期
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="sr-only" id="template">
+    <input class="form-control" id="template-input">
+</div>

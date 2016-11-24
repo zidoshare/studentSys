@@ -152,6 +152,21 @@ var Validate = {
 };
 
 var Util = {
+    input:function (dom,name,id) {
+        var width = dom.width()+80;
+        var height = dom.height();
+        var input=$("#template-input").clone();
+        input.width(width);
+        // input.height(height);
+        console.log(id);
+        input.attr('id',id);
+        input.css('position','relative');
+        input.attr('name',name);
+
+        dom.addClass('sr-only');
+        dom.after(input);
+        return input;
+    },
     jsonToString: function (str,param) {
         var reg = /{([^{}]+)}/gm;
         return str.replace(reg, function (match, name) {
@@ -1069,22 +1084,33 @@ var func = {
                                 '<td>{studentName}</td>' +
                                 '<td>{subsidyAmount}</td>' +
                                 '<td>{residualFrequency}</td>' +
-                                '<td><input class="input-group" ></td>' +
+                                '<td><input placeholder="{bonus}" class="form-control" id="{id}"></td>' +
                                 '<td>{state}</td>' +
                                 '<td>{remark}</td>' +
                                 '</tr>';
                             str = Util.jsonToString(str,elem);
                             console.log(str);
                             $('#seeApplyModel').find('tbody:first').append(str);
+                            // $('tr#'+elem['id']).find('span').on('click',function () {
+                            //     var input = Util.input($(this),name,elem['id']);
+                            //     input.on('');
+                            //     var dom = $(this);
+                            //     input.on('blur',function () {
+                            //         var value = input.val();
+                            //         if(value != null && value!='')
+                            //             dom.text(value);
+                            //         $(this).remove();
+                            //         dom.removeClass('sr-only');
+                            //     });
+                            // })
                         });
                         $('#seeApplyModel').one('hidden.bs.modal',function(){
                             $(this).find('tbody:first').html('');
+                            // $('tr#'+elem['id']).find('span').off('click');
                         });
                     }
                 }
             });
-
-
     },
     addApplyClass:function (method) {
         if(method=="show"){
@@ -1097,13 +1123,19 @@ var func = {
                         var json = JSON.parse(data.msg);
                         json.map(function (elems,index) {
 
-                            var rol = '<li role="presentation" {className}><a href="#sb{id}" role="tab" data-toggle="tab">{area}</a></li>'
+                            var head = '<li role="presentation" {headClassName}><a href="#role{id}" role="tab" data-toggle="tab">{area}</a></li>';
+                            var body='<div role="tabpanel" {bodyClassName} id="role{id}"></div>';
                             if(index == 0){
-                                Util.jsonToString(rol,{'className':'class="active"'});
+                                Util.jsonToString(head,{'headClassName':'class="active"'});
+                                Util.jsonToString(body,{'bodyClassName':'class="tab-pane active"'})
                             }else{
-                                Util.jsonToString(rol,{'className':''});
+                                Util.jsonToString(head,{'headClassName':''});
+                                Util.jsonToString(body,{'bodyClassName':'class="tab-pane"'})
                             }
-                            Util.jsonToString(rol,elems);
+                            head=Util.jsonToString(head,elems);
+                            body=Util.jsonToString(body,elems);
+                            $('#addApplyModel').find('ul:first').append(head);
+                            $('#addApplyModel').find('#classBody').append(body);
                         });
                         if (json.length > 0){
                             $.ajax({
@@ -1121,7 +1153,7 @@ var func = {
                 }
             });
         }else {
-
+            modalUtil.show($('#submitApplyModel'));
         }
 
 
