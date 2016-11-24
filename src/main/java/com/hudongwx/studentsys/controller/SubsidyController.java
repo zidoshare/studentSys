@@ -1,13 +1,12 @@
 package com.hudongwx.studentsys.controller;
 
 import com.hudongwx.studentsys.common.BaseController;
+import com.hudongwx.studentsys.model.*;
 import com.hudongwx.studentsys.model.Class;
-import com.hudongwx.studentsys.model.Mapping;
-import com.hudongwx.studentsys.model.SubsidyClassinfo;
-import com.hudongwx.studentsys.model.SubsidyHistory;
+import com.hudongwx.studentsys.service.ClassService;
 import com.hudongwx.studentsys.service.SubsidyApplicationService;
 import com.hudongwx.studentsys.service.SubsidyClassInfoService;
-import com.hudongwx.studentsys.service.SubsidyHistoryService;
+import com.hudongwx.studentsys.service.UserRegionService;
 import com.hudongwx.studentsys.util.Common;
 import com.hudongwx.studentsys.util.ModelKit;
 import com.hudongwx.studentsys.util.PageinateKit;
@@ -22,26 +21,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 补助管理
  * Created by wu on 2016/11/19.
  */
 public class SubsidyController extends BaseController {
 
     public SubsidyApplicationService subsidyApplicationService;
     public SubsidyClassInfoService subsidyClassInfoService;
-    public SubsidyHistoryService subsidyHistoryService;
+    public ClassService classService;
+    public UserRegionService userRegionService;
 
     @Override
     public void index() {
         super.index();
-        Page<Class> classP = Class.dao.paginate(1, Common.MAX_PAGE_SIZE,Common.COMMON_SELECT,Class.SQL_FROM);
+        Page<Class> classP = Class.dao.paginate(1, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, Class.SQL_FROM);
 
-        List<SubsidyClassinfo> subList = new ArrayList<>();
-        for(int i = 0; i < 20; i++){
-            Model model = ModelKit.simulateModelByRandom(SubsidyClassinfo.class, 5);
-            subList.add((SubsidyClassinfo) model);
+        List<SubsidyClassInfo> subList = new ArrayList<>();
+        for (int i = 0; i < 20; i++) {
+            Model model = ModelKit.simulateModelByRandom(SubsidyClassInfo.class, 5);
+            subList.add((SubsidyClassInfo) model);
         }
-        Page<SubsidyClassinfo> subsidyClassInfoPage = PageinateKit.ClonePage(classP, subList);
-        setAttr("page",subsidyClassInfoPage);
+        Page<SubsidyClassInfo> subsidyClassInfoPage = PageinateKit.ClonePage(classP, subList);
+        setAttr("page", subsidyClassInfoPage);
     }
 
     @Override
@@ -51,103 +52,145 @@ public class SubsidyController extends BaseController {
 
     /****************************申请表信息*******************************/
     /**
-     * 添加填好的申请表
+     * 添加申请表[需要前台的参数：sa (json格式的表格数据)]
      */
     @Before(POST.class)
-    public void addSubsidyApplication() {
+    public void addApplication() {
         String subsidyApplication = getPara("sa");
         //// TODO: 2016/11/21 待获取json数据
     }
+
     /**
-     * 删除指定的申请表
+     * 删除申请表[需要前台的参数：无]
      */
-    public boolean deleteSubsidyApplication() {
-        return subsidyApplicationService._deleteSubsidyApplicationById(getPara("said"));
+    public void deleteAllApplication() {
+        subsidyApplicationService._deleteAllSubsidyApplication();
     }
 
     /**
-     * 删除指定的申请表
+     * 删除申请表[需要前台的参数：aid（申请人id）,title (申请人指定的表名)]
      */
-    public boolean deleteAllSubsidyApplication() {
-        return subsidyApplicationService._deleteAllSubsidyApplication();
+    public void deleteApplicantApplication() {
+        boolean b = subsidyApplicationService._deleteSubsidyApplicationByAid(getPara("aid"), getPara("title"));
+        if (b) {
+            RenderKit.renderSuccess(this);
+        } else {
+            RenderKit.renderError(this);
+        }
+    }
+
+    /**
+     * 修改申请表[需要前台的参数：usa（新的json格式的申请表数据）]
+     */
+    public void updateApplication() {
+        String usa = getPara("usa");
+        //// TODO: 2016/11/23 获取前台json创建SubsidyApplication对象 
+        SubsidyApplication application = new SubsidyApplication();
+        subsidyApplicationService._updateSubsidyApplication(application);
+    }
+
+    /**
+     * 获取申请表[需要前台的参数：aid （申请人id）]
+     */
+    public void getApplicantApplication() {
+        Integer aid = getParaToInt("aid");
+        if (aid == null) {
+            RenderKit.renderError(this);
+        } else {
+            List<SubsidyApplication> salist = subsidyApplicationService.getSubsidyApplicationByApplicantId(aid);
+            if (salist.size() != 0) {
+                RenderKit.renderSuccess(this, JsonKit.toJson(salist));
+            } else {
+                RenderKit.renderError(this);
+            }
+        }
+    }
+
+    /**
+     * 获取申请表[需要前台的参数：无（当前用户）]
+     */
+    public void getApproverApplication() {
+        User user = getCurrentUser(this);
+        List<SubsidyApplication> salist = subsidyApplicationService.getSubsidyApplicationByUserId(user.getId());
+        if (salist.size() != 0) {
+            RenderKit.renderSuccess(this, JsonKit.toJson(salist));
+        } else {
+            RenderKit.renderError(this, "当前用户没有需要审批的申请表信息！");
+        }
     }
 
     /***************************申请班级信息******************************/
 
     /**
-     * 添加申请班级信息
+     * 添加补助班级信息[需要前台的参数：sci(json格式班级学生详情)]
      */
     @Before(POST.class)
     public boolean addSubsidyClassInfo() {
-        String subsidyClassInfo = getPara("user");
-        SubsidyClassinfo sc = new SubsidyClassinfo();
-        return subsidyClassInfoService._saveSubsidyClassInfo(sc);
+        String subsidyClassInfo = getPara("sci");
+        SubsidyClassInfo sci = new SubsidyClassInfo();
+        //// TODO: 2016/11/23 获取班级数据 
+        String studentid = "";
+        //// TODO: 2016/11/23 通过学生id checked状态统计信息
+        return subsidyClassInfoService._saveSubsidyClassInfo(sci);
     }
 
     /**
-     * 删除申请班级信息
+     * 删除补助班级信息[需要前台的参数：classid(班级id),]
      */
     public boolean deleteSubsidyClassInfo() {
-        String subsidyClassInfoId = getPara("sciid");
-        return subsidyClassInfoService._deleteSubsidyClassInfoById(subsidyClassInfoId);
+        return subsidyClassInfoService._deleteSubsidyClassInfoById(getPara("sciId"));
     }
 
     /**
-     * 修改申请班级信息
+     * 修改补助班级信息[需要前台的参数：nsci(最新json格式班级学生详情)]
      */
     public boolean updateSubsidyClassInfo() {
         String subsidyClassInfo = getPara("nsci");
-        SubsidyClassinfo sc=new SubsidyClassinfo();
+        SubsidyClassInfo sc = new SubsidyClassInfo();
         //// TODO: 2016/11/21 修改数据
         return subsidyClassInfoService._updateSubsidyClassInfo(sc);
     }
 
     /**
-     * 获取正在申请的班级
+     * 获取正在申请的班级详情[需要前台的参数：classid(班级id)]
      */
     public void getSubsidyClassInfo() {
-//        Model model = ModelKit.simulateModelByRandom(SubsidyClassinfo.class, 5);
-        List<SubsidyClassinfo> scList = subsidyClassInfoService._querySubsidyClassInfoById(getPara("classId"));
-//        scList.add((SubsidyClassinfo) model);
-        String s = JsonKit.toJson(scList);
-        RenderKit.renderSuccess(this,s);
-        //setAttr("scList", scList);
+        List<SubsidyClassInfo> scList = subsidyClassInfoService.getSubsidyClassInfoById(getPara("classId"));
+        if (scList.size() != 0) {
+            String s = JsonKit.toJson(scList);
+            RenderKit.renderSuccess(this, s);
+        } else {
+            RenderKit.renderError(this, "你所查找的数据不存在或已删除！");
+        }
     }
-
-    /*****************************申请历史记录******************************/
-
+    /**************************拓展功能区******************************/
     /**
-     * 添加历史申请信息
+     * 补助管理添加班级区块信息[需要前台的参数：无]
      */
-    @Before(POST.class)
-    public boolean addSubsidyHistory() {
-        String subsidyHistory = getPara("sh");
-        SubsidyHistory sh = new SubsidyHistory();
-        //// TODO: 2016/11/22 获取json
-        return subsidyHistoryService._saveSubsidyHistory(sh);
-    }
-
-    /**
-     * 删除历史申请信息
-     */
-    public boolean deleteSubsidyHistory() {
-        return subsidyHistoryService._deleteSubsidyHistoryById(getPara("sciid"));
+    public void showRegion() {
+        User user = getCurrentUser(this);
+        List<UserRegion> areas = userRegionService.getUserRegionInfoByUserId(user.getId());
+        if (areas.size() != 0) {
+            RenderKit.renderSuccess(this, JsonKit.toJson(areas));
+        } else {
+            RenderKit.renderError(this);
+        }
     }
 
     /**
-     * 获取历史申请信息
+     * 补助管理添加班级区块信息[需要前台的参数：rid(区域id)]
      */
-    public void getSubsidyHistory() {
-        List<SubsidyHistory> sclist = subsidyHistoryService._querySubsidyHistoryById(getPara("shid"));
-        setAttr("sc", sclist);
+    public void showRegionClassInfo() {
+        Integer rid = getParaToInt("rid");
+        if (rid == null) {
+            RenderKit.renderError(this);
+        } else {
+            List<Class> classList = classService.getClassInfoByRegionId(rid);
+            if (classList.size() != 0) {
+                RenderKit.renderSuccess(this, JsonKit.toJson(classList));
+            } else {
+                RenderKit.renderError(this);
+            }
+        }
     }
-
-    /**
-     * 获取所有历史申请信息
-     */
-    public void getAllSubsidyHistory() {
-        List<SubsidyHistory> sclist = subsidyHistoryService._queryAllSubsidyClassInfo();
-        setAttr("sc", sclist);
-    }
-
 }
