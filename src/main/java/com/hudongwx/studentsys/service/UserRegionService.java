@@ -11,22 +11,23 @@ import java.util.List;
 public class UserRegionService extends Service {
     /**
      * 保存账号区域信息
+     *
      * @param ur
      * @return
      */
-    public boolean _saveRoleRegion(UserRegion ur){
+    public boolean _saveRoleRegion(UserRegion ur) {
         return ur.save();
     }
 
-    public boolean _deleteRoleRegionById(String id){
+    public boolean _deleteRoleRegionById(String id) {
         List<UserRegion> userRegions = UserRegion.dao.find(UserRegion.SELECT_FROM_USERREGION + "id=?", id);
-        for (UserRegion ur:userRegions) {
+        for (UserRegion ur : userRegions) {
             ur.delete();
         }
         return true;
     }
 
-    public List<UserRegion> getUserRegionInfoByUserId(String userid){
-         return UserRegion.dao.find(UserRegion.SELECT_FROM_USERREGION + "userId=?", userid);
+    public List<UserRegion> getUserRegionInfoByUserId(int userid) {
+        return UserRegion.dao.find(UserRegion.SELECT_FROM_USERREGION + "userId=?", userid);
     }
 }
