@@ -32,15 +32,21 @@ public class SubsidyController extends BaseController {
     @Override
     public void index() {
         super.index();
-        Page<Class> classP = Class.dao.paginate(1, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, Class.SQL_FROM);
+        Integer p = getParaToInt("p", 1);
+        Page<Class> classP = Class.dao.paginate(p, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, Class.SQL_FROM);
 
         List<SubsidyClassInfo> subList = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
             Model model = ModelKit.simulateModelByRandom(SubsidyClassInfo.class, 5);
             subList.add((SubsidyClassInfo) model);
         }
+
         Page<SubsidyClassInfo> subsidyClassInfoPage = PageinateKit.ClonePage(classP, subList);
         setAttr("page", subsidyClassInfoPage);
+
+        User user = getCurrentUser(this);
+        Page<SubsidyApplication> salist = subsidyApplicationService.getSubsidyApplicationByApplicantId(user.getId(), p);
+        setAttr("subsidyClasses",salist);
     }
 
     @Override
@@ -188,12 +194,12 @@ public class SubsidyController extends BaseController {
     /**
      * 补助管理添加班级区块信息[需要前台的参数：rid(区域id)]
      */
-    public void showRegionClassInfo() {
-        Integer rid = getParaToInt("rid");
-        if (rid == null) {
+    public void showRegionClass() {
+        Integer regionId = getParaToInt("id");
+        if (regionId == null) {
             RenderKit.renderError(this);
         } else {
-            List<Class> classList = classService.getClassInfoByRegionId(rid);
+            List<Class> classList = classService.getClassByRegionId(regionId);
             if (classList.size() != 0) {
                 RenderKit.renderSuccess(this, JsonKit.toJson(classList));
             } else {

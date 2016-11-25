@@ -193,6 +193,14 @@ public abstract class BaseStudent<M extends BaseStudent<M>> extends Model<M> imp
 		return get("paymentMethod");
 	}
 
+	public void setFirstRepaymentTime(java.lang.Long firstRepaymentTime) {
+		set("firstRepaymentTime", firstRepaymentTime);
+	}
+
+	public java.lang.Long getFirstRepaymentTime() {
+		return get("firstRepaymentTime");
+	}
+
 	public void setCounselorId(java.lang.Integer counselorId) {
 		set("counselorId", counselorId);
 	}

@@ -4,19 +4,13 @@ import com.hudongwx.studentsys.common.BaseController;
 import com.hudongwx.studentsys.common.Build;
 import com.hudongwx.studentsys.common.MyTx;
 import com.hudongwx.studentsys.model.Mapping;
-import com.hudongwx.studentsys.service.MappingService;
-import com.hudongwx.studentsys.service.RoleService;
 import com.hudongwx.studentsys.util.ArrayTree;
 import com.hudongwx.studentsys.util.Common;
 import com.hudongwx.studentsys.util.RenderKit;
 import com.jfinal.aop.Before;
-import com.jfinal.plugin.activerecord.tx.Tx;
+import com.jfinal.core.JFinal;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by wuhongxu on 2016/9/2 0002.
@@ -53,6 +47,9 @@ public class IndexController extends BaseController {
                 Build.clearMapping();
                 Build.readXML(new ArrayTree<>(), s);
             } catch (Exception e) {
+                if(JFinal.me().getConstants().getDevMode()){
+                    e.printStackTrace();
+                }
                 RenderKit.renderError(this, e.toString());
                 return;
             }

@@ -48,22 +48,22 @@ ${view.title}
 
                 </thead>
                 <tbody>
-                    <#list page.list as sub>
+                    <#list subsidyClasses.list as sub>
                     <tr>
                         <td>
                         ${sub.className}
                         </td>
                         <td>
-                            11
+                        ${sub.number}
                         </td>
                         <td>
-                            2100
+                        ${sub.totalSubsidy}
                         </td>
                         <td>
-                            300
+                        ${sub.totalBonus}
                         </td>
                         <td>
-                            2400
+                        ${sub.aggregateAmount}
                         </td>
                         <#if  addAble || updateAble || deleteAble>
                             <td>
@@ -71,7 +71,7 @@ ${view.title}
                                     <#if op.url == "seeApply">
                                         <@macroBtn url = op.url title = op.title></@macroBtn>
                                         <#assign op = map["operators"+view.id][0]>
-                                    ${InsertKit(btnLabel,20160824)}/
+                                    ${InsertKit(btnLabel,"${sub.classId}")}/
                                     </#if>
                                 </#list>
                                 <#if updateAble>
@@ -105,16 +105,17 @@ ${view.title}
 
                 </tbody>
             </table>
-        <#--<-- 分頁 &ndash;&gt;-->
-        <#--<#assign str = "?">-->
-        <#--<#if holdPath?contains("?")><#assign str = "&"></#if>-->
-        <#--<@paginate page = classes url=holdPath+str pageAfter="p">-->
-        <#--</@paginate>-->
+            <#if subsidyClasses??>
+                <#assign str = "?">
+                <#if holdPath?contains("?")><#assign str = "&"></#if>
+                <@paginate page = subsidyClasses url=holdPath+str pageAfter="p">
+                </@paginate>
+            </#if>
             <#if user?exists>
-            <div class="modal-footer text-center" >
+                <div class="modal-footer text-center">
                 ${addBtn}
                 ${saveBtn}
-            </div>
+                </div>
 
             <#else >
 
@@ -137,7 +138,8 @@ ${view.title}
             <div class="input-group">
                 <span class="input-group-addon">审批人:</span>
                 <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                            data-toggle="dropdown">
                         Dropdown
                         <span class="caret"></span>
                     </button>
@@ -154,7 +156,7 @@ ${view.title}
                 <input type="text" class="form-control" id="submit-remarks">
             </div>
             <br>
-            <div  class="table table-bordered">
+            <div class="table table-bordered">
                 <h5>申请班级数:<span id="submit-class">2</span></h5>
                 <h5>申请总人数:<span id="submit-student">20</span></h5>
                 <h5>总补助:<span id="submit-subsidy">14000</span></h5>
@@ -163,7 +165,7 @@ ${view.title}
             </div>
             <div class="modal-footer text-center">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary" onclick="func.deleteApply(this)">提交</button>
+                <button type="button" class="btn btn-primary" onclick="func.submitApply()">提交</button>
             </div>
         </div>
     </div>
@@ -187,7 +189,7 @@ ${view.title}
 
                 </div>
             </div>
-            <div class="modal-footer" >
+            <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                 <button type="button" class="btn btn-primary">提交</button>
             </div>
@@ -225,9 +227,6 @@ ${view.title}
                         <th>
                             就读状态
                         </th>
-                        <th>
-                            备注
-                        </th>
                     </tr>
                     </thead>
                     <tbody>
@@ -243,42 +242,82 @@ ${view.title}
 </div>
 
 <div class="sr-only" id="template">
-        <div  class="table-responsive dataTables_wrapper form-inline"
-             role="grid">
-            <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                    aria-describedby="dataTables-example_apply">
-                <thead>
-                <tr>
-                    <th>
-                        <div class="checkbox3 checkbox-round">
-                            <input type="checkbox" >
-                            <label class="td-check center-block">
-                            </label>
-                        </div>
-                    </th>
-                    <th>
-                        序号
-                    </th>
-                    <th>
-                        班级名称
-                    </th>
-                    <th>
-                        人数
-                    </th>
-                    <th>
-                        开班日期
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
+    <div class="table-responsive dataTables_wrapper form-inline"
+         role="grid">
+        <table class="table table-striped table-bordered table-hover dataTable no-footer"
+               aria-describedby="dataTables-example_apply">
+            <thead>
+            <tr>
+                <th>
+                    <div class="checkbox3 checkbox-round text-center" id="cekAll">
+                        <input type="checkbox" id="index">
+                        <label class="checkbox-2" style="display: inline" for="index">
+                        </label>
+                    </div>
+                </th>
+                <th>
+                    序号
+                </th>
+                <th>
+                    班级名称
+                </th>
+                <th>
+                    人数
+                </th>
+                <th>
+                    开班日期
+                </th>
+            </tr>
+            </thead>
+            <tbody>
 
-                </tbody>
-            </table>
-        </div>
+            </tbody>
+        </table>
+    </div>
 
 </div>
 <script type="text/javascript">
-    $('#myBtnaa').on('click', function () {
-        Util.loadPageByPjax(Label.staticServePath+'/approvalManager');
-    })
-</script>
+//    var checkAll = function () {
+//        if($('#parent-input1').is(':checked')) {
+//            alert('OK');
+//        }
+//    },
+
+    var showTemplate = function (id) {
+        $.ajax({
+            type: 'post',
+            url: Label.staticServePath + "/subsidyManager/showRegionClass",
+            data: {
+                'id': id
+            },
+            success: function (data, status) {
+                console.log(data);
+                if (data.state = 'success') {
+                    var json = JSON.parse(data.msg);
+                    console.log(json);
+                    var serial = 1;
+                    json.map(function (elem, num) {
+                        var ckeckBoox = $("#index").parent().clone();
+                        var input = ckeckBoox.find('input:first');
+                        var label = ckeckBoox.find('label:first');
+
+                        input.attr('id', 'index' + elem['id']);
+                        label.attr('for', "index" + elem['id']);
+                        var str = '<tr id="{id}">' +
+                                '<td></td>' +
+                                '<td>' + serial + '</td>' +
+                                '<td>{className}</td>' +
+                                '<td>{studentCnt}</td>' +
+                                '<td>{classOpeningTime}</td>' +
+                                '</tr>';
+                        serial++;
+                        str = Util.jsonToString(str, elem);
+                        $('div#' + 'role' + id).find('tbody:first').append(str);
+                        $('tr#'+elem['id']).find('td:first').append(ckeckBoox);
+                    })
+                }
+
+            }
+        })
+    }
+</script> 

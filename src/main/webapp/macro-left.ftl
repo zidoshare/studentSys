@@ -48,6 +48,14 @@
 
             <#assign tag = tag + 1>
         </#list>
+            <script type="text/javascript">
+                $(function(){
+                    $('#main-menu').find('li').on('click', function () {
+                        $('#main-menu').find('li').removeClass('active-menu');
+                        $(this).addClass('active-menu');
+                    });
+                })
+            </script>
         </ul>
     </div>
 

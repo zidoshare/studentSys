@@ -155,8 +155,9 @@ var Util = {
     region:function (dom) {
         var regionDiv =$("#template").clone();
         regionDiv.css('width','100%');
+        regionDiv.removeClass('sr-only');
         var ckeckAll = regionDiv.find('thead:first').find('div:first');
-        dom.after(regionDiv);
+
         return regionDiv;
     },
     input:function (dom,name,id) {
@@ -177,6 +178,8 @@ var Util = {
     jsonToString: function (str,param) {
         var reg = /{([^{}]+)}/gm;
         return str.replace(reg, function (match, name) {
+            if(param[name] == null )
+                return match;
             return param[name];
         });
     },
@@ -223,24 +226,22 @@ var Util = {
         });
     },
     loadPageByPjax:function(url){
-        Util.loadByPjax(url,{
-            container:'#page-inner',
-            showWholeAnimate: true,
-            showMinAnimate: false,
-            complete:function(){
-                Util.loadByPjax(url,{
-                    container:'#main-menu',
-                    showWholeAnimate: false,
-                    showMinAnimate: false,
-                    complete:function(){
-                        $('#main-menu').find('li').on('click', function () {
-                            $('#main-menu').find('li').removeClass('active-menu');
-                            $(this).addClass('active-menu');
-                        });
-                    }
-                });
-            }
-        });
+        window.location.href=url;
+        // Util.loadByPjax(url,{
+        //     container:'#page-inner',
+        //     showWholeAnimate: true,
+        //     showMinAnimate: false,
+        //     complete:function(){
+        //         Util.loadByPjax(url,{
+        //             container:'#main-menu',
+        //             showWholeAnimate: false,
+        //             showMinAnimate: false,
+        //             complete:function(){
+        //                 Util.reBindPjax();
+        //             }
+        //         });
+        //     }
+        // });
     },
     loadByPjax: function (url, options) {
         var defaults = {
@@ -654,7 +655,7 @@ var func = {
                 success: function (data, status) {
                     if (data.state == 'success') {
                         Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
-                        modalUtil.hideClear($('#addCertificateModel'), '', {
+                        modalUtil.hideClear($('#addCertificateModel'), {
                             after: function () {
                                 Util.reloadByPjax('#table-inner');
                             }
@@ -719,7 +720,7 @@ var func = {
                 success: function (data, status) {
                     if (data.state == 'success') {
                         Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
-                        modalUtil.hideClear($('#addRepaymentModel'), '', {
+                        modalUtil.hideClear($('#addRepaymentModel'), {
                             after: function () {
                                 Util.reloadByPjax('#table-inner');
                             }
@@ -784,7 +785,7 @@ var func = {
                 success: function (data, status) {
                     if (data.state == 'success') {
                         Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
-                        modalUtil.hideClear($('#modal'), '');
+                        modalUtil.hideClear($('#modal'));
                         Util.reloadByPjax('#table-inner');
                     } else
                         Util.showTip($('#wholeTip'), '操作失败', 'alert alert-danger');
@@ -819,7 +820,7 @@ var func = {
                 success: function (data, status) {
                     if (data.state == 'success') {
                         Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
-                        modalUtil.hideClear($('#addAttendanceModal'), '');
+                        modalUtil.hideClear($('#addAttendanceModal'));
                         Util.reloadByPjax('#table-inner');
                     } else
                         Util.showTip($('#wholeTip'), '操作失败', 'alert alert-danger');
@@ -1095,8 +1096,16 @@ var func = {
         modalUtil.show($('#seeApprovalModel'));
         
     },
+    submitApply:function () {
+        var modal = $('#submitApplyModel');
+        modalUtil.hideClear(modal,{
+            after:function(){
+                Util.loadPageByPjax(Label.staticServePath + '/approvalManager');
+            }
+        });
+    },
     deleteApply:function(){
-        Util.loadPageByPjax(Label.staticServePath+'/approvalManager');
+
     },
     seeApply:function (method,id) {
             modalUtil.show($('#seeApplyModel'));
@@ -1116,13 +1125,13 @@ var func = {
                             }else if (elem['state']==0){
                                 sta='毕业';
                             }
+
                             var str = '<tr id="{id}">' +
                                 '<td>{studentName}</td>' +
                                 '<td>{subsidyAmount}</td>' +
                                 '<td>{residualFrequency}</td>' +
                                 '<td><input placeholder="{bonus}" class="form-control" id="{id}"></td>' +
                                 '<td>'+sta+'</td>' +
-                                '<td>{remark}</td>' +
                                 '</tr>';
                             str = Util.jsonToString(str,elem);
                             console.log(str);
@@ -1154,43 +1163,51 @@ var func = {
                 type:'post',
                 dataType:'json',
                 success:function(data,status){
-                    console.log(data);
+
                     if(data.state == 'success'){
                         var json = JSON.parse(data.msg);
                         json.map(function (elems,index) {
 
-                            var head = '<li role="presentation" {headClassName}><a href="#role{id}" role="tab" data-toggle="tab">{regionName}</a></li>';
-                            var body = '<div role="tabpanel" {bodyClassName} id="role{id}"></div>';
+                            var head = '<li role="presentation" {headClassName}><a href="#role{id}" role="tab" data-toggle="tab" {tag} data-label="{id}">{regionName}</a></li>';
+                            var body = '<div role="tabpanel" {bodyClassName} id="role{id}" ></div>';
                             if(index == 0){
-                                Util.jsonToString(head,{'headClassName':'class="active"'});
-                                Util.jsonToString(body,{'bodyClassName':'class="tab-pane active"'})
+                                head = Util.jsonToString(head,{'tag':'tag="tag1"'});
+                                head = Util.jsonToString(head,{'headClassName':'class="active"'});
+                                body = Util.jsonToString(body,{'bodyClassName':'class="tab-pane active"'});
                             }else{
-                                Util.jsonToString(head,{'headClassName':''});
-                                Util.jsonToString(body,{'bodyClassName':'class="tab-pane"'})
+                                head = Util.jsonToString(head,{'tag':'tag="tag"'});
+                                head = Util.jsonToString(head,{'headClassName':''});
+                                body = Util.jsonToString(body,{'bodyClassName':'class="tab-pane"'})
                             }
                             head=Util.jsonToString(head,elems);
                             body=Util.jsonToString(body,elems);
 
                             $('#addApplyModel').find('ul:first').append(head);
                             $('#addApplyModel').find('#classBody').append(body);
-                            // var regionDiv = Util.region(this);
-                            // regionDiv=Util.jsonToString(regionDiv);
-                            // $('#addApplyModel').find('#body-role1').append(regionDiv);
+                         
+                            // $('#addApplyModel').find('th:first').find('div:first').attr('id','check'+elems['id']);
+                            var regionDiv = Util.region($(this));
+                            var input = regionDiv.find('input:first');
+                            input.attr('id','parent-input'+elems['id']);
+                            input.attr('value',elems['id']);
+                            regionDiv.find('label:first').attr('for','parent-input'+elems['id']);
+                            $('div#'+'role'+elems['id']).append(regionDiv);
+                        });
+                        if (json.length > 0){
+                            showTemplate(json[0]['id']);
+                        }
 
+                        $('a[tag="tag"]').one('shown.bs.tab', function () {
+                            showTemplate($(this).attr('data-label'));
                         });
 
 
-                        if (json.length > 0){
-                            $.ajax({
-                                type:'post',
-                                url:Label.staticServePath+"/subsidyManager/getSubsidyClassInfo/"+json[0]['regionId'],
-                                success:function (data, status) {
 
-                                }
-                            })
-                        }
+
                         $('#addApplyModel').one('hidden.bs.modal',function(){
                             $(this).find('#class-add-ul').html('');
+                            $(this).find('#classBody').html('');
+                            $('div.tab-pane').off('shown.bs.tab');
                         });
                     }
                 }
@@ -1623,7 +1640,7 @@ var modalUtil = {
     toggleClear: function (modal) {
         modal.modal('toggle');
     },
-    hideClear: function (model, form, options) {
+    hideClear: function (model,options) {
         var defaults = {
             front: '', ends: ['eId', 'CreateTime', 'UpdateTime'], end: '', before: function () {
             }, after: function () {

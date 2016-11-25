@@ -173,14 +173,15 @@ Table: stumanager_student
  admission              | bigint(19)   | YES  |     |         | 入学时间    
  trainingGraduationTime | bigint(19)   | YES  |     |         |         
  tuition                | int(10)      | YES  |     |         |         
- paymentMethod          | varchar(255) | YES  |     |         |         
+ paymentMethod          | varchar(255) | YES  |     |         | 学费付款方式  
+ firstRepaymentTime     | bigint(19)   | YES  |     |         | 首次还款日期  
  counselorId            | int(10)      | YES  |     |         |         
  counselorName          | varchar(255) | YES  |     |         | 咨询师     
  subsidyPer             | int(10)      | YES  |     |         |         
  bonus                  | int(10)      | YES  |     |         |         
  residualFrequency      | tinyint(3)   | YES  |     |         |         
  regionId               | int(10)      | YES  |     |         |         
- state                  | tinyint(3)   | YES  |     |         | 在读、毕业or休学状态
+ state                  | tinyint(3)   | YES  |     |         | 0修学、1在读、2毕业、3重修、4失联
  createTime             | bigint(19)   | YES  |     |         | 用户创建时间  
  checked                | tinyint(3)   | YES  |     |         |         
  ip                     | varchar(20)  | YES  |     | 0.0.0.0 | 最后登录的ip地址
@@ -199,6 +200,7 @@ Table: stumanager_subsidy_application
  applicantName   | varchar(255) | YES  |     |         | 申请人名    
  applicationDate | bigint(19)   | YES  |     |         | 申请日期    
  regionId        | int(10)      | YES  |     |         | 区域Id    
+ classId         | int(10)      | YES  |     |         | 班级id    
  className       | varchar(255) | YES  |     |         | 班级名称    
  number          | int(10)      | YES  |     |         | 申请人数    
  totalSubsidy    | int(10)      | YES  |     |         | 总补助     
