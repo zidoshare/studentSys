@@ -74,6 +74,7 @@ ${view.title}
             <@paginate page = classes url=holdPath+str pageAfter="p">
             </@paginate>
         </#if>
+        <p>测试</p>
     </div>
 </div>
 </@item>
