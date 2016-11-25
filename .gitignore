@@ -6,5 +6,5 @@ target/
 
 session_data/
 
-
+*.iml
 
