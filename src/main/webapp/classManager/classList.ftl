@@ -76,6 +76,7 @@ ${view.title}
         </#if>
         <p>测试dasdasd</p>
         <p>测试asdaasdasdsd</p>
+        safdgasdas
     </div>
 </div>
 </@item>
