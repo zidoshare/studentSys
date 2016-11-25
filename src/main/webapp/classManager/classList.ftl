@@ -75,6 +75,7 @@ ${view.title}
             </@paginate>
         </#if>
         <p>测试asdaasdasdsd</p>
+        safdgasdas
     </div>
 </div>
 </@item>
