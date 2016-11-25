@@ -39,13 +39,17 @@ ${view.title}
                 <tbody>
 
                     <#list classes.list as class>
-                    <tr id="class${class.id}" data-label="${class.id}"  data-target="#classId" data-method="prop">
-                        <td id="className${class.id}" data-label="${class.className?html}" data-target="#className">${class.className}</td>
-                        <td id="headTeacher${class.id}" data-label="${class.headTeacher}" data-target="#headTeacher">${class.headTeacher}</td>
+                    <tr id="class${class.id}" data-label="${class.id}" data-target="#classId" data-method="prop">
+                        <td id="className${class.id}" data-label="${class.className?html}"
+                            data-target="#className">${class.className}</td>
+                        <td id="headTeacher${class.id}" data-label="${class.headTeacher}"
+                            data-target="#headTeacher">${class.headTeacher}</td>
                         <td id="tutor${class.id}" data-label="${class.tutor}" data-target="#tutor">${class.tutor}</td>
-                        <td id="studentCnt${class.id}" data-label="${class.studentCnt}" data-target="studentCnt">${class.studentCnt}</td>
+                        <td id="studentCnt${class.id}" data-label="${class.studentCnt}"
+                            data-target="studentCnt">${class.studentCnt}</td>
                         <td id="classCreateTime${class.id}"
-                            data-label="${class.classCreateTime}" data-target="#classCreateTime" data-method="prop">${(class.classCreateTime?number)?number_to_datetime}</td>
+                            data-label="${class.classCreateTime}" data-target="#classCreateTime"
+                            data-method="prop">${(class.classCreateTime?number)?number_to_datetime}</td>
                         <#if updateAble || deleteAble>
                             <td>
                                 <#if updateAble>
@@ -54,7 +58,8 @@ ${view.title}
                             ${InsertKit(deleteBtn,"${class.id}")}
                             </td>
                         </#if>
-                        <td id="classUpdateTime${class.id}" class="hidden" data-label="${class.classUpdateTime}" data-target="#classUpdateTime" data-method="prop">
+                        <td id="classUpdateTime${class.id}" class="hidden" data-label="${class.classUpdateTime}"
+                            data-target="#classUpdateTime" data-method="prop">
                         </td>
                     </tr>
                     </#list>
@@ -69,6 +74,7 @@ ${view.title}
             <@paginate page = classes url=holdPath+str pageAfter="p">
             </@paginate>
         </#if>
+        <span>本地分支测试</span>
     </div>
 </div>
 </@item>
