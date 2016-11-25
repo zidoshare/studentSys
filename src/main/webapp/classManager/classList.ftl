@@ -74,7 +74,6 @@ ${view.title}
             <@paginate page = classes url=holdPath+str pageAfter="p">
             </@paginate>
         </#if>
-        <span>本地分支测试</span>
     </div>
 </div>
 </@item>
