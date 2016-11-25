@@ -330,7 +330,6 @@ public class Build{
         log.info("清除角色数据完成");
     }
     public static void buildControl(){
-
         JFrame jf = new JFrame("控制窗口");
         jf.setSize(200,300);
         JPanel jp = new JPanel(new FlowLayout());
