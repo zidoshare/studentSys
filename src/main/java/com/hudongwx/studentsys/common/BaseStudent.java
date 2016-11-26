@@ -145,12 +145,20 @@ public abstract class BaseStudent<M extends BaseStudent<M>> extends Model<M> imp
 		return get("credit");
 	}
 
-	public void setTutor(java.lang.String tutor) {
-		set("tutor", tutor);
+	public void setTestAverage(java.lang.Integer testAverage) {
+		set("testAverage", testAverage);
 	}
 
-	public java.lang.String getTutor() {
-		return get("tutor");
+	public java.lang.Integer getTestAverage() {
+		return get("testAverage");
+	}
+
+	public void setTrainingEvaluation(java.lang.Integer trainingEvaluation) {
+		set("trainingEvaluation", trainingEvaluation);
+	}
+
+	public java.lang.Integer getTrainingEvaluation() {
+		return get("trainingEvaluation");
 	}
 
 	public void setTutorId(java.lang.Integer tutorId) {
@@ -159,6 +167,14 @@ public abstract class BaseStudent<M extends BaseStudent<M>> extends Model<M> imp
 
 	public java.lang.Integer getTutorId() {
 		return get("tutorId");
+	}
+
+	public void setTutorName(java.lang.String tutorName) {
+		set("tutorName", tutorName);
+	}
+
+	public java.lang.String getTutorName() {
+		return get("tutorName");
 	}
 
 	public void setAdmission(java.lang.Long admission) {
@@ -249,12 +265,12 @@ public abstract class BaseStudent<M extends BaseStudent<M>> extends Model<M> imp
 		return get("regionId");
 	}
 
-	public void setState(java.lang.Integer state) {
-		set("state", state);
+	public void setStatus(java.lang.Integer status) {
+		set("status", status);
 	}
 
-	public java.lang.Integer getState() {
-		return get("state");
+	public java.lang.Integer getStatus() {
+		return get("status");
 	}
 
 	public void setCreateTime(java.lang.Long createTime) {

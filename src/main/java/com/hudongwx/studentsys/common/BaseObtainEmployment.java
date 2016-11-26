@@ -33,11 +33,11 @@ public abstract class BaseObtainEmployment<M extends BaseObtainEmployment<M>> ex
 		return get("studentName");
 	}
 
-	public void setEmploymentStatus(java.lang.String employmentStatus) {
+	public void setEmploymentStatus(java.lang.Integer employmentStatus) {
 		set("employmentStatus", employmentStatus);
 	}
 
-	public java.lang.String getEmploymentStatus() {
+	public java.lang.Integer getEmploymentStatus() {
 		return get("employmentStatus");
 	}
 
