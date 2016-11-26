@@ -194,7 +194,8 @@ Table: stumanager_student
  bonus                  | int(10)      | YES  |     |         |         
  residualFrequency      | tinyint(3)   | YES  |     |         |         
  regionId               | int(10)      | YES  |     |         |         
- status                 | int(10)      | YES  |     |         | 0修学、1在读、2毕业、3重修、4失联、5就业、6毕业但未就业
+ status                 | int(10)      | YES  |     |         |         
+ employmentStatus       | int(10)      | YES  |     |         |         
  createTime             | bigint(19)   | YES  |     |         | 用户创建时间  
  checked                | int(10)      | YES  |     |         |         
  ip                     | varchar(20)  | YES  |     | 0.0.0.0 | 最后登录的ip地址

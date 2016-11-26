@@ -273,6 +273,14 @@ public abstract class BaseStudent<M extends BaseStudent<M>> extends Model<M> imp
 		return get("status");
 	}
 
+	public void setEmploymentStatus(java.lang.Integer employmentStatus) {
+		set("employmentStatus", employmentStatus);
+	}
+
+	public java.lang.Integer getEmploymentStatus() {
+		return get("employmentStatus");
+	}
+
 	public void setCreateTime(java.lang.Long createTime) {
 		set("createTime", createTime);
 	}
