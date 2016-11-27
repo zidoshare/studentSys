@@ -1,5 +1,6 @@
 package com.hudongwx.studentsys.common;
 
+import com.hudongwx.studentsys.exceptions.ServiceException;
 import com.hudongwx.studentsys.model.Mapping;
 import com.hudongwx.studentsys.model.Role;
 import com.hudongwx.studentsys.model.User;
@@ -301,7 +302,7 @@ public class Build{
 
         log.info("初始化用户");
     }
-    public static void initRole() {
+    public static void initRole() throws ServiceException {
 
         Role admin = rs.getRoleByName("admin");
         if(null != admin)
@@ -338,7 +339,11 @@ public class Build{
         mappingBtn.addActionListener(e -> buildMapping());
         JButton roleBtn = new JButton("初始化角色");
         roleBtn.addActionListener(e -> {
-            initRole();
+            try {
+                initRole();
+            } catch (ServiceException e1) {
+                e1.printStackTrace();
+            }
             initUser();
         });
         JButton clearBtn = new JButton("清除地图数据");

@@ -3,6 +3,7 @@ package com.hudongwx.studentsys.controller;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.hudongwx.studentsys.common.BaseController;
+import com.hudongwx.studentsys.exceptions.ServiceException;
 import com.hudongwx.studentsys.model.Mapping;
 import com.hudongwx.studentsys.model.Role;
 import com.hudongwx.studentsys.model.User;
@@ -68,7 +69,7 @@ public class UserController extends BaseController {
         render("/user/login.ftl");
     }
     @Before(POST.class)
-    public void addRole(){
+    public void addRole() throws ServiceException {
         Role model = getModel(Role.class);
         if(model.getId()!=null){
             if(roleService._updateRole(model)){

@@ -27,7 +27,7 @@ public class RoleService extends Service {
     public List<String> getPermitMappingIds(Role role) {
         List<String> ids = new LinkedList<>();
         String[] split = role.getTreeData().split(":");
-        for(String s : split)
+        for (String s : split)
             ids.add(s);
         return ids;
     }
@@ -61,19 +61,9 @@ public class RoleService extends Service {
         role.allowTree.addGoodNode(mapping);
     }
 
-    public boolean _saveRole(Role role) {
-        try {
-            packingRole(role);
-            if(role.save())
-                return true;
-           /* List<Role> roles = getRoles();
-            roles.add(role);
-            CacheKit.put(Common.CACHE_FOREVER_LABEL, "roles", roles);*/
-
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
-        return false;
+    public boolean _saveRole(Role role) throws ServiceException {
+        packingRole(role);
+        return role.save();
     }
 
     public void _deleteRole(Role role) {
@@ -90,8 +80,9 @@ public class RoleService extends Service {
             throw new ServiceException("role's data cannot be null or \"\"");
         role.setMemberCnt(0);
     }
+
     public ArrayTree<Mapping> getRoleTree(final Role role) {
-        if(role.allowTree != null)
+        if (role.allowTree != null)
             return role.allowTree;
         List<String> ids = getPermitMappingIds(role);
         ArrayTree<Mapping> tree = mappingService.getTree();
@@ -99,7 +90,7 @@ public class RoleService extends Service {
         ArrayTree<Mapping> roleTree = new ArrayTree<>();
         //下面是两种选择
         // 1、效率太低
-        for(String id : ids){
+        for (String id : ids) {
             Mapping mapping = mappingService.getMappingById(Integer.valueOf(id));
             roleTree.addGoodNode(mapping);
         }
@@ -134,6 +125,6 @@ public class RoleService extends Service {
     }
 
     public List<Role> getRoleByMapping(Mapping mapping) {
-        return Role.dao.find(Role.SEARCH_FROM_ROLE+"where treeData like '%"+mapping.getId()+"%'");
+        return Role.dao.find(Role.SEARCH_FROM_ROLE + "where treeData like '%" + mapping.getId() + "%'");
     }
 }
