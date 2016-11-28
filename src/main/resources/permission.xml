@@ -129,13 +129,7 @@
                     <mappings>
                         <mapping id="5002" icon="apply" url="/subsidyManager/applyList.ftl" title="申请列表信息" function="1">
                             <mappings>
-                                <mapping id="5003" icon="seeApply" title="查看" url="seeApply" function="0">
-                                    <mappings/>
-                                </mapping>
-                                <mapping id="5004" icon="deleteApply" title="删除" url="deleteApply" function="0">
-                                    <mappings/>
-                                </mapping>
-                                <mapping id="5005" icon="addApplyClass" title="+添加申请班级" url="addApplyClass" function="0">
+                                <mapping id="5003" icon="seeDetails" title="查看" url="seeDetails" function="0">
                                     <mappings/>
                                 </mapping>
                             </mappings>
