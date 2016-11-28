@@ -28,6 +28,7 @@ public class _MappingKit {
 		arp.addMapping("stumanager_repayment", "id", Repayment.class);
 		arp.addMapping("stumanager_repayment_type", "id", RepaymentType.class);
 		arp.addMapping("stumanager_role", "id", Role.class);
+		arp.addMapping("stumanager_status", "id", Status.class);
 		arp.addMapping("stumanager_student", "id", Student.class);
 		arp.addMapping("stumanager_subsidy_application", "id", SubsidyApplication.class);
 		arp.addMapping("stumanager_subsidy_class_info", "id", SubsidyClassInfo.class);

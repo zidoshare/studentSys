@@ -69,8 +69,8 @@ public class StudentService extends Service {
             throw new ServiceException("name can not be null");
         if (StrPlusKit.isEmpty(student.getClassName()))
             throw new ServiceException("class can not be null");
-        if (StrPlusKit.isEmpty(student.getTutor()))
-            student.setTutor(Common.getMainProp().get("defaultTutor"));
+        if (StrPlusKit.isEmpty(student.getTutorName()))
+            student.setTutorName(Common.getMainProp().get("defaultTutor"));
         if (StrPlusKit.isEmpty(student.getContactInformation()))
             student.setContactInformation(Common.getMainProp().get("defaultContactInformation"));
         if (null == student.getAdmission()) {
@@ -84,5 +84,20 @@ public class StudentService extends Service {
 
     public Page<Student> getStudentByClass(int currentPage, Class aClass) {
         return Student.dao.paginate(currentPage, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, Student.SQL_FROM + Common.SQL_WHERE + "className = ?" + Common.ORDER_BY_ID_DESC, aClass.getClassName());
+    }
+
+    public List<Student> getStudentByClassId(int classId) {
+        return Student.dao.find(Student.SEARCH_FROM_STUDENT + "where classId = ? and status = 1 ", classId);
+    }
+
+    public boolean _updateStudentById(Student student){
+        if(student.getId()==null){
+            try {
+                throw new ServiceException("学生id不能为空");
+            } catch (ServiceException e) {
+                e.printStackTrace();
+            }
+        }
+        return student.update();
     }
 }

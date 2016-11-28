@@ -57,6 +57,14 @@ public abstract class BaseSubsidyApplication<M extends BaseSubsidyApplication<M>
 		return get("regionId");
 	}
 
+	public void setClassId(java.lang.Integer classId) {
+		set("classId", classId);
+	}
+
+	public java.lang.Integer getClassId() {
+		return get("classId");
+	}
+
 	public void setClassName(java.lang.String className) {
 		set("className", className);
 	}

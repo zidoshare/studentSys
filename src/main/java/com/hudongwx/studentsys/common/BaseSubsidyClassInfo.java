@@ -81,12 +81,20 @@ public abstract class BaseSubsidyClassInfo<M extends BaseSubsidyClassInfo<M>> ex
 		return get("residualFrequency");
 	}
 
-	public void setState(java.lang.String state) {
-		set("state", state);
+	public void setStatus(java.lang.Integer status) {
+		set("status", status);
 	}
 
-	public java.lang.String getState() {
-		return get("state");
+	public java.lang.Integer getStatus() {
+		return get("status");
+	}
+
+	public void setApproveStatus(java.lang.Integer approveStatus) {
+		set("approveStatus", approveStatus);
+	}
+
+	public java.lang.Integer getApproveStatus() {
+		return get("approveStatus");
 	}
 
 	public void setRemark(java.lang.String remark) {

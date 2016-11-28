@@ -187,21 +187,23 @@ var Util = {
     input: function (dom, name, id) {
         var width = dom.width() + 80;
         var height = dom.height();
-        var input = $("#template-input").clone();
+        var input=$("#template-input").clone();
         input.width(width);
         // input.height(height);
         console.log(id);
-        input.attr('id', id);
-        input.css('position', 'relative');
-        input.attr('name', name);
+        input.attr('id',id);
+        input.css('position','relative');
+        input.attr('name',name);
 
         dom.addClass('sr-only');
         dom.after(input);
         return input;
     },
-    jsonToString: function (str, param) {
+    jsonToString: function (str,param) {
         var reg = /{([^{}]+)}/gm;
         return str.replace(reg, function (match, name) {
+            if(param[name] == null )
+                return match;
             return param[name];
         });
     },
@@ -246,6 +248,24 @@ var Util = {
             $(this).children('.table_pjax_loading').first().addClass('sr-only');
             event.stopPropagation();
         });
+    },
+    loadPageByPjax:function(url){
+        window.location.href=url;
+        // Util.loadByPjax(url,{
+        //     container:'#page-inner',
+        //     showWholeAnimate: true,
+        //     showMinAnimate: false,
+        //     complete:function(){
+        //         Util.loadByPjax(url,{
+        //             container:'#main-menu',
+        //             showWholeAnimate: false,
+        //             showMinAnimate: false,
+        //             complete:function(){
+        //                 Util.reBindPjax();
+        //             }
+        //         });
+        //     }
+        // });
     },
     loadByPjax: function (url, options) {
         var defaults = {
@@ -659,7 +679,7 @@ var func = {
                 success: function (data, status) {
                     if (data.state == 'success') {
                         Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
-                        modalUtil.hideClear($('#addCertificateModel'), '', {
+                        modalUtil.hideClear($('#addCertificateModel'), {
                             after: function () {
                                 Util.reloadByPjax('#table-inner');
                             }
@@ -724,7 +744,7 @@ var func = {
                 success: function (data, status) {
                     if (data.state == 'success') {
                         Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
-                        modalUtil.hideClear($('#addRepaymentModel'), '', {
+                        modalUtil.hideClear($('#addRepaymentModel'), {
                             after: function () {
                                 Util.reloadByPjax('#table-inner');
                             }
@@ -789,7 +809,7 @@ var func = {
                 success: function (data, status) {
                     if (data.state == 'success') {
                         Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
-                        modalUtil.hideClear($('#modal'), '');
+                        modalUtil.hideClear($('#modal'));
                         Util.reloadByPjax('#table-inner');
                     } else
                         Util.showTip($('#wholeTip'), '操作失败', 'alert alert-danger');
@@ -824,7 +844,7 @@ var func = {
                 success: function (data, status) {
                     if (data.state == 'success') {
                         Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
-                        modalUtil.hideClear($('#addAttendanceModal'), '');
+                        modalUtil.hideClear($('#addAttendanceModal'));
                         Util.reloadByPjax('#table-inner');
                     } else
                         Util.showTip($('#wholeTip'), '操作失败', 'alert alert-danger');
@@ -865,8 +885,11 @@ var func = {
             var data = [];
             var x = 0;
             $('#myModal').find("input[type='checkbox']").each(function (index, dom) {
-                if ($(this).prop('checked'))
+                if ($(this).prop('checked')){
+                    console.log('1='+$(this).attr('name'));
                     data[x++] = $(this).attr('name');
+                }
+
             });
             data = data.sort(function (a, b) {
                 return a - b;
@@ -1080,107 +1103,191 @@ var func = {
             })
         }
     },
-    seeApproval: function (methed, id) {
+    seeApproval:function (methed,id) {
         modalUtil.show($('#seeApprovalModel'));
-
+        
     },
-    seeApply: function (method, id) {
-        modalUtil.show($('#seeApplyModel'));
-        $.ajax(Label.staticServePath + "/subsidyManager/getSubsidyClassInfo", {
-            type: 'post',
-            dataType: 'json',
-            data: {
-                'classId': id
-            },
-            success: function (data, status) {
-                if (data.state == 'success') {
-                    var json = JSON.parse(data.msg);
-                    json.map(function (elem, num) {
-                        var sta;
-                        if (elem['state'] == 1) {
-                            sta:'在读';
-                        } else if (elem['state'] == 0) {
-                            sta:'毕业';
-                        }
-                        var str = '<tr id="{id}">' +
-                            '<td>{studentName}</td>' +
-                            '<td>{subsidyAmount}</td>' +
-                            '<td>{residualFrequency}</td>' +
-                            '<td><input placeholder="{bonus}" class="form-control" id="{id}"></td>' +
-                            '<td>{sta}</td>' +
-                            '<td>{remark}</td>' +
-                            '</tr>';
-                        str = Util.jsonToString(str, elem);
-                        console.log(str);
-                        $('#seeApplyModel').find('tbody:first').append(str);
-                        // $('tr#'+elem['id']).find('span').on('click',function () {
-                        //     var input = Util.input($(this),name,elem['id']);
-                        //     input.on('');
-                        //     var dom = $(this);
-                        //     input.on('blur',function () {
-                        //         var value = input.val();
-                        //         if(value != null && value!='')
-                        //             dom.text(value);
-                        //         $(this).remove();
-                        //         dom.removeClass('sr-only');
-                        //     });
-                        // })
-                    });
-                    $('#seeApplyModel').one('hidden.bs.modal', function () {
-                        $(this).find('tbody:first').html('');
-                        // $('tr#'+elem['id']).find('span').off('click');
-                    });
-                }
+    submitApply:function () {
+        var modal = $('#submitApplyModel');
+        modalUtil.hideClear(modal,{
+            after:function(){
+                Util.loadPageByPjax(Label.staticServePath + '/approvalManager');
             }
         });
     },
-    addApplyClass: function (method) {
-        if (method == "show") {
-            modalUtil.show($('#addApplyModel'));
-            $.ajax(Label.staticServePath + "/subsidyManager/getSubsidyClassInfo", {
-                type: 'post',
-                dataType: 'json',
-                success: function (data, status) {
-                    if (data.state == 'success') {
-                        var json = JSON.parse(data.msg);
-                        json.map(function (elems, index) {
+    deleteApply:function(method,classId){
+        if (method=='show'){
+            if (confirm('确认删除？')){
+                $.ajax({
+                    url:Label.staticServePath+"/subsidyManager/deleteSubsidyClassInfo",
+                    type:'post',
+                    data:{
+                        'classId':classId
+                    },
+                    success: function (data, status) {
 
-                            var head = '<li role="presentation" {headClassName}><a href="#role{id}" role="tab" data-toggle="tab">{area}</a></li>';
-                            var body = '<div role="tabpanel" {bodyClassName} id="role{id}"></div>';
-                            if (index == 0) {
-                                Util.jsonToString(head, {'headClassName': 'class="active"'});
-                                Util.jsonToString(body, {'bodyClassName': 'class="tab-pane active"'})
-                            } else {
-                                Util.jsonToString(head, {'headClassName': ''});
-                                Util.jsonToString(body, {'bodyClassName': 'class="tab-pane"'})
-                            }
-                            head = Util.jsonToString(head, elems);
-                            body = Util.jsonToString(body, elems);
-                            $('#addApplyModel').find('ul:first').append(head);
-                            $('#addApplyModel').find('#classBody').append(body);
-                        });
-                        if (json.length > 0) {
-                            $.ajax({
-                                type: 'post',
-                                url: Label.staticServePath + "/subsidyManager/getSubsidyClassInfo/" + json[0]['areaId'],
-                                success: function (data, status) {
-
+                        if (data.state == 'success') {
+                            Util.showTip($('#wholeTip'), data.msg, "alert alert-success",{
+                                before: function () {
+                                    $('tr#list' + classId).remove();
+                                    Util.reloadByPjax('#table-inner');
                                 }
-                            })
+                            });
                         }
-                        $('#seeApplyModel').one('hidden.bs.modal', function () {
+                        else{
+                            Util.showTip($('#wholeTip'), data.msg, "alert alert-danger");
+                        }
+                    },
+                    error: function () {
+                        Util.showTip($('#wholeTip'), '服务器错误', "alert alert-danger");
+                    }
+                });
+            }
+        }
+    },
+    seeApply:function (method,id) {
+            modalUtil.show($('#seeApplyModel'));
+            $.ajax(Label.staticServePath+"/subsidyManager/getSubsidyClassInfo",{
+               type:'post',
+                dataType:'json',
+                data:{
+                    'classId':id
+                },
+                success:function(data,status){
+                    if(data.state == 'success'){
+                        var json = JSON.parse(data.msg);
+                        json.map(function(elem,num){
+                            var sta;
+                            if (elem['status']==1){
+                                sta='在读';
+                            }else if (elem['status']==0){
+                                sta='毕业';
+                            }
+
+                            var str = '<tr id="tr{id}">' +
+                                '<td></td>' +
+                                '<td>{studentName}</td>' +
+                                '<td>{subsidyAmount}</td>' +
+                                '<td>{residualFrequency}</td>' +
+                                '<td><input placeholder="{bonus}" class="form-control" id="input-text{id}"></td>' +
+                                '<td>'+sta+'</td>' +
+                                '</tr>';
+                            str = Util.jsonToString(str,elem);
+                            console.log(str);
+                            $('#seeApplyModel').find('tbody:first').append(str);
+                            var ckeckBoox = $("#index-look").parent().clone();
+                            var input = ckeckBoox.find('input:first');
+                            var label = ckeckBoox.find('label:first');
+                            input.attr('tag','input');
+                            input.attr('name',elem['id']);
+                            input.attr('checked','');
+                            input.attr('id', 'index-look' + elem['id']);
+                            label.attr('for', "index-look" + elem['id']);
+                            $('tr#tr' +elem['id']).find('td:first').append(ckeckBoox);
+                        });
+                        $('#seeApplyModel').one('hidden.bs.modal',function(){
                             $(this).find('tbody:first').html('');
                         });
                     }
                 }
             });
-        } else {
+    },
+    submitApplyClass:function (method) {
+        var modal= $('#addApplyModel');
+        if (method == 'up'){
+            var json = [];
+            var x = 0;
+           modal.find("input[tag='input']").each(function (index, dom) {
+                if ($(this).prop('checked')){
+                    console.log('1='+$(this).attr('name'));
+                    json[x++] = $(this).attr('name');
+                }
+            });
+
+            var btn = Ladda.create(document.querySelector("#saveRole-btn"));
+            btn.start();
+            $.ajax(Label.staticServePath + '/subsidyManager/addRegionSubsidyClass',{
+                type: 'post',
+                data: {
+                    'classId':JSON.stringify(json)
+                },
+                dataType: "json",
+                success: function (data) {
+                    if (data.state == 'success') {
+                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
+                        modal.modal('hide');
+                        //刷新页面
+                        Util.reloadByPjax();
+                    } else
+                        Util.showTip($('#wholeTip'), '添加失败', 'alert alert-warning');
+                },
+                error: function (info) {
+                    Util.showTip($('#wholeTip'),info.msg , 'alert alert-danger');
+                },
+                complete: function () {
+                    btn.stop();
+                }
+            });
+        }
+    },
+    addApplyClass:function (method) {
+        var model = $('#addApplyModel');
+        if(method=="show"){
+            modalUtil.toggleClear(model);
+            $.ajax(Label.staticServePath+"/subsidyManager/showRegion",{
+                type:'post',
+                dataType:'json',
+                success:function(data,status){
+
+                    if(data.state == 'success'){
+                        var json = JSON.parse(data.msg);
+                        json.map(function (elems,index) {
+
+                            var head = '<li role="presentation" {headClassName}><a href="#role{id}" role="tab" data-toggle="tab" {tag} data-label="{id}">{regionName}</a></li>';
+                            var body = '<div role="tabpanel" {bodyClassName} id="role{id}" ></div>';
+                            if(index == 0){
+                                head = Util.jsonToString(head,{'tag':'tag="tag1"'});
+                                head = Util.jsonToString(head,{'headClassName':'class="active"'});
+                                body = Util.jsonToString(body,{'bodyClassName':'class="tab-pane active"'});
+                            }else{
+                                head = Util.jsonToString(head,{'tag':'tag="tag"'});
+                                head = Util.jsonToString(head,{'headClassName':''});
+                                body = Util.jsonToString(body,{'bodyClassName':'class="tab-pane"'})
+                            }
+                            head=Util.jsonToString(head,elems);
+                            body=Util.jsonToString(body,elems);
+
+                            model.find('ul:first').append(head);
+                            model.find('#classBody').append(body);
+
+                            var regionDiv = Util.region($(this));
+                            var input = regionDiv.find('input:first');
+                            input.attr('id','parent-input'+elems['id']);
+                            input.val(elems['id']);
+                            regionDiv.find('label:first').attr('for','parent-input'+elems['id']);
+                            $('div#'+'role'+elems['id']).append(regionDiv);
+                        });
+                        // window.onload = function() {
+                        //     func.allcheck(modl);
+                        // };
+                        if (json.length > 0){
+                            showTemplate(json[0]['id']);
+                        }
+
+                        $('a[tag="tag"]').one('shown.bs.tab', function () {
+                            showTemplate($(this).attr('data-label'));
+                        });
+                        model.one('hidden.bs.modal',function(){
+                            $(this).find('#class-add-ul').html('');
+                            $(this).find('#classBody').html('');
+                            $('div.tab-pane').off('shown.bs.tab');
+                        });
+                    }
+                }
+            });
+        }else {
             modalUtil.show($('#submitApplyModel'));
         }
-
-
-        // $('#studentCnt').val(0);
-
     },
     addClass: function (method) {
         if (method == 'up') {
@@ -1217,7 +1324,7 @@ var func = {
                 }
             })
         }
-        else {
+        else{
             modalUtil.show($('#addClassModel'));
             $('#studentCnt').val(0);
         }
@@ -1493,7 +1600,7 @@ var func = {
                         Util.showTip($('#wholeTip'), data.msg, "alert alert-success");
                         Util.reloadByPjax();
                     }
-                    else {
+                    else{
                         Util.showTip($('#wholeTip'), data.msg, "alert alert-danger");
                     }
                 },
@@ -1601,7 +1708,7 @@ var modalUtil = {
     toggleClear: function (modal) {
         modal.modal('toggle');
     },
-    hideClear: function (model, form, options) {
+    hideClear: function (model,options) {
         var defaults = {
             front: '', ends: ['eId', 'CreateTime', 'UpdateTime'], end: '', before: function () {
             }, after: function () {

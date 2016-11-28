@@ -37,6 +37,7 @@ Table: stumanager_class
  classOpeningTime | bigint(19)  | YES  |     |         |         
  classCreateTime  | bigint(19)  | NO   |     |         |         
  classUpdateTime  | bigint(19)  | NO   |     |         |         
+ status           | int(10)     | YES  |     |         |         
  regionId         | int(10)     | YES  |     |         |         
  classOperaterId  | int(10)     | NO   |     |         |         
 ------------------+-------------+------+-----+---------+---------
@@ -98,12 +99,12 @@ Table: stumanager_obtain_employment
  id               | int(10)      | NO   | PRI |         |         
  className        | varchar(255) | YES  |     |         |         
  studentName      | varchar(255) | YES  |     |         | 学生姓名    
- employmentStatus | varchar(255) | YES  |     |         | 就业状态    
+ employmentStatus | int(10)      | YES  |     |         | 就业状态    
  trackTime        | bigint(19)   | YES  |     |         | 追踪时间    
  remark           | varchar(255) | YES  |     |         |         
  counselorId      | int(10)      | YES  |     |         | 咨询师Id   
  counselorName    | varchar(255) | YES  |     |         | 咨询师Id   
- approveStatus    | tinyint(3)   | YES  |     |         | 批准状态    
+ approveStatus    | int(10)      | YES  |     |         | 批准状态    
  approver         | varchar(255) | YES  |     |         | 批准人     
 ------------------+--------------+------+-----+---------+---------
 
@@ -147,6 +148,16 @@ Table: stumanager_role
  operater   | varchar(20)          | YES  |     |         |         
 ------------+----------------------+------+-----+---------+---------
 
+Table: stumanager_status
+------------+--------------+------+-----+---------+---------
+ Field      | Type         | Null | Key | Default | Remarks 
+------------+--------------+------+-----+---------+---------
+ id         | int(10)      | NO   | PRI |         |         
+ statusName | varchar(255) | YES  |     |         | 状态名     
+ field      | varchar(255) | YES  |     |         | 字段      
+ mark       | varchar(255) | YES  |     |         | 使用的符号   
+------------+--------------+------+-----+---------+---------
+
 Table: stumanager_student
 ------------------------+--------------+------+-----+---------+---------
  Field                  | Type         | Null | Key | Default | Remarks 
@@ -155,7 +166,7 @@ Table: stumanager_student
  userId                 | int(10)      | YES  |     |         |         
  name                   | varchar(255) | YES  |     |         |         
  sex                    | varchar(255) | YES  |     |         |         
- idNumber               | varchar(255) | YES  |     |         |         
+ idNumber               | varchar(255) | YES  |     |         | 身份证     
  contactInformation     | varchar(255) | YES  |     |         | 联系方式    
  qq                     | varchar(255) | YES  |     |         |         
  email                  | varchar(255) | YES  |     |         |         
@@ -163,26 +174,30 @@ Table: stumanager_student
  educationBackground    | varchar(255) | YES  |     |         |         
  major                  | varchar(255) | YES  |     |         |         
  college                | varchar(255) | YES  |     |         |         
- graduationTime         | bigint(19)   | YES  |     |         |         
+ graduationTime         | bigint(19)   | YES  |     |         | 毕业时间    
  classId                | int(10)      | YES  |     |         |         
  className              | varchar(255) | YES  |     |         |         
  subject                | varchar(255) | YES  |     |         | 学习科目    
  credit                 | int(10)      | YES  |     |         | 学分      
- tutor                  | varchar(255) | YES  |     |         |         
- tutorId                | int(10)      | YES  |     |         | 辅导老师    
- admission              | bigint(19)   | YES  |     |         | 入学时间    
- trainingGraduationTime | bigint(19)   | YES  |     |         |         
- tuition                | int(10)      | YES  |     |         |         
- paymentMethod          | varchar(255) | YES  |     |         |         
+ testAverage            | int(10)      | YES  |     |         | 考试平均分   
+ trainingEvaluation     | int(10)      | YES  |     |         | 实训项目平均分 
+ tutorId                | int(10)      | YES  |     |         | 辅导老师Id  
+ tutorName              | varchar(255) | YES  |     |         |         
+ admission              | bigint(19)   | YES  |     |         | 培训入学时间  
+ trainingGraduationTime | bigint(19)   | YES  |     |         | 培训毕业时间  
+ tuition                | int(10)      | YES  |     |         | 学费      
+ paymentMethod          | varchar(255) | YES  |     |         | 学费付款方式  
+ firstRepaymentTime     | bigint(19)   | YES  |     |         | 首次还款日期  
  counselorId            | int(10)      | YES  |     |         |         
  counselorName          | varchar(255) | YES  |     |         | 咨询师     
  subsidyPer             | int(10)      | YES  |     |         |         
  bonus                  | int(10)      | YES  |     |         |         
  residualFrequency      | tinyint(3)   | YES  |     |         |         
  regionId               | int(10)      | YES  |     |         |         
- state                  | tinyint(3)   | YES  |     |         | 在读、毕业or休学状态
+ status                 | int(10)      | YES  |     |         |         
+ employmentStatus       | int(10)      | YES  |     |         |         
  createTime             | bigint(19)   | YES  |     |         | 用户创建时间  
- checked                | tinyint(3)   | YES  |     |         |         
+ checked                | int(10)      | YES  |     |         |         
  ip                     | varchar(20)  | YES  |     | 0.0.0.0 | 最后登录的ip地址
  operaterId             | int(10)      | YES  |     |         | 操作人     
  operater               | varchar(255) | YES  |     | admin   |         
@@ -199,13 +214,14 @@ Table: stumanager_subsidy_application
  applicantName   | varchar(255) | YES  |     |         | 申请人名    
  applicationDate | bigint(19)   | YES  |     |         | 申请日期    
  regionId        | int(10)      | YES  |     |         | 区域Id    
+ classId         | int(10)      | YES  |     |         | 班级id    
  className       | varchar(255) | YES  |     |         | 班级名称    
  number          | int(10)      | YES  |     |         | 申请人数    
  totalSubsidy    | int(10)      | YES  |     |         | 总补助     
  totalBonus      | int(10)      | YES  |     |         | 总奖金     
  aggregateAmount | int(10)      | YES  |     |         | 总计      
  approverId      | int(10)      | YES  |     |         | 审批人Id   
- approveStatus   | tinyint(3)   | YES  |     |         | 批准状态    
+ approveStatus   | int(10)      | YES  |     |         | 批准状态    
 -----------------+--------------+------+-----+---------+---------
 
 Table: stumanager_subsidy_class_info
@@ -221,7 +237,8 @@ Table: stumanager_subsidy_class_info
  subsidyAmount     | int(10)      | YES  |     |         | 补助金额    
  bonus             | int(10)      | YES  |     |         | 奖金      
  residualFrequency | tinyint(3)   | YES  |     |         | 补助剩余次数  
- state             | varchar(255) | YES  |     |         | 审批状态    
+ status            | int(10)      | YES  |     |         | 审批状态    
+ approveStatus     | int(10)      | YES  |     |         |         
  remark            | varchar(255) | YES  |     |         | 备注      
 -------------------+--------------+------+-----+---------+---------
 

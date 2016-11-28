@@ -81,6 +81,14 @@ public abstract class BaseClass<M extends BaseClass<M>> extends Model<M> impleme
 		return get("classUpdateTime");
 	}
 
+	public void setStatus(java.lang.Integer status) {
+		set("status", status);
+	}
+
+	public java.lang.Integer getStatus() {
+		return get("status");
+	}
+
 	public void setRegionId(java.lang.Integer regionId) {
 		set("regionId", regionId);
 	}

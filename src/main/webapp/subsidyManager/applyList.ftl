@@ -18,7 +18,7 @@ ${view.title}
             </div>
         </div>
     </div>
-    <div id="table-apply">
+    <div id="table-inner">
         <div id="dataTables-example_subsidy" class="table-responsive dataTables_wrapper form-inline" role="grid">
             <table class="table table-striped table-bordered table-hover dataTable no-footer"
                    id="dataTables-example" aria-describedby="dataTables-example_apply">
@@ -39,7 +39,7 @@ ${view.title}
                     <th>
                         合计
                     </th>
-                    <#if addAble || updateAble || deleteAble>
+                    <#if addAble ||  deleteAble>
                         <th>
                             操作
                         </th>
@@ -48,36 +48,33 @@ ${view.title}
 
                 </thead>
                 <tbody>
-                    <#list page.list as sub>
-                    <tr>
+                    <#list subsidyClasses.list as sub>
+                    <tr id="list${sub.classId}">
                         <td>
                         ${sub.className}
                         </td>
                         <td>
-                            11
+                        ${sub.number}
                         </td>
                         <td>
-                            2100
+                        ${sub.totalSubsidy}
                         </td>
                         <td>
-                            300
+                        ${sub.totalBonus}
                         </td>
                         <td>
-                            2400
+                        ${sub.aggregateAmount}
                         </td>
-                        <#if  addAble || updateAble || deleteAble>
+                        <#if  addAble ||  deleteAble>
                             <td>
                                 <#list map["operators"+view.id] as op>
                                     <#if op.url == "seeApply">
                                         <@macroBtn url = op.url title = op.title></@macroBtn>
                                         <#assign op = map["operators"+view.id][0]>
-                                    ${InsertKit(btnLabel,20160824)}/
+                                    ${InsertKit(btnLabel,"${sub.classId}")}/
                                     </#if>
                                 </#list>
-                                <#if updateAble>
-                                ${InsertKit(updateBtn,"修改")}/
-                                </#if>
-                            ${InsertKit(deleteBtn,"删除")}
+                            ${InsertKit(deleteBtn,"${sub.classId}")}
                             </td>
                         </#if>
                     </tr>
@@ -105,19 +102,15 @@ ${view.title}
 
                 </tbody>
             </table>
-        <#--<-- 分頁 &ndash;&gt;-->
-        <#--<#assign str = "?">-->
-        <#--<#if holdPath?contains("?")><#assign str = "&"></#if>-->
-        <#--<@paginate page = classes url=holdPath+str pageAfter="p">-->
-        <#--</@paginate>-->
-            <#if user?exists>
-            <div class="modal-footer text-center" >
+            <#if subsidyClasses??>
+                <#assign str = "?">
+                <#if holdPath?contains("?")><#assign str = "&"></#if>
+                <@paginate page = subsidyClasses url=holdPath+str pageAfter="p">
+                </@paginate>
+                <div class="modal-footer text-center">
                 ${addBtn}
                 ${saveBtn}
-            </div>
-
-            <#else >
-
+                </div>
             </#if>
 
         </div>
@@ -127,17 +120,18 @@ ${view.title}
 
 <div class="modal fade" id="submitApplyModel" tabindex="-1" role="dialog" aria-labelledby="submitApplyModelLabel"
      aria-hidden="true">
-    <div class="modal-dialog modal-lg " style="width:600px;">
+    <div class="modal-dialog " style="width: 600px auto" >
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header text-center">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
                         class="sr-only">Close</span></button>
                 <h4 class="modal-title" id="myModalLabel">申请提交信息:</h4>
             </div>
-            <div class="input-group">
+            <div class="input-group text-center">
                 <span class="input-group-addon">审批人:</span>
                 <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                            data-toggle="dropdown">
                         Dropdown
                         <span class="caret"></span>
                     </button>
@@ -154,7 +148,7 @@ ${view.title}
                 <input type="text" class="form-control" id="submit-remarks">
             </div>
             <br>
-            <div  class="table table-bordered">
+            <div class="table table-bordered">
                 <h5>申请班级数:<span id="submit-class">2</span></h5>
                 <h5>申请总人数:<span id="submit-student">20</span></h5>
                 <h5>总补助:<span id="submit-subsidy">14000</span></h5>
@@ -163,7 +157,7 @@ ${view.title}
             </div>
             <div class="modal-footer text-center">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary">提交</button>
+                <button type="button" class="btn btn-primary" onclick="func.submitApply()">提交</button>
             </div>
         </div>
     </div>
@@ -180,129 +174,18 @@ ${view.title}
                 <h4 class="modal-title" id="myModalLabel">班级添加</h4>
             </div>
             <div class="modal-body">
-                <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#home" role="tab" data-toggle="tab">成都</a></li>
-                    <li role="presentation"><a href="#profile" role="tab" data-toggle="tab">重庆</a></li>
+                <ul class="nav nav-tabs" role="tablist" id="class-add-ul">
                 </ul>
                 <!-- Tab panes -->
                 <div class="tab-content" id="classBody">
-                    <div role="tabpanel" class="tab-pane active" id="home">
-                        <div id="table-apply">
-                            <div id="dataTables-example_subsidy" class="table-responsive dataTables_wrapper form-inline"
-                                 role="grid">
-                                <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                                       id="dataTables-example" aria-describedby="dataTables-example_apply">
-                                    <thead>
-                                    <tr>
-                                        <th>
-                                            <div class="checkbox3 checkbox-round">
-                                                <input type="checkbox" id="all-check">
-                                                <label for="all-check" class="td-check center-block">
-                                                </label>
-                                            </div>
-                                        </th>
-                                        <th>
-                                            序号
-                                        </th>
-                                        <th>
-                                            班级名称
-                                        </th>
-                                        <th>
-                                            人数
-                                        </th>
-                                        <th>
-                                            开班日期
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>
-                                            <div class="checkbox3 checkbox-round">
-                                                <input type="checkbox" id="checkbox-2">
-                                                <label for="checkbox-2" class="td-check center-block">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            1
-                                        </td>
-                                        <td>
-                                            0719班
-                                        </td>
-                                        <td>
-                                            12
-                                        </td>
-                                        <td>
-                                            2016.07.19
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div role="tabpanel" class="tab-pane" id="profile">
-                        <div id="table-apply">
-                            <div id="dataTables-example_subsidy" class="table-responsive dataTables_wrapper form-inline"
-                                 role="grid">
-                                <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                                       id="dataTables-example" aria-describedby="dataTables-example_apply">
-                                    <thead>
-                                    <tr>
-                                        <th>
-                                            <div class="checkbox3 checkbox-round">
-                                                <input type="checkbox" id="all-check">
-                                                <label for="all-check" class="td-check center-block">
-                                                </label>
-                                            </div>
-                                        </th>
-                                        <th>
-                                            序号
-                                        </th>
-                                        <th>
-                                            班级名称
-                                        </th>
-                                        <th>
-                                            人数
-                                        </th>
-                                        <th>
-                                            开班日期
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>
-                                            <div class="checkbox3 checkbox-round">
-                                                <input type="checkbox" id="checkbox-2">
-                                                <label for="checkbox-2" class="td-check center-block">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            2
-                                        </td>
-                                        <td>
-                                            0719班
-                                        </td>
-                                        <td>
-                                            12
-                                        </td>
-                                        <td>
-                                            2016.07.19
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary">提交</button>
+                <button data-style="slide-up" id="saveRole-btn" class="btn btn-primary ladda-button" onclick="func.submitApplyClass('up')">
+                    <span class="ladda-label">保存</span>
+                </button>
             </div>
         </div>
     </div>
@@ -324,6 +207,13 @@ ${view.title}
                     <thead>
                     <tr>
                         <th>
+                            <div class="checkbox3 checkbox-round text-center" >
+                                <input type="checkbox" id="index-look" checked="checked">
+                                <label class="checkbox-2" style="display: inline" for="index-look">
+                                </label>
+                            </div>
+                        </th>
+                        <th>
                             姓名
                         </th>
                         <th>
@@ -337,9 +227,6 @@ ${view.title}
                         </th>
                         <th>
                             就读状态
-                        </th>
-                        <th>
-                            备注
                         </th>
                     </tr>
                     </thead>
@@ -356,38 +243,81 @@ ${view.title}
 </div>
 
 <div class="sr-only" id="template">
-    <div id="table-apply">
-        <div id="dataTables-example_subsidy" class="table-responsive dataTables_wrapper form-inline"
-             role="grid">
-            <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                   id="dataTables-example" aria-describedby="dataTables-example_apply">
-                <thead>
-                <tr>
-                    <th>
-                        <div class="checkbox3 checkbox-round">
-                            <input type="checkbox" id="all-check">
-                            <label for="all-check" class="td-check center-block">
-                            </label>
-                        </div>
-                    </th>
-                    <th>
-                        序号
-                    </th>
-                    <th>
-                        班级名称
-                    </th>
-                    <th>
-                        人数
-                    </th>
-                    <th>
-                        开班日期
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
+    <div class="table-responsive dataTables_wrapper form-inline"
+         role="grid">
+        <table class="table table-striped table-bordered table-hover dataTable no-footer"
+               aria-describedby="dataTables-example_apply">
+            <thead>
+            <tr>
+                <th>
+                    <div class="checkbox3 checkbox-round text-center" >
+                        <input type="checkbox" id="index" >
+                        <label class="checkbox-2" style="display: inline" for="index">
+                        </label>
+                    </div>
+                </th>
+                <th>
+                    序号
+                </th>
+                <th>
+                    班级名称
+                </th>
+                <th>
+                    人数
+                </th>
+                <th>
+                    开班日期
+                </th>
+            </tr>
+            </thead>
+            <tbody>
 
-                </tbody>
-            </table>
-        </div>
+            </tbody>
+        </table>
     </div>
+
 </div>
+
+
+<script type="text/javascript">
+    var showTemplate = function (id) {
+        $.ajax({
+            type: 'post',
+            url: Label.staticServePath + "/subsidyManager/showRegionClass",
+            data: {
+                'id': id
+            },
+            success: function (data, status) {
+                console.log(data);
+                if (data.state = 'success') {
+                    if (data.msg!=''){
+                        var json = JSON.parse(data.msg);
+                        console.log(json);
+                        var serial = 1;
+                        json.map(function (elem, num) {
+                            var ckeckBoox = $("#index").parent().clone();
+                            var input = ckeckBoox.find('input:first');
+                            var label = ckeckBoox.find('label:first');
+                            input.attr('tag','input');
+                            input.attr('name',elem['id']);
+                            input.attr('id', 'index' + elem['id']);
+                            label.attr('for', "index" + elem['id']);
+                            var str = '<tr id="{id}">' +
+                                    '<td></td>' +
+                                    '<td>' + serial + '</td>' +
+                                    '<td>{className}</td>' +
+                                    '<td>{studentCnt}</td>' +
+                                    '<td>{classOpeningTime}</td>' +
+                                    '</tr>';
+                            serial++;
+                            str = Util.jsonToString(str, elem);
+                            $('div#' + 'role' + id).find('tbody:first').append(str);
+                            $('tr#' + elem['id']).find('td:first').append(ckeckBoox);
+                        })
+                    }
+                }
+
+            }
+        })
+    }
+</script> 
