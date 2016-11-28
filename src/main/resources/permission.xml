@@ -127,9 +127,9 @@
                 </mapping>
                 <mapping id="5010" icon="fa fa-usd" url="/subsidyManager" title="申请历史" function="3">
                     <mappings>
-                        <mapping id="5002" icon="apply" url="/subsidyManager/applyList.ftl" title="申请列表信息" function="1">
+                        <mapping id="5011" icon="apply" url="/subsidyManager/applyList.ftl" title="申请列表信息" function="1">
                             <mappings>
-                                <mapping id="5003" icon="seeDetails" title="查看" url="seeDetails" function="0">
+                                <mapping id="5012" icon="seeDetails" title="查看" url="seeDetails" function="0">
                                     <mappings/>
                                 </mapping>
                             </mappings>
