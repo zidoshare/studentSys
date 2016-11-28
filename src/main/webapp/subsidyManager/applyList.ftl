@@ -207,6 +207,13 @@ ${view.title}
                     <thead>
                     <tr>
                         <th>
+                            <div class="checkbox3 checkbox-round text-center" >
+                                <input type="checkbox" id="index-look" checked="checked">
+                                <label class="checkbox-2" style="display: inline" for="index-look">
+                                </label>
+                            </div>
+                        </th>
+                        <th>
                             姓名
                         </th>
                         <th>
@@ -243,7 +250,7 @@ ${view.title}
             <thead>
             <tr>
                 <th>
-                    <div class="checkbox3 checkbox-round text-center" id="cekAll">
+                    <div class="checkbox3 checkbox-round text-center" >
                         <input type="checkbox" id="index" >
                         <label class="checkbox-2" style="display: inline" for="index">
                         </label>

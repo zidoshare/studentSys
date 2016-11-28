@@ -1161,28 +1161,26 @@ var func = {
                                 sta='毕业';
                             }
 
-                            var str = '<tr id="{id}">' +
+                            var str = '<tr id="tr{id}">' +
+                                '<td></td>' +
                                 '<td>{studentName}</td>' +
                                 '<td>{subsidyAmount}</td>' +
                                 '<td>{residualFrequency}</td>' +
-                                '<td><input placeholder="{bonus}" class="form-control" id="{id}"></td>' +
+                                '<td><input placeholder="{bonus}" class="form-control" id="input-text{id}"></td>' +
                                 '<td>'+sta+'</td>' +
                                 '</tr>';
                             str = Util.jsonToString(str,elem);
                             console.log(str);
                             $('#seeApplyModel').find('tbody:first').append(str);
-                            // $('tr#'+elem['id']).find('span').on('click',function () {
-                            //     var input = Util.input($(this),name,elem['id']);
-                            //     input.on('');
-                            //     var dom = $(this);
-                            //     input.on('blur',function () {
-                            //         var value = input.val();
-                            //         if(value != null && value!='')
-                            //             dom.text(value);
-                            //         $(this).remove();
-                            //         dom.removeClass('sr-only');
-                            //     });
-                            // })
+                            var ckeckBoox = $("#index-look").parent().clone();
+                            var input = ckeckBoox.find('input:first');
+                            var label = ckeckBoox.find('label:first');
+                            input.attr('tag','input');
+                            input.attr('name',elem['id']);
+                            input.attr('checked','');
+                            input.attr('id', 'index-look' + elem['id']);
+                            label.attr('for', "index-look" + elem['id']);
+                            $('tr#tr' +elem['id']).find('td:first').append(ckeckBoox);
                         });
                         $('#seeApplyModel').one('hidden.bs.modal',function(){
                             $(this).find('tbody:first').html('');

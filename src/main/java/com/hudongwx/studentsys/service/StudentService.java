@@ -95,5 +95,14 @@ public class StudentService extends Service {
         return Student.dao.find(Student.SEARCH_FROM_STUDENT + "where classId = ? and status = 1 ", classId);
     }
 
-
+    public boolean _updateStudentById(Student student){
+        if(student.getId()==null){
+            try {
+                throw new ServiceException("学生id不能为空");
+            } catch (ServiceException e) {
+                e.printStackTrace();
+            }
+        }
+        return student.update();
+    }
 }
