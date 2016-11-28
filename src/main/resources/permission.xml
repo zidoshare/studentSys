@@ -77,26 +77,32 @@
                         </mapping>
                     </mappings>
                 </mapping>
-                <!--<mapping id="2343" icon="studentList" url="/studentManager/studentList.ftl" title="学生信息列表" function="1">-->
-                    <!--<mappings>-->
-                        <!--<mapping id="2361" icon="addStudent" url="addStudent" title="添加" function="0">-->
-                            <!--<mappings/>-->
-                        <!--</mapping>-->
-                        <!--<mapping id="2362" icon="updateStudent" url="updateStudent" title="修改" function="0">-->
-                            <!--<mappings/>-->
-                        <!--</mapping>-->
-                        <!--<mapping id="2363" icon="deleteStudent" url="deleteStudent" title="删除" function="0">-->
-                            <!--<mappings/>-->
-                        <!--</mapping>-->
-                    <!--</mappings>-->
-                <!--</mapping>-->
+                <mapping id="6000" icon="fa fa-flag" url="/studentManager" title="学生列表" function="3">
+                    <mappings>
+                        <mapping id="2343" icon="studentList" url="/studentManager/studentList.ftl" title="学生信息列表"
+                                 function="1">
+                            <mappings>
+                                <mapping id="2361" icon="addStudent" url="addStudent" title="添加" function="0">
+                                    <mappings/>
+                                </mapping>
+                                <mapping id="2362" icon="updateStudent" url="updateStudent" title="修改" function="0">
+                                    <mappings/>
+                                </mapping>
+                                <mapping id="2363" icon="deleteStudent" url="deleteStudent" title="删除" function="0">
+                                    <mappings/>
+                                </mapping>
+                            </mappings>
+                        </mapping>
+                    </mappings>
+                </mapping>
             </mappings>
         </mapping>
         <mapping id="5000" icon="fa fa-usd" url="/subsidy" title="补助管理" function="2">
             <mappings>
                 <mapping id="5100" icon="fa fa-usd" url="/approvalManager" title="补助审批" function="3">
                     <mappings>
-                        <mapping id="5101" icon="approval" url="approvalManager/approvalList.ftl" title="补助申请列表" function="1">
+                        <mapping id="5101" icon="approval" url="approvalManager/approvalList.ftl" title="补助申请列表"
+                                 function="1">
                             <mappings>
                                 <mapping id="5102" icon="seeApproval" title="查看" url="seeApproval" function="0">
                                     <mappings/>
@@ -121,7 +127,8 @@
                                 <mapping id="5004" icon="deleteApply" title="删除" url="deleteApply" function="0">
                                     <mappings/>
                                 </mapping>
-                                <mapping id="5005" icon="addApplyClass" title="+添加申请班级" url="addApplyClass" function="0">
+                                <mapping id="5005" icon="addApplyClass" title="+添加申请班级" url="addApplyClass"
+                                         function="0">
                                     <mappings/>
                                 </mapping>
                             </mappings>

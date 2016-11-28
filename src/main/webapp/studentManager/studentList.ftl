@@ -110,7 +110,7 @@
                         <tr>
                             <td>${student.name}</td>
                             <td>${student.className}</td>
-                            <td>${student.tutorName}</td>
+                            <td>${student.tutor}</td>
                             <td>${student.contactInformation}</td>
                         <#--<td>${student.admission}</td>-->
                             <td>${(student.createTime?number)?number_to_datetime}</td>

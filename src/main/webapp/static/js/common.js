@@ -1785,14 +1785,10 @@ var Exception = {
             };
             var opts = $.extend(defaults, options);
             if (data.state == 'success') {
-                if(data.msg == null || data.msg == '')
-                    data.msg = '操作成功';
                 Util.showTip($('#wholeTip'), data.msg, "alert alert-success", opts.onShowSuccess);
                 opts.success();
             }
             else if (data.state == 'error') {
-                if(data.msg == null || data.msg == '')
-                    data.msg = '操作失败';
                 Util.showTip($('#wholeTip'), data.msg, "alert alert-danger", opts.onShowError);
                 opts.error();
             }
@@ -1801,11 +1797,10 @@ var Exception = {
     error: function (options) {
         return function (XMLHttpRequest, textStatus, errorThrown) {
             var defaults = {
-                onShowTip: {},
-                msg:'服务器错误'
+                onShowTip: {}
             };
             var opts = $.extend(defaults, options);
-            Util.showTip($('#wholeTip'), opts.msg, "alert alert-danger", opts.onShowTip);
+            Util.showTip($('#wholeTip'), '服务器错误', "alert alert-danger", opts.onShowTip);
         }
     },
     complete: function (options) {
