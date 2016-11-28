@@ -152,14 +152,6 @@ var Validate = {
 };
 
 var Util = {
-    region:function (dom) {
-        var regionDiv =$("#template").clone();
-        regionDiv.css('width','100%');
-        regionDiv.removeClass('sr-only');
-        var ckeckAll = regionDiv.find('thead:first').find('div:first');
-
-        return regionDiv;
-    },
     input:function (dom,name,id) {
         var width = dom.width()+80;
         var height = dom.height();
@@ -1257,7 +1249,7 @@ var func = {
                             model.find('ul:first').append(head);
                             model.find('#classBody').append(body);
 
-                            var regionDiv = Util.region($(this));
+                            var regionDiv = region($(this));
                             var input = regionDiv.find('input:first');
                             input.attr('id','parent-input'+elems['id']);
                             input.val(elems['id']);

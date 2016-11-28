@@ -280,6 +280,14 @@ ${view.title}
 
 
 <script type="text/javascript">
+    var  region = function (dom) {
+        var regionDiv =$("#template").clone();
+        regionDiv.css('width','100%');
+        regionDiv.removeClass('sr-only');
+        var ckeckAll = regionDiv.find('thead:first').find('div:first');
+
+        return regionDiv;
+    };
     var showTemplate = function (id) {
         $.ajax({
             type: 'post',

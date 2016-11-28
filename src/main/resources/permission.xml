@@ -125,6 +125,23 @@
                         </mapping>
                     </mappings>
                 </mapping>
+                <mapping id="5010" icon="fa fa-usd" url="/subsidyManager" title="申请历史" function="3">
+                    <mappings>
+                        <mapping id="5002" icon="apply" url="/subsidyManager/applyList.ftl" title="申请列表信息" function="1">
+                            <mappings>
+                                <mapping id="5003" icon="seeApply" title="查看" url="seeApply" function="0">
+                                    <mappings/>
+                                </mapping>
+                                <mapping id="5004" icon="deleteApply" title="删除" url="deleteApply" function="0">
+                                    <mappings/>
+                                </mapping>
+                                <mapping id="5005" icon="addApplyClass" title="+添加申请班级" url="addApplyClass" function="0">
+                                    <mappings/>
+                                </mapping>
+                            </mappings>
+                        </mapping>
+                    </mappings>
+                </mapping>
             </mappings>
         </mapping>
         <!--0：功能，1：视图模块，2：菜单，3：二级菜单，以后多级菜单，依次类推-->
