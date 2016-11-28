@@ -42,12 +42,12 @@ public class StudentService extends Service {
         return students.get(0);
     }
 
-    public List<Student> getStudentsByName(String name){
+    public List<Student> getStudentsByName(String name) {
         return Student.dao.find(Student.SEARCH_FROM_STUDENT + "where name = ?", name);
     }
 
-    public List<Student> findStudentByKey(String key){
-        key = "%"+key+"%";
+    public List<Student> findStudentByKey(String key) {
+        key = "%" + key + "%";
         return Student.dao.find(Student.SEARCH_FROM_STUDENT + "where name like ?", key);
     }
 
@@ -59,14 +59,9 @@ public class StudentService extends Service {
         return Student.dao.paginate(currentPage, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, Student.SQL_FROM + Common.ORDER_BY_ID_DESC);
     }
 
-    public boolean _save(Student model) {
-        try {
-            packingStudent(model);
-            return model.save();
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
-        return false;
+    public boolean _save(Student model) throws ServiceException {
+        packingStudent(model);
+        return model.save();
     }
 
     private void packingStudent(Student student) throws ServiceException {
@@ -89,5 +84,20 @@ public class StudentService extends Service {
 
     public Page<Student> getStudentByClass(int currentPage, Class aClass) {
         return Student.dao.paginate(currentPage, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, Student.SQL_FROM + Common.SQL_WHERE + "className = ?" + Common.ORDER_BY_ID_DESC, aClass.getClassName());
+    }
+
+    public List<Student> getStudentByClassId(int classId) {
+        return Student.dao.find(Student.SEARCH_FROM_STUDENT + "where classId = ? and status = 1 ", classId);
+    }
+
+    public boolean _updateStudentById(Student student){
+        if(student.getId()==null){
+            try {
+                throw new ServiceException("学生id不能为空");
+            } catch (ServiceException e) {
+                e.printStackTrace();
+            }
+        }
+        return student.update();
     }
 }

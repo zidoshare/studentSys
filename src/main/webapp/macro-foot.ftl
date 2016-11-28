@@ -41,11 +41,6 @@
             Util.reBindPjax();
         }
     });
-
-    $('#main-menu').find('li').on('click', function () {
-        $('#main-menu').find('li').removeClass('active-menu');
-        $(this).addClass('active-menu');
-    });
     var sid = 0;
     var word = "a";
     function submitQuestion() {

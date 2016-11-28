@@ -1,20 +1,15 @@
 package com.hudongwx.studentsys.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.hudongwx.studentsys.common.BaseController;
-import com.hudongwx.studentsys.model.*;
 import com.hudongwx.studentsys.model.Class;
-import com.hudongwx.studentsys.service.ClassService;
-import com.hudongwx.studentsys.service.SubsidyApplicationService;
-import com.hudongwx.studentsys.service.SubsidyClassInfoService;
-import com.hudongwx.studentsys.service.UserRegionService;
-import com.hudongwx.studentsys.util.Common;
-import com.hudongwx.studentsys.util.ModelKit;
-import com.hudongwx.studentsys.util.PageinateKit;
+import com.hudongwx.studentsys.model.*;
+import com.hudongwx.studentsys.service.*;
 import com.hudongwx.studentsys.util.RenderKit;
 import com.jfinal.aop.Before;
 import com.jfinal.ext.interceptor.POST;
 import com.jfinal.kit.JsonKit;
-import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.Page;
 
 import java.util.ArrayList;
@@ -25,24 +20,23 @@ import java.util.List;
  * Created by wu on 2016/11/19.
  */
 public class SubsidyController extends BaseController {
-
+    public final int APPROV_STATUS_NO = 9;
+    public final int APPROV_STATUS_ON = 10;
+    public final int APPROV_STATUS_YET = 8;
     public SubsidyApplicationService subsidyApplicationService;
     public SubsidyClassInfoService subsidyClassInfoService;
     public ClassService classService;
     public UserRegionService userRegionService;
+    public RegionService regionService;
+    public StudentService studentService;
 
     @Override
     public void index() {
         super.index();
-        Page<Class> classP = Class.dao.paginate(1, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, Class.SQL_FROM);
-
-        List<SubsidyClassInfo> subList = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            Model model = ModelKit.simulateModelByRandom(SubsidyClassInfo.class, 5);
-            subList.add((SubsidyClassInfo) model);
-        }
-        Page<SubsidyClassInfo> subsidyClassInfoPage = PageinateKit.ClonePage(classP, subList);
-        setAttr("page", subsidyClassInfoPage);
+        Integer p = getParaToInt("p", 1);
+        User user = getCurrentUser(this);
+        Page<SubsidyApplication> salist = subsidyApplicationService.getSubsidyApplicationByApplicantId(user.getId(), p);
+        setAttr("subsidyClasses", salist);
     }
 
     @Override
@@ -98,6 +92,8 @@ public class SubsidyController extends BaseController {
             RenderKit.renderError(this);
         } else {
             List<SubsidyApplication> salist = subsidyApplicationService.getSubsidyApplicationByApplicantId(aid);
+
+
             if (salist.size() != 0) {
                 RenderKit.renderSuccess(this, JsonKit.toJson(salist));
             } else {
@@ -137,8 +133,15 @@ public class SubsidyController extends BaseController {
     /**
      * 删除补助班级信息[需要前台的参数：classid(班级id),]
      */
-    public boolean deleteSubsidyClassInfo() {
-        return subsidyClassInfoService._deleteSubsidyClassInfoById(getPara("sciId"));
+    public void deleteSubsidyClassInfo() {
+        Integer classId = getParaToInt("classId");
+        if (classId == null) {
+            RenderKit.renderError(this, "该班级不存在或已被删除");
+            return;
+        }
+        subsidyClassInfoService._deleteSubsidyClassInfoByClassId(classId);
+        subsidyApplicationService._deleteSubsidyApplicationByClassId(classId);
+        RenderKit.renderSuccess(this, "删除成功");
     }
 
     /**
@@ -170,24 +173,30 @@ public class SubsidyController extends BaseController {
     public void showRegion() {
         User user = getCurrentUser(this);
         List<UserRegion> urlist = userRegionService.getUserRegionInfoByUserId(user.getId());
-        
-        
-        if (urlist.size() != 0) {
-            RenderKit.renderSuccess(this, JsonKit.toJson(urlist));
-        } else {
+        List<Region> areas = new ArrayList<>();
+        if (urlist.size() <= 0) {
             RenderKit.renderError(this);
+        } else {
+            for (UserRegion ur : urlist) {
+                areas.add(regionService.getRegionById(ur.getRegionId()).get(0));
+            }
+            if (areas.size() != 0) {
+                RenderKit.renderSuccess(this, JsonKit.toJson(areas));
+            } else {
+                RenderKit.renderError(this);
+            }
         }
     }
 
     /**
      * 补助管理添加班级区块信息[需要前台的参数：rid(区域id)]
      */
-    public void showRegionClassInfo() {
-        Integer rid = getParaToInt("rid");
-        if (rid == null) {
+    public void showRegionClass() {
+        Integer regionId = getParaToInt("id");
+        if (regionId == null) {
             RenderKit.renderError(this);
         } else {
-            List<Class> classList = classService.getClassInfoByRegionId(rid);
+            List<Class> classList = classService.getClassByRegionId(regionId);
             if (classList.size() != 0) {
                 RenderKit.renderSuccess(this, JsonKit.toJson(classList));
             } else {
@@ -195,4 +204,99 @@ public class SubsidyController extends BaseController {
             }
         }
     }
+
+    public void addRegionSubsidyClass() {
+        int id = 0;
+        int totalsubsidyAmount = 0;
+        int totalbonus = 0;
+        String cidJsonArray = getPara("classId");
+        System.out.println("==========cidJsonArray===========" + cidJsonArray);
+        JSONArray jsonArray = JSON.parseArray(cidJsonArray);
+        List<SubsidyClassInfo> sciList = subsidyClassInfoService.getAllSubsidyClassInfo();
+        if (sciList.size() != 0) {
+            for (SubsidyClassInfo subsidyClassInfo : sciList) {
+                if (subsidyClassInfo.getApproveStatus() == APPROV_STATUS_NO) {
+                    subsidyClassInfo.delete();
+                }
+            }
+        }
+        for (Object o : jsonArray) {
+            System.out.println(o.toString());
+            int cid = Integer.valueOf(o.toString());
+            List<Student> studentList = studentService.getStudentByClassId(cid);
+            for (Student student : studentList) {
+                totalsubsidyAmount += student.getSubsidyPer();
+                totalbonus += student.getBonus();
+                setSubsidyClassInfo(++id, student);
+            }
+            setDefaultSubsidyApplicationInfo(totalsubsidyAmount, totalbonus, cid, studentList);
+        }
+        RenderKit.renderSuccess(this);
+    }
+
+    private void setSubsidyClassInfo(int id, Student student) {
+        SubsidyClassInfo sci = new SubsidyClassInfo();
+        sci.setId(++id);
+        sci.setClassId(student.getClassId());
+        sci.setClassName(student.getClassName());
+        sci.setRegionId(student.getRegionId());
+        sci.setStudentId(student.getId());
+        sci.setStudentName(student.getName());
+        sci.setSubsidyAmount(student.getSubsidyPer());
+        sci.setBonus(student.getBonus());
+        int n = student.getResidualFrequency();
+        if (n >= 0) {
+            sci.setResidualFrequency(n);
+        }
+        sci.setStatus(student.getStatus());
+        sci.setApproveStatus(APPROV_STATUS_NO);
+        sci.setRemark(student.getRemark());
+        subsidyClassInfoService._saveSubsidyClassInfo(sci);
+    }
+
+    private void setDefaultSubsidyApplicationInfo(int totalsubsidyAmount, int totalbonus, int cid, List<Student> studentList) {
+        User user = getCurrentUser(this);
+        SubsidyApplication sa = new SubsidyApplication();
+        sa.setApplicantId(user.getId());
+        sa.setApplicantName(user.getUserNickname());
+        sa.setApplicationDate(System.currentTimeMillis());
+        sa.setRegionId(classService.getClassById(cid).getRegionId());
+        sa.setClassId(cid);
+        sa.setClassName(classService.getClassById(cid).getClassName());
+        sa.setNumber(studentList.size());
+        sa.setTotalSubsidy(totalsubsidyAmount);
+        sa.setTotalBonus(totalbonus);
+        sa.setAggregateAmount(totalsubsidyAmount + totalbonus);
+        sa.setApproveStatus(APPROV_STATUS_NO);
+        judgeAndAdd(user, sa);
+        RenderKit.renderSuccess(this);
+    }
+
+    private void judgeAndAdd(User user, SubsidyApplication sa) {
+        List<SubsidyApplication> applications = subsidyApplicationService.getAllApplications();
+        if (applications.size() != 0) {
+            boolean different = true;
+            for (SubsidyApplication application : applications) {
+                boolean judgeStatus = (sa.getApproveStatus().intValue() == application.getApproveStatus().intValue()) && (application.getApproveStatus().intValue() == 9);
+                boolean judgeClassId = application.getClassId().intValue() == sa.getClassId().intValue();
+                System.out.println(application.getClassId().intValue() + "++++++++++++++" + sa.getClassId().intValue());
+                if (judgeClassId && judgeStatus) {
+                    String className = classService.getClassById(sa.getClassId()).getClassName();
+                    RenderKit.renderError(this, "你所选班级：" + className + "已在申请列表中请勿重复添加！");
+                    different = false;
+                    break;
+                } else {
+                    continue;
+                }
+            }
+            if (different) {
+                subsidyApplicationService._saveApplication(sa);
+            }
+        } else {
+            subsidyApplicationService._saveApplication(sa);
+        }
+
+    }
+
+
 }

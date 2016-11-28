@@ -23,7 +23,7 @@
 
         </div>
     </div>
-    <div class="tip-container">
+    <div class="tip-container" style="overflow: auto">
         <ul class="nav" id="main-menu">
         <#assign tag = 0>
         <#assign start = 0>
@@ -48,6 +48,14 @@
 
             <#assign tag = tag + 1>
         </#list>
+            <script type="text/javascript">
+                $(function(){
+                    $('#main-menu').find('li').on('click', function () {
+                        $('#main-menu').find('li').removeClass('active-menu');
+                        $(this).addClass('active-menu');
+                    });
+                })
+            </script>
         </ul>
     </div>
 

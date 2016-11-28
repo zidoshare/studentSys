@@ -22,11 +22,14 @@ public class SubsidyClassInfoService extends Service {
     /**
      * 删除指定申请班级
      *
-     * @param id
+     * @param classId
      * @return
      */
-    public boolean _deleteSubsidyClassInfoById(String id) {
-        return SubsidyClassInfo.dao.deleteById(id);
+    public void _deleteSubsidyClassInfoByClassId(int classId) {
+        List<SubsidyClassInfo> classInfos = SubsidyClassInfo.dao.find(SubsidyClassInfo.SEARCH_FROM_SUBSIDY_CLASSINFO + "where classId = ?", classId);
+        for (SubsidyClassInfo classInfo : classInfos) {
+            classInfo.delete();
+        }
     }
 
     /**

@@ -1,11 +1,17 @@
 package com.hudongwx.studentsys.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.hudongwx.studentsys.common.BaseController;
+import com.hudongwx.studentsys.exceptions.ServiceException;
 import com.hudongwx.studentsys.model.Class;
 import com.hudongwx.studentsys.model.Mapping;
 import com.hudongwx.studentsys.model.Student;
 import com.hudongwx.studentsys.model.User;
-import com.hudongwx.studentsys.service.*;
+import com.hudongwx.studentsys.service.ClassService;
+import com.hudongwx.studentsys.service.StudentService;
+import com.hudongwx.studentsys.service.UserService;
 import com.hudongwx.studentsys.util.Common;
 import com.hudongwx.studentsys.util.RenderKit;
 import com.jfinal.aop.Before;
@@ -41,7 +47,7 @@ public class StudentController extends BaseController {
     }
 
     @Before(POST.class)
-    public void addStudent(){
+    public void addStudent() throws ServiceException {
         Student model = getModel(Student.class);
         if(studentService._save(model)){
             RenderKit.renderSuccess(this);
@@ -49,5 +55,20 @@ public class StudentController extends BaseController {
         }
 
         RenderKit.renderError(this);
+    }
+    /**
+     *更新学生信息[需要前台参数：stu(json数组)]
+     */
+    public void updateStudentInfo(){
+        String jsonArrayStu = getPara("stu");
+        JSONArray stuArray = JSON.parseArray(jsonArrayStu);
+        for (Object o : stuArray) {
+            JSONObject jsonObject = JSON.parseObject(o.toString());
+            Student stu =new Student();
+            stu.setId(jsonObject.getInteger("id"));
+            stu.setBonus(jsonObject.getInteger("bonus"));
+            studentService._updateStudentById(stu);
+        }
+        RenderKit.renderSuccess(this);
     }
 }

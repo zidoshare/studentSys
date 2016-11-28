@@ -28,6 +28,6 @@ public class UserRegionService extends Service {
     }
 
     public List<UserRegion> getUserRegionInfoByUserId(int userid) {
-        return UserRegion.dao.find(UserRegion.SELECT_FROM_USERREGION + "userId=?", userid);
+        return UserRegion.dao.find(UserRegion.SELECT_FROM_USERREGION + "where userId=?", userid);
     }
 }
