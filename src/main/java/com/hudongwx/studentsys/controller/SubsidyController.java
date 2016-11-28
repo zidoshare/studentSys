@@ -38,10 +38,17 @@ public class SubsidyController extends BaseController {
         Page<SubsidyApplication> salist = subsidyApplicationService.getSubsidyApplicationByApplicantId(user.getId(), p);
         setAttr("subsidyClasses", salist);
     }
-
+    public void apply(){
+        setMapping(mappingService.getMappingByUrl("/subsidyManager/apply"));
+        super.index();
+    }
     @Override
     public Mapping init() {
         return mappingService.getMappingByUrl("/subsidyManager");
+    }
+    public void historyManager(){
+        setMapping(mappingService.getMappingByUrl("/subsidyManager/tagManager"));
+        super.index();
     }
 
     /****************************申请表信息*******************************/

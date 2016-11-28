@@ -125,7 +125,7 @@
                         </mapping>
                     </mappings>
                 </mapping>
-                <mapping id="5010" icon="fa fa-usd" url="/subsidyManager" title="申请历史" function="3">
+                <mapping id="5010" icon="fa fa-usd" url="/subsidyManager/historyManager" title="申请历史" function="3">
                     <mappings>
                         <mapping id="5011" icon="apply" url="/subsidyManager/applicationHistoryList.ftl" title="申请历史列表" function="1">
                             <mappings>
