@@ -1,5 +1,6 @@
 package com.hudongwx.studentsys.common;
 
+import com.hudongwx.studentsys.exceptions.BaseException;
 import com.hudongwx.studentsys.exceptions.ServiceException;
 import com.hudongwx.studentsys.util.Common;
 import com.hudongwx.studentsys.util.InsertKit;
@@ -81,9 +82,15 @@ public class UrlInterceptor implements Interceptor {
         //一些常见异常提示
         if ("java.lang.NumberFormatException".equals(eClassName)) {
             message = "请输入正确的数字";
-        } else if (e instanceof ServiceException || e instanceof RuntimeException) {
+        } else if (e instanceof BaseException) {
+            String type = "";
+            if (JFinal.me().getConstants().getDevMode()) {
+                type = ((BaseException) e).getType();
+            }
             message = e.getMessage();
-            if (StrPlusKit.isBlank(message)) message = e.toString();
+            if (StrPlusKit.isBlank(message))
+                message = e.toString();
+            message = type + "：" + message;
         }
 
         //获取默认异常提示

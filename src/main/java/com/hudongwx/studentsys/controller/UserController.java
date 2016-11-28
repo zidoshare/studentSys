@@ -86,7 +86,7 @@ public class UserController extends BaseController {
         }
     }
     @Before(POST.class)
-    public void addUser(){
+    public void addUser() throws ServiceException {
         User user = getModel(User.class);
         if(userService._saveUser(user)){
             RenderKit.renderSuccess(this);

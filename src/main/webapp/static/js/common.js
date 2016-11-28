@@ -152,28 +152,37 @@ var Validate = {
 };
 
 var Util = {
-    ajax:function(url,options){
+    ajax: function (url, options) {
         var defaults = {
-            url:url,
-            data:{},
-            dataType:'json',
-            type:'post',
-            beforeSend:Exception.beforeSend(),
-            success:Exception.success(),
-            error:Exception.error(),
-            complete:Exception.complete(),
-            btnSelector:'#save-btn'
+            url: url,
+            data: {},
+            dataType: 'json',
+            type: 'post',
+            beforeSend: {},
+            success: {},
+            error:{},
+            complete: {},
+            btnSelector: '#save-btn'
         };
-        var opts = $.extend(defaults,options);
-        if(opts.btnSelector != null && opts.btnSelector != '' && opts.btnSelector != '#save-btn'){
-            opts.beforeSend = Exception.beforeSend({
-                selector:opts.btnSelector
-            });
-            opts.complete = Exception.complete({
-                selector:opts.btnSelector
-            });
+        var opts = $.extend(defaults, options);
+        if (opts.btnSelector != null && opts.btnSelector != '' && opts.btnSelector != '#save-btn') {
+            opts.beforeSend = {
+                selector: opts.btnSelector
+            };
+            opts.complete = {
+                selector: opts.btnSelector
+            };
         };
-        $.ajax(opts);
+        $.ajax({
+            url: opts.url,
+            data:opts.data,
+            dataType: opts.dataType,
+            type: opts.type,
+            beforeSend:Exception.beforeSend(opts.beforeSend),
+            success: Exception.success(opts.success),
+            error: Exception.error(opts.error),
+            complete: Exception.complete(opts.complete)
+        });
     },
     input: function (dom, name, id) {
         var width = dom.width() + 80;
@@ -874,9 +883,9 @@ var func = {
             $('#role').find('input').each(function () {
                 json[$(this).attr('name')] = $(this).val();
             });
-            Util.ajax(Label.staticServePath + '/userManager/addRole',{
+            Util.ajax(Label.staticServePath + '/userManager/addRole', {
                 data: json,
-                btnSelector:'#saveRole-btn'
+                btnSelector: '#saveRole-btn'
             });
         }
     },
@@ -1642,7 +1651,15 @@ var Test = {
 
 var Exception = {
     success: function (options) {
-        return function(data){
+        /** 参数接受
+        *   success:
+        *      类型：方法->当接收到RenderKit.renderSuccess时的处理方法
+        *   error:
+        *      类型：方法->当接收到RenderKit.renderError时的处理方法
+        *   onShowSuccess:
+         *      类型：json对象->当展示tip时的处理设置
+         **/
+        return function (data) {
             var defaults = {
                 success: function () {
                 },
@@ -1663,7 +1680,7 @@ var Exception = {
         }
     },
     error: function (options) {
-        return function(XMLHttpRequest, textStatus, errorThrown){
+        return function (XMLHttpRequest, textStatus, errorThrown) {
             var defaults = {
                 onShowTip: {}
             };
@@ -1672,10 +1689,10 @@ var Exception = {
         }
     },
     complete: function (options) {
-        return function(XMLHttpRequest,textStatus){
+        return function (XMLHttpRequest, textStatus) {
             var defaults = {
                 do: function (selector) {
-                    if(selector == null || selector == '')
+                    if (selector == null || selector == '')
                         selector = "#save-btn";
                     var btn = Ladda.create(document.querySelector(selector));
                     btn.stop();
@@ -1685,11 +1702,11 @@ var Exception = {
             opts.do(opts.selector);
         }
     },
-    beforeSend:function(options){
-        return function(XMLHttpRequest){
+    beforeSend: function (options) {
+        return function (XMLHttpRequest) {
             var defaults = {
                 do: function (selector) {
-                    if(selector == null || selector == '')
+                    if (selector == null || selector == '')
                         selector = "#save-btn";
                     var btn = Ladda.create(document.querySelector(selector));
                     btn.start();

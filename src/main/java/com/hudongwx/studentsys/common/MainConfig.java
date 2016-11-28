@@ -71,7 +71,8 @@ public class MainConfig extends JFinalConfig{
 
     public void configInterceptor(Interceptors me) {
         //对增删改操作开启事务
-        me.add(new TxByMethodRegex("(^_save.*|^_update.*|^_delete.*|^post.*)"));
+        System.out.println("开启事务");
+        me.add(new TxByMethodRegex("(^_save|^_update|^_delete|^post)"));
         me.add(new UrlInterceptor());
         FreeMarkerRender.getConfiguration().setSharedVariable("InsertKit",new InsertKit());
         /*initMapping();*/
