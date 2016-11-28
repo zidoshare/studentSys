@@ -1,5 +1,6 @@
 package com.hudongwx.studentsys.common;
 
+import com.hudongwx.studentsys.exceptions.ServiceException;
 import com.hudongwx.studentsys.util.TxKit;
 import com.jfinal.aop.Interceptor;
 import com.jfinal.aop.Invocation;
@@ -9,14 +10,17 @@ import com.jfinal.aop.Invocation;
  */
 public class MyTx implements Interceptor {
     @Override
-    public void intercept(Invocation inv) {
+    public void intercept(Invocation inv){
         TxKit.beginTran();
+        System.out.println("事务处理");
         try{
             inv.invoke();
         }catch (Exception e){
-            e.printStackTrace();
             TxKit.rollback();
+            System.out.println("错误回滚");
+            throw e;
         }
+        System.out.println("无错不回滚");
         TxKit.commit();
     }
 }

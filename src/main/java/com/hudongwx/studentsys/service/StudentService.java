@@ -42,12 +42,12 @@ public class StudentService extends Service {
         return students.get(0);
     }
 
-    public List<Student> getStudentsByName(String name){
+    public List<Student> getStudentsByName(String name) {
         return Student.dao.find(Student.SEARCH_FROM_STUDENT + "where name = ?", name);
     }
 
-    public List<Student> findStudentByKey(String key){
-        key = "%"+key+"%";
+    public List<Student> findStudentByKey(String key) {
+        key = "%" + key + "%";
         return Student.dao.find(Student.SEARCH_FROM_STUDENT + "where name like ?", key);
     }
 
@@ -59,14 +59,9 @@ public class StudentService extends Service {
         return Student.dao.paginate(currentPage, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, Student.SQL_FROM + Common.ORDER_BY_ID_DESC);
     }
 
-    public boolean _save(Student model) {
-        try {
-            packingStudent(model);
-            return model.save();
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
-        return false;
+    public boolean _save(Student model) throws ServiceException {
+        packingStudent(model);
+        return model.save();
     }
 
     private void packingStudent(Student student) throws ServiceException {

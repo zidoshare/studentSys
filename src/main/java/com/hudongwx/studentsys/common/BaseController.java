@@ -83,7 +83,7 @@ public abstract class BaseController extends Controller {
         setAttr(Common.LABEL_INVALID_PASSWORD, langProp.get(Common.LABEL_INVALID_PASSWORD));
     }
 
-    private void fillFooter() {
+    public void fillFooter() {
         /*Prop langProp = LangConfig.getLangProp();
         Enumeration<Object> elements = langProp.getProperties().elements();
         while(elements.hasMoreElements()) {
@@ -118,7 +118,7 @@ public abstract class BaseController extends Controller {
         List<Mapping> childSides = new ArrayList<>();
         List<Mapping> views = new ArrayList<>();
         final int[] size = new int[Common.MAX_DEGREE];
-        roleTree.checkTree(now -> {
+        roleTree.checkTreePreorder(now -> {
             if (roleTree.getParent(now) == null)
                 return true;
             //子菜单计数,只支持二级菜单。。。子菜单下继续遍历子视图
@@ -188,7 +188,7 @@ public abstract class BaseController extends Controller {
         return fillContentParent() && fillContentChild();
     }
 
-    protected void fillHeaderAndFooter() {
+    public void fillHeaderAndFooter() {
         fillHeader();
         fillFooter();
     }
