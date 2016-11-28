@@ -115,13 +115,10 @@
                                 <mapping id="5003" icon="seeApply" title="查看" url="seeApply" function="0">
                                     <mappings/>
                                 </mapping>
-                                <mapping id="5004" icon="updateApply" title="修改" url="updateApply" function="0">
+                                <mapping id="5004" icon="deleteApply" title="删除" url="deleteApply" function="0">
                                     <mappings/>
                                 </mapping>
-                                <mapping id="5005" icon="deleteApply" title="删除" url="deleteApply" function="0">
-                                    <mappings/>
-                                </mapping>
-                                <mapping id="5006" icon="addApplyClass" title="+添加申请班级" url="addApplyClass" function="0">
+                                <mapping id="5005" icon="addApplyClass" title="+添加申请班级" url="addApplyClass" function="0">
                                     <mappings/>
                                 </mapping>
                             </mappings>

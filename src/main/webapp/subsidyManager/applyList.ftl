@@ -18,7 +18,7 @@ ${view.title}
             </div>
         </div>
     </div>
-    <div id="table-apply">
+    <div id="table-inner">
         <div id="dataTables-example_subsidy" class="table-responsive dataTables_wrapper form-inline" role="grid">
             <table class="table table-striped table-bordered table-hover dataTable no-footer"
                    id="dataTables-example" aria-describedby="dataTables-example_apply">
@@ -39,7 +39,7 @@ ${view.title}
                     <th>
                         合计
                     </th>
-                    <#if addAble || updateAble || deleteAble>
+                    <#if addAble ||  deleteAble>
                         <th>
                             操作
                         </th>
@@ -49,7 +49,7 @@ ${view.title}
                 </thead>
                 <tbody>
                     <#list subsidyClasses.list as sub>
-                    <tr>
+                    <tr id="list${sub.classId}">
                         <td>
                         ${sub.className}
                         </td>
@@ -65,7 +65,7 @@ ${view.title}
                         <td>
                         ${sub.aggregateAmount}
                         </td>
-                        <#if  addAble || updateAble || deleteAble>
+                        <#if  addAble ||  deleteAble>
                             <td>
                                 <#list map["operators"+view.id] as op>
                                     <#if op.url == "seeApply">
@@ -74,10 +74,7 @@ ${view.title}
                                     ${InsertKit(btnLabel,"${sub.classId}")}/
                                     </#if>
                                 </#list>
-                                <#if updateAble>
-                                ${InsertKit(updateBtn,"修改")}/
-                                </#if>
-                            ${InsertKit(deleteBtn,"删除")}
+                            ${InsertKit(deleteBtn,"${sub.classId}")}
                             </td>
                         </#if>
                     </tr>
@@ -110,15 +107,10 @@ ${view.title}
                 <#if holdPath?contains("?")><#assign str = "&"></#if>
                 <@paginate page = subsidyClasses url=holdPath+str pageAfter="p">
                 </@paginate>
-            </#if>
-            <#if user?exists>
                 <div class="modal-footer text-center">
                 ${addBtn}
                 ${saveBtn}
                 </div>
-
-            <#else >
-
             </#if>
 
         </div>
@@ -128,14 +120,14 @@ ${view.title}
 
 <div class="modal fade" id="submitApplyModel" tabindex="-1" role="dialog" aria-labelledby="submitApplyModelLabel"
      aria-hidden="true">
-    <div class="modal-dialog modal-lg " style="width:600px;">
+    <div class="modal-dialog " style="width: 600px auto" >
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header text-center">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
                         class="sr-only">Close</span></button>
                 <h4 class="modal-title" id="myModalLabel">申请提交信息:</h4>
             </div>
-            <div class="input-group">
+            <div class="input-group text-center">
                 <span class="input-group-addon">审批人:</span>
                 <div class="dropdown">
                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
@@ -191,7 +183,9 @@ ${view.title}
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary">提交</button>
+                <button data-style="slide-up" id="saveRole-btn" class="btn btn-primary ladda-button" onclick="func.submitApplyClass('up')">
+                    <span class="ladda-label">保存</span>
+                </button>
             </div>
         </div>
     </div>
@@ -250,7 +244,7 @@ ${view.title}
             <tr>
                 <th>
                     <div class="checkbox3 checkbox-round text-center" id="cekAll">
-                        <input type="checkbox" id="index">
+                        <input type="checkbox" id="index" >
                         <label class="checkbox-2" style="display: inline" for="index">
                         </label>
                     </div>
@@ -276,13 +270,9 @@ ${view.title}
     </div>
 
 </div>
-<script type="text/javascript">
-//    var checkAll = function () {
-//        if($('#parent-input1').is(':checked')) {
-//            alert('OK');
-//        }
-//    },
 
+
+<script type="text/javascript">
     var showTemplate = function (id) {
         $.ajax({
             type: 'post',
@@ -293,28 +283,31 @@ ${view.title}
             success: function (data, status) {
                 console.log(data);
                 if (data.state = 'success') {
-                    var json = JSON.parse(data.msg);
-                    console.log(json);
-                    var serial = 1;
-                    json.map(function (elem, num) {
-                        var ckeckBoox = $("#index").parent().clone();
-                        var input = ckeckBoox.find('input:first');
-                        var label = ckeckBoox.find('label:first');
-
-                        input.attr('id', 'index' + elem['id']);
-                        label.attr('for', "index" + elem['id']);
-                        var str = '<tr id="{id}">' +
-                                '<td></td>' +
-                                '<td>' + serial + '</td>' +
-                                '<td>{className}</td>' +
-                                '<td>{studentCnt}</td>' +
-                                '<td>{classOpeningTime}</td>' +
-                                '</tr>';
-                        serial++;
-                        str = Util.jsonToString(str, elem);
-                        $('div#' + 'role' + id).find('tbody:first').append(str);
-                        $('tr#'+elem['id']).find('td:first').append(ckeckBoox);
-                    })
+                    if (data.msg!=''){
+                        var json = JSON.parse(data.msg);
+                        console.log(json);
+                        var serial = 1;
+                        json.map(function (elem, num) {
+                            var ckeckBoox = $("#index").parent().clone();
+                            var input = ckeckBoox.find('input:first');
+                            var label = ckeckBoox.find('label:first');
+                            input.attr('tag','input');
+                            input.attr('name',elem['id']);
+                            input.attr('id', 'index' + elem['id']);
+                            label.attr('for', "index" + elem['id']);
+                            var str = '<tr id="{id}">' +
+                                    '<td></td>' +
+                                    '<td>' + serial + '</td>' +
+                                    '<td>{className}</td>' +
+                                    '<td>{studentCnt}</td>' +
+                                    '<td>{classOpeningTime}</td>' +
+                                    '</tr>';
+                            serial++;
+                            str = Util.jsonToString(str, elem);
+                            $('div#' + 'role' + id).find('tbody:first').append(str);
+                            $('tr#' + elem['id']).find('td:first').append(ckeckBoox);
+                        })
+                    }
                 }
 
             }

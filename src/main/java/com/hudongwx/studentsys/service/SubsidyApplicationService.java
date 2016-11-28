@@ -49,6 +49,18 @@ public class SubsidyApplicationService extends Service {
     }
 
     /**
+     * 删除指定班级id的申请表
+     * @return
+     */
+    public boolean _deleteSubsidyApplicationByClassId(int classId) {
+        List<SubsidyApplication> subsidyApplications = SubsidyApplication.dao.find(SubsidyApplication.SEARCH_FROM_SUBSIDY_APPLICATION+"where classId = ?",classId);
+        for (SubsidyApplication sa : subsidyApplications) {
+            sa.delete();
+        }
+        return true;
+    }
+
+    /**
      * 删除所有表
      * @return
      */
@@ -67,6 +79,10 @@ public class SubsidyApplicationService extends Service {
      */
     public boolean _updateSubsidyApplication(SubsidyApplication sa) {
         return sa.update();
+    }
+
+    public List<SubsidyApplication>getAllApplications(){
+        return SubsidyApplication.dao.find(SubsidyApplication.SEARCH_FROM_SUBSIDY_APPLICATION);
     }
 
     /**
@@ -92,7 +108,11 @@ public class SubsidyApplicationService extends Service {
      * @return
      */
     public List<SubsidyApplication> getSubsidyApplicationByUserId(int userid) {
-        return SubsidyApplication.dao.find(SubsidyApplication.SEARCH_FROM_SUBSIDY_APPLICATION + "where approverId=?", userid);
+        return SubsidyApplication.dao.find(SubsidyApplication.SEARCH_FROM_SUBSIDY_APPLICATION + "where approverId=? and approveStatus=10 and approverId is NULL", userid);
+    }
+
+    public List<SubsidyApplication>getApplicationHistoryByApplicantId(int applicantId){
+        return SubsidyApplication.dao.find(SubsidyApplication.SEARCH_FROM_SUBSIDY_APPLICATION+"where applicantId = ? and (approveStatus=10 or approveStatus=8 ) and approverId is not NULL ");
     }
 
 }

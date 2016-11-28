@@ -861,26 +861,34 @@ var func = {
             var data = [];
             var x = 0;
             $('#myModal').find("input[type='checkbox']").each(function (index, dom) {
-                if ($(this).prop('checked'))
+                if ($(this).prop('checked')){
+                    console.log('1='+$(this).attr('name'));
                     data[x++] = $(this).attr('name');
+                }
+
             });
             data = data.sort(function (a, b) {
                 return a - b;
             });
+            console.log('2='+data);
             var d = "";
             for (var i = 0; i < data.length; i++) {
                 d += data[i] + ":";
             }
+            console.log('d1='+d);
             if (d.length > 0)
                 d = d.substr(0, d.length - 1);
+            console.log('d2='+d);
             $('#treeData').val(d);
             $('#createTime').val(new Date().getTime());
             var btn = Ladda.create(document.querySelector("#saveRole-btn"));
             btn.start();
             var json = {};
             $('#role').find('input').each(function () {
+                console.log('json='+$(this).attr('name'));
                 json[$(this).attr('name')] = $(this).val();
             });
+
             $.ajax({
                 url: Label.staticServePath + '/userManager/addRole',
                 type: 'post',
@@ -1104,8 +1112,35 @@ var func = {
             }
         });
     },
-    deleteApply:function(){
+    deleteApply:function(method,classId){
+        if (method=='show'){
+            if (confirm('确认删除？')){
+                $.ajax({
+                    url:Label.staticServePath+"/subsidyManager/deleteSubsidyClassInfo",
+                    type:'post',
+                    data:{
+                        'classId':classId
+                    },
+                    success: function (data, status) {
 
+                        if (data.state == 'success') {
+                            Util.showTip($('#wholeTip'), data.msg, "alert alert-success",{
+                                before: function () {
+                                    $('tr#list' + classId).remove();
+                                    Util.reloadByPjax('#table-inner');
+                                }
+                            });
+                        }
+                        else{
+                            Util.showTip($('#wholeTip'), data.msg, "alert alert-danger");
+                        }
+                    },
+                    error: function () {
+                        Util.showTip($('#wholeTip'), '服务器错误', "alert alert-danger");
+                    }
+                });
+            }
+        }
     },
     seeApply:function (method,id) {
             modalUtil.show($('#seeApplyModel'));
@@ -1120,9 +1155,9 @@ var func = {
                         var json = JSON.parse(data.msg);
                         json.map(function(elem,num){
                             var sta;
-                            if (elem['state']==1){
+                            if (elem['status']==1){
                                 sta='在读';
-                            }else if (elem['state']==0){
+                            }else if (elem['status']==0){
                                 sta='毕业';
                             }
 
@@ -1156,9 +1191,48 @@ var func = {
                 }
             });
     },
+    submitApplyClass:function (method) {
+        var modal= $('#addApplyModel');
+        if (method == 'up'){
+            var json = [];
+            var x = 0;
+           modal.find("input[tag='input']").each(function (index, dom) {
+                if ($(this).prop('checked')){
+                    console.log('1='+$(this).attr('name'));
+                    json[x++] = $(this).attr('name');
+                }
+            });
+
+            var btn = Ladda.create(document.querySelector("#saveRole-btn"));
+            btn.start();
+            $.ajax(Label.staticServePath + '/subsidyManager/addRegionSubsidyClass',{
+                type: 'post',
+                data: {
+                    'classId':JSON.stringify(json)
+                },
+                dataType: "json",
+                success: function (data) {
+                    if (data.state == 'success') {
+                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
+                        modal.modal('hide');
+                        //刷新页面
+                        Util.reloadByPjax();
+                    } else
+                        Util.showTip($('#wholeTip'), '添加失败', 'alert alert-warning');
+                },
+                error: function (info) {
+                    Util.showTip($('#wholeTip'),info.msg , 'alert alert-danger');
+                },
+                complete: function () {
+                    btn.stop();
+                }
+            });
+        }
+    },
     addApplyClass:function (method) {
+        var model = $('#addApplyModel');
         if(method=="show"){
-            modalUtil.show($('#addApplyModel'));
+            modalUtil.toggleClear(model);
             $.ajax(Label.staticServePath+"/subsidyManager/showRegion",{
                 type:'post',
                 dataType:'json',
@@ -1182,17 +1256,19 @@ var func = {
                             head=Util.jsonToString(head,elems);
                             body=Util.jsonToString(body,elems);
 
-                            $('#addApplyModel').find('ul:first').append(head);
-                            $('#addApplyModel').find('#classBody').append(body);
-                         
-                            // $('#addApplyModel').find('th:first').find('div:first').attr('id','check'+elems['id']);
+                            model.find('ul:first').append(head);
+                            model.find('#classBody').append(body);
+
                             var regionDiv = Util.region($(this));
                             var input = regionDiv.find('input:first');
                             input.attr('id','parent-input'+elems['id']);
-                            input.attr('value',elems['id']);
+                            input.val(elems['id']);
                             regionDiv.find('label:first').attr('for','parent-input'+elems['id']);
                             $('div#'+'role'+elems['id']).append(regionDiv);
                         });
+                        // window.onload = function() {
+                        //     func.allcheck(modl);
+                        // };
                         if (json.length > 0){
                             showTemplate(json[0]['id']);
                         }
@@ -1200,11 +1276,7 @@ var func = {
                         $('a[tag="tag"]').one('shown.bs.tab', function () {
                             showTemplate($(this).attr('data-label'));
                         });
-
-
-
-
-                        $('#addApplyModel').one('hidden.bs.modal',function(){
+                        model.one('hidden.bs.modal',function(){
                             $(this).find('#class-add-ul').html('');
                             $(this).find('#classBody').html('');
                             $('div.tab-pane').off('shown.bs.tab');
@@ -1215,12 +1287,17 @@ var func = {
         }else {
             modalUtil.show($('#submitApplyModel'));
         }
-
-
-
-            // $('#studentCnt').val(0);
-        
     },
+    //
+    // allcheck:function (modl) {
+    //
+    //     modl.find('input').first().onclick(function () {
+    //         $("input[type=checkbox]").each(function () {
+    //
+    //             $(this).prop('checked', true);//
+    //         });
+    //     });
+    // },
     addClass: function (method) {
         if (method == 'up') {
             var btn = Ladda.create(document.querySelector("#save-btn"));
