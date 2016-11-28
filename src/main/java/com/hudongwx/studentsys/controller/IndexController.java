@@ -3,6 +3,7 @@ package com.hudongwx.studentsys.controller;
 import com.hudongwx.studentsys.common.BaseController;
 import com.hudongwx.studentsys.common.Build;
 import com.hudongwx.studentsys.common.MyTx;
+import com.hudongwx.studentsys.exceptions.ServiceException;
 import com.hudongwx.studentsys.model.Mapping;
 import com.hudongwx.studentsys.util.ArrayTree;
 import com.hudongwx.studentsys.util.Common;
@@ -33,7 +34,7 @@ public class IndexController extends BaseController {
     }
 
     @Before(MyTx.class)
-    public void admin() {
+    public void admin() throws ServiceException {
         String methodName = getPara("data");
         if (methodName.equals("initWebMap")) {
             try {

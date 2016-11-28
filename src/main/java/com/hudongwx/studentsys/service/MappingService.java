@@ -81,36 +81,27 @@ public class MappingService extends Service {
         return null;
     }
 
-    public boolean _saveMappings(List<Mapping> mappings) {
-        try {
-            packingMappings(mappings);
+    public boolean _saveMappings(List<Mapping> mappings) throws ServiceException {
+        packingMappings(mappings);
 
-            //神玩法....以前从来不知道有这种用法...真神奇
-            mappings.forEach(Mapping::save);
+        //神玩法....以前从来不知道有这种用法...真神奇
+        mappings.forEach(Mapping::save);
 
-            List<Mapping> mappingTree = CacheKit.get(Common.CACHE_FOREVER_LABEL, "mappingTree");
-            if (null == mappingTree)
-                mappingTree = new ArrayList<>();
-            mappingTree.addAll(mappings);
-            CacheKit.put(Common.CACHE_FOREVER_LABEL, "mappingTree", mappingTree);
-            return true;
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
-        return false;
+        List<Mapping> mappingTree = CacheKit.get(Common.CACHE_FOREVER_LABEL, "mappingTree");
+        if (null == mappingTree)
+            mappingTree = new ArrayList<>();
+        mappingTree.addAll(mappings);
+        CacheKit.put(Common.CACHE_FOREVER_LABEL, "mappingTree", mappingTree);
+        return true;
     }
 
-    public boolean _saveMapping(Mapping mappingNode) {
+    public boolean _saveMapping(Mapping mappingNode) throws ServiceException {
         boolean x = false;
-        try {
-            packingMapping(mappingNode);
-            x = mappingNode.save();
-            List<Mapping> mappingTree = CacheKit.get(Common.CACHE_FOREVER_LABEL, "mappingTree");
-            mappingTree.add(mappingNode);
-            CacheKit.put(Common.CACHE_FOREVER_LABEL, "mappingTree", mappingTree);
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
+        packingMapping(mappingNode);
+        x = mappingNode.save();
+        List<Mapping> mappingTree = CacheKit.get(Common.CACHE_FOREVER_LABEL, "mappingTree");
+        mappingTree.add(mappingNode);
+        CacheKit.put(Common.CACHE_FOREVER_LABEL, "mappingTree", mappingTree);
         return x;
     }
 

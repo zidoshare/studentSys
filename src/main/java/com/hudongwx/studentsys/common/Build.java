@@ -1,5 +1,6 @@
 package com.hudongwx.studentsys.common;
 
+import com.hudongwx.studentsys.exceptions.ServiceException;
 import com.hudongwx.studentsys.model.Mapping;
 import com.hudongwx.studentsys.model.Role;
 import com.hudongwx.studentsys.model.User;
@@ -42,7 +43,7 @@ public class Build{
     private static RoleService rs = new RoleService();
     private static ArrayTree<Mapping> tree;
     //建立地图
-    public static void buildMapping(){
+    public static void buildMapping() throws ServiceException {
         log.info("初始化地图");
         //建立mapping
         tree = new ArrayTree<>();
@@ -287,7 +288,7 @@ public class Build{
         });
         CacheKit.put(Common.CACHE_60TIME_LABEL,"mappingTree",null);
     }
-    public static void initUser(){
+    public static void initUser() throws ServiceException {
 
         //建立admin
         User admin = new User();
@@ -301,7 +302,7 @@ public class Build{
 
         log.info("初始化用户");
     }
-    public static void initRole() {
+    public static void initRole() throws ServiceException {
 
         Role admin = rs.getRoleByName("admin");
         if(null != admin)
@@ -330,17 +331,30 @@ public class Build{
         log.info("清除角色数据完成");
     }
     public static void buildControl(){
-
         JFrame jf = new JFrame("控制窗口");
         jf.setSize(200,300);
         JPanel jp = new JPanel(new FlowLayout());
         jf.setContentPane(jp);
         JButton mappingBtn = new JButton("硬初始化地图(从代码中初始化)");
-        mappingBtn.addActionListener(e -> buildMapping());
+        mappingBtn.addActionListener(e -> {
+            try {
+                buildMapping();
+            } catch (ServiceException e1) {
+                e1.printStackTrace();
+            }
+        });
         JButton roleBtn = new JButton("初始化角色");
         roleBtn.addActionListener(e -> {
-            initRole();
-            initUser();
+            try {
+                initRole();
+            } catch (ServiceException e1) {
+                e1.printStackTrace();
+            }
+            try {
+                initUser();
+            } catch (ServiceException e1) {
+                e1.printStackTrace();
+            }
         });
         JButton clearBtn = new JButton("清除地图数据");
         clearBtn.addActionListener(e -> clearMapping());

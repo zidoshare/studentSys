@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.hudongwx.studentsys.common.BaseController;
+import com.hudongwx.studentsys.exceptions.ServiceException;
 import com.hudongwx.studentsys.model.Class;
 import com.hudongwx.studentsys.model.Mapping;
 import com.hudongwx.studentsys.model.Student;
@@ -46,7 +47,7 @@ public class StudentController extends BaseController {
     }
 
     @Before(POST.class)
-    public void addStudent(){
+    public void addStudent() throws ServiceException {
         Student model = getModel(Student.class);
         if(studentService._save(model)){
             RenderKit.renderSuccess(this);

@@ -59,14 +59,9 @@ public class StudentService extends Service {
         return Student.dao.paginate(currentPage, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, Student.SQL_FROM + Common.ORDER_BY_ID_DESC);
     }
 
-    public boolean _save(Student model) {
-        try {
-            packingStudent(model);
-            return model.save();
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
-        return false;
+    public boolean _save(Student model) throws ServiceException {
+        packingStudent(model);
+        return model.save();
     }
 
     private void packingStudent(Student student) throws ServiceException {
