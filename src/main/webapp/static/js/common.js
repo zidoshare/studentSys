@@ -152,22 +152,22 @@ var Validate = {
 };
 
 var Util = {
-    input:function (dom,name,id) {
-        var width = dom.width()+80;
+    input: function (dom, name, id) {
+        var width = dom.width() + 80;
         var height = dom.height();
-        var input=$("#template-input").clone();
+        var input = $("#template-input").clone();
         input.width(width);
         // input.height(height);
         console.log(id);
-        input.attr('id',id);
-        input.css('position','relative');
-        input.attr('name',name);
+        input.attr('id', id);
+        input.css('position', 'relative');
+        input.attr('name', name);
 
         dom.addClass('sr-only');
         dom.after(input);
         return input;
     },
-    jsonToString: function (str,param) {
+    jsonToString: function (str, param) {
         var reg = /{([^{}]+)}/gm;
         return str.replace(reg, function (match, name) {
             return param[name];
@@ -1064,108 +1064,107 @@ var func = {
             })
         }
     },
-    seeApproval:function (methed,id) {
+    seeApproval: function (methed, id) {
         modalUtil.show($('#seeApprovalModel'));
-        
+
     },
-    seeApply:function (method,id) {
-            modalUtil.show($('#seeApplyModel'));
-            $.ajax(Label.staticServePath+"/subsidyManager/getSubsidyClassInfo",{
-               type:'post',
-                dataType:'json',
-                data:{
-                    'classId':id
-                },
-                success:function(data,status){
-                    if(data.state == 'success'){
-                        var json = JSON.parse(data.msg);
-                        json.map(function(elem,num){
-                            var sta;
-                            if (elem['state']==1){
-                                sta:'在读';
-                            }else if (elem['state']==0){
-                                sta:'毕业';
-                            }
-                            var str = '<tr id="{id}">' +
-                                '<td>{studentName}</td>' +
-                                '<td>{subsidyAmount}</td>' +
-                                '<td>{residualFrequency}</td>' +
-                                '<td><input placeholder="{bonus}" class="form-control" id="{id}"></td>' +
-                                '<td>{sta}</td>' +
-                                '<td>{remark}</td>' +
-                                '</tr>';
-                            str = Util.jsonToString(str,elem);
-                            console.log(str);
-                            $('#seeApplyModel').find('tbody:first').append(str);
-                            // $('tr#'+elem['id']).find('span').on('click',function () {
-                            //     var input = Util.input($(this),name,elem['id']);
-                            //     input.on('');
-                            //     var dom = $(this);
-                            //     input.on('blur',function () {
-                            //         var value = input.val();
-                            //         if(value != null && value!='')
-                            //             dom.text(value);
-                            //         $(this).remove();
-                            //         dom.removeClass('sr-only');
-                            //     });
-                            // })
-                        });
-                        $('#seeApplyModel').one('hidden.bs.modal',function(){
-                            $(this).find('tbody:first').html('');
-                            // $('tr#'+elem['id']).find('span').off('click');
-                        });
-                    }
+    seeApply: function (method, id) {
+        modalUtil.show($('#seeApplyModel'));
+        $.ajax(Label.staticServePath + "/subsidyManager/getSubsidyClassInfo", {
+            type: 'post',
+            dataType: 'json',
+            data: {
+                'classId': id
+            },
+            success: function (data, status) {
+                if (data.status == 'success') {
+                    var json = JSON.parse(data.msg);
+                    json.map(function (elem, num) {
+                        var sta;
+                        if (elem['status'] == 1) {
+                            sta:'在读';
+                        } else if (elem['status'] == 0) {
+                            sta:'毕业';
+                        }
+                        var str = '<tr id="{id}">' +
+                            '<td>{studentName}</td>' +
+                            '<td>{subsidyAmount}</td>' +
+                            '<td>{residualFrequency}</td>' +
+                            '<td><input placeholder="{bonus}" class="form-control" id="{id}"></td>' +
+                            '<td>{sta}</td>' +
+                            '<td>{remark}</td>' +
+                            '</tr>';
+                        str = Util.jsonToString(str, elem);
+                        console.log(str);
+                        $('#seeApplyModel').find('tbody:first').append(str);
+                        // $('tr#'+elem['id']).find('span').on('click',function () {
+                        //     var input = Util.input($(this),name,elem['id']);
+                        //     input.on('');
+                        //     var dom = $(this);
+                        //     input.on('blur',function () {
+                        //         var value = input.val();
+                        //         if(value != null && value!='')
+                        //             dom.text(value);
+                        //         $(this).remove();
+                        //         dom.removeClass('sr-only');
+                        //     });
+                        // })
+                    });
+                    $('#seeApplyModel').one('hidden.bs.modal', function () {
+                        $(this).find('tbody:first').html('');
+                        // $('tr#'+elem['id']).find('span').off('click');
+                    });
                 }
-            });
+            }
+        });
     },
-    addApplyClass:function (method) {
-        if(method=="show"){
+    addApplyClass: function (method) {
+        if (method == "show") {
             modalUtil.show($('#addApplyModel'));
-            $.ajax(Label.staticServePath+"/subsidyManager/getSubsidyClassInfo",{
-                type:'post',
-                dataType:'json',
-                success:function(data,status){
-                    if(data.state == 'success'){
+            $.ajax(Label.staticServePath + "/subsidyManager/showRegion", {
+                type: 'post',
+                dataType: 'json',
+                success: function (data, status) {
+                    if (data.state == 'success') {
                         var json = JSON.parse(data.msg);
-                        json.map(function (elems,index) {
+                        json.map(function (elems, index) {
 
                             var head = '<li role="presentation" {headClassName}><a href="#role{id}" role="tab" data-toggle="tab">{area}</a></li>';
-                            var body='<div role="tabpanel" {bodyClassName} id="role{id}"></div>';
-                            if(index == 0){
-                                Util.jsonToString(head,{'headClassName':'class="active"'});
-                                Util.jsonToString(body,{'bodyClassName':'class="tab-pane active"'})
-                            }else{
-                                Util.jsonToString(head,{'headClassName':''});
-                                Util.jsonToString(body,{'bodyClassName':'class="tab-pane"'})
+                            var body = '<div role="tabpanel" {bodyClassName} id="role{id}"></div>';
+                            if (index == 0) {
+                                Util.jsonToString(head, {'headClassName': 'class="active"'});
+                                Util.jsonToString(body, {'bodyClassName': 'class="tab-pane active"'})
+                            } else {
+                                Util.jsonToString(head, {'headClassName': ''});
+                                Util.jsonToString(body, {'bodyClassName': 'class="tab-pane"'})
                             }
-                            head=Util.jsonToString(head,elems);
-                            body=Util.jsonToString(body,elems);
+                            head = Util.jsonToString(head, elems);
+                            body = Util.jsonToString(body, elems);
                             $('#addApplyModel').find('ul:first').append(head);
                             $('#addApplyModel').find('#classBody').append(body);
                         });
-                        if (json.length > 0){
+                        if (json.length > 0) {
                             $.ajax({
-                                type:'post',
-                                url:Label.staticServePath+"/subsidyManager/getSubsidyClassInfo/"+json[0]['areaId'],
-                                success:function (data, status) {
+                                type: 'post',
+                                url: Label.staticServePath + "/subsidyManager/getSubsidyClassInfo/" + json[0]['areaId'],
+                                success: function (data, status) {
 
                                 }
                             })
                         }
-                        $('#seeApplyModel').one('hidden.bs.modal',function(){
+                        $('#seeApplyModel').one('hidden.bs.modal', function () {
                             $(this).find('tbody:first').html('');
                         });
                     }
                 }
             });
-        }else {
+        } else {
             modalUtil.show($('#submitApplyModel'));
         }
 
 
+        // $('#studentCnt').val(0);
 
-            // $('#studentCnt').val(0);
-        
     },
     addClass: function (method) {
         if (method == 'up') {
@@ -1202,10 +1201,56 @@ var func = {
                 }
             })
         }
-        else{
+        else {
             modalUtil.show($('#addClassModel'));
             $('#studentCnt').val(0);
         }
+    },
+    seeClassStudent: function (id) {
+        modalUtil.show($('#seeClassStudents'));
+        $.ajax(Label.staticServePath + "/studentManager",
+            {
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    'classId': id
+                },
+                success: function (data, status) {
+                    if (data.status == 'success') {
+                        var json = JSON.parse(data.msg);
+                        json.map(function (elem, num) {
+                            var str = '<tr id="{id}">' +
+                                '<td>{studentName}</td>' +
+                                '<td>{subsidyAmount}</td>' +
+                                '<td>{residualFrequency}</td>' +
+                                '<td><input placeholder="{bonus}" class="form-control" id="{id}"></td>' +
+                                '<td>{sta}</td>' +
+                                '<td>{remark}</td>' +
+                                '</tr>';
+                            str = Util.jsonToString(str, elem);
+                            console.log(str);
+                            $('#seeClassStudent').find('tbody:first').append(str);
+                            // $('tr#'+elem['id']).find('span').on('click',function () {
+                            //     var input = Util.input($(this),name,elem['id']);
+                            //     input.on('');
+                            //     var dom = $(this);
+                            //     input.on('blur',function () {
+                            //         var value = input.val();
+                            //         if(value != null && value!='')
+                            //             dom.text(value);
+                            //         $(this).remove();
+                            //         dom.removeClass('sr-only');
+                            //     });
+                            // })
+                        });
+                        $('#seeClassStudent').one('hidden.bs.modal', function () {
+                            $(this).find('tbody:first').html('');
+                            // $('tr#'+elem['id']).find('span').off('click');
+                        });
+                    }
+                }
+            }
+        );
     },
     addDomain: function (method) {
         if (method == 'show') {
@@ -1352,6 +1397,7 @@ var func = {
         $('#classId').val(id);
         modalUtil.show($('#addClassModel'));
         Util.mapping($('tr#class' + id), $('#form'));
+        JSON.S
     },
     updateTestQuestionnaire: function (method, id) {
         Util.update('testQuestionnaire', id);
@@ -1478,7 +1524,7 @@ var func = {
                         Util.showTip($('#wholeTip'), data.msg, "alert alert-success");
                         Util.reloadByPjax();
                     }
-                    else{
+                    else {
                         Util.showTip($('#wholeTip'), data.msg, "alert alert-danger");
                     }
                 },
@@ -1573,6 +1619,32 @@ var func = {
                 }
             }
         });
+    },
+
+    employmentInfo: function () {
+        $.ajax(Label.staticServePath + "/StudentEmploymentManager/getAllObtainEmploymentInfo", {
+            type: 'post',
+            dataType: 'json',
+            success: function (data) {
+                if (data.state == 'success') {
+                    var json = JSON.parse(data.msg);
+                    json.map(function (elem, num) {
+                        var str = '<tr id="{id}">' +
+                            '<td>{className}</td>' +
+                            '<td>{studentName}</td>' +
+                            '<td>{employmentStatus}</td>' +
+                            '<td>{trackTime}</td>' +
+                            '<td>{remark}</td>' +
+                            '<td>{counselorId}</td>' +
+                            '</tr>';
+                        str = Util.jsonToString(str, elem);
+                        console.log(str);
+                        // $('#seeApplyModel').find('tbody:first').append(str);
+                    });
+
+                }
+            }
+        });
     }
 };
 var modalUtil = {
@@ -1582,54 +1654,5 @@ var modalUtil = {
             modal.find('select[name] option:first').prop('selected', 'selected');
         });
         modal.modal('show');
-    },
-    toggleClear: function (modal) {
-        modal.modal('toggle');
-    },
-    hideClear: function (model, form, options) {
-        var defaults = {
-            front: '', ends: ['eId', 'CreateTime', 'UpdateTime'], end: '', before: function () {
-            }, after: function () {
-            }
-        };
-        if (options != null) {
-            $.each(options, function (name, val) {
-                defaults[name] = options[name];
-            });
-        }
-        if (defaults.end != null && defaults.end.length > 0) {
-            model.find('input,select').each(function (index, input) {
-
-                if ($(input).attr('id').indexOf(defaults.front) == 0 && $(input).attr('id').lastIndexOf(defaults.end) > 0) {
-                    $(input).val('');
-                }
-            });
-        } else {
-            for (var i = 0; i < defaults.ends.length; i++) {
-                model.find('input,select').each(function (index, input) {
-                    if ($(input).attr('id') == null)
-                        return false;
-                    if ($(input).attr('id').indexOf(defaults.front) == 0 && $(input).attr('id').lastIndexOf(defaults.ends[i]) > 0) {
-                        $(input).val('');
-                    }
-                });
-            }
-        }
-        model.modal('hide');
-        model.one('hidden.bs.modal', function (e) {
-            defaults.after();
-        })
-
     }
-};
-var Test = {
-    testPjaxReload: function () {
-        $.pjax.reload('#page-inner', {
-            fragment: '#page-inner',
-            type: 'get',
-            replace: false,
-            push: false,
-            timeout: 5000
-        });
-    }
-};
+}

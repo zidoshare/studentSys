@@ -89,6 +89,14 @@ public abstract class BaseSubsidyClassInfo<M extends BaseSubsidyClassInfo<M>> ex
 		return get("status");
 	}
 
+	public void setApproveStatus(java.lang.Integer approveStatus) {
+		set("approveStatus", approveStatus);
+	}
+
+	public java.lang.Integer getApproveStatus() {
+		return get("approveStatus");
+	}
+
 	public void setRemark(java.lang.String remark) {
 		set("remark", remark);
 	}
