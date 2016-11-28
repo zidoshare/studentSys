@@ -35,20 +35,21 @@ public class SubsidyController extends BaseController {
         super.index();
         Integer p = getParaToInt("p", 1);
         User user = getCurrentUser(this);
-        Page<SubsidyApplication> salist = subsidyApplicationService.getSubsidyApplicationByApplicantId(user.getId(), p);
-        setAttr("subsidyClasses", salist);
-    }
-    public void apply(){
-        setMapping(mappingService.getMappingByUrl("/subsidyManager/apply"));
-        super.index();
+        Page<SubsidyApplication> saList = subsidyApplicationService.getSubsidyApplicationByApplicantId(user.getId(), p);
+        setAttr("subsidyClasses", saList);
     }
     @Override
     public Mapping init() {
         return mappingService.getMappingByUrl("/subsidyManager");
     }
+
     public void historyManager(){
-        setMapping(mappingService.getMappingByUrl("/subsidyManager/tagManager"));
+        setMapping(mappingService.getMappingByUrl("/subsidyManager/historyManager"));
         super.index();
+        User user = getCurrentUser(this);
+        Integer p =getParaToInt("p",1);
+        Page<SubsidyApplication> saPages = subsidyApplicationService.getSubsidyApplicationHistoryByUserId(p, user.getId());
+        setAttr("saPages",saPages);
     }
 
     /****************************申请表信息*******************************/
@@ -185,7 +186,7 @@ public class SubsidyController extends BaseController {
             RenderKit.renderError(this);
         } else {
             for (UserRegion ur : urlist) {
-                areas.add(regionService.getRegionById(ur.getRegionId()).get(0));
+                areas.add(regionService.getRegionById(ur.getRegionId()));
             }
             if (areas.size() != 0) {
                 RenderKit.renderSuccess(this, JsonKit.toJson(areas));

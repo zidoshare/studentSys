@@ -120,35 +120,41 @@ ${view.title}
 
 <div class="modal fade" id="submitApplyModel" tabindex="-1" role="dialog" aria-labelledby="submitApplyModelLabel"
      aria-hidden="true">
-    <div class="modal-dialog " style="width: 600px auto" >
+    <div class="modal-dialog " style="width: 600px auto">
         <div class="modal-content">
             <div class="modal-header text-center">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
                         class="sr-only">Close</span></button>
                 <h4 class="modal-title" id="myModalLabel">申请提交信息:</h4>
             </div>
-            <div class="input-group text-center">
-                <span class="input-group-addon">审批人:</span>
-                <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
-                            data-toggle="dropdown">
-                        Dropdown
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
-                    </ul>
+            <div class="span9">
+                <div class="col-md-4 leaderboard">
+                    <div class="form-group">
+                        <label for="classSelect_list" class="control-label">审批人：</label>
+
+                        <select id="classSelect_list" class="selectpicker show-tick form-control" data-live-search="true">
+                        <#--<#if allClass??>-->
+                        <#list subsidyClasses.list as class>
+                            <option value="${class.classId}">${class.className}</option>
+                        </#list>
+                        <#--</#if>-->
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="row-fluid">
+                    <form role="form">
+                        <div class="form-group">
+                            <label for="name">备注:</label>
+                            <textarea class="form-control" rows="3"></textarea>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <div class="input-group">
-                <h4 class="modal-title" id="myModalLabel">备注:</h4>
-                <input type="text" class="form-control" id="submit-remarks">
-            </div>
-            <br>
+
             <div class="table table-bordered">
+                <h5>申请表名:<span id="submit-Indicate">0719班第一次申请</span></h5>
                 <h5>申请班级数:<span id="submit-class">2</span></h5>
                 <h5>申请总人数:<span id="submit-student">20</span></h5>
                 <h5>总补助:<span id="submit-subsidy">14000</span></h5>
@@ -175,6 +181,7 @@ ${view.title}
             </div>
             <div class="modal-body">
                 <ul class="nav nav-tabs" role="tablist" id="class-add-ul">
+
                 </ul>
                 <!-- Tab panes -->
                 <div class="tab-content" id="classBody">
@@ -183,7 +190,8 @@ ${view.title}
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button data-style="slide-up" id="saveRole-btn" class="btn btn-primary ladda-button" onclick="func.submitApplyClass('up')">
+                <button data-style="slide-up" id="saveRole-btn" class="btn btn-primary ladda-button"
+                        onclick="func.submitApplyClass('up')">
                     <span class="ladda-label">保存</span>
                 </button>
             </div>
@@ -207,7 +215,7 @@ ${view.title}
                     <thead>
                     <tr>
                         <th>
-                            <div class="checkbox3 checkbox-round text-center" >
+                            <div class="checkbox3 checkbox-round text-center">
                                 <input type="checkbox" id="index-look" checked="checked">
                                 <label class="checkbox-2" style="display: inline" for="index-look">
                                 </label>
@@ -235,8 +243,11 @@ ${view.title}
                     </tbody>
                 </table>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+            <div class="modal-footer text-center" >
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button data-style="slide-up" id="save-btn" class="btn btn-primary ladda-button" onclick="func.addDetails()">
+                    <span class="ladda-label">保存</span>
+                </button>
             </div>
         </div>
     </div>
@@ -250,8 +261,8 @@ ${view.title}
             <thead>
             <tr>
                 <th>
-                    <div class="checkbox3 checkbox-round text-center" >
-                        <input type="checkbox" id="index" >
+                    <div class="checkbox3 checkbox-round text-center">
+                        <input type="checkbox" id="index">
                         <label class="checkbox-2" style="display: inline" for="index">
                         </label>
                     </div>
@@ -275,14 +286,13 @@ ${view.title}
             </tbody>
         </table>
     </div>
-
 </div>
 
 
 <script type="text/javascript">
-    var  region = function (dom) {
-        var regionDiv =$("#template").clone();
-        regionDiv.css('width','100%');
+    var region = function (dom) {
+        var regionDiv = $("#template").clone();
+        regionDiv.css('width', '100%');
         regionDiv.removeClass('sr-only');
         var ckeckAll = regionDiv.find('thead:first').find('div:first');
 
@@ -296,18 +306,16 @@ ${view.title}
                 'id': id
             },
             success: function (data, status) {
-                console.log(data);
                 if (data.state = 'success') {
-                    if (data.msg!=''){
+                    if (data.msg != '') {
                         var json = JSON.parse(data.msg);
-                        console.log(json);
                         var serial = 1;
                         json.map(function (elem, num) {
                             var ckeckBoox = $("#index").parent().clone();
                             var input = ckeckBoox.find('input:first');
                             var label = ckeckBoox.find('label:first');
-                            input.attr('tag','input');
-                            input.attr('name',elem['id']);
+                            input.attr('tag', 'input');
+                            input.attr('name', elem['id']);
                             input.attr('id', 'index' + elem['id']);
                             label.attr('for', "index" + elem['id']);
                             var str = '<tr id="{id}">' +
