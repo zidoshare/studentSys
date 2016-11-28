@@ -894,21 +894,42 @@ var func = {
             data = data.sort(function (a, b) {
                 return a - b;
             });
+            console.log('2='+data);
             var d = "";
             for (var i = 0; i < data.length; i++) {
                 d += data[i] + ":";
             }
+            console.log('d1='+d);
             if (d.length > 0)
                 d = d.substr(0, d.length - 1);
+            console.log('d2='+d);
             $('#treeData').val(d);
             $('#createTime').val(new Date().getTime());
+            var btn = Ladda.create(document.querySelector("#saveRole-btn"));
+            btn.start();
             var json = {};
             $('#role').find('input').each(function () {
+                console.log('json='+$(this).attr('name'));
                 json[$(this).attr('name')] = $(this).val();
             });
-            Util.ajax(Label.staticServePath + '/userManager/addRole', {
+
+            $.ajax({
+                url: Label.staticServePath + '/userManager/addRole',
+                type: 'post',
                 data: json,
-                btnSelector: '#saveRole-btn'
+                dataType: "json",
+                success: function (data) {
+                    if (data.state == 'success') {
+                        Util.showTip($('#wholeTip'), '添加成功', 'alert alert-success');
+                    } else
+                        Util.showTip($('#wholeTip'), '添加失败', 'alert alert-warning');
+                },
+                error: function () {
+                    Util.showTip($('#wholeTip'), '服务器错误', 'alert alert-danger');
+                },
+                complete: function () {
+                    btn.stop();
+                }
             });
         }
     },
@@ -1260,7 +1281,7 @@ var func = {
                             model.find('ul:first').append(head);
                             model.find('#classBody').append(body);
 
-                            var regionDiv = Util.region($(this));
+                            var regionDiv = region($(this));
                             var input = regionDiv.find('input:first');
                             input.attr('id','parent-input'+elems['id']);
                             input.val(elems['id']);
@@ -1289,6 +1310,16 @@ var func = {
             modalUtil.show($('#submitApplyModel'));
         }
     },
+    //
+    // allcheck:function (modl) {
+    //
+    //     modl.find('input').first().onclick(function () {
+    //         $("input[type=checkbox]").each(function () {
+    //
+    //             $(this).prop('checked', true);//
+    //         });
+    //     });
+    // },
     addClass: function (method) {
         if (method == 'up') {
             var btn = Ladda.create(document.querySelector("#save-btn"));
@@ -1753,75 +1784,5 @@ var Test = {
             push: false,
             timeout: 5000
         });
-    }
-};
-
-var Exception = {
-    success: function (options) {
-        /** 参数接受
-        *   success:
-        *      类型：方法->当接收到RenderKit.renderSuccess时的处理方法
-        *   error:
-        *      类型：方法->当接收到RenderKit.renderError时的处理方法
-        *   onShowSuccess:
-         *      类型：json对象->当展示tip时的处理设置
-         **/
-        return function (data) {
-            var defaults = {
-                success: function () {
-                },
-                error: function () {
-                },
-                onShowSuccess: {},
-                onShowError: {}
-            };
-            var opts = $.extend(defaults, options);
-            if (data.state == 'success') {
-                Util.showTip($('#wholeTip'), data.msg, "alert alert-success", opts.onShowSuccess);
-                opts.success();
-            }
-            else if (data.state == 'error') {
-                Util.showTip($('#wholeTip'), data.msg, "alert alert-danger", opts.onShowError);
-                opts.error();
-            }
-        }
-    },
-    error: function (options) {
-        return function (XMLHttpRequest, textStatus, errorThrown) {
-            var defaults = {
-                onShowTip: {}
-            };
-            var opts = $.extend(defaults, options);
-            Util.showTip($('#wholeTip'), '服务器错误', "alert alert-danger", opts.onShowTip);
-        }
-    },
-    complete: function (options) {
-        return function (XMLHttpRequest, textStatus) {
-            var defaults = {
-                do: function (selector) {
-                    if (selector == null || selector == '')
-                        selector = "#save-btn";
-                    var btn = Ladda.create(document.querySelector(selector));
-                    btn.stop();
-                }
-            };
-            var opts = $.extend(defaults, options);
-            opts.do(opts.selector);
-        }
-    },
-    beforeSend: function (options) {
-        return function (XMLHttpRequest) {
-            var defaults = {
-                do: function (selector) {
-                    if (selector == null || selector == '')
-                        selector = "#save-btn";
-                    var btn = Ladda.create(document.querySelector(selector));
-                    btn.start();
-                }
-            };
-
-            var opts = $.extend(defaults, options);
-            opts.do(opts.selector);
-        }
     }
 };
