@@ -16,6 +16,7 @@ import com.hudongwx.studentsys.util.Common;
 import com.hudongwx.studentsys.util.RenderKit;
 import com.jfinal.aop.Before;
 import com.jfinal.ext.interceptor.POST;
+import com.jfinal.kit.JsonKit;
 
 import java.util.List;
 
@@ -70,5 +71,15 @@ public class StudentController extends BaseController {
             studentService._updateStudentById(stu);
         }
         RenderKit.renderSuccess(this);
+    }
+
+    public void getStudent(){
+        Integer cid = getParaToInt("classId");
+        Integer status = getParaToInt("status");
+        if(status==null){
+            RenderKit.renderSuccess(this,JsonKit.toJson(studentService.getAllStudentByClassId(cid)));
+        }else{
+            RenderKit.renderSuccess(this,JsonKit.toJson(studentService.getStudentByClassId(cid,status)));
+        }
     }
 }

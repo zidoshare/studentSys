@@ -86,8 +86,23 @@ public class StudentService extends Service {
         return Student.dao.paginate(currentPage, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, Student.SQL_FROM + Common.SQL_WHERE + "className = ?" + Common.ORDER_BY_ID_DESC, aClass.getClassName());
     }
 
+    public List<Student> getStudentByClassId(int classId,int defaultStatus) {
+        return Student.dao.find(Student.SEARCH_FROM_STUDENT + "where classId = ? and status = ? ", new Object[]{classId,defaultStatus});
+    }
+
     public List<Student> getStudentByClassId(int classId) {
         return Student.dao.find(Student.SEARCH_FROM_STUDENT + "where classId = ? and status = 1 ", classId);
+    }
+
+    public List<Student> getAllStudentByClassId(Integer classId) {
+        if(classId==null){
+            try {
+                throw new ServiceException("班级id不能为空");
+            } catch (ServiceException e) {
+                e.printStackTrace();
+            }
+        }
+        return Student.dao.find(Student.SEARCH_FROM_STUDENT + "where classId = ? ", classId);
     }
 
     public boolean _updateStudentById(Student student){
@@ -99,5 +114,9 @@ public class StudentService extends Service {
             }
         }
         return student.update();
+    }
+
+    public Page<Student> getUnEmpStu(int currentPage) {
+        return Student.dao.paginate(currentPage, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, Student.SQL_FROM + Common.SQL_WHERE + "status = 4 and employmentStatus = 7 " + Common.ORDER_BY_ID_DESC);
     }
 }

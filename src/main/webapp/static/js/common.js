@@ -1336,6 +1336,40 @@ var func = {
             $('#studentCnt').val(0);
         }
     },
+    seeClassStudent:function (method,id) {
+        modalUtil.show($('#seeClassStudentModel'));
+        $.ajax(Label.staticServePath+"/studentManager/getStudent",{
+            type:'post',
+            dataType:'json',
+            data:{
+                'classId':id
+            },
+            success:function(data,status){
+                if(data.state == 'success'){
+                    var json = JSON.parse(data.msg);
+                    json.map(function(elem,num){
+                        var str = '<tr id="tr{id}">' +
+                            '<td>{id}</td>' +
+                            '<td>{name}</td>' +
+                            '<td>{contactInformation}</td>' +
+                            '<td>{educationBackground}</td>' +
+                            '<td>{major}</td>' +
+                            '<td>{credit}</td>' +
+                            '<td>{testAverage}</td>' +
+                            '<td>{trainingEvaluation}</td>' +
+                            '<td>{status}</td>' +
+                            '</tr>';
+                        str = Util.jsonToString(str,elem);
+                        console.log(str);
+                        $('#seeClassStudentModel').find('tbody:first').append(str);
+                    });
+                    $('#seeClasstudentmodel').one('hidden.bs.modal',function(){
+                        $(this).find('tbody:first').html('');
+                    });
+                }
+            }
+        });
+    },
     addDomain: function (method) {
         if (method == 'show') {
             $('#addDomainModel').modal(method);

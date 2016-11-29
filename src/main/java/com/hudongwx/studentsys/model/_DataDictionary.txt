@@ -92,22 +92,6 @@ Table: stumanager_mapping
  function      | int(10)      | NO   |     | 0       | 职能，0：功能，1：视图模块，2：菜单，3：二级菜单，以后多级菜单，依次类推
 ---------------+--------------+------+-----+---------+---------
 
-Table: stumanager_obtain_employment
-------------------+--------------+------+-----+---------+---------
- Field            | Type         | Null | Key | Default | Remarks 
-------------------+--------------+------+-----+---------+---------
- id               | int(10)      | NO   | PRI |         |         
- className        | varchar(255) | YES  |     |         |         
- studentName      | varchar(255) | YES  |     |         | 学生姓名    
- employmentStatus | int(10)      | YES  |     |         | 就业状态    
- trackTime        | bigint(19)   | YES  |     |         | 追踪时间    
- remark           | varchar(255) | YES  |     |         |         
- counselorId      | int(10)      | YES  |     |         | 咨询师Id   
- counselorName    | varchar(255) | YES  |     |         | 咨询师Id   
- approveStatus    | int(10)      | YES  |     |         | 批准状态    
- approver         | varchar(255) | YES  |     |         | 批准人     
-------------------+--------------+------+-----+---------+---------
-
 Table: stumanager_region
 ------------+--------------+------+-----+---------+---------
  Field      | Type         | Null | Key | Default | Remarks 
@@ -194,15 +178,31 @@ Table: stumanager_student
  bonus                  | int(10)      | YES  |     |         |         
  residualFrequency      | tinyint(3)   | YES  |     |         |         
  regionId               | int(10)      | YES  |     |         |         
+ checked                | int(10)      | YES  |     |         |         
  status                 | int(10)      | YES  |     |         |         
  employmentStatus       | int(10)      | YES  |     |         |         
  createTime             | bigint(19)   | YES  |     |         | 用户创建时间  
- checked                | int(10)      | YES  |     |         |         
  ip                     | varchar(20)  | YES  |     | 0.0.0.0 | 最后登录的ip地址
  operaterId             | int(10)      | YES  |     |         | 操作人     
  operater               | varchar(255) | YES  |     | admin   |         
  remark                 | varchar(255) | YES  |     |         |         
 ------------------------+--------------+------+-----+---------+---------
+
+Table: stumanager_student_employment
+------------------+--------------+------+-----+---------+---------
+ Field            | Type         | Null | Key | Default | Remarks 
+------------------+--------------+------+-----+---------+---------
+ id               | int(10)      | NO   | PRI |         |         
+ className        | varchar(255) | YES  |     |         |         
+ studentName      | varchar(255) | YES  |     |         | 学生姓名    
+ employmentStatus | int(10)      | YES  |     |         | 就业状态    
+ trackTime        | bigint(19)   | YES  |     |         | 追踪时间    
+ remark           | varchar(255) | YES  |     |         |         
+ counselorId      | int(10)      | YES  |     |         | 咨询师Id   
+ counselorName    | varchar(255) | YES  |     |         | 咨询师Id   
+ approveStatus    | int(10)      | YES  |     |         | 批准状态    
+ approver         | varchar(255) | YES  |     |         | 批准人     
+------------------+--------------+------+-----+---------+---------
 
 Table: stumanager_subsidy_application
 -----------------+--------------+------+-----+---------+---------
@@ -239,6 +239,7 @@ Table: stumanager_subsidy_class_info
  residualFrequency | tinyint(3)   | YES  |     |         | 补助剩余次数  
  status            | int(10)      | YES  |     |         | 审批状态    
  approveStatus     | int(10)      | YES  |     |         |         
+ applicationDate   | bigint(19)   | YES  |     |         |         
  remark            | varchar(255) | YES  |     |         | 备注      
 -------------------+--------------+------+-----+---------+---------
 

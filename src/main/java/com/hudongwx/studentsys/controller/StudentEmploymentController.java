@@ -2,12 +2,15 @@ package com.hudongwx.studentsys.controller;
 
 import com.hudongwx.studentsys.common.BaseController;
 import com.hudongwx.studentsys.model.Mapping;
-import com.hudongwx.studentsys.model.ObtainEmployment;
-import com.hudongwx.studentsys.service.ObtainEmploymentService;
+import com.hudongwx.studentsys.model.Student;
+import com.hudongwx.studentsys.model.StudentEmployment;
+import com.hudongwx.studentsys.service.StudentEmploymentService;
+import com.hudongwx.studentsys.service.StudentService;
 import com.hudongwx.studentsys.util.RenderKit;
 import com.jfinal.aop.Before;
 import com.jfinal.ext.interceptor.POST;
 import com.jfinal.kit.JsonKit;
+import com.jfinal.plugin.activerecord.Page;
 
 import java.util.List;
 
@@ -16,7 +19,8 @@ import java.util.List;
  */
 public class StudentEmploymentController extends BaseController {
 
-    public ObtainEmploymentService obtainEmploymentService;
+    public StudentEmploymentService studentEmploymentService;
+    public StudentService studentService;
 
     @Override
     public void index() {
@@ -28,25 +32,25 @@ public class StudentEmploymentController extends BaseController {
         return mappingService.getMappingByUrl("/StudentEmploymentManager");
     }
 
-    /****************************就业追踪信息*******************************/
+    /****************************就业信息*******************************/
     /**
      * 添加追踪记录[需要前台的参数：oe(json数据类型的追踪信息)]
      */
     @Before(POST.class)
-    public void addObtainEmployment() {
+    public void addStuEmpInfo() {
         String obtainEmployment = getPara("oe");
         //// TODO: 2016/11/21 待获取json数据
     }
 
     /**
-     * 删除指定的记录[需要前台的参数：oeid(区域id)]
+     * 删除指定的记录[需要前台的参数：seid(区域id)]
      */
-    public void deleteObtainEmployment() {
-        Integer oeid = getParaToInt("oeid");
-        if (oeid == null) {
+    public void deleteStuEmpInfo() {
+        Integer seid = getParaToInt("seid");
+        if (seid == null) {
             RenderKit.renderError(this);
         } else {
-            boolean b = obtainEmploymentService._deleteObtainEmploymentById(oeid);
+            boolean b = studentEmploymentService._deleteStuEmpById(seid);
             if (b) {
                 RenderKit.renderSuccess(this);
             } else {
@@ -58,35 +62,46 @@ public class StudentEmploymentController extends BaseController {
     /**
      * 删除所有记录
      */
-    public void deleteAllobtainEmploymentService() {
-        obtainEmploymentService._deleteAllObtainEmployment();
+    public void deleteAllStuEmpInfo() {
+        studentEmploymentService._deleteAllStuEmp();
     }
 
     /**
      * 修改记录状态
      */
-    public boolean updateObtainEmployment() {
-        String obtainEmployment = getPara("oe");
-        ObtainEmployment oe = new ObtainEmployment();
+    public boolean updateStuEmpInfo() {
+        String obtainEmployment = getPara("se");
+        StudentEmployment se = new StudentEmployment();
         //// TODO: 2016/11/21 获取json修改数据
-        return obtainEmploymentService._updateObtainEmployment(oe);
+        return studentEmploymentService._updateStuEmp(se);
     }
 
     /**
      * 获取指定id的就业信息
      */
-    public void getObtainEmploymentInfo() {
-        Integer oeId = getParaToInt("oeId");
-        if (oeId == null) {
+    public void getStuEmpInfo() {
+        Integer seId = getParaToInt("seId");
+        if (seId == null) {
             RenderKit.renderError(this);
         } else {
-            List<ObtainEmployment> oeList = obtainEmploymentService.getObtainEmploymentById(oeId);
-            if (oeList.size() != 0) {
-                RenderKit.renderSuccess(this, JsonKit.toJson(oeList));
+            List<StudentEmployment> seList = studentEmploymentService.getStuEmpById(seId);
+            if (seList.size() != 0) {
+                RenderKit.renderSuccess(this, JsonKit.toJson(seList));
             } else {
                 RenderKit.renderError(this, "你查询的信息不存在或已删除！");
             }
         }
     }
+
+    /********************************
+     * 未就业
+     *******************************/
+
+    public void getUnEmpInfo() {
+        Integer p = getParaToInt("p", 1);
+        Page<Student> UnEmpStuP = studentService.getUnEmpStu(p);
+        setAttr("UnEmpStuP", UnEmpStuP);
+    }
+
 
 }

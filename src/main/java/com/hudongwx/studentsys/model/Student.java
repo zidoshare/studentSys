@@ -2,6 +2,7 @@ package com.hudongwx.studentsys.model;
 
 import com.hudongwx.studentsys.common.BaseStudent;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -9,6 +10,8 @@ import java.util.Objects;
  */
 @SuppressWarnings("serial")
 public class Student extends BaseStudent<Student> {
+    private List<StudentEmployment> stuEmpList;
+    private Class classModel;
     public static final Student dao = new Student();
     public static final String SEARCH_FROM_STUDENT = "select * from stumanager_student ";
     public static final String SQL_FROM = " from stumanager_student ";
@@ -16,5 +19,21 @@ public class Student extends BaseStudent<Student> {
     @Override
     public boolean equals(Object o) {
         return o instanceof Student && Objects.equals(getId(), ((Student) o).getId());
+    }
+
+    public Class getClassModel() {
+        return classModel;
+    }
+
+    public void setClassModel(Class classModel) {
+        this.classModel = classModel;
+    }
+
+    public List<StudentEmployment> getStuEmpList() {
+        return stuEmpList;
+    }
+
+    public void setStuEmpList(List<StudentEmployment> stuEmpList) {
+        this.stuEmpList = stuEmpList;
     }
 }
