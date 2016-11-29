@@ -1142,6 +1142,15 @@ var func = {
             }
         }
     },
+    addDetails:function () {
+        var json={};
+        $("#seeApplyModel").find("input[tag='input']").each(function (index, dom) {
+            if ($(this).prop('checked')){
+                $('input#input-text'+$(this).val()).val();
+
+            }
+        });
+    },
     seeApply:function (method,id) {
             modalUtil.show($('#seeApplyModel'));
             $.ajax(Label.staticServePath+"/subsidyManager/getSubsidyClassInfo",{
@@ -1166,7 +1175,7 @@ var func = {
                                 '<td>{studentName}</td>' +
                                 '<td>{subsidyAmount}</td>' +
                                 '<td>{residualFrequency}</td>' +
-                                '<td><input placeholder="{bonus}" class="form-control" id="input-text{id}"></td>' +
+                                '<td><input placeholder="{bonus}" class="form-control"  id="input-text{id}"></td>' +
                                 '<td>'+sta+'</td>' +
                                 '</tr>';
                             str = Util.jsonToString(str,elem);
@@ -1176,7 +1185,7 @@ var func = {
                             var input = ckeckBoox.find('input:first');
                             var label = ckeckBoox.find('label:first');
                             input.attr('tag','input');
-                            input.attr('name',elem['id']);
+                            input.val(elem['id']);
                             input.attr('checked','');
                             input.attr('id', 'index-look' + elem['id']);
                             label.attr('for', "index-look" + elem['id']);
@@ -1196,7 +1205,6 @@ var func = {
             var x = 0;
            modal.find("input[tag='input']").each(function (index, dom) {
                 if ($(this).prop('checked')){
-                    console.log('1='+$(this).attr('name'));
                     json[x++] = $(this).attr('name');
                 }
             });
