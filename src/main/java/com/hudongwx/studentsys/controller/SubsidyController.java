@@ -6,12 +6,14 @@ import com.hudongwx.studentsys.common.BaseController;
 import com.hudongwx.studentsys.model.Class;
 import com.hudongwx.studentsys.model.*;
 import com.hudongwx.studentsys.service.*;
+import com.hudongwx.studentsys.util.ModelKit;
 import com.hudongwx.studentsys.util.RenderKit;
 import com.jfinal.aop.Before;
 import com.jfinal.ext.interceptor.POST;
 import com.jfinal.kit.JsonKit;
 import com.jfinal.plugin.activerecord.Page;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,18 +40,19 @@ public class SubsidyController extends BaseController {
         Page<SubsidyApplication> saList = subsidyApplicationService.getSubsidyApplicationByApplicantId(user.getId(), p);
         setAttr("subsidyClasses", saList);
     }
+
     @Override
     public Mapping init() {
         return mappingService.getMappingByUrl("/subsidyManager");
     }
 
-    public void historyManager(){
+    public void historyManager() {
         setMapping(mappingService.getMappingByUrl("/subsidyManager/historyManager"));
         super.index();
         User user = getCurrentUser(this);
-        Integer p =getParaToInt("p",1);
+        Integer p = getParaToInt("p", 1);
         Page<SubsidyApplication> saPages = subsidyApplicationService.getSubsidyApplicationHistoryByUserId(p, user.getId());
-        setAttr("saPages",saPages);
+        setAttr("saPages", saPages);
     }
 
     /****************************申请表信息*******************************/
@@ -129,13 +132,21 @@ public class SubsidyController extends BaseController {
      * 添加补助班级信息[需要前台的参数：sci(json格式班级学生详情)]
      */
     @Before(POST.class)
-    public boolean addSubsidyClassInfo() {
-        String subsidyClassInfo = getPara("sci");
-        SubsidyClassInfo sci = new SubsidyClassInfo();
-        //// TODO: 2016/11/23 获取班级数据 
-        String studentid = "";
-        //// TODO: 2016/11/23 通过学生id checked状态统计信息
-        return subsidyClassInfoService._saveSubsidyClassInfo(sci);
+    public void addSubsidyClassInfo() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        List<SubsidyClassInfo> subsidyClassInfos = ModelKit.injectList(SubsidyClassInfo.class, this, "list", getParaToInt("length"));
+        for (SubsidyClassInfo subsidyClassInfo : subsidyClassInfos) {
+            subsidyClassInfoService._updateSubsidyClassInfo(subsidyClassInfo);
+
+        }
+
+        RenderKit.renderSuccess(this);
+
+//        SubsidyClassInfo sci = new SubsidyClassInfo();
+//
+//        //// TODO: 2016/11/23 获取班级数据
+//        String studentid = "";
+//        //// TODO: 2016/11/23 通过学生id checked状态统计信息
+//        subsidyClassInfoService._saveSubsidyClassInfo(sci);
     }
 
     /**

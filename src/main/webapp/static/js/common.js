@@ -1143,13 +1143,28 @@ var func = {
         }
     },
     addDetails:function () {
-        var json={};
-        $("#seeApplyModel").find("input[tag='input']").each(function (index, dom) {
-            if ($(this).prop('checked')){
-                $('input#input-text'+$(this).val()).val();
+        var data=[];
+        $("#seeApplyModel").find('tr').each(function (index, dom) {
+            if(!$(dom).find('input[type="checkbox"]').prop('checked'))
+                return true;
+            var list = $(dom).find('input[name]');
+            if(list.length <= 0)
+                return true;
+            var json = {};
 
-            }
+            list.each(function (ind, d) {
+                json[$(d).attr('name')]= $(d).val();
+            });
+            data.push(json);
         });
+        Util.ajax(Label.staticServePath+"/subsidyManager/addSubsidyClassInfo",{
+            data:{
+                'list':data,
+                "length":data.length
+            },
+            btnSelector:'#sa-btn',
+            success:{}
+        })
     },
     seeApply:function (method,id) {
             modalUtil.show($('#seeApplyModel'));
@@ -1172,14 +1187,14 @@ var func = {
 
                             var str = '<tr id="tr{id}">' +
                                 '<td></td>' +
+                                '<td class="hidden"><input name="id" value="{id}"/></td>'+
                                 '<td>{studentName}</td>' +
                                 '<td>{subsidyAmount}</td>' +
                                 '<td>{residualFrequency}</td>' +
-                                '<td><input placeholder="{bonus}" class="form-control"  id="input-text{id}"></td>' +
+                                '<td><input value="{bonus}" class="form-control"  id="input-text{id}" name="bonus"></td>' +
                                 '<td>'+sta+'</td>' +
                                 '</tr>';
                             str = Util.jsonToString(str,elem);
-                            console.log(str);
                             $('#seeApplyModel').find('tbody:first').append(str);
                             var ckeckBoox = $("#index-look").parent().clone();
                             var input = ckeckBoox.find('input:first');
@@ -1773,6 +1788,7 @@ var Test = {
 
 
 var Exception = {
+    btn:null,
     success: function (options) {
         /** 参数接受
          *   success:
@@ -1789,7 +1805,10 @@ var Exception = {
                 error: function () {
                 },
                 onShowSuccess: {},
-                onShowError: {}
+                onShowError: {},
+                bindModal:null,
+                bindContainer:['#table-inner'],
+                bindUrl:''
             };
             var opts = $.extend(defaults, options);
             if (data.state == 'success') {
@@ -1822,8 +1841,8 @@ var Exception = {
                 do: function (selector) {
                     if (selector == null || selector == '')
                         selector = "#save-btn";
-                    var btn = Ladda.create(document.querySelector(selector));
-                    btn.stop();
+                    if(Exception.btn != null)
+                        Exception.btn.stop();
                 }
             };
             var opts = $.extend(defaults, options);
@@ -1836,8 +1855,8 @@ var Exception = {
                 do: function (selector) {
                     if (selector == null || selector == '')
                         selector = "#save-btn";
-                    var btn = Ladda.create(document.querySelector(selector));
-                    btn.start();
+                    Exception.btn = Ladda.create(document.querySelector(selector));
+                    Exception.btn.start();
                 }
             };
 

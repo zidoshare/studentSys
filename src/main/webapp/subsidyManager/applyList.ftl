@@ -245,7 +245,7 @@ ${view.title}
             </div>
             <div class="modal-footer text-center" >
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button data-style="slide-up" id="save-btn" class="btn btn-primary ladda-button" onclick="func.addDetails()">
+                <button data-style="slide-up" id="sa-btn" class="btn btn-primary ladda-button" onclick="func.addDetails()">
                     <span class="ladda-label">保存</span>
                 </button>
             </div>
