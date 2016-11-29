@@ -14,7 +14,7 @@ ${view.title}
                 <span class="input-group-addon">
                      表名:
                 </span>
-                <input type="text" class="form-control">
+                <input id="input-title" type="text" class="form-control">
             </div>
         </div>
     </div>
@@ -49,20 +49,20 @@ ${view.title}
                 </thead>
                 <tbody>
                     <#list subsidyClasses.list as sub>
-                    <tr id="list${sub.classId}">
+                    <tr name="submit-tr" id="list${sub.classId}">
                         <td>
                         ${sub.className}
                         </td>
-                        <td>
+                        <td name="number">
                         ${sub.number}
                         </td>
-                        <td>
+                        <td name="totalSubsidy">
                         ${sub.totalSubsidy}
                         </td>
-                        <td>
+                        <td name="totalBonus">
                         ${sub.totalBonus}
                         </td>
-                        <td>
+                        <td name="aggregateAmount">
                         ${sub.aggregateAmount}
                         </td>
                         <#if  addAble ||  deleteAble>
@@ -127,39 +127,50 @@ ${view.title}
                         class="sr-only">Close</span></button>
                 <h4 class="modal-title" id="myModalLabel">申请提交信息:</h4>
             </div>
-            <div class="span9">
-                <div class="col-md-4 leaderboard">
-                    <div class="form-group">
-                        <label for="classSelect_list" class="control-label">审批人：</label>
+            <div class="modal-body">
 
-                        <select id="classSelect_list" class="selectpicker show-tick form-control" data-live-search="true">
-                        <#--<#if allClass??>-->
-                        <#list subsidyClasses.list as class>
-                            <option value="${class.classId}">${class.className}</option>
-                        </#list>
-                        <#--</#if>-->
-                        </select>
+
+
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="classSelect_list" class="control-label col-md-2">审批人：</label>
+                        <div class="col-md-10">
+                            <select id="classSelect_list" class="selectpicker show-tick form-control"
+                                    data-live-search="true">
+                            <#--<#if allClass??>-->
+                            <#list roles as rol>
+                                <option value="${rol.id}">${rol.name}</option>
+                            </#list>
+                            <#--</#if>-->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="name">备注：</label>
+                        <div class="col-md-10">
+                            <textarea name="name" class="form-control" rows="3"></textarea>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="table table-bordered">
+                    <div class="text-center">
+                        <div class="row">
+                            <div class="col-md-6"><label>申请表名:<span id="submit-Indicate" class="form-control-static">无</span></label></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6"><label>申请班级数:<span id="submit-class">0</span></label></div>
+                            <div class="col-md-6"><label>申请总人数:<span id="submit-student">0</span></label></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6"><label>总补助:<span id="submit-subsidy">0</span></label></div>
+                            <div class="col-md-6"><label>总奖金:<span id="submit-bonus">0</span></label></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6"><label>合计:<span id="submit-total">0</span></label></div>
+                        </div>
                     </div>
                 </div>
-
-
-                <div class="row-fluid">
-                    <form role="form">
-                        <div class="form-group">
-                            <label for="name">备注:</label>
-                            <textarea class="form-control" rows="3"></textarea>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <div class="table table-bordered">
-                <h5>申请表名:<span id="submit-Indicate">0719班第一次申请</span></h5>
-                <h5>申请班级数:<span id="submit-class">2</span></h5>
-                <h5>申请总人数:<span id="submit-student">20</span></h5>
-                <h5>总补助:<span id="submit-subsidy">14000</span></h5>
-                <h5>总奖金:<span id="submit-bonus">6000</span></h5>
-                <h5>合计:<span id="submit-total">20000</span></h5>
             </div>
             <div class="modal-footer text-center">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
@@ -243,9 +254,10 @@ ${view.title}
                     </tbody>
                 </table>
             </div>
-            <div class="modal-footer text-center" >
+            <div class="modal-footer text-center">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button data-style="slide-up" id="sa-btn" class="btn btn-primary ladda-button" onclick="func.addDetails()">
+                <button data-style="slide-up" id="sa-btn" class="btn btn-primary ladda-button"
+                        onclick="func.addDetails()">
                     <span class="ladda-label">保存</span>
                 </button>
             </div>
@@ -290,6 +302,9 @@ ${view.title}
 
 
 <script type="text/javascript">
+    $(document).on('pjax:complete', function () {
+        Util.redrawSelects();
+    });
     var region = function (dom) {
         var regionDiv = $("#template").clone();
         regionDiv.css('width', '100%');

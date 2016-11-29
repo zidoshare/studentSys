@@ -93,6 +93,8 @@ public class SubsidyApplicationService extends Service {
         return SubsidyApplication.dao.find(SubsidyApplication.SEARCH_FROM_SUBSIDY_APPLICATION);
     }
 
+
+
     /**
      * 通过申请人id查询申请表信息
      *
@@ -125,6 +127,10 @@ public class SubsidyApplicationService extends Service {
 
     public List<SubsidyApplication> getApplicationHistoryByApplicantId(int applicantId) {
         return SubsidyApplication.dao.find(SubsidyApplication.SEARCH_FROM_SUBSIDY_APPLICATION + "where applicantId = ? and (approveStatus=10 or approveStatus=8 ) and approverId is not NULL ");
+    }
+
+    public SubsidyApplication getApplicationHistoryByApplicationDate(Long applicationDate) {
+        return SubsidyApplication.dao.find(SubsidyApplication.SEARCH_FROM_SUBSIDY_APPLICATION + "where applicationDate = ? and approveStatus= 9 ",applicationDate).get(0);
     }
 
     public Page<SubsidyApplication> getSubsidyApplicationHistoryByUserId(int pageNummber,int userId) {

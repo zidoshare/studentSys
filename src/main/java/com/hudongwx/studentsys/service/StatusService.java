@@ -9,6 +9,6 @@ import com.hudongwx.studentsys.util.Common;
  */
 public class StatusService extends Service{
     public Status getStatusById(int id){
-        return Status.dao.findFirstByCache(Common.CACHE_60TIME_LABEL,"StatusName"+id,Status.SEARCH_FROM_REGION + "where id = ?", id);
+        return Status.dao.findFirstByCache(Common.CACHE_60TIME_LABEL,"StatusName"+id,Status.SEARCH_FROM_STATUS + "where id = ?", id);
     }
 }
