@@ -2,6 +2,33 @@
  * Created by wuhongxu on 2016/8/30 0030.
  */
 
+jQuery.fn.showLoading=function(){
+    if($(this).attr('data-lb')=='1')
+        return ;
+    var width = $(this).width();
+    var height = $(this).height();
+    $(this).html('');
+    var str= '<div style="position:relative; width:' + width + 'px;height:' + height + 'px" class="panel_loading"><div class="sk-circle"> <div class="sk-circle1 sk-child"></div> <div class="sk-circle2 sk-child"></div> <div class="sk-circle3 sk-child"></div> <div class="sk-circle4 sk-child"></div> <div class="sk-circle5 sk-child"></div> <div class="sk-circle6 sk-child"></div> <div class="sk-circle7 sk-child"></div> <div class="sk-circle8 sk-child"></div> <div class="sk-circle9 sk-child"></div> <div class="sk-circle10 sk-child"></div> <div class="sk-circle11 sk-child"></div> <div class="sk-circle12 sk-child"></div> </div></div>';
+    $(this).append(str);
+    $(this).attr('data-lb','1');
+    var dom = $(this);
+    setTimeout(function(){
+        dom.attr('data-lb','0');
+    },500);
+};
+jQuery.fn.closeLoading=function(){
+    var dom = $(this);
+    if(dom.attr('data-lb') == '1'){
+        setTimeout(function(){
+            dom.closeLoading();
+        },100);
+        return ;
+    }
+    console.log('close',this);
+    dom.find('.panel_loading').fadeOut(500,function(){
+         $(this).remove();
+     });
+}
 
 var Login = {
     login: function () {
@@ -287,10 +314,7 @@ var Util = {
                 $('.pjax_loading').css("display", "block");
             }
             if (opts.showMinAnimate) {
-                var width = $(this).width();
-                var height = $(this).height();
-                var str = '<div id="tab3_loading" style="width:' + width + 'px;height:' + height + 'px" class="panel_loading"> <img src="' + Label.staticServePath + '/images/loading.gif" class="img-sm center-block"/> </div>';
-                $(this).html(str);
+                $(this).showLoading();
             }
             event.stopPropagation();
         });
@@ -299,6 +323,9 @@ var Util = {
             if (opts.showWholeAnimate) {
                 $('.pjax_loading').css("display", "none");
                 Animate.loadWrapper();
+            }
+            if (opts.showMinAnimate) {
+                $(this).closeLoading();
             }
             event.stopPropagation();
         });
@@ -366,10 +393,7 @@ var Util = {
                 $('.pjax_loading').css("display", "block");
             }
             if (opts.showMinAnimate) {
-                var width = $(this).width();
-                var height = $(this).height();
-                var str = '<div id="tab3_loading" style="width:' + width + 'px;height:' + height + 'px" class="panel_loading"> <img src="' + Label.staticServePath + '/images/loading.gif" class="img-sm center-block"/> </div>';
-                $(this).html(str);
+                $(this).showLoading();
             }
             event.stopPropagation();
         });
@@ -378,6 +402,9 @@ var Util = {
             if (opts.showWholeAnimate) {
                 $('.pjax_loading').css("display", "none");
                 Animate.loadWrapper();
+            }
+            if (opts.showMinAnimate) {
+                $(this).closeLoading();
             }
             event.stopPropagation();
         });
@@ -653,6 +680,12 @@ var Animate = {
             scaleColor: false,
             barColor: '#30a5ff'
         });
+    },
+    showLoading:function(dom){
+        var width = dom.width();
+        var height = dom.height();
+        var str = '<div style="width:' + width + 'px;height:' + height + 'px" class="panel_loading"> <img src="' + Label.staticServePath + '/images/loading.gif" class="img-sm center-block"/> </div>';
+        dom.html(str);
     }
 };
 var func = {
@@ -1833,6 +1866,7 @@ var Exception = {
             };
             var opts = $.extend(defaults, options);
             Util.showTip($('#wholeTip'), opts.msg, "alert alert-danger", opts.onShowTip);
+            //Util.showTip($('#wholeTip'), XMLHttpRequest.responseJSON.msg, "alert alert-danger", opts.onShowTip);
         }
     },
     complete: function (options) {

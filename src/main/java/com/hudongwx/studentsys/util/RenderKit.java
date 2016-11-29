@@ -34,4 +34,32 @@ public class RenderKit {
         obj.put("url",url);*/
         me.renderJson(JsonKit.toJson(resp));
     }
+
+    /*public static void renderSuccess(Controller me){
+        renderSuccess(me,"");
+    }
+    public static void renderSuccess(Controller me,Object msg){
+        renderMsg(me,msg,"success",200);
+    }
+    public static void renderError(Controller me){
+        renderError(me,"");
+    }
+    public static void renderError(Controller me,Object msg){
+        renderMsg(me,msg,"error",500);
+    }
+    public static void renderState(Controller me,Object state){
+        renderMsg(me,"",state,200);
+    }
+    public static void renderMsg(Controller me,Object msg,Object state,Integer code){
+        renderMsgWidthLocation(me,msg,state,"",code);
+    }
+    public static void renderMsgWidthLocation(Controller me,Object msg,Object state,Object url,Integer code){
+        *//*JSONObject obj = new JSONObject();*//*
+        Resp resp = new Resp(state,msg,url);
+        *//*obj.put("state",state);
+        obj.put("msg",msg);
+        obj.put("url",url);*//*
+        me.getResponse().setStatus(code);
+        me.renderJson(JsonKit.toJson(resp));
+    }*/
 }
