@@ -1,4 +1,4 @@
-<nav class="navbar-default navbar-side sidebar-collapse" role="navigation" style="height: 1200px;">
+<nav class="navbar-default navbar-side sidebar-collapse" role="navigation" style="height:100%">
     <div class="nav-btn navToggle6 bg-black">
         <div class="icon">
         </div>
@@ -23,14 +23,16 @@
 
         </div>
     </div>
-    <div class="tip-container" style="overflow: auto">
-        <ul class="nav" id="main-menu">
+    <div class="tip-container" style="overflow: hidden;height:60%">
+
+        <ul class="nav nav-scroll" id="main-menu">
         <#assign tag = 0>
         <#assign start = 0>
         <#assign index = 0>
         <#list sides as side>
             <li <#if side.id == now.id || now.parentId == side.id>class="active-menu active"</#if>>
-                <a href="${staticServePath}${side.url}" data-label="#page-inner"><i class="${side.icon}"></i>${side.title}<#if menuSize[tag] gt 0><span
+                <a href="${staticServePath}${side.url}" data-label="#page-inner"><i
+                        class="${side.icon}"></i>${side.title}<#if menuSize[tag] gt 0><span
                         class="fa arrow"></span></#if></a>
                 <#if menuSize[tag] gt 0>
                     <#assign index += menuSize[tag]>
@@ -49,7 +51,7 @@
             <#assign tag = tag + 1>
         </#list>
             <script type="text/javascript">
-                $(function(){
+                $(function () {
                     $('#main-menu').find('li').on('click', function () {
                         $('#main-menu').find('li').removeClass('active-menu');
                         $(this).addClass('active-menu');
@@ -57,6 +59,8 @@
                 })
             </script>
         </ul>
+
+
     </div>
 
 
@@ -65,3 +69,36 @@
     <div class="tip" id="wholeTip" aria-label="0">
     </div>
 </div>
+<script>
+//    var ttt = 0;
+//    var scroll = null;
+//    function createScroll() {
+//        var div = $('.nav-scroll');
+//        var h = $(window).height() - div.parent().offset().top;
+//
+//        var height = parseInt(h * h / div.height());
+////        console.log(top);
+////        var str = '<div class="absolute" style="right: 2px;top: 0px;width:1px;height:100%;background:green">' +
+////                '<div class="absolute" style="height:' + height + 'px;background: red;top:' + 0 + 'px;right:0px;width:30px;"></div></div>';
+////        div.after(str);
+//        //scroll = div.after();
+//    }
+//    $(function () {
+//        createScroll();
+//    })
+//    $('.nav-scroll').on('mousewheel', function (event, detal) {
+//        var top = $(this).position().top;
+//        var offTop = $(this).offset().top;
+//        var height = $(this).height();
+//        var windowHeight = $(this).parent().height();
+//        if (top >= 0 && detal > 0)
+//            return false;
+//        if (height + offTop <= $(window).height() && detal < 0)
+//            return false;
+//        $(this).css('top', top + detal * 20);
+////        var h = $(window).height() - $(this).parent().offset().top;
+////        scroll.css('top',scroll.position().top-detal * 20 * h / $(this).height());
+////        console.log(scroll.position().top);
+//        return false;
+//    });
+</script>

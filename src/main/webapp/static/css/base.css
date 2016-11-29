@@ -259,12 +259,13 @@ ul.nav li:hover {
 pre.banner {
     background-color: white;
     border: 1px solid #ebebeb;
-    padding:10px;
+    padding: 10px;
 }
-textarea.pre{
-    word-wrap:normal;
-    word-break:break-all;
-    overflow-x:auto;
+
+textarea.pre {
+    word-wrap: normal;
+    word-break: break-all;
+    overflow-x: auto;
     overflow-y: auto;
 }
 
@@ -1681,4 +1682,26 @@ i {
 .activP {
     background-color: #367fa9 !important;
     color: #fff !important;
+}
+
+.nav-scroll {
+    position: relative;
+    overflow-y: scroll;
+    height: 100%;
+}
+
+.nav-scroll::-webkit-scrollbar {
+    width: 4px;
+    background-color: #3E3E3E;
+}
+
+.nav-scroll::-webkit-scrollbar-thumb {
+    background: rgb(255, 255, 255) -webkit-gradient(linear, 40% 0%, 75% 84%, from(rgb(77, 156, 65)), color-stop(0.6, rgb(84, 222, 93)), to(rgb(25, 145, 29)));
+    border-radius: 10px;
+}
+
+.nav-scroll::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-color: #3E3E3E;
+    border-radius: 10px;
 }

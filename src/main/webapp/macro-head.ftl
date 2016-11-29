@@ -66,4 +66,5 @@
 <script type="text/javascript" src="${staticServePath}/static/js/lib/jquery.cookie.js?${staticResourceVersion}"></script>
 <script type="text/javascript" src="${staticServePath}/static/js/lib/bootstrap-select.min.js?${staticResourceVersion}"></script>
 <script type="text/javascript" src="${staticServePath}/static/js/lib/page.js?${staticResourceVersion}"></script>
+<script type="text/javascript" src="${staticServePath}/static/js/lib/jquery.mousewheel.min.js"></script>
 </#macro>

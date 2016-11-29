@@ -23,15 +23,15 @@ public class _MappingKit {
 		arp.addMapping("stumanager_domain_tag", "id", DomainTag.class);
 		arp.addMapping("stumanager_employee", "id", Employee.class);
 		arp.addMapping("stumanager_mapping", "id", Mapping.class);
-		arp.addMapping("stumanager_obtain_employment", "id", ObtainEmployment.class);
-		arp.addMapping("stumanager_region", "id", Region.class);
+		//arp.addMapping("stumanager_obtain_employment", "id", ObtainEmployment.class);
+		//arp.addMapping("stumanager_region", "id", Region.class);
 		arp.addMapping("stumanager_repayment", "id", Repayment.class);
 		arp.addMapping("stumanager_repayment_type", "id", RepaymentType.class);
 		arp.addMapping("stumanager_role", "id", Role.class);
-		arp.addMapping("stumanager_status", "id", Status.class);
+		//arp.addMapping("stumanager_status", "id", Status.class);
 		arp.addMapping("stumanager_student", "id", Student.class);
-		arp.addMapping("stumanager_subsidy_application", "id", SubsidyApplication.class);
-		arp.addMapping("stumanager_subsidy_class_info", "id", SubsidyClassInfo.class);
+		//arp.addMapping("stumanager_subsidy_application", "id", SubsidyApplication.class);
+		//arp.addMapping("stumanager_subsidy_class_info", "id", SubsidyClassInfo.class);
 		arp.addMapping("stumanager_test_question", "id", TestQuestion.class);
 		arp.addMapping("stumanager_test_questionnaire", "id", TestQuestionnaire.class);
 		arp.addMapping("stumanager_test_questionnaire_class", "id", TestQuestionnaireClass.class);
@@ -40,9 +40,9 @@ public class _MappingKit {
 		arp.addMapping("stumanager_test_tag", "id", TestTag.class);
 		arp.addMapping("stumanager_test_tag_question", "id", TestTagQuestion.class);
 		arp.addMapping("stumanager_test_type", "id", TestType.class);
-		arp.addMapping("stumanager_training_project", "id", TrainingProject.class);
+		//arp.addMapping("stumanager_training_project", "id", TrainingProject.class);
 		arp.addMapping("stumanager_user", "id", User.class);
-		arp.addMapping("stumanager_user_region", "id", UserRegion.class);
+		//arp.addMapping("stumanager_user_region", "id", UserRegion.class);
 	}
 }
 
