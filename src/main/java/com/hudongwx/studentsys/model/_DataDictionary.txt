@@ -241,6 +241,7 @@ Table: stumanager_subsidy_class_info
  approveStatus     | int(10)      | YES  |     |         |         
  applicationDate   | bigint(19)   | YES  |     |         |         
  remark            | varchar(255) | YES  |     |         | 备注      
+ checked           | tinyint(3)   | YES  |     |         |         
 -------------------+--------------+------+-----+---------+---------
 
 Table: stumanager_test_question

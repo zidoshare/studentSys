@@ -27,6 +27,8 @@ public class SubsidyController extends BaseController {
     public final int APPROV_STATUS_NO = 9;
     public final int APPROV_STATUS_ON = 10;
     public final int APPROV_STATUS_YET = 8;
+    public final int CHECKED = 11;
+    public final int UN_CHECKED = 12;
     public SubsidyApplicationService subsidyApplicationService;
     public SubsidyClassInfoService subsidyClassInfoService;
     public ClassService classService;
@@ -42,7 +44,7 @@ public class SubsidyController extends BaseController {
         Page<SubsidyApplication> saList = subsidyApplicationService.getSubsidyApplicationByApplicantId(user.getId(), p);
         setAttr("subsidyClasses", saList);
 
-        setAttr("roles",roleService.getRoleByMapping(mappingService.getMappingByUrl("/approvalManager")));
+        setAttr("roles", roleService.getRoleByMapping(mappingService.getMappingByUrl("/approvalManager")));
     }
 
     @Override
@@ -169,9 +171,24 @@ public class SubsidyController extends BaseController {
             int totalSubsidy = 0;
             int total = 0;
             List<SubsidyClassInfo> sciList = subsidyClassInfoService.getSubsidyClassInfoByApplicationDate(aLong);
-            for (SubsidyClassInfo subsidyClassInfo : sciList) {
-                totalBonus += subsidyClassInfo.getBonus();
-                totalSubsidy += subsidyClassInfo.getSubsidyAmount();
+            List<SubsidyClassInfo> allSciList = subsidyClassInfoService.getAllSubsidyClassInfo();
+            for (SubsidyClassInfo asci : allSciList) {
+                long allNum = asci.getApplicationDate();
+                boolean equel = false;
+                for (SubsidyClassInfo sci : allSciList) {
+                    long siNum = sci.getApplicationDate();
+                    if (allNum == siNum) {
+                        sci.setChecked(CHECKED);
+                        totalBonus += sci.getBonus();
+                        totalSubsidy += sci.getSubsidyAmount();
+                        equel = true;
+                        subsidyClassInfoService._updateSubsidyClassInfo(sci);
+                    }
+                }
+                if (!equel) {
+                    asci.setChecked(UN_CHECKED);
+                    subsidyClassInfoService._updateSubsidyClassInfo(asci);
+                }
             }
             SubsidyApplication subsidyApplication = subsidyApplicationService.getApplicationHistoryByApplicationDate(aLong);
             total = totalBonus + totalSubsidy;
@@ -246,21 +263,26 @@ public class SubsidyController extends BaseController {
         System.out.println("==========cidJsonArray===========" + cidJsonArray);
         JSONArray jsonArray = JSON.parseArray(cidJsonArray);
         List<SubsidyClassInfo> sciList = subsidyClassInfoService.getAllSubsidyClassInfo();
-        if (sciList.size() != 0) {
-            for (SubsidyClassInfo subsidyClassInfo : sciList) {
-                if (subsidyClassInfo.getApproveStatus() == APPROV_STATUS_NO) {
-                    subsidyClassInfo.delete();
-                }
-            }
-        }
         for (Object o : jsonArray) {
             System.out.println(o.toString());
             int cid = Integer.valueOf(o.toString());
             List<Student> studentList = studentService.getStudentByClassId(cid);
+            
             for (Student student : studentList) {
-                totalsubsidyAmount += student.getSubsidyPer();
-                totalbonus += student.getBonus();
-                setSubsidyClassInfo(++id, applicationDate, student);
+                int stuId=student.getId();
+                boolean equel=false;
+                for (SubsidyClassInfo sci : sciList) {
+                    int sciStudentId = sci.getStudentId();
+                    if(stuId==sciStudentId&&sci.getApproveStatus()==APPROV_STATUS_NO){
+                        equel=true;
+                        break;
+                    }
+                }
+                if(!equel){
+                    totalsubsidyAmount += student.getSubsidyPer();
+                    totalbonus += student.getBonus();
+                    setSubsidyClassInfo(++id, applicationDate, student);
+                }
             }
             setDefaultSubsidyApplicationInfo(applicationDate, totalsubsidyAmount, totalbonus, cid, studentList);
         }
@@ -278,6 +300,7 @@ public class SubsidyController extends BaseController {
         sci.setSubsidyAmount(student.getSubsidyPer());
         sci.setBonus(student.getBonus());
         sci.setApplicationDate(applicationDate);
+        sci.setChecked(CHECKED);
         int n = student.getResidualFrequency();
         if (n >= 0) {
             sci.setResidualFrequency(n);
@@ -332,5 +355,17 @@ public class SubsidyController extends BaseController {
 
     }
 
+    public void confirmSubmit() {
+        String sub = getPara("sub");
+
+        List<SubsidyClassInfo> sciList = subsidyClassInfoService.getAllSubsidyClassInfo();
+        if (sciList.size() != 0) {
+            for (SubsidyClassInfo subsidyClassInfo : sciList) {
+                if (subsidyClassInfo.getApproveStatus() == APPROV_STATUS_NO||subsidyClassInfo.getChecked()==UN_CHECKED) {
+                    subsidyClassInfo.delete();
+                }
+            }
+        }
+    }
 
 }
