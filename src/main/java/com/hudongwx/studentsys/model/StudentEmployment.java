@@ -8,4 +8,6 @@ import com.hudongwx.studentsys.common.BaseStudentEmployment;
 @SuppressWarnings("serial")
 public class StudentEmployment extends BaseStudentEmployment<StudentEmployment> {
 	public static final StudentEmployment dao = new StudentEmployment();
+	public static final String SELECT_FROM_STUDENT_EMPLOYMENT ="select * from stumanager_student_employment ";
+	public static final String SQL_FROM=" from stumanager_student_employment ";
 }

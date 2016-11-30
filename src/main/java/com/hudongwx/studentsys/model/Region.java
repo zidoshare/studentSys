@@ -8,5 +8,6 @@ import com.hudongwx.studentsys.common.BaseRegion;
 @SuppressWarnings("serial")
 public class Region extends BaseRegion<Region> {
     public static final Region dao = new Region();
+    public static final String FROM_REGION = " from stumanager_region ";
     public static final String SEARCH_FROM_REGION = "select * from stumanager_region ";
 }
