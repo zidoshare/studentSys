@@ -186,6 +186,14 @@ Table: stumanager_student
  operaterId             | int(10)      | YES  |     |         | 操作人     
  operater               | varchar(255) | YES  |     | admin   |         
  remark                 | varchar(255) | YES  |     |         |         
+ birthday               | bigint(19)   | YES  |     |         |         
+ permanentAddress       | varchar(255) | YES  |     |         |         
+ presentAddress         | varchar(255) | YES  |     |         |         
+ studentRepaymentTime   | bigint(19)   | YES  |     |         |         
+ subsidy                | int(10)      | YES  |     |         |         
+ bankCard               | varchar(255) | YES  |     |         |         
+ bank                   | varchar(255) | YES  |     |         |         
+ photo                  | blob(65535)  | YES  |     |         |         
 ------------------------+--------------+------+-----+---------+---------
 
 Table: stumanager_student_employment
