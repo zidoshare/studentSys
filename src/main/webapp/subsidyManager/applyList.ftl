@@ -8,16 +8,7 @@ ${view.title}
 
 </div>
 <div class="panel-body">
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="input-group col-md-5">
-                <span class="input-group-addon">
-                     表名:
-                </span>
-                <input id="input-title" type="text" class="form-control">
-            </div>
-        </div>
-    </div>
+
     <div id="table-inner">
         <div id="dataTables-example_subsidy" class="table-responsive dataTables_wrapper form-inline" role="grid">
             <table class="table table-striped table-bordered table-hover dataTable no-footer"
@@ -47,9 +38,12 @@ ${view.title}
                 </tr>
 
                 </thead>
-                <tbody>
+                <tbody id="apply-body">
                     <#list subsidyClasses.list as sub>
                     <tr name="submit-tr" id="list${sub.classId}">
+                        <td class="hidden">
+                            <input name="applicationDate" value="${sub.applicationDate}"/>
+                        </td>
                         <td>
                         ${sub.className}
                         </td>
@@ -79,27 +73,6 @@ ${view.title}
                         </#if>
                     </tr>
                     </#list>
-                <#--<#list classes.list as class>-->
-                <#--<tr id="class${class.id}" data-label="${class.id}"  data-target="#classId" data-method="prop">-->
-                <#--<td id="className${class.id}" data-label="${class.className?html}" data-target="#className">${class.className}</td>-->
-                <#--<td id="number${class.id}" data-label="${class.number}" data-target="#number">${class.number}</td>-->
-                <#--<td id="subsidyAmount${class.id}" data-label="${class.subsidyAmount}" data-target="#subsidyAmount">${class.subsidyAmount}</td>-->
-                <#--<td id="bonus${class.id}" data-label="${class.bonus}" data-target="bonus">${class.bonus}</td>-->
-                <#--<td id="total${class.id}" data-label="${class.total}" data-target="total">${class.total}</td>-->
-                <#--<td id="applicant${class.id}" data-label="${class.applicant}" data-target="applicant">${class.applicant}</td>-->
-                <#--<#if updateAble || deleteAble>-->
-                <#--<td>-->
-                <#--<#if updateAble>-->
-                <#--${InsertKit(updateBtn,"${class.id}")}/-->
-                <#--</#if>-->
-                <#--${InsertKit(deleteBtn,"${class.id}")}-->
-                <#--</td>-->
-                <#--</#if>-->
-                <#--<td id="classUpdateTime${class.id}" class="hidden" data-label="${class.classUpdateTime}" data-target="#classUpdateTime" data-method="prop">-->
-                <#--</td>-->
-                <#--</tr>-->
-                <#--</#list>-->
-
                 </tbody>
             </table>
             <#if subsidyClasses??>
@@ -128,9 +101,6 @@ ${view.title}
                 <h4 class="modal-title" id="myModalLabel">申请提交信息:</h4>
             </div>
             <div class="modal-body">
-
-
-
                 <form class="form-horizontal">
                     <div class="form-group">
                         <label for="classSelect_list" class="control-label col-md-2">审批人：</label>
@@ -156,9 +126,6 @@ ${view.title}
                 <div class="table table-bordered">
                     <div class="text-center">
                         <div class="row">
-                            <div class="col-md-6"><label>申请表名:<span id="submit-Indicate" class="form-control-static">无</span></label></div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-6"><label>申请班级数:<span id="submit-class">0</span></label></div>
                             <div class="col-md-6"><label>申请总人数:<span id="submit-student">0</span></label></div>
                         </div>
@@ -174,7 +141,7 @@ ${view.title}
             </div>
             <div class="modal-footer text-center">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary" onclick="func.submitApply()">提交</button>
+                <button id="save-submit-btn" type="button" class="btn btn-primary" onclick="func.submitApply()">提交</button>
             </div>
         </div>
     </div>

@@ -329,4 +329,68 @@ public abstract class BaseStudent<M extends BaseStudent<M>> extends Model<M> imp
 		return get("remark");
 	}
 
+	public void setBirthday(java.lang.Long birthday) {
+		set("birthday", birthday);
+	}
+
+	public java.lang.Long getBirthday() {
+		return get("birthday");
+	}
+
+	public void setPermanentAddress(java.lang.String permanentAddress) {
+		set("permanentAddress", permanentAddress);
+	}
+
+	public java.lang.String getPermanentAddress() {
+		return get("permanentAddress");
+	}
+
+	public void setPresentAddress(java.lang.String presentAddress) {
+		set("presentAddress", presentAddress);
+	}
+
+	public java.lang.String getPresentAddress() {
+		return get("presentAddress");
+	}
+
+	public void setStudentRepaymentTime(java.lang.Long studentRepaymentTime) {
+		set("studentRepaymentTime", studentRepaymentTime);
+	}
+
+	public java.lang.Long getStudentRepaymentTime() {
+		return get("studentRepaymentTime");
+	}
+
+	public void setSubsidy(java.lang.Integer subsidy) {
+		set("subsidy", subsidy);
+	}
+
+	public java.lang.Integer getSubsidy() {
+		return get("subsidy");
+	}
+
+	public void setBankCard(java.lang.String bankCard) {
+		set("bankCard", bankCard);
+	}
+
+	public java.lang.String getBankCard() {
+		return get("bankCard");
+	}
+
+	public void setBank(java.lang.String bank) {
+		set("bank", bank);
+	}
+
+	public java.lang.String getBank() {
+		return get("bank");
+	}
+
+	public void setPhoto(byte[] photo) {
+		set("photo", photo);
+	}
+
+	public byte[] getPhoto() {
+		return get("photo");
+	}
+
 }

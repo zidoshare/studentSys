@@ -92,22 +92,6 @@ Table: stumanager_mapping
  function      | int(10)      | NO   |     | 0       | 职能，0：功能，1：视图模块，2：菜单，3：二级菜单，以后多级菜单，依次类推
 ---------------+--------------+------+-----+---------+---------
 
-Table: stumanager_obtain_employment
-------------------+--------------+------+-----+---------+---------
- Field            | Type         | Null | Key | Default | Remarks 
-------------------+--------------+------+-----+---------+---------
- id               | int(10)      | NO   | PRI |         |         
- className        | varchar(255) | YES  |     |         |         
- studentName      | varchar(255) | YES  |     |         | 学生姓名    
- employmentStatus | int(10)      | YES  |     |         | 就业状态    
- trackTime        | bigint(19)   | YES  |     |         | 追踪时间    
- remark           | varchar(255) | YES  |     |         |         
- counselorId      | int(10)      | YES  |     |         | 咨询师Id   
- counselorName    | varchar(255) | YES  |     |         | 咨询师Id   
- approveStatus    | int(10)      | YES  |     |         | 批准状态    
- approver         | varchar(255) | YES  |     |         | 批准人     
-------------------+--------------+------+-----+---------+---------
-
 Table: stumanager_region
 ------------+--------------+------+-----+---------+---------
  Field      | Type         | Null | Key | Default | Remarks 
@@ -202,7 +186,31 @@ Table: stumanager_student
  operaterId             | int(10)      | YES  |     |         | 操作人     
  operater               | varchar(255) | YES  |     | admin   |         
  remark                 | varchar(255) | YES  |     |         |         
+ birthday               | bigint(19)   | YES  |     |         |         
+ permanentAddress       | varchar(255) | YES  |     |         |         
+ presentAddress         | varchar(255) | YES  |     |         |         
+ studentRepaymentTime   | bigint(19)   | YES  |     |         |         
+ subsidy                | int(10)      | YES  |     |         |         
+ bankCard               | varchar(255) | YES  |     |         |         
+ bank                   | varchar(255) | YES  |     |         |         
+ photo                  | blob(65535)  | YES  |     |         |         
 ------------------------+--------------+------+-----+---------+---------
+
+Table: stumanager_student_employment
+------------------+--------------+------+-----+---------+---------
+ Field            | Type         | Null | Key | Default | Remarks 
+------------------+--------------+------+-----+---------+---------
+ id               | int(10)      | NO   | PRI |         |         
+ className        | varchar(255) | YES  |     |         |         
+ studentName      | varchar(255) | YES  |     |         | 学生姓名    
+ employmentStatus | int(10)      | YES  |     |         | 就业状态    
+ trackTime        | bigint(19)   | YES  |     |         | 追踪时间    
+ remark           | varchar(255) | YES  |     |         |         
+ counselorId      | int(10)      | YES  |     |         | 咨询师Id   
+ counselorName    | varchar(255) | YES  |     |         | 咨询师Id   
+ approveStatus    | int(10)      | YES  |     |         | 批准状态    
+ approver         | varchar(255) | YES  |     |         | 批准人     
+------------------+--------------+------+-----+---------+---------
 
 Table: stumanager_subsidy_application
 -----------------+--------------+------+-----+---------+---------
@@ -222,6 +230,7 @@ Table: stumanager_subsidy_application
  aggregateAmount | int(10)      | YES  |     |         | 总计      
  approverId      | int(10)      | YES  |     |         | 审批人Id   
  approveStatus   | int(10)      | YES  |     |         | 批准状态    
+ remark          | varchar(255) | YES  |     |         |         
 -----------------+--------------+------+-----+---------+---------
 
 Table: stumanager_subsidy_class_info

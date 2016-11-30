@@ -16,19 +16,22 @@ ${view.title}
                     地区
                 </th>
                 <th>
-                    班级
+                    申请班级
                 </th>
                 <th>
-                    助学金
+                    总助学金
                 </th>
                 <th>
-                    剩余次数
+                    总奖金
                 </th>
                 <th>
-                    奖金
+                    合计
                 </th>
                 <th>
                     申请人
+                </th>
+                <th>
+                    申请时间
                 </th>
                 <#if addAble || updateAble || deleteAble>
                     <th>
@@ -38,43 +41,46 @@ ${view.title}
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>
-                    成都
-                </td>
-                <td>
-                    11
-                </td>
-                <td>
-                    2100
-                </td>
-                <td>
-                    300
-                </td>
-                <td>
-                    2400
-                </td>
-                <td>
-                    西瓜
-                </td>
-                <#if addAble || updateAble || deleteAble>
+                <tr>
                     <td>
-
-                        <#list map["operators"+view.id] as op>
-                            <#if op.url == "seeApproval">
-                                <@macroBtn url = op.url title = op.title></@macroBtn>
-                                <#assign op = map["operators"+view.id][0]>
-                            ${InsertKit(btnLabel,5)}/
-                            </#if>
-                        </#list>
-
-                        <#if updateAble>
-                        ${InsertKit(updateBtn,"同意")}/
-                        </#if>
-                    ${InsertKit(deleteBtn,"驳回")}
+                        成都
                     </td>
-                </#if>
-            </tr>
+                    <td>
+                        11
+                    </td>
+                    <td>
+                        2100
+                    </td>
+                    <td>
+                        300
+                    </td>
+                    <td>
+                        2400
+                    </td>
+                    <td>
+                        1994.07.03
+                    </td>
+                    <td>
+                        西瓜
+                    </td>
+                    <#if addAble || updateAble || deleteAble>
+                        <td>
+
+                            <#list map["operators"+view.id] as op>
+                                <#if op.url == "seeApproval">
+                                    <@macroBtn url = op.url title = op.title></@macroBtn>
+                                    <#assign op = map["operators"+view.id][0]>
+                                ${InsertKit(btnLabel,5)}/
+                                </#if>
+                            </#list>
+
+                            <#if updateAble>
+                            ${InsertKit(updateBtn,"同意")}/
+                            </#if>
+                        ${InsertKit(deleteBtn,"驳回")}
+                        </td>
+                    </#if>
+                </tr>
             </tbody>
         </table>
     </div>

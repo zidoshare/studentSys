@@ -1173,12 +1173,42 @@ var func = {
 
     },
     submitApply: function () {
-        var modal = $('#submitApplyModel');
-        modalUtil.hideClear(modal, {
-            after: function () {
-                Util.loadPageByPjax(Label.staticServePath + '/approvalManager');
-            }
+        var data=[];
+
+        var jsonData=[];
+        $("tr[name='submit-tr']").each(function (index, dom) {
+            var list = $(dom).find('input[name]');
+            if (list.length <= 0)
+                return true;
+            var json = {};
+            list.each(function (ind, d) {
+                json[$(d).attr('name')] = $(d).val();
+            });
+            jsonData.push(json);
+            // data.push(json);
         });
+        var modal = $('#submitApplyModel');
+        //备注
+        var bz = modal.find('textarea:first').val();
+        //审批人
+        var id = $("#classSelect_list").val();
+        data.push(bz);
+        data.push(id);
+        data.push(jsonData);
+        console.log(data);
+        Util.ajax(Label.staticServePath + "/subsidyManager/confirmSubmit", {
+            data: {
+                'list': JSON.stringify(data)
+            },
+            btnSelector: '#save-submit-btn',
+            success: {
+                bindModal:modal,
+            }
+        })
+
+
+                // Util.loadPageByPjax(Label.staticServePath + '/approvalManager');
+
     },
     deleteApply: function (method, classId) {
         if (method == 'show') {
@@ -1377,11 +1407,6 @@ var func = {
                 }
             });
         } else {
-            var title = $("#input-title").val();
-            if (title==''){
-                Util.showTip($('#wholeTip'), '请输入表名', 'alert alert-warning');
-                return;
-            }
             var modelSub = $('#submitApplyModel');
             modalUtil.show(modelSub);
             var classNumber = 0;
@@ -1396,7 +1421,6 @@ var func = {
                 totalBonus += parseInt($(this).find("td[name='totalBonus']").text());
                 aggregateAmount += parseInt($(this).find("td[name='aggregateAmount']").text());
             });
-            modelSub.find("span#submit-Indicate").text(title);
             modelSub.find("span#submit-class").text(classNumber);
             modelSub.find("span#submit-student").text(number);
             modelSub.find("span#submit-subsidy").text(totalSubsidy);
@@ -1404,16 +1428,6 @@ var func = {
             modelSub.find("span#submit-total").text(aggregateAmount);
         }
     },
-    //
-    // allcheck:function (modl) {
-    //
-    //     modl.find('input').first().onclick(function () {
-    //         $("input[type=checkbox]").each(function () {
-    //
-    //             $(this).prop('checked', true);//
-    //         });
-    //     });
-    // },
     addClass: function (method) {
         if (method == 'up') {
             var btn = Ladda.create(document.querySelector("#save-btn"));

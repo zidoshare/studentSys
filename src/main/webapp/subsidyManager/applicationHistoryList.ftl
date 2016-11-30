@@ -45,19 +45,28 @@ ${view.title}
                 <thead>
                 <tr>
                     <th>
-                        编号
+                        班级
                     </th>
                     <th>
-                        申请时间
+                        助学金
+                    </th>
+                    <th>
+                        奖金
+                    </th>
+                    <th>
+                        合计
                     </th>
                     <th>
                         申请人
                     </th>
                     <th>
-                        申请状态
+                        审批人
                     </th>
                     <th>
-                        操作
+                        申请时间
+                    </th>
+                    <th>
+                       状态
                     </th>
                 </tr>
                 </thead>
@@ -65,45 +74,39 @@ ${view.title}
                     <#list saPages.list as sub>
                     <tr>
                         <td>
-                            ${sub_index+1}
+                            ${sub.className}
+                        </td>
+                        <td>
+                            ${sub.totalSubsidy}
+                        </td>
+                        <td>
+                            ${sub.totalBonus}
+                        </td>
+                        <td>
+                            ${sub.aggregateAmount}
+                        </td>
+                        <td>
+                            ${sub.applicantName}
+                        </td>
+                        <td>
+
                         </td>
                         <td>
                         ${(sub.applicationDate?number)?number_to_date}
                         </td>
-                        <td>
-                        ${sub.applicantName}
-                        </td>
-                        <td>
-                        <#if sub.status??>
-                             ${sub.status.statusName}
-                        </#if>
-                        </td>
+                        <#--<td>-->
+                        <#--${sub.applicantName}-->
+                        <#--</td>-->
+                        <#--<td>-->
+                        <#--<#if sub.status??>-->
+                             <#--${sub.status.statusName}-->
+                        <#--</#if>-->
+                        <#--</td>-->
                         <td>
 
                         </td>
                     </tr>
                     </#list>
-                <#--<#list classes.list as class>-->
-                <#--<tr id="class${class.id}" data-label="${class.id}"  data-target="#classId" data-method="prop">-->
-                <#--<td id="className${class.id}" data-label="${class.className?html}" data-target="#className">${class.className}</td>-->
-                <#--<td id="number${class.id}" data-label="${class.number}" data-target="#number">${class.number}</td>-->
-                <#--<td id="subsidyAmount${class.id}" data-label="${class.subsidyAmount}" data-target="#subsidyAmount">${class.subsidyAmount}</td>-->
-                <#--<td id="bonus${class.id}" data-label="${class.bonus}" data-target="bonus">${class.bonus}</td>-->
-                <#--<td id="total${class.id}" data-label="${class.total}" data-target="total">${class.total}</td>-->
-                <#--<td id="applicant${class.id}" data-label="${class.applicant}" data-target="applicant">${class.applicant}</td>-->
-                <#--<#if updateAble || deleteAble>-->
-                <#--<td>-->
-                <#--<#if updateAble>-->
-                <#--${InsertKit(updateBtn,"${class.id}")}/-->
-                <#--</#if>-->
-                <#--${InsertKit(deleteBtn,"${class.id}")}-->
-                <#--</td>-->
-                <#--</#if>-->
-                <#--<td id="classUpdateTime${class.id}" class="hidden" data-label="${class.classUpdateTime}" data-target="#classUpdateTime" data-method="prop">-->
-                <#--</td>-->
-                <#--</tr>-->
-                <#--</#list>-->
-
                 </tbody>
             </table>
             <#if saPages??>

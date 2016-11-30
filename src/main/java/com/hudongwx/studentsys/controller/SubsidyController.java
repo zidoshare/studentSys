@@ -2,6 +2,7 @@ package com.hudongwx.studentsys.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.hudongwx.studentsys.common.BaseController;
 import com.hudongwx.studentsys.model.Class;
 import com.hudongwx.studentsys.model.*;
@@ -190,12 +191,17 @@ public class SubsidyController extends BaseController {
                     subsidyClassInfoService._updateSubsidyClassInfo(asci);
                 }
             }
-            SubsidyApplication subsidyApplication = subsidyApplicationService.getApplicationHistoryByApplicationDate(aLong);
-            total = totalBonus + totalSubsidy;
-            subsidyApplication.setTotalBonus(totalBonus);
-            subsidyApplication.setTotalSubsidy(totalSubsidy);
-            subsidyApplication.setAggregateAmount(total);
-            subsidyApplicationService._updateSubsidyApplication(subsidyApplication);
+            List<SubsidyApplication> saList = subsidyApplicationService.getSubApplicationByApplicationDate(aLong);
+            if(saList.size()!=0){
+                for (SubsidyApplication subsidyApplication : saList) {
+                    total = totalBonus + totalSubsidy;
+                    subsidyApplication.setTotalBonus(totalBonus);
+                    subsidyApplication.setTotalSubsidy(totalSubsidy);
+                    subsidyApplication.setAggregateAmount(total);
+                    subsidyApplicationService._updateSubsidyApplication(subsidyApplication);
+                }
+            }
+
         }
 
         RenderKit.renderSuccess(this);
@@ -356,8 +362,24 @@ public class SubsidyController extends BaseController {
     }
 
     public void confirmSubmit() {
-        String sub = getPara("sub");
+        long date=System.currentTimeMillis();
+        String sub = getPara("list");
+        System.out.println("-------sub--------"+sub);
+        JSONArray array = JSON.parseArray(sub);
+        String remark=array.get(0).toString();
+        int approverId=Integer.valueOf(array.get(1).toString());
+        JSONArray dateArray = JSON.parseArray(array.get(2).toString());
+        for (Object o : dateArray) {
+            JSONObject jb=JSON.parseObject(o.toString());
+            long ad=jb.getLongValue("applicationDate");
+            setSubApplication(date, remark, approverId, ad);
+            setSubsidyClassInfo(date, ad);
+        }
+        resetSubsidyClassInfo();
+        RenderKit.renderSuccess(this,getCurrentUser(this).getId());
+    }
 
+    private void resetSubsidyClassInfo() {
         List<SubsidyClassInfo> sciList = subsidyClassInfoService.getAllSubsidyClassInfo();
         if (sciList.size() != 0) {
             for (SubsidyClassInfo subsidyClassInfo : sciList) {
@@ -366,6 +388,29 @@ public class SubsidyController extends BaseController {
                 }
             }
         }
+    }
+
+    private void setSubsidyClassInfo(long date, long ad) {
+        List<SubsidyClassInfo> sciList = subsidyClassInfoService.getSubsidyClassInfoByApplicationDate(ad);
+        for (SubsidyClassInfo subsidyClassInfo : sciList) {
+            subsidyClassInfo.setApplicationDate(date);
+            subsidyClassInfo.setApproveStatus(APPROV_STATUS_ON);
+            subsidyClassInfoService._updateSubsidyClassInfo(subsidyClassInfo);
+        }
+    }
+
+    private void setSubApplication(long date, String remark, int approverId, long ad) {
+        List<SubsidyApplication> appList = subsidyApplicationService.getSubApplicationByApplicationDate(ad);
+        if(appList.size()!=0){
+            for (SubsidyApplication app : appList) {
+                app.setApplicationDate(date);
+                app.setRemark(remark);
+                app.setApproverId(approverId);
+                app.setApproveStatus(APPROV_STATUS_ON);
+                subsidyApplicationService._updateSubsidyApplication(app);
+            }
+        }
+
     }
 
 }

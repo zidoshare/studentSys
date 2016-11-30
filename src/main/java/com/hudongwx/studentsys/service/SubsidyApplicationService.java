@@ -102,7 +102,7 @@ public class SubsidyApplicationService extends Service {
      * @return
      */
     public List<SubsidyApplication> getSubsidyApplicationByApplicantId(int applicantid) {
-        return SubsidyApplication.dao.find(SubsidyApplication.SEARCH_FROM_SUBSIDY_APPLICATION + "where applicantId=?", applicantid);
+        return SubsidyApplication.dao.find(SubsidyApplication.SEARCH_FROM_SUBSIDY_APPLICATION + "where applicantId = ? ", applicantid);
     }
 
     /**
@@ -112,7 +112,7 @@ public class SubsidyApplicationService extends Service {
      * @return
      */
     public Page<SubsidyApplication> getSubsidyApplicationByApplicantId(int applicantid, int currentPage) {
-        return SubsidyApplication.dao.paginate(currentPage, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, SubsidyApplication.SQL_FROM + "where applicantId=?", applicantid);
+        return SubsidyApplication.dao.paginate(currentPage, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, SubsidyApplication.SQL_FROM + "where applicantId = ?  and approveStatus = 9 ", applicantid);
     }
 
     /**
@@ -129,8 +129,8 @@ public class SubsidyApplicationService extends Service {
         return SubsidyApplication.dao.find(SubsidyApplication.SEARCH_FROM_SUBSIDY_APPLICATION + "where applicantId = ? and (approveStatus=10 or approveStatus=8 ) and approverId is not NULL ");
     }
 
-    public SubsidyApplication getApplicationHistoryByApplicationDate(Long applicationDate) {
-        return SubsidyApplication.dao.find(SubsidyApplication.SEARCH_FROM_SUBSIDY_APPLICATION + "where applicationDate = ? and approveStatus= 9 ",applicationDate).get(0);
+    public List<SubsidyApplication> getSubApplicationByApplicationDate(Long applicationDate) {
+        return SubsidyApplication.dao.find(SubsidyApplication.SEARCH_FROM_SUBSIDY_APPLICATION + "where applicationDate = ? and approveStatus= 9 ",applicationDate);
     }
 
     public Page<SubsidyApplication> getSubsidyApplicationHistoryByUserId(int pageNummber,int userId) {
