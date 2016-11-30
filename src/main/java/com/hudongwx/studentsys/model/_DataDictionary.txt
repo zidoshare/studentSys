@@ -230,6 +230,7 @@ Table: stumanager_subsidy_application
  aggregateAmount | int(10)      | YES  |     |         | 总计      
  approverId      | int(10)      | YES  |     |         | 审批人Id   
  approveStatus   | int(10)      | YES  |     |         | 批准状态    
+ remark          | varchar(255) | YES  |     |         |         
 -----------------+--------------+------+-----+---------+---------
 
 Table: stumanager_subsidy_class_info

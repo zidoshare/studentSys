@@ -24,6 +24,8 @@ import java.util.TreeSet;
  * Created by wu on 2016/11/19.
  */
 public class SubsidyController extends BaseController {
+    private static final int UN_CHECKED = 12 ;
+    private static final int CHECKED = 11 ;
     public final int APPROV_STATUS_NO = 9;
     public final int APPROV_STATUS_ON = 10;
     public final int APPROV_STATUS_YET = 8;
@@ -171,7 +173,7 @@ public class SubsidyController extends BaseController {
                 totalBonus+=subsidyClassInfo.getBonus();
                 totalSubsidy+=subsidyClassInfo.getSubsidyAmount();
             }
-            SubsidyApplication subsidyApplication = subsidyApplicationService.getApplicationHistoryByApplicationDate(aLong);
+            SubsidyApplication subsidyApplication = subsidyApplicationService.getSubApplicationByApplicationDate(aLong);
             total=totalBonus+totalSubsidy;
             subsidyApplication.setTotalBonus(totalBonus);
             subsidyApplication.setTotalSubsidy(totalSubsidy);
@@ -330,5 +332,50 @@ public class SubsidyController extends BaseController {
 
     }
 
+    public void confirmSubmit() {
+        long date=System.currentTimeMillis();
+        String sub = getPara("sub");
+        System.out.println("-------sub--------"+sub);
+        JSONArray array = JSON.parseArray(sub);
+        String remark=array.get(0).toString();
+        int approverId=Integer.valueOf(array.get(1).toString());
+        JSONArray dateArray = JSON.parseArray(array.get(3).toString());
+        for (Object o : dateArray) {
+            long ad=Long.valueOf(o.toString());
+            setSubApplication(date, remark, approverId, ad);
+            setSubsidyClassInfo(date, ad);
+        }
+        resetSubsidyClassInfo();
+        RenderKit.renderSuccess(this,getCurrentUser(this).getId());
+    }
+
+    private void resetSubsidyClassInfo() {
+        List<SubsidyClassInfo> sciList = subsidyClassInfoService.getAllSubsidyClassInfo();
+        if (sciList.size() != 0) {
+            for (SubsidyClassInfo subsidyClassInfo : sciList) {
+                if (subsidyClassInfo.getApproveStatus() == APPROV_STATUS_NO||subsidyClassInfo.getChecked()==UN_CHECKED) {
+                    subsidyClassInfo.delete();
+                }
+            }
+        }
+    }
+
+    private void setSubsidyClassInfo(long date, long ad) {
+        List<SubsidyClassInfo> sciList = subsidyClassInfoService.getSubsidyClassInfoByApplicationDate(ad);
+        for (SubsidyClassInfo subsidyClassInfo : sciList) {
+            subsidyClassInfo.setApplicationDate(date);
+            subsidyClassInfo.setApproveStatus(APPROV_STATUS_ON);
+            subsidyClassInfoService._updateSubsidyClassInfo(subsidyClassInfo);
+        }
+    }
+
+    private void setSubApplication(long date, String remark, int approverId, long ad) {
+        SubsidyApplication app = subsidyApplicationService.getSubApplicationByApplicationDate(ad);
+        app.setApplicationDate(date);
+        app.setRemark(remark);
+        app.setApproverId(approverId);
+        app.setApproveStatus(APPROV_STATUS_ON);
+        subsidyApplicationService._updateSubsidyApplication(app);
+    }
 
 }

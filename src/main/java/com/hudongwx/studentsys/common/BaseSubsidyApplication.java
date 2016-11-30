@@ -121,4 +121,12 @@ public abstract class BaseSubsidyApplication<M extends BaseSubsidyApplication<M>
 		return get("approveStatus");
 	}
 
+	public void setRemark(java.lang.String remark) {
+		set("remark", remark);
+	}
+
+	public java.lang.String getRemark() {
+		return get("remark");
+	}
+
 }

@@ -82,4 +82,9 @@ public class StudentController extends BaseController {
             RenderKit.renderSuccess(this,JsonKit.toJson(studentService.getStudentByClassId(cid,status)));
         }
     }
+
+    public void getInputUrl(){
+        super.index();
+        mappingService.getMappingByUrl("/studentManager/inputStudentInfo.ftl");
+    }
 }

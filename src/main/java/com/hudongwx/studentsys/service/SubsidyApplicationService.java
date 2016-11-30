@@ -139,7 +139,7 @@ public class SubsidyApplicationService extends Service {
         return SubsidyApplication.dao.find(SubsidyApplication.SEARCH_FROM_SUBSIDY_APPLICATION + "where applicantId = ? and (approveStatus=10 or approveStatus=8 ) and approverId is not NULL ");
     }
 
-    public SubsidyApplication getApplicationHistoryByApplicationDate(Long applicationDate) {
+    public SubsidyApplication getSubApplicationByApplicationDate(Long applicationDate) {
         return SubsidyApplication.dao.find(SubsidyApplication.SEARCH_FROM_SUBSIDY_APPLICATION + "where applicationDate = ? and approveStatus= 9 ",applicationDate).get(0);
     }
 
