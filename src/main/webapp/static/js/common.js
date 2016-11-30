@@ -1212,8 +1212,8 @@ var func = {
     },
     addDetails: function () {
         var data = [];
-        var model = $("#seeApplyModel");
-        model.find('tr').each(function (index, dom) {
+        var modal = $("#seeApplyModel");
+        modal.find('tr').each(function (index, dom) {
             if (!$(dom).find('input[type="checkbox"]').prop('checked'))
                 return true;
             var list = $(dom).find('input[name]');
@@ -1233,15 +1233,7 @@ var func = {
             },
             btnSelector: '#sa-btn',
             success: {
-                success: function () {
-                    $("#seeApplyModel").modal('hide');
-                    //刷新页面
-                    Util.reloadByPjax();
-                },
-                error: function () {
-
-                },
-
+                bindModal:modal,
             }
         })
     },
