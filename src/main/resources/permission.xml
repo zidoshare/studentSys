@@ -75,6 +75,19 @@
                                 </mapping>
                             </mappings>
                         </mapping>
+                        <mapping id="1013" icon="showStudentInfo" url="/studentManager/showStudentInfo.ftl" title="班级详情" function="1">
+                            <mappings>
+                                <mapping id="1014" icon="seeStudent" title="查看" url="seeStudent" function="0">
+                                    <mappings/>
+                                </mapping>
+                                <mapping id="1015" icon="updateStudent" title="修改" url="updateStudent" function="0">
+                                    <mappings/>
+                                </mapping>
+                                <mapping id="1016" icon="deleteStudent" title="删除" url="deleteStudent" function="0">
+                                    <mappings/>
+                                </mapping>
+                            </mappings>
+                        </mapping>
                     </mappings>
                 </mapping>
                 <mapping id="6000" icon="fa fa-flag" url="/" title="信息录入"

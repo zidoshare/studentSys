@@ -41,6 +41,7 @@ ${view.title}
             </tr>
             </thead>
             <tbody>
+            <#list asP.list as sa>
                 <tr>
                     <td>
                         成都
@@ -80,7 +81,8 @@ ${view.title}
                         ${InsertKit(deleteBtn,"驳回")}
                         </td>
                     </#if>
-                </tr>
+                  </tr>
+                </#list>
             </tbody>
         </table>
     </div>

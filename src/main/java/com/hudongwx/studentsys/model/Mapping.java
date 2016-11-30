@@ -39,6 +39,10 @@ public class Mapping extends BaseMapping<Mapping> implements TreeNode {
 		this(icon,title,url);
 		setFunction(function);
 	}
+
+	public Mapping(Mapping mapping){
+		this(mapping.getIcon(),mapping.getTitle(),mapping.getUrl());
+	}
 	public void init(){
 		getParent();
 		getLeftChild();

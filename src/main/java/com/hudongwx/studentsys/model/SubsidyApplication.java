@@ -7,10 +7,14 @@ import com.hudongwx.studentsys.common.BaseSubsidyApplication;
  */
 @SuppressWarnings("serial")
 public class SubsidyApplication extends BaseSubsidyApplication<SubsidyApplication> {
+	public static final Integer APPROVE_BEFORE=9;
+	public static final Integer APPROVE_WAITTING=10;
+	public static final Integer APPROVE_AFTER=8;
 	public static final SubsidyApplication dao = new SubsidyApplication();
 	public static final String SEARCH_FROM_SUBSIDY_APPLICATION = "select * from stumanager_subsidy_application ";
 	public static final String SQL_FROM = " from stumanager_subsidy_application ";
 	private Status status;
+	private Region region;
 
 	public Status getStatus() {
 		return status;
@@ -18,5 +22,13 @@ public class SubsidyApplication extends BaseSubsidyApplication<SubsidyApplicatio
 
 	public void setStatus(Status status) {
 		this.status = status;
+	}
+
+	public Region getRegion() {
+		return region;
+	}
+
+	public void setRegion(Region region) {
+		this.region = region;
 	}
 }

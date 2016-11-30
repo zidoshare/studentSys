@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
  */
 public class SubsidyApplicationService extends Service {
     StatusService statusService;
+    RegionService regionService;
     /**
      * 添加申请表
      *
@@ -113,6 +114,21 @@ public class SubsidyApplicationService extends Service {
      */
     public Page<SubsidyApplication> getSubsidyApplicationByApplicantId(int applicantid, int currentPage) {
         return SubsidyApplication.dao.paginate(currentPage, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, SubsidyApplication.SQL_FROM + "where applicantId = ?  and approveStatus = 9 ", applicantid);
+    }
+
+    /**
+     * 通过申请人id查询申请表信息
+     *
+     * @param approveId currentPage
+     * @return
+     */
+    public Page<SubsidyApplication> getSubsidyApplicationByApproveId(Integer approveId, Integer currentPage) {
+        Page<SubsidyApplication> paginate = SubsidyApplication.dao.paginate(currentPage, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, SubsidyApplication.SQL_FROM + "where approveId = ?  and approveStatus = ?", new Object[]{approveId, SubsidyApplication.APPROVE_WAITTING});
+                    return PageinateKit.ClonePage(paginate,
+                            paginate.getList().stream().map(sa -> {
+                                sa.setRegion(regionService.getRegionById(sa.getRegionId()));
+                                sa.setStatus(statusService.getStatusById(sa.getApproveStatus()));return sa;
+                            }).collect(Collectors.toList()));
     }
 
     /**

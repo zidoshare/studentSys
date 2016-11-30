@@ -18,6 +18,7 @@ import com.jfinal.aop.Before;
 import com.jfinal.ext.interceptor.POST;
 import com.jfinal.kit.JsonKit;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,6 +31,11 @@ public class StudentController extends BaseController {
 
     @Override
     public void index() {
+
+        if("pageJump".equals(getPara(0))){
+            pageJump();
+            return;
+        }
         super.index();
         List<Student> students = studentService.getAllStudent();
         setAttr("students",students);
@@ -37,6 +43,15 @@ public class StudentController extends BaseController {
         setAttr("users",defaultTeacher);
         List<Class> allClass = classService.getAllClass();
         setAttr("classes",allClass);
+    }
+
+    private void pageJump(){
+        setMapping(mappingService.getMappingByUrl("/classManager"));
+        super.index();
+        List<Mapping> views = new ArrayList<>();
+        Mapping mapping = mappingService.getMappingByUrl("/studentManager/pageJump");
+        views.add(mapping);
+        setAttr(Common.LABEL_VIEWS,views);
     }
 
     /**

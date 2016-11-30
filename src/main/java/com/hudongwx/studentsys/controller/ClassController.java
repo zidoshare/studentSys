@@ -6,10 +6,14 @@ import com.hudongwx.studentsys.model.Mapping;
 import com.hudongwx.studentsys.service.ClassService;
 import com.hudongwx.studentsys.service.StudentService;
 import com.hudongwx.studentsys.service.UserService;
+import com.hudongwx.studentsys.util.Common;
 import com.hudongwx.studentsys.util.RenderKit;
 import com.jfinal.aop.Before;
 import com.jfinal.ext.interceptor.POST;
 import com.jfinal.plugin.activerecord.Page;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by wuhongxu on 2016/10/17 0017.
@@ -21,11 +25,19 @@ public class ClassController extends BaseController {
 
 
     public void index() {
+
         super.index();
+        List<Mapping> views = new ArrayList<>();
+        Mapping mapping = mappingService.getMappingByUrl("/classManager");
+        views.add(mapping);
+        setAttr(Common.LABEL_VIEWS,views);
+
         Integer p = getParaToInt("p", 1);
         Page<Class> allClass = classService.getAllClass(p);
         setAttr("classes", allClass);
     }
+
+
 
     /**
      * @return 返回一级菜单的mapping
@@ -67,4 +79,7 @@ public class ClassController extends BaseController {
         aClass.delete();
         RenderKit.renderSuccess(this,"删除成功");
     }
+
+
+
 }

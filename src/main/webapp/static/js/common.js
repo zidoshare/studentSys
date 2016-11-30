@@ -1202,7 +1202,7 @@ var func = {
             },
             btnSelector: '#save-submit-btn',
             success: {
-                bindModal:modal,
+                bindModal:modal
             }
         })
 
@@ -1427,6 +1427,14 @@ var func = {
             modelSub.find("span#submit-bonus").text(totalBonus);
             modelSub.find("span#submit-total").text(aggregateAmount);
         }
+    },
+    seeStudentInformation:function () {
+        modalUtil.show($("#studentInformationModel"));
+    },
+    seeClassStudent:function () {
+        Util.loadByPjax(Label.staticServePath+"/studentManager/pageJump",{
+            container:'#class-details'
+        });
     },
     addClass: function (method) {
         if (method == 'up') {
