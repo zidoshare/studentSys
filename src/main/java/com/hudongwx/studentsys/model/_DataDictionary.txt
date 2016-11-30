@@ -178,10 +178,10 @@ Table: stumanager_student
  bonus                  | int(10)      | YES  |     |         |         
  residualFrequency      | tinyint(3)   | YES  |     |         |         
  regionId               | int(10)      | YES  |     |         |         
- checked                | int(10)      | YES  |     |         |         
  status                 | int(10)      | YES  |     |         |         
  employmentStatus       | int(10)      | YES  |     |         |         
  createTime             | bigint(19)   | YES  |     |         | 用户创建时间  
+ checked                | int(10)      | YES  |     |         |         
  ip                     | varchar(20)  | YES  |     | 0.0.0.0 | 最后登录的ip地址
  operaterId             | int(10)      | YES  |     |         | 操作人     
  operater               | varchar(255) | YES  |     | admin   |         
@@ -224,6 +224,22 @@ Table: stumanager_subsidy_application
  approveStatus   | int(10)      | YES  |     |         | 批准状态    
 -----------------+--------------+------+-----+---------+---------
 
+Table: stumanager_subsidy_application_sum
+-----------------+--------------+------+-----+---------+---------
+ Field           | Type         | Null | Key | Default | Remarks 
+-----------------+--------------+------+-----+---------+---------
+ id              | int(10)      | NO   | PRI |         |         
+ title           | varchar(255) | YES  |     |         |         
+ applicantId     | int(10)      | YES  |     |         |         
+ approverId      | int(10)      | YES  |     |         |         
+ totalSubsidy    | int(10)      | YES  |     |         |         
+ totalBonus      | int(10)      | YES  |     |         |         
+ total           | int(10)      | YES  |     |         |         
+ classIdGather   | varchar(255) | YES  |     |         |         
+ applicationDate | bigint(19)   | YES  |     |         |         
+ approveStatus   | int(10)      | YES  |     |         |         
+-----------------+--------------+------+-----+---------+---------
+
 Table: stumanager_subsidy_class_info
 -------------------+--------------+------+-----+---------+---------
  Field             | Type         | Null | Key | Default | Remarks 
@@ -241,6 +257,7 @@ Table: stumanager_subsidy_class_info
  approveStatus     | int(10)      | YES  |     |         |         
  applicationDate   | bigint(19)   | YES  |     |         |         
  remark            | varchar(255) | YES  |     |         | 备注      
+ checked           | tinyint(3)   | YES  |     |         |         
 -------------------+--------------+------+-----+---------+---------
 
 Table: stumanager_test_question

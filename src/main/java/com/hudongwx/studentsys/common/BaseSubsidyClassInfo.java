@@ -113,4 +113,12 @@ public abstract class BaseSubsidyClassInfo<M extends BaseSubsidyClassInfo<M>> ex
 		return get("remark");
 	}
 
+	public void setChecked(java.lang.Integer checked) {
+		set("checked", checked);
+	}
+
+	public java.lang.Integer getChecked() {
+		return get("checked");
+	}
+
 }
