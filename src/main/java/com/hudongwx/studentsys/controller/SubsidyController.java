@@ -358,7 +358,7 @@ public class SubsidyController extends BaseController {
         } else {
             subsidyApplicationService._saveApplication(sa);
         }
-
+        RenderKit.renderSuccess(this);
     }
 
     public void confirmSubmit() {
