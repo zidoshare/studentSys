@@ -2,32 +2,32 @@
  * Created by wuhongxu on 2016/8/30 0030.
  */
 
-jQuery.fn.showLoading=function(){
-    if($(this).attr('data-lb')=='1')
-        return ;
+jQuery.fn.showLoading = function () {
+    if ($(this).attr('data-lb') == '1')
+        return;
     var width = $(this).width();
     var height = $(this).height();
     $(this).html('');
-    var str= '<div style="position:relative; width:' + width + 'px;height:' + height + 'px" class="panel_loading"><div class="sk-circle"> <div class="sk-circle1 sk-child"></div> <div class="sk-circle2 sk-child"></div> <div class="sk-circle3 sk-child"></div> <div class="sk-circle4 sk-child"></div> <div class="sk-circle5 sk-child"></div> <div class="sk-circle6 sk-child"></div> <div class="sk-circle7 sk-child"></div> <div class="sk-circle8 sk-child"></div> <div class="sk-circle9 sk-child"></div> <div class="sk-circle10 sk-child"></div> <div class="sk-circle11 sk-child"></div> <div class="sk-circle12 sk-child"></div> </div></div>';
+    var str = '<div style="position:relative; width:' + width + 'px;height:' + height + 'px" class="panel_loading"><div class="sk-circle"> <div class="sk-circle1 sk-child"></div> <div class="sk-circle2 sk-child"></div> <div class="sk-circle3 sk-child"></div> <div class="sk-circle4 sk-child"></div> <div class="sk-circle5 sk-child"></div> <div class="sk-circle6 sk-child"></div> <div class="sk-circle7 sk-child"></div> <div class="sk-circle8 sk-child"></div> <div class="sk-circle9 sk-child"></div> <div class="sk-circle10 sk-child"></div> <div class="sk-circle11 sk-child"></div> <div class="sk-circle12 sk-child"></div> </div></div>';
     $(this).append(str);
-    $(this).attr('data-lb','1');
+    $(this).attr('data-lb', '1');
     var dom = $(this);
-    setTimeout(function(){
-        dom.attr('data-lb','0');
-    },500);
+    setTimeout(function () {
+        dom.attr('data-lb', '0');
+    }, 500);
 };
-jQuery.fn.closeLoading=function(){
+jQuery.fn.closeLoading = function () {
     var dom = $(this);
-    if(dom.attr('data-lb') == '1'){
-        setTimeout(function(){
+    if (dom.attr('data-lb') == '1') {
+        setTimeout(function () {
             dom.closeLoading();
-        },100);
-        return ;
+        }, 100);
+        return;
     }
-    console.log('close',this);
-    dom.find('.panel_loading').fadeOut(500,function(){
-         $(this).remove();
-     });
+    console.log('close', this);
+    dom.find('.panel_loading').fadeOut(500, function () {
+        $(this).remove();
+    });
 }
 
 var Login = {
@@ -180,6 +180,45 @@ var Validate = {
 
 var Util = {
     ajax: function (url, options) {
+        /*
+        * success：options->
+        *               defaults = {
+                             success: function () {
+                             },
+                             error: function () {
+                             },
+                             onShowSuccess: {},
+                             onShowError: {},
+                             bindModal: null,
+                             bindContainer: ['#table-inner'],
+                             bindUrl: ''
+                         };
+          error:options->
+                     defaults = {
+                         onShowTip: {},
+                         msg: '服务器错误'
+                     };
+          complete:options->
+                     defaults = {
+                         do: function (selector) {
+                             if (selector == null || selector == '')
+                                selector = "#save-btn";
+                             if (Exception.btn != null)
+                                Exception.btn.stop();
+                         }
+                     };
+          beforeSend:options->
+                     defaults = {
+                         do: function (selector) {
+                             if (selector == null || selector == '')
+                             selector = "#save-btn";
+                             Exception.btn = Ladda.create(document.querySelector(selector));
+                             Exception.btn.start();
+                         }
+                     };
+        *
+        *
+        * */
         var defaults = {
             url: url,
             data: {},
@@ -187,7 +226,7 @@ var Util = {
             type: 'post',
             beforeSend: {},
             success: {},
-            error:{},
+            error: {},
             complete: {},
             btnSelector: '#save-btn'
         };
@@ -199,37 +238,38 @@ var Util = {
             opts.complete = {
                 selector: opts.btnSelector
             };
-        };
+        }
+        ;
         $.ajax({
             url: opts.url,
-            data:opts.data,
+            data: opts.data,
             dataType: opts.dataType,
             type: opts.type,
-            beforeSend:Exception.beforeSend(opts.beforeSend),
+            beforeSend: Exception.beforeSend(opts.beforeSend),
             success: Exception.success(opts.success),
             error: Exception.error(opts.error),
             complete: Exception.complete(opts.complete)
         });
     },
-    input:function (dom,name,id) {
-        var width = dom.width()+80;
+    input: function (dom, name, id) {
+        var width = dom.width() + 80;
         var height = dom.height();
-        var input=$("#template-input").clone();
+        var input = $("#template-input").clone();
         input.width(width);
         // input.height(height);
         console.log(id);
-        input.attr('id',id);
-        input.css('position','relative');
-        input.attr('name',name);
+        input.attr('id', id);
+        input.css('position', 'relative');
+        input.attr('name', name);
 
         dom.addClass('sr-only');
         dom.after(input);
         return input;
     },
-    jsonToString: function (str,param) {
+    jsonToString: function (str, param) {
         var reg = /{([^{}]+)}/gm;
         return str.replace(reg, function (match, name) {
-            if(param[name] == null )
+            if (param[name] == null)
                 return match;
             return param[name];
         });
@@ -276,8 +316,8 @@ var Util = {
             event.stopPropagation();
         });
     },
-    loadPageByPjax:function(url){
-        window.location.href=url;
+    loadPageByPjax: function (url) {
+        window.location.href = url;
         // Util.loadByPjax(url,{
         //     container:'#page-inner',
         //     showWholeAnimate: true,
@@ -381,7 +421,7 @@ var Util = {
             },
             complete: function () {
             },
-            fragment: '#table-inner'
+            fragment: container
         };
         var opts = $.extend(defaults, options);
         /*$(opts.container).off('pjax:beforeSend');
@@ -681,7 +721,7 @@ var Animate = {
             barColor: '#30a5ff'
         });
     },
-    showLoading:function(dom){
+    showLoading: function (dom) {
         var width = dom.width();
         var height = dom.height();
         var str = '<div style="width:' + width + 'px;height:' + height + 'px" class="panel_loading"> <img src="' + Label.staticServePath + '/images/loading.gif" class="img-sm center-block"/> </div>';
@@ -1133,38 +1173,38 @@ var func = {
             })
         }
     },
-    seeApproval:function (methed,id) {
+    seeApproval: function (methed, id) {
         modalUtil.show($('#seeApprovalModel'));
-        
+
     },
-    submitApply:function () {
+    submitApply: function () {
         var modal = $('#submitApplyModel');
-        modalUtil.hideClear(modal,{
-            after:function(){
+        modalUtil.hideClear(modal, {
+            after: function () {
                 Util.loadPageByPjax(Label.staticServePath + '/approvalManager');
             }
         });
     },
-    deleteApply:function(method,classId){
-        if (method=='show'){
-            if (confirm('确认删除？')){
+    deleteApply: function (method, classId) {
+        if (method == 'show') {
+            if (confirm('确认删除？')) {
                 $.ajax({
-                    url:Label.staticServePath+"/subsidyManager/deleteSubsidyClassInfo",
-                    type:'post',
-                    data:{
-                        'classId':classId
+                    url: Label.staticServePath + "/subsidyManager/deleteSubsidyClassInfo",
+                    type: 'post',
+                    data: {
+                        'classId': classId
                     },
                     success: function (data, status) {
 
                         if (data.state == 'success') {
-                            Util.showTip($('#wholeTip'), data.msg, "alert alert-success",{
+                            Util.showTip($('#wholeTip'), data.msg, "alert alert-success", {
                                 before: function () {
                                     $('tr#list' + classId).remove();
                                     Util.reloadByPjax('#table-inner');
                                 }
                             });
                         }
-                        else{
+                        else {
                             Util.showTip($('#wholeTip'), data.msg, "alert alert-danger");
                         }
                     },
@@ -1175,94 +1215,94 @@ var func = {
             }
         }
     },
-    addDetails:function () {
-        var data=[];
+    addDetails: function () {
+        var data = [];
         $("#seeApplyModel").find('tr').each(function (index, dom) {
-            if(!$(dom).find('input[type="checkbox"]').prop('checked'))
+            if (!$(dom).find('input[type="checkbox"]').prop('checked'))
                 return true;
             var list = $(dom).find('input[name]');
-            if(list.length <= 0)
+            if (list.length <= 0)
                 return true;
             var json = {};
 
             list.each(function (ind, d) {
-                json[$(d).attr('name')]= $(d).val();
+                json[$(d).attr('name')] = $(d).val();
             });
             data.push(json);
         });
-        Util.ajax(Label.staticServePath+"/subsidyManager/addSubsidyClassInfo",{
-            data:{
-                'list':data,
-                "length":data.length
+        Util.ajax(Label.staticServePath + "/subsidyManager/addSubsidyClassInfo", {
+            data: {
+                'list': data,
+                "length": data.length
             },
-            btnSelector:'#sa-btn',
-            success:{}
+            btnSelector: '#sa-btn',
+            success: {}
         })
     },
-    seeApply:function (method,id) {
-            modalUtil.show($('#seeApplyModel'));
-            $.ajax(Label.staticServePath+"/subsidyManager/getSubsidyClassInfo",{
-               type:'post',
-                dataType:'json',
-                data:{
-                    'classId':id
-                },
-                success:function(data,status){
-                    if(data.state == 'success'){
-                        var json = JSON.parse(data.msg);
-                        json.map(function(elem,num){
-                            var sta;
-                            if (elem['status']==1){
-                                sta='在读';
-                            }else if (elem['status']==0){
-                                sta='毕业';
-                            }
+    seeApply: function (method, id) {
+        modalUtil.show($('#seeApplyModel'));
+        $.ajax(Label.staticServePath + "/subsidyManager/getSubsidyClassInfo", {
+            type: 'post',
+            dataType: 'json',
+            data: {
+                'classId': id
+            },
+            success: function (data, status) {
+                if (data.state == 'success') {
+                    var json = JSON.parse(data.msg);
+                    json.map(function (elem, num) {
+                        var sta;
+                        if (elem['status'] == 1) {
+                            sta = '在读';
+                        } else if (elem['status'] == 0) {
+                            sta = '毕业';
+                        }
 
-                            var str = '<tr id="tr{id}">' +
-                                '<td></td>' +
-                                '<td class="hidden"><input name="id" value="{id}"/></td>'+
-                                '<td>{studentName}</td>' +
-                                '<td>{subsidyAmount}</td>' +
-                                '<td>{residualFrequency}</td>' +
-                                '<td><input value="{bonus}" class="form-control"  id="input-text{id}" name="bonus"></td>' +
-                                '<td>'+sta+'</td>' +
-                                '</tr>';
-                            str = Util.jsonToString(str,elem);
-                            $('#seeApplyModel').find('tbody:first').append(str);
-                            var ckeckBoox = $("#index-look").parent().clone();
-                            var input = ckeckBoox.find('input:first');
-                            var label = ckeckBoox.find('label:first');
-                            input.attr('tag','input');
-                            input.val(elem['id']);
-                            input.attr('checked','');
-                            input.attr('id', 'index-look' + elem['id']);
-                            label.attr('for', "index-look" + elem['id']);
-                            $('tr#tr' +elem['id']).find('td:first').append(ckeckBoox);
-                        });
-                        $('#seeApplyModel').one('hidden.bs.modal',function(){
-                            $(this).find('tbody:first').html('');
-                        });
-                    }
+                        var str = '<tr id="tr{id}">' +
+                            '<td></td>' +
+                            '<td class="hidden"><input name="id" value="{id}"/></td>' +
+                            '<td>{studentName}</td>' +
+                            '<td>{subsidyAmount}</td>' +
+                            '<td>{residualFrequency}</td>' +
+                            '<td><input value="{bonus}" class="form-control"  id="input-text{id}" name="bonus"></td>' +
+                            '<td>' + sta + '</td>' +
+                            '</tr>';
+                        str = Util.jsonToString(str, elem);
+                        $('#seeApplyModel').find('tbody:first').append(str);
+                        var ckeckBoox = $("#index-look").parent().clone();
+                        var input = ckeckBoox.find('input:first');
+                        var label = ckeckBoox.find('label:first');
+                        input.attr('tag', 'input');
+                        input.val(elem['id']);
+                        input.attr('checked', '');
+                        input.attr('id', 'index-look' + elem['id']);
+                        label.attr('for', "index-look" + elem['id']);
+                        $('tr#tr' + elem['id']).find('td:first').append(ckeckBoox);
+                    });
+                    $('#seeApplyModel').one('hidden.bs.modal', function () {
+                        $(this).find('tbody:first').html('');
+                    });
                 }
-            });
+            }
+        });
     },
-    submitApplyClass:function (method) {
-        var modal= $('#addApplyModel');
-        if (method == 'up'){
+    submitApplyClass: function (method) {
+        var modal = $('#addApplyModel');
+        if (method == 'up') {
             var json = [];
             var x = 0;
-           modal.find("input[tag='input']").each(function (index, dom) {
-                if ($(this).prop('checked')){
+            modal.find("input[tag='input']").each(function (index, dom) {
+                if ($(this).prop('checked')) {
                     json[x++] = $(this).attr('name');
                 }
             });
 
             var btn = Ladda.create(document.querySelector("#saveRole-btn"));
             btn.start();
-            $.ajax(Label.staticServePath + '/subsidyManager/addRegionSubsidyClass',{
+            $.ajax(Label.staticServePath + '/subsidyManager/addRegionSubsidyClass', {
                 type: 'post',
                 data: {
-                    'classId':JSON.stringify(json)
+                    'classId': JSON.stringify(json)
                 },
                 dataType: "json",
                 success: function (data) {
@@ -1275,7 +1315,7 @@ var func = {
                         Util.showTip($('#wholeTip'), '添加失败', 'alert alert-warning');
                 },
                 error: function (info) {
-                    Util.showTip($('#wholeTip'),info.msg , 'alert alert-danger');
+                    Util.showTip($('#wholeTip'), info.msg, 'alert alert-danger');
                 },
                 complete: function () {
                     btn.stop();
@@ -1283,54 +1323,54 @@ var func = {
             });
         }
     },
-    addApplyClass:function (method) {
+    addApplyClass: function (method) {
         var model = $('#addApplyModel');
-        if(method=="show"){
+        if (method == "show") {
             modalUtil.toggleClear(model);
-            $.ajax(Label.staticServePath+"/subsidyManager/showRegion",{
-                type:'post',
-                dataType:'json',
-                success:function(data,status){
+            $.ajax(Label.staticServePath + "/subsidyManager/showRegion", {
+                type: 'post',
+                dataType: 'json',
+                success: function (data, status) {
 
-                    if(data.state == 'success'){
+                    if (data.state == 'success') {
                         var json = JSON.parse(data.msg);
-                        json.map(function (elems,index) {
+                        json.map(function (elems, index) {
 
                             var head = '<li role="presentation" {headClassName}><a href="#role{id}" role="tab" data-toggle="tab" {tag} data-label="{id}">{regionName}</a></li>';
                             var body = '<div role="tabpanel" {bodyClassName} id="role{id}" ></div>';
-                            if(index == 0){
-                                head = Util.jsonToString(head,{'tag':'tag="tag1"'});
-                                head = Util.jsonToString(head,{'headClassName':'class="active"'});
-                                body = Util.jsonToString(body,{'bodyClassName':'class="tab-pane active"'});
-                            }else{
-                                head = Util.jsonToString(head,{'tag':'tag="tag"'});
-                                head = Util.jsonToString(head,{'headClassName':''});
-                                body = Util.jsonToString(body,{'bodyClassName':'class="tab-pane"'})
+                            if (index == 0) {
+                                head = Util.jsonToString(head, {'tag': 'tag="tag1"'});
+                                head = Util.jsonToString(head, {'headClassName': 'class="active"'});
+                                body = Util.jsonToString(body, {'bodyClassName': 'class="tab-pane active"'});
+                            } else {
+                                head = Util.jsonToString(head, {'tag': 'tag="tag"'});
+                                head = Util.jsonToString(head, {'headClassName': ''});
+                                body = Util.jsonToString(body, {'bodyClassName': 'class="tab-pane"'})
                             }
-                            head=Util.jsonToString(head,elems);
-                            body=Util.jsonToString(body,elems);
+                            head = Util.jsonToString(head, elems);
+                            body = Util.jsonToString(body, elems);
 
                             model.find('ul:first').append(head);
                             model.find('#classBody').append(body);
 
                             var regionDiv = region($(this));
                             var input = regionDiv.find('input:first');
-                            input.attr('id','parent-input'+elems['id']);
+                            input.attr('id', 'parent-input' + elems['id']);
                             input.val(elems['id']);
-                            regionDiv.find('label:first').attr('for','parent-input'+elems['id']);
-                            $('div#'+'role'+elems['id']).append(regionDiv);
+                            regionDiv.find('label:first').attr('for', 'parent-input' + elems['id']);
+                            $('div#' + 'role' + elems['id']).append(regionDiv);
                         });
                         // window.onload = function() {
                         //     func.allcheck(modl);
                         // };
-                        if (json.length > 0){
+                        if (json.length > 0) {
                             showTemplate(json[0]['id']);
                         }
 
                         $('a[tag="tag"]').one('shown.bs.tab', function () {
                             showTemplate($(this).attr('data-label'));
                         });
-                        model.one('hidden.bs.modal',function(){
+                        model.one('hidden.bs.modal', function () {
                             $(this).find('#class-add-ul').html('');
                             $(this).find('#classBody').html('');
                             $('div.tab-pane').off('shown.bs.tab');
@@ -1338,7 +1378,7 @@ var func = {
                     }
                 }
             });
-        }else {
+        } else {
             modalUtil.show($('#submitApplyModel'));
         }
     },
@@ -1387,7 +1427,7 @@ var func = {
                 }
             })
         }
-        else{
+        else {
             modalUtil.show($('#addClassModel'));
             $('#studentCnt').val(0);
         }
@@ -1663,7 +1703,7 @@ var func = {
                         Util.showTip($('#wholeTip'), data.msg, "alert alert-success");
                         Util.reloadByPjax();
                     }
-                    else{
+                    else {
                         Util.showTip($('#wholeTip'), data.msg, "alert alert-danger");
                     }
                 },
@@ -1771,7 +1811,7 @@ var modalUtil = {
     toggleClear: function (modal) {
         modal.modal('toggle');
     },
-    hideClear: function (model,options) {
+    hideClear: function (model, options) {
         var defaults = {
             front: '', ends: ['eId', 'CreateTime', 'UpdateTime'], end: '', before: function () {
             }, after: function () {
@@ -1821,7 +1861,7 @@ var Test = {
 
 
 var Exception = {
-    btn:null,
+    btn: null,
     success: function (options) {
         /** 参数接受
          *   success:
@@ -1839,19 +1879,30 @@ var Exception = {
                 },
                 onShowSuccess: {},
                 onShowError: {},
-                bindModal:null,
-                bindContainer:['#table-inner'],
-                bindUrl:''
+                bindModal: null,
+                bindContainer: ['#table-inner'],
+                bindUrl: ''
             };
             var opts = $.extend(defaults, options);
             if (data.state == 'success') {
-                if(data.msg == null || data.msg == '')
+                if (data.msg == null || data.msg == '')
                     data.msg = '操作成功';
                 Util.showTip($('#wholeTip'), data.msg, "alert alert-success", opts.onShowSuccess);
+                if (opts.bindModal != null) {
+                    modalUtil.hideClear(opts.bindModal);
+                }
+                if (opts.bindContainer.length > 0) {
+                    for (var obj in opts.bindContainer) {
+                        Util.reloadByPjax(obj);
+                    }
+                }
+                if(opts.bindUrl != null && opts.bindUrl != ''){
+                    Util.loadByPjax(opts.bindUrl);
+                }
                 opts.success();
             }
             else if (data.state == 'error') {
-                if(data.msg == null || data.msg == '')
+                if (data.msg == null || data.msg == '')
                     data.msg = '操作失败';
                 Util.showTip($('#wholeTip'), data.msg, "alert alert-danger", opts.onShowError);
                 opts.error();
@@ -1862,7 +1913,7 @@ var Exception = {
         return function (XMLHttpRequest, textStatus, errorThrown) {
             var defaults = {
                 onShowTip: {},
-                msg:'服务器错误'
+                msg: '服务器错误'
             };
             var opts = $.extend(defaults, options);
             Util.showTip($('#wholeTip'), opts.msg, "alert alert-danger", opts.onShowTip);
@@ -1875,7 +1926,7 @@ var Exception = {
                 do: function (selector) {
                     if (selector == null || selector == '')
                         selector = "#save-btn";
-                    if(Exception.btn != null)
+                    if (Exception.btn != null)
                         Exception.btn.stop();
                 }
             };
