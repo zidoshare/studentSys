@@ -24,7 +24,6 @@ jQuery.fn.closeLoading = function () {
         }, 100);
         return;
     }
-    console.log('close', this);
     dom.find('.panel_loading').fadeOut(500, function () {
         $(this).remove();
     });
@@ -257,7 +256,6 @@ var Util = {
         var input = $("#template-input").clone();
         input.width(width);
         // input.height(height);
-        console.log(id);
         input.attr('id', id);
         input.css('position', 'relative');
         input.attr('name', name);
@@ -382,7 +380,6 @@ var Util = {
 
     },
     formatText: function (str) {
-        console.log(str.lastIndexOf('\n'));
         str = str.replace(/(\r\n)/g, "<br>");
 
         str = str.replace(/ /g, "&nbsp;");
@@ -395,7 +392,6 @@ var Util = {
         return str;
     },
     reformatText: function (str) {
-        //console.log(str);
         if (str == null || str == '')
             return str;
         str = str.replace(/ /g, '');
@@ -404,7 +400,6 @@ var Util = {
          str = str.replace(/&quot;/g, "\"");
          str = str.replace(/&lt;/g, "<");
          str = str.replace(/&gt;/g, ">");*/
-        console.log(str.lastIndexOf('<br>'));
         str = str.replace(/<br>/g, '\n');
         return str;
     },
@@ -1239,7 +1234,6 @@ var func = {
             btnSelector: '#sa-btn',
             success: {
                 success: function () {
-                    console.log('succes');
                     $("#seeApplyModel").modal('hide');
                     //刷新页面
                     Util.reloadByPjax();
@@ -1666,7 +1660,6 @@ var func = {
             $('#testQuestionOption' + i).val(optionValues[i]);
         }
         $('#show-tr' + id + ' .short-answer').each(function (index, dom) {
-            console.log($(dom).text());
             $('#' + $(this).text()).prop('checked', true);
         })
     },
@@ -1929,7 +1922,7 @@ var Exception = {
                 }
                 if (opts.bindContainer.length > 0) {
                     for (var obj in opts.bindContainer) {
-                        Util.reloadByPjax(obj);
+                        Util.reloadByPjax(opts.bindContainer[obj]);
                     }
                 }
                 if(opts.bindUrl != null && opts.bindUrl != ''){
