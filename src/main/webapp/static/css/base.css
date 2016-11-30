@@ -1876,3 +1876,29 @@ i {
         transform: scale(1);
     }
 }
+
+.big-money {
+    font-size: 28px;
+    line-height: 48px;
+    color: #e35b5a;
+    font-family: Arial, serif;
+}
+
+.z-money-cny:after {
+    content: '\5143';
+}
+
+.z-money-cny:after, .z-money-cny:before {
+    display: inline-block;
+    margin: 0 2px;
+    vertical-align: inherit;
+}
+
+.z-money-cny:before {
+    content: '\00a5';
+}
+
+.z-money-unit-only:before {
+    display: none;
+}
+

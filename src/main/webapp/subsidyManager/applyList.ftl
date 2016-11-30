@@ -50,13 +50,13 @@ ${view.title}
                         <td name="number">
                         ${sub.number}
                         </td>
-                        <td name="totalSubsidy">
+                        <td class=" z-money-cny" name="totalSubsidy">
                         ${sub.totalSubsidy}
                         </td>
-                        <td name="totalBonus">
+                        <td class=" z-money-cny" name="totalBonus">
                         ${sub.totalBonus}
                         </td>
-                        <td name="aggregateAmount">
+                        <td class=" z-money-cny" name="aggregateAmount">
                         ${sub.aggregateAmount}
                         </td>
                         <#if  addAble ||  deleteAble>
@@ -130,11 +130,11 @@ ${view.title}
                             <div class="col-md-6"><label>申请总人数:<span id="submit-student">0</span></label></div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6"><label>总补助:<span id="submit-subsidy">0</span></label></div>
-                            <div class="col-md-6"><label>总奖金:<span id="submit-bonus">0</span></label></div>
+                            <div class="col-md-6"><label>总补助:<span class="z-money-unit-only z-money-cny" id="submit-subsidy">0</span></label></div>
+                            <div class="col-md-6"><label>总奖金:<span class="z-money-unit-only z-money-cny" id="submit-bonus">0</span></label></div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6"><label>合计:<span id="submit-total">0</span></label></div>
+                            <div class="col-md-6"><label>合计:<span class="z-money-unit-only z-money-cny" id="submit-total">0</span></label></div>
                         </div>
                     </div>
                 </div>

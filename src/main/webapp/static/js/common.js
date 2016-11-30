@@ -1290,7 +1290,7 @@ var func = {
                             '<td></td>' +
                             '<td class="hidden"><input name="applicationDate" value="{applicationDate}"/><input name="id" value="{id}"/><input name="studentId" value="{studentId}"/></td>' +
                             '<td>{studentName}</td>' +
-                            '<td>{subsidyAmount}</td>' +
+                            '<td class=" z-money-cny">{subsidyAmount}</td>' +
                             '<td>{residualFrequency}</td>' +
                             '<td><input value="{bonus}" class="form-control"  id="input-text{id}" name="bonus"></td>' +
                             '<td>' + sta + '</td>' +

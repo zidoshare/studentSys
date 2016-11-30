@@ -292,7 +292,7 @@ public class SubsidyController extends BaseController {
             }
             setDefaultSubsidyApplicationInfo(applicationDate, totalsubsidyAmount, totalbonus, cid, studentList);
         }
-        RenderKit.renderSuccess(this);
+        RenderKit.renderSuccess(this,"添加成功!");
     }
 
     private void setSubsidyClassInfo(int id, long applicationDate, Student student) {
