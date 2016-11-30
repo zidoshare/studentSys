@@ -75,6 +75,16 @@ public class SubsidyClassInfoService extends Service {
         return SubsidyClassInfo.dao.find(SubsidyClassInfo.SEARCH_FROM_SUBSIDY_CLASSINFO + "where area like ?", area);
     }
 
+    /**
+     * 查询指定区域班级申请信息
+     *
+     * @param applicationDate
+     * @return
+     */
+    public List<SubsidyClassInfo> getSubsidyClassInfoByApplicationDate(Long applicationDate) {
+        return SubsidyClassInfo.dao.find(SubsidyClassInfo.SEARCH_FROM_SUBSIDY_CLASSINFO + "where applicationDate = ?", applicationDate);
+    }
+
 
     /**
      * 查询所有班级申请信息

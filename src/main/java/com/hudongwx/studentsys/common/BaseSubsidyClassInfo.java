@@ -97,12 +97,28 @@ public abstract class BaseSubsidyClassInfo<M extends BaseSubsidyClassInfo<M>> ex
 		return get("approveStatus");
 	}
 
+	public void setApplicationDate(java.lang.Long applicationDate) {
+		set("applicationDate", applicationDate);
+	}
+
+	public java.lang.Long getApplicationDate() {
+		return get("applicationDate");
+	}
+
 	public void setRemark(java.lang.String remark) {
 		set("remark", remark);
 	}
 
 	public java.lang.String getRemark() {
 		return get("remark");
+	}
+
+	public void setChecked(java.lang.Integer checked) {
+		set("checked", checked);
+	}
+
+	public java.lang.Integer getChecked() {
+		return get("checked");
 	}
 
 }

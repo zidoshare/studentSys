@@ -1217,7 +1217,8 @@ var func = {
     },
     addDetails: function () {
         var data = [];
-        $("#seeApplyModel").find('tr').each(function (index, dom) {
+        var model = $("#seeApplyModel");
+        model.find('tr').each(function (index, dom) {
             if (!$(dom).find('input[type="checkbox"]').prop('checked'))
                 return true;
             var list = $(dom).find('input[name]');
@@ -1230,13 +1231,24 @@ var func = {
             });
             data.push(json);
         });
-        Util.ajax(Label.staticServePath + "/subsidyManager/addSubsidyClassInfo", {
+        Util.ajax(Label.staticServePath + "/subsidyManager/updateSubsidyClassInfo", {
             data: {
                 'list': data,
-                "length": data.length
+                "length": data.length,
             },
             btnSelector: '#sa-btn',
-            success: {}
+            success: {
+                success: function () {
+                    console.log('succes');
+                    $("#seeApplyModel").modal('hide');
+                    //刷新页面
+                    Util.reloadByPjax();
+                },
+                error: function () {
+
+                },
+
+            }
         })
     },
     seeApply: function (method, id) {
@@ -1260,7 +1272,7 @@ var func = {
 
                         var str = '<tr id="tr{id}">' +
                             '<td></td>' +
-                            '<td class="hidden"><input name="id" value="{id}"/></td>' +
+                            '<td class="hidden"><input name="applicationDate" value="{applicationDate}"/><input name="id" value="{id}"/><input name="studentId" value="{studentId}"/></td>' +
                             '<td>{studentName}</td>' +
                             '<td>{subsidyAmount}</td>' +
                             '<td>{residualFrequency}</td>' +
@@ -1379,7 +1391,31 @@ var func = {
                 }
             });
         } else {
-            modalUtil.show($('#submitApplyModel'));
+            var title = $("#input-title").val();
+            if (title==''){
+                Util.showTip($('#wholeTip'), '请输入表名', 'alert alert-warning');
+                return;
+            }
+            var modelSub = $('#submitApplyModel');
+            modalUtil.show(modelSub);
+            var classNumber = 0;
+            var number = 0;
+            var totalSubsidy = 0;
+            var totalBonus = 0;
+            var aggregateAmount = 0;
+            $("tr[name='submit-tr']").each(function () {
+                classNumber++;
+                number += parseInt($(this).find("td[name='number']").text());
+                totalSubsidy += parseInt($(this).find("td[name='totalSubsidy']").text());
+                totalBonus += parseInt($(this).find("td[name='totalBonus']").text());
+                aggregateAmount += parseInt($(this).find("td[name='aggregateAmount']").text());
+            });
+            modelSub.find("span#submit-Indicate").text(title);
+            modelSub.find("span#submit-class").text(classNumber);
+            modelSub.find("span#submit-student").text(number);
+            modelSub.find("span#submit-subsidy").text(totalSubsidy);
+            modelSub.find("span#submit-bonus").text(totalBonus);
+            modelSub.find("span#submit-total").text(aggregateAmount);
         }
     },
     //
