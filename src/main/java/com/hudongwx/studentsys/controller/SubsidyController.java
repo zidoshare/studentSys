@@ -6,14 +6,18 @@ import com.hudongwx.studentsys.common.BaseController;
 import com.hudongwx.studentsys.model.Class;
 import com.hudongwx.studentsys.model.*;
 import com.hudongwx.studentsys.service.*;
+import com.hudongwx.studentsys.util.ModelKit;
 import com.hudongwx.studentsys.util.RenderKit;
 import com.jfinal.aop.Before;
 import com.jfinal.ext.interceptor.POST;
 import com.jfinal.kit.JsonKit;
 import com.jfinal.plugin.activerecord.Page;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * 补助管理
@@ -35,13 +39,22 @@ public class SubsidyController extends BaseController {
         super.index();
         Integer p = getParaToInt("p", 1);
         User user = getCurrentUser(this);
-        Page<SubsidyApplication> salist = subsidyApplicationService.getSubsidyApplicationByApplicantId(user.getId(), p);
-        setAttr("subsidyClasses", salist);
+        Page<SubsidyApplication> saList = subsidyApplicationService.getSubsidyApplicationByApplicantId(user.getId(), p);
+        setAttr("subsidyClasses", saList);
     }
 
     @Override
     public Mapping init() {
         return mappingService.getMappingByUrl("/subsidyManager");
+    }
+
+    public void historyManager() {
+        setMapping(mappingService.getMappingByUrl("/subsidyManager/historyManager"));
+        super.index();
+        User user = getCurrentUser(this);
+        Integer p = getParaToInt("p", 1);
+        Page<SubsidyApplication> saPages = subsidyApplicationService.getSubsidyApplicationHistoryByUserId(p, user.getId());
+        setAttr("saPages", saPages);
     }
 
     /****************************申请表信息*******************************/
@@ -121,13 +134,8 @@ public class SubsidyController extends BaseController {
      * 添加补助班级信息[需要前台的参数：sci(json格式班级学生详情)]
      */
     @Before(POST.class)
-    public boolean addSubsidyClassInfo() {
-        String subsidyClassInfo = getPara("sci");
-        SubsidyClassInfo sci = new SubsidyClassInfo();
-        //// TODO: 2016/11/23 获取班级数据 
-        String studentid = "";
-        //// TODO: 2016/11/23 通过学生id checked状态统计信息
-        return subsidyClassInfoService._saveSubsidyClassInfo(sci);
+    public void addSubsidyClassInfo() {
+
     }
 
     /**
@@ -147,11 +155,31 @@ public class SubsidyController extends BaseController {
     /**
      * 修改补助班级信息[需要前台的参数：nsci(最新json格式班级学生详情)]
      */
-    public boolean updateSubsidyClassInfo() {
-        String subsidyClassInfo = getPara("nsci");
-        SubsidyClassInfo sc = new SubsidyClassInfo();
-        //// TODO: 2016/11/21 修改数据
-        return subsidyClassInfoService._updateSubsidyClassInfo(sc);
+    public void updateSubsidyClassInfo() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        List<SubsidyClassInfo> subsidyClassInfos = ModelKit.injectList(SubsidyClassInfo.class, this, "list", getParaToInt("length"));
+        Set<Long>adSet= new TreeSet<>();
+        for (SubsidyClassInfo subsidyClassInfo : subsidyClassInfos) {
+            subsidyClassInfoService._updateSubsidyClassInfo(subsidyClassInfo);
+            adSet.add(subsidyClassInfo.getApplicationDate());
+        }
+        for (Long aLong : adSet) {
+            int totalBonus=0;
+            int totalSubsidy=0;
+            int total=0;
+            List<SubsidyClassInfo> sciList = subsidyClassInfoService.getSubsidyClassInfoByApplicationDate(aLong);
+            for (SubsidyClassInfo subsidyClassInfo : sciList) {
+                totalBonus+=subsidyClassInfo.getBonus();
+                totalSubsidy+=subsidyClassInfo.getSubsidyAmount();
+            }
+            SubsidyApplication subsidyApplication = subsidyApplicationService.getApplicationHistoryByApplicationDate(aLong);
+            total=totalBonus+totalSubsidy;
+            subsidyApplication.setTotalBonus(totalBonus);
+            subsidyApplication.setTotalSubsidy(totalSubsidy);
+            subsidyApplication.setAggregateAmount(total);
+            subsidyApplicationService._updateSubsidyApplication(subsidyApplication);
+        }
+
+        RenderKit.renderSuccess(this);
     }
 
     /**
@@ -178,10 +206,12 @@ public class SubsidyController extends BaseController {
             RenderKit.renderError(this);
         } else {
             for (UserRegion ur : urlist) {
-                areas.add(regionService.getRegionById(ur.getRegionId()).get(0));
+                areas.add(regionService.getRegionById(ur.getRegionId()));
             }
             if (areas.size() != 0) {
-                RenderKit.renderSuccess(this, JsonKit.toJson(areas));
+                String s = JsonKit.toJson(areas);
+                System.out.println("wwwwwwwwwwwwwwwwwww\n" + s);
+                RenderKit.renderSuccess(this, s);
             } else {
                 RenderKit.renderError(this);
             }
@@ -207,6 +237,7 @@ public class SubsidyController extends BaseController {
 
     public void addRegionSubsidyClass() {
         int id = 0;
+        final long applicationDate = System.currentTimeMillis();
         int totalsubsidyAmount = 0;
         int totalbonus = 0;
         String cidJsonArray = getPara("classId");
@@ -227,14 +258,14 @@ public class SubsidyController extends BaseController {
             for (Student student : studentList) {
                 totalsubsidyAmount += student.getSubsidyPer();
                 totalbonus += student.getBonus();
-                setSubsidyClassInfo(++id, student);
+                setSubsidyClassInfo(++id, applicationDate, student);
             }
-            setDefaultSubsidyApplicationInfo(totalsubsidyAmount, totalbonus, cid, studentList);
+            setDefaultSubsidyApplicationInfo(applicationDate, totalsubsidyAmount, totalbonus, cid, studentList);
         }
         RenderKit.renderSuccess(this);
     }
 
-    private void setSubsidyClassInfo(int id, Student student) {
+    private void setSubsidyClassInfo(int id, long applicationDate, Student student) {
         SubsidyClassInfo sci = new SubsidyClassInfo();
         sci.setId(++id);
         sci.setClassId(student.getClassId());
@@ -244,6 +275,7 @@ public class SubsidyController extends BaseController {
         sci.setStudentName(student.getName());
         sci.setSubsidyAmount(student.getSubsidyPer());
         sci.setBonus(student.getBonus());
+        sci.setApplicationDate(applicationDate);
         int n = student.getResidualFrequency();
         if (n >= 0) {
             sci.setResidualFrequency(n);
@@ -254,12 +286,12 @@ public class SubsidyController extends BaseController {
         subsidyClassInfoService._saveSubsidyClassInfo(sci);
     }
 
-    private void setDefaultSubsidyApplicationInfo(int totalsubsidyAmount, int totalbonus, int cid, List<Student> studentList) {
+    private void setDefaultSubsidyApplicationInfo(long applicationDate, int totalsubsidyAmount, int totalbonus, int cid, List<Student> studentList) {
         User user = getCurrentUser(this);
         SubsidyApplication sa = new SubsidyApplication();
         sa.setApplicantId(user.getId());
         sa.setApplicantName(user.getUserNickname());
-        sa.setApplicationDate(System.currentTimeMillis());
+        sa.setApplicationDate(applicationDate);
         sa.setRegionId(classService.getClassById(cid).getRegionId());
         sa.setClassId(cid);
         sa.setClassName(classService.getClassById(cid).getClassName());

@@ -52,10 +52,20 @@ ${view.title}
                             data-method="prop">${(class.classCreateTime?number)?number_to_datetime}</td>
                         <#if updateAble || deleteAble>
                             <td>
+                                <#list map["operators"+view.id] as op>
+                                    <#if op.url == "seeClassStudent">
+                                        <@macroBtn url = op.url title = op.title></@macroBtn>
+                                        <#assign op = map["operators"+view.id][0]>
+                                    ${InsertKit(btnLabel,"${class.id}")}/
+                                    </#if>
+                                </#list>
                                 <#if updateAble>
-                                ${InsertKit(updateBtn,"${class.id}")}/
+                                ${InsertKit(updateBtn,"${class.id}")}
                                 </#if>
-                            ${InsertKit(deleteBtn,"${class.id}")}
+                                <#if updateAble>
+                                    /${InsertKit(deleteBtn,"${class.id}")}
+                                </#if>
+
                             </td>
                         </#if>
                         <td id="classUpdateTime${class.id}" class="hidden" data-label="${class.classUpdateTime}"
@@ -154,6 +164,92 @@ ${view.title}
             </div>
             <div class="modal-footer">
                 <span class="pull-right">${saveBtn}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="seeClassStudentModel" tabindex="-1" role="dialog"
+     aria-labelledby="addClassStudentModelLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span
+                        aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel" style="float: right">班级状态:开课中</h4>
+                <h4 class="modal-title fa-pull-right" id="myModalLabel" style="float: none">班级详情:0719班</h4>
+            </div>
+            <div id="dataTables-list" class="table-responsive dataTables_wrapper form-inline" role="grid">
+                <table class="table table-striped table-bordered table-hover dataTable no-footer"
+                       id="dataTables-example" aria-describedby="dataTables-example_apply">
+                    <thead>
+                    <tr>
+                        <th>
+                            学号
+                        </th>
+                        <th>
+                            姓名
+                        </th>
+                        <th>
+                            联系方式
+                        </th>
+                        <th>
+                            学历
+                        </th>
+                        <th>
+                            专业
+                        </th>
+                        <th>
+                            学分
+                        </th>
+                        <th>
+                            平均成绩
+                        </th>
+                        <th>
+                            项目评级
+                        </th>
+                        <th>
+                            状态
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            1086
+                        </td>
+                        <td>
+                            张三
+                        </td>
+                        <td>
+                            12345678901
+                        </td>
+                        <td>
+                            本科
+                        </td>
+                        <td>
+                            电子信息工程
+                        </td>
+                        <td>
+                            100
+                        </td>
+                        <td>
+                            96
+                        </td>
+                        <td>
+                            B+
+                        </td>
+                        <td>
+                            在读
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer center-pill text-center">
+                <button type="button" class="btn btn-default " data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary ">同意</button>
             </div>
         </div>
     </div>

@@ -1336,6 +1336,40 @@ var func = {
             $('#studentCnt').val(0);
         }
     },
+    seeClassStudent:function (method,id) {
+        modalUtil.show($('#seeClassStudentModel'));
+        $.ajax(Label.staticServePath+"/studentManager/getStudent",{
+            type:'post',
+            dataType:'json',
+            data:{
+                'classId':id
+            },
+            success:function(data,status){
+                if(data.state == 'success'){
+                    var json = JSON.parse(data.msg);
+                    json.map(function(elem,num){
+                        var str = '<tr id="tr{id}">' +
+                            '<td>{id}</td>' +
+                            '<td>{name}</td>' +
+                            '<td>{contactInformation}</td>' +
+                            '<td>{educationBackground}</td>' +
+                            '<td>{major}</td>' +
+                            '<td>{credit}</td>' +
+                            '<td>{testAverage}</td>' +
+                            '<td>{trainingEvaluation}</td>' +
+                            '<td>{status}</td>' +
+                            '</tr>';
+                        str = Util.jsonToString(str,elem);
+                        console.log(str);
+                        $('#seeClassStudentModel').find('tbody:first').append(str);
+                    });
+                    $('#seeClasstudentmodel').one('hidden.bs.modal',function(){
+                        $(this).find('tbody:first').html('');
+                    });
+                }
+            }
+        });
+    },
     addDomain: function (method) {
         if (method == 'show') {
             $('#addDomainModel').modal(method);
@@ -1785,14 +1819,10 @@ var Exception = {
             };
             var opts = $.extend(defaults, options);
             if (data.state == 'success') {
-                if(data.msg == null || data.msg == '')
-                    data.msg = '操作成功';
                 Util.showTip($('#wholeTip'), data.msg, "alert alert-success", opts.onShowSuccess);
                 opts.success();
             }
             else if (data.state == 'error') {
-                if(data.msg == null || data.msg == '')
-                    data.msg = '操作失败';
                 Util.showTip($('#wholeTip'), data.msg, "alert alert-danger", opts.onShowError);
                 opts.error();
             }
@@ -1801,11 +1831,10 @@ var Exception = {
     error: function (options) {
         return function (XMLHttpRequest, textStatus, errorThrown) {
             var defaults = {
-                onShowTip: {},
-                msg:'服务器错误'
+                onShowTip: {}
             };
             var opts = $.extend(defaults, options);
-            Util.showTip($('#wholeTip'), opts.msg, "alert alert-danger", opts.onShowTip);
+            Util.showTip($('#wholeTip'), '服务器错误', "alert alert-danger", opts.onShowTip);
         }
     },
     complete: function (options) {
