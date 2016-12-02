@@ -281,41 +281,34 @@ ${view.title}
         return regionDiv;
     };
     var showTemplate = function (id) {
-        $.ajax({
-            type: 'post',
-            url: Label.staticServePath + "/subsidyManager/showRegionClass",
+        Util.ajax(Label.staticServePath + "/subsidyManager/showRegionClass",{
             data: {
                 'id': id
             },
             success: function (data, status) {
-                if (data.state = 'success') {
-                    if (data.msg != '') {
-                        var json = JSON.parse(data.msg);
-                        var serial = 1;
-                        json.map(function (elem, num) {
-                            var ckeckBoox = $("#index").parent().clone();
-                            var input = ckeckBoox.find('input:first');
-                            var label = ckeckBoox.find('label:first');
-                            input.attr('tag', 'input');
-                            input.attr('name', elem['id']);
-                            input.attr('id', 'index' + elem['id']);
-                            label.attr('for', "index" + elem['id']);
-                            var str = '<tr id="{id}">' +
-                                    '<td></td>' +
-                                    '<td>' + serial + '</td>' +
-                                    '<td>{className}</td>' +
-                                    '<td>{studentCnt}</td>' +
-                                    '<td>{classOpeningTime}</td>' +
-                                    '</tr>';
-                            serial++;
-                            str = Util.jsonToString(str, elem);
-                            $('div#' + 'role' + id).find('tbody:first').append(str);
-                            $('tr#' + elem['id']).find('td:first').append(ckeckBoox);
-                        })
-                    }
-                }
-
+                var json = JSON.parse(data.msg);
+                var serial = 1;
+                json.map(function (elem, num) {
+                    var ckeckBoox = $("#index").parent().clone();
+                    var input = ckeckBoox.find('input:first');
+                    var label = ckeckBoox.find('label:first');
+                    input.attr('tag', 'input');
+                    input.attr('name', elem['id']);
+                    input.attr('id', 'index' + elem['id']);
+                    label.attr('for', "index" + elem['id']);
+                    var str = '<tr id="{id}">' +
+                            '<td></td>' +
+                            '<td>' + serial + '</td>' +
+                            '<td>{className}</td>' +
+                            '<td>{studentCnt}</td>' +
+                            '<td>{classOpeningTime}</td>' +
+                            '</tr>';
+                    serial++;
+                    str = Util.jsonToString(str, elem);
+                    $('div#' + 'role' + id).find('tbody:first').append(str);
+                    $('tr#' + elem['id']).find('td:first').append(ckeckBoox);
+                })
             }
-        })
+        });
     }
 </script> 

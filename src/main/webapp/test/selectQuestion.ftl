@@ -70,11 +70,10 @@
         var json = {};
         json['type'] = tps.val();
         json['tag'] = ts.val();
-        $.ajax({
-            url: '${staticServePath}/test/getQuestions',
-            type: 'post',
-            data: json,
-            success: function (data, state) {
+        Util.ajax('${staticServePath}/test/getQuestions',{
+            data:json,
+            bindContainer:[],
+            success:function (data, state) {
                 $('#questions_loading').addClass('sr-only');
                 var array = data.msg;
                 var q = $('#questions');
@@ -141,17 +140,10 @@
     }
     function getTags(domain) {
         var json = {'domain': domain};
-        $.ajax({
-            url: '${staticServePath}/test/getTags',
-            type: 'post',
+        Util.ajax('${staticServePath}/test/getTags',{
             data: json,
             success: function (data, state) {
-                if (data.state == 'error') {
-                    Util.showTip($('#wholeTip'), data.msg, 'alert alert-danger');
-                    return;
-                }
                 var array = data;
-
                 var str = '<select id="tagSelect" class="selectpicker show-tick form-control" data-live-search="true">' +
                         '<option value="0">不限</option>';
                 var parent = ts.parent();

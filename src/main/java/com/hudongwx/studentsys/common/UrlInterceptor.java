@@ -37,16 +37,7 @@ public class UrlInterceptor implements Interceptor {
         controller.setAttr(Common.LABEL_ACTION_KEY, actionKey);
         controller.setAttr(Common.LABEL_CONTROLLER_KEY, controllerKey);
         if (null == BaseController.getCurrentUser(controller)) {
-            String header = controller.getRequest().getHeader("x-requested-with");
-            if ("XMLHttpRequest".equals(header)) {
-                String method = controller.getRequest().getMethod();
-                if ("GET".equals(method)) {
-                    controller.renderError(403);
-                    return;
-                }
-                RenderKit.renderError(controller, "未获取到你的登录信息，请尝试刷新以重新登录!");
-                return;
-            }
+            RenderKit.render403Error(controller, "/userManager/showLogin", "未获取到你的登录信息，请尝试刷新以重新登录!");
             controller.setAttr("code", 403);
             controller.setAttr("msg", "未获取到你的登录信息，已自动跳转至登录页面");
             controller.forwardAction("/userManager/showLogin");
@@ -58,17 +49,7 @@ public class UrlInterceptor implements Interceptor {
             if (JFinal.me().getConstants().getDevMode())
                 e.printStackTrace();
             String msg = formatException(e);
-            String header = controller.getRequest().getHeader("x-requested-with");
-            if ("XMLHttpRequest".equals(header)) {
-                if ("get".equals(controller.getRequest().getMethod())) {
-                    controller.renderError(403);
-                }
-                RenderKit.renderError(controller, msg);
-                return;
-            }
-            controller.setAttr("code", 403);
-            controller.setAttr("msg", msg);
-            controller.forwardAction("/userManager/showLogin");
+            RenderKit.render403Error(controller, msg);
         }
     }
 
@@ -95,7 +76,7 @@ public class UrlInterceptor implements Interceptor {
 
         //获取默认异常提示
         if (StrPlusKit.isBlank(message)) {
-            message = "系统繁忙,请稍后再试";
+            message = "未知错误，请联系管理员";
         }
         //替换特殊字符
         message = message.replaceAll("\"", "'");

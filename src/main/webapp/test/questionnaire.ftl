@@ -11,6 +11,7 @@
     <script src="${staticServePath}/static/js/lib/jquery-3.1.0.min.js?${staticResourceVersion}"></script>
     <script src="${staticServePath}/static/js/lib/icheck.min.js?${staticResourceVersion}"></script>
     <script src="${staticServePath}/static/js/lib/jquery.transit.js?${staticResourceVersion}"></script>
+    <script src="${staticServePath}/static/js/ajaxUtil.js?${staticResourceVersion}"></script>
 </head>
 <body>
 <div class="wrapper cs-wrapper" id="wrapper">
@@ -144,9 +145,9 @@
         function readAnswers() {
             for (var key in answers) {
                 var i = 0;
-                var dom = $('#'+key);
+                var dom = $('#' + key);
                 dom.find('input,textarea').each(function (index, dom) {
-                    if($(dom).is('textarea')){
+                    if ($(dom).is('textarea')) {
                         $(dom).val(Util.reformatText(answers[key][0]));
                         i++;
                         var parent = $(dom).parent();
@@ -194,7 +195,7 @@
             var ans = [];
             $(this).parent().find('input').each(function (index, dom) {
                 if ($(dom).prop('checked') == true) {
-                    ans.push(index+'');
+                    ans.push(index + '');
                 }
             });
             var len = 0;
@@ -215,19 +216,11 @@
         setTimeout(cacheAnswers, 30000);
         function cacheAnswers() {
             reply['answers'] = JSON.stringify(answers);
-            $.ajax({
+            Util.ajax({
                         url: "${staticServePath}/test/cacheAnswer",
-                        dataType: 'json',
-                        type: 'post',
                         data: reply,
                         success: function (data, status) {
-                            if (data.state == 'success') {
-                                setTimeout(cacheAnswers, 30000);
-                            }
-                            else
-                                Util.showTip($('#wholeTip'), data.msg, 'alert alert-danger');
-                        }, error: function () {
-
+                            setTimeout(cacheAnswers, 30000);
                         }
                     }
             );
@@ -278,7 +271,7 @@
 
         //补0操作
         function getzf(num) {
-            if(parseInt(num) > 100){
+            if (parseInt(num) > 100) {
                 return 'max';
             }
             if (parseInt(num) < 10) {
@@ -306,27 +299,16 @@
     }
     function postReply() {
         reply['answers'] = JSON.stringify(answers);
-        $.ajax({
+        Util.ajax({
             url: "${staticServePath}/test/postReply",
-            type: "post",
             data: reply,
             success: function (data, status) {
-                if (data.state == 'success') {
-                    Util.showTip($('#wholeTip'), data.msg, 'alert alert-success', {
-                        complete: function () {
-                            window.location.href = "${staticServePath}/";
-                        },
-                        time: 1000
-                    });
-                }
-                else if (data.state == 'error') {
-                    Util.showTip($('#wholeTip'), data.msg, 'alert alert-warning');
-                }
-            }, error: function () {
-                Util.showTip($('#wholeTip'), '提交失败，服务器错误', 'alert alert-warning');
-            },
-            complete: function () {
-
+                Util.showTip($('#wholeTip'), data.msg, 'alert alert-success', {
+                    complete: function () {
+                        window.location.href = "${staticServePath}/";
+                    },
+                    time: 1000
+                });
             }
         });
     }

@@ -134,15 +134,13 @@
     function addQuestionnaire() {
         var trs = $("#question").find(".question-flag");
         var ids = "";
-        var btn = Ladda.create(document.querySelector("#save-btn"));
-        btn.start();
         var sum = 0;
         trs.each(function () {
             var b = $(this).find("input[type='checkbox']").first().is(':checked');
             var id = $(this).attr('id').replace("question", "");
-            if (b == true){
+            if (b == true) {
                 ids += id + ",";
-                sum+=parseInt($(this).find('.score').first().text());
+                sum += parseInt($(this).find('.score').first().text());
             }
         });
         ids.substr(0, ids.length - 1);
@@ -155,18 +153,14 @@
             "questionnaire.to_user": $("#to-user").val(),
             "questionnaire.end_time": testQuestionnaireEndTime,
             "questionnaire.note": $("#note").val(),
-            "questionnaire.maxScore":sum,
+            "questionnaire.maxScore": sum,
             "questionsId": ids
         };
-        $.ajax({
-            url: "${staticServePath}/surveys/postQuestionnaire",
-            type: "post",
+        Util.ajax("${staticServePath}/surveys/postQuestionnaire", {
             data: jsonObj,
-            success: function (data, status) {
-                alert(data.msg);
-            },
-            complete: function () {
-                btn.stop();
+            success: {
+                bindContainer: ['#page-inner'],
+                bindModal: $('#myModal')
             }
         });
     }
@@ -185,17 +179,12 @@
         });
     }
     function createTime() {
-        $.ajax({
-            url: "${staticServePath}/surveys/getNowTime",
-            type: "get",
+        Util.ajax("${staticServePath}/surveys/getNowTime", {
             success: function (data, status) {
-                if (data.state == "success") {
-                    $("#end-time").val(getMyDate(Number(data.msg)));
-                    $("#date").val(getMyDate(Number(data.msg)));
-                }
+                $("#end-time").val(getMyDate(Number(data.msg)));
+                $("#date").val(getMyDate(Number(data.msg)));
             }
-        });
-
+        })
     }
     //获得年月日      得到日期oTime
     function getMyDate(str) {

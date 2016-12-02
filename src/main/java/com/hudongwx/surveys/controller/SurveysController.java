@@ -36,10 +36,6 @@ public class SurveysController extends BaseController {
     public QuestionnaireResultService questionnaireResultService;
     private Log log = Log.getLog(getClass());
 
-    /*public void index() {
-        fillHeaderAndFooter();
-        render("index.ftl");
-    }*/
     public void surveyList() {
         log.info("调查列表");
         //二级菜单需要重新定位mapping

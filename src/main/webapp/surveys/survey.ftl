@@ -39,39 +39,39 @@
                 "
             </h4>
         </div>
-            <form method="get" id="questionnaire${questionnaire.id}">
-                <h1 class="survey_to_title">${questionnaire.toUser}满意度调查</h1>
-                <ul class="subject_list">
-                    <#list questionnaire.questionnaireNodeList as questionnaireNode>
-                        <li class="subject_big">
-                            <h3>${questionnaireNode.questionBigType.name}</h3>
-                        </li>
-                        <#list questionnaireNode.questionsList as question>
-                            <li class="subject"
-                                id="${questionnaire.id}T${questionnaireNode.questionBigType.id}T${question.id}"
-                                aria-label="0">
-                                <h4 class="subject_title">${question.title}</h4>
-                                <#list question.questionsNodes as node>
-                                    <label class="subject_option">
-                                        <input name="${questionnaire.id}T${questionnaireNode.questionBigType.id}T${question.id}"
-                                               id="${questionnaire.id}T${questionnaireNode.questionBigType.id}T${question.id}T${node.score}"
-                                               type="radio" name="iCheck" value="${node.score}">
-                                    ${node.select}
-                                    </label>
-                                </#list>
-                            </li>
+        <form method="get" id="questionnaire${questionnaire.id}">
+            <h1 class="survey_to_title">${questionnaire.toUser}满意度调查</h1>
+            <ul class="subject_list">
+            <#list questionnaire.questionnaireNodeList as questionnaireNode>
+                <li class="subject_big">
+                    <h3>${questionnaireNode.questionBigType.name}</h3>
+                </li>
+                <#list questionnaireNode.questionsList as question>
+                    <li class="subject"
+                        id="${questionnaire.id}T${questionnaireNode.questionBigType.id}T${question.id}"
+                        aria-label="0">
+                        <h4 class="subject_title">${question.title}</h4>
+                        <#list question.questionsNodes as node>
+                            <label class="subject_option">
+                                <input name="${questionnaire.id}T${questionnaireNode.questionBigType.id}T${question.id}"
+                                       id="${questionnaire.id}T${questionnaireNode.questionBigType.id}T${question.id}T${node.score}"
+                                       type="radio" name="iCheck" value="${node.score}">
+                            ${node.select}
+                            </label>
                         </#list>
-                    </#list>
-                </ul>
-                <div class="tip-container">
+                    </li>
+                </#list>
+            </#list>
+            </ul>
+            <div class="tip-container">
                 <textarea class="comment" name="comment" id="${questionnaire.id}comment" rows="10" tabindex="4"
                           placeholder="输入评论内容...字数在两百字以内" aria-label="0"></textarea>
-                    <div class="absolute" id="${questionnaire.id}commentTip"
-                         style="right: 0px;bottom: 10px;color: #8b5e21;font-size:12px;">剩余<font id="wnum">0</font>字
-                    </div>
+                <div class="absolute" id="${questionnaire.id}commentTip"
+                     style="right: 0px;bottom: 10px;color: #8b5e21;font-size:12px;">剩余<font id="wnum">0</font>字
                 </div>
+            </div>
 
-            </form>
+        </form>
         <div style="text-align: right">
             <button class="submit" type="submit" onclick="postReply()">提交</button>
         </div>
@@ -148,7 +148,7 @@
 
             mm = parseInt(mss % 1000);
             var mmmin = get3zf(mm);
-            return getzf(hours)+":"+ min + ":"
+            return getzf(hours) + ":" + min + ":"
                     + getzf(seconds);
         }
 
@@ -326,28 +326,15 @@
         });
         reply[i++] = $.parseJSON("{\"score\":\"" + score + "\"}");
         mode["questionnaireResult.questions_reply"] = JSON.stringify(reply);
-
-        $.ajax({
-            url: "${staticServePath}/surveys/postQresult",
-            type: "post",
+        Util.ajax("${staticServePath}/surveys/postQresult", {
             data: mode,
             success: function (data, textstatus) {
-                if (data.state == 'success') {
-                    Util.showTip($('#wholeTip'), '${questionnaire.toUser}情况调查表 ' + data.msg, 'alert alert-success');
-                    setTimeout(function () {
-                        window.location.href = "${staticServePath}/";
-                    }, 1000);
-                }
-                if (data.state == 'error') {
-                    Util.showTip($('#wholeTip'), '${questionnaire.toUser}情况调查表 ' + data.msg, 'alert alert-success');
-                }
-            }, error: function () {
-                Util.showTip($('#wholeTip'), '${questionnaire.toUser}情况调查表 提交失败', 'alert alert-success');
-            },
-            complete: function () {
-
+                Util.showTip($('#wholeTip'), '${questionnaire.toUser}情况调查表 ' + data.msg, 'alert alert-success');
+                setTimeout(function () {
+                    window.location.href = "${staticServePath}/";
+                }, 1000);
             }
-        });
+        })
     }
 </script>
 

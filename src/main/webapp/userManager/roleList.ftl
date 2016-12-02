@@ -1,6 +1,6 @@
 <div class="row animate">
     <div class="col-md-12">
-        <div class="panel panel-default item">
+        <div class="panel panel-default item" id="chart-inner">
             <div class="panel-heading title">
             ${view.title}
             <#--<a class="btn btn-success pull-right" href="/user/addUser">

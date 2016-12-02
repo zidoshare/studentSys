@@ -304,15 +304,10 @@ ${view.title}
     }
     function getTags(domain) {
         var json = {'domain': domain};
-        $.ajax({
+        Util.ajax({
             url: '${staticServePath}/test/getTags',
-            type: 'post',
             data: json,
             success: function (data, state) {
-                if (data.state == 'error') {
-                    Util.showTip($('#wholeTip'), data.msg, 'alert alert-danger');
-                    return;
-                }
                 var array = data;
 
                 var str = '<select id="tagSelect" class="selectpicker show-tick form-control" data-live-search="true">' +
@@ -329,8 +324,6 @@ ${view.title}
                 ts = $('#tagSelect');
                 ts.on('changed.bs.select', loadQuestions);
                 loadQuestions();
-                //$('#questions_loading').addClass('sr-only');
-                //getQuestions();
             }
         });
     }

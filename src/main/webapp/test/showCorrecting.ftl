@@ -96,7 +96,8 @@
                                         </div>
                                     </#if>
                                     <label>要点:</label>
-                                    <pre class="message text-danger"><#if question.testQuestionMessage??>${question.testQuestionMessage?html}<#else>暂无</#if></pre>
+                                    <pre class="message text-danger"><#if question.testQuestionMessage??>${question.testQuestionMessage?html}<#else>
+                                        暂无</#if></pre>
                                 </div>
                             </div>
                         </li>
@@ -209,23 +210,16 @@
             scoreSituation[key] = score;
             count += score;
         });
-        $.ajax({
-            url: "${staticServePath}/test/postScore/${testReply.id}",
+        Util.ajax("${staticServePath}/test/postScore/${testReply.id}", {
             data: {
                 "scoreSituation": JSON.stringify(scoreSituation),
                 "score": count
             },
-            type: 'post',
-            dataType: 'json',
             success: function (data, status) {
                 $('#modal').modal('hide');
-                if (data.state == 'success') {
-                    Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
-                    $('tr#${testReply.id}>.score').html(count);
-                    $('tr#${testReply.id}>.state').html('<span class="text-success">已批改</span>');
-                } else {
-                    Util.showTip($('#wholeTip'), data.msg, 'alert alert-danger');
-                }
+                Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
+                $('tr#${testReply.id}>.score').html(count);
+                $('tr#${testReply.id}>.state').html('<span class="text-success">已批改</span>');
             }
         });
     }

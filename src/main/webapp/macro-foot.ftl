@@ -64,9 +64,7 @@
         content+="]}";*/
         var content = c.join("&");
         var score = s.join("&");
-        $.ajax({
-            type: "post",
-            url: "${staticServePath}/surveys/postQuestion",
+        Util.ajax("${staticServePath}/surveys/postQuestion",{
             data: {
                 "questions.title": title,
                 "questions.type": type,
@@ -75,16 +73,12 @@
                 "questions.option_score": score,
                 "questions.maxScore": max
             },
-            success: function (data, textStatus) {
-                alert(data.msg);
-                if (data.state == "success") {
+            success: {
+                after:function() {
                     $("#q-flag").append("<p>" + title + "<p>");
                     var row = parseInt($("#maxRow").text());
                     $("#maxRow").text(row + 1);
                 }
-            },
-            error: function () {
-                alert("错误");
             }
         });
     }

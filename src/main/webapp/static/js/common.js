@@ -34,8 +34,6 @@ var Login = {
         var evt = arguments.callee.caller.arguments[0] || window.event;
         evt.preventDefault();
         evt.stopPropagation();
-        var btn = Ladda.create(document.querySelector("#login-btn"));
-        btn.start();
         var data = {
             target: $("#loginTip"),
             data: [{
@@ -54,36 +52,19 @@ var Login = {
                 account: $("#account").val().replace(/(^\s*)|(\s*$)/g, ""),
                 password: $("#password").val()
             };
-            $.ajax({
-                type: "post",
-                url: Label.staticServePath + "/user/login",
-                dataType: "json",
+            Util.ajax(Label.staticServePath + "/user/login", {
                 data: jsonObj,
                 success: function (data) {
-                    if (data.state == "success") {
-                        $("form").fadeOut(500);
-                        $(".wrapper").addClass("form-success");
-                        //Util.showTip($("#loginTip"), data.msg, 'alert alert-success');
-                        setTimeout(function () {
-                            if (Label.holdPath != null) {
-                                window.location.href = Label.holdPath;
-                            } else
-                                window.location.href = Label.staticServePath + '/';
-                        }, 1000);
-                    } else {
-                        Util.showTip($("#wholeTip"), "账号或密码错误!", 'alert alert-danger');
-                    }
-                },
-                error: function () {
-                    Util.showTip($("#wholeTip"), "服务器错误!", 'alert alert-danger');
-                },
-                complete: function () {
-                    btn.stop();
+                    $("form").fadeOut(500);
+                    $(".wrapper").addClass("form-success");
+                    setTimeout(function () {
+                        if (Label.holdPath != null) {
+                            window.location.href = Label.holdPath;
+                        } else
+                            window.location.href = Label.staticServePath + '/';
+                    }, 1000);
                 }
-            })
-
-        } else {
-            btn.stop();
+            });
         }
     },
     register: function () {
@@ -180,46 +161,49 @@ var Validate = {
 var Util = {
     ajax: function (url, options) {
         /*
-        * success：options->
-        *               defaults = {
-                             success: function () {
-                             },
-                             error: function () {
-                             },
-                             onShowSuccess: {},
-                             onShowError: {},
-                             bindModal: null,
-                             bindContainer: ['#table-inner'],
-                             bindUrl: ''
-                         };
-          error:options->
-                     defaults = {
-                         onShowTip: {},
-                         msg: '服务器错误'
-                     };
-          complete:options->
-                     defaults = {
-                         do: function (selector) {
-                             if (selector == null || selector == '')
-                                selector = "#save-btn";
-                             if (Exception.btn != null)
-                                Exception.btn.stop();
-                         }
-                     };
-          beforeSend:options->
-                     defaults = {
-                         do: function (selector) {
-                             if (selector == null || selector == '')
-                             selector = "#save-btn";
-                             Exception.btn = Ladda.create(document.querySelector(selector));
-                             Exception.btn.start();
-                         }
-                     };
-        *
-        *
-        * */
+         * success：options->
+         *               defaults = {
+         success: function () {
+         },
+         error: function () {
+         },
+         onShowSuccess: {},
+         onShowError: {},
+         bindModal: null,
+         bindContainer: ['#table-inner'],
+         bindUrl: ''
+         };
+         error:options->
+         defaults = {
+         onShowTip: {},
+         msg: '服务器错误'
+         };
+         complete:options->
+         defaults = {
+         do: function (selector) {
+         if (selector == null || selector == '')
+         selector = "#save-btn";
+         if (Exception.btn != null)
+         Exception.btn.stop();
+         }
+         };
+         beforeSend:options->
+         defaults = {
+         do: function (selector) {
+         if (selector == null || selector == '')
+         selector = "#save-btn";
+         Exception.btn = Ladda.create(document.querySelector(selector));
+         Exception.btn.start();
+         }
+         };
+         *
+         *
+         * */
+        if (!(typeof url === 'string')) {
+            options = url;
+        }
         var defaults = {
-            url: url,
+            url: (typeof url === 'string') ? url : '',
             data: {},
             dataType: 'json',
             type: 'post',
@@ -227,7 +211,10 @@ var Util = {
             success: {},
             error: {},
             complete: {},
-            btnSelector: '#save-btn'
+            btnSelector: null,
+            bindModal: null,
+            bindContainer: ['#table-inner'],
+            bindUrl: ''
         };
         var opts = $.extend(defaults, options);
         if (opts.btnSelector != null && opts.btnSelector != '' && opts.btnSelector != '#save-btn') {
@@ -238,16 +225,20 @@ var Util = {
                 selector: opts.btnSelector
             };
         }
-        ;
+        if (!(opts.success instanceof Function)) {
+            opts.success.bindModal = opts.bindModal;
+            opts.success.bindContainer = opts.bindContainer;
+            opts.success.bindUrl = opts.bindUrl;
+        }
         $.ajax({
             url: opts.url,
             data: opts.data,
             dataType: opts.dataType,
             type: opts.type,
-            beforeSend: Exception.beforeSend(opts.beforeSend),
-            success: Exception.success(opts.success),
-            error: Exception.error(opts.error),
-            complete: Exception.complete(opts.complete)
+            beforeSend: opts.beforeSend instanceof Function ? opts.beforeSend : Exception.beforeSend(opts.beforeSend),
+            success: opts.success instanceof Function ? opts.success : Exception.success(opts.success),
+            error: opts.error instanceof Function ? opts.error : Exception.error(opts.error),
+            complete: opts.complete instanceof Function ? opts.complete : Exception.complete(opts.complete)
         });
     },
     input: function (dom, name, id) {
@@ -375,7 +366,8 @@ var Util = {
             maxCacheLength: 5,
             timeout: 8000,
             storage: false,
-            replace: true
+            replace: true,
+            push: true
         });
 
     },
@@ -415,12 +407,9 @@ var Util = {
             before: function () {
             },
             complete: function () {
-            },
-            fragment: container
+            }
         };
-        var opts = $.extend(defaults, options);
-        /*$(opts.container).off('pjax:beforeSend');
-         $(opts.container).off('pjax:complete');*/
+        var opts = $.extend(defaults,options);
         $(container).one('pjax:beforeSend', function (event) {
             opts.before();
             if (opts.showWholeAnimate) {
@@ -443,14 +432,35 @@ var Util = {
             }
             event.stopPropagation();
         });
+        /*var dom = $(container);
+        opts.before();
+        if (opts.showWholeAnimate) {
+            $('#page-inner').html('');
+            $('.pjax_loading').css("display", "block");
+        }
+        if (opts.showMinAnimate) {
+            dom.showLoading();
+        }
+        dom.parent().load(window.location.href+' '+container,function(resp){
+            opts.complete();
+            if (opts.showWholeAnimate) {
+                $('.pjax_loading').css("display", "none");
+                Animate.loadWrapper();
+            }
+            if (opts.showMinAnimate) {
+                dom.closeLoading();
+            }
+        });*/
         $.pjax.reload(container, {
-            fragment: opts.fragment,
+            fragment: container,
             cache: true,
             maxCacheLength: 5,
             timeout: 8000,
             storage: false,
-            replace: true
+            replace: true,
+            push: true
         });
+
     },
     getzf: function (num) {
         if (parseInt(num) < 10) {
@@ -728,8 +738,6 @@ var func = {
         if (method == 'show') {
             modalUtil.show($('#addCertificateModel'));
         } else {
-            var btn = Ladda.create(document.querySelector("#save-btn"));
-            btn.start();
             var enrollTime = new Date($('#enrollTime_temp').val().replace(/-/g, '/')).getTime();
             var endTime = new Date($('#endTime_temp').val().replace(/-/g, '/')).getTime();
             var addTime = new Date($('#addTime_temp').val().replace(/-/g, '/')).getTime();
@@ -740,29 +748,18 @@ var func = {
             $('#certificate').find('input,select').each(function () {
                 json[$(this).attr('name')] = $(this).val();
             });
-            $.ajax({
-                url: Label.staticServePath + '/certificateManager/postCertificate',
+            Util.ajax(Label.staticServePath + '/certificateManager/postCertificate', {
                 data: json,
-                type: 'post',
                 success: function (data, status) {
-                    if (data.state == 'success') {
-                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
-                        modalUtil.hideClear($('#addCertificateModel'), {
-                            after: function () {
-                                Util.reloadByPjax('#table-inner');
-                            }
-                        });
+                    Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
+                    modalUtil.hideClear($('#addCertificateModel'), {
+                        after: function () {
+                            Util.reloadByPjax('#table-inner');
+                        }
+                    });
 
-                    } else
-                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-danger');
-                },
-                error: function () {
-                    Util.showTip($('#wholeTip'), '服务器错误', 'alert alert-danger');
-                },
-                complete: function () {
-                    btn.stop();
                 }
-            })
+            });
         }
     },
     updateCertificate: function (method, id) {
@@ -777,57 +774,25 @@ var func = {
     },
     deleteCertificate: function (method, id) {
         if (confirm("确认删除？")) {
-            $.ajax({
-                url: Label.staticServePath + "/certificateManager/deleteCertificate/" + id,
-                type: 'post',
-                success: function (data, status) {
-                    Util.showTip($('#wholeTip'), data.msg, "alert alert-success", {
-                        before: function () {
-                            Util.reloadByPjax('#table-inner');
-                        }
-                    });
-                },
-                error: function () {
-                    Util.showTip($('#wholeTip'), '服务器错误', "alert alert-danger");
-                }
-            });
+            Util.ajax(Label.staticServePath + "/certificateManager/deleteCertificate/" + id);
         }
     },
     addRepayment: function (method) {
         if (method == 'show') {
             modalUtil.show($('#addRepaymentModel'));
         } else {
-            var btn = Ladda.create(document.querySelector("#save-btn"));
-            btn.start();
             var time = new Date($('#enrollTime_temp').val().replace(/-/g, '/')).getTime();
             $('#enrollTime').val(time);
             var json = {};
             $('#repayment').find('input,select').each(function () {
                 json[$(this).attr('name')] = $(this).val();
             });
-            $.ajax({
-                url: Label.staticServePath + '/repaymentManager/postRepayment',
+            Util.ajax(Label.staticServePath + '/repaymentManager/postRepayment', {
                 data: json,
-                type: 'post',
-                success: function (data, status) {
-                    if (data.state == 'success') {
-                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
-                        modalUtil.hideClear($('#addRepaymentModel'), {
-                            after: function () {
-                                Util.reloadByPjax('#table-inner');
-                            }
-                        });
-
-                    } else
-                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-danger');
-                },
-                error: function () {
-                    Util.showTip($('#wholeTip'), '服务器错误', 'alert alert-danger');
-                },
-                complete: function () {
-                    btn.stop();
+                success: {
+                    bindModal: $('#addRepaymentModel')
                 }
-            })
+            });
         }
     },
     updateRepayment: function (method, id) {
@@ -837,20 +802,7 @@ var func = {
     },
     deleteRepayment: function (method, id) {
         if (confirm("确认删除？")) {
-            $.ajax({
-                url: Label.staticServePath + "/repaymentManager/deleteRepayment/" + id,
-                type: 'post',
-                success: function (data, status) {
-                    Util.showTip($('#wholeTip'), data.msg, "alert alert-success", {
-                        before: function () {
-                            Util.reloadByPjax('#table-inner');
-                        }
-                    });
-                },
-                error: function () {
-                    Util.showTip($('#wholeTip'), '服务器错误', "alert alert-danger");
-                }
-            });
+            Util.ajax(Label.staticServePath + "/repaymentManager/deleteRepayment/" + id);
         }
     },
     addAttendance: function (method, id) {
@@ -864,31 +816,15 @@ var func = {
         } else if (method == 'table-save') {
             $('#core_createTime').val(new Date().getTime());
             $('#core_time').val(new Date($('#core_time_temp').val().replace(/-/g, '/')).getTime());
-            var btn = Ladda.create(document.querySelector("#save-btn"));
-            btn.start();
             var json = {};
             $('#core_form').find('input,select').each(function () {
                 json[$(this).attr('name')] = $(this).val();
             });
-            $.ajax({
-                url: Label.staticServePath + '/attendanceManager/postAttendance',
-                data: json,
-                type: 'post',
-                success: function (data, status) {
-                    if (data.state == 'success') {
-                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
-                        modalUtil.hideClear($('#modal'));
-                        Util.reloadByPjax('#table-inner');
-                    } else
-                        Util.showTip($('#wholeTip'), '操作失败', 'alert alert-danger');
-                },
-                error: function () {
-                    Util.showTip($('#wholeTip'), '服务器错误', 'alert alert-danger');
-                },
-                complete: function () {
-                    btn.stop();
+            Util.ajax(Label.staticServePath + '/attendanceManager/postAttendance', {
+                success: {
+                    bindModal: $('#modal')
                 }
-            })
+            });
         } else if (method == 'show') {
             modalUtil.show($('#addAttendanceModal'));
             $('#studentId').val(id);
@@ -899,31 +835,14 @@ var func = {
         } else {
             $('#createTime').val(new Date().getTime());
             $('#time').val(new Date($('#time_temp').val().replace(/-/g, '/')).getTime());
-            var btn = Ladda.create(document.querySelector("#save-btn"));
-            btn.start();
             var json = {};
             $('#attendance').find('input,select').each(function () {
                 json[$(this).attr('name')] = $(this).val();
             });
-            $.ajax({
-                url: Label.staticServePath + '/attendanceManager/postAttendance',
+            Util.ajax(Label.staticServePath + '/attendanceManager/postAttendance', {
                 data: json,
-                type: 'post',
-                success: function (data, status) {
-                    if (data.state == 'success') {
-                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
-                        modalUtil.hideClear($('#addAttendanceModal'));
-                        Util.reloadByPjax('#table-inner');
-                    } else
-                        Util.showTip($('#wholeTip'), '操作失败', 'alert alert-danger');
-                },
-                error: function () {
-
-                },
-                complete: function () {
-                    btn.stop();
-                }
-            })
+                bindModal: $('#addAttendanceModal')
+            });
         }
     },
     updateAttendance: function (method, id, sid) {
@@ -982,62 +901,33 @@ var func = {
             modalUtil.toggleClear($('#addUserModel'));
             /*func.showPermissions(0, '', 'permissions');*/
         } else {
-            var btn = Ladda.create(document.querySelector("#saveUser-btn"));
-            btn.start();
             var json = {};
             $('#createTime').val(new Date().getTime());
             $('#user').find('.form-control').each(function () {
                 json[$(this).attr('name')] = $(this).val();
             });
-            $.ajax({
+            Util.ajax({
                 url: Label.staticServePath + '/userManager/addUser',
-                type: 'post',
+                btnSelector: '#saveUser-btn',
                 data: json,
-                dataType: "json",
-                success: function (data) {
-                    if (data.state == 'success') {
-                        Util.showTip($('#wholeTip'), '添加成功', 'alert alert-success');
-                    } else
-                        Util.showTip($('#wholeTip'), '添加失败', 'alert alert-warning');
-                },
-                error: function () {
-                    Util.showTip($('#wholeTip'), '服务器错误', 'alert alert-danger');
-                },
-                complete: function () {
-                    btn.stop();
-                }
-            });
+                bindModal: $('#addUserModel'),
+                bindContainer: ['#page-inner']
+            })
         }
     },
     addStudent: function (method) {
         if (method == 'show') {
             modalUtil.toggleClear($('#addStudentModel'));
         } else {
-            var btn = Ladda.create(document.querySelector("#save-btn"));
-            btn.start();
             $('#createTime').val(new Date().getTime());
             var json = {};
             $('#student').find('.form-control').each(function () {
                 json[$(this).attr('name')] = $(this).val();
             });
-            $.ajax({
+            Util.ajax({
                 url: Label.staticServePath + '/studentManager/addStudent',
-                type: 'post',
                 data: json,
-                dataType: "json",
-                success: function (data) {
-                    if (data.state == 'success') {
-                        Util.showTip($('#wholeTip'), '添加成功', 'alert alert-success');
-                    } else
-                        Util.showTip($('#wholeTip'), '添加失败', 'alert alert-warning');
-                },
-                error: function () {
-                    Util.showTip($('#wholeTip'), '服务器错误', 'alert alert-danger');
-                },
-                complete: function () {
-                    btn.stop();
-                }
-            });
+            })
         }
     },
     addTestQuestion: function (method) {
@@ -1045,9 +935,6 @@ var func = {
             modalUtil.show($('#addTestQuestion'));
             Util.changeModel($('#testQuestionTypeId'));
         } else {
-            var btn = Ladda.create(document.querySelector("#saveTestQuestion-btn"));
-            btn.start();
-
             //填充创建时间
             $('#testQuestionCreateTime').val(new Date().getTime());
             //---------------填充选择题选项------------
@@ -1067,7 +954,6 @@ var func = {
             $('#testQuestionShortAnswer').val(JSON.stringify(answers));
             if ((answers == '[[],[]]' || answers == null || answers == '') && ($('#testQuestionLongAnswer').val() == null || $('#testQuestionLongAnswer').val() == '')) {
                 Util.showTip($('#wholeTip'), '答案不能为空', 'alert alert-danger');
-                btn.stop();
                 return;
             }
             //---------------填充选项及答案结束------------
@@ -1075,30 +961,11 @@ var func = {
             $('#testQuestion').find('.form-control').each(function () {
                 if ($(this).attr('name') != null)
                     json[$(this).attr('name')] = Util.formatText($(this).val());
-                /*if($(this).val() != null && $(this).val().length > 20){
-                 alert();
-                 }*/
             });
-            $.ajax({
+            Util.ajax({
                 url: Label.staticServePath + "/test/addTestQuestion",
-                dataType: 'json',
-                type: 'post',
                 data: json,
-                success: function (data, status) {
-                    if (data.state == 'success') {
-                        modalUtil.toggleClear($('#addTestQuestion'));
-                        Util.reloadByPjax('#table-inner');
-                        Util.showTip($('#wholeTip'), data.msg, "alert alert-success");
-                    }
-                    else
-                        Util.showTip($('#wholeTip'), data.msg, "alert alert-warning");
-
-                },
-                error: function () {
-                    Util.showTip($('#wholeTip'), "服务器错误", "alert alert-danger");
-                }, complete: function () {
-                    btn.stop();
-                }
+                bindModal: $('#addTestQuestion')
             });
         }
     },
@@ -1118,8 +985,6 @@ var func = {
             modelPane.append(content);
         }
         else {
-            var btn = Ladda.create(document.querySelector("#save-btn"));
-            btn.start();
             var json = {};
             var id = $('#testQuestionnaireId').val();
             if (id == null || id == '')
@@ -1142,28 +1007,17 @@ var func = {
             $('#testQuestionnaire').find('.form-control').each(function () {
                 json[$(this).attr('name')] = $(this).val();
             });
-            $.ajax({
+            Util.ajax({
                 url: Label.staticServePath + "/test/addTestQuestionnaire",
-                type: "post",
                 data: json,
                 success: function (data, state) {
-                    if (data.state == 'success') {
-                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-success', {
-                            time: 1000, complete: function () {
-                                Util.reloadByPjax('#table-inner');
-                                closePanel('#add-nav', '#addTestQuestionnaire');
-                                Util.clearPanel($('#inputQuestionnairePanel'), {hidden: false});
-                            }
-                        });
-                    }
-                    else
-                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-danger');
-                },
-                error: function () {
-                    Util.showTip($('#wholeTip'), '服务器错误', 'alert alert-danger', {time: 5000});
-                },
-                complete: function () {
-                    btn.stop();
+                    Util.showTip($('#wholeTip'), data.msg, 'alert alert-success', {
+                        time: 1000, complete: function () {
+                            Util.reloadByPjax('#table-inner');
+                            closePanel('#add-nav', '#addTestQuestionnaire');
+                            Util.clearPanel($('#inputQuestionnairePanel'), {hidden: false});
+                        }
+                    });
                 }
             })
         }
@@ -1173,9 +1027,9 @@ var func = {
 
     },
     submitApply: function () {
-        var data=[];
+        var data = [];
 
-        var jsonData=[];
+        var jsonData = [];
         $("tr[name='submit-tr']").each(function (index, dom) {
             var list = $(dom).find('input[name]');
             if (list.length <= 0)
@@ -1195,46 +1049,27 @@ var func = {
         data.push(bz);
         data.push(id);
         data.push(jsonData);
-        console.log(data);
         Util.ajax(Label.staticServePath + "/subsidyManager/confirmSubmit", {
             data: {
                 'list': JSON.stringify(data)
             },
             btnSelector: '#save-submit-btn',
             success: {
-                bindModal:modal
+                bindModal: modal
             }
         })
 
 
-                // Util.loadPageByPjax(Label.staticServePath + '/approvalManager');
+        // Util.loadPageByPjax(Label.staticServePath + '/approvalManager');
 
     },
     deleteApply: function (method, classId) {
         if (method == 'show') {
             if (confirm('确认删除？')) {
-                $.ajax({
+                Util.ajax({
                     url: Label.staticServePath + "/subsidyManager/deleteSubsidyClassInfo",
-                    type: 'post',
                     data: {
                         'classId': classId
-                    },
-                    success: function (data, status) {
-
-                        if (data.state == 'success') {
-                            Util.showTip($('#wholeTip'), data.msg, "alert alert-success", {
-                                before: function () {
-                                    $('tr#list' + classId).remove();
-                                    Util.reloadByPjax('#table-inner');
-                                }
-                            });
-                        }
-                        else {
-                            Util.showTip($('#wholeTip'), data.msg, "alert alert-danger");
-                        }
-                    },
-                    error: function () {
-                        Util.showTip($('#wholeTip'), '服务器错误', "alert alert-danger");
                     }
                 });
             }
@@ -1263,54 +1098,50 @@ var func = {
             },
             btnSelector: '#sa-btn',
             success: {
-                bindModal:modal,
+                bindModal: modal,
             }
         })
     },
     seeApply: function (method, id) {
         modalUtil.show($('#seeApplyModel'));
-        $.ajax(Label.staticServePath + "/subsidyManager/getSubsidyClassInfo", {
-            type: 'post',
-            dataType: 'json',
+        Util.ajax(Label.staticServePath + "/subsidyManager/getSubsidyClassInfo", {
             data: {
                 'classId': id
             },
             success: function (data, status) {
-                if (data.state == 'success') {
-                    var json = JSON.parse(data.msg);
-                    json.map(function (elem, num) {
-                        var sta;
-                        if (elem['status'] == 1) {
-                            sta = '在读';
-                        } else if (elem['status'] == 0) {
-                            sta = '毕业';
-                        }
+                var json = JSON.parse(data.msg);
+                json.map(function (elem, num) {
+                    var sta;
+                    if (elem['status'] == 1) {
+                        sta = '在读';
+                    } else if (elem['status'] == 0) {
+                        sta = '毕业';
+                    }
 
-                        var str = '<tr id="tr{id}">' +
-                            '<td></td>' +
-                            '<td class="hidden"><input name="applicationDate" value="{applicationDate}"/><input name="id" value="{id}"/><input name="studentId" value="{studentId}"/></td>' +
-                            '<td>{studentName}</td>' +
-                            '<td class=" z-money-cny">{subsidyAmount}</td>' +
-                            '<td>{residualFrequency}</td>' +
-                            '<td><input value="{bonus}" class="form-control"  id="input-text{id}" name="bonus"></td>' +
-                            '<td>' + sta + '</td>' +
-                            '</tr>';
-                        str = Util.jsonToString(str, elem);
-                        $('#seeApplyModel').find('tbody:first').append(str);
-                        var ckeckBoox = $("#index-look").parent().clone();
-                        var input = ckeckBoox.find('input:first');
-                        var label = ckeckBoox.find('label:first');
-                        input.attr('tag', 'input');
-                        input.val(elem['id']);
-                        input.attr('checked', '');
-                        input.attr('id', 'index-look' + elem['id']);
-                        label.attr('for', "index-look" + elem['id']);
-                        $('tr#tr' + elem['id']).find('td:first').append(ckeckBoox);
-                    });
-                    $('#seeApplyModel').one('hidden.bs.modal', function () {
-                        $(this).find('tbody:first').html('');
-                    });
-                }
+                    var str = '<tr id="tr{id}">' +
+                        '<td></td>' +
+                        '<td class="hidden"><input name="applicationDate" value="{applicationDate}"/><input name="id" value="{id}"/><input name="studentId" value="{studentId}"/></td>' +
+                        '<td>{studentName}</td>' +
+                        '<td class=" z-money-cny">{subsidyAmount}</td>' +
+                        '<td>{residualFrequency}</td>' +
+                        '<td><input value="{bonus}" class="form-control"  id="input-text{id}" name="bonus"></td>' +
+                        '<td>' + sta + '</td>' +
+                        '</tr>';
+                    str = Util.jsonToString(str, elem);
+                    $('#seeApplyModel').find('tbody:first').append(str);
+                    var ckeckBoox = $("#index-look").parent().clone();
+                    var input = ckeckBoox.find('input:first');
+                    var label = ckeckBoox.find('label:first');
+                    input.attr('tag', 'input');
+                    input.val(elem['id']);
+                    input.attr('checked', '');
+                    input.attr('id', 'index-look' + elem['id']);
+                    label.attr('for', "index-look" + elem['id']);
+                    $('tr#tr' + elem['id']).find('td:first').append(ckeckBoox);
+                });
+                $('#seeApplyModel').one('hidden.bs.modal', function () {
+                    $(this).find('tbody:first').html('');
+                });
             }
         });
     },
@@ -1324,29 +1155,13 @@ var func = {
                     json[x++] = $(this).attr('name');
                 }
             });
-
-            var btn = Ladda.create(document.querySelector("#saveRole-btn"));
-            btn.start();
-            $.ajax(Label.staticServePath + '/subsidyManager/addRegionSubsidyClass', {
+            Util.ajax(Label.staticServePath + '/subsidyManager/addRegionSubsidyClass', {
                 type: 'post',
                 data: {
                     'classId': JSON.stringify(json)
                 },
-                dataType: "json",
-                success: function (data) {
-                    if (data.state == 'success') {
-                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
-                        modal.modal('hide');
-                        //刷新页面
-                        Util.reloadByPjax();
-                    } else
-                        Util.showTip($('#wholeTip'), '添加失败', 'alert alert-warning');
-                },
-                error: function (info) {
-                    Util.showTip($('#wholeTip'), info.msg, 'alert alert-danger');
-                },
-                complete: function () {
-                    btn.stop();
+                success: {
+                    bindModal: modal
                 }
             });
         }
@@ -1355,55 +1170,50 @@ var func = {
         var model = $('#addApplyModel');
         if (method == "show") {
             modalUtil.toggleClear(model);
-            $.ajax(Label.staticServePath + "/subsidyManager/showRegion", {
-                type: 'post',
+            Util.ajax(Label.staticServePath + "/subsidyManager/showRegion", {
                 dataType: 'json',
                 success: function (data, status) {
-
-                    if (data.state == 'success') {
-                        var json = JSON.parse(data.msg);
-                        json.map(function (elems, index) {
-
-                            var head = '<li role="presentation" {headClassName}><a href="#role{id}" role="tab" data-toggle="tab" {tag} data-label="{id}">{regionName}</a></li>';
-                            var body = '<div role="tabpanel" {bodyClassName} id="role{id}" ></div>';
-                            if (index == 0) {
-                                head = Util.jsonToString(head, {'tag': 'tag="tag1"'});
-                                head = Util.jsonToString(head, {'headClassName': 'class="active"'});
-                                body = Util.jsonToString(body, {'bodyClassName': 'class="tab-pane active"'});
-                            } else {
-                                head = Util.jsonToString(head, {'tag': 'tag="tag"'});
-                                head = Util.jsonToString(head, {'headClassName': ''});
-                                body = Util.jsonToString(body, {'bodyClassName': 'class="tab-pane"'})
-                            }
-                            head = Util.jsonToString(head, elems);
-                            body = Util.jsonToString(body, elems);
-
-                            model.find('ul:first').append(head);
-                            model.find('#classBody').append(body);
-
-                            var regionDiv = region($(this));
-                            var input = regionDiv.find('input:first');
-                            input.attr('id', 'parent-input' + elems['id']);
-                            input.val(elems['id']);
-                            regionDiv.find('label:first').attr('for', 'parent-input' + elems['id']);
-                            $('div#' + 'role' + elems['id']).append(regionDiv);
-                        });
-                        // window.onload = function() {
-                        //     func.allcheck(modl);
-                        // };
-                        if (json.length > 0) {
-                            showTemplate(json[0]['id']);
+                    var json = JSON.parse(data.msg);
+                    json.map(function (elems, index) {
+                        var head = '<li role="presentation" {headClassName}><a href="#role{id}" role="tab" data-toggle="tab" {tag} data-label="{id}">{regionName}</a></li>';
+                        var body = '<div role="tabpanel" {bodyClassName} id="role{id}" ></div>';
+                        if (index == 0) {
+                            head = Util.jsonToString(head, {'tag': 'tag="tag1"'});
+                            head = Util.jsonToString(head, {'headClassName': 'class="active"'});
+                            body = Util.jsonToString(body, {'bodyClassName': 'class="tab-pane active"'});
+                        } else {
+                            head = Util.jsonToString(head, {'tag': 'tag="tag"'});
+                            head = Util.jsonToString(head, {'headClassName': ''});
+                            body = Util.jsonToString(body, {'bodyClassName': 'class="tab-pane"'})
                         }
+                        head = Util.jsonToString(head, elems);
+                        body = Util.jsonToString(body, elems);
 
-                        $('a[tag="tag"]').one('shown.bs.tab', function () {
-                            showTemplate($(this).attr('data-label'));
-                        });
-                        model.one('hidden.bs.modal', function () {
-                            $(this).find('#class-add-ul').html('');
-                            $(this).find('#classBody').html('');
-                            $('div.tab-pane').off('shown.bs.tab');
-                        });
+                        model.find('ul:first').append(head);
+                        model.find('#classBody').append(body);
+
+                        var regionDiv = region($(this));
+                        var input = regionDiv.find('input:first');
+                        input.attr('id', 'parent-input' + elems['id']);
+                        input.val(elems['id']);
+                        regionDiv.find('label:first').attr('for', 'parent-input' + elems['id']);
+                        $('div#' + 'role' + elems['id']).append(regionDiv);
+                    });
+                    // window.onload = function() {
+                    //     func.allcheck(modl);
+                    // };
+                    if (json.length > 0) {
+                        showTemplate(json[0]['id']);
                     }
+
+                    $('a[tag="tag"]').one('shown.bs.tab', function () {
+                        showTemplate($(this).attr('data-label'));
+                    });
+                    model.one('hidden.bs.modal', function () {
+                        $(this).find('#class-add-ul').html('');
+                        $(this).find('#classBody').html('');
+                        $('div.tab-pane').off('shown.bs.tab');
+                    });
                 }
             });
         } else {
@@ -1428,18 +1238,16 @@ var func = {
             modelSub.find("span#submit-total").text(aggregateAmount);
         }
     },
-    seeStudentInformation:function () {
+    seeStudentInformation: function () {
         modalUtil.show($("#studentInformationModel"));
     },
-    seeClassStudent:function () {
-        Util.loadByPjax(Label.staticServePath+"/studentManager/pageJump",{
-            container:'#class-details'
+    seeClassStudent: function () {
+        Util.loadByPjax(Label.staticServePath + "/studentManager/pageJump", {
+            container: '#class-details'
         });
     },
     addClass: function (method) {
         if (method == 'up') {
-            var btn = Ladda.create(document.querySelector("#save-btn"));
-            btn.start();
             var json = {};
             var id = $('#classId').val();
             if (id == null || id == '')
@@ -1449,25 +1257,11 @@ var func = {
             $('#class').find('.form-control').each(function () {
                 json[$(this).attr('name')] = $(this).val();
             });
-            $.ajax({
+            Util.ajax({
                 url: Label.staticServePath + "/classManager/addClass",
-                type: "post",
                 data: json,
-                success: function (data, state) {
-                    if (data.state == 'success') {
-                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
-                        $('#addClassModel').modal('hide');
-                        //刷新页面
-                        Util.reloadByPjax();
-                    } else {
-                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-danger');
-                    }
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    Util.showTip($('#wholeTip'), '服务器错误', 'alert alert-danger', {time: 5000});
-                },
-                complete: function () {
-                    btn.stop();
+                success: {
+                    bindModal: $('#addClassModel')
                 }
             })
         }
@@ -1481,8 +1275,6 @@ var func = {
             $('#addDomainModel').modal(method);
             loadResult($('#panel-container'), Label.staticServePath + "/test/panelTags");
         } else {
-            var btn = Ladda.create(document.querySelector("#save-btn"));
-            btn.start();
             var json = {};
             $('#domainCreateTime').val(new Date().getTime());
             $('#domainUpdateTime').val(new Date().getTime());
@@ -1490,30 +1282,11 @@ var func = {
             $('#domain').find('.form-control').each(function () {
                 json[$(this).attr('name')] = $(this).val();
             });
-            $.ajax({
+            Util.ajax({
                 url: Label.staticServePath + "/test/addDomain",
-                type: "post",
                 data: json,
-                success: function (data, state) {
-                    if (data.state == 'success') {
-                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-success', {
-                            time: 1000, complete: function () {
-                                $('#addDomainModel').modal('hide');
-                                $('#addDomainModel').one('hidden.bs.modal', function () {
-                                    //刷新页面
-                                    Util.reloadByPjax();
-                                })
-                            }
-                        });
-                    } else {
-                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-danger');
-                    }
-                },
-                error: function () {
-                    Util.showTip($('#wholeTip'), '服务器错误', 'alert alert-danger', {time: 5000});
-                },
-                complete: function () {
-                    btn.stop();
+                success: {
+                    bindModal: $('#addDomainModel')
                 }
             })
         }
@@ -1526,45 +1299,12 @@ var func = {
     },
     deleteAttendance: function (id) {
         if (confirm("确认删除？")) {
-            $.ajax({
-                url: Label.staticServePath + "/attendanceManager/deleteAttendance/" + id,
-                type: 'post',
-                success: function (data, status) {
-                    if (data == 'success')
-                        Util.showTip($('#wholeTip'), data.msg, "alert alert-success", {
-                            before: function () {
-                                $('tr#attendance' + id).remove();
-                                Util.reloadByPjax('#table-inner');
-                            }
-                        });
-                    else
-                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-danger');
-                },
-                error: function () {
-                    Util.showTip($('#wholeTip'), '服务器错误', "alert alert-danger");
-                }
-            });
+            Util.ajax(Label.staticServePath + "/attendanceManager/deleteAttendance/" + id);
         }
     },
     deleteDomain: function (method, id) {
         if (confirm("确认删除？")) {
-            $.ajax({
-                url: Label.staticServePath + "/test/deleteDomain/" + id,
-                type: 'post',
-                success: function (data, status) {
-                    if (data.state = 'success')
-                        Util.showTip($('#wholeTip'), data.msg, "alert alert-success", {
-                            before: function () {
-                                Util.reloadByPjax('#table-inner');
-                            }
-                        });
-                    else
-                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-danger');
-                },
-                error: function () {
-                    Util.showTip($('#wholeTip'), '服务器错误', "alert alert-danger");
-                }
-            });
+            Util.ajax(Label.staticServePath + "/test/deleteDomain/" + id);
         }
     },
     distributeTestQuestionnaire: function (method) {
@@ -1585,8 +1325,6 @@ var func = {
         } else {
             var st = $('#testQuestionnaireStartTime');
             var end = $('#testQuestionnaireEndTime');
-            var btn = Ladda.create(document.querySelector("#save-d-btn"));
-            btn.start();
             var json = {};
             st.val(new Date(st.val()).getTime());
             end.val(new Date(end.val()).getTime());
@@ -1594,24 +1332,14 @@ var func = {
                 if ($(this).attr('name') != null)
                     json[$(this).attr('name')] = $(this).val();
             });
-            $.ajax({
+            Util.ajax({
                 url: Label.staticServePath + "/test/addQuestionnaireClass",
-                type: "post",
                 data: json,
                 success: function (data, state) {
-                    if (data.state == 'success') {
-                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
-                        Util.reloadByPjax('#chart-inner', {fragment: '#chart-inner'});
-                        closePanel('#distribute-nav', '#distribute');
-                        Util.mScroll('page-inner');
-                    } else
-                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-danger');
-                },
-                error: function () {
-                    Util.showTip($('#wholeTip'), '服务器错误', 'alert alert-danger');
-                },
-                complete: function () {
-                    btn.stop();
+                    Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
+                    Util.reloadByPjax('#chart-inner', {fragment: '#chart-inner'});
+                    closePanel('#distribute-nav', '#distribute');
+                    Util.mScroll('page-inner');
                 }
             })
         }
@@ -1696,69 +1424,22 @@ var func = {
     },
     deleteQuestionnaire: function (method, id) {
         if (confirm("确认删除？")) {
-            $.ajax({
-                url: Label.staticServePath + "/test/deleteQuestionnaire/" + id,
-                type: 'post',
-                success: function (data, status) {
-                    Util.showTip($('#wholeTip'), data.msg, "alert alert-success", {
-                        before: function () {
-                            $('tr#testQuestionnaire' + id).remove();
-                        }
-                    });
-                },
-                error: function () {
-                    Util.showTip($('#wholeTip'), '服务器错误', "alert alert-danger");
-                }
-            });
+            Util.ajax(Label.staticServePath + "/test/deleteQuestionnaire/" + id);
         }
     },
     deleteTestQuestion: function (method, id) {
         if (confirm("确认删除？")) {
-            $.ajax({
-                url: Label.staticServePath + "/test/deleteTestQuestion/" + id,
-                type: 'post',
-                success: function (data, status) {
-                    if (data.state == 'success') {
-                        Util.showTip($('#wholeTip'), data.msg, "alert alert-success", {
-                            before: function () {
-                                $('tr#tr' + id).remove();
-                                $('tr#show-tr' + id).remove();
-                            }
-                        });
-                    } else {
-                        Util.showTip($('#wholeTip'), data.msg, "alert alert-danger");
-                    }
-                },
-                error: function () {
-                    Util.showTip($('#wholeTip'), '服务器错误', "alert alert-danger");
-                }
-            });
+            Util.ajax(Label.staticServePath + "/test/deleteTestQuestion/" + id);
         }
-    }
-    , deleteClass: function (method, id) {
+    },
+    deleteClass: function (method, id) {
         if (confirm("确认删除？")) {
-            $.ajax({
-                url: Label.staticServePath + "/classManager/deleteClass/" + id,
-                type: 'post',
-                success: function (data, status) {
-
-                    if (data.state == 'success') {
-                        Util.showTip($('#wholeTip'), data.msg, "alert alert-success");
-                        Util.reloadByPjax();
-                    }
-                    else {
-                        Util.showTip($('#wholeTip'), data.msg, "alert alert-danger");
-                    }
-                },
-                error: function () {
-                    Util.showTip($('#wholeTip'), '服务器错误', "alert alert-danger");
-                }
-            });
+            Util.ajax(Label.staticServePath + "/classManager/deleteClass/" + id);
         }
     },
     showPermissions: function (left, mappingId, divId, method) {
         if (method == 'all') {
-            $.ajax({
+            Util.ajax({
                 url: Label.staticServePath + '/userManager/showAllPermissons/' + mappingId,
                 type: 'get',
                 success: function (data) {
@@ -1790,7 +1471,7 @@ var func = {
             });
             return;
         }
-        $.ajax({
+        Util.ajax({
             url: Label.staticServePath + '/userManager/showPermissions/' + mappingId,
             type: 'get',
             success: function (data) {
@@ -1815,32 +1496,10 @@ var func = {
         });
     },
     delayTest: function (id) {
-        $.ajax({
-            url: Label.staticServePath + '/test/delayTest/' + id,
-            dataType: 'json',
-            success: function (data) {
-                if (data.state == 'success') {
-                    Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
-                    Util.reloadByPjax('#table-inner');
-                } else {
-                    Util.showTip($('#wholeTip'), data.msg, 'alert alert-danger');
-                }
-            }
-        });
+        Util.ajax(Label.staticServePath + '/test/delayTest/' + id);
     },
     closeTest: function (id) {
-        $.ajax({
-            url: Label.staticServePath + '/test/closeTest/' + id,
-            dataType: 'json',
-            success: function (data) {
-                if (data.state == 'success') {
-                    Util.showTip($('#wholeTip'), data.msg, 'alert alert-success');
-                    Util.reloadByPjax('#table-inner');
-                } else {
-                    Util.showTip($('#wholeTip'), data.msg, 'alert alert-danger');
-                }
-            }
-        });
+        Util.ajax(Label.staticServePath + '/test/closeTest/' + id);
     }
 };
 var modalUtil = {
@@ -1896,7 +1555,7 @@ var Test = {
             fragment: '#page-inner',
             type: 'get',
             replace: false,
-            push: false,
+            push: true,
             timeout: 5000
         });
     }
@@ -1927,20 +1586,27 @@ var Exception = {
                 bindUrl: ''
             };
             var opts = $.extend(defaults, options);
+            var bind = function () {
+                if (opts.bindContainer.length > 0) {
+                    opts.bindContainer.map(function(obj,index){
+                        Util.reloadByPjax(obj);
+                    });
+                }
+                if (opts.bindUrl != null && opts.bindUrl != '') {
+                    Util.loadByPjax(opts.bindUrl);
+                }
+            }
             if (data.state == 'success') {
                 if (data.msg == null || data.msg == '')
                     data.msg = '操作成功';
                 Util.showTip($('#wholeTip'), data.msg, "alert alert-success", opts.onShowSuccess);
+                console.log(opts.bindModal);
                 if (opts.bindModal != null) {
-                    modalUtil.hideClear(opts.bindModal);
-                }
-                if (opts.bindContainer.length > 0) {
-                    for (var obj in opts.bindContainer) {
-                        Util.reloadByPjax(opts.bindContainer[obj]);
-                    }
-                }
-                if(opts.bindUrl != null && opts.bindUrl != ''){
-                    Util.loadByPjax(opts.bindUrl);
+                    modalUtil.hideClear(opts.bindModal, {
+                        after: bind
+                    });
+                } else {
+                    bind();
                 }
                 opts.success();
             }
@@ -1959,8 +1625,8 @@ var Exception = {
                 msg: '服务器错误'
             };
             var opts = $.extend(defaults, options);
-            Util.showTip($('#wholeTip'), opts.msg, "alert alert-danger", opts.onShowTip);
-            //Util.showTip($('#wholeTip'), XMLHttpRequest.responseJSON.msg, "alert alert-danger", opts.onShowTip);
+            //Util.showTip($('#wholeTip'), opts.msg, "alert alert-danger", opts.onShowTip);
+            Util.showTip($('#wholeTip'), XMLHttpRequest.responseJSON.msg, "alert alert-danger", opts.onShowTip);
         }
     },
     complete: function (options) {
@@ -1983,8 +1649,10 @@ var Exception = {
                 do: function (selector) {
                     if (selector == null || selector == '')
                         selector = "#save-btn";
-                    Exception.btn = Ladda.create(document.querySelector(selector));
-                    Exception.btn.start();
+                    if (document.querySelector(selector) != null) {
+                        Exception.btn = Ladda.create(document.querySelector(selector));
+                        Exception.btn.start();
+                    }
                 }
             };
 

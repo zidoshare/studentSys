@@ -39,22 +39,13 @@
     function post() {
         var name = $("#name").val();
         var sort = $("#sort").val();
-        $.ajax({
-            type: "post",
-            url: "${staticServePath}/surveys/postBigType",
+        Util.ajax("${staticServePath}/surveys/postBigType",{
             data: {
                 "questionBigType.name": name,
                 "questionBigType.sort_flag": sort
             },
-            success: function (data, textStatus) {
-                if (data.state == "success") {
-                    $("#flag").append('<p>名字：' + name + ' · sort:' + sort + '</p>');
-                    $("#bb").remove();
-                }
-                alert(data.msg);
-            },
-            error: function (data) {
-                alert("错误");
+            success: {
+                bindContainer: ['#page-inner']
             }
         });
         return false;
