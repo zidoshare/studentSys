@@ -1168,9 +1168,13 @@ var func = {
             })
         }
     },
-    seeApproval: function (methed, id) {
-        modalUtil.show($('#seeApprovalModel'));
+    updateApproval:function () {
+        
+    },
 
+    seeApproval: function (method, classId) {
+        modalUtil.show($('#seeApprovalModel'));
+        loadResult($('#approval-modal'),Label.staticServePath+"/approvalManager/showStudentDetails?classId="+classId+"&className"+$('#td-className').val()+"");
     },
     submitApply: function () {
         var data=[];
@@ -1256,6 +1260,7 @@ var func = {
             });
             data.push(json);
         });
+        console.log("数据长度"+data.length);
         Util.ajax(Label.staticServePath + "/subsidyManager/updateSubsidyClassInfo", {
             data: {
                 'list': data,
@@ -1279,12 +1284,7 @@ var func = {
                 if (data.state == 'success') {
                     var json = JSON.parse(data.msg);
                     json.map(function (elem, num) {
-                        var sta;
-                        if (elem['status'] == 1) {
-                            sta = '在读';
-                        } else if (elem['status'] == 0) {
-                            sta = '毕业';
-                        }
+
 
                         var str = '<tr id="tr{id}">' +
                             '<td></td>' +
@@ -1293,7 +1293,7 @@ var func = {
                             '<td class=" z-money-cny">{subsidyAmount}</td>' +
                             '<td>{residualFrequency}</td>' +
                             '<td><input value="{bonus}" class="form-control"  id="input-text{id}" name="bonus"></td>' +
-                            '<td>' + sta + '</td>' +
+                            '<td>{status}</td>' +
                             '</tr>';
                         str = Util.jsonToString(str, elem);
                         $('#seeApplyModel').find('tbody:first').append(str);
@@ -1302,7 +1302,10 @@ var func = {
                         var label = ckeckBoox.find('label:first');
                         input.attr('tag', 'input');
                         input.val(elem['id']);
-                        input.attr('checked', '');
+                        if (elem['checked']==11){
+                            console.log(elem['checked']);
+                            input.attr('checked', '');
+                        }
                         input.attr('id', 'index-look' + elem['id']);
                         label.attr('for', "index-look" + elem['id']);
                         $('tr#tr' + elem['id']).find('td:first').append(ckeckBoox);
@@ -1340,7 +1343,7 @@ var func = {
                         //刷新页面
                         Util.reloadByPjax();
                     } else
-                        Util.showTip($('#wholeTip'), '添加失败', 'alert alert-warning');
+                        Util.showTip($('#wholeTip'), data.msg, 'alert alert-warning');
                 },
                 error: function (info) {
                     Util.showTip($('#wholeTip'), info.msg, 'alert alert-danger');
@@ -1428,11 +1431,19 @@ var func = {
             modelSub.find("span#submit-total").text(aggregateAmount);
         }
     },
-    seeStudentInformation:function () {
+    seeStudent:function (method,studentId,classId) {
         modalUtil.show($("#studentInformationModel"));
+        loadResult($('#showInfo'),Label.staticServePath+"/studentManager/showStudentInfo?studentId="+studentId);
+        // $('#showInfo').load(Label.staticServePath+"/studentManager/shouInfo")
     },
-    seeClassStudent:function () {
-        Util.loadByPjax(Label.staticServePath+"/studentManager/pageJump",{
+    updateStudent:function () {
+
+    },
+    deleteStudent:function () {
+
+    },
+    seeClassStudent:function (method,classId) {
+        Util.loadByPjax(Label.staticServePath+"/studentManager/pageJump?classId="+classId,{
             container:'#class-details'
         });
     },
@@ -1969,6 +1980,8 @@ var Exception = {
                 do: function (selector) {
                     if (selector == null || selector == '')
                         selector = "#save-btn";
+                    if($(selector).length == 0)
+                        return ;
                     if (Exception.btn != null)
                         Exception.btn.stop();
                 }
@@ -1983,6 +1996,8 @@ var Exception = {
                 do: function (selector) {
                     if (selector == null || selector == '')
                         selector = "#save-btn";
+                    if($(selector).length == 0)
+                        return ;
                     Exception.btn = Ladda.create(document.querySelector(selector));
                     Exception.btn.start();
                 }

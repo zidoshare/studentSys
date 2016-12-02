@@ -109,7 +109,7 @@ ${view.title}
                                     data-live-search="true">
                             <#--<#if allClass??>-->
                             <#list roles as rol>
-                                <option value="${rol.id}">${rol.name}</option>
+                                <option value="${rol.id}">${rol.userNickname}</option>
                             </#list>
                             <#--</#if>-->
                             </select>

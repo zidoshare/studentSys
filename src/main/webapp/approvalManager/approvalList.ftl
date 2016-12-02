@@ -41,28 +41,28 @@ ${view.title}
             </tr>
             </thead>
             <tbody>
-            <#list asP.list as sa>
+            <#list saP.list as sa>
                 <tr>
                     <td>
-                        成都
+                        ${sa.region.regionName}
+                    </td>
+                    <td id="td-className">
+                        ${sa.className}
                     </td>
                     <td>
-                        11
+                        ${sa.totalSubsidy}
                     </td>
                     <td>
-                        2100
+                        ${sa.totalBonus}
                     </td>
                     <td>
-                        300
+                        ${sa.aggregateAmount}
                     </td>
                     <td>
-                        2400
+                        ${sa.applicantName}
                     </td>
                     <td>
-                        1994.07.03
-                    </td>
-                    <td>
-                        西瓜
+                    ${(sa.applicationDate?number)?number_to_date}
                     </td>
                     <#if addAble || updateAble || deleteAble>
                         <td>
@@ -71,7 +71,7 @@ ${view.title}
                                 <#if op.url == "seeApproval">
                                     <@macroBtn url = op.url title = op.title></@macroBtn>
                                     <#assign op = map["operators"+view.id][0]>
-                                ${InsertKit(btnLabel,5)}/
+                                ${InsertKit(btnLabel,"${sa.classId}")}/
                                 </#if>
                             </#list>
 
@@ -82,7 +82,7 @@ ${view.title}
                         </td>
                     </#if>
                   </tr>
-                </#list>
+            </#list>
             </tbody>
         </table>
     </div>
@@ -91,53 +91,7 @@ ${view.title}
 <div class="modal fade" id="seeApprovalModel" tabindex="-1" role="dialog" aria-labelledby="addApplyModelLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span
-                        aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="myModalLabel">申请详情:0719班</h4>
-            </div>
-            <div id="dataTables-list" class="table-responsive dataTables_wrapper form-inline" role="grid">
-                <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                       id="dataTables-example" aria-describedby="dataTables-example_apply">
-                    <thead>
-                    <tr>
-                        <th>
-                            姓名
-                        </th>
-                        <th>
-                            补助金额
-                        </th>
-                        <th>
-                            剩余补助次数
-                        </th>
-                        <th>
-                            奖金
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-            张三
-                            </td>
-                            <td>
-700
-                            </td>
-                            <td>
-2
-                            </td>
-                            <td>
-300
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer center-pill text-center">
-                <button type="button" class="btn btn-default " data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary ">同意</button>
-            </div>
+        <div class="modal-content" id="approval-modal">
         </div>
     </div>
 </div>

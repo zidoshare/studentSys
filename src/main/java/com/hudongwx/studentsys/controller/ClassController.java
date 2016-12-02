@@ -3,6 +3,7 @@ package com.hudongwx.studentsys.controller;
 import com.hudongwx.studentsys.common.BaseController;
 import com.hudongwx.studentsys.model.Class;
 import com.hudongwx.studentsys.model.Mapping;
+import com.hudongwx.studentsys.model.Student;
 import com.hudongwx.studentsys.service.ClassService;
 import com.hudongwx.studentsys.service.StudentService;
 import com.hudongwx.studentsys.service.UserService;
@@ -28,7 +29,7 @@ public class ClassController extends BaseController {
 
         super.index();
         List<Mapping> views = new ArrayList<>();
-        Mapping mapping = mappingService.getMappingByUrl("/classManager");
+        Mapping mapping = mappingService.getMappingByUrl("/classManager/classList.ftl");
         views.add(mapping);
         setAttr(Common.LABEL_VIEWS,views);
 
@@ -62,6 +63,13 @@ public class ClassController extends BaseController {
             return;
         }
         RenderKit.renderSuccess(this, "保存班级成功");
+    }
+
+    public void getClassStudents(){
+
+        Integer classId = getParaToInt("classId");
+        List<Student> studentByClassId = studentService.getStudentByClassId(classId);
+
     }
 
     @Before(POST.class)

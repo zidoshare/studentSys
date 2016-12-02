@@ -103,7 +103,7 @@ ${view.title}
                         <#--</#if>-->
                         <#--</td>-->
                         <td>
-
+                        ${sub.approveStatus}
                         </td>
                     </tr>
                     </#list>

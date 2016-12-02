@@ -393,4 +393,12 @@ public abstract class BaseStudent<M extends BaseStudent<M>> extends Model<M> imp
 		return get("photoUrl");
 	}
 
+	public void setResidualSubsidyAmount(java.lang.Integer residualSubsidyAmount) {
+		set("residualSubsidyAmount", residualSubsidyAmount);
+	}
+
+	public java.lang.Integer getResidualSubsidyAmount() {
+		return get("residualSubsidyAmount");
+	}
+
 }

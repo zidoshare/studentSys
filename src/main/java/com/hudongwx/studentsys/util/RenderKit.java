@@ -1,8 +1,6 @@
 package com.hudongwx.studentsys.util;
 
-import com.alibaba.fastjson.JSONObject;
 import com.jfinal.core.Controller;
-import com.jfinal.kit.JsonKit;
 
 /**
  * Created by wuhongxu on 2016/8/31 0031.
@@ -32,7 +30,7 @@ public class RenderKit {
         /*obj.put("state",state);
         obj.put("msg",msg);
         obj.put("url",url);*/
-        me.renderJson(JsonKit.toJson(resp));
+        me.renderJson(resp);
     }
 
     /*public static void renderSuccess(Controller me){

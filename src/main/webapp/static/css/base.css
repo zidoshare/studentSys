@@ -1902,4 +1902,6 @@ i {
     display: none;
 }
 
-
+.table-no-border tr,.table-no-border td{
+    border:none !important;
+}

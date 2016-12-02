@@ -123,7 +123,7 @@ public class SubsidyApplicationService extends Service {
      * @return
      */
     public Page<SubsidyApplication> getSubsidyApplicationByApproveId(Integer approveId, Integer currentPage) {
-        Page<SubsidyApplication> paginate = SubsidyApplication.dao.paginate(currentPage, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, SubsidyApplication.SQL_FROM + "where approveId = ?  and approveStatus = ?", new Object[]{approveId, SubsidyApplication.APPROVE_WAITTING});
+        Page<SubsidyApplication> paginate = SubsidyApplication.dao.paginate(currentPage, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, SubsidyApplication.SQL_FROM + "where approverId = ?  and approveStatus = ?", new Object[]{approveId, SubsidyApplication.APPROVE_WAITTING});
                     return PageinateKit.ClonePage(paginate,
                             paginate.getList().stream().map(sa -> {
                                 sa.setRegion(regionService.getRegionById(sa.getRegionId()));

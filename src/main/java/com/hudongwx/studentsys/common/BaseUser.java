@@ -41,6 +41,14 @@ public abstract class BaseUser<M extends BaseUser<M>> extends Model<M> implement
 		return get("userNickname");
 	}
 
+	public void setRoleId(java.lang.Integer roleId) {
+		set("roleId", roleId);
+	}
+
+	public java.lang.Integer getRoleId() {
+		return get("roleId");
+	}
+
 	public void setUserRole(java.lang.String userRole) {
 		set("userRole", userRole);
 	}

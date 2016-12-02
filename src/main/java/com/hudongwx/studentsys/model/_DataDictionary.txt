@@ -194,6 +194,7 @@ Table: stumanager_student
  bankCard               | varchar(255) | YES  |     |         | 银行卡号    
  bankName               | varchar(255) | YES  |     |         | 开户行     
  photoUrl               | varchar(255) | YES  |     |         | 照片路径    
+ residualSubsidyAmount  | int(10)      | YES  |     |         | 剩余补助金额  
 ------------------------+--------------+------+-----+---------+---------
 
 Table: stumanager_student_employment
@@ -370,6 +371,7 @@ Table: stumanager_user
  userAccount     | varchar(20)          | YES  |     |         | 用户账户    
  userPassword    | varchar(20)          | YES  |     |         | 用户密码    
  userNickname    | varchar(20)          | YES  |     |         | 用户昵称    
+ roleId          | int(10)              | YES  |     |         |         
  userRole        | varchar(20)          | YES  |     |         | 用户角色    
  userPhone       | varchar(20)          | YES  |     |         | 用户联系号码  
  userEmail       | varchar(40)          | YES  |     |         | 用户邮箱    
