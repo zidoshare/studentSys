@@ -36,6 +36,7 @@ public class SubsidyController extends BaseController {
     public UserRegionService userRegionService;
     public RegionService regionService;
     public StudentService studentService;
+    public UserService userService;
 
     @Override
     public void index() {
@@ -44,9 +45,19 @@ public class SubsidyController extends BaseController {
         User user = getCurrentUser(this);
         Page<SubsidyApplication> saList = subsidyApplicationService.getSubsidyApplicationByApplicantId(user.getId(), p);
         setAttr("subsidyClasses", saList);
-
-        setAttr("roles", roleService.getRoleByMapping(mappingService.getMappingByUrl("/approvalManager")));
+        List<Role> roleList = roleService.getRoleByMapping(mappingService.getMappingByUrl("/approvalManager"));
+        List<User> userList = new ArrayList<>();
+        if (roleList.size() != 0) {
+            for (Role role : roleList) {
+                List<User> users = userService.getUsersByRoleId(role);
+                for (User user1 : users) {
+                    userList.add(user1);
+                }
+            }
+        }
+        setAttr("roles", userList);
     }
+
 
     @Override
     public Mapping init() {
@@ -161,50 +172,87 @@ public class SubsidyController extends BaseController {
      * 修改补助班级信息[需要前台的参数：nsci(最新json格式班级学生详情)]
      */
     public void updateSubsidyClassInfo() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-        List<SubsidyClassInfo> subsidyClassInfos = ModelKit.injectList(SubsidyClassInfo.class, this, "list", getParaToInt("length"));
+        List<SubsidyClassInfo> aciList = ModelKit.injectList(SubsidyClassInfo.class, this, "list", getParaToInt("length"));
         Set<Long> adSet = new TreeSet<>();
-        for (SubsidyClassInfo subsidyClassInfo : subsidyClassInfos) {
+        //设置更新选中的信息
+        setcheckedSci(aciList, adSet);
+        List<SubsidyClassInfo> allSciList = subsidyClassInfoService.getAllSubsidyClassInfo();
+        //获取未选中的
+        List<SubsidyClassInfo> unCheckedSci = getUnCheckedSci(adSet, allSciList);
+        //设置未选中的
+        setUnCheckedSci(unCheckedSci);
+        for (Long aLong : adSet) {
+            System.out.println("更新的申请表——》"+aLong);
+            updateApplication(aLong);
+        }
+        RenderKit.renderSuccess(this, "数据更新成功！");
+    }
+
+    private void setUnCheckedSci(List<SubsidyClassInfo> unSciList) {
+        for (SubsidyClassInfo sci1 : unSciList) {
+            sci1.setChecked(UN_CHECKED);
+            subsidyClassInfoService._updateSubsidyClassInfo(sci1);
+        }
+    }
+
+    private List<SubsidyClassInfo> getUnCheckedSci(Set<Long> adSet, List<SubsidyClassInfo> allSciList) {
+        List<SubsidyClassInfo> unList = null;
+        for (SubsidyClassInfo sci : allSciList) {
+           removeCheckedSci(adSet, allSciList, sci);
+        }
+        System.out.println("未选中的个数："+allSciList.size());
+        return unList;
+    }
+
+    private void setcheckedSci(List<SubsidyClassInfo> aciList, Set<Long> adSet) {
+        for (SubsidyClassInfo subsidyClassInfo : aciList) {
+            subsidyClassInfo.setChecked(CHECKED);
             subsidyClassInfoService._updateSubsidyClassInfo(subsidyClassInfo);
             adSet.add(subsidyClassInfo.getApplicationDate());
         }
+    }
+
+    private void removeCheckedSci(Set<Long> adSet, List<SubsidyClassInfo> allSciList, SubsidyClassInfo sci) {
+        boolean checked = false;
         for (Long aLong : adSet) {
-            int totalBonus = 0;
-            int totalSubsidy = 0;
-            int total = 0;
-            List<SubsidyClassInfo> sciList = subsidyClassInfoService.getSubsidyClassInfoByApplicationDate(aLong);
-            List<SubsidyClassInfo> allSciList = subsidyClassInfoService.getAllSubsidyClassInfo();
-            for (SubsidyClassInfo asci : allSciList) {
-                long allNum = asci.getApplicationDate();
-                boolean equel = false;
-                for (SubsidyClassInfo sci : allSciList) {
-                    long siNum = sci.getApplicationDate();
-                    if (allNum == siNum) {
-                        sci.setChecked(CHECKED);
-                        totalBonus += sci.getBonus();
-                        totalSubsidy += sci.getSubsidyAmount();
-                        equel = true;
-                        subsidyClassInfoService._updateSubsidyClassInfo(sci);
-                    }
-                }
-                if (!equel) {
-                    asci.setChecked(UN_CHECKED);
-                    subsidyClassInfoService._updateSubsidyClassInfo(asci);
-                }
+            long date = sci.getApplicationDate();
+            if (date == aLong) {
+                checked = true;
             }
-            List<SubsidyApplication> saList = subsidyApplicationService.getSubApplicationByApplicationDate(aLong);
-            if(saList.size()!=0){
-                for (SubsidyApplication subsidyApplication : saList) {
-                    total = totalBonus + totalSubsidy;
-                    subsidyApplication.setTotalBonus(totalBonus);
-                    subsidyApplication.setTotalSubsidy(totalSubsidy);
-                    subsidyApplication.setAggregateAmount(total);
-                    subsidyApplicationService._updateSubsidyApplication(subsidyApplication);
-                }
-            }
-
         }
+        if (!checked) {
+            allSciList.remove(sci);
+        } else {
+            sci.setChecked(CHECKED);
+        }
+    }
 
-        RenderKit.renderSuccess(this);
+    private void updateApplication(Long aLong) {
+        int totalBonus = 0;
+        int totalSubsidy = 0;
+        List<SubsidyClassInfo> sciList = subsidyClassInfoService.getSciGroupByDateAndChecked(aLong, CHECKED);
+        for (SubsidyClassInfo sci : sciList) {
+            totalBonus += sci.getBonus();
+            totalSubsidy += sci.getSubsidyAmount();
+            subsidyClassInfoService._updateSubsidyClassInfo(sci);
+        }
+        System.out.println("更新后的总补助"+totalSubsidy+" 更新后的总奖金："+totalBonus);
+        setApplicationAttr(aLong, totalBonus, totalSubsidy);
+    }
+
+    private void setApplicationAttr(Long aLong, int totalBonus, int totalSubsidy) {
+        System.out.println("总补助：" + totalSubsidy + "总奖金：" + totalBonus);
+        int total;
+        List<SubsidyApplication> saList = subsidyApplicationService.getSubApplicationByApplicationDate(aLong);
+        if (saList.size() != 0) {
+            for (SubsidyApplication subsidyApplication : saList) {
+                total = totalBonus + totalSubsidy;
+                subsidyApplication.setTotalBonus(totalBonus);
+                subsidyApplication.setTotalSubsidy(totalSubsidy);
+                subsidyApplication.setAggregateAmount(total);
+                subsidyApplicationService._updateSubsidyApplication(subsidyApplication);
+            }
+        }
     }
 
     /**
@@ -262,42 +310,67 @@ public class SubsidyController extends BaseController {
 
     public void addRegionSubsidyClass() {
         int id = 0;
+        boolean isEmpty = false;
+        boolean equal = false;
         final long applicationDate = System.currentTimeMillis();
-        int totalsubsidyAmount = 0;
-        int totalbonus = 0;
+        int totalSubsidyAmount = 0;
+        int totalBonus = 0;
         String cidJsonArray = getPara("classId");
         System.out.println("==========cidJsonArray===========" + cidJsonArray);
         JSONArray jsonArray = JSON.parseArray(cidJsonArray);
-        List<SubsidyClassInfo> sciList = subsidyClassInfoService.getAllSubsidyClassInfo();
+        List<SubsidyClassInfo> allSciList = subsidyClassInfoService.getAllSubsidyClassInfo();
+        List<List<Student>> ll = new ArrayList<>();
         for (Object o : jsonArray) {
-            System.out.println(o.toString());
             int cid = Integer.valueOf(o.toString());
             List<Student> studentList = studentService.getStudentByClassId(cid);
-            
-            for (Student student : studentList) {
-                int stuId=student.getId();
-                boolean equel=false;
-                for (SubsidyClassInfo sci : sciList) {
-                    int sciStudentId = sci.getStudentId();
-                    if(stuId==sciStudentId&&sci.getApproveStatus()==APPROV_STATUS_NO){
-                        equel=true;
-                        break;
+            ll.add(studentList);
+            if (studentList.size() == 0) {
+                isEmpty = true;
+                break;
+            } else {
+                for (Student student : studentList) {
+                    int stuId = student.getId();
+                    for (SubsidyClassInfo sci : allSciList) {
+                        int sciStudentId = sci.getStudentId();
+                        if (stuId == sciStudentId && sci.getApproveStatus() == APPROV_STATUS_NO) {
+                            equal = true;
+                            break;
+                        }
                     }
-                }
-                if(!equel){
-                    totalsubsidyAmount += student.getSubsidyPer();
-                    totalbonus += student.getBonus();
-                    setSubsidyClassInfo(++id, applicationDate, student);
+
                 }
             }
-            setDefaultSubsidyApplicationInfo(applicationDate, totalsubsidyAmount, totalbonus, cid, studentList);
+
         }
-        RenderKit.renderSuccess(this);
+        if (!isEmpty && !equal) {
+            for (List<Student> stuList : ll) {
+                int classId = 0;
+                boolean first=true;
+                for (Student student : stuList) {
+                    if(first){
+                        classId = student.getClassId();
+                        first=false;
+                    }
+                    totalSubsidyAmount += student.getSubsidyPer();
+                    totalBonus += student.getBonus();
+                    setSubsidyClassInfo( applicationDate, student);
+                }
+                setDefaultSubsidyApplicationInfo(applicationDate, totalSubsidyAmount, totalBonus,classId , stuList.size());
+            }
+            RenderKit.renderSuccess(this, "添加成功！");
+        }
+        if(isEmpty){
+            RenderKit.renderError(this, "班级学生不能为空！");
+        }
+        if(equal){
+            RenderKit.renderError(this, "存在重复添加！");
+        }
+
+
     }
 
-    private void setSubsidyClassInfo(int id, long applicationDate, Student student) {
+    private void setSubsidyClassInfo(long applicationDate, Student student) {
         SubsidyClassInfo sci = new SubsidyClassInfo();
-        sci.setId(++id);
         sci.setClassId(student.getClassId());
         sci.setClassName(student.getClassName());
         sci.setRegionId(student.getRegionId());
@@ -317,7 +390,7 @@ public class SubsidyController extends BaseController {
         subsidyClassInfoService._saveSubsidyClassInfo(sci);
     }
 
-    private void setDefaultSubsidyApplicationInfo(long applicationDate, int totalsubsidyAmount, int totalbonus, int cid, List<Student> studentList) {
+    private void setDefaultSubsidyApplicationInfo(long applicationDate, int totalSubsidyAmount, int totalBonus, int cid, int num) {
         User user = getCurrentUser(this);
         SubsidyApplication sa = new SubsidyApplication();
         sa.setApplicantId(user.getId());
@@ -326,13 +399,12 @@ public class SubsidyController extends BaseController {
         sa.setRegionId(classService.getClassById(cid).getRegionId());
         sa.setClassId(cid);
         sa.setClassName(classService.getClassById(cid).getClassName());
-        sa.setNumber(studentList.size());
-        sa.setTotalSubsidy(totalsubsidyAmount);
-        sa.setTotalBonus(totalbonus);
-        sa.setAggregateAmount(totalsubsidyAmount + totalbonus);
+        sa.setNumber(num);
+        sa.setTotalSubsidy(totalSubsidyAmount);
+        sa.setTotalBonus(totalBonus);
+        sa.setAggregateAmount(totalSubsidyAmount + totalBonus);
         sa.setApproveStatus(APPROV_STATUS_NO);
         judgeAndAdd(user, sa);
-        RenderKit.renderSuccess(this);
     }
 
     private void judgeAndAdd(User user, SubsidyApplication sa) {
@@ -358,32 +430,32 @@ public class SubsidyController extends BaseController {
         } else {
             subsidyApplicationService._saveApplication(sa);
         }
-        RenderKit.renderSuccess(this);
+
     }
 
     public void confirmSubmit() {
-        long date=System.currentTimeMillis();
+        long date = System.currentTimeMillis();
         String sub = getPara("list");
-        System.out.println("-------sub--------"+sub);
+        System.out.println("-------sub--------" + sub);
         JSONArray array = JSON.parseArray(sub);
-        String remark=array.get(0).toString();
-        int approverId=Integer.valueOf(array.get(1).toString());
+        String remark = array.get(0).toString();
+        int approverId = Integer.valueOf(array.get(1).toString());
         JSONArray dateArray = JSON.parseArray(array.get(2).toString());
         for (Object o : dateArray) {
-            JSONObject jb=JSON.parseObject(o.toString());
-            long ad=jb.getLongValue("applicationDate");
+            JSONObject jb = JSON.parseObject(o.toString());
+            long ad = jb.getLongValue("applicationDate");
             setSubApplication(date, remark, approverId, ad);
             setSubsidyClassInfo(date, ad);
         }
         resetSubsidyClassInfo();
-        RenderKit.renderSuccess(this,getCurrentUser(this).getId());
+        RenderKit.renderSuccess(this, getCurrentUser(this).getId());
     }
 
     private void resetSubsidyClassInfo() {
         List<SubsidyClassInfo> sciList = subsidyClassInfoService.getAllSubsidyClassInfo();
         if (sciList.size() != 0) {
             for (SubsidyClassInfo subsidyClassInfo : sciList) {
-                if (subsidyClassInfo.getApproveStatus() == APPROV_STATUS_NO||subsidyClassInfo.getChecked()==UN_CHECKED) {
+                if (subsidyClassInfo.getApproveStatus() == APPROV_STATUS_NO || subsidyClassInfo.getChecked() == UN_CHECKED) {
                     subsidyClassInfo.delete();
                 }
             }
@@ -401,7 +473,7 @@ public class SubsidyController extends BaseController {
 
     private void setSubApplication(long date, String remark, int approverId, long ad) {
         List<SubsidyApplication> appList = subsidyApplicationService.getSubApplicationByApplicationDate(ad);
-        if(appList.size()!=0){
+        if (appList.size() != 0) {
             for (SubsidyApplication app : appList) {
                 app.setApplicationDate(date);
                 app.setRemark(remark);

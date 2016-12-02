@@ -83,8 +83,4 @@ public class StudentController extends BaseController {
         }
     }
 
-    public void getInputUrl(){
-        super.index();
-        mappingService.getMappingByUrl("/studentManager/inputStudentInfo.ftl");
-    }
 }

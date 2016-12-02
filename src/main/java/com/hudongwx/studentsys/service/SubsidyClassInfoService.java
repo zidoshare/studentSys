@@ -94,4 +94,8 @@ public class SubsidyClassInfoService extends Service {
     public List<SubsidyClassInfo> getAllSubsidyClassInfo() {
         return SubsidyClassInfo.dao.find(SubsidyClassInfo.SEARCH_FROM_SUBSIDY_CLASSINFO);
     }
+
+    public List<SubsidyClassInfo>getSciGroupByDateAndChecked(Long date ,int checkedStatus){
+        return SubsidyClassInfo.dao.find(SubsidyClassInfo.SEARCH_FROM_SUBSIDY_CLASSINFO+"where applicationDate = ? and checked = ?",new Object[]{date,checkedStatus});
+    }
 }

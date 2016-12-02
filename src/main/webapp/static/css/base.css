@@ -1876,3 +1876,31 @@ i {
         transform: scale(1);
     }
 }
+
+.clear-left{
+    padding-left: 0;
+}
+
+.clear-right{
+    padding-right: 3px;
+}
+
+.min-clear > label{
+    padding-right: 3px;
+}
+
+.min-clear > div {
+    padding-left: 0;
+}
+
+.My-marginTop > div {
+    margin-top: 10px;
+}
+
+.My-tableMarginTop{
+    margin-top: 20px;
+}
+
+.My-textAreaWidth{
+    size: 800px;
+}

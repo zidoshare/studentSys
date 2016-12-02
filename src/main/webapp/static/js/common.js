@@ -1833,7 +1833,8 @@ var func = {
                 }
             }
         });
-    }
+    },
+
 };
 var modalUtil = {
     show: function (modal) {
