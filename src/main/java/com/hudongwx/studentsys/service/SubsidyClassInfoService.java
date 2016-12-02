@@ -2,6 +2,8 @@ package com.hudongwx.studentsys.service;
 
 import com.hudongwx.studentsys.common.Service;
 import com.hudongwx.studentsys.model.SubsidyClassInfo;
+import com.hudongwx.studentsys.util.Common;
+import com.jfinal.plugin.activerecord.Page;
 
 import java.util.List;
 
@@ -58,11 +60,15 @@ public class SubsidyClassInfoService extends Service {
     /**
      * 查询指定的班级申请信息
      *
-     * @param classid
+     * @param classId
      * @return
      */
-    public List<SubsidyClassInfo> getSubsidyClassInfoById(String classid) {
-        return SubsidyClassInfo.dao.find(SubsidyClassInfo.SEARCH_FROM_SUBSIDY_CLASSINFO + "where classId=?", classid);
+    public List<SubsidyClassInfo> getSubsidyClassInfoByClassId(int classId) {
+        return SubsidyClassInfo.dao.find(SubsidyClassInfo.SEARCH_FROM_SUBSIDY_CLASSINFO + "where classId = ?", classId);
+    }
+    public Page<SubsidyClassInfo> getSubsidyClassInfoByIdAndStatus(int p, int classId, int approveStatus){
+        return  SubsidyClassInfo.dao.paginate(p, Common.MAX_PAGE_SIZE,Common.COMMON_SELECT,SubsidyClassInfo.SQL_FROM+"where classId = ? and approveStatus = ?",classId,approveStatus);
+
     }
 
     /**
@@ -82,7 +88,7 @@ public class SubsidyClassInfoService extends Service {
      * @return
      */
     public List<SubsidyClassInfo> getSubsidyClassInfoByApplicationDate(Long applicationDate) {
-        return SubsidyClassInfo.dao.find(SubsidyClassInfo.SEARCH_FROM_SUBSIDY_CLASSINFO + "where applicationDate = ?", applicationDate);
+        return SubsidyClassInfo.dao.find(SubsidyClassInfo.SEARCH_FROM_SUBSIDY_CLASSINFO + "where applicationDate = ? and checked = 11", applicationDate);
     }
 
 
@@ -95,7 +101,11 @@ public class SubsidyClassInfoService extends Service {
         return SubsidyClassInfo.dao.find(SubsidyClassInfo.SEARCH_FROM_SUBSIDY_CLASSINFO);
     }
 
-    public List<SubsidyClassInfo>getSciGroupByDateAndChecked(Long date ,int checkedStatus){
-        return SubsidyClassInfo.dao.find(SubsidyClassInfo.SEARCH_FROM_SUBSIDY_CLASSINFO+"where applicationDate = ? and checked = ?",new Object[]{date,checkedStatus});
+    public List<SubsidyClassInfo> getSciGroup(int classId , Long date, int checkStatus) {
+        return SubsidyClassInfo.dao.find(SubsidyClassInfo.SEARCH_FROM_SUBSIDY_CLASSINFO+"where classId = ? and applicationDate = ? and checked = ? ",classId,date,checkStatus);
     }
+    public List<SubsidyClassInfo> getSciGroup(int classId , long date) {
+        return SubsidyClassInfo.dao.find(SubsidyClassInfo.SEARCH_FROM_SUBSIDY_CLASSINFO+"where classId = ? and applicationDate = ? ",classId,date);
+    }
+
 }

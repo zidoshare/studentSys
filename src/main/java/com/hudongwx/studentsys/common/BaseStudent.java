@@ -377,20 +377,28 @@ public abstract class BaseStudent<M extends BaseStudent<M>> extends Model<M> imp
 		return get("bankCard");
 	}
 
-	public void setBank(java.lang.String bank) {
-		set("bank", bank);
+	public void setBankName(java.lang.String bankName) {
+		set("bankName", bankName);
 	}
 
-	public java.lang.String getBank() {
-		return get("bank");
+	public java.lang.String getBankName() {
+		return get("bankName");
 	}
 
-	public void setPhoto(byte[] photo) {
-		set("photo", photo);
+	public void setPhotoUrl(java.lang.String photoUrl) {
+		set("photoUrl", photoUrl);
 	}
 
-	public byte[] getPhoto() {
-		return get("photo");
+	public java.lang.String getPhotoUrl() {
+		return get("photoUrl");
+	}
+
+	public void setResidualSubsidyAmount(java.lang.Integer residualSubsidyAmount) {
+		set("residualSubsidyAmount", residualSubsidyAmount);
+	}
+
+	public java.lang.Integer getResidualSubsidyAmount() {
+		return get("residualSubsidyAmount");
 	}
 
 }

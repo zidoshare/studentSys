@@ -154,46 +154,47 @@ Table: stumanager_student
  contactInformation     | varchar(255) | YES  |     |         | 联系方式    
  qq                     | varchar(255) | YES  |     |         |         
  email                  | varchar(255) | YES  |     |         |         
- emergencyContact       | varchar(255) | YES  |     |         |         
- educationBackground    | varchar(255) | YES  |     |         |         
- major                  | varchar(255) | YES  |     |         |         
- college                | varchar(255) | YES  |     |         |         
+ emergencyContact       | varchar(255) | YES  |     |         | 紧急联系人   
+ educationBackground    | varchar(255) | YES  |     |         | 学历      
+ major                  | varchar(255) | YES  |     |         | 专业      
+ college                | varchar(255) | YES  |     |         | 学校      
  graduationTime         | bigint(19)   | YES  |     |         | 毕业时间    
- classId                | int(10)      | YES  |     |         |         
- className              | varchar(255) | YES  |     |         |         
+ classId                | int(10)      | YES  |     |         | 班级Id    
+ className              | varchar(255) | YES  |     |         | 班级名称    
  subject                | varchar(255) | YES  |     |         | 学习科目    
  credit                 | int(10)      | YES  |     |         | 学分      
  testAverage            | int(10)      | YES  |     |         | 考试平均分   
  trainingEvaluation     | int(10)      | YES  |     |         | 实训项目平均分 
  tutorId                | int(10)      | YES  |     |         | 辅导老师Id  
- tutorName              | varchar(255) | YES  |     |         |         
+ tutorName              | varchar(255) | YES  |     |         | 辅导名     
  admission              | bigint(19)   | YES  |     |         | 培训入学时间  
  trainingGraduationTime | bigint(19)   | YES  |     |         | 培训毕业时间  
  tuition                | int(10)      | YES  |     |         | 学费      
  paymentMethod          | varchar(255) | YES  |     |         | 学费付款方式  
  firstRepaymentTime     | bigint(19)   | YES  |     |         | 首次还款日期  
- counselorId            | int(10)      | YES  |     |         |         
+ counselorId            | int(10)      | YES  |     |         | 咨询师Id   
  counselorName          | varchar(255) | YES  |     |         | 咨询师     
- subsidyPer             | int(10)      | YES  |     |         |         
- bonus                  | int(10)      | YES  |     |         |         
- residualFrequency      | tinyint(3)   | YES  |     |         |         
- regionId               | int(10)      | YES  |     |         |         
- status                 | int(10)      | YES  |     |         |         
- employmentStatus       | int(10)      | YES  |     |         |         
+ subsidyPer             | int(10)      | YES  |     |         | 单次补助金额  
+ bonus                  | int(10)      | YES  |     |         | 单次奖金    
+ residualFrequency      | tinyint(3)   | YES  |     |         | 剩余补助次数  
+ regionId               | int(10)      | YES  |     |         | 区域Id    
+ status                 | int(10)      | YES  |     |         | 状态      
+ employmentStatus       | int(10)      | YES  |     |         | 就业状态    
  createTime             | bigint(19)   | YES  |     |         | 用户创建时间  
- checked                | int(10)      | YES  |     |         |         
+ checked                | int(10)      | YES  |     |         | 选中状态    
  ip                     | varchar(20)  | YES  |     | 0.0.0.0 | 最后登录的ip地址
  operaterId             | int(10)      | YES  |     |         | 操作人     
- operater               | varchar(255) | YES  |     | admin   |         
- remark                 | varchar(255) | YES  |     |         |         
- birthday               | bigint(19)   | YES  |     |         |         
- permanentAddress       | varchar(255) | YES  |     |         |         
- presentAddress         | varchar(255) | YES  |     |         |         
- studentRepaymentTime   | bigint(19)   | YES  |     |         |         
- subsidy                | int(10)      | YES  |     |         |         
- bankCard               | varchar(255) | YES  |     |         |         
- bank                   | varchar(255) | YES  |     |         |         
- photo                  | blob(65535)  | YES  |     |         |         
+ operater               | varchar(255) | YES  |     | admin   | 操作人姓名   
+ remark                 | varchar(255) | YES  |     |         | 备注      
+ birthday               | bigint(19)   | YES  |     |         | 生日      
+ permanentAddress       | varchar(255) | YES  |     |         | 户籍地址    
+ presentAddress         | varchar(255) | YES  |     |         | 现居地址    
+ studentRepaymentTime   | bigint(19)   | YES  |     |         | 学生还款日   
+ subsidy                | int(10)      | YES  |     |         | 总补助     
+ bankCard               | varchar(255) | YES  |     |         | 银行卡号    
+ bankName               | varchar(255) | YES  |     |         | 开户行     
+ photoUrl               | varchar(255) | YES  |     |         | 照片路径    
+ residualSubsidyAmount  | int(10)      | YES  |     |         | 剩余补助金额  
 ------------------------+--------------+------+-----+---------+---------
 
 Table: stumanager_student_employment
@@ -231,6 +232,9 @@ Table: stumanager_subsidy_application
  approverId      | int(10)      | YES  |     |         | 审批人Id   
  approveStatus   | int(10)      | YES  |     |         | 批准状态    
  remark          | varchar(255) | YES  |     |         |         
+ approveDate     | bigint(19)   | YES  |     |         | 审批处理时间  
+ operater        | varchar(255) | YES  |     |         | 处理人     
+ operaterId      | int(10)      | YES  |     |         | 处理人Id   
 -----------------+--------------+------+-----+---------+---------
 
 Table: stumanager_subsidy_class_info
@@ -246,11 +250,14 @@ Table: stumanager_subsidy_class_info
  subsidyAmount     | int(10)      | YES  |     |         | 补助金额    
  bonus             | int(10)      | YES  |     |         | 奖金      
  residualFrequency | tinyint(3)   | YES  |     |         | 补助剩余次数  
- status            | int(10)      | YES  |     |         | 审批状态    
- approveStatus     | int(10)      | YES  |     |         |         
+ status            | int(10)      | YES  |     |         | 就读状态    
+ approveStatus     | int(10)      | YES  |     |         | 审批状态    
  applicationDate   | bigint(19)   | YES  |     |         |         
  remark            | varchar(255) | YES  |     |         | 备注      
  checked           | tinyint(3)   | YES  |     |         |         
+ approveDate       | bigint(19)   | YES  |     |         |         
+ operaterId        | int(10)      | YES  |     |         |         
+ operater          | varchar(255) | YES  |     |         |         
 -------------------+--------------+------+-----+---------+---------
 
 Table: stumanager_test_question
@@ -370,6 +377,7 @@ Table: stumanager_user
  userAccount     | varchar(20)          | YES  |     |         | 用户账户    
  userPassword    | varchar(20)          | YES  |     |         | 用户密码    
  userNickname    | varchar(20)          | YES  |     |         | 用户昵称    
+ roleId          | int(10)              | YES  |     |         |         
  userRole        | varchar(20)          | YES  |     |         | 用户角色    
  userPhone       | varchar(20)          | YES  |     |         | 用户联系号码  
  userEmail       | varchar(40)          | YES  |     |         | 用户邮箱    

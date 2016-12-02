@@ -129,4 +129,28 @@ public abstract class BaseSubsidyApplication<M extends BaseSubsidyApplication<M>
 		return get("remark");
 	}
 
+	public void setApproveDate(java.lang.Long approveDate) {
+		set("approveDate", approveDate);
+	}
+
+	public java.lang.Long getApproveDate() {
+		return get("approveDate");
+	}
+
+	public void setOperater(java.lang.String operater) {
+		set("operater", operater);
+	}
+
+	public java.lang.String getOperater() {
+		return get("operater");
+	}
+
+	public void setOperaterId(java.lang.Integer operaterId) {
+		set("operaterId", operaterId);
+	}
+
+	public java.lang.Integer getOperaterId() {
+		return get("operaterId");
+	}
+
 }

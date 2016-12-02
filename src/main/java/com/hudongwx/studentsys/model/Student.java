@@ -36,4 +36,5 @@ public class Student extends BaseStudent<Student> {
     public void setStuEmpList(List<StudentEmployment> stuEmpList) {
         this.stuEmpList = stuEmpList;
     }
+
 }
