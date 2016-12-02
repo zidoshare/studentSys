@@ -1174,7 +1174,8 @@ var func = {
 
     seeApproval: function (method, classId) {
         modalUtil.show($('#seeApprovalModel'));
-        loadResult($('#approval-modal'),Label.staticServePath+"/approvalManager/showStudentDetails?classId="+classId+"&className"+$('#td-className').val()+"");
+        var className = $('input[name]').val();
+        loadResult($('#approval-modal'),Label.staticServePath+"/approvalManager/showStudentDetails?classId="+classId+"&className="+className);
     },
     submitApply: function () {
         var data=[];
@@ -1288,7 +1289,7 @@ var func = {
 
                         var str = '<tr id="tr{id}">' +
                             '<td></td>' +
-                            '<td class="hidden"><input name="applicationDate" value="{applicationDate}"/><input name="id" value="{id}"/><input name="studentId" value="{studentId}"/></td>' +
+                            '<td class="hidden"><input name="applicationDate" value="{applicationDate}"/><input name="id" value="{id}"/><input name="studentId" value="{studentId}"/><input name="classId" value="{classId}"/></td>' +
                             '<td>{studentName}</td>' +
                             '<td class=" z-money-cny">{subsidyAmount}</td>' +
                             '<td>{residualFrequency}</td>' +
@@ -1431,13 +1432,14 @@ var func = {
             modelSub.find("span#submit-total").text(aggregateAmount);
         }
     },
-    seeStudent:function (method,studentId,classId) {
+    seeStudent:function (method,studentId) {
         modalUtil.show($("#studentInformationModel"));
         loadResult($('#showInfo'),Label.staticServePath+"/studentManager/showStudentInfo?studentId="+studentId);
         // $('#showInfo').load(Label.staticServePath+"/studentManager/shouInfo")
     },
-    updateStudent:function () {
-
+    updateStudent:function (method,studentId) {
+        modalUtil.show($("#updateInformationModel"));
+        loadResult($('#updateInfo'),Label.staticServePath+"/studentManager/showUpdateStudentInfo?studentId="+studentId);
     },
     deleteStudent:function () {
 

@@ -5,10 +5,8 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.hudongwx.studentsys.common.BaseController;
 import com.hudongwx.studentsys.exceptions.ServiceException;
-import com.hudongwx.studentsys.model.Class;
 import com.hudongwx.studentsys.model.Mapping;
 import com.hudongwx.studentsys.model.Student;
-import com.hudongwx.studentsys.model.User;
 import com.hudongwx.studentsys.service.ClassService;
 import com.hudongwx.studentsys.service.StudentService;
 import com.hudongwx.studentsys.service.UserService;
@@ -38,12 +36,12 @@ public class StudentController extends BaseController {
             return;
         }
         super.index();
-        List<Student> students = studentService.getAllStudent();
-        setAttr("students", students);
-        List<User> defaultTeacher = userService.getUsersByRole(roleService.getRoleByName(Common.getMainProp().get("defaultTeacher")));
-        setAttr("users", defaultTeacher);
-        List<Class> allClass = classService.getAllClass();
-        setAttr("classes", allClass);
+//        List<Student> students = studentService.getAllStudent();
+//        setAttr("students", students);
+//        List<User> defaultTeacher = userService.getUsersByRole(roleService.getRoleByName(Common.getMainProp().get("defaultTeacher")));
+//        setAttr("users", defaultTeacher);
+//        List<Class> allClass = classService.getAllClass();
+//        setAttr("classes", allClass);
     }
 
     private void pageJump() {
@@ -63,6 +61,10 @@ public class StudentController extends BaseController {
         render("/index.ftl");
     }
 
+
+    /**
+     * 显示学生详细信息
+     */
     public void showStudentInfo(){
         Integer studentId = getParaToInt("studentId");
         Student student = studentService.getStudentById(studentId);
@@ -89,6 +91,15 @@ public class StudentController extends BaseController {
         RenderKit.renderError(this);
     }
 
+    /**
+     * 显示学生详细信息
+     */
+    public void showUpdateStudentInfo(){
+        Integer studentId = getParaToInt("studentId");
+        Student student = studentService.getStudentById(studentId);
+        setAttr("student",student);
+        render("/studentManager/updateStudentInfo.ftl");
+    }
     /**
      * 更新学生信息[需要前台参数：stu(json数组)]
      */

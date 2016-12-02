@@ -38,7 +38,11 @@ public class ApprovalController extends BaseController {
     public void showStudentDetails(){
         Integer classId = getParaToInt("classId");
         String className = getPara("className");
-        List<SubsidyClassInfo> classInfoList = subsidyClassInfoService.getSubsidyClassInfoByIdAndStatus(classId, SubsidyApplication.APPROVE_WAITTING);
+        fillHeader();
+        System.out.println("className="+className);
+        Integer p = getParaToInt("p",1);
+        System.out.println("className="+className);
+        List<SubsidyClassInfo> classInfoList = subsidyClassInfoService.getSubsidyClassInfoByIdAndStatus(p,classId, SubsidyApplication.APPROVE_WAITTING);
         setAttr("classInfoList",classInfoList);
         setAttr("className",className);
         render("/approvalManager/classDetails.ftl");

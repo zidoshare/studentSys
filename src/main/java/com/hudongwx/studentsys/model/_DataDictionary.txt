@@ -232,6 +232,9 @@ Table: stumanager_subsidy_application
  approverId      | int(10)      | YES  |     |         | 审批人Id   
  approveStatus   | int(10)      | YES  |     |         | 批准状态    
  remark          | varchar(255) | YES  |     |         |         
+ approveDate     | bigint(19)   | YES  |     |         | 审批处理时间  
+ operater        | varchar(255) | YES  |     |         | 处理人     
+ operaterId      | int(10)      | YES  |     |         | 处理人Id   
 -----------------+--------------+------+-----+---------+---------
 
 Table: stumanager_subsidy_class_info
@@ -247,8 +250,8 @@ Table: stumanager_subsidy_class_info
  subsidyAmount     | int(10)      | YES  |     |         | 补助金额    
  bonus             | int(10)      | YES  |     |         | 奖金      
  residualFrequency | tinyint(3)   | YES  |     |         | 补助剩余次数  
- status            | int(10)      | YES  |     |         | 审批状态    
- approveStatus     | int(10)      | YES  |     |         |         
+ status            | int(10)      | YES  |     |         | 就读状态    
+ approveStatus     | int(10)      | YES  |     |         | 审批状态    
  applicationDate   | bigint(19)   | YES  |     |         |         
  remark            | varchar(255) | YES  |     |         | 备注      
  checked           | tinyint(3)   | YES  |     |         |         

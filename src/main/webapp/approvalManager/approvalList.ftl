@@ -46,7 +46,8 @@ ${view.title}
                     <td>
                         ${sa.region.regionName}
                     </td>
-                    <td id="td-className">
+                    <td>
+                        <input class="hide" name="className" value="${sa.className}"/>
                         ${sa.className}
                     </td>
                     <td>

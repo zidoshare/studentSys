@@ -61,11 +61,12 @@ public class SubsidyClassInfoService extends Service {
      * @param classId
      * @return
      */
-    public List<SubsidyClassInfo> getSubsidyClassInfoById(String classId) {
-        return SubsidyClassInfo.dao.find(SubsidyClassInfo.SEARCH_FROM_SUBSIDY_CLASSINFO + "where classId=?", classId);
+    public List<SubsidyClassInfo> getSubsidyClassInfoByClassId(int classId) {
+        return SubsidyClassInfo.dao.find(SubsidyClassInfo.SEARCH_FROM_SUBSIDY_CLASSINFO + "where classId = ?", classId);
     }
-    public List<SubsidyClassInfo> getSubsidyClassInfoByIdAndStatus(int classId,int status){
-        return SubsidyClassInfo.dao.find(SubsidyClassInfo.SEARCH_FROM_SUBSIDY_CLASSINFO+"where classId=? add status=?",new Object[]{classId,status});
+    public List<SubsidyClassInfo> getSubsidyClassInfoByIdAndStatus(int p, int classId, int approveStatus){
+        return  SubsidyClassInfo.dao.find(SubsidyClassInfo.SEARCH_FROM_SUBSIDY_CLASSINFO+"where classId = ? and approveStatus = ?",classId,approveStatus);
+
     }
 
     /**
@@ -85,7 +86,7 @@ public class SubsidyClassInfoService extends Service {
      * @return
      */
     public List<SubsidyClassInfo> getSubsidyClassInfoByApplicationDate(Long applicationDate) {
-        return SubsidyClassInfo.dao.find(SubsidyClassInfo.SEARCH_FROM_SUBSIDY_CLASSINFO + "where applicationDate = ?", applicationDate);
+        return SubsidyClassInfo.dao.find(SubsidyClassInfo.SEARCH_FROM_SUBSIDY_CLASSINFO + "where applicationDate = ? and checked = 11", applicationDate);
     }
 
 
@@ -103,7 +104,7 @@ public class SubsidyClassInfoService extends Service {
      *
      * @return
      */
-    public List<SubsidyClassInfo> getSciGroupByDateAndChecked(Long date, int checkStatus) {
-        return SubsidyClassInfo.dao.find(SubsidyClassInfo.SEARCH_FROM_SUBSIDY_CLASSINFO+"where applicationDate = ? and checked = ? ",new Object[]{date,checkStatus});
+    public List<SubsidyClassInfo> getSciGroup(int classId , Long date, int checkStatus) {
+        return SubsidyClassInfo.dao.find(SubsidyClassInfo.SEARCH_FROM_SUBSIDY_CLASSINFO+"where classId = ? and applicationDate = ? and checked = ? ",classId,date,checkStatus);
     }
 }

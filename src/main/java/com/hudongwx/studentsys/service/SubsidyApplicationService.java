@@ -149,6 +149,10 @@ public class SubsidyApplicationService extends Service {
         return SubsidyApplication.dao.find(SubsidyApplication.SEARCH_FROM_SUBSIDY_APPLICATION + "where applicationDate = ? and approveStatus= 9 ",applicationDate);
     }
 
+    public List<SubsidyApplication> getApplicationByClassIdAndDate(Integer classId ,Long applicationDate) {
+        return SubsidyApplication.dao.find(SubsidyApplication.SEARCH_FROM_SUBSIDY_APPLICATION + "where classId = ? and applicationDate = ? and approveStatus = "+SubsidyApplication.APPROVE_BEFORE,classId,applicationDate);
+    }
+
     public Page<SubsidyApplication> getSubsidyApplicationHistoryByUserId(int pageNummber,int userId) {
         Page<SubsidyApplication> paginate = SubsidyApplication.dao.paginate(pageNummber, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, SubsidyApplication.SQL_FROM + "where ( approveStatus = 8 or  approveStatus = 10 ) and applicantId = ?", userId);
         return PageinateKit.ClonePage(paginate,

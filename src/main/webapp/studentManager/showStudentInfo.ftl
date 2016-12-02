@@ -126,6 +126,30 @@
                     </div>
                 </div>
             </div>
+            <div class="modal fade" id="updateInformationModel" tabindex="-1" role="dialog"
+                 aria-labelledby="submitApplyModelLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" style="width:800px">
+                    <div class="modal-content">
+                        <div class="modal-header text-center">
+                            <button type="button" class="close" data-dismiss="modal"><span
+                                    aria-hidden="true">&times;</span><span
+                                    class="sr-only">Close</span></button>
+                            <h4 class="modal-title">学生详情</h4>
+                        </div>
+                        <div class="modal-body" id="updateInfo">
+
+                        </div>
+                        <div class="modal-footer center-block text-center">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <button data-style="slide-up" id="saveRole-btn" class="btn btn-primary ladda-button">
+                                <span >保存</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

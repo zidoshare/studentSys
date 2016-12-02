@@ -1,3 +1,4 @@
+<#include "../macro-paginate.ftl">
 <div>
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span
@@ -22,23 +23,31 @@
                     <th>
                         奖金
                     </th>
+                    <th>
+                        就读状态
+                    </th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>
-                        张三
-                    </td>
-                    <td>
-                        700
-                    </td>
-                    <td>
-                        2
-                    </td>
-                    <td>
-                        300
-                    </td>
-                </tr>
+                <#list classInfoList as classInfoList>
+                    <tr>
+                        <td>
+                            ${classInfoList.studentName}
+                        </td>
+                        <td class=" z-money-cny">
+                            ${classInfoList.subsidyAmount}
+                        </td>
+                        <td >
+                            ${classInfoList.residualFrequency}
+                        </td>
+                        <td class=" z-money-cny">
+                            ${classInfoList.bonus}
+                        </td>
+                        <td>
+                            ${classInfoList.status}
+                        </td>
+                    </tr>
+                </#list>
                 </tbody>
             </table>
         </div>
