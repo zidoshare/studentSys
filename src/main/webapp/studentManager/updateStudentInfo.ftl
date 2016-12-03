@@ -5,7 +5,6 @@
         <tbody id="apply-body">
         <tr>
             <td>
-
                 <div class="input-group input-group-sm">
                     <span class="input-group-addon">姓名:</span>
                     <span class="input-group-addon"><#if student.name??>${student.name}<#else>未填写</#if></span>
