@@ -10,6 +10,18 @@ import java.util.Objects;
  */
 @SuppressWarnings("serial")
 public class Student extends BaseStudent<Student> {
+    public static final int STATUS_STUDYING = 1;//在读
+    public static final int STATUS_PAUSE = 2;//休学
+    public static final int STATUS_DROPPED = 14;//退学
+    public static final int STATUS_REFUND = 15;//退费
+    public static final int STATUS_REPEAT = 3;//重修
+    public static final int STATUS_GRADUATION = 4;//毕业
+    public static final int STATUS_OUT_OF_CONTACT = 5;//失联
+    public static final int STATUS_GRADUATION_OUT_OF_CONTACT = 700;//毕业后失联
+    public static final int EMPLOYMENTSTATUS_EMPLOYED = 6;//已就业
+    public static final int EMPLOYMENTSTATUS_UN_EMPLOYED = 7;//未就业
+    public static final int STATUS_CHECKED = 11;//选中
+    public static final int STATUS_UN_CHECKED = 12;//未选中
     private List<StudentEmployment> stuEmpList;
     private Class classModel;
     public static final Student dao = new Student();

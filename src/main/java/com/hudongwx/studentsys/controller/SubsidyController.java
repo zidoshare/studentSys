@@ -185,7 +185,7 @@ public class SubsidyController extends BaseController {
             int studentId = subsidyClassInfo.getStudentId();
             long date = subsidyClassInfo.getApplicationDate();
             boolean checked = false;
-            int bonus = 0;
+            double bonus = 0;
             for (SubsidyClassInfo sci : sciList) {
                 int cid = sci.getClassId();
                 int studentId1 = sci.getStudentId();
@@ -467,11 +467,10 @@ public class SubsidyController extends BaseController {
         String eaa = getPara("eaa");
         long now = System.currentTimeMillis();
         User user = getCurrentUser(this);
-
-        long date = 0;//// TODO: 2016/12/2 获取时间
-        int classId = 0;//// TODO: 2016/12/2 获取班级id
-        int approveStatus = 0;//// TODO: 2016/12/2 获取审批状态
-
+        JSONObject jo = JSON.parseObject(eaa);
+        long date = jo.getLongValue("applicationDate");
+        int classId = jo.getIntValue("classDate");
+        int approveStatus = jo.getIntValue("approveStatus");
         if (approveStatus == SubsidyApplication.APPROVE_YES) {
             setApplicationApproveStatus(now, user, date, classId, SubsidyApplication.APPROVE_YES);
             setSciApproveStatus(now, user, date, classId, SubsidyApplication.APPROVE_YES);
@@ -485,7 +484,6 @@ public class SubsidyController extends BaseController {
         List<SubsidyClassInfo> sciOnApplyList = subsidyClassInfoService.getSciGroup(classId, date);
         if (sciOnApplyList.size() != 0) {
             for (SubsidyClassInfo sci : sciOnApplyList) {
-                sci.setApproveStatus(SubsidyApplication.APPROVE_YES);
                 sci.setApproveStatus(approveStatus);
                 sci.setApplicationDate(now);
                 sci.setOperaterId(user.getId());

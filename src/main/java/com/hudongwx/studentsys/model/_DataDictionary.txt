@@ -32,6 +32,7 @@ Table: stumanager_class
  className        | varchar(10) | NO   |     |         | 班级名字    
  headTeacher      | varchar(10) | NO   |     |         | 讲师      
  Assistant        | varchar(10) | YES  |     |         | 科目      
+ tutorId          | int(10)     | YES  |     |         |         
  tutor            | varchar(10) | NO   |     |         |         
  studentCnt       | int(10)     | NO   |     | 0       |         
  classOpeningTime | bigint(19)  | YES  |     |         |         
@@ -174,8 +175,8 @@ Table: stumanager_student
  firstRepaymentTime     | bigint(19)   | YES  |     |         | 首次还款日期  
  counselorId            | int(10)      | YES  |     |         | 咨询师Id   
  counselorName          | varchar(255) | YES  |     |         | 咨询师     
- subsidyPer             | int(10)      | YES  |     |         | 单次补助金额  
- bonus                  | int(10)      | YES  |     |         | 单次奖金    
+ subsidyPer             | double(22)   | YES  |     |         | 单次补助金额  
+ bonus                  | double(22)   | YES  |     |         | 单次奖金    
  residualFrequency      | tinyint(3)   | YES  |     |         | 剩余补助次数  
  regionId               | int(10)      | YES  |     |         | 区域Id    
  status                 | int(10)      | YES  |     |         | 状态      
@@ -190,11 +191,11 @@ Table: stumanager_student
  permanentAddress       | varchar(255) | YES  |     |         | 户籍地址    
  presentAddress         | varchar(255) | YES  |     |         | 现居地址    
  studentRepaymentTime   | bigint(19)   | YES  |     |         | 学生还款日   
- subsidy                | int(10)      | YES  |     |         | 总补助     
+ subsidy                | double(22)   | YES  |     |         | 总补助     
  bankCard               | varchar(255) | YES  |     |         | 银行卡号    
  bankName               | varchar(255) | YES  |     |         | 开户行     
  photoUrl               | varchar(255) | YES  |     |         | 照片路径    
- residualSubsidyAmount  | int(10)      | YES  |     |         | 剩余补助金额  
+ residualSubsidyAmount  | double(11)   | YES  |     |         | 剩余补助金额  
 ------------------------+--------------+------+-----+---------+---------
 
 Table: stumanager_student_employment

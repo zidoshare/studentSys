@@ -1017,8 +1017,14 @@ var func = {
             btn.start();
             $('#createTime').val(new Date().getTime());
             var json = {};
+            var str="";
             $('#student').find('.form-control').each(function () {
-                json[$(this).attr('name')] = $(this).val();
+                if($(this).attr('name')==="student.emergencyContact"){
+                    str+=$(this).val()+":";
+                    json[$(this).attr('name')]=str;
+                }else{
+                    json[$(this).attr('name')] = $(this).val();
+                }
             });
             $.ajax({
                 url: Label.staticServePath + '/studentManager/addStudent',

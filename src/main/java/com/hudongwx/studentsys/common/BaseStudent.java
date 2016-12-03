@@ -233,19 +233,19 @@ public abstract class BaseStudent<M extends BaseStudent<M>> extends Model<M> imp
 		return get("counselorName");
 	}
 
-	public void setSubsidyPer(java.lang.Integer subsidyPer) {
+	public void setSubsidyPer(java.lang.Double subsidyPer) {
 		set("subsidyPer", subsidyPer);
 	}
 
-	public java.lang.Integer getSubsidyPer() {
+	public java.lang.Double getSubsidyPer() {
 		return get("subsidyPer");
 	}
 
-	public void setBonus(java.lang.Integer bonus) {
+	public void setBonus(java.lang.Double bonus) {
 		set("bonus", bonus);
 	}
 
-	public java.lang.Integer getBonus() {
+	public java.lang.Double getBonus() {
 		return get("bonus");
 	}
 
@@ -361,11 +361,11 @@ public abstract class BaseStudent<M extends BaseStudent<M>> extends Model<M> imp
 		return get("studentRepaymentTime");
 	}
 
-	public void setSubsidy(java.lang.Integer subsidy) {
+	public void setSubsidy(java.lang.Double subsidy) {
 		set("subsidy", subsidy);
 	}
 
-	public java.lang.Integer getSubsidy() {
+	public java.lang.Double getSubsidy() {
 		return get("subsidy");
 	}
 
@@ -393,11 +393,11 @@ public abstract class BaseStudent<M extends BaseStudent<M>> extends Model<M> imp
 		return get("photoUrl");
 	}
 
-	public void setResidualSubsidyAmount(java.lang.Integer residualSubsidyAmount) {
+	public void setResidualSubsidyAmount(java.lang.Double residualSubsidyAmount) {
 		set("residualSubsidyAmount", residualSubsidyAmount);
 	}
 
-	public java.lang.Integer getResidualSubsidyAmount() {
+	public java.lang.Double getResidualSubsidyAmount() {
 		return get("residualSubsidyAmount");
 	}
 
