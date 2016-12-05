@@ -8,7 +8,7 @@
                 <td>姓名:<span>&nbsp;&nbsp;&nbsp;<#if student.name??>${student.name}<#else>未填写</#if></span></td>
                 <td>性别:<span>&nbsp;&nbsp;&nbsp;<#if student.sex??>${student.sex}<#else>未填写</#if></span></td>
                 <td>出生日期:<span>&nbsp;&nbsp;&nbsp;<#if student.birthday??>${student.birthday}<#else>未填写</#if></span></td>
-                <td rowspan="4" class="text-center" width="150px">照片</td>
+                <td rowspan="4" class="text-center" width="150px"><img class="carousel-inner img-responsive img-rounded" src="http://imgsrc.baidu.com/baike/pic/item/f9198618367adab43246bfa18ed4b31c8601e4ba.jpg"/></td>
             </tr>
             <tr>
                 <td>手机号:<span>&nbsp;&nbsp;&nbsp;<#if student.contactInformation??>${student.contactInformation}<#else>未填写</#if></span></td>

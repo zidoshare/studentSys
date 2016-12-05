@@ -41,4 +41,12 @@ public abstract class BaseStatus<M extends BaseStatus<M>> extends Model<M> imple
 		return get("mark");
 	}
 
+	public void setBelong(java.lang.String belong) {
+		set("belong", belong);
+	}
+
+	public java.lang.String getBelong() {
+		return get("belong");
+	}
+
 }

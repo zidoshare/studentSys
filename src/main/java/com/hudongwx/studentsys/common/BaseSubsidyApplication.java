@@ -81,27 +81,27 @@ public abstract class BaseSubsidyApplication<M extends BaseSubsidyApplication<M>
 		return get("number");
 	}
 
-	public void setTotalSubsidy(java.lang.Integer totalSubsidy) {
+	public void setTotalSubsidy(java.math.BigDecimal totalSubsidy) {
 		set("totalSubsidy", totalSubsidy);
 	}
 
-	public java.lang.Integer getTotalSubsidy() {
+	public java.math.BigDecimal getTotalSubsidy() {
 		return get("totalSubsidy");
 	}
 
-	public void setTotalBonus(java.lang.Integer totalBonus) {
+	public void setTotalBonus(java.math.BigDecimal totalBonus) {
 		set("totalBonus", totalBonus);
 	}
 
-	public java.lang.Integer getTotalBonus() {
+	public java.math.BigDecimal getTotalBonus() {
 		return get("totalBonus");
 	}
 
-	public void setAggregateAmount(java.lang.Integer aggregateAmount) {
+	public void setAggregateAmount(java.math.BigDecimal aggregateAmount) {
 		set("aggregateAmount", aggregateAmount);
 	}
 
-	public java.lang.Integer getAggregateAmount() {
+	public java.math.BigDecimal getAggregateAmount() {
 		return get("aggregateAmount");
 	}
 

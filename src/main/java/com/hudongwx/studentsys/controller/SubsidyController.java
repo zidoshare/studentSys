@@ -15,6 +15,7 @@ import com.jfinal.kit.JsonKit;
 import com.jfinal.plugin.activerecord.Page;
 
 import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -62,11 +63,13 @@ public class SubsidyController extends BaseController {
     }
 
     public void historyManager() {
+        Long start_time_list = getParaToLong("start_time_list");
+        Long end_time_list = getParaToLong("end_time_list");
         setMapping(mappingService.getMappingByUrl("/subsidyManager/historyManager"));
         super.index();
         User user = getCurrentUser(this);
         Integer p = getParaToInt("p", 1);
-        Page<SubsidyApplication> saPages = subsidyApplicationService.getSubsidyApplicationHistoryByUserId(p, user.getId());
+        Page<SubsidyApplication> saPages = subsidyApplicationService.getSubsidyApplicationHistoryByUserId(p, user.getId(), start_time_list, end_time_list);
         setAttr("saPages", saPages);
     }
 
@@ -174,7 +177,7 @@ public class SubsidyController extends BaseController {
         long date = sciList.get(0).getApplicationDate();
         List<SubsidyClassInfo> allSciList = subsidyClassInfoService.getSubsidyClassInfoByClassId(classId);
         dealCheckedSci(sciList, allSciList);
-        updateApplication(sciList.size(),classId,date);
+        updateApplication(sciList.size(), classId, date);
         RenderKit.renderSuccess(this, "更新成功！");
     }
 
@@ -184,20 +187,20 @@ public class SubsidyController extends BaseController {
             int classId = subsidyClassInfo.getClassId();
             int studentId = subsidyClassInfo.getStudentId();
             long date = subsidyClassInfo.getApplicationDate();
-            boolean checked=false;
-            int bonus = 0;
+            boolean checked = false;
+            BigDecimal bonus = new BigDecimal(0.0);
             for (SubsidyClassInfo sci : sciList) {
                 int cid = sci.getClassId();
                 int studentId1 = sci.getStudentId();
                 long date1 = sci.getApplicationDate();
-                if (cid == classId && date == date1 && studentId==studentId1) {
-                    bonus=sci.getBonus();
-                    checked=true;
+                if (cid == classId && date == date1 && studentId == studentId1) {
+                    bonus = sci.getBonus();
+                    checked = true;
                 }
             }
-            if(!checked){
+            if (!checked) {
                 subsidyClassInfo.setChecked(UN_CHECKED);
-            }else {
+            } else {
                 subsidyClassInfo.setBonus(bonus);
                 subsidyClassInfo.setChecked(CHECKED);
             }
@@ -206,29 +209,28 @@ public class SubsidyController extends BaseController {
     }
 
 
-    private void updateApplication(int num , Integer classId, Long date) {
-        int totalBonus = 0;
-        int totalSubsidy = 0;
-        List<SubsidyClassInfo> sciList = subsidyClassInfoService.getSciGroup(classId,date, CHECKED);
+    private void updateApplication(int num, Integer classId, Long date) {
+        BigDecimal totalBonus = new BigDecimal(0);
+        BigDecimal totalSubsidy = new BigDecimal(0);
+        List<SubsidyClassInfo> sciList = subsidyClassInfoService.getSciGroup(classId, date, CHECKED);
         for (SubsidyClassInfo sci : sciList) {
-            totalBonus += sci.getBonus();
-            System.out.println("totalBonus="+totalBonus);
-            totalSubsidy += sci.getSubsidyAmount();
+            totalBonus = totalBonus.add(sci.getBonus());
+            System.out.println("totalBonus=" + totalBonus);
+            totalSubsidy = totalSubsidy.add(sci.getSubsidyAmount());
         }
-        setApplicationAttr(num,classId,date, totalBonus, totalSubsidy);
+        setApplicationAttr(num, classId, date, totalBonus, totalSubsidy);
     }
 
-    private void setApplicationAttr(int num, int classId , Long date, int totalBonus, int totalSubsidy) {
-        int total;
+    private void setApplicationAttr(int num, int classId, Long date, BigDecimal totalBonus, BigDecimal totalSubsidy) {
         List<SubsidyApplication> saList = subsidyApplicationService.getApplicationByClassIdAndDate(classId, date);
         if (saList.size() != 0) {
             for (SubsidyApplication subsidyApplication : saList) {
-                total = totalBonus + totalSubsidy;
+                BigDecimal total = totalBonus.add(totalSubsidy);
                 subsidyApplication.setTotalBonus(totalBonus);
                 subsidyApplication.setTotalSubsidy(totalSubsidy);
                 subsidyApplication.setAggregateAmount(total);
                 subsidyApplication.setNumber(num);
-                System.out.println("更新的总数据"+total+"=totalBonus=="+totalBonus);
+                System.out.println("更新的总数据" + total + "=totalBonus==" + totalBonus);
                 subsidyApplicationService._updateSubsidyApplication(subsidyApplication);
             }
         }
@@ -307,7 +309,7 @@ public class SubsidyController extends BaseController {
                     int stuId = student.getId();
                     for (SubsidyClassInfo sci : allSciList) {
                         int sciStudentId = sci.getStudentId();
-                        if (stuId == sciStudentId && (sci.getApproveStatus() == APPROV_STATUS_NO||sci.getApproveStatus() == APPROV_STATUS_ON)) {
+                        if (stuId == sciStudentId && (sci.getApproveStatus() == APPROV_STATUS_NO || sci.getApproveStatus() == APPROV_STATUS_ON)) {
                             equal = true;
                             break;
                         }
@@ -321,17 +323,19 @@ public class SubsidyController extends BaseController {
             for (List<Student> stuList : ll) {
                 int classId = 0;
                 boolean first = true;
-                int totalSubsidyAmount = 0;
-                int totalBonus = 0;
+                BigDecimal totalSubsidyAmount = new BigDecimal(0);
+                BigDecimal totalBonus = new BigDecimal(0);
                 for (Student student : stuList) {
                     if (first) {
                         classId = student.getClassId();
                         first = false;
                     }
-                    totalSubsidyAmount += student.getSubsidyPer();
-                    totalBonus += student.getBonus();
+                    System.out.println("totalSubsidyAmount.add(student.getSubsidyPer());++++++++++++++++++++++>>>>>>" + student.getSubsidyPer());
+                    totalSubsidyAmount = totalSubsidyAmount.add(student.getSubsidyPer());
+                    totalBonus = totalBonus.add(student.getBonus());
                     setSubsidyClassInfo(applicationDate, student);
                 }
+                System.out.println("totalSubsidyAmount.longValue()++++++++++++++++++++++>>>>>>" + totalSubsidyAmount);
                 setDefaultSubsidyApplicationInfo(applicationDate, totalSubsidyAmount, totalBonus, classId, stuList.size());
             }
             RenderKit.renderSuccess(this, "添加成功！");
@@ -367,7 +371,7 @@ public class SubsidyController extends BaseController {
         subsidyClassInfoService._saveSubsidyClassInfo(sci);
     }
 
-    private void setDefaultSubsidyApplicationInfo(long applicationDate, int totalSubsidyAmount, int totalBonus, int cid, int num) {
+    private void setDefaultSubsidyApplicationInfo(long applicationDate, BigDecimal totalSubsidyAmount, BigDecimal totalBonus, int cid, int num) {
         User user = getCurrentUser(this);
         SubsidyApplication sa = new SubsidyApplication();
         sa.setApplicantId(user.getId());
@@ -379,9 +383,9 @@ public class SubsidyController extends BaseController {
         sa.setNumber(num);
         sa.setTotalSubsidy(totalSubsidyAmount);
         sa.setTotalBonus(totalBonus);
-        sa.setAggregateAmount(totalSubsidyAmount + totalBonus);
+        sa.setAggregateAmount(totalSubsidyAmount.add(totalBonus));
         sa.setApproveStatus(APPROV_STATUS_NO);
-        judgeAndAdd( sa);
+        judgeAndAdd(sa);
     }
 
     private void judgeAndAdd(SubsidyApplication sa) {
@@ -393,7 +397,7 @@ public class SubsidyController extends BaseController {
                 boolean judgeDate = application.getApplicationDate().intValue() == sa.getApplicationDate().intValue();
                 boolean judgeClassId = application.getClassId().intValue() == sa.getClassId().intValue();
                 System.out.println(application.getClassId().intValue() + "++++++++++++++" + sa.getClassId().intValue());
-                if (judgeClassId && judgeDate &&judgeStatus) {
+                if (judgeClassId && judgeDate && judgeStatus) {
                     String className = classService.getClassById(sa.getClassId()).getClassName();
                     RenderKit.renderError(this, "你所选班级：" + className + "已在申请列表中请勿重复添加！");
                     different = false;
@@ -443,7 +447,7 @@ public class SubsidyController extends BaseController {
     private void setSubsidyClassInfo(long date, long ad) {
         List<SubsidyClassInfo> sciList = subsidyClassInfoService.getSubsidyClassInfoByApplicationDate(ad);
         for (SubsidyClassInfo subsidyClassInfo : sciList) {
-            System.out.println("提交学生申请修改状态："+subsidyClassInfo.getClassId());
+            System.out.println("提交学生申请修改状态：" + subsidyClassInfo.getClassId());
             subsidyClassInfo.setApplicationDate(date);
             subsidyClassInfo.setApproveStatus(APPROV_STATUS_ON);
             subsidyClassInfoService._updateSubsidyClassInfo(subsidyClassInfo);

@@ -180,44 +180,44 @@ var Validate = {
 var Util = {
     ajax: function (url, options) {
         /*
-        * success：options->
-        *               defaults = {
-                             success: function () {
-                             },
-                             error: function () {
-                             },
-                             onShowSuccess: {},
-                             onShowError: {},
-                             bindModal: null,
-                             bindContainer: ['#table-inner'],
-                             bindUrl: ''
-                         };
-          error:options->
-                     defaults = {
-                         onShowTip: {},
-                         msg: '服务器错误'
-                     };
-          complete:options->
-                     defaults = {
-                         do: function (selector) {
-                             if (selector == null || selector == '')
-                                selector = "#save-btn";
-                             if (Exception.btn != null)
-                                Exception.btn.stop();
-                         }
-                     };
-          beforeSend:options->
-                     defaults = {
-                         do: function (selector) {
-                             if (selector == null || selector == '')
-                             selector = "#save-btn";
-                             Exception.btn = Ladda.create(document.querySelector(selector));
-                             Exception.btn.start();
-                         }
-                     };
-        *
-        *
-        * */
+         * success：options->
+         *               defaults = {
+         success: function () {
+         },
+         error: function () {
+         },
+         onShowSuccess: {},
+         onShowError: {},
+         bindModal: null,
+         bindContainer: ['#table-inner'],
+         bindUrl: ''
+         };
+         error:options->
+         defaults = {
+         onShowTip: {},
+         msg: '服务器错误'
+         };
+         complete:options->
+         defaults = {
+         do: function (selector) {
+         if (selector == null || selector == '')
+         selector = "#save-btn";
+         if (Exception.btn != null)
+         Exception.btn.stop();
+         }
+         };
+         beforeSend:options->
+         defaults = {
+         do: function (selector) {
+         if (selector == null || selector == '')
+         selector = "#save-btn";
+         Exception.btn = Ladda.create(document.querySelector(selector));
+         Exception.btn.start();
+         }
+         };
+         *
+         *
+         * */
         var defaults = {
             url: url,
             data: {},
@@ -1168,19 +1168,19 @@ var func = {
             })
         }
     },
-    updateApproval:function () {
-        
+    updateApproval: function () {
+
     },
 
     seeApproval: function (method, classId) {
         modalUtil.show($('#seeApprovalModel'));
-        var className = $('input[name]').val();
-        loadResult($('#approval-modal'),Label.staticServePath+"/approvalManager/showStudentDetails?classId="+classId+"&className="+className);
+        var className = $('#title-' + classId).val();
+        loadResult($('#approval-modal'), Label.staticServePath + "/approvalManager/showStudentDetails?classId=" + classId + "&className=" + className);
     },
     submitApply: function () {
-        var data=[];
+        var data = [];
 
-        var jsonData=[];
+        var jsonData = [];
         $("tr[name='submit-tr']").each(function (index, dom) {
             var list = $(dom).find('input[name]');
             if (list.length <= 0)
@@ -1194,10 +1194,10 @@ var func = {
         });
         var modal = $('#submitApplyModel');
         //备注
-        var bz = modal.find('textarea:first').val();
-        //审批人
+        var remarks = modal.find('textarea:first').val();
+        //审批人id
         var id = $("#classSelect_list").val();
-        data.push(bz);
+        data.push(remarks);
         data.push(id);
         data.push(jsonData);
         console.log(data);
@@ -1207,12 +1207,12 @@ var func = {
             },
             btnSelector: '#save-submit-btn',
             success: {
-                bindModal:modal
+                bindModal: modal
             }
         })
 
 
-                // Util.loadPageByPjax(Label.staticServePath + '/approvalManager');
+        // Util.loadPageByPjax(Label.staticServePath + '/approvalManager');
 
     },
     deleteApply: function (method, classId) {
@@ -1261,7 +1261,7 @@ var func = {
             });
             data.push(json);
         });
-        console.log("数据长度"+data.length);
+        console.log("数据长度" + data.length);
         Util.ajax(Label.staticServePath + "/subsidyManager/updateSubsidyClassInfo", {
             data: {
                 'list': data,
@@ -1269,7 +1269,7 @@ var func = {
             },
             btnSelector: '#sa-btn',
             success: {
-                bindModal:modal,
+                bindModal: modal,
             }
         })
     },
@@ -1303,7 +1303,7 @@ var func = {
                         var label = ckeckBoox.find('label:first');
                         input.attr('tag', 'input');
                         input.val(elem['id']);
-                        if (elem['checked']==11){
+                        if (elem['checked'] == 11) {
                             console.log(elem['checked']);
                             input.attr('checked', '');
                         }
@@ -1432,21 +1432,28 @@ var func = {
             modelSub.find("span#submit-total").text(aggregateAmount);
         }
     },
-    seeStudent:function (method,studentId) {
+    seeStudent: function (method, studentId) {
         modalUtil.show($("#studentInformationModel"));
-        loadResult($('#showInfo'),Label.staticServePath+"/studentManager/showStudentInfo?studentId="+studentId);
+        loadResult($('#showInfo'), Label.staticServePath + "/studentManager/showStudentInfo?studentId=" + studentId);
         // $('#showInfo').load(Label.staticServePath+"/studentManager/shouInfo")
     },
-    updateStudent:function (method,studentId) {
-        modalUtil.show($("#updateInformationModel"));
-        loadResult($('#updateInfo'),Label.staticServePath+"/studentManager/showUpdateStudentInfo?studentId="+studentId);
+    updateStudent: function (method, studentId) {
+        if (method = "show") {
+            modalUtil.show($("#updateInformationModel"));
+            loadResult($('#updateInfo'), Label.staticServePath + "/studentManager/showUpdateStudentInfo?studentId=" + studentId);
+        }else {
+            $("#updateInformationModel").find('input[name]').each(function () {
+                
+            })
+        }
     },
-    deleteStudent:function () {
+
+    deleteStudent: function () {
 
     },
-    seeClassStudent:function (method,classId) {
-        Util.loadByPjax(Label.staticServePath+"/studentManager/pageJump?classId="+classId,{
-            container:'#class-details'
+    seeClassStudent: function (method, classId) {
+        Util.loadByPjax(Label.staticServePath + "/studentManager/pageJump?classId=" + classId, {
+            container: '#class-details'
         });
     },
     addClass: function (method) {
@@ -1952,7 +1959,7 @@ var Exception = {
                         Util.reloadByPjax(opts.bindContainer[obj]);
                     }
                 }
-                if(opts.bindUrl != null && opts.bindUrl != ''){
+                if (opts.bindUrl != null && opts.bindUrl != '') {
                     Util.loadByPjax(opts.bindUrl);
                 }
                 opts.success();
@@ -1982,8 +1989,8 @@ var Exception = {
                 do: function (selector) {
                     if (selector == null || selector == '')
                         selector = "#save-btn";
-                    if($(selector).length == 0)
-                        return ;
+                    if ($(selector).length == 0)
+                        return;
                     if (Exception.btn != null)
                         Exception.btn.stop();
                 }
@@ -1998,8 +2005,8 @@ var Exception = {
                 do: function (selector) {
                     if (selector == null || selector == '')
                         selector = "#save-btn";
-                    if($(selector).length == 0)
-                        return ;
+                    if ($(selector).length == 0)
+                        return;
                     Exception.btn = Ladda.create(document.querySelector(selector));
                     Exception.btn.start();
                 }

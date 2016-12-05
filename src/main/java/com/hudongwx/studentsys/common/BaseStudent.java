@@ -137,27 +137,27 @@ public abstract class BaseStudent<M extends BaseStudent<M>> extends Model<M> imp
 		return get("subject");
 	}
 
-	public void setCredit(java.lang.Integer credit) {
+	public void setCredit(java.math.BigDecimal credit) {
 		set("credit", credit);
 	}
 
-	public java.lang.Integer getCredit() {
+	public java.math.BigDecimal getCredit() {
 		return get("credit");
 	}
 
-	public void setTestAverage(java.lang.Integer testAverage) {
+	public void setTestAverage(java.math.BigDecimal testAverage) {
 		set("testAverage", testAverage);
 	}
 
-	public java.lang.Integer getTestAverage() {
+	public java.math.BigDecimal getTestAverage() {
 		return get("testAverage");
 	}
 
-	public void setTrainingEvaluation(java.lang.Integer trainingEvaluation) {
+	public void setTrainingEvaluation(java.math.BigDecimal trainingEvaluation) {
 		set("trainingEvaluation", trainingEvaluation);
 	}
 
-	public java.lang.Integer getTrainingEvaluation() {
+	public java.math.BigDecimal getTrainingEvaluation() {
 		return get("trainingEvaluation");
 	}
 
@@ -193,11 +193,11 @@ public abstract class BaseStudent<M extends BaseStudent<M>> extends Model<M> imp
 		return get("trainingGraduationTime");
 	}
 
-	public void setTuition(java.lang.Integer tuition) {
+	public void setTuition(java.math.BigDecimal tuition) {
 		set("tuition", tuition);
 	}
 
-	public java.lang.Integer getTuition() {
+	public java.math.BigDecimal getTuition() {
 		return get("tuition");
 	}
 
@@ -233,19 +233,19 @@ public abstract class BaseStudent<M extends BaseStudent<M>> extends Model<M> imp
 		return get("counselorName");
 	}
 
-	public void setSubsidyPer(java.lang.Integer subsidyPer) {
+	public void setSubsidyPer(java.math.BigDecimal subsidyPer) {
 		set("subsidyPer", subsidyPer);
 	}
 
-	public java.lang.Integer getSubsidyPer() {
+	public java.math.BigDecimal getSubsidyPer() {
 		return get("subsidyPer");
 	}
 
-	public void setBonus(java.lang.Integer bonus) {
+	public void setBonus(java.math.BigDecimal bonus) {
 		set("bonus", bonus);
 	}
 
-	public java.lang.Integer getBonus() {
+	public java.math.BigDecimal getBonus() {
 		return get("bonus");
 	}
 
@@ -361,11 +361,11 @@ public abstract class BaseStudent<M extends BaseStudent<M>> extends Model<M> imp
 		return get("studentRepaymentTime");
 	}
 
-	public void setSubsidy(java.lang.Integer subsidy) {
+	public void setSubsidy(java.math.BigDecimal subsidy) {
 		set("subsidy", subsidy);
 	}
 
-	public java.lang.Integer getSubsidy() {
+	public java.math.BigDecimal getSubsidy() {
 		return get("subsidy");
 	}
 
@@ -393,11 +393,11 @@ public abstract class BaseStudent<M extends BaseStudent<M>> extends Model<M> imp
 		return get("photoUrl");
 	}
 
-	public void setResidualSubsidyAmount(java.lang.Integer residualSubsidyAmount) {
+	public void setResidualSubsidyAmount(java.math.BigDecimal residualSubsidyAmount) {
 		set("residualSubsidyAmount", residualSubsidyAmount);
 	}
 
-	public java.lang.Integer getResidualSubsidyAmount() {
+	public java.math.BigDecimal getResidualSubsidyAmount() {
 		return get("residualSubsidyAmount");
 	}
 

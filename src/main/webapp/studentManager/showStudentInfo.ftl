@@ -142,7 +142,7 @@
                         </div>
                         <div class="modal-footer center-block text-center">
                             <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                            <button data-style="slide-up" id="saveRole-btn" class="btn btn-primary ladda-button">
+                            <button data-style="slide-up" id="saveRole-btn" class="btn btn-primary ladda-button" onclick="func.updateStudent('up')">
                                 <span >保存</span>
                             </button>
                         </div>

@@ -1905,3 +1905,10 @@ i {
 .table-no-border tr,.table-no-border td{
     border:none !important;
 }
+
+.div-no-spacing{
+    width: 100px;
+    float: left;
+    margin: 0px;
+}
+

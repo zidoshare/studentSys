@@ -41,6 +41,14 @@ public abstract class BaseClass<M extends BaseClass<M>> extends Model<M> impleme
 		return get("Assistant");
 	}
 
+	public void setTutorId(java.lang.Integer tutorId) {
+		set("tutorId", tutorId);
+	}
+
+	public java.lang.Integer getTutorId() {
+		return get("tutorId");
+	}
+
 	public void setTutor(java.lang.String tutor) {
 		set("tutor", tutor);
 	}

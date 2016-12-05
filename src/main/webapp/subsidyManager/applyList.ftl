@@ -51,7 +51,7 @@ ${view.title}
                         ${sub.number}
                         </td>
                         <td class=" z-money-cny" name="totalSubsidy">
-                        ${sub.totalSubsidy}
+                        ${sub.totalSubsidy?number}
                         </td>
                         <td class=" z-money-cny" name="totalBonus">
                         ${sub.totalBonus}

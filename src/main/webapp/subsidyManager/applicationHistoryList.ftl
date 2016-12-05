@@ -33,8 +33,6 @@ ${view.title}
                 </div>
             </form>
         </div>
-
-
     </div>
 
 
@@ -89,7 +87,7 @@ ${view.title}
                             ${sub.applicantName}
                         </td>
                         <td>
-
+                            ${sub.operater!"暂无"}
                         </td>
                         <td>
                         ${(sub.applicationDate?number)?number_to_date}
@@ -103,7 +101,7 @@ ${view.title}
                         <#--</#if>-->
                         <#--</td>-->
                         <td>
-                        ${sub.approveStatus}
+                        ${sub.status.statusName}
                         </td>
                     </tr>
                     </#list>
@@ -157,11 +155,8 @@ ${view.title}
         var end_list = new Date($('#all_end_time_list').val().replace(/-/g, '/'));
         if (start_list <= end_list) {
             end_list.setDate(end_list.getDate() + 1);
-        <#--Util.loadByPjax('${staticServePath}/attendanceManager/attendance?start_time_list='-->
-        <#--+ start_list.getTime() + '&end_time_list=' + end_list.getTime()-->
-        <#--+ '&class=' + cla + '&student=' + names + '&list_p=' + 1-->
-        <#--+ '&start_time_chart=' + start_chart.getTime()-->
-        <#--+ '&end_time_chart=' + end_chart.getTime() + '&class_chart=' + chartCla+'&student_chart='+chartNames);-->
+        Util.loadByPjax('${staticServePath}/subsidyManager/historyManager?start_time_list='
+        + start_list.getTime() + '&end_time_list=' + end_list.getTime());
         } else {
             Util.showTip($('#wholeTip'), '结束时间应大于开始时间', 'alert alert-danger');
         }

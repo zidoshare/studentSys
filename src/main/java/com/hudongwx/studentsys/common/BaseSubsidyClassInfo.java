@@ -57,19 +57,19 @@ public abstract class BaseSubsidyClassInfo<M extends BaseSubsidyClassInfo<M>> ex
 		return get("studentName");
 	}
 
-	public void setSubsidyAmount(java.lang.Integer subsidyAmount) {
+	public void setSubsidyAmount(java.math.BigDecimal subsidyAmount) {
 		set("subsidyAmount", subsidyAmount);
 	}
 
-	public java.lang.Integer getSubsidyAmount() {
+	public java.math.BigDecimal getSubsidyAmount() {
 		return get("subsidyAmount");
 	}
 
-	public void setBonus(java.lang.Integer bonus) {
+	public void setBonus(java.math.BigDecimal bonus) {
 		set("bonus", bonus);
 	}
 
-	public java.lang.Integer getBonus() {
+	public java.math.BigDecimal getBonus() {
 		return get("bonus");
 	}
 
@@ -119,6 +119,30 @@ public abstract class BaseSubsidyClassInfo<M extends BaseSubsidyClassInfo<M>> ex
 
 	public java.lang.Integer getChecked() {
 		return get("checked");
+	}
+
+	public void setApproveDate(java.lang.Long approveDate) {
+		set("approveDate", approveDate);
+	}
+
+	public java.lang.Long getApproveDate() {
+		return get("approveDate");
+	}
+
+	public void setOperaterId(java.lang.Integer operaterId) {
+		set("operaterId", operaterId);
+	}
+
+	public java.lang.Integer getOperaterId() {
+		return get("operaterId");
+	}
+
+	public void setOperater(java.lang.String operater) {
+		set("operater", operater);
+	}
+
+	public java.lang.String getOperater() {
+		return get("operater");
 	}
 
 }

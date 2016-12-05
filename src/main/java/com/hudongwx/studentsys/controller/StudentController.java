@@ -110,7 +110,7 @@ public class StudentController extends BaseController {
             JSONObject jsonObject = JSON.parseObject(o.toString());
             Student stu = new Student();
             stu.setId(jsonObject.getInteger("id"));
-            stu.setBonus(jsonObject.getInteger("bonus"));
+            stu.setBonus(jsonObject.getBigDecimal("bonus"));
             studentService._updateStudentById(stu);
         }
         RenderKit.renderSuccess(this);
