@@ -17,6 +17,7 @@ import com.jfinal.aop.Before;
 import com.jfinal.ext.interceptor.POST;
 import com.jfinal.kit.JsonKit;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -30,12 +31,6 @@ public class StudentController extends BaseController {
     @Override
     public void index() {
         super.index();
-//        List<Student> students = studentService.getAllStudent();
-//        setAttr("students",students);
-//        List<User> defaultTeacher = userService.getUsersByRole(roleService.getRoleByName(Common.getMainProp().get("defaultTeacher")));
-//        setAttr("users",defaultTeacher);
-//        List<Class> allClass = classService.getAllClass();
-//        setAttr("classes",allClass);
     }
 
     /**
@@ -75,15 +70,15 @@ public class StudentController extends BaseController {
         stu.setPhotoUrl("\\images\\favicon.ico");
         stu.setTutorId(cls.getTutorId());
         stu.setTutorName(cls.getTutor());
-        stu.setCredit(100);
-        stu.setTestAverage(0);
-        stu.setTrainingEvaluation(0);
+        stu.setCredit(new BigDecimal(100.00));
+        stu.setTestAverage(new BigDecimal(0.0));
+        stu.setTrainingEvaluation(new BigDecimal(0.0));
         stu.setAdmission(admission);
         stu.setTrainingGraduationTime(admission + (1000l * 60 * 60 * 24 * 30 * 4));
         stu.setCounselorName(userService.getUserById(stu.getCounselorId()).getUserNickname());
-        double subsidyPer = stu.getSubsidy() * 1.0 / stu.getResidualFrequency();
+        BigDecimal subsidyPer = stu.getSubsidy().divide(new BigDecimal(stu.getResidualFrequency()));
         stu.setSubsidyPer(subsidyPer);
-        stu.setBonus(0.0);
+        stu.setBonus(new BigDecimal(0.00));
         stu.setResidualSubsidyAmount(stu.getSubsidy());
         stu.setRegionId(cls.getRegionId());
         stu.setStatus(Student.STATUS_STUDYING);
@@ -106,7 +101,7 @@ public class StudentController extends BaseController {
             JSONObject jsonObject = JSON.parseObject(o.toString());
             Student stu = new Student();
             stu.setId(jsonObject.getIntValue("id"));
-            stu.setBonus(jsonObject.getDoubleValue("bonus"));
+            stu.setBonus(jsonObject.getBigDecimal("bonus"));
             studentService._updateStudentById(stu);
         }
         RenderKit.renderSuccess(this);
@@ -125,5 +120,9 @@ public class StudentController extends BaseController {
     public void jumpToAddStudent() {
         setMapping(mappingService.getMappingByUrl("/studentManager/jumpToAddStudent"));
         super.index();
+        List<User> counselorList = userService.getUsersByRoleId(roleService.getRoleByName("咨询师"));
+        setAttr("counselor",counselorList);
+        List<Class> allClass = classService.getAllClass();
+        setAttr("cls",allClass);
     }
 }

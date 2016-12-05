@@ -15,6 +15,7 @@ import com.jfinal.kit.JsonKit;
 import com.jfinal.plugin.activerecord.Page;
 
 import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -185,7 +186,7 @@ public class SubsidyController extends BaseController {
             int studentId = subsidyClassInfo.getStudentId();
             long date = subsidyClassInfo.getApplicationDate();
             boolean checked = false;
-            double bonus = 0;
+            BigDecimal bonus = new BigDecimal(0);
             for (SubsidyClassInfo sci : sciList) {
                 int cid = sci.getClassId();
                 int studentId1 = sci.getStudentId();
@@ -207,22 +208,23 @@ public class SubsidyController extends BaseController {
 
 
     private void updateApplication(int num, Integer classId, Long date) {
-        int totalBonus = 0;
-        int totalSubsidy = 0;
+        BigDecimal totalBonus = new BigDecimal(0);
+        BigDecimal totalSubsidy = new BigDecimal(0);
         List<SubsidyClassInfo> sciList = subsidyClassInfoService.getSciGroup(classId, date, CHECKED);
         for (SubsidyClassInfo sci : sciList) {
-            totalBonus += sci.getBonus();
-            totalSubsidy += sci.getSubsidyAmount();
+            totalBonus.add(sci.getBonus());
+            totalSubsidy.add(sci.getSubsidyAmount());
         }
         setApplicationAttr(num, classId, date, totalBonus, totalSubsidy);
     }
 
-    private void setApplicationAttr(int num, int classId, Long date, int totalBonus, int totalSubsidy) {
-        int total;
+    private void setApplicationAttr(int num, int classId, Long date, BigDecimal totalBonus, BigDecimal totalSubsidy) {
+
         List<SubsidyApplication> saList = subsidyApplicationService.getApplicationByClassIdAndDate(classId, date);
         if (saList.size() != 0) {
             for (SubsidyApplication subsidyApplication : saList) {
-                total = totalBonus + totalSubsidy;
+                BigDecimal total =new BigDecimal(0);
+                total.add(totalBonus.add(totalSubsidy));
                 subsidyApplication.setTotalBonus(totalBonus);
                 subsidyApplication.setTotalSubsidy(totalSubsidy);
                 subsidyApplication.setAggregateAmount(total);
@@ -320,15 +322,15 @@ public class SubsidyController extends BaseController {
             for (List<Student> stuList : ll) {
                 int classId = 0;
                 boolean first = true;
-                int totalSubsidyAmount = 0;
-                int totalBonus = 0;
+                BigDecimal totalSubsidyAmount = new BigDecimal(0);
+                BigDecimal totalBonus = new BigDecimal(0);
                 for (Student student : stuList) {
                     if (first) {
                         classId = student.getClassId();
                         first = false;
                     }
-                    totalSubsidyAmount += student.getSubsidyPer();
-                    totalBonus += student.getBonus();
+                    totalSubsidyAmount.add(student.getSubsidyPer());
+                    totalBonus.add(student.getBonus());
                     setSubsidyClassInfo(applicationDate, student);
                 }
                 setDefaultSubsidyApplicationInfo(applicationDate, totalSubsidyAmount, totalBonus, classId, stuList.size());
@@ -366,7 +368,7 @@ public class SubsidyController extends BaseController {
         subsidyClassInfoService._saveSubsidyClassInfo(sci);
     }
 
-    private void setDefaultSubsidyApplicationInfo(long applicationDate, int totalSubsidyAmount, int totalBonus, int cid, int num) {
+    private void setDefaultSubsidyApplicationInfo(long applicationDate, BigDecimal totalSubsidyAmount, BigDecimal totalBonus, int cid, int num) {
         User user = getCurrentUser(this);
         SubsidyApplication sa = new SubsidyApplication();
         sa.setApplicantId(user.getId());
@@ -378,7 +380,7 @@ public class SubsidyController extends BaseController {
         sa.setNumber(num);
         sa.setTotalSubsidy(totalSubsidyAmount);
         sa.setTotalBonus(totalBonus);
-        sa.setAggregateAmount(totalSubsidyAmount + totalBonus);
+        sa.setAggregateAmount(totalSubsidyAmount.add(totalBonus));
         sa.setApproveStatus(APPROV_STATUS_NO);
         judgeAndAdd(sa);
     }
