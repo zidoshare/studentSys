@@ -53,16 +53,16 @@ public class StudentController extends BaseController {
     }
 
     private Student rebuildStudentModel(Student stu) {
-        System.out.println("stu.getClassId()++++++++++++++>>>>>>"+stu.getClassId());
+        System.out.println("stu.getClassId()++++++++++++++>>>>>>" + stu.getClassId());
         long admission = System.currentTimeMillis();
         Class cls = classService.getClassById(stu.getClassId());
         User operater = getCurrentUser(this);
         List<Student> allStudent = studentService.getAllStudent();
         int id;
         if (allStudent.size() != 0) {
-            id = allStudent.get(0).getId()+1;
-        }else {
-            id=1000;
+            id = allStudent.get(0).getId() + 1;
+        } else {
+            id = 1000;
         }
         stu.setId(id);
         stu.setUserId(id);
@@ -76,8 +76,10 @@ public class StudentController extends BaseController {
         stu.setAdmission(admission);
         stu.setTrainingGraduationTime(admission + (1000l * 60 * 60 * 24 * 30 * 4));
         stu.setCounselorName(userService.getUserById(stu.getCounselorId()).getUserNickname());
-        BigDecimal subsidyPer = stu.getSubsidy().divide(new BigDecimal(stu.getResidualFrequency()));
-        stu.setSubsidyPer(subsidyPer);
+        if ((stu.getSubsidy()!=null&&stu.getResidualFrequency() != null)||stu.getPaymentMethod().equals("贷款")) {
+            BigDecimal subsidyPer = stu.getSubsidy().divide(new BigDecimal(stu.getResidualFrequency()));
+            stu.setSubsidyPer(subsidyPer);
+        }
         stu.setBonus(new BigDecimal(0.00));
         stu.setResidualSubsidyAmount(stu.getSubsidy());
         stu.setRegionId(cls.getRegionId());
@@ -121,8 +123,8 @@ public class StudentController extends BaseController {
         setMapping(mappingService.getMappingByUrl("/studentManager/jumpToAddStudent"));
         super.index();
         List<User> counselorList = userService.getUsersByRoleId(roleService.getRoleByName("咨询师"));
-        setAttr("counselor",counselorList);
+        setAttr("counselor", counselorList);
         List<Class> allClass = classService.getAllClass();
-        setAttr("cls",allClass);
+        setAttr("cls", allClass);
     }
 }

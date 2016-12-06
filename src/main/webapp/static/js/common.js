@@ -1015,15 +1015,17 @@ var func = {
         } else {
             var btn = Ladda.create(document.querySelector("#save-btn"));
             btn.start();
-            $('#createTime').val(new Date().getTime());
+            // $('#createTime').val(new Date().getTime());
             var json = {};
             var str="";
             $('#student').find('.form-control').each(function () {
-                if($(this).attr('name')==="student.emergencyContact"){
-                    str+=$(this).val()+":";
-                    json[$(this).attr('name')]=str;
-                }else{
-                    json[$(this).attr('name')] = $(this).val();
+                if($(this).attr('name')!=null||$(this).attr('display')=="none"){
+                    if($(this).attr('name')==="student.emergencyContact"){
+                        str+=$(this).val()+":";
+                        json[$(this).attr('name')]=str;
+                    }else{
+                        json[$(this).attr('name')] = $(this).val();
+                    }
                 }
             });
             $.ajax({

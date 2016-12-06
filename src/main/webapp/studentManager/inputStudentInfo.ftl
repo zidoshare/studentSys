@@ -79,13 +79,14 @@ ${view.title}
                                     <div class="date datetimepicker input-group datetimepicker-inline"
                                          data-date-format="yyyy-mm-dd">
                                         <span class="input-group-addon">出生日期:</span>
-                                        <input name="student.birthday" id="all_start_time_list"
-                                               class="form-control input-sm" type="text"
+                                        <input id="birthday_time_list"
+                                               class="form-control input-sm" type="date"
                                                readonly placeholder="选择出生时间">
                                             <span class="input-group-addon">
                                                 <span class="glyphicon glyphicon-calendar"></span>
                                             </span>
                                     </div>
+                                    <input id="birthday" class="form-control" name="student.birthday" type="hidden">
                                 </div>
                             </td>
                         </tr>
@@ -131,13 +132,15 @@ ${view.title}
                                     <div class="date datetimepicker input-group datetimepicker-inline"
                                          data-date-format="yyyy-mm-dd">
                                         <span class="input-group-addon">毕业时间:</span>
-                                        <input name="student.graduationTime" id="all_start_time_list"
-                                               class="form-control input-sm" type="text"
+                                        <input id="graduationTime_time_list"
+                                               class="form-control input-sm" type="date"
                                                readonly placeholder="选择毕业时间">
                                             <span class="input-group-addon">
                                                 <span class="glyphicon glyphicon-calendar"></span>
                                             </span>
                                     </div>
+                                    <input id="graduationTime" class="form-control" type="hidden"
+                                           name="student.graduationTime">
                                 </div>
                             </td>
                         </tr>
@@ -234,13 +237,15 @@ ${view.title}
                                     <div class="date datetimepicker input-group datetimepicker-inline"
                                          data-date-format="yyyy-mm-dd">
                                         <span class="input-group-addon">首次还款日:</span>
-                                        <input name="student.firstRepaymentTime" id="all_start_time_list"
+                                        <input id="firstRepaymentTime_time_list"
                                                class="form-control input-sm" type="text"
                                                readonly placeholder="选择毕业时间">
                                             <span class="input-group-addon">
                                                 <span class="glyphicon glyphicon-calendar"></span>
                                             </span>
                                     </div>
+                                    <input id="firstRepaymentTime" name="student.firstRepaymentTime" type="hidden"
+                                           class="form-control">
                                 </div>
                             </td>
                             <td colspan="6">
@@ -248,13 +253,15 @@ ${view.title}
                                     <div class="date datetimepicker input-group datetimepicker-inline"
                                          data-date-format="yyyy-mm-dd">
                                         <span class="input-group-addon">学生还款日:</span>
-                                        <input name="student.studentRepaymentTime" id="all_start_time_list"
+                                        <input id="studentRepaymentTime_time_list"
                                                class="form-control input-sm" type="text"
                                                readonly placeholder="选择毕业时间">
                                             <span class="input-group-addon">
                                                 <span class="glyphicon glyphicon-calendar"></span>
                                             </span>
                                     </div>
+                                    <input id="studentRepaymentTime" type="hidden" name="student.studentRepaymentTime"
+                                           class="form-control">
                                 </div>
                             </td>
                         </tr>
@@ -263,14 +270,13 @@ ${view.title}
                             <td colspan="6">
                                 <div class="input-group input-group-md">
                                     <span class="input-group-addon">补助总金额:</span>
-                                    <input name="student.subsidy" type="number" class="form-control" value="0">
+                                    <input name="student.subsidy" type="number" class="form-control">
                                 </div>
                             </td>
                             <td colspan="6">
                                 <div class="input-group input-group-md">
                                     <span class="input-group-addon">补助次数:</span>
-                                    <input name="student.residualFrequency" type="number" class="form-control"
-                                           value="0">
+                                    <input name="student.residualFrequency" type="number" class="form-control">
                                 </div>
                             </td>
                         </tr>
@@ -369,8 +375,7 @@ ${view.title}
             </div>
             <div class="modal-footer text-center">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button data-style="slide-up" id="save-btn" class="btn btn-primary ladda-button"
-                        onclick="func.addStudent('up')">
+                <button data-style="slide-up" id="save-btn" class="btn btn-primary ladda-button">
                     <span class="ladda-label">保存</span>
                 </button>
             </div>
@@ -414,37 +419,39 @@ ${view.title}
     $(function () {
         var defaultTime = new Date();
         $('#all_start_time_list').val(defaultTime.getFullYear() + '-' + Util.getzf(defaultTime.getMonth() + 1) + '-01');
-        $('#all_end_time_list').val(defaultTime.getFullYear() + '-' + Util.getzf(defaultTime.getMonth() + 1) + '-' + Util.getzf(defaultTime.getDate()));
         $('.datetimepicker').datetimepicker({
             format: 'yyyy-mm-dd',
             Integer: 1,
             minView: 2,
             bootcssVer: 3,
-//            endDate: new Date(),
             showMeridian: true,
             autoclose: true,
             todayBtn: true,
             language: 'zh-CN',
             todayHighlight: true
         });
-//        $('#student_search_btn_list').on('click', loadAttendance);
-//        $('#all_start_time_list,#all_end_time_list').on('change', loadAttendance);
+        $('#save-btn').on('click', loadAttendance);
     });
-    $(document).on('pjax:complete', function () {
-        Util.redrawSelects();
-    });
-    <#--function loadAttendance() {-->
-        <#--var start_list = new Date($("#all_start_time_list").val().replace(/-/g, "/"));-->
-        <#--var end_list = new Date($('#all_end_time_list').val().replace(/-/g, '/'));-->
-        <#--if (start_list <= end_list) {-->
-            <#--end_list.setDate(end_list.getDate() + 1);-->
-        <#--&lt;#&ndash;Util.loadByPjax('${staticServePath}/attendanceManager/attendance?start_time_list='&ndash;&gt;-->
-        <#--&lt;#&ndash;+ start_list.getTime() + '&end_time_list=' + end_list.getTime()&ndash;&gt;-->
-        <#--&lt;#&ndash;+ '&class=' + cla + '&student=' + names + '&list_p=' + 1&ndash;&gt;-->
-        <#--&lt;#&ndash;+ '&start_time_chart=' + start_chart.getTime()&ndash;&gt;-->
-        <#--&lt;#&ndash;+ '&end_time_chart=' + end_chart.getTime() + '&class_chart=' + chartCla+'&student_chart='+chartNames);&ndash;&gt;-->
-        <#--} else {-->
-            <#--Util.showTip($('#wholeTip'), '结束时间应大于开始时间', 'alert alert-danger');-->
-        <#--}-->
-    <#--}-->
+    function loadAttendance() {
+        var birthday = new Date($("#birthday_time_list").val().replace(/-/g, "/")).getTime();
+        var graduationTime = new Date($("#graduationTime_time_list").val().replace(/-/g, "/")).getTime();
+        var firstRepaymentTime = new Date($("#firstRepaymentTime_time_list").val().replace(/-/g, "/")).getTime();
+        var studentRepaymentTime = new Date($("#studentRepaymentTime_time_list").val().replace(/-/g, "/")).getTime();
+        birthday = judge(birthday);
+        graduationTime = judge(graduationTime);
+        firstRepaymentTime = judge(firstRepaymentTime);
+        studentRepaymentTime = judge(studentRepaymentTime);
+        $("#birthday").val(birthday);
+        $("#graduationTime").val(graduationTime);
+        $("#firstRepaymentTime").val(firstRepaymentTime);
+        $("#studentRepaymentTime").val(studentRepaymentTime);
+        func.addStudent('up');
+    }
+
+    function judge(mtime) {
+        if (isNaN(mtime)) {
+            mtime = null;
+        }
+        return mtime;
+    }
 </script>
