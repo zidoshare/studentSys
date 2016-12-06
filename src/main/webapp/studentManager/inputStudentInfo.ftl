@@ -447,7 +447,6 @@ ${view.title}
         $("#studentRepaymentTime").val(studentRepaymentTime);
         func.addStudent('up');
     }
-
     function judge(mtime) {
         if (isNaN(mtime)) {
             mtime = null;

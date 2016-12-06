@@ -197,23 +197,41 @@ Table: stumanager_student
  bankName               | varchar(255)  | YES  |     |         | 开户行     
  photoUrl               | varchar(255)  | YES  |     |         | 照片路径    
  residualSubsidyAmount  | decimal(10,2) | YES  |     |         | 剩余补助金额  
+ employmentTutorId      | int(10)       | YES  |     |         | 就业指导老师  
 ------------------------+---------------+------+-----+---------+---------
 
 Table: stumanager_student_employment
-------------------+--------------+------+-----+---------+---------
- Field            | Type         | Null | Key | Default | Remarks 
-------------------+--------------+------+-----+---------+---------
- id               | int(10)      | NO   | PRI |         |         
- className        | varchar(255) | YES  |     |         |         
- studentName      | varchar(255) | YES  |     |         | 学生姓名    
- employmentStatus | int(10)      | YES  |     |         | 就业状态    
- trackTime        | bigint(19)   | YES  |     |         | 追踪时间    
- remark           | varchar(255) | YES  |     |         |         
- counselorId      | int(10)      | YES  |     |         | 咨询师Id   
- counselorName    | varchar(255) | YES  |     |         | 咨询师Id   
- approveStatus    | int(10)      | YES  |     |         | 批准状态    
- approver         | varchar(255) | YES  |     |         | 批准人     
-------------------+--------------+------+-----+---------+---------
+------------------+---------------+------+-----+---------+---------
+ Field            | Type          | Null | Key | Default | Remarks 
+------------------+---------------+------+-----+---------+---------
+ id               | int(10)       | NO   | PRI |         |         
+ studentId        | int(10)       | YES  |     |         |         
+ studentName      | varchar(255)  | YES  |     |         | 学生姓名    
+ classId          | int(10)       | YES  |     |         |         
+ className        | varchar(255)  | YES  |     |         |         
+ phoneNumber      | varchar(255)  | YES  |     |         |         
+ employmentStatus | int(10)       | YES  |     |         | 就业状态    
+ company          | varchar(255)  | YES  |     |         | 就业单位    
+ salary           | decimal(10,2) | YES  |     |         |         
+ counselorId      | int(10)       | YES  |     |         | 咨询师Id   
+ counselorName    | varchar(255)  | YES  |     |         | 咨询师Id   
+ approveStatus    | int(10)       | YES  |     |         | 批准状态    
+ approverId       | int(10)       | YES  |     |         | 批准人     
+ remark           | varchar(255)  | YES  |     |         |         
+------------------+---------------+------+-----+---------+---------
+
+Table: stumanager_student_track_info
+-------------+--------------+------+-----+---------+---------
+ Field       | Type         | Null | Key | Default | Remarks 
+-------------+--------------+------+-----+---------+---------
+ id          | int(10)      | NO   | PRI |         |         
+ targetId    | int(10)      | YES  |     |         |         
+ targetName  | varchar(255) | YES  |     |         |         
+ information | varchar(255) | YES  |     |         |         
+ trackTime   | bigint(19)   | YES  |     |         |         
+ operaterId  | int(10)      | YES  |     |         |         
+ operater    | varchar(255) | YES  |     |         |         
+-------------+--------------+------+-----+---------+---------
 
 Table: stumanager_subsidy_application
 -----------------+---------------+------+-----+---------+---------

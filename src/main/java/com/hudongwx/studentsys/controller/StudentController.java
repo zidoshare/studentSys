@@ -18,6 +18,7 @@ import com.jfinal.ext.interceptor.POST;
 import com.jfinal.kit.JsonKit;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -76,7 +77,7 @@ public class StudentController extends BaseController {
         stu.setAdmission(admission);
         stu.setTrainingGraduationTime(admission + (1000l * 60 * 60 * 24 * 30 * 4));
         stu.setCounselorName(userService.getUserById(stu.getCounselorId()).getUserNickname());
-        if ((stu.getSubsidy()!=null&&stu.getResidualFrequency() != null)||stu.getPaymentMethod().equals("贷款")) {
+        if ((stu.getSubsidy() != null && stu.getResidualFrequency() != null) || stu.getPaymentMethod().equals("贷款")) {
             BigDecimal subsidyPer = stu.getSubsidy().divide(new BigDecimal(stu.getResidualFrequency()));
             stu.setSubsidyPer(subsidyPer);
         }
@@ -126,5 +127,22 @@ public class StudentController extends BaseController {
         setAttr("counselor", counselorList);
         List<Class> allClass = classService.getAllClass();
         setAttr("cls", allClass);
+    }
+
+    public void letGraduate() {
+        Integer id = getParaToInt("studentId");
+        long l = System.currentTimeMillis();
+        User operater = getCurrentUser(this);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Student student = studentService.getStudentById(id);
+        student.setStatus(Student.STATUS_GRADUATION);
+        student.setEmploymentStatus(Student.EMPLOYMENTSTATUS_UN_EMPLOYED);
+        student.setGraduationTime(l);
+        student.setOperaterId(operater.getId());
+        student.setOperater(operater.getUserNickname());
+        student.setIp(operater.getUserLastLoginIp());
+        student.setRemark(sdf.format(l)+":"+student.getName() +"已毕业！/");
+        studentService._updateStudentById(student);
+        RenderKit.renderSuccess(this, "操作成功！");
     }
 }

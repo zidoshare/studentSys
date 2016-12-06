@@ -1842,7 +1842,13 @@ var func = {
             }
         });
     },
-
+    employmentApproval:function (id) {
+        Util.ajax(Label.staticServePath + '/studentEmploymentManager/employmentApply',{
+            data:{
+                studentId:id
+            }
+        });
+    }
 };
 var modalUtil = {
     show: function (modal) {

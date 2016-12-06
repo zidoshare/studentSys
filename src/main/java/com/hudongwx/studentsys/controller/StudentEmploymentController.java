@@ -4,6 +4,7 @@ import com.hudongwx.studentsys.common.BaseController;
 import com.hudongwx.studentsys.model.Mapping;
 import com.hudongwx.studentsys.model.Student;
 import com.hudongwx.studentsys.model.StudentEmployment;
+import com.hudongwx.studentsys.model.User;
 import com.hudongwx.studentsys.service.StudentEmploymentService;
 import com.hudongwx.studentsys.service.StudentService;
 import com.hudongwx.studentsys.util.RenderKit;
@@ -12,6 +13,7 @@ import com.jfinal.ext.interceptor.POST;
 import com.jfinal.kit.JsonKit;
 import com.jfinal.plugin.activerecord.Page;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -97,11 +99,39 @@ public class StudentEmploymentController extends BaseController {
      * 未就业
      *******************************/
 
-    public void getUnEmpInfo() {
+    public void unEmployed() {
+        setMapping(mappingService.getMappingByUrl("/studentEmploymentManager/unEmployed"));
+        super.index();
         Integer p = getParaToInt("p", 1);
         Page<Student> UnEmpStuP = studentService.getUnEmpStu(p);
-        setAttr("UnEmpStuP", UnEmpStuP);
+        setAttr("uesp", UnEmpStuP);
     }
 
+    public void Employed() {
+        setMapping(mappingService.getMappingByUrl("/studentEmploymentManager/Employed"));
+        super.index();
+        Integer p = getParaToInt("p", 1);
+        Page<Student> EmpStuP = studentService.getEmployedStu(p);
+        setAttr("esp", EmpStuP);
+    }
+
+    public void employmentApply() {
+        Integer stuId = getParaToInt("stuId");
+        Integer etId = getParaToInt("etId");
+        long l = System.currentTimeMillis();
+        User operater = getCurrentUser(this);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Student student = studentService.getStudentById(stuId);
+        student.setStatus(Student.STATUS_GRADUATION);
+        student.setEmploymentStatus(Student.EMPLOYMENTSTATUS_IN_APPROVAL);
+        student.setEmploymentTutorId(etId);
+        student.setOperaterId(operater.getId());
+        student.setOperater(operater.getUserNickname());
+        student.setIp(operater.getUserLastLoginIp());
+        String remark = student.getRemark();
+        student.setRemark(remark+sdf.format(l)+":"+ student.getName() +"已就业！/");
+        studentService._updateStudentById(student);
+        RenderKit.renderSuccess(this, "操作成功！");
+    }
 
 }

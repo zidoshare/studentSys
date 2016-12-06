@@ -2,7 +2,6 @@ package com.hudongwx.studentsys.model;
 
 import com.hudongwx.studentsys.common.BaseStudent;
 
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -20,9 +19,10 @@ public class Student extends BaseStudent<Student> {
     public static final int STATUS_GRADUATION_OUT_OF_CONTACT = 700;//毕业后失联
     public static final int EMPLOYMENTSTATUS_EMPLOYED = 6;//已就业
     public static final int EMPLOYMENTSTATUS_UN_EMPLOYED = 7;//未就业
+    public static final int EMPLOYMENTSTATUS_IN_APPROVAL = 18;//就业审核中
     public static final int STATUS_CHECKED = 11;//选中
     public static final int STATUS_UN_CHECKED = 12;//未选中
-    private List<StudentEmployment> stuEmpList;
+    private StudentEmployment studentEmployment;
     private Class classModel;
     public static final Student dao = new Student();
     public static final String SEARCH_FROM_STUDENT = "select * from stumanager_student ";
@@ -41,12 +41,11 @@ public class Student extends BaseStudent<Student> {
         this.classModel = classModel;
     }
 
-    public List<StudentEmployment> getStuEmpList() {
-        return stuEmpList;
+    public StudentEmployment getStudentEmployment() {
+        return studentEmployment;
     }
 
-    public void setStuEmpList(List<StudentEmployment> stuEmpList) {
-        this.stuEmpList = stuEmpList;
+    public void setStudentEmployment(StudentEmployment studentEmployment) {
+        this.studentEmployment = studentEmployment;
     }
-
 }

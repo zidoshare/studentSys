@@ -154,41 +154,53 @@
             </mappings>
         </mapping>
         <!--0：功能，1：视图模块，2：菜单，3：二级菜单，以后多级菜单，依次类推-->
-        <mapping id="5200" icon="fa fa-usd" url="/obtainEmploymentManager" title="就业管理" function="2">
+        <mapping id="6100" icon="fa fa-usd" url="/obtainEmploymentManager" title="就业管理" function="2">
             <mappings>
-                <mapping id="5201" icon="fa fa-usd" url="/obtainEmploymentManager" title="未就业" function="3">
+                <mapping id="6110" icon="fa fa-usd" url="/studentEmploymentManager/unEmployed" title="未就业" function="3">
                     <mappings>
-                        <mapping id="5251" icon="approval" url="obtainEmploymentManager/notEmployedList.ftl"
-                                 title="未就业详情"
+                        <mapping id="6120" icon="approval" url="studentEmploymentManager/unEmployedList.ftl"
+                                 title="未就业学员信息表"
                                  function="1">
                             <mappings>
-                                <mapping id="5252" icon="seeApproval" title="状态更新" url="seeApproval" function="0">
+                                <mapping id="6130" icon="seeUnEmploy" title="详情" url="seeUnEmploy" function="0">
+                                    <mappings/>
+                                </mapping>
+                                <mapping id="6131" icon="employmentTrack" title="追踪" url="employmentTrack" function="0">
+                                    <mappings/>
+                                </mapping>
+                                <mapping id="6132" icon="employmentApproval" title="就业" url="employmentApproval" function="0">
                                     <mappings/>
                                 </mapping>
                             </mappings>
                         </mapping>
                     </mappings>
                 </mapping>
-                <mapping id="5301" icon="fa fa-usd" url="/obtainEmploymentManager" title="已就业" function="3">
+                <mapping id="6200" icon="fa fa-usd" url="/studentEmploymentManager/Employed" title="已就业" function="3">
                     <mappings>
-                        <mapping id="5351" icon="approval" url="obtainEmploymentManager/employedList.ftl"
-                                 title="已就业详情"
+                        <mapping id="6210" icon="approval" url="studentEmploymentManager/employedList.ftl"
+                                 title="已就业学员信息表"
                                  function="1">
                             <mappings>
-                                <mapping id="5352" icon="seeApproval" title="状态更新" url="seeApproval" function="0">
+                                <mapping id="6220" icon="seeEmploy" title="查看详情" url="seeEmploy" function="0">
                                     <mappings/>
                                 </mapping>
                             </mappings>
                         </mapping>
                     </mappings>
                 </mapping>
-                <mapping id="5401" icon="fa fa-usd" url="/obtainEmploymentManager" title="就业审批" function="3">
+                <mapping id="6300" icon="fa fa-usd" url="/obtainEmploymentManager" title="就业审批" function="3">
                     <mappings>
-                        <mapping id="5451" icon="approval" url="obtainEmploymentManager/employApproveList.ftl"
-                                 title="审批详情"
+                        <mapping id="6310" icon="approval" url="obtainEmploymentManager/employApproveList.ftl"
+                                 title="审批列表"
                                  function="1">
                             <mappings>
-                                <mapping id="5452" icon="seeApproval" title="状态更新" url="seeApproval" function="0">
+                                <mapping id="6320" icon="seeApproval" title="查看" url="seeApproval" function="0">
+                                    <mappings/>
+                                </mapping>
+                                <mapping id="6321" icon="seeApproval" title="同意" url="seeApproval" function="0">
+                                    <mappings/>
+                                </mapping>
+                                <mapping id="6322" icon="seeApproval" title="不同意" url="seeApproval" function="0">
                                     <mappings/>
                                 </mapping>
                             </mappings>
