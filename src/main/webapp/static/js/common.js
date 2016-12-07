@@ -409,7 +409,7 @@ var Util = {
             complete: function () {
             }
         };
-        var opts = $.extend(defaults,options);
+        var opts = $.extend(defaults, options);
         $(container).one('pjax:beforeSend', function (event) {
             opts.before();
             if (opts.showWholeAnimate) {
@@ -433,24 +433,24 @@ var Util = {
             event.stopPropagation();
         });
         /*var dom = $(container);
-        opts.before();
-        if (opts.showWholeAnimate) {
-            $('#page-inner').html('');
-            $('.pjax_loading').css("display", "block");
-        }
-        if (opts.showMinAnimate) {
-            dom.showLoading();
-        }
-        dom.parent().load(window.location.href+' '+container,function(resp){
-            opts.complete();
-            if (opts.showWholeAnimate) {
-                $('.pjax_loading').css("display", "none");
-                Animate.loadWrapper();
-            }
-            if (opts.showMinAnimate) {
-                dom.closeLoading();
-            }
-        });*/
+         opts.before();
+         if (opts.showWholeAnimate) {
+         $('#page-inner').html('');
+         $('.pjax_loading').css("display", "block");
+         }
+         if (opts.showMinAnimate) {
+         dom.showLoading();
+         }
+         dom.parent().load(window.location.href+' '+container,function(resp){
+         opts.complete();
+         if (opts.showWholeAnimate) {
+         $('.pjax_loading').css("display", "none");
+         Animate.loadWrapper();
+         }
+         if (opts.showMinAnimate) {
+         dom.closeLoading();
+         }
+         });*/
         $.pjax.reload(container, {
             fragment: container,
             cache: true,
@@ -1066,7 +1066,7 @@ var func = {
         });
 
 
-                // Util.loadPageByPjax(Label.staticServePath + '/approvalManager');
+        // Util.loadPageByPjax(Label.staticServePath + '/approvalManager');
 
     },
     deleteApply: function (method, classId) {
@@ -1247,33 +1247,29 @@ var func = {
         loadResult($('#showInfo'), Label.staticServePath + "/studentManager/showStudentInfo?studentId=" + studentId);
         // $('#showInfo').load(Label.staticServePath+"/studentManager/shouInfo")
     },
-    getRepairClass:function (studentId,grade) {
+    getRepairClass: function (studentId, grade) {
         var modal = $("#updateInformationModel");
         var classInfoDiv = modal.find("#classInfo-div");
         var classSelectDiv = modal.find("#classSelect-div");
-        if (grade==3){
-            Util.ajax(Label.staticServePath+"/studentManager/getRepairClassByStudentId",{
-                data:{
-                    'studentId':studentId,
+        if (grade == 3) {
+            Util.ajax(Label.staticServePath + "/studentManager/getRepairClassByStudentId", {
+                data: {
+                    'studentId': studentId,
                 },
-                success:{
-                    success:function (data) {
-                        // if (data.state=="success"){
-                            var select = classSelectDiv.find('select:first');
-                            var json = JSON.parse(data.msg);
-                            json.map(function (elem) {
-                                var option='<input class="hide" name="className" value="{className}">'+
-                                    '<option  value="{id}">{className}</option>';
-                                option=Util.jsonToString(option,elem);
-                                select.append(option);
-                            })
-                            classInfoDiv.addClass('hide');
-                            classSelectDiv.removeClass('hide');
-                        }
-                    // }
+                success: function (data) {
+                    var select = classSelectDiv.find('select:first');
+                    var json = JSON.parse(data.msg);
+                    json.map(function (elem) {
+                        var option = '<input class="hide" name="className" value="{className}">' +
+                            '<option  value="{id}">{className}</option>';
+                        option = Util.jsonToString(option, elem);
+                        select.append(option);
+                    })
+                    classInfoDiv.addClass('hide');
+                    classSelectDiv.removeClass('hide');
                 }
             })
-        }else {
+        } else {
             classSelectDiv.addClass('hide');
             classInfoDiv.removeClass('hide');
         }
@@ -1282,17 +1278,17 @@ var func = {
         if (method == 'show') {
             modalUtil.show($("#updateInformationModel"));
             loadResult($('#updateInfo'), Label.staticServePath + "/studentManager/showUpdateStudentInfo?studentId=" + studentId);
-        }else {
-            var modal= $("#updateInformationModel");
-            var list =modal.find('input[name]');
+        } else {
+            var modal = $("#updateInformationModel");
+            var list = modal.find('input[name]');
             if (list.length <= 0)
                 return true;
             var json = {};
-            list.each(function (index,dom) {
-                json[$(dom).attr('name')]=$(dom).val();
+            list.each(function (index, dom) {
+                json[$(dom).attr('name')] = $(dom).val();
             })
-            
-            Util.ajax(Label.staticServePath+"/studentManager/updateStudentInfo",{
+
+            Util.ajax(Label.staticServePath + "/studentManager/updateStudentInfo", {
                 data: {
                     'list': json,
                 },
@@ -1650,13 +1646,13 @@ var Exception = {
                 bindContainer: ['#table-inner'],
                 bindUrl: ''
             };
-            if( typeof options.bindContainer === 'string'){
+            if (typeof options.bindContainer === 'string') {
                 options.bindContainer = [options.bindContainer];
             }
             var opts = $.extend(defaults, options);
             var bind = function () {
                 if (opts.bindContainer.length > 0) {
-                    opts.bindContainer.map(function(obj,index){
+                    opts.bindContainer.map(function (obj, index) {
                         Util.reloadByPjax(obj);
                     });
                 }
