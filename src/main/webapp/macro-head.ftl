@@ -19,6 +19,9 @@
 <!-- Custom Styles-->
 <link href="${staticServePath}/assets/css/custom-styles.css?${staticResourceVersion}" rel="stylesheet" />
 <!-- Google Fonts-->
+
+<link href="${staticServePath}/assets/css/fileinput.css?${staticResourceVersion}" rel="stylesheet" />
+
 <#--<link href='http://fonts.useso.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />-->
 <link rel="stylesheet" href="${staticServePath}/assets/js/Lightweight-Chart/cssCharts.css?${staticResourceVersion}">
 <link rel="stylesheet" href="${staticServePath}/assets/css/checkbox3.min.css?${staticResourceVersion}"/>
@@ -56,7 +59,7 @@
 
 <!-- Custom Js -->
 <script src="${staticServePath}/assets/js/custom-scripts.js?${staticResourceVersion}"></script>
-
+<script type="text/javascript" src="${staticServePath}/assets/js/fileinput.js"></script>
 
 <!-- Chart Js -->
 <#--<script type="text/javascript" src="assets/js/chart.min.js?${staticResourceVersion}"></script>

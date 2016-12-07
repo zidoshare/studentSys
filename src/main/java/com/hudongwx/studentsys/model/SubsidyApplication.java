@@ -14,6 +14,10 @@ public class SubsidyApplication extends BaseSubsidyApplication<SubsidyApplicatio
 	public static final SubsidyApplication dao = new SubsidyApplication();
 	public static final String SEARCH_FROM_SUBSIDY_APPLICATION = "select * from stumanager_subsidy_application ";
 	public static final String SQL_FROM = " from stumanager_subsidy_application ";
+	public static final int APPROVE_NO = 13;
+	public static final int APPROVE_WAITTING = 10;
+	public static final int APPROVE_BEFORE = 9;
+	public static final int APPROVE_YES = 8;
 	private Status status;
 	private Region region;
 
