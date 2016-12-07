@@ -81,27 +81,27 @@ public abstract class BaseSubsidyApplication<M extends BaseSubsidyApplication<M>
 		return get("number");
 	}
 
-	public void setTotalSubsidy(java.lang.Integer totalSubsidy) {
+	public void setTotalSubsidy(java.math.BigDecimal totalSubsidy) {
 		set("totalSubsidy", totalSubsidy);
 	}
 
-	public java.lang.Integer getTotalSubsidy() {
+	public java.math.BigDecimal getTotalSubsidy() {
 		return get("totalSubsidy");
 	}
 
-	public void setTotalBonus(java.lang.Integer totalBonus) {
+	public void setTotalBonus(java.math.BigDecimal totalBonus) {
 		set("totalBonus", totalBonus);
 	}
 
-	public java.lang.Integer getTotalBonus() {
+	public java.math.BigDecimal getTotalBonus() {
 		return get("totalBonus");
 	}
 
-	public void setAggregateAmount(java.lang.Integer aggregateAmount) {
+	public void setAggregateAmount(java.math.BigDecimal aggregateAmount) {
 		set("aggregateAmount", aggregateAmount);
 	}
 
-	public java.lang.Integer getAggregateAmount() {
+	public java.math.BigDecimal getAggregateAmount() {
 		return get("aggregateAmount");
 	}
 
@@ -127,6 +127,30 @@ public abstract class BaseSubsidyApplication<M extends BaseSubsidyApplication<M>
 
 	public java.lang.String getRemark() {
 		return get("remark");
+	}
+
+	public void setApproveDate(java.lang.Long approveDate) {
+		set("approveDate", approveDate);
+	}
+
+	public java.lang.Long getApproveDate() {
+		return get("approveDate");
+	}
+
+	public void setOperater(java.lang.String operater) {
+		set("operater", operater);
+	}
+
+	public java.lang.String getOperater() {
+		return get("operater");
+	}
+
+	public void setOperaterId(java.lang.Integer operaterId) {
+		set("operaterId", operaterId);
+	}
+
+	public java.lang.Integer getOperaterId() {
+		return get("operaterId");
 	}
 
 }

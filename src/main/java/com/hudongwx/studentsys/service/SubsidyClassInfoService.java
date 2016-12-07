@@ -58,11 +58,15 @@ public class SubsidyClassInfoService extends Service {
     /**
      * 查询指定的班级申请信息
      *
-     * @param classid
+     * @param classId
      * @return
      */
-    public List<SubsidyClassInfo> getSubsidyClassInfoById(String classid) {
-        return SubsidyClassInfo.dao.find(SubsidyClassInfo.SEARCH_FROM_SUBSIDY_CLASSINFO + "where classId=?", classid);
+    public List<SubsidyClassInfo> getSubsidyClassInfoByClassId(int classId) {
+        return SubsidyClassInfo.dao.find(SubsidyClassInfo.SEARCH_FROM_SUBSIDY_CLASSINFO + "where classId = ?", classId);
+    }
+    public List<SubsidyClassInfo> getSubsidyClassInfoByIdAndStatus(int p, int classId, int approveStatus){
+        return  SubsidyClassInfo.dao.find(SubsidyClassInfo.SEARCH_FROM_SUBSIDY_CLASSINFO+"where classId = ? and approveStatus = ?",classId,approveStatus);
+
     }
 
     /**
@@ -82,7 +86,7 @@ public class SubsidyClassInfoService extends Service {
      * @return
      */
     public List<SubsidyClassInfo> getSubsidyClassInfoByApplicationDate(Long applicationDate) {
-        return SubsidyClassInfo.dao.find(SubsidyClassInfo.SEARCH_FROM_SUBSIDY_CLASSINFO + "where applicationDate = ?", applicationDate);
+        return SubsidyClassInfo.dao.find(SubsidyClassInfo.SEARCH_FROM_SUBSIDY_CLASSINFO + "where applicationDate = ? and checked = 11", applicationDate);
     }
 
 
@@ -93,5 +97,14 @@ public class SubsidyClassInfoService extends Service {
      */
     public List<SubsidyClassInfo> getAllSubsidyClassInfo() {
         return SubsidyClassInfo.dao.find(SubsidyClassInfo.SEARCH_FROM_SUBSIDY_CLASSINFO);
+    }
+
+    /**
+     * 查询所有班级申请信息
+     *
+     * @return
+     */
+    public List<SubsidyClassInfo> getSciGroup(int classId , Long date, int checkStatus) {
+        return SubsidyClassInfo.dao.find(SubsidyClassInfo.SEARCH_FROM_SUBSIDY_CLASSINFO+"where classId = ? and applicationDate = ? and checked = ? ",classId,date,checkStatus);
     }
 }

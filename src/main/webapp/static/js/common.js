@@ -935,6 +935,9 @@ var func = {
             modalUtil.show($('#addTestQuestion'));
             Util.changeModel($('#testQuestionTypeId'));
         } else {
+            var btn = Ladda.create(document.querySelector("#saveTestQuestion-btn"));
+            btn.start();
+
             //填充创建时间
             $('#testQuestionCreateTime').val(new Date().getTime());
             //---------------填充选择题选项------------
@@ -1022,9 +1025,14 @@ var func = {
             })
         }
     },
-    seeApproval: function (methed, id) {
-        modalUtil.show($('#seeApprovalModel'));
+    updateApproval: function () {
 
+    },
+
+    seeApproval: function (method, classId) {
+        modalUtil.show($('#seeApprovalModel'));
+        var className = $('#title-' + classId).val();
+        loadResult($('#approval-modal'), Label.staticServePath + "/approvalManager/showStudentDetails?classId=" + classId + "&className=" + className);
     },
     submitApply: function () {
         var data = [];
@@ -1043,10 +1051,10 @@ var func = {
         });
         var modal = $('#submitApplyModel');
         //备注
-        var bz = modal.find('textarea:first').val();
-        //审批人
+        var remarks = modal.find('textarea:first').val();
+        //审批人id
         var id = $("#classSelect_list").val();
-        data.push(bz);
+        data.push(remarks);
         data.push(id);
         data.push(jsonData);
         Util.ajax(Label.staticServePath + "/subsidyManager/confirmSubmit", {
@@ -1058,7 +1066,7 @@ var func = {
         });
 
 
-        // Util.loadPageByPjax(Label.staticServePath + '/approvalManager');
+                // Util.loadPageByPjax(Label.staticServePath + '/approvalManager');
 
     },
     deleteApply: function (method, classId) {
@@ -1084,7 +1092,7 @@ var func = {
                 return true;
             var json = {};
 
-            list.each(function (ind, d) {
+            list.each(function (idx, d) {
                 json[$(d).attr('name')] = $(d).val();
             });
             data.push(json);
@@ -1107,39 +1115,39 @@ var func = {
                 'classId': id
             },
             success: function (data, status) {
-                var json = JSON.parse(data.msg);
-                json.map(function (elem, num) {
-                    var sta;
-                    if (elem['status'] == 1) {
-                        sta = '在读';
-                    } else if (elem['status'] == 0) {
-                        sta = '毕业';
-                    }
+                if (data.state == 'success') {
+                    var json = JSON.parse(data.msg);
+                    json.map(function (elem, num) {
 
-                    var str = '<tr id="tr{id}">' +
-                        '<td></td>' +
-                        '<td class="hidden"><input name="applicationDate" value="{applicationDate}"/><input name="id" value="{id}"/><input name="studentId" value="{studentId}"/></td>' +
-                        '<td>{studentName}</td>' +
-                        '<td class=" z-money-cny">{subsidyAmount}</td>' +
-                        '<td>{residualFrequency}</td>' +
-                        '<td><input value="{bonus}" class="form-control"  id="input-text{id}" name="bonus"></td>' +
-                        '<td>' + sta + '</td>' +
-                        '</tr>';
-                    str = Util.jsonToString(str, elem);
-                    $('#seeApplyModel').find('tbody:first').append(str);
-                    var ckeckBoox = $("#index-look").parent().clone();
-                    var input = ckeckBoox.find('input:first');
-                    var label = ckeckBoox.find('label:first');
-                    input.attr('tag', 'input');
-                    input.val(elem['id']);
-                    input.attr('checked', '');
-                    input.attr('id', 'index-look' + elem['id']);
-                    label.attr('for', "index-look" + elem['id']);
-                    $('tr#tr' + elem['id']).find('td:first').append(ckeckBoox);
-                });
-                $('#seeApplyModel').one('hidden.bs.modal', function () {
-                    $(this).find('tbody:first').html('');
-                });
+
+                        var str = '<tr id="tr{id}">' +
+                            '<td></td>' +
+                            '<td class="hidden"><input name="applicationDate" value="{applicationDate}"/><input name="id" value="{id}"/><input name="studentId" value="{studentId}"/><input name="classId" value="{classId}"/></td>' +
+                            '<td>{studentName}</td>' +
+                            '<td class=" z-money-cny">{subsidyAmount}</td>' +
+                            '<td>{residualFrequency}</td>' +
+                            '<td><input value="{bonus}" class="form-control"  id="input-text{id}" name="bonus"></td>' +
+                            '<td>{status}</td>' +
+                            '</tr>';
+                        str = Util.jsonToString(str, elem);
+                        $('#seeApplyModel').find('tbody:first').append(str);
+                        var ckeckBoox = $("#index-look").parent().clone();
+                        var input = ckeckBoox.find('input:first');
+                        var label = ckeckBoox.find('label:first');
+                        input.attr('tag', 'input');
+                        input.val(elem['id']);
+                        if (elem['checked'] == 11) {
+                            console.log(elem['checked']);
+                            input.attr('checked', '');
+                        }
+                        input.attr('id', 'index-look' + elem['id']);
+                        label.attr('for', "index-look" + elem['id']);
+                        $('tr#tr' + elem['id']).find('td:first').append(ckeckBoox);
+                    });
+                    $('#seeApplyModel').one('hidden.bs.modal', function () {
+                        $(this).find('tbody:first').html('');
+                    });
+                }
             }
         });
     },
@@ -1158,9 +1166,7 @@ var func = {
                 data: {
                     'classId': JSON.stringify(json)
                 },
-                success: {
-                    bindModal: modal
-                }
+                bindModal: modal
             });
         }
     },
@@ -1236,11 +1242,74 @@ var func = {
             modelSub.find("span#submit-total").text(aggregateAmount);
         }
     },
-    seeStudentInformation: function () {
+    seeStudent: function (method, studentId) {
         modalUtil.show($("#studentInformationModel"));
+        loadResult($('#showInfo'), Label.staticServePath + "/studentManager/showStudentInfo?studentId=" + studentId);
+        // $('#showInfo').load(Label.staticServePath+"/studentManager/shouInfo")
     },
-    seeClassStudent: function () {
-        Util.loadByPjax(Label.staticServePath + "/studentManager/pageJump", {
+    getRepairClass:function (studentId,grade) {
+        var modal = $("#updateInformationModel");
+        var classInfoDiv = modal.find("#classInfo-div");
+        var classSelectDiv = modal.find("#classSelect-div");
+        if (grade==3){
+            Util.ajax(Label.staticServePath+"/studentManager/getRepairClassByStudentId",{
+                data:{
+                    'studentId':studentId,
+                },
+                success:{
+                    success:function (data) {
+                        // if (data.state=="success"){
+                            var select = classSelectDiv.find('select:first');
+                            var json = JSON.parse(data.msg);
+                            json.map(function (elem) {
+                                var option='<input class="hide" name="className" value="{className}">'+
+                                    '<option  value="{id}">{className}</option>';
+                                option=Util.jsonToString(option,elem);
+                                select.append(option);
+                            })
+                            classInfoDiv.addClass('hide');
+                            classSelectDiv.removeClass('hide');
+                        }
+                    // }
+                }
+            })
+        }else {
+            classSelectDiv.addClass('hide');
+            classInfoDiv.removeClass('hide');
+        }
+    },
+    updateStudent: function (method, studentId) {
+        if (method == 'show') {
+            modalUtil.show($("#updateInformationModel"));
+            loadResult($('#updateInfo'), Label.staticServePath + "/studentManager/showUpdateStudentInfo?studentId=" + studentId);
+        }else {
+            var modal= $("#updateInformationModel");
+            var list =modal.find('input[name]');
+            if (list.length <= 0)
+                return true;
+            var json = {};
+            list.each(function (index,dom) {
+                json[$(dom).attr('name')]=$(dom).val();
+            })
+            
+            Util.ajax(Label.staticServePath+"/studentManager/updateStudentInfo",{
+                data: {
+                    'list': json,
+                },
+                btnSelector: '#update-student-btn',
+                success: {
+                    bindModal: modal,
+                }
+            })
+
+        }
+    },
+
+    deleteStudent: function () {
+
+    },
+    seeClassStudent: function (method, classId) {
+        Util.loadByPjax(Label.staticServePath + "/studentManager/pageJump?classId=" + classId, {
             container: '#class-details'
         });
     },
@@ -1258,9 +1327,7 @@ var func = {
             Util.ajax({
                 url: Label.staticServePath + "/classManager/addClass",
                 data: json,
-                success: {
-                    bindModal: $('#addClassModel')
-                }
+                bindModal: $('#addClassModel')
             })
         }
         else {
@@ -1601,7 +1668,6 @@ var Exception = {
                 if (data.msg == null || data.msg == '')
                     data.msg = '操作成功';
                 Util.showTip($('#wholeTip'), data.msg, "alert alert-success", opts.onShowSuccess);
-                console.log(opts.bindModal);
                 if (opts.bindModal != null) {
                     modalUtil.hideClear(opts.bindModal, {
                         after: bind

@@ -6,15 +6,18 @@ import com.hudongwx.studentsys.model.Class;
 import com.hudongwx.studentsys.model.Student;
 import com.hudongwx.studentsys.model.User;
 import com.hudongwx.studentsys.util.Common;
+import com.hudongwx.studentsys.util.PageinateKit;
 import com.hudongwx.studentsys.util.StrPlusKit;
 import com.jfinal.plugin.activerecord.Page;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by wuhongxu on 2016/9/3 0003.
  */
 public class StudentService extends Service {
+    public StatusService statusService;
     public Student getStudentById(Integer id) {
         if (id == null)
             return null;
@@ -54,7 +57,13 @@ public class StudentService extends Service {
     public List<Student> getAllStudent() {
         return Student.dao.find(Student.SEARCH_FROM_STUDENT + Common.ORDER_BY_ID_DESC);
     }
-
+    public Page<Student> getStudentPageByClassId(int classId,int currentPage){
+        Page<Student> paginate = Student.dao.paginate(currentPage, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, Student.SQL_FROM + "where classId = ?", classId);
+        return PageinateKit.ClonePage(paginate,
+                paginate.getList().stream().map(sa -> {
+                    sa.setStatu(statusService.getStatusById(sa.getStatus()));return sa;
+                }).collect(Collectors.toList()));
+    }
     public Page<Student> getAllStudent(int currentPage) {
         return Student.dao.paginate(currentPage, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, Student.SQL_FROM + Common.ORDER_BY_ID_DESC);
     }

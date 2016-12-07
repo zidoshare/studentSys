@@ -15,7 +15,7 @@ public class Student extends BaseStudent<Student> {
     public static final Student dao = new Student();
     public static final String SEARCH_FROM_STUDENT = "select * from stumanager_student ";
     public static final String SQL_FROM = " from stumanager_student ";
-
+    private Status statu;
     @Override
     public boolean equals(Object o) {
         return o instanceof Student && Objects.equals(getId(), ((Student) o).getId());
@@ -35,5 +35,14 @@ public class Student extends BaseStudent<Student> {
 
     public void setStuEmpList(List<StudentEmployment> stuEmpList) {
         this.stuEmpList = stuEmpList;
+    }
+
+
+    public Status getStatu() {
+        return statu;
+    }
+
+    public void setStatu(Status statu) {
+        this.statu = statu;
     }
 }

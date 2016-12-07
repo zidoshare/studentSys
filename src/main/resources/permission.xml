@@ -90,12 +90,13 @@
                         </mapping>
                     </mappings>
                 </mapping>
-                <mapping id="6000" icon="fa fa-flag" url="/" title="信息录入"
+                <mapping id="6000" icon="fa fa-flag" url="/studentManager/jumpToAddStudent" title="信息录入"
                          function="3">
                     <mappings>
                         <mapping id="6001" icon="input" url="/studentManager/inputStudentInfo.ftl" title="学生信息录入"
                                  function="1">
-                            <mappings/>
+                            <mappings>
+                            </mappings>
                         </mapping>
                     </mappings>
                 </mapping>

@@ -9,4 +9,5 @@ import com.hudongwx.studentsys.common.BaseSubsidyClassInfo;
 public class SubsidyClassInfo extends BaseSubsidyClassInfo<SubsidyClassInfo> {
 	public static final SubsidyClassInfo dao = new SubsidyClassInfo();
 	public static final String SEARCH_FROM_SUBSIDY_CLASSINFO = "select * from stumanager_subsidy_class_info ";
+	public static final String SQL_FROM = " from stumanager_subsidy_class_info ";
 }

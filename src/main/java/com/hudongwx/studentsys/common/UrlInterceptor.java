@@ -49,7 +49,7 @@ public class UrlInterceptor implements Interceptor {
             if (JFinal.me().getConstants().getDevMode())
                 e.printStackTrace();
             String msg = formatException(e);
-            RenderKit.render403Error(controller, msg);
+            RenderKit.render500Error(controller, msg);
         }
     }
 
@@ -63,15 +63,33 @@ public class UrlInterceptor implements Interceptor {
         //一些常见异常提示
         if ("java.lang.NumberFormatException".equals(eClassName)) {
             message = "请输入正确的数字";
-        } else if (e instanceof BaseException) {
+        } else if (e instanceof SQLException) {
             String type = "";
             if (JFinal.me().getConstants().getDevMode()) {
-                type = ((BaseException) e).getType();
+                type = "数据错误：";
             }
             message = e.getMessage();
             if (StrPlusKit.isBlank(message))
                 message = e.toString();
-            message = type + "：" + message;
+            message = type + message;
+        } else if (e instanceof BaseException) {
+            String type = "";
+            if (JFinal.me().getConstants().getDevMode()) {
+                type = ((BaseException) e).getType()+"：";
+            }
+            message = e.getMessage();
+            if (StrPlusKit.isBlank(message))
+                message = e.toString();
+            message = type + message;
+        } else if (e instanceof RuntimeException) {
+            message = e.getMessage();
+            if (StrPlusKit.isBlank(message))
+                message = e.toString();
+            String type = "";
+            if (JFinal.me().getConstants().getDevMode()) {
+                type = "代码错误：";
+            }
+            message = type + message;
         }
 
         //获取默认异常提示

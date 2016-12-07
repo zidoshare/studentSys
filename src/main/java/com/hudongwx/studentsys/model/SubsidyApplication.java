@@ -9,7 +9,8 @@ import com.hudongwx.studentsys.common.BaseSubsidyApplication;
 public class SubsidyApplication extends BaseSubsidyApplication<SubsidyApplication> {
 	public static final Integer APPROVE_BEFORE=9;
 	public static final Integer APPROVE_WAITTING=10;
-	public static final Integer APPROVE_AFTER=8;
+	public static final Integer APPROVE_YES=8;
+	public static final Integer APPROVE_NO=13;
 	public static final SubsidyApplication dao = new SubsidyApplication();
 	public static final String SEARCH_FROM_SUBSIDY_APPLICATION = "select * from stumanager_subsidy_application ";
 	public static final String SQL_FROM = " from stumanager_subsidy_application ";

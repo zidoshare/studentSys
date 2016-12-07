@@ -51,6 +51,10 @@ public class RenderKit {
         renderMsg(me, msg, "error", 500);
     }
 
+    public static void render500Error(Controller me,Object msg){
+        renderError(me,msg);
+    }
+
     public static void renderError(Controller me, Object msg, int code) {
         renderMsg(me, msg, "error", code);
     }

@@ -105,10 +105,9 @@
             }
         };
         var opts = $.extend(defaults,options);
-        var load = dom.find('.panel_loading').first();
-        load.removeClass('sr-only');
+        dom.showLoading();
         opts.before();
-        dom.find('.pan').first().load(url, function(response,status,xhr) {
+        dom.load(url, function(response,status,xhr) {
             if(xhr.status == 403){
                 Util.showTip($('#wholeTip'),'请刷新以重新登录','alert alert-danger');
             }
@@ -120,7 +119,7 @@
                 return false;
             }
 */
-            load.addClass('sr-only');
+            dom.closeLoading();
             opts.after();
         });
     }
