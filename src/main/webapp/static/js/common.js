@@ -1842,12 +1842,20 @@ var func = {
             }
         });
     },
-    employmentApproval:function (id) {
-        Util.ajax(Label.staticServePath + '/studentEmploymentManager/employmentApply',{
-            data:{
-                studentId:id
-            }
-        });
+    employmentApproval:function ( method,id) {
+        if(method=='up'){
+            
+        }else {
+            Util.update('stu', id);
+            $('#studentId').val(id);
+            modalUtil.show($('#employmentApprovalModel'));
+            Util.mapping($('tr#student' + id), $('#form'));
+            // Util.ajax(Label.staticServePath + '/studentEmploymentManager/employmentApply',{
+            //     data:{
+            //         studentId:id
+            //     }
+            // });
+        }
     }
 };
 var modalUtil = {
