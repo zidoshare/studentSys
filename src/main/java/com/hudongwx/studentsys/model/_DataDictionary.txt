@@ -213,6 +213,7 @@ Table: stumanager_student_employment
  employmentStatus | int(10)       | YES  |     |         | 就业状态    
  company          | varchar(255)  | YES  |     |         | 就业单位    
  salary           | decimal(10,2) | YES  |     |         |         
+ employmentTime   | bigint(19)    | YES  |     |         |         
  counselorId      | int(10)       | YES  |     |         | 咨询师Id   
  counselorName    | varchar(255)  | YES  |     |         | 咨询师Id   
  approveStatus    | int(10)       | YES  |     |         | 批准状态    

@@ -81,6 +81,14 @@ public abstract class BaseStudentEmployment<M extends BaseStudentEmployment<M>> 
 		return get("salary");
 	}
 
+	public void setEmploymentTime(java.lang.Long employmentTime) {
+		set("employmentTime", employmentTime);
+	}
+
+	public java.lang.Long getEmploymentTime() {
+		return get("employmentTime");
+	}
+
 	public void setCounselorId(java.lang.Integer counselorId) {
 		set("counselorId", counselorId);
 	}
