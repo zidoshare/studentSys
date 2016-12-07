@@ -14,7 +14,7 @@ ${view.title}
             <div class="panel-heading">
                 <form class="clearfix">
                     <div class="input-group hdwx-input-sm pull-left">
-                        <input type="file" class="file">
+                        <input id="ddd" type="file" class="file">
                     </div>
                     <div class="input-group hdwx-input-sm pull-right">
 
@@ -431,6 +431,12 @@ ${view.title}
             todayHighlight: true
         });
         $('#save-btn').on('click', loadAttendance);
+        $('#page-inner').on('pjax:complete',function(){
+            Util.redrawFileInput({
+                selector:'#ddd',
+                uploadUrl:''
+            });
+        });
     });
     function loadAttendance() {
         var birthday = new Date($("#birthday_time_list").val().replace(/-/g, "/")).getTime();
