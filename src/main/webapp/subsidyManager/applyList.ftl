@@ -105,13 +105,11 @@ ${view.title}
                     <div class="form-group">
                         <label for="classSelect_list" class="control-label col-md-2">审批人：</label>
                         <div class="col-md-10">
-                            <select id="classSelect_list" class="selectpicker show-tick form-control"
-                                    data-live-search="true">
-                            <#--<#if allClass??>-->
+                            <select id="classSelect_list" class="selectpicker show-tick "
+                                    data-live-search="false">
                             <#list roles as rol>
                                 <option value="${rol.id}">${rol.userNickname}</option>
                             </#list>
-                            <#--</#if>-->
                             </select>
                         </div>
                     </div>

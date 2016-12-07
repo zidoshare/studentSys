@@ -21,7 +21,7 @@
                 <div class="input-group input-group-sm">
                     <span class="input-group-addon">出生日期:</span>
                     <input type="text" class="form-control" name="birthday"
-                           value="<#if student.birthday??>${student.birthday}<#else>未填写</#if>">
+                           value="<#if student.birthday??>${(student.birthday?number)?number_to_date}<#else>未填写</#if>">
                 </div>
             </td>
             <td rowspan="4" class="text-center" width="150px"><img class="carousel-inner img-responsive img-rounded"
@@ -32,7 +32,7 @@
             <td>
                 <div class="input-group input-group-sm">
                     <span class="input-group-addon">手机号:</span>
-                    <input type="text" class="form-control" name="contactInformation"
+                    <input type="number" class="form-control" name="contactInformation"
                            value="<#if student.contactInformation??>${student.contactInformation}<#else>未填写</#if>">
                 </div>
             </td>
@@ -45,7 +45,7 @@
             </td>
             <td>
                 <div class="input-group input-group-sm">
-                    <span class="input-group-addon">学历:</span>
+                    <span class="input-group-addon">专业:</span>
                     <input type="text" class="form-control" name="major"
                            value="<#if student.major??>${student.major}<#else>未填写</#if>">
                 </div>
@@ -82,26 +82,42 @@
                 </div>
             </td>
             <td>
+
                 <div class="input-group input-group-sm">
                     <span class="input-group-addon">培训状态:</span>
-                    <input type="text" class="form-control" name="trainingGraduationTime"
-                           value="<#if student.trainingGraduationTime??>${student.trainingGraduationTime}<#else>未填写</#if>">
+
+                <#--<form class="form-horizontal ">-->
+                <#--<div class="form-group">-->
+                <#--<div class="col-md-3">-->
+                    <select id="statusSelect_list" class="show-tick  form-control" onchange="change(${student.id})"
+                            data-live-search="false">
+                    <#list status as statu>
+                        <option value="${statu.id}">${statu.statusName}</option>
+                    </#list>
+                    </select>
+                <#--</div>-->
+                <#--</div>-->
+                <#--</form>-->
+                <#--<input type="text" class="form-control" name="trainingGraduationTime"-->
+                <#--value="<#if student.trainingGraduationTime??>${student.trainingGraduationTime}<#else>未填写</#if>">-->
                 </div>
             </td>
             <td>
-                <div class="input-group input-group-sm">
+                <div id="classInfo-div" class="input-group input-group-sm">
                     <span class="input-group-addon">所属班级:</span>
                     <span class="input-group-addon"><#if student.className??>${student.className}<#else>未填写</#if></span>
+                </div>
+                <div id="classSelect-div" class="input-group input-group-sm hide">
+                    <span class="input-group-addon">重修班级:</span>
+                    <select id="classSelect_list" class="show-tick  form-control"
+                            data-live-search="false">
+
+                    </select>
                 </div>
             </td>
         </tr>
         <tr>
             <td colspan="2">
-                <#--<div class="input-group input-group-sm">-->
-                    <#--<span class="input-group-addon">  毕业学校:</span>-->
-                    <#--<input type="text" class="form-control" placeholder="Twitterhandle"-->
-                           <#--value="<#if student.college??>${student.college}<#else>未填写</#if>">-->
-                <#--</div>-->
                 <div class="input-group input-group-sm div-no-spacing">
                     <span class="input-group-addon"> 毕业学校:</span>
                     <input class="hide">
@@ -115,7 +131,7 @@
             <td colspan="2">
                 <div class="input-group input-group-sm">
                     <span class="input-group-addon">毕业时间:</span>
-                    <input type="text" class="form-control"  name="graduationTime"
+                    <input type="text" class="form-control" name="graduationTime"
                            value="<#if student.graduationTime??>${student.graduationTime}<#else>未填写</#if>">
                 </div>
             </td>
@@ -178,8 +194,8 @@
             <td>
                 <div class="input-group input-group-sm">
                     <span class="input-group-addon">学费:</span>
-                    <input type="text" class="form-control" name="tuition"
-                           value="<#if student.tuition??>${student.tuition}<#else>未填写</#if>">
+                    <input type="number" class="form-control" name="tuition" placeholder="未填写"
+                           value="${(student.tuition)!}">
                 </div>
             </td>
             <td>
@@ -202,8 +218,8 @@
             <td colspan="2">
                 <div class="input-group input-group-sm">
                     <span class="input-group-addon">银行卡号:</span>
-                    <input type="text" class="form-control" name="bankCard"
-                           value="<#if student.bankCard??>${student.bankCard}<#else>未填写</#if>">
+                    <input type="number" class="form-control" name="bankCard"
+                           value="${student.bankCard!}">
                 </div>
             </td>
         </tr>
@@ -227,14 +243,14 @@
             <td>
                 <div class="input-group input-group-sm">
                     <span class="input-group-addon">补助总金额:</span>
-                    <input type="text" class="form-control" name="subsidy"
-                           value="<#if student.subsidy??>${student.subsidy}<#else>未填写</#if>">
+                    <input type="number" class="form-control" name="subsidy" placeholder="未填写"
+                           value="${student.subsidy!}">
                 </div>
             </td>
             <td>
                 <div class="input-group input-group-sm">
                     <span class="input-group-addon">补助剩余次数:</span>
-                    <input type="text" class="form-control" name="residualFrequency"
+                    <input type="number" class="form-control" name="residualFrequency"
                            value="<#if student.residualFrequency??>${student.residualFrequency}<#else>未填写</#if>">
                 </div>
             </td>

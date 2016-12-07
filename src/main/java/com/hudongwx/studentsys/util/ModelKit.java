@@ -113,4 +113,22 @@ public class ModelKit {
         }
         return list;
     }
+    public static <T extends Model> T injectList(Class<T> _class, Controller me, String key) throws NoSuchMethodException, IllegalAccessException, InstantiationException, InvocationTargetException {
+        Map<String, java.lang.Class<?>> columnTypeMap = TableMapping.me().getTable(_class).getColumnTypeMap();
+            T t = _class.newInstance();
+            for (String s : columnTypeMap.keySet()) {
+                String para = me.getPara(key + "[" + s + "]");
+                if(para == null)
+                    continue;
+                Constructor<?> constructor = columnTypeMap.get(s).getConstructor(String.class);
+                if(constructor != null){
+                    t.set(s,constructor.newInstance(para));
+                }else
+                    t.set(s,para);
+            }
+
+
+        return t;
+    }
+
 }

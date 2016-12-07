@@ -215,7 +215,6 @@ public class SubsidyController extends BaseController {
         List<SubsidyClassInfo> sciList = subsidyClassInfoService.getSciGroup(classId, date, CHECKED);
         for (SubsidyClassInfo sci : sciList) {
             totalBonus = totalBonus.add(sci.getBonus());
-            System.out.println("totalBonus=" + totalBonus);
             totalSubsidy = totalSubsidy.add(sci.getSubsidyAmount());
         }
         setApplicationAttr(num, classId, date, totalBonus, totalSubsidy);

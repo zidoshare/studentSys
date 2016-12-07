@@ -1227,7 +1227,7 @@ var func = {
                     success: function (data, status) {
 
                         if (data.state == 'success') {
-                            Util.showTip($('#wholeTip'), data.msg, "alert alert-success", {
+                             Util.showTip($('#wholeTip'), data.msg, "alert alert-success", {
                                 before: function () {
                                     $('tr#list' + classId).remove();
                                     Util.reloadByPjax('#table-inner');
@@ -1256,7 +1256,7 @@ var func = {
                 return true;
             var json = {};
 
-            list.each(function (ind, d) {
+            list.each(function (idx, d) {
                 json[$(d).attr('name')] = $(d).val();
             });
             data.push(json);
@@ -1437,14 +1437,61 @@ var func = {
         loadResult($('#showInfo'), Label.staticServePath + "/studentManager/showStudentInfo?studentId=" + studentId);
         // $('#showInfo').load(Label.staticServePath+"/studentManager/shouInfo")
     },
+    getRepairClass:function (studentId,grade) {
+        var modal = $("#updateInformationModel");
+        var classInfoDiv = modal.find("#classInfo-div");
+        var classSelectDiv = modal.find("#classSelect-div");
+        if (grade==3){
+            Util.ajax(Label.staticServePath+"/studentManager/getRepairClassByStudentId",{
+                data:{
+                    'studentId':studentId,
+                },
+                success:{
+                    success:function (data) {
+                        // if (data.state=="success"){
+                            var select = classSelectDiv.find('select:first');
+                            var json = JSON.parse(data.msg);
+                            json.map(function (elem) {
+                                var option='<input class="hide" name="className" value="{className}">'+
+                                    '<option  value="{id}">{className}</option>';
+                                option=Util.jsonToString(option,elem);
+                                select.append(option);
+                            })
+                            classInfoDiv.addClass('hide');
+                            classSelectDiv.removeClass('hide');
+                        }
+                    // }
+                }
+            })
+        }else {
+            classSelectDiv.addClass('hide');
+            classInfoDiv.removeClass('hide');
+        }
+    },
     updateStudent: function (method, studentId) {
-        if (method = "show") {
+        if (method == 'show') {
             modalUtil.show($("#updateInformationModel"));
             loadResult($('#updateInfo'), Label.staticServePath + "/studentManager/showUpdateStudentInfo?studentId=" + studentId);
         }else {
-            $("#updateInformationModel").find('input[name]').each(function () {
-                
+            var modal= $("#updateInformationModel");
+            var list =modal.find('input[name]');
+            if (list.length <= 0)
+                return true;
+            var json = {};
+            list.each(function (index,dom) {
+                json[$(dom).attr('name')]=$(dom).val();
             })
+            
+            Util.ajax(Label.staticServePath+"/studentManager/updateStudentInfo",{
+                data: {
+                    'list': json,
+                },
+                btnSelector: '#update-student-btn',
+                success: {
+                    bindModal: modal,
+                }
+            })
+
         }
     },
 

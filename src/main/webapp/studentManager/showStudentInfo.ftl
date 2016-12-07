@@ -47,11 +47,11 @@
                                 <th>
                                     备注
                                 </th>
-                                <#--<#if updateAble ||  deleteAble>-->
-                                    <th>
-                                        操作
-                                    </th>
-                                <#--</#if>-->
+                            <#--<#if updateAble ||  deleteAble>-->
+                                <th>
+                                    操作
+                                </th>
+                            <#--</#if>-->
                             </tr>
                             </thead>
                             <tbody>
@@ -59,47 +59,47 @@
                             <tr>
                                 <td>
                                     <div class="checkbox3 checkbox-round text-center">
-                                        <input type="checkbox" id="index-look1" checked="checked">
-                                        <label class="checkbox-2" style="display: inline" for="index-look1">
+                                        <input type="checkbox" id="index-look${student.id}" checked="checked">
+                                        <label class="checkbox-2" style="display: inline" for="index-look${student.id}">
                                         </label>
                                     </div>
                                 </td>
                                 <td>
-                                    ${student.name}
+                                ${student.name}
                                 </td>
                                 <td>
-                                    ${student.contactInformation}
+                                ${student.contactInformation}
                                 </td>
                                 <td>
-                                    ${student.statu.statusName}
+                                ${student.statu.statusName}
                                 </td>
                                 <td>
-                                    ${student.educationBackground}
+                                ${student.educationBackground}
                                 </td>
                                 <td>
-                                    ${student.major}
+                                ${student.major}
                                 </td>
                                 <td>
-                                    ${student.paymentMethod}
+                                ${student.paymentMethod}
                                 </td>
                                 <td>
-                                    ${student.residualFrequency}
+                                ${student.residualFrequency}
                                 </td>
                                 <td>
                                     [原]成都0719班
                                 </td>
-                                <#--<#if  updateAble ||  deleteAble>-->
-                                    <td>
-                                        <#list map["operators"+view.id] as op>
-                                            <#if op.url == "seeStudent">
-                                                <@macroBtn url = op.url title = op.title></@macroBtn>
+                            <#--<#if  updateAble ||  deleteAble>-->
+                                <td>
+                                    <#list map["operators"+view.id] as op>
+                                        <#if op.url == "seeStudent">
+                                            <@macroBtn url = op.url title = op.title></@macroBtn>
                                             <#assign op = map["operators"+view.id][0]>
-                                            ${InsertKit(btnLabel,"${student.id}")}/
-                                            </#if>
-                                        </#list>
-                                    ${InsertKit(updateBtn,"${student.id}")}/
-                                    ${InsertKit(deleteBtn,"${student.id}")}
-                                    </td>
+                                        ${InsertKit(btnLabel,"${student.id}")}/
+                                        </#if>
+                                    </#list>
+                                ${InsertKit(updateBtn,"${student.id}")}/
+                                ${InsertKit(deleteBtn,"${student.id}")}
+                                </td>
                             <#--</#if>-->
                             </tr>
                             </#list>
@@ -117,7 +117,7 @@
                             <button type="button" class="close" data-dismiss="modal"><span
                                     aria-hidden="true">&times;</span><span
                                     class="sr-only">Close</span></button>
-                            <h4 class="modal-title" >学生详情</h4>
+                            <h4 class="modal-title">学生详情</h4>
                         </div>
                         <div class="modal-body" id="showInfo"></div>
                         <div class="modal-footer text-center">
@@ -142,15 +142,32 @@
                         </div>
                         <div class="modal-footer center-block text-center">
                             <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                            <button data-style="slide-up" id="saveRole-btn" class="btn btn-primary ladda-button" onclick="func.updateStudent('up')">
-                                <span >保存</span>
+                            <button data-style="slide-up" id="update-student-btn" class="btn btn-primary ladda-button"
+                                    onclick="func.updateStudent('up')">
+                                <span>保存</span>
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    var change = function (studentId) {
+    var dom2=$('#classSelect-div');
+    var dom1=$('#classInfo-div');
+        var objS = document.getElementById("statusSelect_list");
+        var grade = objS.options[objS.selectedIndex].value;
+        func.getRepairClass(studentId,grade);
+//
+//        if (grade == 3){
+//            dom2.removeClass('hide');
+//            dom1.addClass('hide');
+//        }else {
+//            dom1.removeClass('hide');
+//            dom2.addClass('hide');
+//        }
+    }
 
+</script>
