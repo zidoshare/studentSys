@@ -1054,10 +1054,8 @@ var func = {
                 'list': JSON.stringify(data)
             },
             btnSelector: '#save-submit-btn',
-            success: {
-                bindModal: modal
-            }
-        })
+            bindModal: modal
+        });
 
 
         // Util.loadPageByPjax(Label.staticServePath + '/approvalManager');
@@ -1585,6 +1583,9 @@ var Exception = {
                 bindContainer: ['#table-inner'],
                 bindUrl: ''
             };
+            if( typeof options.bindContainer === 'string'){
+                options.bindContainer = [options.bindContainer];
+            }
             var opts = $.extend(defaults, options);
             var bind = function () {
                 if (opts.bindContainer.length > 0) {
