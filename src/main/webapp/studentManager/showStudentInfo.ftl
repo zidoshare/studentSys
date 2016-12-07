@@ -153,21 +153,4 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    var change = function (studentId) {
-    var dom2=$('#classSelect-div');
-    var dom1=$('#classInfo-div');
-        var objS = document.getElementById("statusSelect_list");
-        var grade = objS.options[objS.selectedIndex].value;
-        func.getRepairClass(studentId,grade);
-//
-//        if (grade == 3){
-//            dom2.removeClass('hide');
-//            dom1.addClass('hide');
-//        }else {
-//            dom1.removeClass('hide');
-//            dom2.addClass('hide');
-//        }
-    }
 
-</script>

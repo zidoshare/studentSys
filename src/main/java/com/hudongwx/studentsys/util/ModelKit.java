@@ -118,7 +118,7 @@ public class ModelKit {
             T t = _class.newInstance();
             for (String s : columnTypeMap.keySet()) {
                 String para = me.getPara(key + "[" + s + "]");
-                if(para == null)
+                if(para == null || para.length()==0 )
                     continue;
                 Constructor<?> constructor = columnTypeMap.get(s).getConstructor(String.class);
                 if(constructor != null){
