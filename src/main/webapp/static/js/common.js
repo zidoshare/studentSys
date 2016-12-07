@@ -1219,9 +1219,6 @@ var func = {
                         regionDiv.find('label:first').attr('for', 'parent-input' + elems['id']);
                         $('div#' + 'role' + elems['id']).append(regionDiv);
                     });
-                    // window.onload = function() {
-                    //     func.allcheck(modl);
-                    // };
                     if (json.length > 0) {
                         showTemplate(json[0]['id']);
                     }
@@ -1276,18 +1273,22 @@ var func = {
                     var select = classSelectDiv.find('select:first');
                     var json = JSON.parse(data.msg);
                     json.map(function (elem) {
-                        var option = '<input class="hide" name="className" value="{className}">' +
+                        var option =
+                        // '<input class="hide" name="classId" value="{id}">'+
+                            '<input id="input{id}" class="hide"  value="{className}">' +
                             '<option  value="{id}">{className}</option>';
                         option = Util.jsonToString(option, elem);
                         select.append(option);
                     })
+                    console.log(select.val());
                     classInfoDiv.addClass('hide');
                     classSelectDiv.removeClass('hide');
-                }
+                },
             })
         } else {
             classSelectDiv.addClass('hide');
             classInfoDiv.removeClass('hide');
+            classSelectDiv.find("select:first").html('');
         }
     },
     updateStudent: function (method, studentId) {
@@ -1296,6 +1297,16 @@ var func = {
             loadResult($('#updateInfo'), Label.staticServePath + "/studentManager/showUpdateStudentInfo?studentId=" + studentId);
         } else {
             var modal = $("#updateInformationModel");
+            var birthdayInput = modal.find('input#birthday-input');
+            var graduationTimeInput = modal.find('input#graduationTime-input');
+            var birthday = new Date(birthdayInput.val().replace(/-|年|月|日/g, "/"));
+            var graduationTime =new Date(graduationTimeInput.val().replace(/-|年|月|日/g, "/"));
+            console.log("birthday="+birthday);
+            console.log("graduationTime="+graduationTime);
+            if (!(birthday=="Invalid Date" || graduationTime == "Invalid Date")){
+                birthdayInput.val(birthday.getTime());
+                graduationTimeInput.val(graduationTime.getTime());
+            }
             var list = modal.find('input[name]');
             if (list.length <= 0)
                 return true;
@@ -1309,9 +1320,7 @@ var func = {
                     'list': json,
                 },
                 btnSelector: '#update-student-btn',
-                success: {
-                    bindModal: modal,
-                }
+                bindModal: modal,
             })
 
         }

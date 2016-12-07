@@ -20,8 +20,8 @@
             <td>
                 <div class="input-group input-group-sm">
                     <span class="input-group-addon">出生日期:</span>
-                    <input type="text" class="form-control" name="birthday"
-                           value="<#if student.birthday??>${(student.birthday?number)?number_to_date}<#else>未填写</#if>">
+                    <input id="birthday-input" type="text" class="form-control" name="birthday" placeholder="未填写"
+                           value="<#if student.birthday??>${(student.birthday?number)?number_to_date}</#if>">
                 </div>
             </td>
             <td rowspan="4" class="text-center" width="150px"><img class="carousel-inner img-responsive img-rounded"
@@ -78,28 +78,20 @@
             <td>
                 <div class="input-group input-group-sm">
                     <span class="input-group-addon">录入时间:</span>
-                    <span class="input-group-addon"><#if student.admission??>${student.admission}<#else>未填写</#if></span>
+                    <span class="input-group-addon"><#if student.admission??>${(student.admission?number)?number_to_date}<#else>"未填写"</#if></span>
                 </div>
             </td>
             <td>
 
                 <div class="input-group input-group-sm">
                     <span class="input-group-addon">培训状态:</span>
-
-                <#--<form class="form-horizontal ">-->
-                <#--<div class="form-group">-->
-                <#--<div class="col-md-3">-->
+                    <input id="status-input" class="hide" name="status">
                     <select id="statusSelect_list" class="show-tick  form-control" onchange="change(${student.id})"
                             data-live-search="false">
                     <#list status as statu>
                         <option value="${statu.id}">${statu.statusName}</option>
                     </#list>
                     </select>
-                <#--</div>-->
-                <#--</div>-->
-                <#--</form>-->
-                <#--<input type="text" class="form-control" name="trainingGraduationTime"-->
-                <#--value="<#if student.trainingGraduationTime??>${student.trainingGraduationTime}<#else>未填写</#if>">-->
                 </div>
             </td>
             <td>
@@ -107,9 +99,12 @@
                     <span class="input-group-addon">所属班级:</span>
                     <span class="input-group-addon"><#if student.className??>${student.className}<#else>未填写</#if></span>
                 </div>
-                <div id="classSelect-div" class="input-group input-group-sm hide">
+                <div id="classSelect-div" class="input-group input-group-sm hide border-color-red">
+                    <input id="input-class-id" class="hide" name="classId">
+                    <input id="input-class-name" class="hide" name="className">
                     <span class="input-group-addon">重修班级:</span>
-                    <select id="classSelect_list" class="show-tick  form-control"
+                    <select id="classSelect_list" class="show-tick  form-control" name="classId"
+                            onchange="classChange()"
                             data-live-search="false">
 
                     </select>
@@ -131,8 +126,9 @@
             <td colspan="2">
                 <div class="input-group input-group-sm">
                     <span class="input-group-addon">毕业时间:</span>
-                    <input type="text" class="form-control" name="graduationTime"
-                           value="<#if student.graduationTime??>${student.graduationTime}<#else>未填写</#if>">
+                    <input id="graduationTime-input" type="text" class="form-control" name="graduationTime"
+                           placeholder="未填写"
+                           value="<#if student.graduationTime??>${(student.graduationTime?number)?number_to_date}</#if>">
                 </div>
             </td>
         </tr>
@@ -266,3 +262,23 @@
         </tbody>
     </table>
 </div>
+<script type="text/javascript">
+    var change = function (studentId) {
+        var statusInput = $('#status-input');
+        var dom2 = $('#classSelect-div');
+        var dom1 = $('#classInfo-div');
+        var objS = document.getElementById("statusSelect_list");
+        var grade = objS.options[objS.selectedIndex].value;
+        statusInput.val(grade);
+        func.getRepairClass(studentId, grade);
+    }
+    var classChange = function () {
+        var idInput = $('#input-class-id');
+        var nameInput = $('#input-class-name');
+        var classId = $("#classSelect_list").val();
+        var className = $('#input' + classId).val();
+        idInput.val(classId);
+        nameInput.val(className);
+    }
+
+</script>
