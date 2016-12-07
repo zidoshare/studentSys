@@ -1,14 +1,9 @@
 package com.hudongwx.studentsys.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.hudongwx.studentsys.common.BaseController;
 import com.hudongwx.studentsys.exceptions.ServiceException;
 import com.hudongwx.studentsys.model.Class;
-import com.hudongwx.studentsys.model.Mapping;
-import com.hudongwx.studentsys.model.Status;
-import com.hudongwx.studentsys.model.Student;
+import com.hudongwx.studentsys.model.*;
 import com.hudongwx.studentsys.service.ClassService;
 import com.hudongwx.studentsys.service.StatusService;
 import com.hudongwx.studentsys.service.StudentService;
@@ -21,9 +16,9 @@ import com.jfinal.ext.interceptor.POST;
 import com.jfinal.kit.JsonKit;
 import com.jfinal.plugin.activerecord.Page;
 
+import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,7 +88,7 @@ public class StudentController extends BaseController {
         Student model = getModel(Student.class);
         if (studentService._save(rebuildStudentModel(model))) {
             RenderKit.renderSuccess(this);
-            return;
+            return ;
         }
 
         RenderKit.renderError(this);
@@ -185,7 +180,7 @@ public class StudentController extends BaseController {
     }
 
     /**
-     * 更新学生信息[需要前台参数：stu(json数组)]
+     *更新学生信息[需要前台参数：stu(json数组)]
      */
     public void updateStudentInfo() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
 //        String jsonArrayStu = getPara("stu");
@@ -204,13 +199,13 @@ public class StudentController extends BaseController {
         RenderKit.renderSuccess(this);
     }
 
-    public void getStudent() {
+    public void getStudent(){
         Integer cid = getParaToInt("classId");
         Integer status = getParaToInt("status");
-        if (status == null) {
-            RenderKit.renderSuccess(this, JsonKit.toJson(studentService.getAllStudentByClassId(cid)));
-        } else {
-            RenderKit.renderSuccess(this, JsonKit.toJson(studentService.getStudentByClassId(cid, status)));
+        if(status==null){
+            RenderKit.renderSuccess(this,JsonKit.toJson(studentService.getAllStudentByClassId(cid)));
+        }else{
+            RenderKit.renderSuccess(this,JsonKit.toJson(studentService.getStudentByClassId(cid,status)));
         }
     }
 

@@ -2,8 +2,6 @@ package com.hudongwx.studentsys.service;
 
 import com.hudongwx.studentsys.common.Service;
 import com.hudongwx.studentsys.model.SubsidyClassInfo;
-import com.hudongwx.studentsys.util.Common;
-import com.jfinal.plugin.activerecord.Page;
 
 import java.util.List;
 
@@ -106,10 +104,6 @@ public class SubsidyClassInfoService extends Service {
      *
      * @return
      */
-    public List<SubsidyClassInfo> getSciGroup(int classId , Long date, int checkStatus) {
-        return SubsidyClassInfo.dao.find(SubsidyClassInfo.SEARCH_FROM_SUBSIDY_CLASSINFO+"where classId = ? and applicationDate = ? and checked = ? ",classId,date,checkStatus);
-    }
-
     public List<SubsidyClassInfo> getSciGroup(int classId , Long date, int checkStatus) {
         return SubsidyClassInfo.dao.find(SubsidyClassInfo.SEARCH_FROM_SUBSIDY_CLASSINFO+"where classId = ? and applicationDate = ? and checked = ? ",classId,date,checkStatus);
     }
