@@ -140,10 +140,10 @@ ${view.title}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="className" class="col-sm-2 control-label">学生姓名:</label>
+                        <label for="name" class="col-sm-2 control-label">学生姓名:</label>
                         <div class="col-sm-10">
-                            <input type="text" readonly class="form-control" name="stu.name" id="studentName"
-                                   value="${stu.name}">
+                            <input type="text" readonly class="form-control" name="stu.name" id="name"
+                                   placeholder="学生姓名">
                         </div>
                     </div>
                     <div class="form-group">

@@ -1319,6 +1319,18 @@ var func = {
         }
     },
 
+    employmentApproval:function (method,id) {
+        if(method=='up'){
+
+        }else{
+            Util.update('student', id);
+            $('#studentId').val(id);
+            modalUtil.show($('#employmentApprovalModel'));
+            // Util.mapping($('tr#class' + id), $('#form'));
+        }
+
+    },
+
     deleteStudent: function () {
 
     },
