@@ -121,6 +121,14 @@ public abstract class BaseStudentEmployment<M extends BaseStudentEmployment<M>> 
 		return get("approverId");
 	}
 
+	public void setApprover(java.lang.String approver) {
+		set("approver", approver);
+	}
+
+	public java.lang.String getApprover() {
+		return get("approver");
+	}
+
 	public void setRemark(java.lang.String remark) {
 		set("remark", remark);
 	}

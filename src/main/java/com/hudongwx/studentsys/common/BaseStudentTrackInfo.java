@@ -17,6 +17,14 @@ public abstract class BaseStudentTrackInfo<M extends BaseStudentTrackInfo<M>> ex
 		return get("id");
 	}
 
+	public void setTrackTime(java.lang.Long trackTime) {
+		set("trackTime", trackTime);
+	}
+
+	public java.lang.Long getTrackTime() {
+		return get("trackTime");
+	}
+
 	public void setTargetId(java.lang.Integer targetId) {
 		set("targetId", targetId);
 	}
@@ -33,20 +41,12 @@ public abstract class BaseStudentTrackInfo<M extends BaseStudentTrackInfo<M>> ex
 		return get("targetName");
 	}
 
-	public void setInformation(java.lang.String information) {
-		set("information", information);
+	public void setSituation(java.lang.String situation) {
+		set("situation", situation);
 	}
 
-	public java.lang.String getInformation() {
-		return get("information");
-	}
-
-	public void setTrackTime(java.lang.Long trackTime) {
-		set("trackTime", trackTime);
-	}
-
-	public java.lang.Long getTrackTime() {
-		return get("trackTime");
+	public java.lang.String getSituation() {
+		return get("situation");
 	}
 
 	public void setOperaterId(java.lang.Integer operaterId) {
@@ -63,6 +63,14 @@ public abstract class BaseStudentTrackInfo<M extends BaseStudentTrackInfo<M>> ex
 
 	public java.lang.String getOperater() {
 		return get("operater");
+	}
+
+	public void setStatus(java.lang.Integer status) {
+		set("status", status);
+	}
+
+	public java.lang.Integer getStatus() {
+		return get("status");
 	}
 
 }

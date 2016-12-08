@@ -177,12 +177,6 @@ ${view.title}
 
                     <tr>
                         <td colspan="12">
-                        <#--<div class="input-group input-group-sm ">-->
-                        <#--<span class="input-group-addon ">现居地址:</span>-->
-                        <#--<input name="student.presentAddress" type="text" class="form-control"-->
-                        <#--placeholder="输入现居地址">-->
-                        <#--</div>-->
-
                             <div class="input-group input-group-sm div-no-spacing">
                                 <span class="input-group-addon">现居地址:</span>
                                 <input class="hide">

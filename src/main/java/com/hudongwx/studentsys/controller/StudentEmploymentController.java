@@ -1,18 +1,17 @@
 package com.hudongwx.studentsys.controller;
 
 import com.hudongwx.studentsys.common.BaseController;
-import com.hudongwx.studentsys.model.Mapping;
-import com.hudongwx.studentsys.model.Student;
-import com.hudongwx.studentsys.model.StudentEmployment;
-import com.hudongwx.studentsys.model.User;
+import com.hudongwx.studentsys.model.*;
 import com.hudongwx.studentsys.service.StudentEmploymentService;
 import com.hudongwx.studentsys.service.StudentService;
+import com.hudongwx.studentsys.service.StudentTrackInfoService;
 import com.hudongwx.studentsys.util.RenderKit;
 import com.jfinal.aop.Before;
 import com.jfinal.ext.interceptor.POST;
 import com.jfinal.kit.JsonKit;
 import com.jfinal.plugin.activerecord.Page;
 
+import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -23,6 +22,7 @@ public class StudentEmploymentController extends BaseController {
 
     public StudentEmploymentService studentEmploymentService;
     public StudentService studentService;
+    public StudentTrackInfoService studentTrackInfoService;
 
     @Override
     public void index() {
@@ -129,9 +129,44 @@ public class StudentEmploymentController extends BaseController {
         student.setOperater(operater.getUserNickname());
         student.setIp(operater.getUserLastLoginIp());
         String remark = student.getRemark();
-        student.setRemark(remark+sdf.format(l)+":"+ student.getName() +"已就业！/");
+        student.setRemark(remark + sdf.format(l) + ":" + student.getName() + "已就业！/");
         studentService._updateStudentById(student);
         RenderKit.renderSuccess(this, "操作成功！");
     }
 
+    /**********************************就业追踪**************************************/
+    public void getTrackInfo() {
+        List<StudentTrackInfo> trackInfoList = studentTrackInfoService.getStuTrackInfo(getParaToInt("stuId"));
+        if(trackInfoList.size()==0){
+            RenderKit.renderError(this,"无相关追踪信息！");
+        }else{
+            RenderKit.renderSuccess(this,JsonKit.toJson(trackInfoList));
+        }
+    }
+
+    public void addTrackInfo() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+//        StudentTrackInfo sti= ModelKit.injectList(StudentTrackInfo.class, this, "sti");
+        StudentTrackInfo sti=getModel(StudentTrackInfo.class);
+                sti.setTrackTime(System.currentTimeMillis());
+        User user = getCurrentUser(this);
+        sti.setOperaterId(user.getId());
+        sti.setOperater(user.getUserNickname());
+        studentTrackInfoService._saveStudentTrackInfo(sti);
+        RenderKit.renderSuccess(this,"追踪状态更新成功！");
+//        String strAti = getPara("ati");
+//        if(strAti!=null){
+//            StudentTrackInfo sti =new StudentTrackInfo();
+//            JSONObject joAti= JSON.parseObject(strAti);
+//            User user = getCurrentUser(this);
+//            sti.setTrackTime(System.currentTimeMillis());
+//            sti.setTargetId(joAti.getInteger("targetId"));
+//            sti.setTargetName(joAti.getString("targetName"));
+//            sti.setSituation(joAti.getString("situation"));
+//            sti.setOperaterId(user.getId());
+//            sti.setOperater(user.getUserNickname());
+//            studentTrackInfoService._saveStudentTrackInfo(sti);
+//            RenderKit.renderSuccess(this,"追踪状态更新成功！");
+//        }
+
+    }
 }
