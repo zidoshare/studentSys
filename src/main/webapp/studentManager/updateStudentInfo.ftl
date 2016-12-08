@@ -174,7 +174,7 @@
                 </div>
                 <div class="input-group input-group-sm col-xs-10">
                     <span class="input-group-addon hide"></span>
-                    <input type="text" class="form-control col-xs-9" name="emergencyContact"
+                    <input type="text" class="form-control " name="emergencyContact"
                            value="<#if student.emergencyContact??>${student.emergencyContact}<#else>未填写</#if>">
                 </div>
             </td>
