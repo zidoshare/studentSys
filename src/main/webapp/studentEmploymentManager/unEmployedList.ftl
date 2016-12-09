@@ -131,75 +131,18 @@ ${view.title}
     </div>
 </div>
 </@item>
-<div class="modal fade" id="employmentApprovalModel" tabindex="-1" role="dialog"
-     aria-labelledby="addemploymentApprovalLabel"
+<div class="modal fade" id="seeUnEmployModel" tabindex="-1" role="dialog" aria-labelledby="addSeeUnEmployLabel"
      aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog" style="width:800px">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
                         class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="myModalLabel">就业信息</h4>
+                <h4 class="modal-title" id="myModalLabel">信息详情</h4>
             </div>
-            <div class="modal-body">
-                <form id="class" role="form" class="form-horizontal">
-                    <div class="form-group sr-only">
-                        <label for="studentId" class="col-sm-2 control-label">学生id</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="targetId" id="studentId"
-                                   placeholder="学生id">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="name" class="col-sm-2 control-label">学生姓名:</label>
-                        <div class="col-sm-10">
-                            <input type="text" readonly class="form-control" name="targetName" id="name"
-                                   placeholder="学生姓名">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="headTeacher" class="col-sm-2 control-label">审核人:</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="class.headTeacher" id="headTeacher"
-                                   placeholder="审核人">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="company" class="col-sm-2 control-label">就业单位:</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="se.company" id="company"
-                                   placeholder="就业单位名称">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="salary" class="col-sm-2 control-label">就业薪资:</label>
-                        <div class="col-sm-10">
-                            <input type="number" class="form-control" name="se.salary" id="salary"
-                                   placeholder="就业薪资(元)">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="employmentTime" class="col-sm-2 control-label">就业时间:</label>
-                        <div class="col-sm-10">
-                            <input type="number" class="form-control" name="se.employmentTime" id="employmentTime"
-                                   placeholder="就业薪资(元)">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="remark" class="col-sm-2 control-label">备注:</label>
-                        <div class="col-sm-10">
-                            <textarea type="text" class="form-control" name="se.remark" id="remark"
-                                      placeholder="备注信息" rows="3"></textarea>
-                        </div>
-                    </div>
-                </form>
-                <div class="tip-container">
-                    <div class="tip" id="saveClassTip" aria-label="0">
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <span class="pull-right">${saveBtn}</span>
+            <div class="modal-body" id="detailInfo">...</div>
+            <div class="modal-footer text-center">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div>
     </div>
@@ -207,7 +150,7 @@ ${view.title}
 
 <div class="modal fade" id="trackModel" tabindex="-1" role="dialog" aria-labelledby="addTrackLabel"
      aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog" style="width:800px">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
@@ -221,7 +164,8 @@ ${view.title}
                         <div class="form-group">
                             <div class="input-group">
                                 <div class="input-group-addon">姓名:</div>
-                                <input name="studentTrackInfo.targetName" id="targetName" class="form-control" type="text" readonly>
+                                <input name="studentTrackInfo.targetName" id="targetName" class="form-control"
+                                       type="text" readonly>
                             </div>
                         </div>
                     </div>
@@ -236,23 +180,6 @@ ${view.title}
                     </div>
                 </div>
                 <form role="form" class="form-horizontal">
-                <#--<div class="form-group">-->
-                <#--<label for="targetName" class="col-sm-2 control-label">学生:</label>-->
-                <#--<div class="col-sm-10">-->
-                <#--<input type="text" readonly class="form-control" name="targetName" id="targetName"-->
-                <#--placeholder="学生姓名">-->
-                <#--</div>-->
-                <#--</div>-->
-                <#--<div class="form-group">-->
-                <#--<label for="info" class="col-sm-2 control-label">情况:</label>-->
-                <#--<div class="col-sm-10">-->
-                <#--<textarea type="text" class="form-control" name="situation" id="info" rows="3"-->
-                <#--placeholder="跟进详情"></textarea>-->
-                <#--</div>-->
-                <#--</div>-->
-                <#--<div class="modal-footer">-->
-                <#--<span class="pull-right">${saveBtn}</span>-->
-                <#--</div>-->
                     <div id="dataTables-list" class="table-responsive dataTables_wrapper form-inline" role="grid">
                         <table class="table table-striped table-bordered table-hover dataTable no-footer"
                                id="dataTables-example" aria-describedby="dataTables-example_apply">
@@ -289,39 +216,72 @@ ${view.title}
     </div>
 </div>
 
-<div class="modal fade" id="seeUnEmployModel" tabindex="-1" role="dialog" aria-labelledby="addSeeUnEmployLabel"
+<div class="modal fade" id="employmentApprovalModel" tabindex="-1" role="dialog"
+     aria-labelledby="addemploymentApprovalLabel"
      aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
                         class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="myModalLabel">信息详情</h4>
+                <h4 class="modal-title" id="myModalLabel">就业信息</h4>
             </div>
             <div class="modal-body">
-                <form id="class" role="form" class="form-horizontal">
+                <form id="seApproveList" role="form" class="form-horizontal">
                     <div class="form-group sr-only">
                         <label for="studentId" class="col-sm-2 control-label">学生id</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="se.targetId" id="studentId"
+                            <input type="text" class="form-control" name="studentEmployment.studentId" id="studentId"
                                    placeholder="学生id">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="name" class="col-sm-2 control-label">学生:</label>
+                        <label for="name" class="col-sm-2 control-label">学生姓名:</label>
                         <div class="col-sm-10">
-                            <input type="text" readonly class="form-control" name="se.targetName" id="name"
+                            <input type="text" readonly class="form-control" name="studentEmployment.studentName"
+                                   id="name"
                                    placeholder="学生姓名">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="info" class="col-sm-2 control-label">情况:</label>
+                        <label for="headTeacher" class="col-sm-2 control-label">审核人:</label>
                         <div class="col-sm-10">
-                            <textarea type="text" class="form-control" name="se.info" id="info" rows="3"
-                                      placeholder="跟进详情"></textarea>
+                            <select id="selectApproverId" class=" selectpicker show-tick " data-live-search="false">
+                            <#list roles as rol>
+                                <option value="${rol.id}">${rol.userNickname}</option>
+                            </#list>
+                            </select>
                         </div>
                     </div>
-
+                    <div class="form-group">
+                        <label for="company" class="col-sm-2 control-label">就业单位:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="studentEmployment.company" id="company"
+                                   placeholder="就业单位名称">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="salary" class="col-sm-2 control-label">就业薪资:</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" name="studentEmployment.salary" id="salary"
+                                   placeholder="就业薪资(元)">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="employmentTime" class="col-sm-2 control-label">就业时间:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="studentEmployment.employmentTime"
+                                   id="employmentTime"
+                                   placeholder="例：1970/01/01">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="remark" class="col-sm-2 control-label">备注:</label>
+                        <div class="col-sm-10">
+                            <textarea type="text" class="form-control" name="studentEmployment.remark" id="remark"
+                                      placeholder="备注信息" rows="3"></textarea>
+                        </div>
+                    </div>
                 </form>
                 <div class="tip-container">
                     <div class="tip" id="saveClassTip" aria-label="0">
