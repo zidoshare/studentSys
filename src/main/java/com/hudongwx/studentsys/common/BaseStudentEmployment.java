@@ -17,12 +17,12 @@ public abstract class BaseStudentEmployment<M extends BaseStudentEmployment<M>> 
 		return get("id");
 	}
 
-	public void setClassName(java.lang.String className) {
-		set("className", className);
+	public void setStudentId(java.lang.Integer studentId) {
+		set("studentId", studentId);
 	}
 
-	public java.lang.String getClassName() {
-		return get("className");
+	public java.lang.Integer getStudentId() {
+		return get("studentId");
 	}
 
 	public void setStudentName(java.lang.String studentName) {
@@ -33,6 +33,30 @@ public abstract class BaseStudentEmployment<M extends BaseStudentEmployment<M>> 
 		return get("studentName");
 	}
 
+	public void setClassId(java.lang.Integer classId) {
+		set("classId", classId);
+	}
+
+	public java.lang.Integer getClassId() {
+		return get("classId");
+	}
+
+	public void setClassName(java.lang.String className) {
+		set("className", className);
+	}
+
+	public java.lang.String getClassName() {
+		return get("className");
+	}
+
+	public void setPhoneNumber(java.lang.String phoneNumber) {
+		set("phoneNumber", phoneNumber);
+	}
+
+	public java.lang.String getPhoneNumber() {
+		return get("phoneNumber");
+	}
+
 	public void setEmploymentStatus(java.lang.Integer employmentStatus) {
 		set("employmentStatus", employmentStatus);
 	}
@@ -41,20 +65,28 @@ public abstract class BaseStudentEmployment<M extends BaseStudentEmployment<M>> 
 		return get("employmentStatus");
 	}
 
-	public void setTrackTime(java.lang.Long trackTime) {
-		set("trackTime", trackTime);
+	public void setCompany(java.lang.String company) {
+		set("company", company);
 	}
 
-	public java.lang.Long getTrackTime() {
-		return get("trackTime");
+	public java.lang.String getCompany() {
+		return get("company");
 	}
 
-	public void setRemark(java.lang.String remark) {
-		set("remark", remark);
+	public void setSalary(java.math.BigDecimal salary) {
+		set("salary", salary);
 	}
 
-	public java.lang.String getRemark() {
-		return get("remark");
+	public java.math.BigDecimal getSalary() {
+		return get("salary");
+	}
+
+	public void setEmploymentTime(java.lang.Long employmentTime) {
+		set("employmentTime", employmentTime);
+	}
+
+	public java.lang.Long getEmploymentTime() {
+		return get("employmentTime");
 	}
 
 	public void setCounselorId(java.lang.Integer counselorId) {
@@ -81,12 +113,20 @@ public abstract class BaseStudentEmployment<M extends BaseStudentEmployment<M>> 
 		return get("approveStatus");
 	}
 
-	public void setApprover(java.lang.String approver) {
-		set("approver", approver);
+	public void setApproverId(java.lang.Integer approverId) {
+		set("approverId", approverId);
 	}
 
-	public java.lang.String getApprover() {
-		return get("approver");
+	public java.lang.Integer getApproverId() {
+		return get("approverId");
+	}
+
+	public void setRemark(java.lang.String remark) {
+		set("remark", remark);
+	}
+
+	public java.lang.String getRemark() {
+		return get("remark");
 	}
 
 }

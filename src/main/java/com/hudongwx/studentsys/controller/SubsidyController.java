@@ -467,4 +467,51 @@ public class SubsidyController extends BaseController {
 
     }
 
+    public void examineAndApprove() {
+        String eaa = getPara("eaa");
+        long now = System.currentTimeMillis();
+        User user = getCurrentUser(this);
+        JSONObject jo = JSON.parseObject(eaa);
+        long date = jo.getLongValue("applicationDate");
+        int classId = jo.getIntValue("classDate");
+        int approveStatus = jo.getIntValue("approveStatus");
+        if (approveStatus == SubsidyApplication.APPROVE_YES) {
+            setApplicationApproveStatus(now, user, date, classId, SubsidyApplication.APPROVE_YES);
+            setSciApproveStatus(now, user, date, classId, SubsidyApplication.APPROVE_YES);
+        } else {
+            setApplicationApproveStatus(now, user, date, classId, SubsidyApplication.APPROVE_NO);
+            setSciApproveStatus(now, user, date, classId, SubsidyApplication.APPROVE_NO);
+        }
+    }
+
+    private void setSciApproveStatus(long now, User user, long date, int classId, int approveStatus) {
+        List<SubsidyClassInfo> sciOnApplyList = subsidyClassInfoService.getSciGroup(classId, date);
+        if (sciOnApplyList.size() != 0) {
+            for (SubsidyClassInfo sci : sciOnApplyList) {
+                sci.setApproveStatus(approveStatus);
+                sci.setApplicationDate(now);
+                sci.setOperaterId(user.getId());
+                sci.setOperater(user.getUserNickname());
+                subsidyClassInfoService._updateSubsidyClassInfo(sci);
+            }
+        } else {
+            RenderKit.renderError(this, "系统错误！");
+        }
+    }
+
+    private void setApplicationApproveStatus(long now, User user, long date, int classId, int approveStatus) {
+        List<SubsidyApplication> saList = subsidyApplicationService.getApplicationByClassIdAndDate(classId, date);
+        if (saList.size() != 0) {
+            for (SubsidyApplication sa : saList) {
+                sa.setApproveStatus(approveStatus);
+                sa.setApplicationDate(now);
+                sa.setOperaterId(user.getId());
+                sa.setOperater(user.getUserNickname());
+                subsidyApplicationService._updateSubsidyApplication(sa);
+            }
+        } else {
+            RenderKit.renderError(this, "系统错误！");
+        }
+    }
+
 }

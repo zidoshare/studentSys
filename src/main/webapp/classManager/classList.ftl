@@ -91,10 +91,6 @@
         </div>
     </div>
 </div>
-
-
-
-
 <div class="modal fade" id="addClassModel" tabindex="-1" role="dialog" aria-labelledby="addUserModelLabel"
      aria-hidden="true">
     <div class="modal-dialog">

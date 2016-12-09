@@ -3,9 +3,7 @@ package com.hudongwx.studentsys.controller;
 import com.hudongwx.studentsys.common.BaseController;
 import com.hudongwx.studentsys.exceptions.ServiceException;
 import com.hudongwx.studentsys.model.Class;
-import com.hudongwx.studentsys.model.Mapping;
-import com.hudongwx.studentsys.model.Status;
-import com.hudongwx.studentsys.model.Student;
+import com.hudongwx.studentsys.model.*;
 import com.hudongwx.studentsys.service.ClassService;
 import com.hudongwx.studentsys.service.StatusService;
 import com.hudongwx.studentsys.service.StudentService;
@@ -19,6 +17,8 @@ import com.jfinal.kit.JsonKit;
 import com.jfinal.plugin.activerecord.Page;
 
 import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,13 +86,55 @@ public class StudentController extends BaseController {
     @Before(POST.class)
     public void addStudent() throws ServiceException {
         Student model = getModel(Student.class);
-        if (studentService._save(model)) {
+        if (studentService._save(rebuildStudentModel(model))) {
             RenderKit.renderSuccess(this);
-            return;
+            return ;
         }
 
         RenderKit.renderError(this);
     }
+
+    private Student rebuildStudentModel(Student stu) {
+        System.out.println("stu.getClassId()++++++++++++++>>>>>>" + stu.getClassId());
+        long admission = System.currentTimeMillis();
+        Class cls = classService.getClassById(stu.getClassId());
+        User operater = getCurrentUser(this);
+        List<Student> allStudent = studentService.getAllStudent();
+        int id;
+        if (allStudent.size() != 0) {
+            id = allStudent.get(0).getId() + 1;
+        } else {
+            id = 1000;
+        }
+        stu.setId(id);
+        stu.setUserId(id);
+        stu.setClassName(cls.getClassName());
+        stu.setPhotoUrl("\\images\\favicon.ico");
+        stu.setTutorId(cls.getTutorId());
+        stu.setTutorName(cls.getTutor());
+        stu.setCredit(new BigDecimal(100.00));
+        stu.setTestAverage(new BigDecimal(0.0));
+        stu.setTrainingEvaluation(new BigDecimal(0.0));
+        stu.setAdmission(admission);
+        stu.setTrainingGraduationTime(admission + (1000l * 60 * 60 * 24 * 30 * 4));
+        stu.setCounselorName(userService.getUserById(stu.getCounselorId()).getUserNickname());
+        if ((stu.getSubsidy() != null && stu.getResidualFrequency() != null) || stu.getPaymentMethod().equals("贷款")) {
+            BigDecimal subsidyPer = stu.getSubsidy().divide(new BigDecimal(stu.getResidualFrequency()));
+            stu.setSubsidyPer(subsidyPer);
+        }
+        stu.setBonus(new BigDecimal(0.00));
+        stu.setResidualSubsidyAmount(stu.getSubsidy());
+        stu.setRegionId(cls.getRegionId());
+        stu.setStatus(Student.STATUS_STUDYING);
+        stu.setEmploymentStatus(Student.EMPLOYMENTSTATUS_UN_EMPLOYED);
+        stu.setIp(operater.getUserLastLoginIp());
+        stu.setOperaterId(operater.getId());
+        stu.setOperater(operater.getUserNickname());
+        stu.setChecked(Student.STATUS_UN_CHECKED);
+        stu.setCreateTime(admission);
+        return stu;
+    }
+
 
     /**
      * 显示学生详细信息
@@ -138,7 +180,7 @@ public class StudentController extends BaseController {
     }
 
     /**
-     * 更新学生信息[需要前台参数：stu(json数组)]
+     *更新学生信息[需要前台参数：stu(json数组)]
      */
     public void updateStudentInfo() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
 //        String jsonArrayStu = getPara("stu");
@@ -157,18 +199,39 @@ public class StudentController extends BaseController {
         RenderKit.renderSuccess(this);
     }
 
-    public void getStudent() {
+    public void getStudent(){
         Integer cid = getParaToInt("classId");
         Integer status = getParaToInt("status");
-        if (status == null) {
-            RenderKit.renderSuccess(this, JsonKit.toJson(studentService.getAllStudentByClassId(cid)));
-        } else {
-            RenderKit.renderSuccess(this, JsonKit.toJson(studentService.getStudentByClassId(cid, status)));
+        if(status==null){
+            RenderKit.renderSuccess(this,JsonKit.toJson(studentService.getAllStudentByClassId(cid)));
+        }else{
+            RenderKit.renderSuccess(this,JsonKit.toJson(studentService.getStudentByClassId(cid,status)));
         }
     }
 
-    public void getInputUrl() {
+    public void jumpToAddStudent() {
+        setMapping(mappingService.getMappingByUrl("/studentManager/jumpToAddStudent"));
         super.index();
-        mappingService.getMappingByUrl("/studentManager/inputStudentInfo.ftl");
+        List<User> counselorList = userService.getUsersByRoleId(roleService.getRoleByName("咨询师"));
+        setAttr("counselor", counselorList);
+        List<Class> allClass = classService.getAllClass();
+        setAttr("cls", allClass);
+    }
+
+    public void letGraduate() {
+        Integer id = getParaToInt("studentId");
+        long l = System.currentTimeMillis();
+        User operater = getCurrentUser(this);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Student student = studentService.getStudentById(id);
+        student.setStatus(Student.STATUS_GRADUATION);
+        student.setEmploymentStatus(Student.EMPLOYMENTSTATUS_UN_EMPLOYED);
+        student.setGraduationTime(l);
+        student.setOperaterId(operater.getId());
+        student.setOperater(operater.getUserNickname());
+        student.setIp(operater.getUserLastLoginIp());
+        student.setRemark(sdf.format(l)+":"+student.getName() +"已毕业！/");
+        studentService._updateStudentById(student);
+        RenderKit.renderSuccess(this, "操作成功！");
     }
 }

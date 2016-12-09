@@ -9,6 +9,16 @@
             </div>
             <div class="panel-body">
                 <div id="table-inner">
+                    <script type="text/javascript">
+                        var change = function (studentId) {
+                            var dom2 = $('#classSelect-div');
+                            var dom1 = $('#classInfo-div');
+                            var objS = document.getElementById("statusSelect_list");
+                            var grade = objS.options[objS.selectedIndex].value;
+                            func.getRepairClass(studentId, grade);
+                        }
+
+                    </script>
                     <div id="dataTables-example_wrapper" class="table-responsive dataTables_wrapper form-inline"
                          role="grid">
                         <table class="table table-striped table-bordered table-hover dataTable no-footer"

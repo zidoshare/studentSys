@@ -1703,7 +1703,7 @@ i {
 
 .nav-scroll::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-    background-color: rgba(0,0,0,0);
+    background-color: #27ae60;
     border-radius: 10px;
 }
 
@@ -1916,3 +1916,32 @@ i {
     border:solid 1px red;
 }
 
+
+
+.clear-left{
+    padding-left: 0;
+}
+
+.clear-right{
+    padding-right: 3px;
+}
+
+.min-clear > label{
+    padding-right: 3px;
+}
+
+.min-clear > div {
+    padding-left: 0;
+}
+
+.My-marginTop > div {
+    margin-top: 10px;
+}
+
+.My-tableMarginTop{
+    margin-top: 20px;
+}
+
+.My-textAreaWidth{
+    size: 800px;
+}

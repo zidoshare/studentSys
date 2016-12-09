@@ -401,4 +401,12 @@ public abstract class BaseStudent<M extends BaseStudent<M>> extends Model<M> imp
 		return get("residualSubsidyAmount");
 	}
 
+	public void setEmploymentTutorId(java.lang.Integer employmentTutorId) {
+		set("employmentTutorId", employmentTutorId);
+	}
+
+	public java.lang.Integer getEmploymentTutorId() {
+		return get("employmentTutorId");
+	}
+
 }

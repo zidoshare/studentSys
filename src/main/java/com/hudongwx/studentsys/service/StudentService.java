@@ -126,6 +126,10 @@ public class StudentService extends Service {
     }
 
     public Page<Student> getUnEmpStu(int currentPage) {
-        return Student.dao.paginate(currentPage, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, Student.SQL_FROM + Common.SQL_WHERE + "status = 4 and employmentStatus = 7 " + Common.ORDER_BY_ID_DESC);
+        return Student.dao.paginate(currentPage, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, Student.SQL_FROM + Common.SQL_WHERE + "status = ? and employmentStatus = ? " + Common.ORDER_BY_ID_DESC,Student.STATUS_GRADUATION,Student.EMPLOYMENTSTATUS_UN_EMPLOYED);
+    }
+
+    public Page<Student> getEmployedStu(int currentPage) {
+        return Student.dao.paginate(currentPage, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, Student.SQL_FROM + Common.SQL_WHERE + "status = ? and employmentStatus = ? " + Common.ORDER_BY_ID_DESC,Student.STATUS_GRADUATION,Student.EMPLOYMENTSTATUS_EMPLOYED);
     }
 }
