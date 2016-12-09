@@ -1912,6 +1912,10 @@ i {
     margin: 0px;
 }
 
+.border-color-red{
+    border:solid 1px red;
+}
+
 
 
 .clear-left{

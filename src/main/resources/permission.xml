@@ -188,19 +188,19 @@
                         </mapping>
                     </mappings>
                 </mapping>
-                <mapping id="6300" icon="fa fa-usd" url="/obtainEmploymentManager" title="就业审批" function="3">
+                <mapping id="6300" icon="fa fa-usd" url="/studentEmploymentManager/UnEmploymentApply" title="就业审批" function="3">
                     <mappings>
-                        <mapping id="6310" icon="approval" url="obtainEmploymentManager/employApproveList.ftl"
+                        <mapping id="6310" icon="approval" url="studentEmploymentManager/employApproveList.ftl"
                                  title="审批列表"
                                  function="1">
                             <mappings>
-                                <mapping id="6320" icon="seeApproval" title="查看" url="seeApproval" function="0">
+                                <mapping id="6320" icon="seeApproval" title="查看" url="seeEmpApp" function="0">
                                     <mappings/>
                                 </mapping>
-                                <mapping id="6321" icon="seeApproval" title="同意" url="seeApproval" function="0">
+                                <mapping id="6321" icon="seeApproval" title="同意" url="agreeEmpApp" function="0">
                                     <mappings/>
                                 </mapping>
-                                <mapping id="6322" icon="seeApproval" title="不同意" url="seeApproval" function="0">
+                                <mapping id="6322" icon="seeApproval" title="不同意" url="disagreeEmpApp" function="0">
                                     <mappings/>
                                 </mapping>
                             </mappings>

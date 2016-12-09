@@ -2,135 +2,138 @@
 <#include "../macro-btn.ftl">
 <#include "../macro-paginate.ftl">
 <@initBtn map = map view=view></@initBtn>
-<@item>
-<div class="panel-heading title">
-${view.title}
-</div>
-<div id="table-apply">
-    <div id="dataTables-example_subsidy" class="table-responsive dataTables_wrapper form-inline" role="grid">
-        <table class="table table-striped table-bordered table-hover dataTable no-footer"
-               id="dataTables-example" aria-describedby="dataTables-example_apply">
-            <thead>
-            <tr>
-                <th class="sr-only">
-                    id
-                </th>
-                <th class="sr-only">
-                    目标名字
-                </th>
-                <th>
-                    姓名
-                </th>
-                <th>
-                    所在班级
-                </th>
-                <th>
-                    电话
-                </th>
-                <th>
-                    学历
-                </th>
-                <th>
-                    专业
-                </th>
-                <th>
-                    学分
-                </th>
-                <th>
-                    考试平均分
-                </th>
-                <th>
-                    项目评价
-                </th>
-                <th>
-                    备注
-                </th>
-                <#assign seeUnEmploy = false>
-                <#assign employmentTrack = false>
-                <#assign employmentApproval = false>
-                <#list map["operators"+view.id] as op>
-                    <#if op.url == "seeUnEmploy">
-                        <#assign seeUnEmploy=true>
-                    <#elseif op.url == "employmentTrack">
-                        <#assign employmentTrack=true>
-                    <#elseif op.url == "employmentApproval">
-                        <#assign employmentApproval=true>
-                        <@macroBtn url = op.url title = op.title theme="success" isSave=true saveLabel="提交"></@macroBtn>
-                        <#assign saveBtn = btnLabel>
-                    </#if>
-                </#list>
-                <#if seeUnEmploy || employmentTrack || employmentApproval>
-                    <th>
-                        操作
-                    </th>
-                </#if>
-            </tr>
-            </thead>
-            <tbody>
-                <#list uesp.list as stu>
-                <tr id="student${stu.id}" data-label="${stu.id}" data-target="#studentId" data-method="prop">
-                    <td class="sr-only" id="targetId${stu.id}" data-label="${stu.id}"
-                        data-target="#targetId"></td>
-                    <td class="sr-only" id="targetName${stu.id}" data-label="${stu.name}"
-                        data-target="#targetName"></td>
-                    <td id="name${stu.id}" data-label="${stu.name}"
-                        data-target="#studentName">${stu.name}</td>
-                    <td id="class${stu.id}" data-label="${stu.className}"
-                        data-target="#className">${stu.className}</td>
-                    <td id="contactInformation${stu.id}" data-label="${(stu.contactInformation)!}"
-                        data-target="#contactInformation">${(stu.contactInformation)!"未填写"}</td>
-                    <td id="educationBackground${stu.id}"
-                        data-label="${(stu.educationBackground)!}" data-target="#educationBackground"
-                        data-method="prop">${(stu.educationBackground)!"未填写"}</td>
-                    <td id="major${stu.id}"
-                        data-label="${(stu.major)!}" data-target="#major"
-                        data-method="prop">${(stu.major)!"未填写"}</td>
-                    <td id="credit${stu.id}"
-                        data-label="${(stu.credit)!0}" data-target="#credit"
-                        data-method="prop">${(stu.credit)!"未填写"}</td>
-                    <td id="testAverage${stu.id}"
-                        data-label="${(stu.testAverage)!0}" data-target="#testAverage"
-                        data-method="prop">${(stu.testAverage)!"没有成绩"}</td>
-                    <td id="trainingEvaluation${stu.id}"
-                        data-label="${(stu.trainingEvaluation)!0}" data-target="#trainingEvaluation"
-                        data-method="prop">${(stu.trainingEvaluation)!"没有成绩"}</td>
-                    <td id="remark${stu.id}"
-                        data-label="${(stu.remark)!}" data-target="#remark"
-                        data-method="prop">${(stu.remark)!"无"}</td>
-                    <#if seeUnEmploy || employmentTrack || employmentApproval>
-                        <td>
+<div class="row animate">
+    <div class="col-md-12">
+        <div id="class-details" class="panel panel-default item">
+            <div class="panel-heading title">
+            ${view.title}
+            </div>
+            <div class="panel-body">
+                <div id="table-inner">
+                    <div id="dataTables-example_subsidy" class="table-responsive dataTables_wrapper form-inline"
+                         role="grid">
+                        <table class="table table-striped table-bordered table-hover dataTable no-footer"
+                               id="dataTables-example" aria-describedby="dataTables-example_apply">
+                            <thead>
+                            <tr>
+                                <th class="sr-only">
+                                    学生Id
+                                </th>
+                                <th>
+                                    姓名
+                                </th>
+                                <th>
+                                    所在班级
+                                </th>
+                                <th>
+                                    电话
+                                </th>
+                                <th>
+                                    学历
+                                </th>
+                                <th>
+                                    就业单位
+                                </th>
+                                <th>
+                                    就业薪资
+                                </th>
+                                <th>
+                                    就业时间
+                                </th>
+                                <th>
+                                    就业老师
+                                </th>
+                                <th>
+                                    备注
+                                </th>
+                            <#assign seeEmpApp = false>
+                            <#assign agreeEmpApp = false>
+                            <#assign disagreeEmpApp = false>
                             <#list map["operators"+view.id] as op>
-                                <#if op.url == "seeUnEmploy">
-                                    <@macroBtn url = op.url title = op.title></@macroBtn>
-                                    <#assign op = map["operators"+view.id][0]>
-                                ${InsertKit(btnLabel,'${stu.id}')}
-                                </#if>
-                                <#if op.url == "employmentTrack">
-                                    <@macroBtn url = op.url title = op.title></@macroBtn>
-                                    <#assign op = map["operators"+view.id][0]>
-                                    /${InsertKit(btnLabel,'${stu.id}')}
-                                </#if>
-                                <#if op.url == "employmentApproval">
-                                    <@macroBtn url = op.url title = op.title></@macroBtn>
-                                    <#assign op = map["operators"+view.id][0]>
-                                    /${InsertKit(btnLabel,'${stu.id}')}
+                                <#if op.url == "seeEmpApp">
+                                    <#assign seeEmpApp=true>
+                                <#elseif op.url == "agreeEmpApp">
+                                    <#assign agreeEmpApp=true>
+                                <#elseif op.url == "disagreeEmpApp">
+                                    <#assign disagreeEmpApp=true>
+                                    <@macroBtn url = op.url title = op.title theme="success" isSave=true saveLabel="提交"></@macroBtn>
+                                    <#assign saveBtn = btnLabel>
                                 </#if>
                             </#list>
-                        </td>
+                            <#if seeEmpApp || agreeEmpApp || disagreeEmpApp>
+                                <th>
+                                    操作
+                                </th>
+                            </#if>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <#list pSel.list as se>
+                            <tr id="studentEmployment${se.id}" data-label="${se.id}" data-target="#studentEmploymentId"
+                                data-method="prop">
+                                <td class="sr-only" id="studentId${se.id}" data-label="${se.studentId}"
+                                    data-target="#studentId">${(se.studentId)!0}</td>
+                                <td id="studentName${se.id}" data-label="${se.studentName}"
+                                    data-target="#studentName">${(se.studentName)!"无"}</td>
+                                <td id="className${se.id}" data-label="${se.className}"
+                                    data-target="#className">${(se.className)!"无"}</td>
+                                <td id="phoneNumber${(se.id)!}" data-label="${(se.phoneNumber)!}"
+                                    data-target="#phoneNumber">${(se.phoneNumber)!"无"}</td>
+                                <td id="educationBackground${(se.id)!}"
+                                    data-label="${(se.educationBackground)!}" data-target="#educationBackground"
+                                    data-method="prop">${(se.educationBackground)!"无"}</td>
+                                <td id="company${(se.id)!}"
+                                    data-label="${(se.company)!}" data-target="#company"
+                                    data-method="prop">${(se.company)!"无"}</td>
+                                <td id="salary${(se.id)!}"
+                                    data-label="${(se.salary)!0}" data-target="#salary"
+                                    data-method="prop">${(se.salary)!"无"}</td>
+                                <td id="employmentTime${(se.id)!}"
+                                    data-label="${(se.employmentTime)!0}" data-target="#employmentTime"
+                                    data-method="prop">${(se.employmentTime)!"无"}</td>
+                                <td id="operater${(se.id)!}"
+                                    data-label="${(se.operater)!0}" data-target="#operater"
+                                    data-method="prop">${(se.operater)!"无"}</td>
+                                <td id="remark${se.id}"
+                                    data-label="${(se.remark)!}" data-target="#remark"
+                                    data-method="prop">${(se.remark)!"无"}</td>
+                                <#if seeEmpApp || agreeEmpApp || disagreeEmpApp>
+                                    <td>
+                                        <#list map["operators"+view.id] as op>
+                                            <#if op.url == "seeEmpApp">
+                                                <@macroBtn url = op.url title = op.title></@macroBtn>
+                                                <#assign op = map["operators"+view.id][0]>
+                                            ${InsertKit(btnLabel,'${se.id}')}
+                                            </#if>
+                                            <#if op.url == "agreeEmpApp">
+                                                <@macroBtn url = op.url title = op.title></@macroBtn>
+                                                <#assign op = map["operators"+view.id][0]>
+                                                /${InsertKit(btnLabel,'${se.id}')}
+                                            </#if>
+                                            <#if op.url == "disagreeEmpApp">
+                                                <@macroBtn url = op.url title = op.title></@macroBtn>
+                                                <#assign op = map["operators"+view.id][0]>
+                                                /${InsertKit(btnLabel,'${se.id}')}
+                                            </#if>
+                                        </#list>
+                                    </td>
+                                </#if>
+                            </tr>
+                            </#list>
+                            </tbody>
+                        </table>
+                    <#if pSel??>
+                        <#assign str = "?">
+                        <#if holdPath?contains("?")><#assign str = "&"></#if>
+                        <@paginate page = pSel url=holdPath+str pageAfter="p">
+                        </@paginate>
                     </#if>
-                </tr>
-                </#list>
-            </tbody>
-        </table>
-        <#if uesp??>
-            <#assign str = "?">
-            <#if holdPath?contains("?")><#assign str = "&"></#if>
-            <@paginate page = uesp url=holdPath+str pageAfter="p">
-            </@paginate>
-        </#if>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-</@item>
 <div class="modal fade" id="employmentApprovalModel" tabindex="-1" role="dialog"
      aria-labelledby="addemploymentApprovalLabel"
      aria-hidden="true">
@@ -144,9 +147,9 @@ ${view.title}
             <div class="modal-body">
                 <form id="class" role="form" class="form-horizontal">
                     <div class="form-group sr-only">
-                        <label for="studentId" class="col-sm-2 control-label">学生id</label>
+                        <label for="sedentId" class="col-sm-2 control-label">学生id</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="targetId" id="studentId"
+                            <input type="text" class="form-control" name="targetId" id="sedentId"
                                    placeholder="学生id">
                         </div>
                     </div>
@@ -216,18 +219,19 @@ ${view.title}
             </div>
             <div class="modal-body">
                 <div id="track" class="row">
-                    <input id="targetId" name="studentTrackInfo.targetId" class="form-control sr-only">
+                    <input id="targetId" name="sedentTrackInfo.targetId" class="form-control sr-only">
                     <div class="col-md-4">
                         <div class="form-group">
                             <div class="input-group">
                                 <div class="input-group-addon">姓名:</div>
-                                <input name="studentTrackInfo.targetName" id="targetName" class="form-control" type="text" readonly>
+                                <input name="sedentTrackInfo.targetName" id="targetName" class="form-control"
+                                       type="text" readonly>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-8">
                         <div class="input-group">
-                            <input name="studentTrackInfo.situation" id="situation" type="text" class="form-control">
+                            <input name="sedentTrackInfo.situation" id="situation" type="text" class="form-control">
                             <span class="input-group-btn">
                                 <button class="btn btn-info" type="button"
                                         onclick="func.employmentTrack('up')">提交</button>

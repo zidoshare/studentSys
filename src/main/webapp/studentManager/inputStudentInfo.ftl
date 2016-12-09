@@ -13,7 +13,7 @@ ${view.title}
         <div class="panel-heading">
             <form class="clearfix">
                 <div class="input-group hdwx-input-sm pull-left">
-                    <input id="upExcel" type="file" class="file">
+                    <input id="upExcel" type="file" class="file" placeholder="导入Excel文件">
                 </div>
                 <div class="input-group hdwx-input-sm pull-right">
 

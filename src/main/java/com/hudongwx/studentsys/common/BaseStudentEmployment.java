@@ -137,4 +137,20 @@ public abstract class BaseStudentEmployment<M extends BaseStudentEmployment<M>> 
 		return get("remark");
 	}
 
+	public void setOperaterId(java.lang.Integer operaterId) {
+		set("operaterId", operaterId);
+	}
+
+	public java.lang.Integer getOperaterId() {
+		return get("operaterId");
+	}
+
+	public void setOperater(java.lang.String operater) {
+		set("operater", operater);
+	}
+
+	public java.lang.String getOperater() {
+		return get("operater");
+	}
+
 }

@@ -220,6 +220,8 @@ Table: stumanager_student_employment
  approverId       | int(10)       | YES  |     |         | 批准人     
  approver         | varchar(255)  | YES  |     |         |         
  remark           | varchar(255)  | YES  |     |         |         
+ operaterId       | int(10)       | YES  |     |         |         
+ operater         | varchar(255)  | YES  |     |         |         
 ------------------+---------------+------+-----+---------+---------
 
 Table: stumanager_student_track_info

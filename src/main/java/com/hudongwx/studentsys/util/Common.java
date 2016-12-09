@@ -44,6 +44,11 @@ public class Common {
     public static final Integer VALUE_IN_VISIBLE = 0;
     public static final String ORDER_BY_ID_DESC = " order by id desc";
     public static final String IGNORE_WORD = "ignoreWord";
+    public static final int APPLY_APPROVE_STATUS_YES=8;
+    public static final int APPLY_APPROVE_STATUS_NO=13;
+    public static final int APPLY_APPROVE_STATUS_BEFORE=9;
+    public static final int APPLY_APPROVE_STATUS_WAITING=10;
+
     //缓存Label
     public static final String CACHE_FOREVER_LABEL = "forever";
     public static final String CACHE_LONG_TIME_LABEL = "longTime";
