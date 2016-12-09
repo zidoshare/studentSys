@@ -103,6 +103,7 @@ public class StudentEmploymentController extends BaseController {
 
     public void unEmployed() {
         unEmployinit();
+        StudentEmployment model = getModel(StudentEmployment.class);
 
     }
 
