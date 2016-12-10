@@ -22,7 +22,6 @@ import java.util.List;
  * Created by wu on 2016/11/22.
  */
 public class StudentEmploymentController extends BaseController {
-
     public StudentEmploymentService studentEmploymentService;
     public StudentService studentService;
     public StudentTrackInfoService studentTrackInfoService;
@@ -133,8 +132,8 @@ public class StudentEmploymentController extends BaseController {
     public void addEmploymentApply() {
         StudentEmployment se = getModel(StudentEmployment.class);
         Student student = studentService.getStudentById(se.getStudentId());
-        List<StudentEmployment> exist = studentEmploymentService.getStuEmpByStudentId(se.getStudentId());
-        if (exist.size() == 0) {
+        StudentEmployment exist = studentEmploymentService.getStuEmpByStudentId(se.getStudentId());
+        if (exist == null) {
             User user = getCurrentUser(this);
             se.setClassId(student.getClassId());
             se.setClassName(student.getClassName());
@@ -143,8 +142,8 @@ public class StudentEmploymentController extends BaseController {
             se.setCounselorId(student.getCounselorId());
             se.setCounselorName(student.getCounselorName());
             se.setApproveStatus(Student.EMPLOYMENTSTATUS_IN_APPROVAL);
-            se.setOperaterId(user.getId());
-            se.setOperater(user.getUserNickname());
+            se.setOperatorId(user.getId());
+            se.setOperator(user.getUserNickname());
             boolean b = studentEmploymentService._saveStuEmp(se);
             if (b) {
                 student.setRemark("就业审核中");
@@ -172,33 +171,41 @@ public class StudentEmploymentController extends BaseController {
     public void dealEmploymentApply() throws ServiceException {
         int seId = getParaToInt("seId");
         int as = getParaToInt("as");
-        if (as == Common.APPLY_APPROVE_STATUS_YES) {
-            int emp_yes = Student.EMPLOYMENTSTATUS_EMPLOYED;
-            dealStuEmpStatus(seId, as, emp_yes);
-        } else if (as == Common.APPLY_APPROVE_STATUS_NO) {
-            int emp_no = Student.EMPLOYMENTSTATUS_UN_EMPLOYED;
-            dealStuEmpStatus(seId, as, emp_no);
-        }
-
+        dealStuEmpStatus(seId, as);
     }
 
-    private void dealStuEmpStatus(int seId, int as, int yes) throws ServiceException {
+    private void dealStuEmpStatus(int seId, int as) throws ServiceException {
         StudentEmployment se = studentEmploymentService.getStuEmpById(seId);
+        StudentTrackInfo sti = new StudentTrackInfo();
         if (se != null) {
-            if (as == Common.APPLY_APPROVE_STATUS_NO) {
-//// TODO: 2016/12/9 申请被否决之后干啥？？？ 前端提交信息成功后弹框用了方法效果没有？？？
-            }
-            se.setApproveStatus(as);
-            se.setEmploymentStatus(yes);
-            boolean b = studentEmploymentService._updateStuEmp(se);
+            boolean boo_se = false;
             Student student = studentService.getStudentById(se.getStudentId());
-            student.setEmploymentStatus(yes);
-            boolean b1 = studentService._updateStudentById(student);
-            if (b && b1) {
-                RenderKit.renderSuccess(this, "操作成功！");
-            } else {
-                RenderKit.renderError(this, "操作异常！");
+            String info = null;
+            if (as == Common.APPLY_APPROVE_STATUS_YES) {
+                se.setApproveStatus(as);
+                se.setEmploymentStatus(Student.EMPLOYMENTSTATUS_EMPLOYED);
+                info = se.getApprover() + "同意了" + se.getOperator() + "提交的关于" + student.getName() + "的就业申请！";
+                student.setEmploymentStatus(Student.EMPLOYMENTSTATUS_EMPLOYED);
+                student.setRemark("就业审批已通过！");
+                boo_se = studentEmploymentService._updateStuEmp(se);
+            } else if (as == Common.APPLY_APPROVE_STATUS_NO) {
+                info = se.getApprover() + "否决了" + se.getOperator() + "提交的关于" + student.getName() + "的就业申请！";
+                student.setEmploymentStatus(Student.EMPLOYMENTSTATUS_UN_EMPLOYED);
+                student.setRemark("就业审批未通过！");
+                boo_se = studentEmploymentService._deleteStuEmpById(seId);
             }
+            if (boo_se) {
+                if (studentService._updateStudentById(student))
+                    RenderKit.renderSuccess(this, "操作成功！");
+                else
+                    RenderKit.renderError(this, "学生状态更新操作异常！");
+            } else {
+                RenderKit.renderError(this, "审批操作异常！");
+            }
+            sti.setTargetId(student.getId());
+            sti.setTargetName(student.getName());
+            sti.setSituation(info);
+            studentTrackInfoService._saveStudentTrackInfo(StudentTrackInfo.fillTrackInfo(sti, getCurrentUser(this), as));
         } else {
             RenderKit.renderError(this, "没有信息！");
         }
@@ -218,11 +225,8 @@ public class StudentEmploymentController extends BaseController {
 
     public void addTrackInfo() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         StudentTrackInfo sti = getModel(StudentTrackInfo.class);
-        sti.setTrackTime(System.currentTimeMillis());
-        User user = getCurrentUser(this);
-        sti.setOperaterId(user.getId());
-        sti.setOperater(user.getUserNickname());
-        studentTrackInfoService._saveStudentTrackInfo(sti);
+        studentTrackInfoService._saveStudentTrackInfo(StudentTrackInfo.fillTrackInfo(sti, getCurrentUser(this), StudentTrackInfo.EMP_TRACK));
         RenderKit.renderSuccess(this, "追踪状态更新成功！");
     }
+
 }

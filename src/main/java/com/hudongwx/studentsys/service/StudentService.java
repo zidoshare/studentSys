@@ -4,6 +4,7 @@ import com.hudongwx.studentsys.common.Service;
 import com.hudongwx.studentsys.exceptions.ServiceException;
 import com.hudongwx.studentsys.model.Class;
 import com.hudongwx.studentsys.model.Student;
+import com.hudongwx.studentsys.model.StudentEmployment;
 import com.hudongwx.studentsys.model.User;
 import com.hudongwx.studentsys.util.Common;
 import com.hudongwx.studentsys.util.PageinateKit;
@@ -18,11 +19,22 @@ import java.util.stream.Collectors;
  */
 public class StudentService extends Service {
     public StatusService statusService;
+    public StudentEmploymentService studentEmploymentService;
+
     public Student getStudentById(Integer id) {
         if (id == null)
             return null;
         Student student = Student.dao.findById(id);
         return student;
+    }
+
+    public Student getUnEmpStudentById(Integer id) {
+        if (id == null)
+            return null;
+        List<Student> studentList = Student.dao.find(Student.SEARCH_FROM_STUDENT + "where id = ? and (employmentStatus not like ? or employmentStatus is NULL) ", id, Student.EMPLOYMENTSTATUS_EMPLOYED);
+        if (studentList.isEmpty())
+            return null;
+        return studentList.get(0);
     }
 
     public Student getStudentByUser(User user) {
@@ -57,13 +69,16 @@ public class StudentService extends Service {
     public List<Student> getAllStudent() {
         return Student.dao.find(Student.SEARCH_FROM_STUDENT + Common.ORDER_BY_ID_DESC);
     }
-    public Page<Student> getStudentPageByClassId(int classId,int currentPage){
+
+    public Page<Student> getStudentPageByClassId(int classId, int currentPage) {
         Page<Student> paginate = Student.dao.paginate(currentPage, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, Student.SQL_FROM + "where classId = ?", classId);
         return PageinateKit.ClonePage(paginate,
                 paginate.getList().stream().map(sa -> {
-                    sa.setStatu(statusService.getStatusById(sa.getStatus()));return sa;
+                    sa.setStatu(statusService.getStatusById(sa.getStatus()));
+                    return sa;
                 }).collect(Collectors.toList()));
     }
+
     public Page<Student> getAllStudent(int currentPage) {
         return Student.dao.paginate(currentPage, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, Student.SQL_FROM + Common.ORDER_BY_ID_DESC);
     }
@@ -95,8 +110,8 @@ public class StudentService extends Service {
         return Student.dao.paginate(currentPage, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, Student.SQL_FROM + Common.SQL_WHERE + "className = ?" + Common.ORDER_BY_ID_DESC, aClass.getClassName());
     }
 
-    public List<Student> getStudentByClassId(int classId,int defaultStatus) {
-        return Student.dao.find(Student.SEARCH_FROM_STUDENT + "where classId = ? and status = ? ", new Object[]{classId,defaultStatus});
+    public List<Student> getStudentByClassId(int classId, int defaultStatus) {
+        return Student.dao.find(Student.SEARCH_FROM_STUDENT + "where classId = ? and status = ? ", new Object[]{classId, defaultStatus});
     }
 
     public List<Student> getStudentByClassId(int classId) {
@@ -104,7 +119,7 @@ public class StudentService extends Service {
     }
 
     public List<Student> getAllStudentByClassId(Integer classId) {
-        if(classId==null){
+        if (classId == null) {
             try {
                 throw new ServiceException("班级id不能为空");
             } catch (ServiceException e) {
@@ -114,8 +129,8 @@ public class StudentService extends Service {
         return Student.dao.find(Student.SEARCH_FROM_STUDENT + "where classId = ? ", classId);
     }
 
-    public boolean _updateStudentById(Student student){
-        if(student.getId()==null){
+    public boolean _updateStudentById(Student student) {
+        if (student.getId() == null) {
             try {
                 throw new ServiceException("学生id不能为空");
             } catch (ServiceException e) {
@@ -126,10 +141,16 @@ public class StudentService extends Service {
     }
 
     public Page<Student> getUnEmpStu(int currentPage) {
-        return Student.dao.paginate(currentPage, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, Student.SQL_FROM + Common.SQL_WHERE + "status = ? and employmentStatus = ? " + Common.ORDER_BY_ID_DESC,Student.STATUS_GRADUATION,Student.EMPLOYMENTSTATUS_UN_EMPLOYED);
+        return Student.dao.paginate(currentPage, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, Student.SQL_FROM + Common.SQL_WHERE + "status = ? and employmentStatus = ? " + Common.ORDER_BY_ID_DESC, Student.STATUS_GRADUATION, Student.EMPLOYMENTSTATUS_UN_EMPLOYED);
     }
 
     public Page<Student> getEmployedStu(int currentPage) {
-        return Student.dao.paginate(currentPage, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, Student.SQL_FROM + Common.SQL_WHERE + "status = ? and employmentStatus = ? " + Common.ORDER_BY_ID_DESC,Student.STATUS_GRADUATION,Student.EMPLOYMENTSTATUS_EMPLOYED);
+        Page<Student> pStudentList = Student.dao.paginate(currentPage, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, Student.SQL_FROM + Common.SQL_WHERE + "status = ? and employmentStatus = ? " + Common.ORDER_BY_ID_DESC, Student.STATUS_GRADUATION, Student.EMPLOYMENTSTATUS_EMPLOYED);
+        return PageinateKit.ClonePage(pStudentList,
+                pStudentList.getList().stream().map(student -> {
+                    StudentEmployment se = studentEmploymentService.getStuEmpByStudentId(student.getId());
+                    student.setStudentEmployment(se);
+                    return student;
+                }).collect(Collectors.toList()));
     }
 }

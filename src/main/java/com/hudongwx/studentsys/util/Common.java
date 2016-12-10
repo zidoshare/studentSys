@@ -28,7 +28,8 @@ public class Common {
     public static final String LABEL_VIEWS = "views";
     public final static String LABEL_CATALOG = "Catalog";
     public static final int MAX_SIDE_CNT = 8;
-    public static final int MAX_PAGE_SIZE = 8;
+    public static final int MAX_PAGE_SIZE= 8;
+    public static final int MAX_PAGE_SIZE_10 = 10;
     public static final int START_PAGE = 1;
     public static final String LABEL_ROLE_TREE = "roleTree";
     public static final String LABEL_NOW_VISIT = "now";

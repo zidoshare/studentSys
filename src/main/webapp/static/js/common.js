@@ -1326,13 +1326,30 @@ var func = {
         }
     },
 
-    seeUnEmploy: function (method, id) {
-        if (method == 'up') {
+    letGraduate: function () {
+        var idArry = new Array();
+        var position;
+        $('.idList').each(function (index, element) {
+            if ($(element).is(':checked')){
+                idArry[position] = $(element).attr('data-label');
+                position++;
+            }
+        });
+        var jsonStuList = JSON.stringify(idArry);
+        Util.ajax(
+            Label.staticServePath + "/classManager/letGraduate",
+            {
+                type: "POST",
+                data: {
+                    classStuIdList: jsonStuList
+                }
+            }
+        );
+    },
 
-        } else {
-            modalUtil.show($('#seeUnEmployModel'));
-            loadResult($('#detailInfo'), Label.staticServePath + "/studentManager/showStudentInfo?studentId=" + id);
-        }
+    seeUnEmploy: function (method, id) {
+        modalUtil.show($('#seeUnEmployModel'));
+        loadResult($('#detailInfo'), Label.staticServePath + "/studentManager/showStudentInfo?studentId=" + id);
     },
 
     employmentTrack: function (method, id) {
@@ -1411,7 +1428,8 @@ var func = {
     },
 
     seeEmpApp: function (method, id) {
-
+        modalUtil.show($('#seeDetailModel'));
+        loadResult($('#stuDetailInfo'), Label.staticServePath + "/studentManager/showStudentInfo?studentId=" + id);
     },
 
     agreeEmpApp: function (method, id) {

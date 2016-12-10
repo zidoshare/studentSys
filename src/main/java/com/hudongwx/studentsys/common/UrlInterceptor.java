@@ -1,9 +1,7 @@
 package com.hudongwx.studentsys.common;
 
 import com.hudongwx.studentsys.exceptions.BaseException;
-import com.hudongwx.studentsys.exceptions.ServiceException;
 import com.hudongwx.studentsys.util.Common;
-import com.hudongwx.studentsys.util.InsertKit;
 import com.hudongwx.studentsys.util.RenderKit;
 import com.hudongwx.studentsys.util.StrPlusKit;
 import com.jfinal.aop.Interceptor;
@@ -11,16 +9,8 @@ import com.jfinal.aop.Invocation;
 import com.jfinal.core.Controller;
 import com.jfinal.core.JFinal;
 import com.jfinal.log.Log;
-import com.jfinal.render.FreeMarkerRender;
-import com.jfinal.render.Render;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by wuhongxu on 2016/8/31 0031.
@@ -75,7 +65,7 @@ public class UrlInterceptor implements Interceptor {
         } else if (e instanceof BaseException) {
             String type = "";
             if (JFinal.me().getConstants().getDevMode()) {
-                type = ((BaseException) e).getType()+"：";
+                type = ((BaseException) e).getType() + "：";
             }
             message = e.getMessage();
             if (StrPlusKit.isBlank(message))

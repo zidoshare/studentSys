@@ -50,23 +50,23 @@
                                     data-target="#name">${stu.name}</td>
                                 <td id="class${stu.id}" data-label="${stu.className}"
                                     data-target="#className">${stu.className}</td>
-                                <td id="contactInformation${stu.id}" data-label="${(stu.contactInformation)!"未填写"}"
-                                    data-target="#contactInformation">${(stu.contactInformation)!"未填写"}</td>
+                                <td id="contactInformation${stu.id}" data-label="${(stu.contactInformation)!}"
+                                    data-target="#contactInformation">${(stu.contactInformation)!"无"}</td>
                                 <td id="educationBackground${stu.id}"
-                                    data-label="${(stu.educationBackground)!"未填写"}" data-target="#educationBackground"
-                                    data-method="prop">${(stu.educationBackground)!"未填写"}</td>
-                                <td id="major${stu.id}"
-                                    data-label="${(stu.major)!"未填写"}" data-target="#major"
-                                    data-method="prop">${(stu.major)!"未填写"}</td>
-                                <td id="credit${stu.id}"
-                                    data-label="${(stu.credit)!0}" data-target="#credit"
-                                    data-method="prop">${(stu.credit)!"未填写"}</td>
-                                <td id="testAverage${stu.id}"
-                                    data-label="${(stu.testAverage)!0}" data-target="#testAverage"
-                                    data-method="prop">${(stu.testAverage)!"没有成绩"}</td>
-                                <td id="trainingEvaluation${stu.id}"
-                                    data-label="${(stu.trainingEvaluation)!0}" data-target="#trainingEvaluation"
-                                    data-method="prop">${(stu.trainingEvaluation)!"没有成绩"}</td>
+                                    data-label="${(stu.educationBackground)!}" data-target="#educationBackground"
+                                    data-method="prop">${(stu.educationBackground)!"无"}</td>
+                                <td id="company${stu.id}"
+                                    data-label="${(stu.studentEmployment.company)!}" data-target="#company"
+                                    data-method="prop">${(stu.studentEmployment.company)!"无"}</td>
+                                <td id="salary${stu.id}"
+                                    data-label="${(stu.studentEmployment.salary)!}" data-target="#salary"
+                                    data-method="prop">${(stu.studentEmployment.salary)!"无"}</td>
+                                <td id="operator${stu.id}"
+                                    data-label="${(stu.studentEmployment.operator)!}" data-target="#operator"
+                                    data-method="prop">${(stu.studentEmployment.operator)!"无"}</td>
+                                <td id="remark${stu.id}"
+                                    data-label="${(stu.remark)!}" data-target="#remark"
+                                    data-method="prop">${(stu.remark)!"无"}</td>
                             </tr>
                             </#list>
                             </tbody>

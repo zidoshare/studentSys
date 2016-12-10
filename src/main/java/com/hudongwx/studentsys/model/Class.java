@@ -7,7 +7,10 @@ import com.hudongwx.studentsys.common.BaseClass;
  */
 @SuppressWarnings("serial")
 public class Class extends BaseClass<Class> {
-	public static final Class dao = new Class();
-	public static final String SEARCH_FROM_CLASS = "select * from stumanager_class ";
-	public static final String SQL_FROM = " from stumanager_class ";
+    public static final int CLASS_STATUS_GRADUATED = 17;
+    public static final int CLASS_STATUS_OPENING = 16;
+    public static final int CLASS_STATUS_PREP = 19;
+    public static final Class dao = new Class();
+    public static final String SEARCH_FROM_CLASS = "select * from stumanager_class ";
+    public static final String SQL_FROM = " from stumanager_class ";
 }

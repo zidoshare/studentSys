@@ -153,7 +153,6 @@
                 </mapping>
             </mappings>
         </mapping>
-        <!--0：功能，1：视图模块，2：菜单，3：二级菜单，以后多级菜单，依次类推-->
         <mapping id="6100" icon="fa fa-usd" url="/obtainEmploymentManager" title="就业管理" function="2">
             <mappings>
                 <mapping id="6110" icon="fa fa-usd" url="/studentEmploymentManager/unEmployed" title="未就业" function="3">
@@ -209,8 +208,6 @@
                 </mapping>
             </mappings>
         </mapping>
-        <!--0：功能，1：视图模块，2：菜单，3：二级菜单，以后多级菜单，依次类推-->
-
         <mapping id="2330" icon="fa fa-usd" url="/repaymentManager" title="还款管理" function="2">
             <mappings>
                 <mapping id="3700" icon="repaymentList" title="还款管理" url="/repaymentManager/repaymentList.ftl"

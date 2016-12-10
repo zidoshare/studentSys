@@ -6,6 +6,10 @@
         <div id="class-details" class="panel panel-default item">
             <div class="panel-heading title">
             ${view.title}
+                <button data-style="slide-up" id="update-student-btn" class="btn btn-primary ladda-button btn-info pull-right"
+                        onclick="func.letGraduate()">
+                    <span>毕业</span>
+                </button>
             </div>
             <div class="panel-body">
                 <div id="table-inner">
@@ -69,7 +73,7 @@
                             <tr>
                                 <td>
                                     <div class="checkbox3 checkbox-round text-center">
-                                        <input type="checkbox" id="index-look${student.id}" checked="checked">
+                                        <input class="idList" type="checkbox" data-label="${student.id}" id="index-look${student.id}" checked="checked">
                                         <label class="checkbox-2" style="display: inline" for="index-look${student.id}">
                                         </label>
                                     </div>

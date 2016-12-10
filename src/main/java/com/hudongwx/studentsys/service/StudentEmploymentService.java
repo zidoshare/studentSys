@@ -61,11 +61,14 @@ public class StudentEmploymentService extends Service {
      * @param stuId
      * @return
      */
-    public List<StudentEmployment> getStuEmpByStudentId(Integer stuId) {
+    public StudentEmployment getStuEmpByStudentId(Integer stuId) {
         if (stuId == null) {
             return null;
         }
-        return StudentEmployment.dao.find(StudentEmployment.SELECT_FROM_STUDENT_EMPLOYMENT + "where studentId=?", stuId);
+        List<StudentEmployment> studentEmployments = StudentEmployment.dao.find(StudentEmployment.SELECT_FROM_STUDENT_EMPLOYMENT + "where studentId = ? ", stuId);
+        if (studentEmployments.isEmpty())
+            return null;
+        return studentEmployments.get(0);
     }
 
     /**
@@ -74,19 +77,19 @@ public class StudentEmploymentService extends Service {
      * @return
      */
     public Page<StudentEmployment> getAllStuEmp(Integer currentPage) {
-        return StudentEmployment.dao.paginate(currentPage, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, StudentEmployment.SQL_FROM);
+        return StudentEmployment.dao.paginate(currentPage, Common.MAX_PAGE_SIZE_10, Common.COMMON_SELECT, StudentEmployment.SQL_FROM);
     }
 
     public Page<StudentEmployment> getUnEmp(Integer currentPage) {
-        return StudentEmployment.dao.paginate(currentPage, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, StudentEmployment.SQL_FROM + " where employmentStatus = ? ", Student.EMPLOYMENTSTATUS_UN_EMPLOYED);
+        return StudentEmployment.dao.paginate(currentPage, Common.MAX_PAGE_SIZE_10, Common.COMMON_SELECT, StudentEmployment.SQL_FROM + " where employmentStatus = ? ", Student.EMPLOYMENTSTATUS_UN_EMPLOYED);
     }
 
     public Page<StudentEmployment> getEmpExamineApply(Integer currentPage, Integer userId) {
-        return StudentEmployment.dao.paginate(currentPage, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, StudentEmployment.SQL_FROM + " where approveStatus = ? and approverId = ?", Student.EMPLOYMENTSTATUS_IN_APPROVAL, userId);
+        return StudentEmployment.dao.paginate(currentPage, Common.MAX_PAGE_SIZE_10, Common.COMMON_SELECT, StudentEmployment.SQL_FROM + " where approveStatus = ? and approverId = ?", Student.EMPLOYMENTSTATUS_IN_APPROVAL, userId);
     }
 
     public StudentEmployment getStuEmpById(Integer id) {
-        if(id==null)
+        if (id == null)
             return null;
         return StudentEmployment.dao.findById(id);
     }

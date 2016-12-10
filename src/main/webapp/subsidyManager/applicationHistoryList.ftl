@@ -13,7 +13,7 @@ ${view.title}
 
         <div class="col-md-8">
             <form class="form-inline">
-                <label  class="control-label">选择时间范围:</label>
+                <label class="control-label">选择时间范围:</label>
                 <div class="date datetimepicker input-group datetimepicker-inline"
                      data-date-format="yyyy-mm-dd">
                     <input id="all_start_time_list" class="form-control input-sm" type="text"
@@ -64,7 +64,7 @@ ${view.title}
                         申请时间
                     </th>
                     <th>
-                       状态
+                        状态
                     </th>
                 </tr>
                 </thead>
@@ -72,34 +72,34 @@ ${view.title}
                     <#list saPages.list as sub>
                     <tr>
                         <td>
-                            ${sub.className}
+                        ${sub.className}
                         </td>
                         <td>
-                            ${sub.totalSubsidy}
+                        ${sub.totalSubsidy}
                         </td>
                         <td>
-                            ${sub.totalBonus}
+                        ${sub.totalBonus}
                         </td>
                         <td>
-                            ${sub.aggregateAmount}
+                        ${sub.aggregateAmount}
                         </td>
                         <td>
-                            ${sub.applicantName}
+                        ${sub.applicantName}
                         </td>
                         <td>
-                            ${sub.operater!"暂无"}
+                        ${sub.operater!"暂无"}
                         </td>
                         <td>
                         ${(sub.applicationDate?number)?number_to_date}
                         </td>
-                        <#--<td>-->
-                        <#--${sub.applicantName}-->
-                        <#--</td>-->
-                        <#--<td>-->
-                        <#--<#if sub.status??>-->
-                             <#--${sub.status.statusName}-->
-                        <#--</#if>-->
-                        <#--</td>-->
+                    <#--<td>-->
+                    <#--${sub.applicantName}-->
+                    <#--</td>-->
+                    <#--<td>-->
+                    <#--<#if sub.status??>-->
+                    <#--${sub.status.statusName}-->
+                    <#--</#if>-->
+                    <#--</td>-->
                         <td>
                         ${sub.status.statusName}
                         </td>
@@ -155,8 +155,8 @@ ${view.title}
         var end_list = new Date($('#all_end_time_list').val().replace(/-/g, '/'));
         if (start_list <= end_list) {
             end_list.setDate(end_list.getDate() + 1);
-        Util.loadByPjax('${staticServePath}/subsidyManager/historyManager?start_time_list='
-        + start_list.getTime() + '&end_time_list=' + end_list.getTime());
+            Util.loadByPjax('${staticServePath}/subsidyManager/historyManager?start_time_list='
+                    + start_list.getTime() + '&end_time_list=' + end_list.getTime());
         } else {
             Util.showTip($('#wholeTip'), '结束时间应大于开始时间', 'alert alert-danger');
         }

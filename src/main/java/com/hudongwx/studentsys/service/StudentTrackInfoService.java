@@ -18,7 +18,7 @@ public class StudentTrackInfoService extends Service {
                 e.printStackTrace();
             }
         }
-        List<StudentTrackInfo> sti=StudentTrackInfo.dao.find(StudentTrackInfo.SELECT_FROM_STUDENT_TRACK_INFO+"where targetId = ? ",stuId);
+        List<StudentTrackInfo> sti=StudentTrackInfo.dao.find(StudentTrackInfo.SELECT_FROM_STUDENT_TRACK_INFO+"where targetId = ? and status = ? ",stuId,StudentTrackInfo.EMP_TRACK);
         return sti;
     }
 

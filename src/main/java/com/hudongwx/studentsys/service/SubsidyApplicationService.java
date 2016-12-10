@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 public class SubsidyApplicationService extends Service {
     StatusService statusService;
     RegionService regionService;
+
     /**
      * 添加申请表
      *
@@ -95,7 +96,6 @@ public class SubsidyApplicationService extends Service {
     }
 
 
-
     /**
      * 通过申请人id查询申请表信息
      *
@@ -124,11 +124,12 @@ public class SubsidyApplicationService extends Service {
      */
     public Page<SubsidyApplication> getSubsidyApplicationByApproveId(Integer approveId, Integer currentPage) {
         Page<SubsidyApplication> paginate = SubsidyApplication.dao.paginate(currentPage, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, SubsidyApplication.SQL_FROM + "where approverId = ?  and approveStatus = ?", new Object[]{approveId, SubsidyApplication.APPROVE_WAITTING});
-                    return PageinateKit.ClonePage(paginate,
-                            paginate.getList().stream().map(sa -> {
-                                sa.setRegion(regionService.getRegionById(sa.getRegionId()));
-                                sa.setStatus(statusService.getStatusById(sa.getApproveStatus()));return sa;
-                            }).collect(Collectors.toList()));
+        return PageinateKit.ClonePage(paginate,
+                paginate.getList().stream().map(sa -> {
+                    sa.setRegion(regionService.getRegionById(sa.getRegionId()));
+                    sa.setStatus(statusService.getStatusById(sa.getApproveStatus()));
+                    return sa;
+                }).collect(Collectors.toList()));
     }
 
     /**
@@ -146,18 +147,26 @@ public class SubsidyApplicationService extends Service {
     }
 
     public List<SubsidyApplication> getSubApplicationByApplicationDate(Long applicationDate) {
-        return SubsidyApplication.dao.find(SubsidyApplication.SEARCH_FROM_SUBSIDY_APPLICATION + "where applicationDate = ? and approveStatus= 9 ",applicationDate);
+        return SubsidyApplication.dao.find(SubsidyApplication.SEARCH_FROM_SUBSIDY_APPLICATION + "where applicationDate = ? and approveStatus= 9 ", applicationDate);
     }
 
-    public List<SubsidyApplication> getApplicationByClassIdAndDate(Integer classId ,Long applicationDate) {
-        return SubsidyApplication.dao.find(SubsidyApplication.SEARCH_FROM_SUBSIDY_APPLICATION + "where classId = ? and applicationDate = ? and approveStatus = "+SubsidyApplication.APPROVE_BEFORE,classId,applicationDate);
+    public List<SubsidyApplication> getApplicationByClassIdAndDate(Integer classId, Long applicationDate) {
+        return SubsidyApplication.dao.find(SubsidyApplication.SEARCH_FROM_SUBSIDY_APPLICATION + "where classId = ? and applicationDate = ? and approveStatus = " + SubsidyApplication.APPROVE_BEFORE, classId, applicationDate);
     }
 
-    public Page<SubsidyApplication> getSubsidyApplicationHistoryByUserId(int pageNummber,int userId,long startTime,long endTime) {
-        Page<SubsidyApplication> paginate = SubsidyApplication.dao.paginate(pageNummber, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, SubsidyApplication.SQL_FROM + "where ( approveStatus = ? or  approveStatus = ? or approveStatus = ? ) and applicantId = ? and (applicationDate between ? and ?)",SubsidyApplication.APPROVE_WAITTING,SubsidyApplication.APPROVE_NO,SubsidyApplication.APPROVE_YES, userId,startTime,endTime);
+    public Page<SubsidyApplication> getSubsidyApplicationHistoryByUserId(int pageNumber, int userId, long startTime, long endTime) {
+        Page<SubsidyApplication> paginate;
+        if (startTime == 0 || endTime == 0 || startTime == endTime) {
+            paginate = SubsidyApplication.dao.paginate(pageNumber, Common.MAX_PAGE_SIZE_10, Common.COMMON_SELECT, SubsidyApplication.SQL_FROM + "where ( approveStatus = ? or  approveStatus = ? or approveStatus = ? ) and applicantId = ? ", SubsidyApplication.APPROVE_WAITTING, SubsidyApplication.APPROVE_NO, SubsidyApplication.APPROVE_YES, userId);
+        } else {
+            paginate = SubsidyApplication.dao.paginate(pageNumber, Common.MAX_PAGE_SIZE_10, Common.COMMON_SELECT, SubsidyApplication.SQL_FROM + "where ( approveStatus = ? or  approveStatus = ? or approveStatus = ? ) and applicantId = ? and (applicationDate between ? and ?)", SubsidyApplication.APPROVE_WAITTING, SubsidyApplication.APPROVE_NO, SubsidyApplication.APPROVE_YES, userId, startTime, endTime);
+        }
+        if (paginate == null)
+            return null;
         return PageinateKit.ClonePage(paginate,
                 paginate.getList().stream().map(sa -> {
-                    sa.setStatus(statusService.getStatusById(sa.getApproveStatus()));return sa;
+                    sa.setStatus(statusService.getStatusById(sa.getApproveStatus()));
+                    return sa;
                 }).collect(Collectors.toList()));
     }
 }
