@@ -6,7 +6,8 @@
         <div id="class-details" class="panel panel-default item">
             <div class="panel-heading title">
             ${view.title}
-                <button data-style="slide-up" id="update-student-btn" class="btn btn-primary ladda-button btn-info pull-right"
+                <button data-style="slide-up" id="update-student-btn"
+                        class="btn btn-primary ladda-button btn-info pull-right"
                         onclick="func.letGraduate()">
                     <span>毕业</span>
                 </button>
@@ -73,7 +74,8 @@
                             <tr>
                                 <td>
                                     <div class="checkbox3 checkbox-round text-center">
-                                        <input class="idList" type="checkbox" data-label="${student.id}" id="index-look${student.id}" checked="checked">
+                                        <input class="idList" type="checkbox" data-label="${student.id}"
+                                               id="index-look${student.id}" checked="checked">
                                         <label class="checkbox-2" style="display: inline" for="index-look${student.id}">
                                         </label>
                                     </div>
@@ -168,3 +170,33 @@
     </div>
 </div>
 
+<script>
+    $(function () {
+        $('#index-look').click(function () {
+            if ($(this).is(':checked')) {
+                $('.idList').each(function (index, elem) {
+                    $(elem).prop('checked', true);
+                });
+            } else {
+                $('.idList').each(function (index, elem) {
+                    $(elem).prop('checked', false);
+                });
+            }
+        });
+
+        $('.idList').each(function (index, elem) {
+            $(elem).click(function () {
+                if ($(this).is(':checked') == false) {
+                    $('#index-look').prop('checked', false);
+                } else {
+                    newCount++;
+                }
+                if (count == newCount) {
+                    $('#index-look').prop('checked', true);
+                }
+            });
+        });
+
+    });
+
+</script>

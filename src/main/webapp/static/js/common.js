@@ -1336,6 +1336,7 @@ var func = {
             }
         });
         var jsonStuList = JSON.stringify(idArry);
+        alert(jsonStuList);
         Util.ajax(
             Label.staticServePath + "/classManager/letGraduate",
             {
