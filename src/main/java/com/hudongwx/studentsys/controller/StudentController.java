@@ -14,7 +14,6 @@ import com.hudongwx.studentsys.util.RenderKit;
 import com.jfinal.aop.Before;
 import com.jfinal.ext.interceptor.POST;
 import com.jfinal.kit.JsonKit;
-import com.jfinal.plugin.activerecord.Page;
 
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
@@ -52,10 +51,11 @@ public class StudentController extends BaseController {
         setMapping(mappingService.getMappingByUrl("/classManager"));
         fillHeaderAndFooter();
         fillContentParent();
-        Integer p = getParaToInt("p", 1);
+//        Integer p = getParaToInt("p", 1);
         Integer classId = getParaToInt("classId");
-        Page<Student> studentPageList = studentService.getStudentPageByClassId(classId, p);
-        System.out.println("studentPageListSize=" + studentPageList.getList().size() + "classId=" + classId);
+//        Page<Student> studentPageList = studentService.getStudentPageByClassId(classId, p);
+        List<Student>studentPageList=studentService.getAllStudentByClassId(classId);
+//        System.out.println("studentPageListSize=" + studentPageList.getList().size() + "classId=" + classId);
         List<Mapping> views = new ArrayList<>();
         Mapping mapping = mappingService.getMappingByUrl("/studentManager/showStudentInfo.ftl");
         views.add(mapping);
@@ -231,7 +231,7 @@ public class StudentController extends BaseController {
         student.setOperaterId(operater.getId());
         student.setOperater(operater.getUserNickname());
         student.setIp(operater.getUserLastLoginIp());
-        student.setRemark(sdf.format(l)+":"+student.getName() +"已毕业！/");
+        student.setRemark(sdf.format(l)+":"+student.getName() +"已毕业！");
         studentService._updateStudentById(student);
         RenderKit.renderSuccess(this, "操作成功！");
     }

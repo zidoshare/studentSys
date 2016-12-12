@@ -2,10 +2,8 @@ package com.hudongwx.studentsys.service;
 
 import com.hudongwx.studentsys.common.Service;
 import com.hudongwx.studentsys.exceptions.ServiceException;
+import com.hudongwx.studentsys.model.*;
 import com.hudongwx.studentsys.model.Class;
-import com.hudongwx.studentsys.model.Student;
-import com.hudongwx.studentsys.model.StudentEmployment;
-import com.hudongwx.studentsys.model.User;
 import com.hudongwx.studentsys.util.Common;
 import com.hudongwx.studentsys.util.PageinateKit;
 import com.hudongwx.studentsys.util.StrPlusKit;
@@ -20,6 +18,7 @@ import java.util.stream.Collectors;
 public class StudentService extends Service {
     public StatusService statusService;
     public StudentEmploymentService studentEmploymentService;
+    public StudentTrackInfoService studentTrackInfoService;
 
     public Student getStudentById(Integer id) {
         if (id == null)
@@ -126,7 +125,12 @@ public class StudentService extends Service {
                 e.printStackTrace();
             }
         }
-        return Student.dao.find(Student.SEARCH_FROM_STUDENT + "where classId = ? ", classId);
+        List<Student> stuList = Student.dao.find(Student.SEARCH_FROM_STUDENT + "where classId = ? ", classId);
+        return stuList.stream().map(student -> {
+            Status statu = statusService.getStatusById(student.getStatus());
+            student.setStatu(statu);
+            return student;
+        }).collect(Collectors.toList());
     }
 
     public boolean _updateStudentById(Student student) {
@@ -141,7 +145,18 @@ public class StudentService extends Service {
     }
 
     public Page<Student> getUnEmpStu(int currentPage) {
-        return Student.dao.paginate(currentPage, Common.MAX_PAGE_SIZE, Common.COMMON_SELECT, Student.SQL_FROM + Common.SQL_WHERE + "status = ? and employmentStatus = ? " + Common.ORDER_BY_ID_DESC, Student.STATUS_GRADUATION, Student.EMPLOYMENTSTATUS_UN_EMPLOYED);
+        Page<Student> paginate = Student.dao.paginate(currentPage, Common.MAX_PAGE_SIZE_15, Common.COMMON_SELECT, Student.SQL_FROM + Common.SQL_WHERE + "status = ? and employmentStatus = ? " + Common.ORDER_BY_ID_DESC, Student.STATUS_GRADUATION, Student.EMPLOYMENTSTATUS_UN_EMPLOYED);
+
+        return PageinateKit.ClonePage(paginate,
+                paginate.getList().stream().map(student -> {
+                    List<StudentTrackInfo> trackInfoList = studentTrackInfoService.getStuTrackInfo(student.getId());
+                    StudentTrackInfo studentTrackInfo = null;
+                    if (trackInfoList != null && trackInfoList.size() != 0) {
+                        studentTrackInfo = trackInfoList.get(0);
+                    }
+                    student.setStudentTrackInfo(studentTrackInfo);
+                    return student;
+                }).collect(Collectors.toList()));
     }
 
     public Page<Student> getEmployedStu(int currentPage) {

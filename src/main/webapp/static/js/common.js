@@ -937,10 +937,22 @@ var func = {
         if (method == 'show') {
             modalUtil.toggleClear($('#addStudentModel'));
         } else {
-            $('#createTime').val(new Date().getTime());
+            var str_bd = "student.birthday";
+            var str_gt = "student.graduationTime";
+            var str_frt = "student.firstRepaymentTime";
+            var str_srt = "student.studentRepaymentTime";
             var json = {};
             $('#student').find('.form-control').each(function () {
-                json[$(this).attr('name')] = $(this).val();
+                var str = $(this).attr('name');
+                if (str == str_bd || str == str_gt || str == str_frt || str == str_srt) {
+                    var time = new Date($(this).val().replace(/-/g, "/")).getTime();
+                    if (isNaN(time) || time == null) {
+                        json[$(this).attr('name')] = null;
+                    } else {
+                        json[$(this).attr('name')] = time;
+                    }
+                }
+                json[str] = $(this).val();
             });
             Util.ajax({
                 url: Label.staticServePath + '/studentManager/addStudent',
@@ -1327,21 +1339,23 @@ var func = {
     },
 
     letGraduate: function () {
-        var idArry = new Array();
-        var position;
+        var idArray = new Array();
+        var clsId = 0;
+        var position = 0;
         $('.idList').each(function (index, element) {
-            if ($(element).is(':checked')){
-                idArry[position] = $(element).attr('data-label');
+            if ($(element).is(':checked')) {
+                clsId = $(element).attr('data-clsId');
+                idArray[position] = $(element).attr('data-label');
                 position++;
             }
         });
-        var jsonStuList = JSON.stringify(idArry);
-        alert(jsonStuList);
+        var jsonStuList = JSON.stringify(idArray);
         Util.ajax(
             Label.staticServePath + "/classManager/letGraduate",
             {
                 type: "POST",
                 data: {
+                    clsId: clsId,
                     classStuIdList: jsonStuList
                 }
             }
@@ -1466,7 +1480,7 @@ var func = {
     },
     seeClassStudent: function (method, classId) {
         Util.loadByPjax(Label.staticServePath + "/studentManager/pageJump?classId=" + classId, {
-            container: '#class-details'
+            container: '#class-details',
         });
     },
     addClass: function (method) {

@@ -6,8 +6,7 @@
         <div id="class-details" class="panel panel-default item">
             <div class="panel-heading title">
             ${view.title}
-                <button data-style="slide-up" id="update-student-btn"
-                        class="btn btn-primary ladda-button btn-info pull-right"
+                <button data-style="slide-up" id="update-student-btn" class="btn btn-primary ladda-button btn-info pull-right"
                         onclick="func.letGraduate()">
                     <span>毕业</span>
                 </button>
@@ -32,7 +31,7 @@
                             <tr>
                                 <th>
                                     <div class="checkbox3 checkbox-round text-center">
-                                        <input type="checkbox" id="index-look" checked="checked">
+                                        <input type="checkbox" id="index-look">
                                         <label class="checkbox-2" style="display: inline" for="index-look">
                                         </label>
                                     </div>
@@ -70,39 +69,39 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <#list students.list as student>
+                            <#--<#list students.list as student>-->
+                                <#list students as student>
                             <tr>
                                 <td>
                                     <div class="checkbox3 checkbox-round text-center">
-                                        <input class="idList" type="checkbox" data-label="${student.id}"
-                                               id="index-look${student.id}" checked="checked">
+                                        <input class="idList" type="checkbox" data-clsId="${student.classId}" data-status="${student.status}"  data-label="${student.id}" id="index-look${student.id}" <#if student.status!=1>disabled</#if>>
                                         <label class="checkbox-2" style="display: inline" for="index-look${student.id}">
                                         </label>
                                     </div>
                                 </td>
                                 <td>
-                                ${student.name}
+                                ${(student.name)!'无'}
                                 </td>
                                 <td>
-                                ${student.contactInformation}
+                                ${(student.contactInformation)!'无'}
                                 </td>
                                 <td>
-                                ${student.statu.statusName}
+                                ${(student.statu.statusName)!'无'}
                                 </td>
                                 <td>
-                                ${student.educationBackground}
+                                ${(student.educationBackground)!'无'}
                                 </td>
                                 <td>
-                                ${student.major}
+                                ${(student.major)!'无'}
                                 </td>
                                 <td>
-                                ${student.paymentMethod}
+                                ${(student.paymentMethod)!'无'}
                                 </td>
                                 <td>
-                                ${student.residualFrequency}
+                                ${(student.residualFrequency)!'无'}
                                 </td>
                                 <td>
-                                    [原]成都0719班
+                                    无
                                 </td>
                             <#--<#if  updateAble ||  deleteAble>-->
                                 <td>
@@ -122,6 +121,12 @@
                             </tbody>
                         </table>
                     </div>
+                <#--<#if students??>-->
+                    <#--<#assign str = "?">-->
+                    <#--<#if holdPath?contains("?")><#assign str = "&"></#if>-->
+                    <#--<@paginate page = students url=holdPath+str pageAfter="p">-->
+                    <#--</@paginate>-->
+                <#--</#if>-->
                 </div>
             </div>
             <div class="modal fade" id="studentInformationModel" tabindex="-1" role="dialog"
@@ -172,9 +177,11 @@
 
 <script>
     $(function () {
+        var allChecked=true;
         $('#index-look').click(function () {
             if ($(this).is(':checked')) {
                 $('.idList').each(function (index, elem) {
+                    count++;
                     $(elem).prop('checked', true);
                 });
             } else {
@@ -188,10 +195,11 @@
             $(elem).click(function () {
                 if ($(this).is(':checked') == false) {
                     $('#index-look').prop('checked', false);
+                    allChecked=false;
                 } else {
-                    newCount++;
+                    allChecked=true;
                 }
-                if (count == newCount) {
+                if (allChecked) {
                     $('#index-look').prop('checked', true);
                 }
             });

@@ -35,11 +35,11 @@
                                     就业薪资
                                 </th>
                                 <th>
-                                    对应咨询师
+                                    就业老师
                                 </th>
-                                <th>
-                                    备注
-                                </th>
+                                <#--<th>-->
+                                    <#--备注-->
+                                <#--</th>-->
                             </tr>
                             </thead>
                             <tbody>
@@ -64,9 +64,9 @@
                                 <td id="operator${stu.id}"
                                     data-label="${(stu.studentEmployment.operator)!}" data-target="#operator"
                                     data-method="prop">${(stu.studentEmployment.operator)!"无"}</td>
-                                <td id="remark${stu.id}"
-                                    data-label="${(stu.remark)!}" data-target="#remark"
-                                    data-method="prop">${(stu.remark)!"无"}</td>
+                                <#--<td id="remark${stu.id}"-->
+                                    <#--data-label="${(stu.remark)!}" data-target="#remark"-->
+                                    <#--data-method="prop">${(stu.remark)!"无"}</td>-->
                             </tr>
                             </#list>
                             </tbody>

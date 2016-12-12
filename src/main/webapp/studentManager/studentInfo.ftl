@@ -34,12 +34,12 @@
                 <td>所属班级:<span>&nbsp;&nbsp;&nbsp;<#if student.className??>${student.className}<#else>未填写</#if></span></td>
                 <td></td>
             </tr>
-            <tr>
-                <td>就业时间:<span>&nbsp;&nbsp;&nbsp;<#if student.className??>${student.className}<#else>未填写</#if></span></td>
-                <td>就业薪资:<span>&nbsp;&nbsp;&nbsp;<#if student.className??>${student.className}<#else>未填写</#if></span></td>
-                <td>就业单位:<span>&nbsp;&nbsp;&nbsp;<#if student.className??>${student.className}<#else>未填写</#if></span></td>
-                <td></td>
-            </tr>
+            <#--<tr>-->
+                <#--<td>就业时间:<span>&nbsp;&nbsp;&nbsp;<#if student.className??>${student.className}<#else>未填写</#if></span></td>-->
+                <#--<td>就业薪资:<span>&nbsp;&nbsp;&nbsp;<#if student.className??>${student.className}<#else>未填写</#if></span></td>-->
+                <#--<td>就业单位:<span>&nbsp;&nbsp;&nbsp;<#if student.className??>${student.className}<#else>未填写</#if></span></td>-->
+                <#--<td></td>-->
+            <#--</tr>-->
             <td colspan="2"> 毕业学校:<span>&nbsp;&nbsp;&nbsp;<#if student.college??>${student.college}<#else>未填写</#if></span></td>
             <td colspan="2">毕业时间:<span>&nbsp;&nbsp;&nbsp;<#if student.graduationTime??>${student.graduationTime}<#else>未填写</#if></span></td>
             </tr>

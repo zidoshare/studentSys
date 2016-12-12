@@ -48,7 +48,7 @@
                                     项目评价
                                 </th>
                                 <th>
-                                    备注
+                                    最新情况
                                 </th>
                             <#assign seeUnEmploy = false>
                             <#assign employmentTrack = false>
@@ -100,9 +100,9 @@
                                 <td id="trainingEvaluation${stu.id}"
                                     data-label="${(stu.trainingEvaluation)!0}" data-target="#trainingEvaluation"
                                     data-method="prop">${(stu.trainingEvaluation)!"没有成绩"}</td>
-                                <td id="remark${stu.id}"
-                                    data-label="${(stu.remark)!}" data-target="#remark"
-                                    data-method="prop">${(stu.remark)!"无"}</td>
+                                <td id="situation${(stu.studentTrackInfo.situation)!}"
+                                    data-label="${(stu.studentTrackInfoList.situation)!}" data-target="#situation"
+                                    data-method="prop">${(stu.studentTrackInfo.situation)!"无"}</td>
                                 <#if seeUnEmploy || employmentTrack || employmentApproval>
                                     <td>
                                         <#list map["operators"+view.id] as op>

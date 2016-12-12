@@ -147,6 +147,7 @@ public class StudentEmploymentController extends BaseController {
             boolean b = studentEmploymentService._saveStuEmp(se);
             if (b) {
                 student.setRemark("就业审核中");
+                student.setEmploymentStatus(Student.EMPLOYMENTSTATUS_IN_APPROVAL);
                 studentService._updateStudentById(student);
                 RenderKit.renderSuccess(this, "操作成功！");
             } else {

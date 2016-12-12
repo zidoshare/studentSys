@@ -90,15 +90,16 @@ public class ClassController extends BaseController {
     }
 
     public void letGraduate() {
-        String JsonStuIdList = getPara("classStuIdList");
-        JSONArray jsonStuIdArray = JSON.parseArray(JsonStuIdList);
+        String jsonStuIdList = getPara("classStuIdList");
+        int clsId = getParaToInt("clsId");
+        System.out.println(jsonStuIdList);
+        JSONArray jsonStuIdArray = JSON.parseArray(jsonStuIdList);
         boolean allComplete = true;
-        Student student = null;
         for (Object o : jsonStuIdArray) {
-            if(o==null)
+            if (o == null)
                 continue;
             int id = Integer.valueOf(o.toString());
-            student = studentService.getUnEmpStudentById(id);
+            Student student = studentService.getUnEmpStudentById(id);
             if (student != null) {
                 student.setStatus(Student.STATUS_GRADUATION);
                 student.setEmploymentStatus(Student.EMPLOYMENTSTATUS_UN_EMPLOYED);
@@ -109,12 +110,23 @@ public class ClassController extends BaseController {
                 }
             }
         }
-        //// TODO: 2016/12/10 getClassId
-        Class aClass = classService.getClassById(student.getClassId());
-        aClass.setStatus(Class.CLASS_STATUS_GRADUATED);
-        aClass.setRemark("毕业班！");
-        if (allComplete || classService._updateClass(aClass)) {
-            RenderKit.renderSuccess(this, "操作成功！");
+        Class aClass = classService.getClassById(clsId);
+        boolean b = true;
+        boolean isG = false;
+        if (aClass != null) {
+            if (aClass.getStatus() == Class.CLASS_STATUS_GRADUATED) {
+                isG = true;
+            }
+            aClass.setStatus(Class.CLASS_STATUS_GRADUATED);
+            aClass.setRemark("毕业班！");
+            b = classService._updateClass(aClass);
+        }
+        if (allComplete && b) {
+            if (isG) {
+                RenderKit.renderError(this, "该班级已经毕业，不建议反复提交！");
+            } else {
+                RenderKit.renderSuccess(this, "操作成功！");
+            }
         } else {
             RenderKit.renderError(this, "操作存在异常！");
         }
