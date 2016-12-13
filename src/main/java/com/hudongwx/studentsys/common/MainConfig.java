@@ -1,13 +1,11 @@
 package com.hudongwx.studentsys.common;
 
 import com.hudongwx.studentsys.RequestHandler;
-import com.hudongwx.studentsys.controller.UserController;
-import com.hudongwx.studentsys.model.User;
 import com.hudongwx.studentsys.model._MappingKit;
-import com.hudongwx.studentsys.util.InsertKit;
-import com.hudongwx.surveys.common.SurveysRoutes;
 import com.hudongwx.studentsys.util.Common;
+import com.hudongwx.studentsys.util.InsertKit;
 import com.hudongwx.studentsys.util.LangConfig;
+import com.hudongwx.surveys.common.SurveysRoutes;
 import com.jfinal.config.*;
 import com.jfinal.ext.handler.ContextPathHandler;
 import com.jfinal.kit.Prop;
@@ -17,7 +15,6 @@ import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.activerecord.dialect.MysqlDialect;
 import com.jfinal.plugin.activerecord.tx.TxByMethodRegex;
 import com.jfinal.plugin.c3p0.C3p0Plugin;
-import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.plugin.ehcache.EhCachePlugin;
 import com.jfinal.render.FreeMarkerRender;
 

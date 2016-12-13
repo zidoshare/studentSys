@@ -78,7 +78,11 @@ public class UserService extends Service {
     }
 
     public User getUserByStudent(Student student) {
-        return User.dao.findFirst(User.SEARCH_FROM_USER + "where userNickName = ?" + student.getName());
+        return User.dao.findFirst(User.SEARCH_FROM_USER + "where userNickName = ?" , student.getName());
+    }
+
+    public User getUserBycounselor(Student student) {
+        return User.dao.findFirst(User.SEARCH_FROM_USER + "where userNickName = ?" , student.getCounselorName());
     }
 
     public List<User> getUsersByRoleId(Role role) {

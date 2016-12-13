@@ -58,6 +58,11 @@ public class Common {
     public static final String LABEL_ROOT_MAPPING = "root";
     public static final String SQL_WHERE = " where ";
 
+    //上传文件路径
+    public static final String UP_LOAD_EXCEL_PATH="excel";
+    public static final String UP_LOAD_PHOTO_PATH="photo";
+    public static final String PHOTO_URL_PATH="src\\main\\webapp\\upLoad\\photo\\";
+
     //此处得到主配置
     public static Prop getMainProp() {
         return PropKit.use("config.properties");

@@ -402,14 +402,15 @@ var Util = {
         var defaults = {
             selector: 'input[type="file"]',
             language: 'zh', //设置语言
-            uploadUrl: '', //上传的地址
-            allowedFileExtensions: ['jpg', 'png', 'gif'],//接收的文件后缀
+            uploadUrl: '/', //上传的地址
+            allowedFileExtensions: ['xls', 'jpg', 'png', 'gif'],//接收的文件后缀
             showUpload: true, //是否显示上传按钮
             showCaption: true,//是否显示标题
             browseClass: "btn btn-primary", //按钮样式
             previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
         };
         var opts = $.extend(defaults, options);
+        console.log(opts);
         if (options == null) {
             $('input[type="file"]').fileinput();
         } else {
@@ -933,6 +934,7 @@ var func = {
             })
         }
     },
+
     addStudent: function (method) {
         if (method == 'show') {
             modalUtil.toggleClear($('#addStudentModel'));
@@ -942,18 +944,22 @@ var func = {
             var str_frt = "student.firstRepaymentTime";
             var str_srt = "student.studentRepaymentTime";
             var json = {};
+            var sArray = $('#upPhoto').val().split('\\');
+            json['student.photoUrl'] = sArray[sArray.length - 1];
             $('#student').find('.form-control').each(function () {
                 var str = $(this).attr('name');
                 if (str == str_bd || str == str_gt || str == str_frt || str == str_srt) {
-                    var time = new Date($(this).val().replace(/-/g, "/")).getTime();
+                    var time = new Date($(this).val()).getTime();
                     if (isNaN(time) || time == null) {
-                        json[$(this).attr('name')] = null;
+                        json[str] = null;
                     } else {
-                        json[$(this).attr('name')] = time;
+                        json[str] = time;
                     }
+                } else {
+                    json[str] = $(this).val();
                 }
-                json[str] = $(this).val();
             });
+
             Util.ajax({
                 url: Label.staticServePath + '/studentManager/addStudent',
                 data: json,

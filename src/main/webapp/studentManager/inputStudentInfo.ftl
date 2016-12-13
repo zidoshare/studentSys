@@ -11,12 +11,10 @@ ${view.title}
 <div class="row animate">
     <div class="col-md-12" id="page-inner">
         <div class="panel-heading">
-            <form class="clearfix">
+            <label class="control-label">导入Excel:（注意：请使用Microsoft Excel 97-2003 工作表）</label>
+            <form class="clearfix" enctype="multipart/form-data" method="post">
                 <div class="input-group hdwx-input-sm pull-left">
-                    <input id="upExcel" type="file" class="file" placeholder="导入Excel文件">
-                </div>
-                <div class="input-group hdwx-input-sm pull-right">
-
+                    <input id="upExcel" name="excel" type="file" accept="application/vnd.ms-excel">
                 </div>
             </form>
         </div>
@@ -38,6 +36,7 @@ ${view.title}
                     <tbody>
                     <tr class="warning">
                         <td colspan="8">
+                            <label class="control-label">选择班级:</label>
                             <div class="input-group input-group-sm">
                                 <span class="input-group-addon">班级:</span>
                                 <select name="student.classId" class="form-control">
@@ -50,7 +49,10 @@ ${view.title}
                             </div>
                         </td>
                         <td colspan="4">
-                            <input id="upPhoto" type="file" class="file">
+                            <form class="clearfix" enctype="multipart/form-data" method="post">
+                                <label class="control-label">上传头像:（格式：手机号.jpg/.png/.gif）</label>
+                                <input id="upPhoto" name="photo" type="file" accept="image/jpeg,image/png,image/gif">
+                            </form>
                         </td>
                     </tr>
 
@@ -74,7 +76,7 @@ ${view.title}
                         <td colspan="4">
                             <div id="stuName" class="input-group input-group-sm ">
                                 <span class="input-group-addon">出生日期:</span>
-                                <input id="birthday_time_list" name="student.birthday" type="date" dataformatas="yyyy/MM/dd" class="form-control">
+                                <input id="birthday_time_list" name="student.birthday" type="date" class="form-control">
                             </div>
                         </td>
                     </tr>
@@ -381,6 +383,24 @@ ${view.title}
 
 <script>
     $(function () {
+        Util.redrawFileInput({
+            selector: '#upExcel',
+            uploadUrl: Label.staticServePath + '/upAndDownLoadManager/upLoadExcel',
+            allowedFileExtensions: ['xls'],//接收的文件后缀
+            dropZoneEnabled: false,
+        });
+
+        Util.redrawFileInput({
+            selector: '#upPhoto',
+            uploadUrl: Label.staticServePath + '/upAndDownLoadManager/upLoadPhoto',
+            allowedFileExtensions: ['jpg', 'png', 'gif'],//接收的文件后缀
+            dropZoneEnabled: false,
+        });
+    });
+</script>
+
+<script>
+    $(function () {
         $("input[type='radio']").each(function () {
             $(this).click(function () {
                 if ($("#loan").is(":checked")) {
@@ -403,26 +423,15 @@ ${view.title}
 <script type="text/javascript">
     $(function () {
         var defaultTime = new Date();
-        $('#birthday_time_list').val(defaultTime.getFullYear() + '/' + Util.getzf(defaultTime.getMonth() + 1) + '/01');
-        $('#graduationTime_time_list').val(defaultTime.getFullYear() + '/' + Util.getzf(defaultTime.getMonth() + 1) + '/01');
-        $('#firstRepaymentTime_time_list').val(defaultTime.getFullYear() + '/' + Util.getzf(defaultTime.getMonth() + 1) + '/01');
-        $('#studentRepaymentTime_time_list').val(defaultTime.getFullYear() + '/' + Util.getzf(defaultTime.getMonth() + 1) + '/01');
+        $('#birthday_time_list').val('1990-01-01');
+        $('#graduationTime_time_list').val(defaultTime.getFullYear() + '-' + Util.getzf(defaultTime.getMonth() + 1) + '-01');
+        $('#firstRepaymentTime_time_list').val(defaultTime.getFullYear() + '-' + Util.getzf(defaultTime.getMonth() + 1) + '-01');
+        $('#studentRepaymentTime_time_list').val(defaultTime.getFullYear() + '-' + Util.getzf(defaultTime.getMonth() + 1) + '-01');
         $('#save-btn').on('click', sub);
-        $('#page-inner').on('pjax:complete', function () {
-            Util.redrawFileInput({
-                selector: '#upExcel',
-                uploadUrl: ''
-            });
-            Util.redrawFileInput({
-                selector: '#upPhoto',
-                uploadUrl: ''
-            });
-
-        });
     });
     function sub() {
 //        if (judgeAll()) {
-            func.addStudent('up');
+        func.addStudent('up');
 //        } else {
 //            alert("存在不合规范的上传内容");
 //        }
