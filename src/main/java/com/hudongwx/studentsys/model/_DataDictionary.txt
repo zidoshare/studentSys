@@ -218,21 +218,23 @@ Table: stumanager_student_employment
  counselorName    | varchar(255)  | YES  |     |         | 咨询师Id   
  approveStatus    | int(10)       | YES  |     |         | 批准状态    
  approverId       | int(10)       | YES  |     |         | 批准人     
+ approver         | varchar(255)  | YES  |     |         |         
  remark           | varchar(255)  | YES  |     |         |         
 ------------------+---------------+------+-----+---------+---------
 
 Table: stumanager_student_track_info
--------------+--------------+------+-----+---------+---------
- Field       | Type         | Null | Key | Default | Remarks 
--------------+--------------+------+-----+---------+---------
- id          | int(10)      | NO   | PRI |         |         
- targetId    | int(10)      | YES  |     |         |         
- targetName  | varchar(255) | YES  |     |         |         
- information | varchar(255) | YES  |     |         |         
- trackTime   | bigint(19)   | YES  |     |         |         
- operaterId  | int(10)      | YES  |     |         |         
- operater    | varchar(255) | YES  |     |         |         
--------------+--------------+------+-----+---------+---------
+------------+--------------+------+-----+---------+---------
+ Field      | Type         | Null | Key | Default | Remarks 
+------------+--------------+------+-----+---------+---------
+ id         | int(10)      | NO   | PRI |         |         
+ trackTime  | bigint(19)   | YES  |     |         | 追踪时间    
+ targetId   | int(10)      | YES  |     |         | 学生Id    
+ targetName | varchar(255) | YES  |     |         | 学生姓名    
+ situation  | varchar(255) | YES  |     |         | 情况      
+ operaterId | int(10)      | YES  |     |         | 操作人Id   
+ operater   | varchar(255) | YES  |     |         | 操作人     
+ status     | int(10)      | YES  |     |         |         
+------------+--------------+------+-----+---------+---------
 
 Table: stumanager_subsidy_application
 -----------------+---------------+------+-----+---------+---------

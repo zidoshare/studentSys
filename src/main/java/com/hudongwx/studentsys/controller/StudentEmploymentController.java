@@ -1,19 +1,19 @@
 package com.hudongwx.studentsys.controller;
 
 import com.hudongwx.studentsys.common.BaseController;
-import com.hudongwx.studentsys.model.Mapping;
-import com.hudongwx.studentsys.model.Student;
-import com.hudongwx.studentsys.model.StudentEmployment;
-import com.hudongwx.studentsys.model.User;
+import com.hudongwx.studentsys.model.*;
 import com.hudongwx.studentsys.service.StudentEmploymentService;
 import com.hudongwx.studentsys.service.StudentService;
+import com.hudongwx.studentsys.service.StudentTrackInfoService;
+import com.hudongwx.studentsys.service.UserService;
 import com.hudongwx.studentsys.util.RenderKit;
 import com.jfinal.aop.Before;
 import com.jfinal.ext.interceptor.POST;
 import com.jfinal.kit.JsonKit;
 import com.jfinal.plugin.activerecord.Page;
 
-import java.text.SimpleDateFormat;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,6 +23,8 @@ public class StudentEmploymentController extends BaseController {
 
     public StudentEmploymentService studentEmploymentService;
     public StudentService studentService;
+    public StudentTrackInfoService studentTrackInfoService;
+    public UserService userService;
 
     @Override
     public void index() {
@@ -100,11 +102,32 @@ public class StudentEmploymentController extends BaseController {
      *******************************/
 
     public void unEmployed() {
+        unEmployinit();
+        StudentEmployment model = getModel(StudentEmployment.class);
+
+    }
+
+    private void unEmployinit() {
         setMapping(mappingService.getMappingByUrl("/studentEmploymentManager/unEmployed"));
         super.index();
         Integer p = getParaToInt("p", 1);
         Page<Student> UnEmpStuP = studentService.getUnEmpStu(p);
         setAttr("uesp", UnEmpStuP);
+        List<Role> roleList = roleService.getRoleByMapping(mappingService.getMappingByUrl("/approvalManager"));
+        List<User> userList = new ArrayList<>();
+        if (roleList.size() != 0) {
+            for (Role role : roleList) {
+                List<User> users = userService.getUsersByRoleId(role);
+                for (User user1 : users) {
+                    userList.add(user1);
+                }
+            }
+        }
+        for (User user : userList) {
+
+            System.out.println("userList.size()--------------------------->"+user.getId()+" && "+user.getUserNickname());
+        }
+        setAttr("roles", userList);
     }
 
     public void Employed() {
@@ -116,22 +139,42 @@ public class StudentEmploymentController extends BaseController {
     }
 
     public void employmentApply() {
-        Integer stuId = getParaToInt("stuId");
-        Integer etId = getParaToInt("etId");
-        long l = System.currentTimeMillis();
-        User operater = getCurrentUser(this);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Student student = studentService.getStudentById(stuId);
-        student.setStatus(Student.STATUS_GRADUATION);
-        student.setEmploymentStatus(Student.EMPLOYMENTSTATUS_IN_APPROVAL);
-        student.setEmploymentTutorId(etId);
-        student.setOperaterId(operater.getId());
-        student.setOperater(operater.getUserNickname());
-        student.setIp(operater.getUserLastLoginIp());
-        String remark = student.getRemark();
-        student.setRemark(remark+sdf.format(l)+":"+ student.getName() +"已就业！/");
-        studentService._updateStudentById(student);
-        RenderKit.renderSuccess(this, "操作成功！");
+        StudentEmployment se =getModel(StudentEmployment.class);
+
+//        Integer stuId = getParaToInt("stuId");
+//        Integer etId = getParaToInt("etId");
+//        long l = System.currentTimeMillis();
+//        User operater = getCurrentUser(this);
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//        Student student = studentService.getStudentById(stuId);
+//        student.setStatus(Student.STATUS_GRADUATION);
+//        student.setEmploymentStatus(Student.EMPLOYMENTSTATUS_IN_APPROVAL);
+//        student.setEmploymentTutorId(etId);
+//        student.setOperaterId(operater.getId());
+//        student.setOperater(operater.getUserNickname());
+//        student.setIp(operater.getUserLastLoginIp());
+//        String remark = student.getRemark();
+//        studentService._updateStudentById(student);
+//        RenderKit.renderSuccess(this, "操作成功！");
     }
 
+    /**********************************就业追踪**************************************/
+    public void getTrackInfo() {
+        List<StudentTrackInfo> trackInfoList = studentTrackInfoService.getStuTrackInfo(getParaToInt("stuId"));
+        if(trackInfoList.size()==0){
+            RenderKit.renderError(this,"无相关追踪信息！");
+        }else{
+            RenderKit.renderSuccess(this,JsonKit.toJson(trackInfoList));
+        }
+    }
+
+    public void addTrackInfo() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        StudentTrackInfo sti=getModel(StudentTrackInfo.class);
+                sti.setTrackTime(System.currentTimeMillis());
+        User user = getCurrentUser(this);
+        sti.setOperaterId(user.getId());
+        sti.setOperater(user.getUserNickname());
+        studentTrackInfoService._saveStudentTrackInfo(sti);
+        RenderKit.renderSuccess(this,"追踪状态更新成功！");
+    }
 }

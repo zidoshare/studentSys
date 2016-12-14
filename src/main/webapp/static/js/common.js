@@ -398,21 +398,21 @@ var Util = {
     redrawSelects: function () {
         $('.selectpicker').selectpicker();
     },
-    redrawFileInput:function(options){
+    redrawFileInput: function (options) {
         var defaults = {
-            selector:'input[type="file"]',
+            selector: 'input[type="file"]',
             language: 'zh', //设置语言
             uploadUrl: '', //上传的地址
-            allowedFileExtensions : ['jpg', 'png','gif'],//接收的文件后缀
+            allowedFileExtensions: ['jpg', 'png', 'gif'],//接收的文件后缀
             showUpload: true, //是否显示上传按钮
             showCaption: true,//是否显示标题
             browseClass: "btn btn-primary", //按钮样式
             previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
         };
-        var opts = $.extend(defaults,options);
-        if(options == null){
+        var opts = $.extend(defaults, options);
+        if (options == null) {
             $('input[type="file"]').fileinput();
-        }else{
+        } else {
             $(opts.selector).fileinput(opts);
         }
     },
@@ -945,7 +945,7 @@ var func = {
             Util.ajax({
                 url: Label.staticServePath + '/studentManager/addStudent',
                 data: json,
-            })
+            });
         }
     },
     addTestQuestion: function (method) {
@@ -1136,8 +1136,6 @@ var func = {
                 if (data.state == 'success') {
                     var json = JSON.parse(data.msg);
                     json.map(function (elem, num) {
-
-
                         var str = '<tr id="tr{id}">' +
                             '<td></td>' +
                             '<td class="hidden"><input name="applicationDate" value="{applicationDate}"/><input name="id" value="{id}"/><input name="studentId" value="{studentId}"/><input name="classId" value="{classId}"/></td>' +
@@ -1326,6 +1324,81 @@ var func = {
             })
 
         }
+    },
+
+    seeUnEmploy: function (method, id) {
+        if (method == 'up') {
+
+        } else {
+            modalUtil.show($('#seeUnEmployModel'));
+            loadResult($('#detailInfo'), Label.staticServePath + "/studentManager/showStudentInfo?studentId=" + id);
+        }
+    },
+
+    employmentTrack: function (method, id) {
+        if (method == 'up') {
+            var modal = $('#trackModel');
+            var json = {};
+            $('#track').find('.form-control').each(function () {
+                json[$(this).attr('name')] = $(this).val();
+            });
+            Util.ajax({
+                url: Label.staticServePath + '/studentEmploymentManager/addTrackInfo',
+                data: json,
+                bindModal: modal
+            });
+        } else {
+            Util.update('student', id);
+            modalUtil.show($('#trackModel'));
+            $('#studentId').val(id);
+            Util.ajax(Label.staticServePath + "/studentEmploymentManager/getTrackInfo", {
+                data: {
+                    'stuId': id
+                },
+                success: function (data) {
+                    if (data.state == 'success') {
+                        var json = JSON.parse(data.msg);
+                        json.map(function (elem, num) {
+                            var str = '<tr id="tr{id}">' +
+                                '<td class="hidden"><input name="id" value="{id}"/><input name="targetId" value="{targetId}"/><input name="operaterId" value="{operaterId}"/>' +
+                                '<td>'+Util.getMyDate(elem['trackTime'])+'</td>' +
+                                '<td>{targetName}</td>' +
+                                '<td>{situation}</td>' +
+                                '<td>{operater}</td>' +
+                                '</tr>';
+                            str = Util.jsonToString(str, elem);
+                            $('#trackModel').find('tbody:first').append(str);
+                        });
+                        $('#trackModel').one('hidden.bs.modal', function () {
+                            $(this).find('tbody:first').html('');
+                        });
+                    }
+                }
+            });
+        }
+    },
+
+    employmentApproval: function (method, id) {
+        if (method == 'up') {
+            var json = {};
+            var id = $('#selectApproverId').val();
+            var text = $("#selectApproverId").find("option:selected").text();
+            json['studentEmployment.approverId']=id;
+            json['studentEmployment.approver']=text;
+            $('#seApproveList').find('.form-control').each(function () {
+                json[$(this).attr('name')] = $(this).val();
+            });
+            Util.ajax({
+                url: Label.staticServePath + "/studentEmploymentManager/unEmployed",
+                data: json,
+                bindModal: $('#employmentApprovalModel')
+            });
+        } else {
+            Util.update('student', id);
+            $('#studentId').val(id);
+            modalUtil.show($('#employmentApprovalModel'));
+        }
+
     },
 
     deleteStudent: function () {

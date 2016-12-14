@@ -65,10 +65,7 @@
                     </tr>
                     <tr class="sr-only tr-show">
                         <td colspan="5">
-                            <div class="pan"></div>
-                            <div class="panel_loading">
-                                <img src="${staticServePath}/images/loading.gif" class="img-sm center-block"/>
-                            </div>
+
                         </td>
                     </tr>
                     </#list>
@@ -134,16 +131,14 @@
     });
     $('#table-inner').on('pjax:complete',function(){
         $('tr[data-label="open-check"]').on("click", function () {
-            $(this).siblings('.tr-show').addClass('sr-only');
-            var dom = $(this).next();
-            dom.removeClass('sr-only');
+            var dom = $(this).next().find('td').first();
+            dom.parent().removeClass('sr-only');
             loadResult(dom, "${staticServePath}/test/getResults/" + $(this).attr('id'));
         });
     });
-    $('tr[data-label="open-check"]').on("click", function () {
-        $(this).siblings('.tr-show').addClass('sr-only');
-        var dom = $(this).next();
-        dom.removeClass('sr-only');
+    $('tr[data-label="open-check"]').on("click", function (d) {
+        var dom = $(this).next().find('td').first();
+        dom.parent().removeClass('sr-only');
         loadResult(dom, "${staticServePath}/test/getResults/" + $(this).attr('id'));
     });
 
