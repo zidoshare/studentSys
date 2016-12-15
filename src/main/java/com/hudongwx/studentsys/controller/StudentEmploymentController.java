@@ -218,7 +218,9 @@ public class StudentEmploymentController extends BaseController {
         List<StudentTrackInfo> trackInfoList = studentTrackInfoService.getStuTrackInfo(getParaToInt("stuId"));
         if (trackInfoList != null) {
             RenderKit.renderSuccess(this, JsonKit.toJson(trackInfoList));
+            return;
         }
+        RenderKit.renderError(this,"无相关数据！");
     }
 
     public void addTrackInfo() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
@@ -235,22 +237,28 @@ public class StudentEmploymentController extends BaseController {
     public void testDetail(){
         List<TestReply> replyList = testReplyService.getReplyByStudentId(getParaToInt("stuId"));
         if(replyList!=null){
-            RenderKit.renderSuccess(this,JsonKit.toJson(replyList));
+            RenderKit.renderSuccess(this,replyList);
+            return;
         }
+        RenderKit.renderError(this,"无相关数据！");
     }
 
     public void trainingProjectDetail(){
         List<TrainingProject> projectList = trainingProjectService.getProjectInfoByStudentId(getParaToInt("stuId"));
         if(projectList!=null){
             RenderKit.renderSuccess(this,JsonKit.toJson(projectList));
+            return ;
         }
+        RenderKit.renderError(this,"无相关数据！");
     }
 
     public void creditDetail(){
         List<TestReply> replyList = testReplyService.getReplyByStudentId(getParaToInt("stuId"));
         if(replyList!=null){
             RenderKit.renderSuccess(this,JsonKit.toJson(replyList));
+            return;
         }
+        RenderKit.renderError(this,"无相关数据！");
     }
 
 }

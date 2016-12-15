@@ -1410,25 +1410,25 @@ var func = {
 
     seeDetail: function (method, id) {
         modalUtil.show($('#detailInfoModel'));
-        var el=$("#" + method + id);
+        var el = $("#" + method + id);
         $('#theme').text(el.attr('data-theme'));
-        var url=Label.staticServePath + "/studentEmploymentManager/"+el.attr('data-req');
+        var url = Label.staticServePath + "/studentEmploymentManager/" + el.attr('data-req');
         Util.ajax(url, {
             data: {
                 'stuId': id
             },
             success: function (data) {
                 if (data.state == 'success') {
-                    var json = JSON.parse(data.msg);
-                    alert(json==null);
-                    if(json==null){
+                    console.log(data,data.msg);
+                    if (data.msg==null) {
                         $('#detailInfoModel').find('tbody:first').append('<tr><td colspan="2" style="text-align: center">暂无相关信息！</td></tr>');
                     }
+                    var json = data.msg;
                     json.map(function (elem, num) {
-                        var str="";
-                        if(method=="xf"){
-
-                        }else if(method=="test"||method=="train"){
+                        var str = "";
+                        if (method == "xf") {
+                            /*功能未做*/
+                        } else if (method == "test" || method == "train") {
                             str = '<tr>' +
                                 '<td>' + Util.getMyDate(elem['time']) + '</td>' +
                                 '<td>{score}</td>' +
@@ -1441,6 +1441,9 @@ var func = {
                         $(this).find('tbody:first').html('');
                     });
                 }
+            },
+            error:function(data){
+                $('#detailInfoModel').find('tbody:first').append('<tr><td colspan="2" style="text-align: center">暂无相关信息！</td></tr>');
             }
         });
 
@@ -1474,7 +1477,7 @@ var func = {
                 success: function (data) {
                     if (data.state == 'success') {
                         var json = JSON.parse(data.msg);
-                        if(json.length==0){
+                        if (json.length == 0) {
                             $('#trackModel').find('tbody:first').append('<tr><td colspan="4" style="text-align: center">暂无相关信息！</td></tr>');
                         }
                         json.map(function (elem, num) {
@@ -1505,10 +1508,10 @@ var func = {
             json['studentEmployment.approverId'] = id;
             json['studentEmployment.approver'] = text;
             $('#seApproveList').find('.form-control').each(function () {
-                if($(this).attr('name')=='studentEmployment.employmentTime'){
-                    var time=new Date($('#employmentTime').val()).getTime();
+                if ($(this).attr('name') == 'studentEmployment.employmentTime') {
+                    var time = new Date($('#employmentTime').val()).getTime();
                     json[$(this).attr('name')] = time;
-                }else{
+                } else {
                     json[$(this).attr('name')] = $(this).val();
                 }
             });
