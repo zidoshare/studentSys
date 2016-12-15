@@ -115,10 +115,10 @@
                                 <mapping id="5102" icon="seeApproval" title="查看" url="seeApproval" function="0">
                                     <mappings/>
                                 </mapping>
-                                <mapping id="5103" icon="updateApproval" title="同意" url="updateApproval" function="0">
+                                <mapping id="5103" icon="updateApproval" title="同意" url="updateAgreeApproval" function="0">
                                     <mappings/>
                                 </mapping>
-                                <mapping id="5104" icon="deleteApproval" title="驳回" url="deleteApproval" function="0">
+                                <mapping id="5104" icon="deleteApproval" title="驳回" url="deleteDisagreeApproval" function="0">
                                     <mappings/>
                                 </mapping>
                             </mappings>

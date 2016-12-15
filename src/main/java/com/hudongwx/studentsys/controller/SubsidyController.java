@@ -63,8 +63,8 @@ public class SubsidyController extends BaseController {
     }
 
     public void historyManager() {
-        Long start_time_list = getParaToLong("start_time_list",new Long(0));
-        Long end_time_list = getParaToLong("end_time_list",new Long(0));
+        Long start_time_list = getParaToLong("start_time_list", new Long(0));
+        Long end_time_list = getParaToLong("end_time_list", new Long(0));
         setMapping(mappingService.getMappingByUrl("/subsidyManager/historyManager"));
         super.index();
         User user = getCurrentUser(this);
@@ -468,50 +468,85 @@ public class SubsidyController extends BaseController {
 
     }
 
+    @Before(POST.class)
     public void examineAndApprove() {
-        String eaa = getPara("eaa");
         long now = System.currentTimeMillis();
         User user = getCurrentUser(this);
-        JSONObject jo = JSON.parseObject(eaa);
-        long date = jo.getLongValue("applicationDate");
-        int classId = jo.getIntValue("classDate");
-        int approveStatus = jo.getIntValue("approveStatus");
+        Long date = getParaToLong("applicationDate");
+        Integer classId = getParaToInt("classId");
+        Integer approveStatus = getParaToInt("approveStatus");
         if (approveStatus == SubsidyApplication.APPROVE_YES) {
-            setApplicationApproveStatus(now, user, date, classId, SubsidyApplication.APPROVE_YES);
             setSciApproveStatus(now, user, date, classId, SubsidyApplication.APPROVE_YES);
-        } else {
-            setApplicationApproveStatus(now, user, date, classId, SubsidyApplication.APPROVE_NO);
+        } else if (approveStatus == SubsidyApplication.APPROVE_NO) {
             setSciApproveStatus(now, user, date, classId, SubsidyApplication.APPROVE_NO);
         }
     }
 
     private void setSciApproveStatus(long now, User user, long date, int classId, int approveStatus) {
         List<SubsidyClassInfo> sciOnApplyList = subsidyClassInfoService.getSciGroup(classId, date);
-        if (sciOnApplyList.size() != 0) {
-            for (SubsidyClassInfo sci : sciOnApplyList) {
-                sci.setApproveStatus(approveStatus);
-                sci.setApplicationDate(now);
-                sci.setOperaterId(user.getId());
-                sci.setOperater(user.getUserNickname());
-                subsidyClassInfoService._updateSubsidyClassInfo(sci);
+        List<Student> studentList = studentService.getLoanStudentByClassId(classId);
+        if (sciOnApplyList != null) {
+            boolean b = true;
+            if (studentList != null && studentList.size() != 0) {
+                for (Student student : studentList) {
+                    student.setResidualFrequency(student.getResidualFrequency() - 1);
+                    Integer sy = student.getResidualFrequency();
+                    BigDecimal per = student.getSubsidyPer();
+                    BigDecimal sum = student.getSubsidy();
+                    if(sy!=null||per!=null||sum!=null){
+                        student.setResidualSubsidyAmount(sum.subtract(sum.subtract(per.multiply(new BigDecimal(sy)))));
+                    }
+                    studentService._updateStudentById(student);
+                }
+            } else {
+                b = false;
+            }
+            if (sciOnApplyList != null && sciOnApplyList.size() != 0) {
+                for (SubsidyClassInfo sci : sciOnApplyList) {
+                    sci.setApproveStatus(approveStatus);
+                    sci.setApplicationDate(now);
+                    sci.setApproveDate(now);
+                    sci.setOperaterId(user.getId());
+                    sci.setOperater(user.getUserNickname());
+                    b = subsidyClassInfoService._updateSubsidyClassInfo(sci);
+                }
+            } else {
+                b = false;
+            }
+
+            if (b) {
+                if (setApplicationApproveStatus(now, user, date, classId, approveStatus)) {
+                    RenderKit.renderSuccess(this, "操作成功！");
+                } else {
+                    RenderKit.renderSuccess(this, "操作存在异常！");
+                }
+            } else {
+                RenderKit.renderSuccess(this, "操作存在异常！");
             }
         } else {
-            RenderKit.renderError(this, "系统错误！");
+            RenderKit.renderError(this, "信息有误！");
         }
     }
 
-    private void setApplicationApproveStatus(long now, User user, long date, int classId, int approveStatus) {
+    private boolean setApplicationApproveStatus(long now, User user, long date, int classId, int approveStatus) {
         List<SubsidyApplication> saList = subsidyApplicationService.getApplicationByClassIdAndDate(classId, date);
-        if (saList.size() != 0) {
+        if (saList != null && saList.size() != 0) {
+            boolean b = true;
             for (SubsidyApplication sa : saList) {
                 sa.setApproveStatus(approveStatus);
                 sa.setApplicationDate(now);
+                sa.setApproveDate(now);
                 sa.setOperaterId(user.getId());
                 sa.setOperater(user.getUserNickname());
-                subsidyApplicationService._updateSubsidyApplication(sa);
+                b = subsidyApplicationService._updateSubsidyApplication(sa);
+            }
+            if (b) {
+                return true;
+            } else {
+                return false;
             }
         } else {
-            RenderKit.renderError(this, "系统错误！");
+            return false;
         }
     }
 

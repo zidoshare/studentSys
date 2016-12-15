@@ -33,8 +33,8 @@ public class StudentService extends Service {
     public Student getStudentByIdNumber(String idNumber) {
         if (idNumber == null)
             return null;
-        List<Student> studentList = Student.dao.find(Student.SEARCH_FROM_STUDENT+"where idNumber = ? ",idNumber);
-        if(studentList.isEmpty())
+        List<Student> studentList = Student.dao.find(Student.SEARCH_FROM_STUDENT + "where idNumber = ? ", idNumber);
+        if (studentList.isEmpty())
             return null;
         return studentList.get(0);
     }
@@ -129,6 +129,15 @@ public class StudentService extends Service {
         return Student.dao.find(Student.SEARCH_FROM_STUDENT + "where classId = ? and status = 1 ", classId);
     }
 
+    public List<Student> getLoanStudentByClassId(Integer classId) {
+        if (classId == null)
+            return null;
+        List<Student> studentList = Student.dao.find(Student.SEARCH_FROM_STUDENT + " where classId = ? and paymentMethod like ?", classId, "贷款");
+        if (studentList.isEmpty())
+            return null;
+        return studentList;
+    }
+
     public List<Student> getAllStudentByClassId(Integer classId) {
         if (classId == null) {
             try {
@@ -167,23 +176,23 @@ public class StudentService extends Service {
                         studentTrackInfo = trackInfoList.get(0);
                     }
                     List<TestReply> testList = testReplyService.getReplyByStudentId(student.getId());
-                    if(testList!=null){
-                        BigDecimal sum=new BigDecimal(0);
-                        BigDecimal avg=new BigDecimal(0);
-                        for (int i=0;i<testList.size();i++) {
-                            sum=sum.add(new BigDecimal(testList.get(i).getScore()));
+                    if (testList != null) {
+                        BigDecimal sum = new BigDecimal(0);
+                        BigDecimal avg = new BigDecimal(0);
+                        for (int i = 0; i < testList.size(); i++) {
+                            sum = sum.add(new BigDecimal(testList.get(i).getScore()));
                         }
-                        avg=sum.divide(new BigDecimal(testList.size()));
+                        avg = sum.divide(new BigDecimal(testList.size()));
                         student.setTestAverage(avg);
                     }
                     List<TrainingProject> projectList = trainingProjectService.getProjectInfoByStudentId(student.getId());
-                    if(projectList!=null){
-                        BigDecimal sum=new BigDecimal(0);
-                        BigDecimal avg=new BigDecimal(0);
-                        for (int i=0;i<projectList.size();i++) {
-                            sum=sum.add(projectList.get(i).getScore());
+                    if (projectList != null) {
+                        BigDecimal sum = new BigDecimal(0);
+                        BigDecimal avg = new BigDecimal(0);
+                        for (int i = 0; i < projectList.size(); i++) {
+                            sum = sum.add(projectList.get(i).getScore());
                         }
-                        avg=sum.divide(new BigDecimal(projectList.size()));
+                        avg = sum.divide(new BigDecimal(projectList.size()));
                         student.setTrainingEvaluation(avg);
                     }
 

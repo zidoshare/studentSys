@@ -1061,8 +1061,36 @@ var func = {
             })
         }
     },
-    updateApproval: function () {
+    updateApproval: function (method, id) {
 
+    },
+
+    updateAgreeApproval: function (method, id) {
+        alert($('#applicationDate' + id).attr('data-time'));
+        Util.ajax(Label.staticServePath + "/subsidyManager/examineAndApprove",
+            {
+                type: 'POST',
+                data: {
+                    classId: id,
+                    applicationDate: $('#applicationDate' + id).attr('data-time'),
+                    approveStatus: 8
+                }
+            }
+        );
+    },
+
+    deleteDisagreeApproval: function (method, id) {
+        alert($('#applicationDate' + id).attr('data-time'));
+        Util.ajax(Label.staticServePath + "/subsidyManager/examineAndApprove",
+            {
+                type: 'POST',
+                data: {
+                    classId: id,
+                    applicationDate: $('#applicationDate' + id).attr('data-time'),
+                    approveStatus: 13
+                },
+            }
+        );
     },
 
     seeApproval: function (method, classId) {
@@ -1072,10 +1100,9 @@ var func = {
     },
     submitApply: function () {
         var data = [];
-
         var jsonData = [];
         $("tr[name='submit-tr']").each(function (index, dom) {
-            var list = $(dom).find('input[name]');
+            var list = $(dom).find('input[name="applicationDate"]');
             if (list.length <= 0)
                 return true;
             var json = {};
@@ -1112,6 +1139,9 @@ var func = {
                     url: Label.staticServePath + "/subsidyManager/deleteSubsidyClassInfo",
                     data: {
                         'classId': classId
+                    },
+                    success:function () {
+                        
                     }
                 });
             }
@@ -1420,7 +1450,7 @@ var func = {
             success: function (data) {
                 if (data.state == 'success') {
                     $('#detailInfoModel').find('tbody:first').html('');
-                    console.log(data,data.msg);
+                    console.log(data, data.msg);
                     var json = data.msg;
                     json.map(function (elem, num) {
                         var str = "";
@@ -1437,7 +1467,7 @@ var func = {
                     });
                 }
             },
-            error:function(data){
+            error: function (data) {
                 $('#detailInfoModel').find('tbody:first').html('');
                 $('#detailInfoModel').find('tbody:first').append('<tr><td colspan="2" style="text-align: center">暂无相关信息！</td></tr>');
             }

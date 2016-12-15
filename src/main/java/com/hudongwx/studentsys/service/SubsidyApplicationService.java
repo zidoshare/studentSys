@@ -139,7 +139,7 @@ public class SubsidyApplicationService extends Service {
      * @return
      */
     public List<SubsidyApplication> getSubsidyApplicationByUserId(int userid) {
-        return SubsidyApplication.dao.find(SubsidyApplication.SEARCH_FROM_SUBSIDY_APPLICATION + "where approverId=? and approveStatus=10 and approverId is NULL", userid);
+        return SubsidyApplication.dao.find(SubsidyApplication.SEARCH_FROM_SUBSIDY_APPLICATION + "where approverId=? and approveStatus=?", userid,SubsidyApplication.APPROVE_WAITTING);
     }
 
     public List<SubsidyApplication> getApplicationHistoryByApplicantId(int applicantId) {

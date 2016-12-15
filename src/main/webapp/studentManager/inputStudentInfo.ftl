@@ -431,11 +431,11 @@ ${view.title}
         $('#save-btn').on('click', sub);
     });
     function sub() {
-//        if (judgeAll()) {
+        if (judgeAll()) {
         func.addStudent('up');
-//        } else {
-//            alert("存在不合规范的上传内容");
-//        }
+        } else {
+            alert("存在不合规范的上传内容");
+        }
     }
     function judge(mtime) {
         if (isNaN(mtime) || mtime == null) {

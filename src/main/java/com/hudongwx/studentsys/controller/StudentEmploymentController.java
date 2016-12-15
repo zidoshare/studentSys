@@ -246,7 +246,7 @@ public class StudentEmploymentController extends BaseController {
     public void trainingProjectDetail(){
         List<TrainingProject> projectList = trainingProjectService.getProjectInfoByStudentId(getParaToInt("stuId"));
         if(projectList!=null){
-            RenderKit.renderSuccess(this,JsonKit.toJson(projectList));
+            RenderKit.renderSuccess(this,projectList);
             return ;
         }
         RenderKit.renderError(this,"无相关数据！",404);
@@ -255,7 +255,7 @@ public class StudentEmploymentController extends BaseController {
     public void creditDetail(){
         List<TestReply> replyList = testReplyService.getReplyByStudentId(getParaToInt("stuId"));
         if(replyList!=null){
-            RenderKit.renderSuccess(this,JsonKit.toJson(replyList));
+            RenderKit.renderSuccess(this,replyList);
             return;
         }
         RenderKit.renderError(this,"无相关数据！",404);
