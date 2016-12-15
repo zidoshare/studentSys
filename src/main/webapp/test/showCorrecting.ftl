@@ -119,7 +119,7 @@
 <script type="text/javascript">
     var proccer = 0;
     var max = ${questionSize};
-    var answers = JSON.parse('${testReply.answers?json_string}');
+    var answers = JSON.parse('${testReply.answers?js_string}');
     $(document).ready(function () {
         $('input').iCheck({
             checkboxClass: 'iradio_square-blue',
