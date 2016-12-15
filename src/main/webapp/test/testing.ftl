@@ -41,7 +41,8 @@
                                     <span class="text-gray">已完结</span>
                                 </#if></td>
                                 <td>
-                                    <a href="/test/questionnaire/${q.testQuestionnaireClassId}" class="text-success"
+                                    <a href="${staticServePath}/test/questionnaire/${q.testQuestionnaireClassId}"
+                                       class="text-success"
                                        target="_blank">快速开始>></a>
                                 </td>
                             </tr>
