@@ -25,23 +25,24 @@ Table: stumanager_certificate
 ------------+-------------+------+-----+---------+---------
 
 Table: stumanager_class
-------------------+-------------+------+-----+---------+---------
- Field            | Type        | Null | Key | Default | Remarks 
-------------------+-------------+------+-----+---------+---------
- id               | int(10)     | NO   | PRI |         |         
- className        | varchar(10) | NO   |     |         | 班级名字    
- headTeacher      | varchar(10) | NO   |     |         | 讲师      
- Assistant        | varchar(10) | YES  |     |         | 科目      
- tutorId          | int(10)     | YES  |     |         |         
- tutor            | varchar(10) | NO   |     |         |         
- studentCnt       | int(10)     | NO   |     | 0       |         
- classOpeningTime | bigint(19)  | YES  |     |         |         
- classCreateTime  | bigint(19)  | NO   |     |         |         
- classUpdateTime  | bigint(19)  | NO   |     |         |         
- status           | int(10)     | YES  |     |         |         
- regionId         | int(10)     | YES  |     |         |         
- classOperaterId  | int(10)     | NO   |     |         |         
-------------------+-------------+------+-----+---------+---------
+------------------+--------------+------+-----+---------+---------
+ Field            | Type         | Null | Key | Default | Remarks 
+------------------+--------------+------+-----+---------+---------
+ id               | int(10)      | NO   | PRI |         |         
+ className        | varchar(10)  | NO   |     |         | 班级名字    
+ headTeacher      | varchar(10)  | NO   |     |         | 讲师      
+ Assistant        | varchar(10)  | YES  |     |         | 科目      
+ tutorId          | int(10)      | YES  |     |         |         
+ tutor            | varchar(10)  | NO   |     |         |         
+ studentCnt       | int(10)      | NO   |     | 0       |         
+ classOpeningTime | bigint(19)   | YES  |     |         |         
+ classCreateTime  | bigint(19)   | NO   |     |         |         
+ classUpdateTime  | bigint(19)   | NO   |     |         |         
+ status           | int(10)      | YES  |     |         |         
+ regionId         | int(10)      | YES  |     |         |         
+ classOperaterId  | int(10)      | NO   |     |         |         
+ remark           | varchar(255) | YES  |     |         | 备注      
+------------------+--------------+------+-----+---------+---------
 
 Table: stumanager_domain
 ------------------+--------------+------+-----+---------+---------
@@ -201,26 +202,29 @@ Table: stumanager_student
 ------------------------+---------------+------+-----+---------+---------
 
 Table: stumanager_student_employment
-------------------+---------------+------+-----+---------+---------
- Field            | Type          | Null | Key | Default | Remarks 
-------------------+---------------+------+-----+---------+---------
- id               | int(10)       | NO   | PRI |         |         
- studentId        | int(10)       | YES  |     |         |         
- studentName      | varchar(255)  | YES  |     |         | 学生姓名    
- classId          | int(10)       | YES  |     |         |         
- className        | varchar(255)  | YES  |     |         |         
- phoneNumber      | varchar(255)  | YES  |     |         |         
- employmentStatus | int(10)       | YES  |     |         | 就业状态    
- company          | varchar(255)  | YES  |     |         | 就业单位    
- salary           | decimal(10,2) | YES  |     |         |         
- employmentTime   | bigint(19)    | YES  |     |         |         
- counselorId      | int(10)       | YES  |     |         | 咨询师Id   
- counselorName    | varchar(255)  | YES  |     |         | 咨询师Id   
- approveStatus    | int(10)       | YES  |     |         | 批准状态    
- approverId       | int(10)       | YES  |     |         | 批准人     
- approver         | varchar(255)  | YES  |     |         |         
- remark           | varchar(255)  | YES  |     |         |         
-------------------+---------------+------+-----+---------+---------
+---------------------+---------------+------+-----+---------+---------
+ Field               | Type          | Null | Key | Default | Remarks 
+---------------------+---------------+------+-----+---------+---------
+ id                  | int(10)       | NO   | PRI |         |         
+ studentId           | int(10)       | YES  |     |         |         
+ studentName         | varchar(255)  | YES  |     |         | 学生姓名    
+ classId             | int(10)       | YES  |     |         |         
+ className           | varchar(255)  | YES  |     |         |         
+ phoneNumber         | varchar(255)  | YES  |     |         |         
+ employmentStatus    | int(10)       | YES  |     |         | 就业状态    
+ educationBackground | varchar(255)  | YES  |     |         |         
+ company             | varchar(255)  | YES  |     |         | 就业单位    
+ salary              | decimal(10,2) | YES  |     |         |         
+ employmentTime      | bigint(19)    | YES  |     |         |         
+ counselorId         | int(10)       | YES  |     |         | 咨询师Id   
+ counselorName       | varchar(255)  | YES  |     |         | 咨询师Id   
+ approveStatus       | int(10)       | YES  |     |         | 批准状态    
+ approverId          | int(10)       | YES  |     |         | 批准人     
+ approver            | varchar(255)  | YES  |     |         |         
+ remark              | varchar(255)  | YES  |     |         |         
+ operatorId          | int(10)       | YES  |     |         |         
+ operator            | varchar(255)  | YES  |     |         |         
+---------------------+---------------+------+-----+---------+---------
 
 Table: stumanager_student_track_info
 ------------+--------------+------+-----+---------+---------
@@ -300,6 +304,23 @@ Table: stumanager_test_question
  testQuestionMessage      | text(65535) | YES  |     |         | 题目备注    
 --------------------------+-------------+------+-----+---------+---------
 
+Table: stumanager_test_question_copy
+--------------------------+-------------+------+-----+---------+---------
+ Field                    | Type        | Null | Key | Default | Remarks 
+--------------------------+-------------+------+-----+---------+---------
+ id                       | int(10)     | NO   | PRI |         |         
+ testQuestionTitle        | text(65535) | NO   |     |         |         
+ testQuestionTypeId       | int(10)     | NO   |     |         |         
+ testQuestionContent      | text(65535) | YES  |     |         | 数组格式存储，[a,b,c,d]
+ testQuestionShortAnswer  | varchar(30) | YES  |     |         | 答案，选择题使用此字段，使用[a,b,c]格式
+ testQuestionLongAnswer   | text(65535) | YES  |     |         | 问答题或编程题使用此答案字段
+ testQuestionCreateTime   | bigint(19)  | NO   |     |         |         
+ testQuestionUpdateTime   | bigint(19)  | YES  |     |         |         
+ testQuestionOperaterId   | int(10)     | NO   |     | 83      |         
+ testQuestionDefaultScore | int(10)     | NO   |     | 0       |         
+ testQuestionMessage      | text(65535) | YES  |     |         | 题目备注    
+--------------------------+-------------+------+-----+---------+---------
+
 Table: stumanager_test_questionnaire
 -----------------------------+--------------+------+-----+---------+---------
  Field                       | Type         | Null | Key | Default | Remarks 
@@ -346,6 +367,7 @@ Table: stumanager_test_reply
  studentId                | int(10)     | NO   |     |         |         
  correcting               | int(10)     | NO   |     | 0       | 批改状态    
  scoreSituation           | text(65535) | YES  |     |         | 得分情况    
+ time                     | bigint(19)  | YES  |     |         |         
  score                    | int(10)     | NO   |     | 0       |         
 --------------------------+-------------+------+-----+---------+---------
 
@@ -381,16 +403,15 @@ Table: stumanager_test_type
 -----------------------+-------------+------+-----+----------------------------+---------
 
 Table: stumanager_training_project
--------------+--------------+------+-----+---------+---------
- Field       | Type         | Null | Key | Default | Remarks 
--------------+--------------+------+-----+---------+---------
- id          | int(10)      | NO   | PRI |         |         
- className   | varchar(255) | YES  |     |         |         
- studentId   | int(10)      | YES  |     |         |         
- studentName | varchar(255) | YES  |     |         |         
- projectName | varchar(255) | YES  |     |         | 项目名称    
- score       | int(10)      | YES  |     |         | 项目评分    
--------------+--------------+------+-----+---------+---------
+-------------+---------------+------+-----+---------+---------
+ Field       | Type          | Null | Key | Default | Remarks 
+-------------+---------------+------+-----+---------+---------
+ id          | int(10)       | NO   | PRI |         |         
+ studentId   | int(10)       | YES  |     |         |         
+ time        | bigint(19)    | YES  |     |         |         
+ projectName | varchar(255)  | YES  |     |         | 项目名称    
+ score       | decimal(10,1) | YES  |     |         | 项目评分    
+-------------+---------------+------+-----+---------+---------
 
 Table: stumanager_user
 -----------------+----------------------+------+-----+---------+---------

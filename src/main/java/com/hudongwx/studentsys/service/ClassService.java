@@ -35,4 +35,10 @@ public class ClassService extends Service {
     public List<Class> getClassByRegionId(int regionid) {
         return Class.dao.find(Class.SEARCH_FROM_CLASS + "where regionId = ?", regionid);
     }
+
+    public boolean _updateClass(Class cls) {
+        if (cls == null)
+            return false;
+        return cls.update();
+    }
 }

@@ -1,9 +1,8 @@
 package com.hudongwx.studentsys.common;
 
 import com.hudongwx.studentsys.exceptions.BaseException;
-import com.hudongwx.studentsys.exceptions.ServiceException;
+import com.hudongwx.studentsys.exceptions.ControllerException;
 import com.hudongwx.studentsys.util.Common;
-import com.hudongwx.studentsys.util.InsertKit;
 import com.hudongwx.studentsys.util.RenderKit;
 import com.hudongwx.studentsys.util.StrPlusKit;
 import com.jfinal.aop.Interceptor;
@@ -11,16 +10,8 @@ import com.jfinal.aop.Invocation;
 import com.jfinal.core.Controller;
 import com.jfinal.core.JFinal;
 import com.jfinal.log.Log;
-import com.jfinal.render.FreeMarkerRender;
-import com.jfinal.render.Render;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by wuhongxu on 2016/8/31 0031.
@@ -48,16 +39,28 @@ public class UrlInterceptor implements Interceptor {
         } catch (RuntimeException e) {
             if (JFinal.me().getConstants().getDevMode())
                 e.printStackTrace();
-            String msg = formatException(e);
-            RenderKit.render500Error(controller, msg);
+            String msg = null;
+            try {
+                msg = formatException(e);
+            } catch (ControllerException e1) {
+                if (JFinal.me().getConstants().getDevMode())
+                    e1.printStackTrace();
+            } finally {
+                RenderKit.render500Error(controller, msg);
+            }
+
         }
     }
 
-    private static String formatException(Exception e) {
+    private static String formatException(Exception e) throws ControllerException {
         String message = null;
         Throwable ourCause = e;
         while ((ourCause = e.getCause()) != null) {
-            e = (Exception) ourCause;
+            try {
+                e = (Exception) ourCause;
+            } catch (Exception er) {
+                throw new ControllerException("未知错误");
+            }
         }
         String eClassName = e.getClass().getName();
         //一些常见异常提示
@@ -75,7 +78,7 @@ public class UrlInterceptor implements Interceptor {
         } else if (e instanceof BaseException) {
             String type = "";
             if (JFinal.me().getConstants().getDevMode()) {
-                type = ((BaseException) e).getType()+"：";
+                type = ((BaseException) e).getType() + "：";
             }
             message = e.getMessage();
             if (StrPlusKit.isBlank(message))

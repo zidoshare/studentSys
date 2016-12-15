@@ -4,21 +4,18 @@ import com.hudongwx.studentsys.common.BaseController;
 import com.hudongwx.studentsys.exceptions.ServiceException;
 import com.hudongwx.studentsys.model.Class;
 import com.hudongwx.studentsys.model.*;
-import com.hudongwx.studentsys.service.ClassService;
-import com.hudongwx.studentsys.service.StatusService;
-import com.hudongwx.studentsys.service.StudentService;
-import com.hudongwx.studentsys.service.UserService;
+import com.hudongwx.studentsys.service.*;
 import com.hudongwx.studentsys.util.Common;
 import com.hudongwx.studentsys.util.ModelKit;
 import com.hudongwx.studentsys.util.RenderKit;
+import com.hudongwx.studentsys.util.StudentUtil;
 import com.jfinal.aop.Before;
 import com.jfinal.ext.interceptor.POST;
 import com.jfinal.kit.JsonKit;
-import com.jfinal.plugin.activerecord.Page;
+import com.jfinal.upload.UploadFile;
 
+import java.io.File;
 import java.lang.reflect.InvocationTargetException;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +28,7 @@ public class StudentController extends BaseController {
     public UserService userService;
     public ClassService classService;
     public StatusService statusService;
+    public TrainingProjectService trainingProjectService;
 
     @Override
     public void index() {
@@ -40,22 +38,17 @@ public class StudentController extends BaseController {
             return;
         }
         super.index();
-//        List<Student> students = studentService.getAllStudent();
-//        setAttr("students", students);
-//        List<User> defaultTeacher = userService.getUsersByRole(roleService.getRoleByName(Common.getMainProp().get("defaultTeacher")));
-//        setAttr("users", defaultTeacher);
-//        List<Class> allClass = classService.getAllClass();
-//        setAttr("classes", allClass);
     }
 
     private void pageJump() {
         setMapping(mappingService.getMappingByUrl("/classManager"));
         fillHeaderAndFooter();
         fillContentParent();
-        Integer p = getParaToInt("p", 1);
+//        Integer p = getParaToInt("p", 1);
         Integer classId = getParaToInt("classId");
-        Page<Student> studentPageList = studentService.getStudentPageByClassId(classId, p);
-        System.out.println("studentPageListSize=" + studentPageList.getList().size() + "classId=" + classId);
+//        Page<Student> studentPageList = studentService.getStudentPageByClassId(classId, p);
+        List<Student> studentPageList = studentService.getAllStudentByClassId(classId);
+//        System.out.println("studentPageListSize=" + studentPageList.getList().size() + "classId=" + classId);
         List<Mapping> views = new ArrayList<>();
         Mapping mapping = mappingService.getMappingByUrl("/studentManager/showStudentInfo.ftl");
         views.add(mapping);
@@ -87,55 +80,13 @@ public class StudentController extends BaseController {
     @Before(POST.class)
     public void addStudent() throws ServiceException {
         Student model = getModel(Student.class);
-        if (studentService._save(rebuildStudentModel(model))) {
+        Student student= StudentUtil.rebuildStudentModel(getCurrentUser(this),model,userService,classService,studentService);
+        if (studentService._save(student)) {
             RenderKit.renderSuccess(this);
-            return ;
+            return;
         }
-
         RenderKit.renderError(this);
     }
-
-    private Student rebuildStudentModel(Student stu) {
-        System.out.println("stu.getClassId()++++++++++++++>>>>>>" + stu.getClassId());
-        long admission = System.currentTimeMillis();
-        Class cls = classService.getClassById(stu.getClassId());
-        User operater = getCurrentUser(this);
-        List<Student> allStudent = studentService.getAllStudent();
-        int id;
-        if (allStudent.size() != 0) {
-            id = allStudent.get(0).getId() + 1;
-        } else {
-            id = 1000;
-        }
-        stu.setId(id);
-        stu.setUserId(id);
-        stu.setClassName(cls.getClassName());
-        stu.setPhotoUrl("\\images\\favicon.ico");
-        stu.setTutorId(cls.getTutorId());
-        stu.setTutorName(cls.getTutor());
-        stu.setCredit(new BigDecimal(100.00));
-        stu.setTestAverage(new BigDecimal(0.0));
-        stu.setTrainingEvaluation(new BigDecimal(0.0));
-        stu.setAdmission(admission);
-        stu.setTrainingGraduationTime(admission + (1000l * 60 * 60 * 24 * 30 * 4));
-        stu.setCounselorName(userService.getUserById(stu.getCounselorId()).getUserNickname());
-        if ((stu.getSubsidy() != null && stu.getResidualFrequency() != null) || stu.getPaymentMethod().equals("贷款")) {
-            BigDecimal subsidyPer = stu.getSubsidy().divide(new BigDecimal(stu.getResidualFrequency()),2, RoundingMode.HALF_DOWN);
-            stu.setSubsidyPer(subsidyPer);
-        }
-        stu.setBonus(new BigDecimal(0.00));
-        stu.setResidualSubsidyAmount(stu.getSubsidy());
-        stu.setRegionId(cls.getRegionId());
-        stu.setStatus(Student.STATUS_STUDYING);
-        stu.setEmploymentStatus(Student.EMPLOYMENTSTATUS_UN_EMPLOYED);
-        stu.setIp(operater.getUserLastLoginIp());
-        stu.setOperaterId(operater.getId());
-        stu.setOperater(operater.getUserNickname());
-        stu.setChecked(Student.STATUS_UN_CHECKED);
-        stu.setCreateTime(admission);
-        return stu;
-    }
-
 
     /**
      * 显示学生详细信息
@@ -149,16 +100,16 @@ public class StudentController extends BaseController {
         Status statu = statusService.getStatusById(student.getStatus());
         student.setStatu(statu);
 
-        for (int i=0; i <statusList.size();i++) {
+        for (int i = 0; i < statusList.size(); i++) {
             Status status = statusList.get(i);
             if (status.getStatusName().equals(student.getStatu().getStatusName())) {
-                index=i;
-                sta=status;
+                index = i;
+                sta = status;
             }
         }
-        if (sta!=null){
+        if (sta != null) {
             statusList.remove(index);
-            statusList.add(0,sta);
+            statusList.add(0, sta);
         }
         setAttr("status", statusList);
         setAttr("student", student);
@@ -168,20 +119,20 @@ public class StudentController extends BaseController {
     /**
      * 重修时获取该区域的班级班级
      */
-    public void getRepairClassByStudentId(){
+    public void getRepairClassByStudentId() {
         Integer studentId = getParaToInt("studentId");
         Student student = studentService.getStudentById(studentId);
         Integer regionId = student.getRegionId();
-        if (regionId==null){
+        if (regionId == null) {
             RenderKit.renderError(this);
             return;
         }
         List<Class> classList = classService.getClassByRegionId(regionId);
-        RenderKit.renderSuccess(this,JsonKit.toJson(classList));
+        RenderKit.renderSuccess(this, JsonKit.toJson(classList));
     }
 
     /**
-     *更新学生信息[需要前台参数：stu(json数组)]
+     * 更新学生信息[需要前台参数：stu(json数组)]
      */
     public void updateStudentInfo() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
 //        String jsonArrayStu = getPara("stu");
@@ -200,17 +151,25 @@ public class StudentController extends BaseController {
         RenderKit.renderSuccess(this);
     }
 
-    public void getStudent(){
+    public void getStudent() {
         Integer cid = getParaToInt("classId");
         Integer status = getParaToInt("status");
-        if(status==null){
-            RenderKit.renderSuccess(this,JsonKit.toJson(studentService.getAllStudentByClassId(cid)));
-        }else{
-            RenderKit.renderSuccess(this,JsonKit.toJson(studentService.getStudentByClassId(cid,status)));
+        if (status == null) {
+            RenderKit.renderSuccess(this, JsonKit.toJson(studentService.getAllStudentByClassId(cid)));
+        } else {
+            RenderKit.renderSuccess(this, JsonKit.toJson(studentService.getStudentByClassId(cid, status)));
         }
     }
 
     public void jumpToAddStudent() {
+        String excel = getPara("excel");
+        if (null != excel) {
+            UploadFile upExcel = this.getFile(excel);
+            File file = upExcel.getFile();
+            log.info(file.getName());
+            RenderKit.renderSuccess(this, "文件上传成功！");
+            return;
+        }
         setMapping(mappingService.getMappingByUrl("/studentManager/jumpToAddStudent"));
         super.index();
         List<User> counselorList = userService.getUsersByRoleId(roleService.getRoleByName("咨询师"));
@@ -231,8 +190,25 @@ public class StudentController extends BaseController {
         student.setOperaterId(operater.getId());
         student.setOperater(operater.getUserNickname());
         student.setIp(operater.getUserLastLoginIp());
-        student.setRemark(sdf.format(l)+":"+student.getName() +"已毕业！/");
+        student.setRemark(sdf.format(l) + ":" + student.getName() + "已毕业！");
         studentService._updateStudentById(student);
         RenderKit.renderSuccess(this, "操作成功！");
+    }
+
+    public void addTrainingProject(){
+        TrainingProject tp=getModel(TrainingProject.class);
+        tp.setTime(System.currentTimeMillis());
+        if(trainingProjectService._saveProjectInfo(tp)){
+            RenderKit.renderSuccess(this,"评分成绩保存成功！");
+        }else{
+            RenderKit.renderError(this,"保存失败！");
+        }
+    }
+
+    public void getTrainingProject(){
+        List<TrainingProject> projectList = trainingProjectService.getProjectInfoByStudentId(getParaToInt("stuId"));
+        if(projectList!=null){
+            RenderKit.renderSuccess(this,JsonKit.toJson(projectList));
+        }
     }
 }

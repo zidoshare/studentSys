@@ -6,6 +6,11 @@
         <div id="class-details" class="panel panel-default item">
             <div class="panel-heading title">
             ${view.title}
+                <button data-style="slide-up" id="update-student-btn"
+                        class="btn btn-primary ladda-button btn-info pull-right"
+                        onclick="func.letGraduate()">
+                    <span>毕业</span>
+                </button>
             </div>
             <div class="panel-body">
                 <div id="table-inner">
@@ -27,10 +32,13 @@
                             <tr>
                                 <th>
                                     <div class="checkbox3 checkbox-round text-center">
-                                        <input type="checkbox" id="index-look" checked="checked">
+                                        <input type="checkbox" id="index-look">
                                         <label class="checkbox-2" style="display: inline" for="index-look">
                                         </label>
                                     </div>
+                                </th>
+                                <th >
+                                    psId
                                 </th>
                                 <th>
                                     姓名
@@ -65,38 +73,45 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <#list students.list as student>
-                            <tr>
+                            <#--<#list students.list as student>-->
+                            <#list students as student>
+                            <tr id="stuId${student.id}">
                                 <td>
                                     <div class="checkbox3 checkbox-round text-center">
-                                        <input type="checkbox" id="index-look${student.id}" checked="checked">
+                                        <input class="idList" type="checkbox" data-clsId="${student.classId}"
+                                               data-status="${student.status}" data-label="${student.id}"
+                                               id="index-look${student.id}" <#if student.status!=1>disabled</#if>>
                                         <label class="checkbox-2" style="display: inline" for="index-look${student.id}">
                                         </label>
                                     </div>
                                 </td>
-                                <td>
-                                ${student.name}
+                                <td  id="psId${student.id}" data-label="${student.id}"
+                                    data-target="#studentId">
+                                ${student.id}
                                 </td>
                                 <td>
-                                ${student.contactInformation}
+                                ${(student.name)!'无'}
                                 </td>
                                 <td>
-                                ${student.statu.statusName}
+                                ${(student.contactInformation)!'无'}
                                 </td>
                                 <td>
-                                ${student.educationBackground}
+                                ${(student.statu.statusName)!'无'}
                                 </td>
                                 <td>
-                                ${student.major}
+                                ${(student.educationBackground)!'无'}
                                 </td>
                                 <td>
-                                ${student.paymentMethod}
+                                ${(student.major)!'无'}
                                 </td>
                                 <td>
-                                ${student.residualFrequency}
+                                ${(student.paymentMethod)!'无'}
                                 </td>
                                 <td>
-                                    [原]成都0719班
+                                ${(student.residualFrequency)!'无'}
+                                </td>
+                                <td>
+                                    无
                                 </td>
                             <#--<#if  updateAble ||  deleteAble>-->
                                 <td>
@@ -108,7 +123,14 @@
                                         </#if>
                                     </#list>
                                 ${InsertKit(updateBtn,"${student.id}")}/
-                                ${InsertKit(deleteBtn,"${student.id}")}
+                                ${InsertKit(deleteBtn,"${student.id}")}/
+                                    <#list map["operators"+view.id] as op>
+                                        <#if op.url == "projectScore">
+                                            <@macroBtn url = op.url title = op.title></@macroBtn>
+                                            <#assign op = map["operators"+view.id][0]>
+                                        ${InsertKit(btnLabel,"${student.id}")}
+                                        </#if>
+                                    </#list>
                                 </td>
                             <#--</#if>-->
                             </tr>
@@ -116,6 +138,12 @@
                             </tbody>
                         </table>
                     </div>
+                <#--<#if students??>-->
+                <#--<#assign str = "?">-->
+                <#--<#if holdPath?contains("?")><#assign str = "&"></#if>-->
+                <#--<@paginate page = students url=holdPath+str pageAfter="p">-->
+                <#--</@paginate>-->
+                <#--</#if>-->
                 </div>
             </div>
             <div class="modal fade" id="studentInformationModel" tabindex="-1" role="dialog"
@@ -160,6 +188,105 @@
                     </div>
                 </div>
             </div>
+            <div class="modal fade" id="projectScoreModel" tabindex="-1" role="dialog" aria-labelledby="addProjectScoreLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" style="width:800px">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                                    class="sr-only">Close</span></button>
+                            <h5 class="modal-title" id="myModalLabel">项目评价</h5>
+                        </div>
+                        <div class="modal-body">
+                            <div id="trainingProject" class="row">
+                                <input id="psId" name="trainingProject.studentId" class="form-control sr-only">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">项目名称:</div>
+                                            <input name="trainingProject.projectName" class="form-control"
+                                                   type="text" >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input name="trainingProject.score" id="situation" type="number" class="form-control">
+                            <span class="input-group-btn">
+                                <button class="btn btn-info" type="button"
+                                        onclick="func.projectScore('up')">保存分数</button>
+                            </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <form role="form" class="form-horizontal">
+                                <div id="dataTables-list" class="table-responsive dataTables_wrapper form-inline" role="grid">
+                                    <table class="table table-striped table-bordered table-hover dataTable no-footer"
+                                           id="dataTables-example" aria-describedby="dataTables-example_apply">
+                                        <caption class="text-center label-info">评分历史</caption>
+                                        <thead>
+                                        <tr>
+                                            <th>
+                                                时间
+                                            </th>
+                                            <th>
+                                                项目名称
+                                            </th>
+                                            <th>
+                                                分数
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </form>
+                            <div class="tip-container">
+                                <div class="tip" id="saveClassTip" aria-label="0">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+<script>
+    $(function () {
+        var allChecked = true;
+        $('#index-look').click(function () {
+            if ($(this).is(':checked')) {
+                $('.idList').each(function (index, elem) {
+                    $(elem).prop('checked', true);
+                });
+                allChecked=true;
+            } else {
+                $('.idList').each(function (index, elem) {
+                    $(elem).prop('checked', false);
+                });
+                allChecked=false;
+            }
+        });
+
+        $('.idList').each(function (index, elem) {
+            $(elem).click(function () {
+                if ($(this).is(':checked') == false) {
+                    $('#index-look').prop('checked', false);
+                    allChecked = false;
+                } else {
+                    allChecked = true;
+                }
+                if (allChecked) {
+                    $('#index-look').prop('checked', true);
+                }
+            });
+        });
+
+    });
+
+</script>

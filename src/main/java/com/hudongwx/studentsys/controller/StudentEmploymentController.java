@@ -1,11 +1,10 @@
 package com.hudongwx.studentsys.controller;
 
 import com.hudongwx.studentsys.common.BaseController;
+import com.hudongwx.studentsys.exceptions.ServiceException;
 import com.hudongwx.studentsys.model.*;
-import com.hudongwx.studentsys.service.StudentEmploymentService;
-import com.hudongwx.studentsys.service.StudentService;
-import com.hudongwx.studentsys.service.StudentTrackInfoService;
-import com.hudongwx.studentsys.service.UserService;
+import com.hudongwx.studentsys.service.*;
+import com.hudongwx.studentsys.util.Common;
 import com.hudongwx.studentsys.util.RenderKit;
 import com.jfinal.aop.Before;
 import com.jfinal.ext.interceptor.POST;
@@ -20,11 +19,12 @@ import java.util.List;
  * Created by wu on 2016/11/22.
  */
 public class StudentEmploymentController extends BaseController {
-
     public StudentEmploymentService studentEmploymentService;
     public StudentService studentService;
     public StudentTrackInfoService studentTrackInfoService;
     public UserService userService;
+    public TestReplyService testReplyService;
+    public TrainingProjectService trainingProjectService;
 
     @Override
     public void index() {
@@ -88,9 +88,9 @@ public class StudentEmploymentController extends BaseController {
         if (seId == null) {
             RenderKit.renderError(this);
         } else {
-            List<StudentEmployment> seList = studentEmploymentService.getStuEmpById(seId);
-            if (seList.size() != 0) {
-                RenderKit.renderSuccess(this, JsonKit.toJson(seList));
+            StudentEmployment se = studentEmploymentService.getStuEmpById(seId);
+            if (se != null) {
+                RenderKit.renderSuccess(this, JsonKit.toJson(se));
             } else {
                 RenderKit.renderError(this, "你查询的信息不存在或已删除！");
             }
@@ -102,12 +102,6 @@ public class StudentEmploymentController extends BaseController {
      *******************************/
 
     public void unEmployed() {
-        unEmployinit();
-        StudentEmployment model = getModel(StudentEmployment.class);
-
-    }
-
-    private void unEmployinit() {
         setMapping(mappingService.getMappingByUrl("/studentEmploymentManager/unEmployed"));
         super.index();
         Integer p = getParaToInt("p", 1);
@@ -123,10 +117,6 @@ public class StudentEmploymentController extends BaseController {
                 }
             }
         }
-        for (User user : userList) {
-
-            System.out.println("userList.size()--------------------------->"+user.getId()+" && "+user.getUserNickname());
-        }
         setAttr("roles", userList);
     }
 
@@ -138,43 +128,137 @@ public class StudentEmploymentController extends BaseController {
         setAttr("esp", EmpStuP);
     }
 
-    public void employmentApply() {
-        StudentEmployment se =getModel(StudentEmployment.class);
+    public void addEmploymentApply() {
+        StudentEmployment se = getModel(StudentEmployment.class);
+        Student student = studentService.getStudentById(se.getStudentId());
+        StudentEmployment exist = studentEmploymentService.getStuEmpByStudentId(se.getStudentId());
+        if (exist == null) {
+            User user = getCurrentUser(this);
+            se.setClassId(student.getClassId());
+            se.setClassName(student.getClassName());
+            se.setPhoneNumber(student.getContactInformation());
+            se.setEmploymentStatus(Student.EMPLOYMENTSTATUS_UN_EMPLOYED);
+            se.setCounselorId(student.getCounselorId());
+            se.setCounselorName(student.getCounselorName());
+            se.setApproveStatus(Student.EMPLOYMENTSTATUS_IN_APPROVAL);
+            se.setOperatorId(user.getId());
+            se.setOperator(user.getUserNickname());
+            boolean b = studentEmploymentService._saveStuEmp(se);
+            if (b) {
+                student.setRemark("就业审核中");
+                student.setEmploymentStatus(Student.EMPLOYMENTSTATUS_IN_APPROVAL);
+                studentService._updateStudentById(student);
+                RenderKit.renderSuccess(this, "操作成功！");
+            } else {
+                RenderKit.renderError(this, "操作失败！");
+            }
+        } else {
+            RenderKit.renderError(this, "该学生的就业状态还在审核中不用重复提交！");
+        }
 
-//        Integer stuId = getParaToInt("stuId");
-//        Integer etId = getParaToInt("etId");
-//        long l = System.currentTimeMillis();
-//        User operater = getCurrentUser(this);
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//        Student student = studentService.getStudentById(stuId);
-//        student.setStatus(Student.STATUS_GRADUATION);
-//        student.setEmploymentStatus(Student.EMPLOYMENTSTATUS_IN_APPROVAL);
-//        student.setEmploymentTutorId(etId);
-//        student.setOperaterId(operater.getId());
-//        student.setOperater(operater.getUserNickname());
-//        student.setIp(operater.getUserLastLoginIp());
-//        String remark = student.getRemark();
-//        studentService._updateStudentById(student);
-//        RenderKit.renderSuccess(this, "操作成功！");
     }
 
-    /**********************************就业追踪**************************************/
-    public void getTrackInfo() {
-        List<StudentTrackInfo> trackInfoList = studentTrackInfoService.getStuTrackInfo(getParaToInt("stuId"));
-        if(trackInfoList.size()==0){
-            RenderKit.renderError(this,"无相关追踪信息！");
-        }else{
-            RenderKit.renderSuccess(this,JsonKit.toJson(trackInfoList));
+    public void UnEmploymentApply() {
+        setMapping(mappingService.getMappingByUrl("/studentEmploymentManager/UnEmploymentApply"));
+        super.index();
+        Integer p = getParaToInt('p', 1);
+        User user = getCurrentUser(this);
+        int id = user.getId();
+        Page<StudentEmployment> seList = studentEmploymentService.getEmpExamineApply(p, user.getId());
+        setAttr("pSel", seList);
+    }
+
+    public void dealEmploymentApply() throws ServiceException {
+        int seId = getParaToInt("seId");
+        int as = getParaToInt("as");
+        dealStuEmpStatus(seId, as);
+    }
+
+    private void dealStuEmpStatus(int seId, int as) throws ServiceException {
+        StudentEmployment se = studentEmploymentService.getStuEmpById(seId);
+        StudentTrackInfo sti = new StudentTrackInfo();
+        if (se != null) {
+            boolean boo_se = false;
+            Student student = studentService.getStudentById(se.getStudentId());
+            String info = null;
+            if (as == Common.APPLY_APPROVE_STATUS_YES) {
+                se.setApproveStatus(as);
+                se.setEmploymentStatus(Student.EMPLOYMENTSTATUS_EMPLOYED);
+                info = se.getApprover() + "同意了" + se.getOperator() + "提交的关于" + student.getName() + "的就业申请！";
+                student.setEmploymentStatus(Student.EMPLOYMENTSTATUS_EMPLOYED);
+                student.setRemark("就业审批已通过！");
+                boo_se = studentEmploymentService._updateStuEmp(se);
+            } else if (as == Common.APPLY_APPROVE_STATUS_NO) {
+                info = se.getApprover() + "否决了" + se.getOperator() + "提交的关于" + student.getName() + "的就业申请！";
+                student.setEmploymentStatus(Student.EMPLOYMENTSTATUS_UN_EMPLOYED);
+                student.setRemark("就业审批未通过！");
+                boo_se = studentEmploymentService._deleteStuEmpById(seId);
+            }
+            if (boo_se) {
+                if (studentService._updateStudentById(student))
+                    RenderKit.renderSuccess(this, "操作成功！");
+                else
+                    RenderKit.renderError(this, "学生状态更新操作异常！");
+            } else {
+                RenderKit.renderError(this, "审批操作异常！");
+            }
+            sti.setTargetId(student.getId());
+            sti.setTargetName(student.getName());
+            sti.setSituation(info);
+            studentTrackInfoService._saveStudentTrackInfo(StudentTrackInfo.fillTrackInfo(sti, getCurrentUser(this), as));
+        } else {
+            RenderKit.renderError(this, "没有信息！");
         }
     }
 
-    public void addTrackInfo() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-        StudentTrackInfo sti=getModel(StudentTrackInfo.class);
-                sti.setTrackTime(System.currentTimeMillis());
-        User user = getCurrentUser(this);
-        sti.setOperaterId(user.getId());
-        sti.setOperater(user.getUserNickname());
-        studentTrackInfoService._saveStudentTrackInfo(sti);
-        RenderKit.renderSuccess(this,"追踪状态更新成功！");
+    /*****************************
+     * 就业追踪
+     **********************************/
+    public void getTrackInfo() {
+        List<StudentTrackInfo> trackInfoList = studentTrackInfoService.getStuTrackInfo(getParaToInt("stuId"));
+        if (trackInfoList != null) {
+            RenderKit.renderSuccess(this, JsonKit.toJson(trackInfoList));
+            return;
+        }
+        RenderKit.renderError(this,"无相关数据！");
     }
+
+    public void addTrackInfo() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        StudentTrackInfo sti = getModel(StudentTrackInfo.class);
+        boolean b = studentTrackInfoService._saveStudentTrackInfo(StudentTrackInfo.fillTrackInfo(sti, getCurrentUser(this), StudentTrackInfo.EMP_TRACK));
+        if(b){
+            RenderKit.renderSuccess(this, "追踪状态更新成功！");
+        }else{
+            RenderKit.renderError(this, "追踪状态更新失败！");
+        }
+
+    }
+
+    public void testDetail(){
+        List<TestReply> replyList = testReplyService.getReplyByStudentId(getParaToInt("stuId"));
+        if(replyList!=null){
+            RenderKit.renderSuccess(this,replyList);
+            return;
+        }
+        RenderKit.renderError(this,"无相关数据！");
+    }
+
+    public void trainingProjectDetail(){
+        List<TrainingProject> projectList = trainingProjectService.getProjectInfoByStudentId(getParaToInt("stuId"));
+        if(projectList!=null){
+            RenderKit.renderSuccess(this,JsonKit.toJson(projectList));
+            return ;
+        }
+        RenderKit.renderError(this,"无相关数据！",404);
+    }
+
+    public void creditDetail(){
+        List<TestReply> replyList = testReplyService.getReplyByStudentId(getParaToInt("stuId"));
+        if(replyList!=null){
+            RenderKit.renderSuccess(this,JsonKit.toJson(replyList));
+            return;
+        }
+        RenderKit.renderError(this,"无相关数据！",404);
+    }
+
 }

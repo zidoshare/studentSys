@@ -60,7 +60,7 @@
 <!-- Custom Js -->
 <script src="${staticServePath}/assets/js/custom-scripts.js?${staticResourceVersion}"></script>
 <script type="text/javascript" src="${staticServePath}/assets/js/fileinput.js"></script>
-
+<script type="text/javascript" src="${staticServePath}/assets/js/zh.js"></script>
 <!-- Chart Js -->
 <#--<script type="text/javascript" src="assets/js/chart.min.js?${staticResourceVersion}"></script>
 <script type="text/javascript" src="assets/js/chartjs.js?${staticResourceVersion}"></script>-->

@@ -63,12 +63,13 @@ public class SubsidyController extends BaseController {
     }
 
     public void historyManager() {
-        Long start_time_list = getParaToLong("start_time_list");
-        Long end_time_list = getParaToLong("end_time_list");
+        Long start_time_list = getParaToLong("start_time_list",new Long(0));
+        Long end_time_list = getParaToLong("end_time_list",new Long(0));
         setMapping(mappingService.getMappingByUrl("/subsidyManager/historyManager"));
         super.index();
         User user = getCurrentUser(this);
         Integer p = getParaToInt("p", 1);
+        System.out.println("start_time_list---->" + start_time_list + "---end_time_list--->" + end_time_list);
         Page<SubsidyApplication> saPages = subsidyApplicationService.getSubsidyApplicationHistoryByUserId(p, user.getId(), start_time_list, end_time_list);
         setAttr("saPages", saPages);
     }

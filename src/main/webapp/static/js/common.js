@@ -402,14 +402,15 @@ var Util = {
         var defaults = {
             selector: 'input[type="file"]',
             language: 'zh', //设置语言
-            uploadUrl: '', //上传的地址
-            allowedFileExtensions: ['jpg', 'png', 'gif'],//接收的文件后缀
+            uploadUrl: '/', //上传的地址
+            allowedFileExtensions: ['xls', 'jpg', 'png', 'gif'],//接收的文件后缀
             showUpload: true, //是否显示上传按钮
             showCaption: true,//是否显示标题
             browseClass: "btn btn-primary", //按钮样式
             previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
         };
         var opts = $.extend(defaults, options);
+        console.log(opts);
         if (options == null) {
             $('input[type="file"]').fileinput();
         } else {
@@ -933,15 +934,32 @@ var func = {
             })
         }
     },
+
     addStudent: function (method) {
         if (method == 'show') {
             modalUtil.toggleClear($('#addStudentModel'));
         } else {
-            $('#createTime').val(new Date().getTime());
+            var str_bd = "student.birthday";
+            var str_gt = "student.graduationTime";
+            var str_frt = "student.firstRepaymentTime";
+            var str_srt = "student.studentRepaymentTime";
             var json = {};
+            var sArray = $('#upPhoto').val().split('\\');
+            json['student.photoUrl'] = sArray[sArray.length - 1];
             $('#student').find('.form-control').each(function () {
-                json[$(this).attr('name')] = $(this).val();
+                var str = $(this).attr('name');
+                if (str == str_bd || str == str_gt || str == str_frt || str == str_srt) {
+                    var time = new Date($(this).val()).getTime();
+                    if (isNaN(time) || time == null) {
+                        json[str] = null;
+                    } else {
+                        json[str] = time;
+                    }
+                } else {
+                    json[str] = $(this).val();
+                }
             });
+
             Util.ajax({
                 url: Label.staticServePath + '/studentManager/addStudent',
                 data: json,
@@ -1274,7 +1292,7 @@ var func = {
                     var json = JSON.parse(data.msg);
                     json.map(function (elem) {
                         var option =
-                        // '<input class="hide" name="classId" value="{id}">'+
+                            // '<input class="hide" name="classId" value="{id}">'+
                             '<input id="input{id}" class="hide"  value="{className}">' +
                             '<option  value="{id}">{className}</option>';
                         option = Util.jsonToString(option, elem);
@@ -1300,10 +1318,10 @@ var func = {
             var birthdayInput = modal.find('input#birthday-input');
             var graduationTimeInput = modal.find('input#graduationTime-input');
             var birthday = new Date(birthdayInput.val().replace(/-|年|月|日/g, "/"));
-            var graduationTime =new Date(graduationTimeInput.val().replace(/-|年|月|日/g, "/"));
-            console.log("birthday="+birthday);
-            console.log("graduationTime="+graduationTime);
-            if (!(birthday=="Invalid Date" || graduationTime == "Invalid Date")){
+            var graduationTime = new Date(graduationTimeInput.val().replace(/-|年|月|日/g, "/"));
+            console.log("birthday=" + birthday);
+            console.log("graduationTime=" + graduationTime);
+            if (!(birthday == "Invalid Date" || graduationTime == "Invalid Date")) {
                 birthdayInput.val(birthday.getTime());
                 graduationTimeInput.val(graduationTime.getTime());
             }
@@ -1326,13 +1344,110 @@ var func = {
         }
     },
 
-    seeUnEmploy: function (method, id) {
-        if (method == 'up') {
+    letGraduate: function () {
+        var idArray = new Array();
+        var clsId = 0;
+        var position = 0;
+        $('.idList').each(function (index, element) {
+            if ($(element).is(':checked')) {
+                clsId = $(element).attr('data-clsId');
+                idArray[position] = $(element).attr('data-label');
+                position++;
+            }
+        });
+        var jsonStuList = JSON.stringify(idArray);
+        Util.ajax(
+            Label.staticServePath + "/classManager/letGraduate",
+            {
+                type: "POST",
+                data: {
+                    clsId: clsId,
+                    classStuIdList: jsonStuList
+                }
+            }
+        );
+    },
 
+    projectScore: function (method, id) {
+        if (method == 'up') {
+            var modal = $('#projectScoreModel');
+            var json = {};
+            $('#trainingProject').find('.form-control').each(function () {
+                json[$(this).attr('name')] = $(this).val();
+            });
+            Util.ajax({
+                url: Label.staticServePath + '/studentManager/addTrainingProject',
+                data: json,
+                bindModal: modal
+            });
         } else {
-            modalUtil.show($('#seeUnEmployModel'));
-            loadResult($('#detailInfo'), Label.staticServePath + "/studentManager/showStudentInfo?studentId=" + id);
+            Util.update('stuId', id);
+            modalUtil.show($('#projectScoreModel'));
+            Util.ajax(Label.staticServePath + "/studentManager/getTrainingProject", {
+                data: {
+                    'stuId': id
+                },
+                success: function (data) {
+                    if (data.state == 'success') {
+                        var json = JSON.parse(data.msg);
+                        json.map(function (elem, num) {
+                            var str = '<tr id="tr{id}">' +
+                                '<td>' + Util.getMyDate(elem['time']) + '</td>' +
+                                '<td>{projectName}</td>' +
+                                '<td>{score}</td>' +
+                                '</tr>';
+                            str = Util.jsonToString(str, elem);
+                            $('#projectScoreModel').find('tbody:first').append(str);
+                        });
+                        $('#projectScoreModel').one('hidden.bs.modal', function () {
+                            $(this).find('tbody:first').html('');
+                        });
+                    }
+                }
+            });
         }
+    },
+
+    seeDetail: function (method, id) {
+        modalUtil.show($('#detailInfoModel'));
+        var el = $("#" + method + id);
+        $('#theme').text(el.attr('data-theme'));
+        var url = Label.staticServePath + "/studentEmploymentManager/" + el.attr('data-req');
+        Util.ajax(url, {
+            data: {
+                'stuId': id
+            },
+            success: function (data) {
+                if (data.state == 'success') {
+                    $('#detailInfoModel').find('tbody:first').html('');
+                    console.log(data,data.msg);
+                    var json = data.msg;
+                    json.map(function (elem, num) {
+                        var str = "";
+                        if (method == "xf") {
+                            /*功能未做*/
+                        } else if (method == "test" || method == "train") {
+                            str = '<tr>' +
+                                '<td>' + Util.getMyDate(elem['time']) + '</td>' +
+                                '<td>{score}</td>' +
+                                '</tr>';
+                        }
+                        str = Util.jsonToString(str, elem);
+                        $('#detailInfoModel').find('tbody:first').append(str);
+                    });
+                }
+            },
+            error:function(data){
+                $('#detailInfoModel').find('tbody:first').html('');
+                $('#detailInfoModel').find('tbody:first').append('<tr><td colspan="2" style="text-align: center">暂无相关信息！</td></tr>');
+            }
+        });
+
+    },
+
+    seeUnEmploy: function (method, id) {
+        modalUtil.show($('#seeUnEmployModel'));
+        loadResult($('#detailInfo'), Label.staticServePath + "/studentManager/showStudentInfo?studentId=" + id);
     },
 
     employmentTrack: function (method, id) {
@@ -1358,10 +1473,13 @@ var func = {
                 success: function (data) {
                     if (data.state == 'success') {
                         var json = JSON.parse(data.msg);
+                        if (json.length == 0) {
+                            $('#trackModel').find('tbody:first').append('<tr><td colspan="4" style="text-align: center">暂无相关信息！</td></tr>');
+                        }
                         json.map(function (elem, num) {
                             var str = '<tr id="tr{id}">' +
                                 '<td class="hidden"><input name="id" value="{id}"/><input name="targetId" value="{targetId}"/><input name="operaterId" value="{operaterId}"/>' +
-                                '<td>'+Util.getMyDate(elem['trackTime'])+'</td>' +
+                                '<td>' + Util.getMyDate(elem['trackTime']) + '</td>' +
                                 '<td>{targetName}</td>' +
                                 '<td>{situation}</td>' +
                                 '<td>{operater}</td>' +
@@ -1383,22 +1501,69 @@ var func = {
             var json = {};
             var id = $('#selectApproverId').val();
             var text = $("#selectApproverId").find("option:selected").text();
-            json['studentEmployment.approverId']=id;
-            json['studentEmployment.approver']=text;
+            json['studentEmployment.approverId'] = id;
+            json['studentEmployment.approver'] = text;
             $('#seApproveList').find('.form-control').each(function () {
-                json[$(this).attr('name')] = $(this).val();
+                if ($(this).attr('name') == 'studentEmployment.employmentTime') {
+                    var time = new Date($('#employmentTime').val()).getTime();
+                    json[$(this).attr('name')] = time;
+                } else {
+                    json[$(this).attr('name')] = $(this).val();
+                }
             });
             Util.ajax({
-                url: Label.staticServePath + "/studentEmploymentManager/unEmployed",
+                url: Label.staticServePath + "/studentEmploymentManager/addEmploymentApply",
                 data: json,
-                bindModal: $('#employmentApprovalModel')
+                success: function (data) {
+                    if (data.state == 'success') {
+                        $('#employmentApprovalModel').one('hidden.bs.modal', function () {
+                            $(this).find('tbody:first').html('');
+                        });
+                        Util.reloadByPjax('#table-inner', {fragment: '#table-inner'});
+                    }
+                }
+
             });
         } else {
             Util.update('student', id);
             $('#studentId').val(id);
             modalUtil.show($('#employmentApprovalModel'));
+            Util.redrawSelects();
         }
 
+    },
+
+    seeEmpApp: function (method, id) {
+        modalUtil.show($('#seeDetailModel'));
+        loadResult($('#stuDetailInfo'), Label.staticServePath + "/studentManager/showStudentInfo?studentId=" + id);
+    },
+
+    agreeEmpApp: function (method, id) {
+        Util.ajax(Label.staticServePath + "/studentEmploymentManager/dealEmploymentApply",
+            {
+                type: "POST",
+                data: {
+                    seId: id,
+                    as: 8
+                },
+                success: function (data) {
+                    Util.reloadByPjax('#table-inner', {fragment: '#table-inner'});
+                }
+            });
+    },
+
+    disagreeEmpApp: function (method, id) {
+        Util.ajax(Label.staticServePath + "/studentEmploymentManager/dealEmploymentApply",
+            {
+                type: "POST",
+                data: {
+                    seId: id,
+                    as: 13
+                },
+                success: function (data) {
+                    Util.reloadByPjax('#table-inner', {fragment: '#table-inner'});
+                }
+            });
     },
 
     deleteStudent: function () {
@@ -1406,7 +1571,7 @@ var func = {
     },
     seeClassStudent: function (method, classId) {
         Util.loadByPjax(Label.staticServePath + "/studentManager/pageJump?classId=" + classId, {
-            container: '#class-details'
+            container: '#class-details',
         });
     },
     addClass: function (method) {

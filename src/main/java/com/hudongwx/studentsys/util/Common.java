@@ -29,6 +29,8 @@ public class Common {
     public final static String LABEL_CATALOG = "Catalog";
     public static final int MAX_SIDE_CNT = 8;
     public static final int MAX_PAGE_SIZE = 8;
+    public static final int MAX_PAGE_SIZE_10 = 10;
+    public static final int MAX_PAGE_SIZE_15 = 15;
     public static final int START_PAGE = 1;
     public static final String LABEL_ROLE_TREE = "roleTree";
     public static final String LABEL_NOW_VISIT = "now";
@@ -44,12 +46,23 @@ public class Common {
     public static final Integer VALUE_IN_VISIBLE = 0;
     public static final String ORDER_BY_ID_DESC = " order by id desc";
     public static final String IGNORE_WORD = "ignoreWord";
+    public static final int APPLY_APPROVE_STATUS_YES = 8;
+    public static final int APPLY_APPROVE_STATUS_NO = 13;
+    public static final int APPLY_APPROVE_STATUS_BEFORE = 9;
+    public static final int APPLY_APPROVE_STATUS_WAITING = 10;
+
     //缓存Label
     public static final String CACHE_FOREVER_LABEL = "forever";
     public static final String CACHE_LONG_TIME_LABEL = "longTime";
     public static final String CACHE_60TIME_LABEL = "60time";
     public static final String LABEL_ROOT_MAPPING = "root";
     public static final String SQL_WHERE = " where ";
+
+    //上传文件路径
+    public static final String UP_LOAD_EXCEL_PATH="excel";
+    public static final String UP_LOAD_PHOTO_PATH="photo";
+    public static final String LOAD_PHOTO_PATH="upLoad\\photo";
+    public static final String PHOTO_URL_PATH="src\\main\\webapp\\upLoad\\photo\\";
 
     //此处得到主配置
     public static Prop getMainProp() {

@@ -113,4 +113,12 @@ public abstract class BaseClass<M extends BaseClass<M>> extends Model<M> impleme
 		return get("classOperaterId");
 	}
 
+	public void setRemark(java.lang.String remark) {
+		set("remark", remark);
+	}
+
+	public java.lang.String getRemark() {
+		return get("remark");
+	}
+
 }

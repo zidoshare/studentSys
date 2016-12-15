@@ -65,6 +65,14 @@ public abstract class BaseStudentEmployment<M extends BaseStudentEmployment<M>> 
 		return get("employmentStatus");
 	}
 
+	public void setEducationBackground(java.lang.String educationBackground) {
+		set("educationBackground", educationBackground);
+	}
+
+	public java.lang.String getEducationBackground() {
+		return get("educationBackground");
+	}
+
 	public void setCompany(java.lang.String company) {
 		set("company", company);
 	}
@@ -135,6 +143,22 @@ public abstract class BaseStudentEmployment<M extends BaseStudentEmployment<M>> 
 
 	public java.lang.String getRemark() {
 		return get("remark");
+	}
+
+	public void setOperatorId(java.lang.Integer operatorId) {
+		set("operatorId", operatorId);
+	}
+
+	public java.lang.Integer getOperatorId() {
+		return get("operatorId");
+	}
+
+	public void setOperator(java.lang.String operator) {
+		set("operator", operator);
+	}
+
+	public java.lang.String getOperator() {
+		return get("operator");
 	}
 
 }

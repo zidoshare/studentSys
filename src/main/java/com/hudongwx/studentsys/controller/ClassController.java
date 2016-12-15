@@ -1,5 +1,7 @@
 package com.hudongwx.studentsys.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.hudongwx.studentsys.common.BaseController;
 import com.hudongwx.studentsys.model.Class;
 import com.hudongwx.studentsys.model.Mapping;
@@ -31,13 +33,12 @@ public class ClassController extends BaseController {
         List<Mapping> views = new ArrayList<>();
         Mapping mapping = mappingService.getMappingByUrl("/classManager/classList.ftl");
         views.add(mapping);
-        setAttr(Common.LABEL_VIEWS,views);
+        setAttr(Common.LABEL_VIEWS, views);
 
         Integer p = getParaToInt("p", 1);
         Page<Class> allClass = classService.getAllClass(p);
         setAttr("classes", allClass);
     }
-
 
 
     /**
@@ -65,7 +66,7 @@ public class ClassController extends BaseController {
         RenderKit.renderSuccess(this, "保存班级成功");
     }
 
-    public void getClassStudents(){
+    public void getClassStudents() {
 
         Integer classId = getParaToInt("classId");
         List<Student> studentByClassId = studentService.getStudentByClassId(classId);
@@ -77,17 +78,59 @@ public class ClassController extends BaseController {
         Integer id = getParaToInt(0);
         if (id == null) {
             RenderKit.renderError(this, "该班级不存在或已被删除");
-            return ;
+            return;
         }
         Class aClass = classService.getClassById(id);
         if (aClass == null) {
             RenderKit.renderError(this, "该班级不存在或已被删除");
-            return ;
+            return;
         }
         aClass.delete();
-        RenderKit.renderSuccess(this,"删除成功");
+        RenderKit.renderSuccess(this, "删除成功");
     }
 
+    public void letGraduate() {
+        String jsonStuIdList = getPara("classStuIdList");
+        int clsId = getParaToInt("clsId");
+        System.out.println(jsonStuIdList);
+        JSONArray jsonStuIdArray = JSON.parseArray(jsonStuIdList);
+        boolean allComplete = true;
+        for (Object o : jsonStuIdArray) {
+            if (o == null)
+                continue;
+            int id = Integer.valueOf(o.toString());
+            Student student = studentService.getUnEmpStudentById(id);
+            if (student != null) {
+                student.setStatus(Student.STATUS_GRADUATION);
+                student.setEmploymentStatus(Student.EMPLOYMENTSTATUS_UN_EMPLOYED);
+                student.setRemark("毕业啦！");
+                boolean b = studentService._updateStudentById(student);
+                if (!b) {
+                    allComplete = false;
+                }
+            }
+        }
+        Class aClass = classService.getClassById(clsId);
+        boolean b = true;
+        boolean isG = false;
+        if (aClass != null) {
+            if (aClass.getStatus() == Class.CLASS_STATUS_GRADUATED) {
+                isG = true;
+            }
+            aClass.setStatus(Class.CLASS_STATUS_GRADUATED);
+            aClass.setRemark("毕业班！");
+            b = classService._updateClass(aClass);
+        }
+        if (allComplete && b) {
+            if (isG) {
+                RenderKit.renderError(this, "该班级已经毕业，不建议反复提交！");
+            } else {
+                RenderKit.renderSuccess(this, "操作成功！");
+            }
+        } else {
+            RenderKit.renderError(this, "操作存在异常！");
+        }
 
+    }
 
 }

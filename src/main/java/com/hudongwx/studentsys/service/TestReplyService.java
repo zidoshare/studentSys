@@ -11,6 +11,8 @@ import java.util.List;
  * Created by wuhongxu on 2016/10/19 0019.
  */
 public class TestReplyService extends Service {
+    public TestQuestionnaireClassService tqcs;
+
     public boolean _saveTestReply(TestReply testReply) {
         return testReply.save();
     }
@@ -22,18 +24,18 @@ public class TestReplyService extends Service {
     }
 
     public TestReply getByCache(Integer qcId, Integer studentId) {
-        return getReply(qcId,studentId,true);
+        return getReply(qcId, studentId, true);
     }
 
-    public TestReply getReply(Integer qcId, Integer studentId,boolean useCache){
+    public TestReply getReply(Integer qcId, Integer studentId, boolean useCache) {
         TestReply reply = null;
 
-        if(useCache)
+        if (useCache)
             reply = TestReply.dao.findFirstByCache(Common.CACHE_LONG_TIME_LABEL, qcId + "-" + studentId,
-                TestReply.SEARCH_FROM_TEST_REPLY + "where testQuestionnaireClassId = ? and studentId = ?", qcId, studentId);
+                    TestReply.SEARCH_FROM_TEST_REPLY + "where testQuestionnaireClassId = ? and studentId = ?", qcId, studentId);
         else
-        reply = TestReply.dao.findFirst(TestReply.SEARCH_FROM_TEST_REPLY + "where testQuestionnaireClassId = ? and studentId = ?", qcId, studentId);
-        if(reply == null){
+            reply = TestReply.dao.findFirst(TestReply.SEARCH_FROM_TEST_REPLY + "where testQuestionnaireClassId = ? and studentId = ?", qcId, studentId);
+        if (reply == null) {
             reply = new TestReply();
             reply.setTestQuestionnaireClassId(qcId);
             reply.setStudentId(studentId);
@@ -58,10 +60,20 @@ public class TestReplyService extends Service {
     }
 
     public List<TestReply> getReplies(Integer qcId) {
-        return TestReply.dao.find(TestReply.SEARCH_FROM_TEST_REPLY+"where testQuestionnaireClassId = ? order by id desc",qcId);
+        return TestReply.dao.find(TestReply.SEARCH_FROM_TEST_REPLY + "where testQuestionnaireClassId = ? order by id desc", qcId);
     }
 
     public TestReply getReplyById(Integer replyId) {
         return TestReply.dao.findById(replyId);
     }
+
+    public List<TestReply> getReplyByStudentId(Integer stuId) {
+        if (stuId == null)
+            return null;
+        List<TestReply> replyList = TestReply.dao.find(TestReply.SEARCH_FROM_TEST_REPLY + " where studentId = ?", stuId);
+        if (replyList.isEmpty())
+            return null;
+        return replyList;
+    }
+
 }

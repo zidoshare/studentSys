@@ -24,6 +24,7 @@ public class Student extends BaseStudent<Student> {
     public static final int STATUS_UN_CHECKED = 12;//未选中
     private StudentEmployment studentEmployment;
     private Class classModel;
+    private StudentTrackInfo studentTrackInfo;
     public static final Student dao = new Student();
     public static final String SEARCH_FROM_STUDENT = "select * from stumanager_student ";
     public static final String SQL_FROM = " from stumanager_student ";
@@ -49,12 +50,19 @@ public class Student extends BaseStudent<Student> {
         this.studentEmployment = studentEmployment;
     }
 
-
     public Status getStatu() {
         return statu;
     }
 
     public void setStatu(Status statu) {
         this.statu = statu;
+    }
+
+    public StudentTrackInfo getStudentTrackInfo() {
+        return studentTrackInfo;
+    }
+
+    public void setStudentTrackInfo(StudentTrackInfo studentTrackInfo) {
+        this.studentTrackInfo = studentTrackInfo;
     }
 }

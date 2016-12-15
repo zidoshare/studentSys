@@ -7,7 +7,22 @@ import com.hudongwx.studentsys.common.BaseStudentTrackInfo;
  */
 @SuppressWarnings("serial")
 public class StudentTrackInfo extends BaseStudentTrackInfo<StudentTrackInfo> {
-	public static final StudentTrackInfo dao = new StudentTrackInfo();
-	public static final String SELECT_FROM_STUDENT_TRACK_INFO="select * from stumanager_student_track_info ";
-	public static final String SQL_FROM=" from stumanager_student_track_info ";
+    public static final int EMP_TRACK = 100;
+    public static final StudentTrackInfo dao = new StudentTrackInfo();
+    public static final String SELECT_FROM_STUDENT_TRACK_INFO = "select * from stumanager_student_track_info ";
+    public static final String SQL_FROM = " from stumanager_student_track_info ";
+
+    /**
+     *工具方法
+     * @param sti:(targetId,targetName,situation)
+     * @param operator
+     * @param status
+     */
+    public static StudentTrackInfo fillTrackInfo(StudentTrackInfo sti, User operator ,int status) {
+        sti.setTrackTime(System.currentTimeMillis());
+        sti.setOperaterId(operator.getId());
+        sti.setOperater(operator.getUserNickname());
+        sti.setStatus(status);
+        return sti;
+    }
 }

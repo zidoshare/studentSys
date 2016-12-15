@@ -34,6 +34,7 @@ public class _MappingKit {
 		arp.addMapping("stumanager_subsidy_application", "id", SubsidyApplication.class);
 		arp.addMapping("stumanager_subsidy_class_info", "id", SubsidyClassInfo.class);
 		arp.addMapping("stumanager_test_question", "id", TestQuestion.class);
+		arp.addMapping("stumanager_test_question_copy", "id", TestQuestionCopy.class);
 		arp.addMapping("stumanager_test_questionnaire", "id", TestQuestionnaire.class);
 		arp.addMapping("stumanager_test_questionnaire_class", "id", TestQuestionnaireClass.class);
 		arp.addMapping("stumanager_test_questionnaire_question", "id", TestQuestionnaireQuestion.class);
