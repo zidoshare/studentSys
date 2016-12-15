@@ -1368,6 +1368,84 @@ var func = {
         );
     },
 
+    projectScore: function (method, id) {
+        if (method == 'up') {
+            var modal = $('#projectScoreModel');
+            var json = {};
+            $('#trainingProject').find('.form-control').each(function () {
+                json[$(this).attr('name')] = $(this).val();
+            });
+            Util.ajax({
+                url: Label.staticServePath + '/studentManager/addTrainingProject',
+                data: json,
+                bindModal: modal
+            });
+        } else {
+            Util.update('stuId', id);
+            modalUtil.show($('#projectScoreModel'));
+            Util.ajax(Label.staticServePath + "/studentManager/getTrainingProject", {
+                data: {
+                    'stuId': id
+                },
+                success: function (data) {
+                    if (data.state == 'success') {
+                        var json = JSON.parse(data.msg);
+                        json.map(function (elem, num) {
+                            var str = '<tr id="tr{id}">' +
+                                '<td>' + Util.getMyDate(elem['time']) + '</td>' +
+                                '<td>{projectName}</td>' +
+                                '<td>{score}</td>' +
+                                '</tr>';
+                            str = Util.jsonToString(str, elem);
+                            $('#projectScoreModel').find('tbody:first').append(str);
+                        });
+                        $('#projectScoreModel').one('hidden.bs.modal', function () {
+                            $(this).find('tbody:first').html('');
+                        });
+                    }
+                }
+            });
+        }
+    },
+
+    seeDetail: function (method, id) {
+        modalUtil.show($('#detailInfoModel'));
+        var el=$("#" + method + id);
+        $('#theme').text(el.attr('data-theme'));
+        var url=Label.staticServePath + "/studentEmploymentManager/"+el.attr('data-req');
+        Util.ajax(url, {
+            data: {
+                'stuId': id
+            },
+            success: function (data) {
+                if (data.state == 'success') {
+                    var json = JSON.parse(data.msg);
+                    alert(json==null);
+                    if(json==null){
+                        $('#detailInfoModel').find('tbody:first').append('<tr><td colspan="2" style="text-align: center">暂无相关信息！</td></tr>');
+                    }
+                    json.map(function (elem, num) {
+                        var str="";
+                        if(method=="xf"){
+
+                        }else if(method=="test"||method=="train"){
+                            str = '<tr>' +
+                                '<td>' + Util.getMyDate(elem['time']) + '</td>' +
+                                '<td>{score}</td>' +
+                                '</tr>';
+                        }
+                        str = Util.jsonToString(str, elem);
+                        $('#detailInfoModel').find('tbody:first').append(str);
+                    });
+                    $('#detailInfoModel').one('hidden.bs.modal', function () {
+                        $(this).find('tbody:first').html('');
+                    });
+                }
+            }
+        });
+
+    },
+
     seeUnEmploy: function (method, id) {
         modalUtil.show($('#seeUnEmployModel'));
         loadResult($('#detailInfo'), Label.staticServePath + "/studentManager/showStudentInfo?studentId=" + id);
@@ -1396,6 +1474,9 @@ var func = {
                 success: function (data) {
                     if (data.state == 'success') {
                         var json = JSON.parse(data.msg);
+                        if(json.length==0){
+                            $('#trackModel').find('tbody:first').append('<tr><td colspan="4" style="text-align: center">暂无相关信息！</td></tr>');
+                        }
                         json.map(function (elem, num) {
                             var str = '<tr id="tr{id}">' +
                                 '<td class="hidden"><input name="id" value="{id}"/><input name="targetId" value="{targetId}"/><input name="operaterId" value="{operaterId}"/>' +
@@ -1424,7 +1505,12 @@ var func = {
             json['studentEmployment.approverId'] = id;
             json['studentEmployment.approver'] = text;
             $('#seApproveList').find('.form-control').each(function () {
-                json[$(this).attr('name')] = $(this).val();
+                if($(this).attr('name')=='studentEmployment.employmentTime'){
+                    var time=new Date($('#employmentTime').val()).getTime();
+                    json[$(this).attr('name')] = time;
+                }else{
+                    json[$(this).attr('name')] = $(this).val();
+                }
             });
             Util.ajax({
                 url: Label.staticServePath + "/studentEmploymentManager/addEmploymentApply",

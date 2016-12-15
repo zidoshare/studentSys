@@ -3,10 +3,7 @@ package com.hudongwx.studentsys.controller;
 import com.hudongwx.studentsys.common.BaseController;
 import com.hudongwx.studentsys.exceptions.ServiceException;
 import com.hudongwx.studentsys.model.*;
-import com.hudongwx.studentsys.service.StudentEmploymentService;
-import com.hudongwx.studentsys.service.StudentService;
-import com.hudongwx.studentsys.service.StudentTrackInfoService;
-import com.hudongwx.studentsys.service.UserService;
+import com.hudongwx.studentsys.service.*;
 import com.hudongwx.studentsys.util.Common;
 import com.hudongwx.studentsys.util.RenderKit;
 import com.jfinal.aop.Before;
@@ -26,6 +23,8 @@ public class StudentEmploymentController extends BaseController {
     public StudentService studentService;
     public StudentTrackInfoService studentTrackInfoService;
     public UserService userService;
+    public TestReplyService testReplyService;
+    public TrainingProjectService trainingProjectService;
 
     @Override
     public void index() {
@@ -217,17 +216,41 @@ public class StudentEmploymentController extends BaseController {
      **********************************/
     public void getTrackInfo() {
         List<StudentTrackInfo> trackInfoList = studentTrackInfoService.getStuTrackInfo(getParaToInt("stuId"));
-        if (trackInfoList.size() == 0) {
-            RenderKit.renderError(this, "无相关追踪信息！");
-        } else {
+        if (trackInfoList != null) {
             RenderKit.renderSuccess(this, JsonKit.toJson(trackInfoList));
         }
     }
 
     public void addTrackInfo() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         StudentTrackInfo sti = getModel(StudentTrackInfo.class);
-        studentTrackInfoService._saveStudentTrackInfo(StudentTrackInfo.fillTrackInfo(sti, getCurrentUser(this), StudentTrackInfo.EMP_TRACK));
-        RenderKit.renderSuccess(this, "追踪状态更新成功！");
+        boolean b = studentTrackInfoService._saveStudentTrackInfo(StudentTrackInfo.fillTrackInfo(sti, getCurrentUser(this), StudentTrackInfo.EMP_TRACK));
+        if(b){
+            RenderKit.renderSuccess(this, "追踪状态更新成功！");
+        }else{
+            RenderKit.renderError(this, "追踪状态更新失败！");
+        }
+
+    }
+
+    public void testDetail(){
+        List<TestReply> replyList = testReplyService.getReplyByStudentId(getParaToInt("stuId"));
+        if(replyList!=null){
+            RenderKit.renderSuccess(this,JsonKit.toJson(replyList));
+        }
+    }
+
+    public void trainingProjectDetail(){
+        List<TrainingProject> projectList = trainingProjectService.getProjectInfoByStudentId(getParaToInt("stuId"));
+        if(projectList!=null){
+            RenderKit.renderSuccess(this,JsonKit.toJson(projectList));
+        }
+    }
+
+    public void creditDetail(){
+        List<TestReply> replyList = testReplyService.getReplyByStudentId(getParaToInt("stuId"));
+        if(replyList!=null){
+            RenderKit.renderSuccess(this,JsonKit.toJson(replyList));
+        }
     }
 
 }

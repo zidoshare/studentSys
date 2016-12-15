@@ -8,4 +8,5 @@ import com.hudongwx.studentsys.common.BaseTrainingProject;
 @SuppressWarnings("serial")
 public class TrainingProject extends BaseTrainingProject<TrainingProject> {
 	public static final TrainingProject dao = new TrainingProject();
+	public static final String SEARCH_ALL="select * from stumanager_training_project ";
 }

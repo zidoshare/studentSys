@@ -4,10 +4,7 @@ import com.hudongwx.studentsys.common.BaseController;
 import com.hudongwx.studentsys.exceptions.ServiceException;
 import com.hudongwx.studentsys.model.Class;
 import com.hudongwx.studentsys.model.*;
-import com.hudongwx.studentsys.service.ClassService;
-import com.hudongwx.studentsys.service.StatusService;
-import com.hudongwx.studentsys.service.StudentService;
-import com.hudongwx.studentsys.service.UserService;
+import com.hudongwx.studentsys.service.*;
 import com.hudongwx.studentsys.util.Common;
 import com.hudongwx.studentsys.util.ModelKit;
 import com.hudongwx.studentsys.util.RenderKit;
@@ -31,6 +28,7 @@ public class StudentController extends BaseController {
     public UserService userService;
     public ClassService classService;
     public StatusService statusService;
+    public TrainingProjectService trainingProjectService;
 
     @Override
     public void index() {
@@ -195,5 +193,22 @@ public class StudentController extends BaseController {
         student.setRemark(sdf.format(l) + ":" + student.getName() + "已毕业！");
         studentService._updateStudentById(student);
         RenderKit.renderSuccess(this, "操作成功！");
+    }
+
+    public void addTrainingProject(){
+        TrainingProject tp=getModel(TrainingProject.class);
+        tp.setTime(System.currentTimeMillis());
+        if(trainingProjectService._saveProjectInfo(tp)){
+            RenderKit.renderSuccess(this,"评分成绩保存成功！");
+        }else{
+            RenderKit.renderError(this,"保存失败！");
+        }
+    }
+
+    public void getTrainingProject(){
+        List<TrainingProject> projectList = trainingProjectService.getProjectInfoByStudentId(getParaToInt("stuId"));
+        if(projectList!=null){
+            RenderKit.renderSuccess(this,JsonKit.toJson(projectList));
+        }
     }
 }

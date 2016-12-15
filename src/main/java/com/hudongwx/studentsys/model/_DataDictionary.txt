@@ -304,6 +304,23 @@ Table: stumanager_test_question
  testQuestionMessage      | text(65535) | YES  |     |         | 题目备注    
 --------------------------+-------------+------+-----+---------+---------
 
+Table: stumanager_test_question_copy
+--------------------------+-------------+------+-----+---------+---------
+ Field                    | Type        | Null | Key | Default | Remarks 
+--------------------------+-------------+------+-----+---------+---------
+ id                       | int(10)     | NO   | PRI |         |         
+ testQuestionTitle        | text(65535) | NO   |     |         |         
+ testQuestionTypeId       | int(10)     | NO   |     |         |         
+ testQuestionContent      | text(65535) | YES  |     |         | 数组格式存储，[a,b,c,d]
+ testQuestionShortAnswer  | varchar(30) | YES  |     |         | 答案，选择题使用此字段，使用[a,b,c]格式
+ testQuestionLongAnswer   | text(65535) | YES  |     |         | 问答题或编程题使用此答案字段
+ testQuestionCreateTime   | bigint(19)  | NO   |     |         |         
+ testQuestionUpdateTime   | bigint(19)  | YES  |     |         |         
+ testQuestionOperaterId   | int(10)     | NO   |     | 83      |         
+ testQuestionDefaultScore | int(10)     | NO   |     | 0       |         
+ testQuestionMessage      | text(65535) | YES  |     |         | 题目备注    
+--------------------------+-------------+------+-----+---------+---------
+
 Table: stumanager_test_questionnaire
 -----------------------------+--------------+------+-----+---------+---------
  Field                       | Type         | Null | Key | Default | Remarks 
@@ -350,6 +367,7 @@ Table: stumanager_test_reply
  studentId                | int(10)     | NO   |     |         |         
  correcting               | int(10)     | NO   |     | 0       | 批改状态    
  scoreSituation           | text(65535) | YES  |     |         | 得分情况    
+ time                     | bigint(19)  | YES  |     |         |         
  score                    | int(10)     | NO   |     | 0       |         
 --------------------------+-------------+------+-----+---------+---------
 
@@ -385,16 +403,15 @@ Table: stumanager_test_type
 -----------------------+-------------+------+-----+----------------------------+---------
 
 Table: stumanager_training_project
--------------+--------------+------+-----+---------+---------
- Field       | Type         | Null | Key | Default | Remarks 
--------------+--------------+------+-----+---------+---------
- id          | int(10)      | NO   | PRI |         |         
- className   | varchar(255) | YES  |     |         |         
- studentId   | int(10)      | YES  |     |         |         
- studentName | varchar(255) | YES  |     |         |         
- projectName | varchar(255) | YES  |     |         | 项目名称    
- score       | int(10)      | YES  |     |         | 项目评分    
--------------+--------------+------+-----+---------+---------
+-------------+---------------+------+-----+---------+---------
+ Field       | Type          | Null | Key | Default | Remarks 
+-------------+---------------+------+-----+---------+---------
+ id          | int(10)       | NO   | PRI |         |         
+ studentId   | int(10)       | YES  |     |         |         
+ time        | bigint(19)    | YES  |     |         |         
+ projectName | varchar(255)  | YES  |     |         | 项目名称    
+ score       | decimal(10,1) | YES  |     |         | 项目评分    
+-------------+---------------+------+-----+---------+---------
 
 Table: stumanager_user
 -----------------+----------------------+------+-----+---------+---------

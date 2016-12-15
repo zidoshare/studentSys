@@ -86,6 +86,9 @@
                                 <mapping id="1016" icon="deleteStudent" title="删除" url="deleteStudent" function="0">
                                     <mappings/>
                                 </mapping>
+                                <mapping id="1017" icon="projectScore" title="项目评分" url="projectScore" function="0">
+                                    <mappings/>
+                                </mapping>
                             </mappings>
                         </mapping>
                     </mappings>
@@ -168,6 +171,9 @@
                                     <mappings/>
                                 </mapping>
                                 <mapping id="6132" icon="employmentApproval" title="就业" url="employmentApproval" function="0">
+                                    <mappings/>
+                                </mapping>
+                                <mapping id="6133" icon="employmentApproval" title="查看" url="seeDetail" function="0">
                                     <mappings/>
                                 </mapping>
                             </mappings>

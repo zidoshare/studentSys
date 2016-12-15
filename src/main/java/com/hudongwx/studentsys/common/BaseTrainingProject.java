@@ -17,14 +17,6 @@ public abstract class BaseTrainingProject<M extends BaseTrainingProject<M>> exte
 		return get("id");
 	}
 
-	public void setClassName(java.lang.String className) {
-		set("className", className);
-	}
-
-	public java.lang.String getClassName() {
-		return get("className");
-	}
-
 	public void setStudentId(java.lang.Integer studentId) {
 		set("studentId", studentId);
 	}
@@ -33,12 +25,12 @@ public abstract class BaseTrainingProject<M extends BaseTrainingProject<M>> exte
 		return get("studentId");
 	}
 
-	public void setStudentName(java.lang.String studentName) {
-		set("studentName", studentName);
+	public void setTime(java.lang.Long time) {
+		set("time", time);
 	}
 
-	public java.lang.String getStudentName() {
-		return get("studentName");
+	public java.lang.Long getTime() {
+		return get("time");
 	}
 
 	public void setProjectName(java.lang.String projectName) {
@@ -49,11 +41,11 @@ public abstract class BaseTrainingProject<M extends BaseTrainingProject<M>> exte
 		return get("projectName");
 	}
 
-	public void setScore(java.lang.Integer score) {
+	public void setScore(java.math.BigDecimal score) {
 		set("score", score);
 	}
 
-	public java.lang.Integer getScore() {
+	public java.math.BigDecimal getScore() {
 		return get("score");
 	}
 

@@ -57,6 +57,14 @@ public abstract class BaseTestReply<M extends BaseTestReply<M>> extends Model<M>
 		return get("scoreSituation");
 	}
 
+	public void setTime(java.lang.Long time) {
+		set("time", time);
+	}
+
+	public java.lang.Long getTime() {
+		return get("time");
+	}
+
 	public void setScore(java.lang.Integer score) {
 		set("score", score);
 	}

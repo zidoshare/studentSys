@@ -50,7 +50,7 @@ ${view.title}
                         </td>
                         <td colspan="4">
                             <form class="clearfix" enctype="multipart/form-data" method="post">
-                                <label class="control-label">上传头像:（格式：手机号.jpg/.png/.gif）</label>
+                                <label class="control-label">上传头像:（格式：身份证号.jpg/.png/.gif）</label>
                                 <input id="upPhoto" name="photo" type="file" accept="image/jpeg,image/png,image/gif">
                             </form>
                         </td>
@@ -388,6 +388,7 @@ ${view.title}
             uploadUrl: Label.staticServePath + '/upAndDownLoadManager/upLoadExcel',
             allowedFileExtensions: ['xls'],//接收的文件后缀
             dropZoneEnabled: false,
+
         });
 
         Util.redrawFileInput({

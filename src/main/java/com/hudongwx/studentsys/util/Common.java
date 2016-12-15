@@ -61,6 +61,7 @@ public class Common {
     //上传文件路径
     public static final String UP_LOAD_EXCEL_PATH="excel";
     public static final String UP_LOAD_PHOTO_PATH="photo";
+    public static final String LOAD_PHOTO_PATH="upLoad\\photo";
     public static final String PHOTO_URL_PATH="src\\main\\webapp\\upLoad\\photo\\";
 
     //此处得到主配置

@@ -9,6 +9,7 @@ import com.hudongwx.studentsys.util.PageinateKit;
 import com.hudongwx.studentsys.util.StrPlusKit;
 import com.jfinal.plugin.activerecord.Page;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,6 +17,8 @@ import java.util.stream.Collectors;
  * Created by wuhongxu on 2016/9/3 0003.
  */
 public class StudentService extends Service {
+    public TestReplyService testReplyService;
+    public TrainingProjectService trainingProjectService;
     public StatusService statusService;
     public StudentEmploymentService studentEmploymentService;
     public StudentTrackInfoService studentTrackInfoService;
@@ -25,6 +28,15 @@ public class StudentService extends Service {
             return null;
         Student student = Student.dao.findById(id);
         return student;
+    }
+
+    public Student getStudentByIdNumber(String idNumber) {
+        if (idNumber == null)
+            return null;
+        List<Student> studentList = Student.dao.find(Student.SEARCH_FROM_STUDENT+"where idNumber = ? ",idNumber);
+        if(studentList.isEmpty())
+            return null;
+        return studentList.get(0);
     }
 
     public Student getUnEmpStudentById(Integer id) {
@@ -154,6 +166,27 @@ public class StudentService extends Service {
                     if (trackInfoList != null && trackInfoList.size() != 0) {
                         studentTrackInfo = trackInfoList.get(0);
                     }
+                    List<TestReply> testList = testReplyService.getReplyByStudentId(student.getId());
+                    if(testList!=null){
+                        BigDecimal sum=new BigDecimal(0);
+                        BigDecimal avg=new BigDecimal(0);
+                        for (int i=0;i<testList.size();i++) {
+                            sum=sum.add(new BigDecimal(testList.get(i).getScore()));
+                        }
+                        avg=sum.divide(new BigDecimal(testList.size()));
+                        student.setTestAverage(avg);
+                    }
+                    List<TrainingProject> projectList = trainingProjectService.getProjectInfoByStudentId(student.getId());
+                    if(projectList!=null){
+                        BigDecimal sum=new BigDecimal(0);
+                        BigDecimal avg=new BigDecimal(0);
+                        for (int i=0;i<projectList.size();i++) {
+                            sum=sum.add(projectList.get(i).getScore());
+                        }
+                        avg=sum.divide(new BigDecimal(projectList.size()));
+                        student.setTrainingEvaluation(avg);
+                    }
+
                     student.setStudentTrackInfo(studentTrackInfo);
                     return student;
                 }).collect(Collectors.toList()));
@@ -168,4 +201,6 @@ public class StudentService extends Service {
                     return student;
                 }).collect(Collectors.toList()));
     }
+
+
 }

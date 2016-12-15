@@ -90,7 +90,7 @@
                                     data-method="prop">${(se.salary)!"无"}</td>
                                 <td id="employmentTime${(se.id)!}"
                                     data-label="${(se.employmentTime)!0}" data-target="#employmentTime"
-                                    data-method="prop">${(se.employmentTime)!"无"}</td>
+                                    data-method="prop">${((se.employmentTime?number)?number_to_date)!"无"}</td>
                                 <td id="operater${(se.id)!}"
                                     data-label="${(se.operater)!0}" data-target="#operater"
                                     data-method="prop">${(se.operater)!"无"}</td>

@@ -84,22 +84,29 @@
                                 <td id="class${stu.id}" data-label="${stu.className}"
                                     data-target="#className">${stu.className}</td>
                                 <td id="contactInformation${stu.id}" data-label="${(stu.contactInformation)!}"
-                                    data-target="#contactInformation">${(stu.contactInformation)!"未填写"}</td>
+                                    data-target="#contactInformation">${(stu.contactInformation)!"无"}</td>
                                 <td id="educationBackground${stu.id}"
                                     data-label="${(stu.educationBackground)!}" data-target="#educationBackground"
-                                    data-method="prop">${(stu.educationBackground)!"未填写"}</td>
+                                    data-method="prop">${(stu.educationBackground)!"无"}</td>
                                 <td id="major${stu.id}"
                                     data-label="${(stu.major)!}" data-target="#major"
-                                    data-method="prop">${(stu.major)!"未填写"}</td>
+                                    data-method="prop">${(stu.major)!"无"}</td>
                                 <td id="credit${stu.id}"
                                     data-label="${(stu.credit)!0}" data-target="#credit"
-                                    data-method="prop">${(stu.credit)!"未填写"}</td>
+                                    data-method="prop">${(stu.credit)!"无"}
+                                    <a id="xf${stu.id}" onclick="func.seeDetail('xf',${stu.id});"data-theme="学分信息" data-req="creditDetail"><img src="/images/seeDetail.png"></a>
+                                </td>
                                 <td id="testAverage${stu.id}"
                                     data-label="${(stu.testAverage)!0}" data-target="#testAverage"
-                                    data-method="prop">${(stu.testAverage)!"没有成绩"}</td>
+                                    data-method="prop">${(stu.testAverage)!"无"}
+                                    <a id="test${stu.id}" onclick="func.seeDetail('test',${stu.id});" data-theme="考试成绩" data-req="testDetail"><img
+                                            src="/images/seeDetail.png"></a>
+                                </td>
                                 <td id="trainingEvaluation${stu.id}"
                                     data-label="${(stu.trainingEvaluation)!0}" data-target="#trainingEvaluation"
-                                    data-method="prop">${(stu.trainingEvaluation)!"没有成绩"}</td>
+                                    data-method="prop">${(stu.trainingEvaluation)!"无"}
+                                    <a id="train${stu.id}" onclick="func.seeDetail('train',${stu.id});"data-theme="项目评分" data-req="trainingProjectDetail"><img src="/images/seeDetail.png"></a>
+                                </td>
                                 <td id="situation${(stu.studentTrackInfo.situation)!}"
                                     data-label="${(stu.studentTrackInfoList.situation)!}" data-target="#situation"
                                     data-method="prop">${(stu.studentTrackInfo.situation)!"无"}</td>
@@ -279,9 +286,8 @@
                     <div class="form-group">
                         <label for="employmentTime" class="col-sm-2 control-label">就业时间:</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="studentEmployment.employmentTime"
-                                   id="employmentTime"
-                                   placeholder="例：1970/01/01">
+                            <input type="date" class="form-control" name="studentEmployment.employmentTime"
+                                   id="employmentTime">
                         </div>
                     </div>
                     <div class="form-group">
@@ -301,6 +307,47 @@
                 <button class="btn btn-info" type="button"
                         onclick="func.employmentApproval('up')">提交
                 </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="detailInfoModel" tabindex="-1" role="dialog" aria-labelledby="addDetailInfoLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h5 class="modal-title" id="theme">考试信息</h5>
+            </div>
+            <div class="modal-body">
+                <form role="form" class="form-horizontal">
+                    <div id="dataTables-list" class="table-responsive dataTables_wrapper form-inline" role="grid">
+                        <table class="table table-striped table-bordered table-hover dataTable no-footer"
+                               id="dataTables-example" aria-describedby="dataTables-example_apply">
+                            <caption id="" class="text-center label-info">历史信息</caption>
+                            <thead>
+                            <tr>
+                                <th>
+                                    时间
+                                </th>
+                                <th>
+                                    分数
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+                <div class="tip-container">
+                    <div class="tip" id="saveClassTip" aria-label="0">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                </div>
             </div>
         </div>
     </div>

@@ -24,8 +24,14 @@
                            value="<#if student.birthday??>${(student.birthday?number)?number_to_date}</#if>">
                 </div>
             </td>
-            <td rowspan="4" class="text-center" width="150px"><img class="carousel-inner img-responsive img-rounded"
-                                                                   src="http://imgsrc.baidu.com/baike/pic/item/f9198618367adab43246bfa18ed4b31c8601e4ba.jpg"/>
+
+            <td rowspan="4" class="text-center" width="150px">
+                <img class="carousel-inner img-responsive img-rounded"
+                     src="${staticServePath}\${(student.photoUrl)!}"/>
+                <#--<form class="clearfix" enctype="multipart/form-data" method="post">-->
+                    <#--<input id="newPhoto" name="photo" type="file" data-idNum="${(student.idNumber)!}"-->
+                           <#--accept="image/jpeg,image/png,image/gif">-->
+                <#--</form>-->
             </td>
         </tr>
         <tr>
@@ -78,7 +84,8 @@
             <td>
                 <div class="input-group input-group-sm">
                     <span class="input-group-addon">录入时间:</span>
-                    <span class="input-group-addon"><#if student.admission??>${(student.admission?number)?number_to_date}<#else>"未填写"</#if></span>
+                    <span class="input-group-addon"><#if student.admission??>${(student.admission?number)?number_to_date}<#else>
+                        "未填写"</#if></span>
                 </div>
             </td>
             <td>
@@ -136,7 +143,8 @@
             <td colspan="4">
                 <div class="input-group input-group-sm">
                     <span class="input-group-addon">身份证号:</span>
-                    <span class="input-group-addon"><#if student.idNumber??>${student.idNumber}<#else>未填写</#if></span>
+                    <span class="input-group-addon"><#if student.idNumber??>${student.idNumber}<#else>
+                        未填写</#if></span>
                 </div>
             </td>
         </tr>
@@ -263,6 +271,22 @@
     </table>
 </div>
 <script type="text/javascript">
+
+//    $(function () {
+//        Util.redrawFileInput({
+//            selector: '#newPhoto',
+//            uploadUrl: Label.staticServePath + '/upAndDownLoadManager/upLoadPhoto',
+//            allowedFileExtensions: ['jpg', 'png', 'gif'],//接收的文件后缀
+//            dropZoneEnabled: false,
+//            showCaption: false,//是否显示标题
+//            uploadExtraData: function (previewId, index) {   //额外参数的关键点
+//                var idNum = {};
+//                idNum['IN'] = $('#newPhoto').attr('data-idNum');
+//                console.log(idNum);
+//                return idNum;
+//            }
+//        });
+//    });
     var change = function (studentId) {
         var statusInput = $('#status-input');
         var dom2 = $('#classSelect-div');
