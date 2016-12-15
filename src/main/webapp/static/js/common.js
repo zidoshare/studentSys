@@ -1419,10 +1419,8 @@ var func = {
             },
             success: function (data) {
                 if (data.state == 'success') {
+                    $('#detailInfoModel').find('tbody:first').html('');
                     console.log(data,data.msg);
-                    if (data.msg==null) {
-                        $('#detailInfoModel').find('tbody:first').append('<tr><td colspan="2" style="text-align: center">暂无相关信息！</td></tr>');
-                    }
                     var json = data.msg;
                     json.map(function (elem, num) {
                         var str = "";
@@ -1437,12 +1435,10 @@ var func = {
                         str = Util.jsonToString(str, elem);
                         $('#detailInfoModel').find('tbody:first').append(str);
                     });
-                    $('#detailInfoModel').one('hidden.bs.modal', function () {
-                        $(this).find('tbody:first').html('');
-                    });
                 }
             },
             error:function(data){
+                $('#detailInfoModel').find('tbody:first').html('');
                 $('#detailInfoModel').find('tbody:first').append('<tr><td colspan="2" style="text-align: center">暂无相关信息！</td></tr>');
             }
         });

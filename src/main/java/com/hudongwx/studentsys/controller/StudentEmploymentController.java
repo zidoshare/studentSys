@@ -249,7 +249,7 @@ public class StudentEmploymentController extends BaseController {
             RenderKit.renderSuccess(this,JsonKit.toJson(projectList));
             return ;
         }
-        RenderKit.renderError(this,"无相关数据！");
+        RenderKit.renderError(this,"无相关数据！",404);
     }
 
     public void creditDetail(){
@@ -258,7 +258,7 @@ public class StudentEmploymentController extends BaseController {
             RenderKit.renderSuccess(this,JsonKit.toJson(replyList));
             return;
         }
-        RenderKit.renderError(this,"无相关数据！");
+        RenderKit.renderError(this,"无相关数据！",404);
     }
 
 }
