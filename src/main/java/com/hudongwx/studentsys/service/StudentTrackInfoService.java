@@ -3,11 +3,8 @@ package com.hudongwx.studentsys.service;
 import com.hudongwx.studentsys.common.Service;
 import com.hudongwx.studentsys.exceptions.ServiceException;
 import com.hudongwx.studentsys.model.StudentTrackInfo;
-<<<<<<<<< Temporary merge branch 1
-=========
 import com.hudongwx.studentsys.util.Common;
 import com.jfinal.plugin.activerecord.Page;
->>>>>>>>> Temporary merge branch 2
 
 import java.util.List;
 

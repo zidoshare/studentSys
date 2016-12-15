@@ -1141,7 +1141,7 @@ var func = {
                         'classId': classId
                     },
                     success:function () {
-                        
+
                     }
                 });
             }
@@ -1183,6 +1183,7 @@ var func = {
             success: function (data, status) {
                 if (data.state == 'success') {
                     var json = JSON.parse(data.msg);
+                    console.log(data.msg);
                     json.map(function (elem, num) {
                         var str = '<tr id="tr{id}">' +
                             '<td></td>' +
@@ -1191,7 +1192,7 @@ var func = {
                             '<td class=" z-money-cny">{subsidyAmount}</td>' +
                             '<td>{residualFrequency}</td>' +
                             '<td><input value="{bonus}" class="form-control"  id="input-text{id}" name="bonus"></td>' +
-                            '<td>{status}</td>' +
+                            '<td>{studentStatusName}</td>' +
                             '</tr>';
                         str = Util.jsonToString(str, elem);
                         $('#seeApplyModel').find('tbody:first').append(str);

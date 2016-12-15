@@ -151,7 +151,7 @@ public class SubsidyApplicationService extends Service {
     }
 
     public List<SubsidyApplication> getApplicationByClassIdAndDate(Integer classId, Long applicationDate) {
-        return SubsidyApplication.dao.find(SubsidyApplication.SEARCH_FROM_SUBSIDY_APPLICATION + "where classId = ? and applicationDate = ? and approveStatus = " + SubsidyApplication.APPROVE_BEFORE, classId, applicationDate);
+        return SubsidyApplication.dao.find(SubsidyApplication.SEARCH_FROM_SUBSIDY_APPLICATION + "where classId = ? and applicationDate = ? and (approveStatus = ? or approveStatus = ?)", classId, applicationDate,SubsidyApplication.APPROVE_BEFORE,SubsidyApplication.APPROVE_WAITTING);
     }
 
     public Page<SubsidyApplication> getSubsidyApplicationHistoryByUserId(int pageNumber, int userId, long startTime, long endTime) {

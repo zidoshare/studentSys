@@ -29,14 +29,6 @@ public class StudentUtil {
         stu.setId(id);
         stu.setUserId(id);
         stu.setClassName(cls.getClassName());
-//        String photoUrl=Common.PHOTO_URL_PATH+stu.getPhotoUrl();
-//        File photoUrlPath=new File(photoUrl);
-//        System.out.println(photoUrl+" 存在？？？------------->"+photoUrlPath.exists());
-//        if(photoUrlPath.exists()){
-//            stu.setPhotoUrl(photoUrl);
-//        }else{
-//            stu.setPhotoUrl(Common.UP_LOAD_PHOTO_PATH+"\\"+stu.getIdNumber()+".jpg");
-//        }
         stu.setTutorId(cls.getTutorId());
         stu.setTutorName(cls.getTutor());
         stu.setCredit(new BigDecimal(100.00));

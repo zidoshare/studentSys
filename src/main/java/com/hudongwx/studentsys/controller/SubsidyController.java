@@ -35,7 +35,7 @@ public class SubsidyController extends BaseController {
     public RegionService regionService;
     public StudentService studentService;
     public UserService userService;
-
+    public StatusService statusService;
     @Override
     public void index() {
         super.index();
@@ -346,8 +346,6 @@ public class SubsidyController extends BaseController {
         if (equal) {
             RenderKit.renderError(this, "存在重复添加！或在申请中！");
         }
-
-
     }
 
     private void setSubsidyClassInfo(long applicationDate, Student student) {
@@ -365,7 +363,9 @@ public class SubsidyController extends BaseController {
         if (n >= 0) {
             sci.setResidualFrequency(n);
         }
-        sci.setStatus(student.getStatus());
+        sci.setStudentStatusId(student.getStatus());
+        Status status = statusService.getStatusById(student.getStatus());
+        sci.setStudentStatusName(status.getStatusName());
         sci.setApproveStatus(APPROV_STATUS_NO);
         sci.setRemark(student.getRemark());
         subsidyClassInfoService._saveSubsidyClassInfo(sci);
@@ -487,21 +487,25 @@ public class SubsidyController extends BaseController {
         List<Student> studentList = studentService.getLoanStudentByClassId(classId);
         if (sciOnApplyList != null) {
             boolean b = true;
-            if (studentList != null && studentList.size() != 0) {
+            if (studentList != null) {
                 for (Student student : studentList) {
-                    student.setResidualFrequency(student.getResidualFrequency() - 1);
-                    Integer sy = student.getResidualFrequency();
-                    BigDecimal per = student.getSubsidyPer();
-                    BigDecimal sum = student.getSubsidy();
-                    if(sy!=null||per!=null||sum!=null){
-                        student.setResidualSubsidyAmount(sum.subtract(sum.subtract(per.multiply(new BigDecimal(sy)))));
+                    int rf = student.getResidualFrequency().intValue() - 1;
+                    if(rf>0){
+                        student.setResidualFrequency(rf);
+                    }else{
+                        student.setResidualFrequency(0);
                     }
-                    studentService._updateStudentById(student);
+                    Integer sy = student.getResidualFrequency();//补助剩余次数
+                    BigDecimal per = student.getSubsidyPer();//单次补助金额
+                    if(sy!=null||per!=null){
+                        student.setResidualSubsidyAmount(per.multiply(new BigDecimal(sy)));
+                    }
+                    b = studentService._updateStudentById(student);
                 }
             } else {
                 b = false;
             }
-            if (sciOnApplyList != null && sciOnApplyList.size() != 0) {
+            if (sciOnApplyList != null) {
                 for (SubsidyClassInfo sci : sciOnApplyList) {
                     sci.setApproveStatus(approveStatus);
                     sci.setApplicationDate(now);
@@ -530,7 +534,7 @@ public class SubsidyController extends BaseController {
 
     private boolean setApplicationApproveStatus(long now, User user, long date, int classId, int approveStatus) {
         List<SubsidyApplication> saList = subsidyApplicationService.getApplicationByClassIdAndDate(classId, date);
-        if (saList != null && saList.size() != 0) {
+        if (saList != null) {
             boolean b = true;
             for (SubsidyApplication sa : saList) {
                 sa.setApproveStatus(approveStatus);
