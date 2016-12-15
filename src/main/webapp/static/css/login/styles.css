@@ -53,11 +53,10 @@ body :-ms-input-placeholder {
 
 .wrapper {
     position: absolute;
-    top: 50%;
+    /*top: 50%;*/
     width: 100%;
-    height: 400px;
-    margin-top: -200px;
-    overflow: hidden;
+    /*height: 400px;*/
+    /*margin-top: -200px;*/
 }
 
 .whole-container {
@@ -77,9 +76,9 @@ body :-ms-input-placeholder {
 
 .container {
     max-width: 600px;
-    margin: 0 auto;
-    padding: 80px 0;
-    height: 400px;
+    margin: auto;
+    padding: 120px 0 40px 0;
+    /*height: 400px;*/
     text-align: center;
     /*border-radius: 5px;
     border:2px solid #c5e4c5;*/
@@ -152,12 +151,9 @@ form button:hover {
 }
 
 .bg-bubbles {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1;
+    z-index: 0;
 }
 
 .bg-bubbles li {

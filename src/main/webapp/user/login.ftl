@@ -1,12 +1,26 @@
 <#include "../macro-head-single.ftl">
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" style="height:100%">
 <head>
 <@head title="登录">
     <link rel="Shortcut Icon" href="${staticServePath}/images/favicon.ico"/>
 </@head>
 </head>
-<body>
+<body style="height:100%;overflow: hidden;position: relative">
+<div style="position:absolute;height:70%;width:100%;margin: 6% auto;overflow: hidden">
+    <ul class="bg-bubbles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
 <div class="wrapper">
     <div class="container">
         <h1><span class="text-bg">CRM</span><span class="text-md">管理系统</span></h1>
@@ -23,34 +37,24 @@
             <div class="tip" id="wholeTip" aria-label="0">
             </div>
         </div>
+        <div class="text-center text-sm" style="z-index: 1000;">
+            <div style="width: auto;display: table;" class="center-block">
+            <#list outLinks as link>
+                <a href="http://${link["url"]}" class="out-link pull-left" target="_blank">
+                    <img class="img-sm center-block far-top" src="${staticServePath}/images/${link["icon"]}">
+                    <div class="far-top far-bottom text-center">${link["name"]?html}</div>
+                </a>
+            </#list>
+            </div>
+            <div>Copyright © 2014-2016 互动无限科技有限公司</div>
+        </div>
     </div>
 
-    <ul class="bg-bubbles">
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-    </ul>
+
 
 </div>
 
-<div class="to-bottom text-center text-sm" style="z-index: 1000;">
-    <div style="width: auto;display: table;" class="center-block">
-    <#list outLinks as link>
-        <a href="http://${link["url"]}" class="out-link pull-left" target="_blank">
-            <img class="img-sm center-block far-top" src="${staticServePath}/images/${link["icon"]}">
-            <div class="far-top far-bottom text-center">${link["name"]?html}</div>
-        </a>
-    </#list>
-    </div>
-    <div>Copyright © 2014-2016 互动无限科技有限公司</div>
-</div>
+
 </body>
 </html>
 <script type="text/javascript">
