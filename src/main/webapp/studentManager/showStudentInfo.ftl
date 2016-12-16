@@ -37,7 +37,7 @@
                                         </label>
                                     </div>
                                 </th>
-                                <th >
+                                <th class="sr-only">
                                     psId
                                 </th>
                                 <th>
@@ -85,7 +85,7 @@
                                         </label>
                                     </div>
                                 </td>
-                                <td  id="psId${student.id}" data-label="${student.id}"
+                                <td class="sr-only" id="psId${student.id}" data-label="${student.id}"
                                     data-target="#studentId">
                                 ${student.id}
                                 </td>
@@ -135,8 +135,55 @@
                             <#--</#if>-->
                             </tr>
                             </#list>
+
                             </tbody>
                         </table>
+                        <script>
+                            $(function () {
+                                var allChecked = true;
+                                $('#index-look').click(function () {
+                                    if ($(this).is(':checked')) {
+                                        $('.idList').each(function (index, elem) {
+                                            if ($(elem).is(":enabled")) {
+                                                $(elem).prop('checked', true);
+                                            }
+                                        });
+                                        allChecked = true;
+                                    } else {
+                                        $('.idList').each(function (index, elem) {
+                                            $(elem).prop('checked', false);
+                                        });
+                                        allChecked = false;
+                                    }
+                                });
+
+                                $('.idList').each(function (index, elem) {
+                                    $(elem).click(function () {
+                                        if ($(this).is(':checked') == false) {
+                                            $('#index-look').prop('checked', false);
+                                            allChecked = false;
+                                        } else {
+                                            allChecked = checkStatus();
+                                            if (allChecked) {
+                                                $('#index-look').prop('checked', true);
+                                            }
+                                        }
+                                    });
+                                });
+
+                                function checkStatus() {
+                                    var all = true;
+                                    $('.idList').each(function (index, elem) {
+                                        if ($(this).is(":enabled") && $(this).is(':checked') == false) {
+                                            all = false;
+                                        }
+                                    });
+                                    return all;
+                                }
+
+                            });
+
+                        </script>
                     </div>
                 <#--<#if students??>-->
                 <#--<#assign str = "?">-->
@@ -188,12 +235,14 @@
                     </div>
                 </div>
             </div>
-            <div class="modal fade" id="projectScoreModel" tabindex="-1" role="dialog" aria-labelledby="addProjectScoreLabel"
+            <div class="modal fade" id="projectScoreModel" tabindex="-1" role="dialog"
+                 aria-labelledby="addProjectScoreLabel"
                  aria-hidden="true">
                 <div class="modal-dialog" style="width:800px">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                            <button type="button" class="close" data-dismiss="modal"><span
+                                    aria-hidden="true">&times;</span><span
                                     class="sr-only">Close</span></button>
                             <h5 class="modal-title" id="myModalLabel">项目评价</h5>
                         </div>
@@ -205,13 +254,14 @@
                                         <div class="input-group">
                                             <div class="input-group-addon">项目名称:</div>
                                             <input name="trainingProject.projectName" class="form-control"
-                                                   type="text" >
+                                                   type="text">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="input-group">
-                                        <input name="trainingProject.score" id="situation" type="number" class="form-control">
+                                        <input name="trainingProject.score" id="situation" type="number"
+                                               class="form-control">
                             <span class="input-group-btn">
                                 <button class="btn btn-info" type="button"
                                         onclick="func.projectScore('up')">保存分数</button>
@@ -220,7 +270,8 @@
                                 </div>
                             </div>
                             <form role="form" class="form-horizontal">
-                                <div id="dataTables-list" class="table-responsive dataTables_wrapper form-inline" role="grid">
+                                <div id="dataTables-list" class="table-responsive dataTables_wrapper form-inline"
+                                     role="grid">
                                     <table class="table table-striped table-bordered table-hover dataTable no-footer"
                                            id="dataTables-example" aria-describedby="dataTables-example_apply">
                                         <caption class="text-center label-info">评分历史</caption>
@@ -256,37 +307,3 @@
     </div>
 </div>
 
-<script>
-    $(function () {
-        var allChecked = true;
-        $('#index-look').click(function () {
-            if ($(this).is(':checked')) {
-                $('.idList').each(function (index, elem) {
-                    $(elem).prop('checked', true);
-                });
-                allChecked=true;
-            } else {
-                $('.idList').each(function (index, elem) {
-                    $(elem).prop('checked', false);
-                });
-                allChecked=false;
-            }
-        });
-
-        $('.idList').each(function (index, elem) {
-            $(elem).click(function () {
-                if ($(this).is(':checked') == false) {
-                    $('#index-look').prop('checked', false);
-                    allChecked = false;
-                } else {
-                    allChecked = true;
-                }
-                if (allChecked) {
-                    $('#index-look').prop('checked', true);
-                }
-            });
-        });
-
-    });
-
-</script>

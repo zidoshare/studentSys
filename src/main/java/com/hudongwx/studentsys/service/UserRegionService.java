@@ -27,7 +27,12 @@ public class UserRegionService extends Service {
         return true;
     }
 
-    public List<UserRegion> getUserRegionInfoByUserId(int userid) {
-        return UserRegion.dao.find(UserRegion.SELECT_FROM_USERREGION + "where userId=?", userid);
+    public List<UserRegion> getUserRegionInfoByUserId(Integer userId) {
+        if (userId == null)
+            return null;
+        List<UserRegion> userRegionList = UserRegion.dao.find(UserRegion.SELECT_FROM_USERREGION + "where userId=?", userId);
+        if (userRegionList.isEmpty())
+            return null;
+        return userRegionList;
     }
 }

@@ -6,7 +6,7 @@
 <div class="panel-heading title">
 ${view.title}
 </div>
-<div id="table-apply">
+<div id="table-inner">
     <div id="dataTables-example_subsidy" class="table-responsive dataTables_wrapper form-inline" role="grid">
         <table class="table table-striped table-bordered table-hover dataTable no-footer"
                id="dataTables-example" aria-describedby="dataTables-example_apply">

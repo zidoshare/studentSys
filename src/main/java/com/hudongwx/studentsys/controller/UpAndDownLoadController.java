@@ -50,6 +50,13 @@ public class UpAndDownLoadController extends BaseController {
                 for (Student student : students) {
                     studentService._save(StudentUtil.rebuildUpLoadStudentModel(getCurrentUser(this), student, userService, classService, studentService));
                 }
+                List<Class> allClass = classService.getAllClass();
+                    if(!allClass.isEmpty()){
+                        for (Class cls : allClass) {
+                            cls.setStudentCnt(studentService.getStuCntByClsId(cls.getId()));
+                            classService._updateClass(cls);
+                        }
+                    }
                 file.delete();
                 RenderKit.renderSuccess(this, "文件上传成功！");
             } else {

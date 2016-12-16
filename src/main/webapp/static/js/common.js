@@ -955,11 +955,15 @@ var func = {
                     } else {
                         json[str] = time;
                     }
+                } else if(str=="student.paymentMethod"){
+                    if($(this).is(':checked')){
+                        json[str] = $(this).val();
+                    }
                 } else {
                     json[str] = $(this).val();
                 }
             });
-
+            console.log(json);
             Util.ajax({
                 url: Label.staticServePath + '/studentManager/addStudent',
                 data: json,
@@ -1066,7 +1070,6 @@ var func = {
     },
 
     updateAgreeApproval: function (method, id) {
-        alert($('#applicationDate' + id).attr('data-time'));
         Util.ajax(Label.staticServePath + "/subsidyManager/examineAndApprove",
             {
                 type: 'POST',
@@ -1074,13 +1077,16 @@ var func = {
                     classId: id,
                     applicationDate: $('#applicationDate' + id).attr('data-time'),
                     approveStatus: 8
+                },
+                success: function (data) {
+                    Util.reloadByPjax('#table-inner', {fragment: '#table-inner'});
                 }
             }
         );
+
     },
 
     deleteDisagreeApproval: function (method, id) {
-        alert($('#applicationDate' + id).attr('data-time'));
         Util.ajax(Label.staticServePath + "/subsidyManager/examineAndApprove",
             {
                 type: 'POST',
@@ -1089,8 +1095,12 @@ var func = {
                     applicationDate: $('#applicationDate' + id).attr('data-time'),
                     approveStatus: 13
                 },
+                success: function (data) {
+                    Util.reloadByPjax('#table-inner', {fragment: '#table-inner'});
+                }
             }
         );
+
     },
 
     seeApproval: function (method, classId) {
@@ -1140,7 +1150,7 @@ var func = {
                     data: {
                         'classId': classId
                     },
-                    success:function () {
+                    success: function () {
 
                     }
                 });
@@ -1597,8 +1607,18 @@ var func = {
             });
     },
 
-    deleteStudent: function () {
-
+    deleteStudent: function (method, stuId) {
+        if (confirm("确定要删除学生信息？")) {
+            Util.ajax(
+                Label.staticServePath + "/studentManager/deleteStudent",
+                {
+                    data: {stuId: stuId},
+                    success: function (data) {
+                        Util.reloadByPjax('#table-inner', {fragment: '#table-inner'});
+                    }
+                }
+            );
+        }
     },
     seeClassStudent: function (method, classId) {
         Util.loadByPjax(Label.staticServePath + "/studentManager/pageJump?classId=" + classId, {

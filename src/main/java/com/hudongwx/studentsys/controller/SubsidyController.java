@@ -36,6 +36,7 @@ public class SubsidyController extends BaseController {
     public StudentService studentService;
     public UserService userService;
     public StatusService statusService;
+
     @Override
     public void index() {
         super.index();
@@ -256,18 +257,14 @@ public class SubsidyController extends BaseController {
         User user = getCurrentUser(this);
         List<UserRegion> urlist = userRegionService.getUserRegionInfoByUserId(user.getId());
         List<Region> areas = new ArrayList<>();
-        if (urlist.size() <= 0) {
-            RenderKit.renderError(this);
+        if (urlist == null) {
+            RenderKit.renderError(this, "该账号未分配管理区域！");
         } else {
             for (UserRegion ur : urlist) {
                 areas.add(regionService.getRegionById(ur.getRegionId()));
             }
-            if (areas.size() != 0) {
-                String s = JsonKit.toJson(areas);
-                RenderKit.renderSuccess(this, s);
-            } else {
-                RenderKit.renderError(this);
-            }
+            String s = JsonKit.toJson(areas);
+            RenderKit.renderSuccess(this, s);
         }
     }
 
@@ -300,10 +297,10 @@ public class SubsidyController extends BaseController {
         List<List<Student>> ll = new ArrayList<>();
         for (Object o : jsonArray) {
             int cid = Integer.valueOf(o.toString());
-            List<Student> studentList = studentService.getStudentByClassId(cid);
-            if (studentList.size() == 0) {
-                isEmpty = true;
-                break;
+            List<Student> studentList = studentService.getAllLoanStudentByClassId(cid);
+            if (studentList == null || studentList.size() == 0) {
+                RenderKit.renderError(this, "该班级所有学员已无补助！");
+                return;
             } else {
                 for (Student student : studentList) {
                     int stuId = student.getId();
@@ -487,17 +484,17 @@ public class SubsidyController extends BaseController {
         List<Student> studentList = studentService.getLoanStudentByClassId(classId);
         if (sciOnApplyList != null) {
             boolean b = true;
-            if (studentList != null) {
+            if (approveStatus == SubsidyApplication.APPROVE_YES && studentList != null) {
                 for (Student student : studentList) {
                     int rf = student.getResidualFrequency().intValue() - 1;
-                    if(rf>0){
+                    if (rf > 0) {
                         student.setResidualFrequency(rf);
-                    }else{
+                    } else {
                         student.setResidualFrequency(0);
                     }
                     Integer sy = student.getResidualFrequency();//补助剩余次数
                     BigDecimal per = student.getSubsidyPer();//单次补助金额
-                    if(sy!=null||per!=null){
+                    if (sy != null || per != null) {
                         student.setResidualSubsidyAmount(per.multiply(new BigDecimal(sy)));
                     }
                     b = studentService._updateStudentById(student);

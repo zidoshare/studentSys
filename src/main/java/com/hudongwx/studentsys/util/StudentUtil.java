@@ -37,7 +37,7 @@ public class StudentUtil {
         stu.setAdmission(admission);
         stu.setTrainingGraduationTime(admission + (1000l * 60 * 60 * 24 * 30 * 4));
         stu.setCounselorName(userService.getUserById(stu.getCounselorId()).getUserNickname());
-        if ((stu.getSubsidy() != null && stu.getResidualFrequency() != null) || stu.getPaymentMethod().equals("贷款")) {
+        if ((stu.getSubsidy() != null && stu.getResidualFrequency() != null) && stu.getPaymentMethod().equals("贷款")) {
             BigDecimal subsidyPer = stu.getSubsidy().divide(new BigDecimal(stu.getResidualFrequency()), 2, RoundingMode.HALF_DOWN);
             stu.setSubsidyPer(subsidyPer);
         }

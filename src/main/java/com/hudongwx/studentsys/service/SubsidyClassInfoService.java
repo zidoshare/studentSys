@@ -1,6 +1,7 @@
 package com.hudongwx.studentsys.service;
 
 import com.hudongwx.studentsys.common.Service;
+import com.hudongwx.studentsys.model.SubsidyApplication;
 import com.hudongwx.studentsys.model.SubsidyClassInfo;
 
 import java.util.List;
@@ -66,7 +67,7 @@ public class SubsidyClassInfoService extends Service {
     public List<SubsidyClassInfo> getSubsidyClassInfoByClassId(Integer classId) {
         if (classId == null)
             return null;
-        List<SubsidyClassInfo> classInfoList = SubsidyClassInfo.dao.find(SubsidyClassInfo.SEARCH_FROM_SUBSIDY_CLASSINFO + "where classId = ?", classId);
+        List<SubsidyClassInfo> classInfoList = SubsidyClassInfo.dao.find(SubsidyClassInfo.SEARCH_FROM_SUBSIDY_CLASSINFO + "where classId = ? and approveStatus = ?", classId, SubsidyApplication.APPROVE_BEFORE);
         if (classInfoList.isEmpty())
             return null;
         return classInfoList;

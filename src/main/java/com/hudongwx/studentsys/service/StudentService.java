@@ -26,8 +26,7 @@ public class StudentService extends Service {
     public Student getStudentById(Integer id) {
         if (id == null)
             return null;
-        Student student = Student.dao.findById(id);
-        return student;
+        return Student.dao.findById(id);
     }
 
     public Student getStudentByIdNumber(String idNumber) {
@@ -122,11 +121,16 @@ public class StudentService extends Service {
     }
 
     public List<Student> getStudentByClassId(int classId, int defaultStatus) {
-        return Student.dao.find(Student.SEARCH_FROM_STUDENT + "where classId = ? and status = ? ", new Object[]{classId, defaultStatus});
+        return Student.dao.find(Student.SEARCH_FROM_STUDENT + "where classId = ? and status = ? ", classId, defaultStatus);
     }
 
-    public List<Student> getStudentByClassId(int classId) {
-        return Student.dao.find(Student.SEARCH_FROM_STUDENT + "where classId = ? and status = 1 ", classId);
+    public List<Student> getAllLoanStudentByClassId(Integer classId) {
+        if (classId == null)
+            return null;
+        List<Student> studentList = Student.dao.find(Student.SEARCH_FROM_STUDENT + "where classId = ? and status = ? and paymentMethod like ? and residualFrequency > 0", classId, Student.STATUS_STUDYING, "贷款");
+        if (studentList.isEmpty())
+            return null;
+        return studentList;
     }
 
     public List<Student> getLoanStudentByClassId(Integer classId) {
@@ -138,15 +142,21 @@ public class StudentService extends Service {
         return studentList;
     }
 
-    public List<Student> getAllStudentByClassId(Integer classId) {
-        if (classId == null) {
-            try {
-                throw new ServiceException("班级id不能为空");
-            } catch (ServiceException e) {
-                e.printStackTrace();
-            }
-        }
+    public int getStuCntByClsId(Integer classId) {
+        if (classId == null)
+            return 0;
         List<Student> stuList = Student.dao.find(Student.SEARCH_FROM_STUDENT + "where classId = ? ", classId);
+        if (stuList.isEmpty())
+            return 0;
+        return stuList.size();
+    }
+
+    public List<Student> getAllStudentByClassId(Integer classId) {
+        if (classId == null)
+            return null;
+        List<Student> stuList = Student.dao.find(Student.SEARCH_FROM_STUDENT + "where classId = ? ", classId);
+        if (stuList.isEmpty())
+            return null;
         return stuList.stream().map(student -> {
             Status statu = statusService.getStatusById(student.getStatus());
             student.setStatu(statu);
@@ -211,5 +221,9 @@ public class StudentService extends Service {
                 }).collect(Collectors.toList()));
     }
 
-
+    public boolean _deleteStudentById(Integer stuId) {
+        if (stuId == null)
+            return false;
+        return Student.dao.deleteById(stuId);
+    }
 }

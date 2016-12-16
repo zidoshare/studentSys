@@ -67,9 +67,8 @@ public class ClassController extends BaseController {
     }
 
     public void getClassStudents() {
-
         Integer classId = getParaToInt("classId");
-        List<Student> studentByClassId = studentService.getStudentByClassId(classId);
+        List<Student> studentByClassId = studentService.getStudentByClassId(classId,Student.STATUS_STUDYING);
 
     }
 
