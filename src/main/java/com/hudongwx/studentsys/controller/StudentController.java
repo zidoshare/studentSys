@@ -83,7 +83,7 @@ public class StudentController extends BaseController {
         Student model = getModel(Student.class);
         Student student = StudentUtil.rebuildStudentModel(getCurrentUser(this), model, userService, classService, studentService);
         if (studentService._save(student)) {
-            StudentUtil.createAcount(getCurrentUser(this),student,userService,roleService);
+            StudentUtil.createAndSaveUserAccount(getCurrentUser(this),student,userService,roleService);
             Class aClass = classService.getClassById(student.getClassId());
             aClass.setStudentCnt(studentService.getStuCntByClsId(student.getClassId()));
             classService._updateClass(aClass);

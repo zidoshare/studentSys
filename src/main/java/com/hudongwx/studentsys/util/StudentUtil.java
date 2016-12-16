@@ -1,5 +1,6 @@
 package com.hudongwx.studentsys.util;
 
+import com.hudongwx.studentsys.exceptions.ServiceException;
 import com.hudongwx.studentsys.model.Class;
 import com.hudongwx.studentsys.model.Role;
 import com.hudongwx.studentsys.model.Student;
@@ -99,8 +100,16 @@ public class StudentUtil {
         return stu;
     }
 
-    public static void createAcount(User op, Student stu, UserService userService, RoleService roleService) {
+    public static void createAndSaveUserAccount(User op, Student stu, UserService userService, RoleService roleService) {
         User user = new User();
+        List<User> userList = userService.getAllUser();
+        int id;
+        if (userList.size() != 0) {
+            id = userList.get(0).getId() + 1;
+        } else {
+            id = 1000;
+        }
+        user.setId(id);
         user.setUserAccount(stu.getEmergencyContact());
         user.setUserPassword("123456");
         user.setUserNickname(stu.getName());
@@ -119,6 +128,11 @@ public class StudentUtil {
         user.setUserCreateTime(t);
         user.setUserUpdateTime(t);
         user.setOperater(op.getUserNickname());
+        try {
+            userService._saveUser(user);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
     }
 
 }

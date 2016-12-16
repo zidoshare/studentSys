@@ -90,4 +90,8 @@ public class UserService extends Service {
             return new ArrayList<>();
         return User.dao.find(User.SEARCH_FROM_USER + "where roleId = ?", role.getId());
     }
+
+    public List<User>getAllUser(){
+        return User.dao.find(User.SEARCH_FROM_USER+Common.ORDER_BY_ID_DESC);
+    }
 }
