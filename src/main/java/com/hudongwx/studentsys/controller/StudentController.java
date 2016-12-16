@@ -29,6 +29,7 @@ public class StudentController extends BaseController {
     public ClassService classService;
     public StatusService statusService;
     public TrainingProjectService trainingProjectService;
+    public RoleService roleService;
 
     @Override
     public void index() {
@@ -82,6 +83,7 @@ public class StudentController extends BaseController {
         Student model = getModel(Student.class);
         Student student = StudentUtil.rebuildStudentModel(getCurrentUser(this), model, userService, classService, studentService);
         if (studentService._save(student)) {
+            StudentUtil.createAcount(getCurrentUser(this),student,userService,roleService);
             Class aClass = classService.getClassById(student.getClassId());
             aClass.setStudentCnt(studentService.getStuCntByClsId(student.getClassId()));
             classService._updateClass(aClass);
@@ -94,14 +96,14 @@ public class StudentController extends BaseController {
     public void deleteStudent() throws ServiceException {
         Integer stuId = getParaToInt("stuId");
         Student student = studentService.getStudentById(stuId);
-        Integer clsId=0;
-        if(student!=null){
-            clsId=student.getClassId();
+        Integer clsId = 0;
+        if (student != null) {
+            clsId = student.getClassId();
         }
         if (studentService._deleteStudentById(stuId)) {
             Class aClass = classService.getClassById(clsId);
-            if(aClass!=null){
-                int cnt=(aClass.getStudentCnt()-1)<=0?0:aClass.getStudentCnt()-1;
+            if (aClass != null) {
+                int cnt = (aClass.getStudentCnt() - 1) <= 0 ? 0 : aClass.getStudentCnt() - 1;
                 aClass.setStudentCnt(cnt);
                 classService._updateClass(aClass);
             }
