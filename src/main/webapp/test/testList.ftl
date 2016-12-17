@@ -44,34 +44,34 @@
                 <tbody>
 
                     <#list questionnaires.list as q>
-                    <tr id="testQuestionnaire${q.id}">
-                        <td id="testQuestionnaireTitle${q.id}"
-                            data-label="${q.testQuestionnaireTitle?html}">${q.testQuestionnaireTitle}</td>
+                    <tr id="testQuestionnaire${(q.id)!}">
+                        <td id="testQuestionnaireTitle${(q.id)!}"
+                            data-label="${(q.testQuestionnaireTitle)!?html}">${(q.testQuestionnaireTitle)!}</td>
                         <td id="testQuestionnaireCreateTime${q.id}"
-                            data-label="${q.testQuestionnaireCreateTime}">${(q.testQuestionnaireCreateTime?number)?number_to_datetime}</td>
+                            data-label="${(q.testQuestionnaireCreateTime)!}">${((q.testQuestionnaireCreateTime)!?number)?number_to_datetime}</td>
                         <td id="testQuestionnaireScore${q.id}"
-                            data-label="${q.testQuestionnaireScore}">${q.testQuestionnaireScore}</td>
+                            data-label="${(q.testQuestionnaireScore)!}">${(q.testQuestionnaireScore)!}</td>
                         <td id="testQuestionnaireUserNickname${q.id}"
-                            data-label="${operaterMap["${q.id}"].userNickname}">${operaterMap["${q.id}"].userNickname}</td>
+                            data-label="${(operaterMap["${(q.id)!0}"].userNickname)!}">${(operaterMap["${(q.id)!0}"].userNickname)!}</td>
                         <#if updateAble || deleteAble>
                             <td>
                                 <#if updateAble>
-                                ${InsertKit(updateBtn,"${q.id}")}/
+                                ${InsertKit(updateBtn,"${(q.id)!}")}/
                                 </#if>
-                            ${InsertKit(deleteBtn,"${q.id}")}
+                            ${InsertKit(deleteBtn,"${(q.id)!}")}
                             </td>
                         </#if>
                         <td id="testQuestionnaireMessage${q.id}" class="hidden"
-                            data-label="${q.testQuestionnaireMessage?html}">
+                            data-label="${(q.testQuestionnaireMessage)!?html}">
 
                         </td>
                         <td id="testQuestionnaireTypeList${q.id}" class="hidden"
-                            data-label="${q.testQuestionnaireTypeList?html}">
+                            data-label="${(q.testQuestionnaireTypeList)!?html}">
 
                         </td>
                         <td id="testQuestionnaireUpdateTime${q.id}" class="hidden"
-                            data-label="${q.testQuestionnaireUpdateTime}">
-                        ${q.testQuestionnaireUpdateTime}
+                            data-label="${(q.testQuestionnaireUpdateTime)!}">
+                        ${(q.testQuestionnaireUpdateTime)!}
                         </td>
                     </tr>
                     </#list>
