@@ -3,10 +3,10 @@ package com.hudongwx.studentsys.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.hudongwx.studentsys.common.BaseController;
+import com.hudongwx.studentsys.model.*;
 import com.hudongwx.studentsys.model.Class;
-import com.hudongwx.studentsys.model.Mapping;
-import com.hudongwx.studentsys.model.Student;
 import com.hudongwx.studentsys.service.ClassService;
+import com.hudongwx.studentsys.service.RegionService;
 import com.hudongwx.studentsys.service.StudentService;
 import com.hudongwx.studentsys.service.UserService;
 import com.hudongwx.studentsys.util.Common;
@@ -25,7 +25,7 @@ public class ClassController extends BaseController {
     public ClassService classService;
     public StudentService studentService;
     public UserService userService;
-
+    public RegionService regionService;
 
     public void index() {
 
@@ -38,6 +38,9 @@ public class ClassController extends BaseController {
         Integer p = getParaToInt("p", 1);
         Page<Class> allClass = classService.getAllClass(p);
         setAttr("classes", allClass);
+
+        List<Region> regionList = regionService.getAllRegions();
+        setAttr("regionList", regionList);
     }
 
 
@@ -68,7 +71,7 @@ public class ClassController extends BaseController {
 
     public void getClassStudents() {
         Integer classId = getParaToInt("classId");
-        List<Student> studentByClassId = studentService.getStudentByClassId(classId,Student.STATUS_STUDYING);
+        List<Student> studentByClassId = studentService.getStudentByClassId(classId, Student.STATUS_STUDYING);
 
     }
 
@@ -84,8 +87,19 @@ public class ClassController extends BaseController {
             RenderKit.renderError(this, "该班级不存在或已被删除");
             return;
         }
-        aClass.delete();
-        RenderKit.renderSuccess(this, "删除成功");
+        if (aClass.delete()) {
+            List<Student> studentList = studentService.getAllStudentByClassId(aClass.getId());
+            if (studentList != null) {
+                for (Student student : studentList) {
+                    User stuAccount = userService.getUserByStuPhone(student);
+                    studentService._deleteStudentById(student.getId());
+                    userService._deleteUser(stuAccount);
+                }
+            }
+            RenderKit.renderSuccess(this, "班级以及学生信息删除成功！");
+            return;
+        }
+        RenderKit.renderError(this, "删除不成功！");
     }
 
     public void letGraduate() {

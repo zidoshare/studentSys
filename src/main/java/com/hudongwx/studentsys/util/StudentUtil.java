@@ -42,12 +42,9 @@ public class StudentUtil {
         stu.setAdmission(admission);
         stu.setTrainingGraduationTime(admission + (1000l * 60 * 60 * 24 * 30 * 4));
         stu.setCounselorName(userService.getUserById(stu.getCounselorId()).getUserNickname());
-        if ((stu.getSubsidy() != null && stu.getResidualFrequency() != null) && stu.getPaymentMethod().equals("贷款")) {
-            BigDecimal subsidyPer = stu.getSubsidy().divide(new BigDecimal(stu.getResidualFrequency()), 2, RoundingMode.HALF_DOWN);
-            stu.setSubsidyPer(subsidyPer);
-        }
+        //处理补助
+        dealSubsidyInfo(stu);
         stu.setBonus(new BigDecimal(0.00));
-        stu.setResidualSubsidyAmount(stu.getSubsidy());
         stu.setRegionId(cls.getRegionId());
         stu.setStatus(Student.STATUS_STUDYING);
         stu.setEmploymentStatus(Student.EMPLOYMENTSTATUS_UN_EMPLOYED);
@@ -83,12 +80,9 @@ public class StudentUtil {
         stu.setTrainingEvaluation(new BigDecimal(0.0));
         stu.setAdmission(admission);
         stu.setTrainingGraduationTime(admission + (1000l * 60 * 60 * 24 * 30 * 4));
-        if ((stu.getSubsidy() != null && stu.getResidualFrequency() != null) || stu.getPaymentMethod().equals("贷款")) {
-            BigDecimal subsidyPer = stu.getSubsidy().divide(new BigDecimal(stu.getResidualFrequency()), 2, RoundingMode.HALF_DOWN);
-            stu.setSubsidyPer(subsidyPer);
-        }
+        //处理补助
+        dealSubsidyInfo(stu);
         stu.setBonus(new BigDecimal(0.00));
-        stu.setResidualSubsidyAmount(stu.getSubsidy());
         stu.setRegionId(cls.getRegionId());
         stu.setStatus(Student.STATUS_STUDYING);
         stu.setEmploymentStatus(Student.EMPLOYMENTSTATUS_UN_EMPLOYED);
@@ -98,6 +92,17 @@ public class StudentUtil {
         stu.setChecked(Student.STATUS_UN_CHECKED);
         stu.setCreateTime(admission);
         return stu;
+    }
+
+    private static void dealSubsidyInfo(Student stu) {
+        if ((stu.getResidualSubsidyAmount() != null && stu.getResidualFrequency() != null) && stu.getPaymentMethod().equals("贷款")) {
+            BigDecimal rf = new BigDecimal(stu.getResidualFrequency());
+            if (rf == null || rf.intValue() == 0)
+                rf = new BigDecimal(1);
+            BigDecimal subsidyPer = stu.getResidualSubsidyAmount().divide((rf), 2, RoundingMode.HALF_DOWN);
+            stu.setSubsidyPer(subsidyPer);
+            stu.setSubsidy(stu.getSubsidyPer().multiply(rf));
+        }
     }
 
     public static void createAndSaveUserAccount(User op, Student stu, UserService userService, RoleService roleService) {
@@ -110,18 +115,21 @@ public class StudentUtil {
             id = 1000;
         }
         user.setId(id);
-        user.setUserAccount(stu.getEmergencyContact());
+        user.setUserAccount(stu.getContactInformation());
         user.setUserPassword("123456");
         user.setUserNickname(stu.getName());
         Role role = roleService.getRoleByName("学生");
-        if(role!=null){
+        if (role != null) {
             user.setRoleId(role.getId());
         }
         user.setUserRole("学生");
         user.setUserPhone(stu.getContactInformation());
         user.setUserEmail(stu.getEmail());
         user.setUserAddress(stu.getPresentAddress());
-        user.setUserPurikura(stu.getPhotoUrl());
+        String pUrl = stu.getPhotoUrl();
+        if (pUrl == null || pUrl.equals(""))
+            pUrl = null;
+        user.setUserPurikura(pUrl);
         user.setUserMessage(null);
         user.setUserLastLoginIp(op.getUserLastLoginIp());
         long t = System.currentTimeMillis();

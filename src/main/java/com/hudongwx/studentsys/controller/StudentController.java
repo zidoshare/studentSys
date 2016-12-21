@@ -82,15 +82,21 @@ public class StudentController extends BaseController {
     public void addStudent() throws ServiceException {
         Student model = getModel(Student.class);
         Student student = StudentUtil.rebuildStudentModel(getCurrentUser(this), model, userService, classService, studentService);
-        if (studentService._save(student)) {
-            StudentUtil.createAndSaveUserAccount(getCurrentUser(this),student,userService,roleService);
-            Class aClass = classService.getClassById(student.getClassId());
-            aClass.setStudentCnt(studentService.getStuCntByClsId(student.getClassId()));
-            classService._updateClass(aClass);
-            RenderKit.renderSuccess(this);
-            return;
+        Student stu = studentService.getStudentByIdNumber(student.getIdNumber());
+        if(stu==null){
+            if (studentService._save(student)) {
+                StudentUtil.createAndSaveUserAccount(getCurrentUser(this),student,userService,roleService);
+                Class aClass = classService.getClassById(student.getClassId());
+                aClass.setStudentCnt(studentService.getStuCntByClsId(student.getClassId()));
+                classService._updateClass(aClass);
+                RenderKit.renderSuccess(this,"学生信息添加成功！");
+                return;
+            }
+            RenderKit.renderError(this,"学生信息添加异常！");
+        }else{
+            RenderKit.renderError(this,"学生信息已存在！");
         }
-        RenderKit.renderError(this);
+
     }
 
     public void deleteStudent() throws ServiceException {

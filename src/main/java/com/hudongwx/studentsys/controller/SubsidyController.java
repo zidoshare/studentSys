@@ -420,14 +420,18 @@ public class SubsidyController extends BaseController {
         String remark = array.get(0).toString();
         int approverId = Integer.valueOf(array.get(1).toString());
         JSONArray dateArray = JSON.parseArray(array.get(2).toString());
-        for (Object o : dateArray) {
-            JSONObject jb = JSON.parseObject(o.toString());
-            long ad = jb.getLongValue("applicationDate");
-            setSubsidyClassInfo(date, ad);
-            setSubApplication(date, remark, approverId, ad);
+        if (dateArray.size() != 0) {
+            for (Object o : dateArray) {
+                JSONObject jb = JSON.parseObject(o.toString());
+                long ad = jb.getLongValue("applicationDate");
+                setSubsidyClassInfo(date, ad);
+                setSubApplication(date, remark, approverId, ad);
+            }
+            resetSubsidyClassInfo();
+            RenderKit.renderSuccess(this, "提交成功！");
+        } else {
+            RenderKit.renderError(this, "提交的申请中无班级！");
         }
-        resetSubsidyClassInfo();
-        RenderKit.renderSuccess(this, "提交成功！");
     }
 
     private void resetSubsidyClassInfo() {

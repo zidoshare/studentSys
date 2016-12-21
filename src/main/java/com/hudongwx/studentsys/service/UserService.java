@@ -94,4 +94,25 @@ public class UserService extends Service {
     public List<User>getAllUser(){
         return User.dao.find(User.SEARCH_FROM_USER+Common.ORDER_BY_ID_DESC);
     }
+
+    public User getUserByStuPhone(Student stu) {
+        if (null == stu)
+            return null;
+        List<User> ul =User.dao.find(User.SEARCH_FROM_USER + "where userAccount = ?", stu.getContactInformation());
+        if(ul.isEmpty())
+            return null;
+        return ul.get(0);
+    }
+
+    public boolean _updateUser(User user) {
+        if (null == user)
+            return false;
+        return user.update();
+    }
+
+    public boolean _deleteUser(User user){
+        if(user==null)
+            return false;
+        return user.delete();
+    }
 }

@@ -74,68 +74,70 @@
                             </thead>
                             <tbody>
                             <#--<#list students.list as student>-->
-                            <#list students as student>
-                            <tr id="stuId${student.id}">
-                                <td>
-                                    <div class="checkbox3 checkbox-round text-center">
-                                        <input class="idList" type="checkbox" data-clsId="${student.classId}"
-                                               data-status="${student.status}" data-label="${student.id}"
-                                               id="index-look${student.id}" <#if student.status!=1>disabled</#if>>
-                                        <label class="checkbox-2" style="display: inline" for="index-look${student.id}">
-                                        </label>
-                                    </div>
-                                </td>
-                                <td class="sr-only" id="psId${student.id}" data-label="${student.id}"
-                                    data-target="#studentId">
-                                ${student.id}
-                                </td>
-                                <td>
-                                ${(student.name)!'无'}
-                                </td>
-                                <td>
-                                ${(student.contactInformation)!'无'}
-                                </td>
-                                <td>
-                                ${(student.statu.statusName)!'无'}
-                                </td>
-                                <td>
-                                ${(student.educationBackground)!'无'}
-                                </td>
-                                <td>
-                                ${(student.major)!'无'}
-                                </td>
-                                <td>
-                                ${(student.paymentMethod)!'无'}
-                                </td>
-                                <td>
-                                ${(student.residualFrequency)!'无'}
-                                </td>
-                                <td>
-                                    无
-                                </td>
-                            <#--<#if  updateAble ||  deleteAble>-->
-                                <td>
-                                    <#list map["operators"+view.id] as op>
-                                        <#if op.url == "seeStudent">
-                                            <@macroBtn url = op.url title = op.title></@macroBtn>
-                                            <#assign op = map["operators"+view.id][0]>
-                                        ${InsertKit(btnLabel,"${student.id}")}/
-                                        </#if>
-                                    </#list>
-                                ${InsertKit(updateBtn,"${student.id}")}/
-                                ${InsertKit(deleteBtn,"${student.id}")}/
-                                    <#list map["operators"+view.id] as op>
-                                        <#if op.url == "projectScore">
-                                            <@macroBtn url = op.url title = op.title></@macroBtn>
-                                            <#assign op = map["operators"+view.id][0]>
-                                        ${InsertKit(btnLabel,"${student.id}")}
-                                        </#if>
-                                    </#list>
-                                </td>
-                            <#--</#if>-->
-                            </tr>
-                            </#list>
-
+                            <#if students??>
+                                <#list students as student>
+                                <tr id="stuId${student.id}">
+                                    <td>
+                                        <div class="checkbox3 checkbox-round text-center">
+                                            <input class="idList" type="checkbox" data-clsId="${student.classId}"
+                                                   data-status="${student.status}" data-label="${student.id}"
+                                                   id="index-look${student.id}" <#if student.status!=1>disabled</#if>>
+                                            <label class="checkbox-2" style="display: inline"
+                                                   for="index-look${student.id}">
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td class="sr-only" id="psId${student.id}" data-label="${student.id}"
+                                        data-target="#studentId">
+                                    ${student.id}
+                                    </td>
+                                    <td>
+                                    ${(student.name)!'无'}
+                                    </td>
+                                    <td>
+                                    ${(student.contactInformation)!'无'}
+                                    </td>
+                                    <td>
+                                    ${(student.statu.statusName)!'无'}
+                                    </td>
+                                    <td>
+                                    ${(student.educationBackground)!'无'}
+                                    </td>
+                                    <td>
+                                    ${(student.major)!'无'}
+                                    </td>
+                                    <td>
+                                    ${(student.paymentMethod)!'无'}
+                                    </td>
+                                    <td>
+                                    ${(student.residualFrequency)!'无'}
+                                    </td>
+                                    <td>
+                                        无
+                                    </td>
+                                <#--<#if  updateAble ||  deleteAble>-->
+                                    <td>
+                                        <#list map["operators"+view.id] as op>
+                                            <#if op.url == "seeStudent">
+                                                <@macroBtn url = op.url title = op.title></@macroBtn>
+                                                <#assign op = map["operators"+view.id][0]>
+                                            ${InsertKit(btnLabel,"${student.id}")}/
+                                            </#if>
+                                        </#list>
+                                    ${InsertKit(updateBtn,"${student.id}")}/
+                                    ${InsertKit(deleteBtn,"${student.id}")}/
+                                        <#list map["operators"+view.id] as op>
+                                            <#if op.url == "projectScore">
+                                                <@macroBtn url = op.url title = op.title></@macroBtn>
+                                                <#assign op = map["operators"+view.id][0]>
+                                            ${InsertKit(btnLabel,"${student.id}")}
+                                            </#if>
+                                        </#list>
+                                    </td>
+                                <#--</#if>-->
+                                </tr>
+                                </#list>
+                            </#if>
                             </tbody>
                         </table>
                         <script>

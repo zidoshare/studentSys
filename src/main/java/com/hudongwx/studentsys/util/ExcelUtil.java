@@ -9,7 +9,6 @@ import jxl.read.biff.BiffException;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,7 +31,7 @@ public class ExcelUtil {
         try {
             Workbook wb = Workbook.getWorkbook(file); // 从文件流中获取Excel工作区对象（WorkBook）
             Sheet sheet = wb.getSheet(0); // 从工作区中取得页（Sheet）
-            for (int i = 1; i < sheet.getRows(); i++) { // 循环打印Excel表中的内容
+            for (int i = 2; i < sheet.getRows(); i++) { // 循环打印Excel表中的内容
                 Student s = new Student();
                 for (int j = 0; j < sheet.getColumns(); j++) {
                     Cell cell = sheet.getCell(j, i);
@@ -47,7 +46,13 @@ public class ExcelUtil {
                             s.setSex(cell.getContents());
                             break;
                         case 3:
-                            Date bd = sdf.parse(cell.getContents());
+                            Date bd;
+                            try {
+                                bd = sdf.parse(cell.getContents());
+                            } catch (Exception e) {
+                                s.setRemark("生日日期格式错误！");
+                                break;
+                            }
                             s.setBirthday(bd.getTime());
                             break;
                         case 4:
@@ -81,7 +86,13 @@ public class ExcelUtil {
                             s.setCollege(cell.getContents());
                             break;
                         case 14:
-                            Date gt = sdf.parse(cell.getContents());
+                            Date gt;
+                            try {
+                                gt = sdf.parse(cell.getContents());
+                            } catch (Exception e) {
+                                s.setRemark("毕业日期格式错误！");
+                                break;
+                            }
                             s.setGraduationTime(gt.getTime());
                             break;
                         case 15:
@@ -94,21 +105,46 @@ public class ExcelUtil {
                             s.setPaymentMethod(cell.getContents());
                             break;
                         case 18:
-                            s.setTuition(new BigDecimal(cell.getContents()));
+                            String t = cell.getContents();
+                            if (t == null || t.equals(""))
+                                t = "0";
+                            s.setTuition(new BigDecimal(t));
                             break;
                         case 19:
-                            Date frt = sdf.parse(cell.getContents());
+                            Date frt;
+                            try {
+                                frt = sdf.parse(cell.getContents());
+                            } catch (Exception e) {
+                                s.setRemark("首还款日日期格式错误！");
+                                break;
+                            }
+                            if (s.getPaymentMethod().equals("现金"))
+                                s.setStudentRepaymentTime(null);
                             s.setFirstRepaymentTime(frt.getTime());
                             break;
                         case 20:
-                            Date srt = sdf.parse(cell.getContents());
+                            Date srt;
+                            try {
+                                srt = sdf.parse(cell.getContents());
+                            } catch (Exception e) {
+                                s.setRemark("学生还款日期格式错误！");
+                                break;
+                            }
+                            if (s.getPaymentMethod().equals("现金"))
+                                s.setStudentRepaymentTime(null);
                             s.setStudentRepaymentTime(srt.getTime());
                             break;
                         case 21:
-                            s.setSubsidy(new BigDecimal(cell.getContents()));
+                            String rsa = cell.getContents();
+                            if (rsa == null || rsa.equals("") || s.getPaymentMethod().equals("现金"))
+                                rsa = "0";
+                            s.setResidualSubsidyAmount(new BigDecimal(rsa));
                             break;
                         case 22:
-                            s.setResidualFrequency(Integer.valueOf(cell.getContents()));
+                            String rf = cell.getContents();
+                            if (rf == null || rf.equals("") || s.getPaymentMethod().equals("现金"))
+                                rf = "0";
+                            s.setResidualFrequency(Integer.valueOf(rf));
                             break;
                         case 23:
                             s.setBankCard(cell.getContents());
@@ -117,17 +153,21 @@ public class ExcelUtil {
                             s.setBankName(cell.getContents());
                             break;
                         case 25:
-                            s.setRemark(cell.getContents());
+                            String rm = cell.getContents();
+                            if (rm == null || rm.equals("")) {
+                                s.setRemark(s.getRemark());
+                            }
+                            s.setRemark(rm);
                             break;
                     }
                 }
+                if (s.getClassName() == null || s.getClassName().equals(""))
+                    continue;
                 slist.add(s);
             }
         } catch (BiffException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
             e.printStackTrace();
         }
         return slist;

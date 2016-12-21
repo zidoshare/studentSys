@@ -255,13 +255,13 @@ ${view.title}
                     <tr class="pay">
                         <td colspan="6">
                             <div id="stuSubsidy" class="input-group input-group-sm">
-                                <span class="input-group-addon">补助总金额:</span>
-                                <input name="student.subsidy" type="number" class="form-control">
+                                <span class="input-group-addon">剩余补助金额:</span>
+                                <input name="student.residualSubsidyAmount" type="number" class="form-control">
                             </div>
                         </td>
                         <td colspan="6">
                             <div id="stuResidualFrequency" class="input-group input-group-sm">
-                                <span class="input-group-addon">补助次数:</span>
+                                <span class="input-group-addon">剩余补助次数:</span>
                                 <input name="student.residualFrequency" type="number" class="form-control">
                             </div>
                         </td>

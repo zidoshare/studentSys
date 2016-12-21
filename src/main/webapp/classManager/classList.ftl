@@ -11,7 +11,8 @@
             </div>
             <div class="panel-body">
                 <div id="table-inner">
-                    <div id="dataTables-example_wrapper" class="table-responsive dataTables_wrapper form-inline" role="grid">
+                    <div id="dataTables-example_wrapper" class="table-responsive dataTables_wrapper form-inline"
+                         role="grid">
                         <table class="table table-striped table-bordered table-hover dataTable no-footer"
                                id="dataTables-example" aria-describedby="dataTables-example_info">
                             <thead>
@@ -41,12 +42,14 @@
                             <tbody>
 
                             <#list classes.list as class>
-                            <tr id="class${class.id}" data-label="${class.id}" data-target="#classId" data-method="prop">
+                            <tr id="class${class.id}" data-label="${class.id}" data-target="#classId"
+                                data-method="prop">
                                 <td id="className${class.id}" data-label="${class.className?html}"
                                     data-target="#className">${class.className}</td>
                                 <td id="headTeacher${class.id}" data-label="${class.headTeacher}"
                                     data-target="#headTeacher">${class.headTeacher}</td>
-                                <td id="tutor${class.id}" data-label="${class.tutor}" data-target="#tutor">${class.tutor}</td>
+                                <td id="tutor${class.id}" data-label="${class.tutor}"
+                                    data-target="#tutor">${class.tutor}</td>
                                 <td id="studentCnt${class.id}" data-label="${class.studentCnt}"
                                     data-target="studentCnt">${class.studentCnt}</td>
                                 <td id="classCreateTime${class.id}"
@@ -110,6 +113,18 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="className" class="col-sm-2 control-label">所在区域</label>
+                        <div class="col-sm-10">
+                            <select type="text" class="form-control" name="class.regionId" id="region">
+                            <#if regionList??>
+                                <#list regionList as region>
+                                    <option value="${region.id}">${region.regionName}</option>
+                                </#list>
+                            </#if>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="className" class="col-sm-2 control-label">班级名称</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" name="class.className" id="className"
@@ -131,7 +146,14 @@
                         </div>
                     </div>
                     <div class="form-group sr-only">
-                        <label for="studentCnt" class="col-sm-2 control-label">创建时间</label>
+                        <label for="studentCnt" class="col-sm-2 control-label">班级状态</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="class.status" id="classStatus" value="16">
+                        </div>
+                    </div>
+
+                    <div class="form-group sr-only">
+                        <label for="studentCnt" class="col-sm-2 control-label">学生人数</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" name="class.studentCnt" id="studentCnt"
                                    placeholder="创建时间" disabled>

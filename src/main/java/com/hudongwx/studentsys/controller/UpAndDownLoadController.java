@@ -5,6 +5,7 @@ import com.hudongwx.studentsys.exceptions.ServiceException;
 import com.hudongwx.studentsys.model.Class;
 import com.hudongwx.studentsys.model.Mapping;
 import com.hudongwx.studentsys.model.Student;
+import com.hudongwx.studentsys.model.User;
 import com.hudongwx.studentsys.service.ClassService;
 import com.hudongwx.studentsys.service.StudentService;
 import com.hudongwx.studentsys.service.UserService;
@@ -35,10 +36,12 @@ public class UpAndDownLoadController extends BaseController {
 
     public void upLoadExcel() throws ServiceException {
         UploadFile upExcel = getFile("excel", Common.UP_LOAD_EXCEL_PATH);
+        User operater = getCurrentUser(this);
         if (upExcel != null) {
             boolean classExits = true;
             File file = upExcel.getFile();
             List<Student> students = ExcelUtil.paraExcel(file);
+            System.out.println("students.size()---------->" + students.size());
             for (Student student : students) {
                 Class aClass = classService.getClassByClassName(student.getClassName());
                 if (aClass == null) {
@@ -48,15 +51,20 @@ public class UpAndDownLoadController extends BaseController {
             }
             if (classExits) {
                 for (Student student : students) {
-                    studentService._save(StudentUtil.rebuildUpLoadStudentModel(getCurrentUser(this), student, userService, classService, studentService));
+                    Student studentByIdNumber = studentService.getStudentByIdNumber(student.getIdNumber());
+                    User user = userService.getUserByStuPhone(student);
+                    if (studentByIdNumber == null)
+                        studentService._save(StudentUtil.rebuildUpLoadStudentModel(operater, student, userService, classService, studentService));
+                    if (user == null)
+                        StudentUtil.createAndSaveUserAccount(operater, student, userService, roleService);
                 }
                 List<Class> allClass = classService.getAllClass();
-                    if(!allClass.isEmpty()){
-                        for (Class cls : allClass) {
-                            cls.setStudentCnt(studentService.getStuCntByClsId(cls.getId()));
-                            classService._updateClass(cls);
-                        }
+                if (!allClass.isEmpty()) {
+                    for (Class cls : allClass) {
+                        cls.setStudentCnt(studentService.getStuCntByClsId(cls.getId()));
+                        classService._updateClass(cls);
                     }
+                }
                 file.delete();
                 RenderKit.renderSuccess(this, "文件上传成功！");
             } else {
@@ -67,17 +75,18 @@ public class UpAndDownLoadController extends BaseController {
             RenderKit.renderError(this, "上传失败！");
         }
     }
+
     @Before(POST.class)
     public void upLoadPhoto() throws ServiceException {
         String idNumber = getPara("IN");
         HttpServletRequest request = getRequest();
         Enumeration<String> paraNames = request.getParameterNames();
-        while (paraNames.hasMoreElements()){
-            log.info("para="+paraNames.nextElement()+"--"+request.getParameter(paraNames.nextElement()));
+        while (paraNames.hasMoreElements()) {
+            log.info("para=" + paraNames.nextElement() + "--" + request.getParameter(paraNames.nextElement()));
         }
         UploadFile upPhoto = this.getFile("photo", Common.UP_LOAD_PHOTO_PATH);
         ImageUtil.deleteExtraImageFile(idNumber);
-        System.out.println("idNumber------------------------>"+idNumber);
+        System.out.println("idNumber------------------------>" + idNumber);
         if (upPhoto != null) {
             boolean complete = true;
             if (idNumber != null) {
@@ -85,13 +94,16 @@ public class UpAndDownLoadController extends BaseController {
                 if (student != null) {
                     student.setPhotoUrl(Common.LOAD_PHOTO_PATH + "\\" + upPhoto.getFileName());
                     studentService._updateStudentById(student);
+                    User user = userService.getUserByStuPhone(student);
+                    user.setUserPurikura(student.getPhotoUrl());
+                    userService._updateUser(user);
                 } else {
                     complete = false;
                 }
             } else {
                 String fileName = upPhoto.getFileName();
                 String[] filePart = fileName.split("\\.");
-                System.out.println("filePart[0]--------------->"+filePart[0]);
+                System.out.println("filePart[0]--------------->" + filePart[0]);
                 Student student = studentService.getStudentByIdNumber(filePart[0]);
                 if (student != null) {
                     student.setPhotoUrl(Common.LOAD_PHOTO_PATH + "\\" + fileName);

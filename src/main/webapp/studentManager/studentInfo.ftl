@@ -30,8 +30,8 @@
 
             </tr>
             <tr>
-                <td>录入时间:<span>&nbsp;&nbsp;&nbsp;<#if student.admission??>${student.admission}<#else>未填写</#if></span></td>
-                <td>培训状态:<span>&nbsp;&nbsp;&nbsp;<#if student.trainingGraduationTime??>${student.trainingGraduationTime}<#else>未填写</#if></span></td>
+                <td>录入时间:<span>&nbsp;&nbsp;&nbsp;<#if student.admission??>${(student.admission?number)?number_to_date}<#else>未填写</#if></span></td>
+                <td>培训毕业时间:<span>&nbsp;&nbsp;&nbsp;<#if student.trainingGraduationTime??>${((student.trainingGraduationTime)?number)?number_to_date}<#else>未填写</#if></span></td>
                 <td>所属班级:<span>&nbsp;&nbsp;&nbsp;<#if student.className??>${student.className}<#else>未填写</#if></span></td>
                 <td></td>
             </tr>
