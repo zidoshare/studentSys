@@ -490,16 +490,16 @@ public class SubsidyController extends BaseController {
             boolean b = true;
             if (approveStatus == SubsidyApplication.APPROVE_YES && studentList != null) {
                 for (Student student : studentList) {
-                    int rf = student.getResidualFrequency().intValue() - 1;
+                    int rf = student.getResidualFrequency().intValue() - 1;//补助剩余次数
                     if (rf > 0) {
                         student.setResidualFrequency(rf);
                     } else {
+                        rf=0;
                         student.setResidualFrequency(0);
                     }
-                    Integer sy = student.getResidualFrequency();//补助剩余次数
                     BigDecimal per = student.getSubsidyPer();//单次补助金额
-                    if (sy != null || per != null) {
-                        student.setResidualSubsidyAmount(per.multiply(new BigDecimal(sy)));
+                    if (rf != 0 || per != null) {
+                        student.setResidualSubsidyAmount(per.multiply(new BigDecimal(rf)));
                     }
                     b = studentService._updateStudentById(student);
                 }

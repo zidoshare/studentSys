@@ -6,11 +6,13 @@
         <div id="class-details" class="panel panel-default item">
             <div class="panel-heading title">
             ${view.title}
-                <button data-style="slide-up" id="update-student-btn"
-                        class="btn btn-primary ladda-button btn-info pull-right"
-                        onclick="func.letGraduate()">
-                    <span>毕业</span>
-                </button>
+                <#if deleteAble>
+                    <button data-style="slide-up" id="update-student-btn"
+                            class="btn btn-primary ladda-button btn-info pull-right"
+                            onclick="func.letGraduate()">
+                        <span>毕业</span>
+                    </button>
+                </#if>
             </div>
             <div class="panel-body">
                 <div id="table-inner">
@@ -65,11 +67,20 @@
                                 <th>
                                     备注
                                 </th>
-                            <#--<#if updateAble ||  deleteAble>-->
+                            <#assign seeStudent = false>
+                            <#assign projectScore = false>
+                            <#list map["operators"+view.id] as op>
+                                <#if op.url == "seeStudent">
+                                    <#assign seeStudent = true>
+                                <#elseif op.url == "projectScore">
+                                    <#assign projectScore = true>
+                                </#if>
+                            </#list>
+                            <#if seeStudent || projectScore || updateAble ||  deleteAble>
                                 <th>
                                     操作
                                 </th>
-                            <#--</#if>-->
+                            </#if>
                             </tr>
                             </thead>
                             <tbody>
@@ -115,26 +126,30 @@
                                     <td>
                                         无
                                     </td>
-                                <#--<#if  updateAble ||  deleteAble>-->
-                                    <td>
-                                        <#list map["operators"+view.id] as op>
-                                            <#if op.url == "seeStudent">
-                                                <@macroBtn url = op.url title = op.title></@macroBtn>
-                                                <#assign op = map["operators"+view.id][0]>
-                                            ${InsertKit(btnLabel,"${student.id}")}/
+                                    <#if  seeStudent || projectScore || updateAble ||  deleteAble>
+                                        <td>
+                                            <#list map["operators"+view.id] as op>
+                                                <#if op.url == "seeStudent">
+                                                    <@macroBtn url = op.url title = op.title></@macroBtn>
+                                                    <#assign op = map["operators"+view.id][0]>
+                                                ${InsertKit(btnLabel,"${student.id}")}
+                                                </#if>
+                                            </#list>
+                                            <#if updateAble>
+                                                /${InsertKit(updateBtn,"${student.id}")}
                                             </#if>
-                                        </#list>
-                                    ${InsertKit(updateBtn,"${student.id}")}/
-                                    ${InsertKit(deleteBtn,"${student.id}")}/
-                                        <#list map["operators"+view.id] as op>
-                                            <#if op.url == "projectScore">
-                                                <@macroBtn url = op.url title = op.title></@macroBtn>
-                                                <#assign op = map["operators"+view.id][0]>
-                                            ${InsertKit(btnLabel,"${student.id}")}
+                                            <#if deleteAble>
+                                                /${InsertKit(deleteBtn,"${student.id}")}
                                             </#if>
-                                        </#list>
-                                    </td>
-                                <#--</#if>-->
+                                            <#list map["operators"+view.id] as op>
+                                                <#if op.url == "projectScore">
+                                                    <@macroBtn url = op.url title = op.title></@macroBtn>
+                                                    <#assign op = map["operators"+view.id][0]>
+                                                    /${InsertKit(btnLabel,"${student.id}")}
+                                                </#if>
+                                            </#list>
+                                        </td>
+                                    </#if>
                                 </tr>
                                 </#list>
                             </#if>

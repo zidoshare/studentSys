@@ -7,7 +7,9 @@
         <div id="class-details" class="panel panel-default item">
             <div class="panel-heading title">
             ${view.title}
+            <#if deleteAble>
                 <span class="pull-right">${addBtn}</span>
+            </#if>
             </div>
             <div class="panel-body">
                 <div id="table-inner">
@@ -32,7 +34,13 @@
                                 <th>
                                     创建时间
                                 </th>
-                            <#if updateAble || deleteAble>
+                            <#assign seeClassStudent = false>
+                            <#list map["operators"+view.id] as op>
+                                <#if op.url == "seeClassStudent">
+                                    <#assign seeClassStudent = true>
+                                </#if>
+                            </#list>
+                            <#if seeClassStudent ||updateAble || deleteAble>
                                 <th>
                                     操作
                                 </th>
@@ -55,19 +63,20 @@
                                 <td id="classCreateTime${class.id}"
                                     data-label="${class.classCreateTime}" data-target="#classCreateTime"
                                     data-method="prop">${(class.classCreateTime?number)?number_to_datetime}</td>
-                                <#if updateAble || deleteAble>
+
+                                <#if seeClassStudent||updateAble || deleteAble>
                                     <td>
                                         <#list map["operators"+view.id] as op>
                                             <#if op.url == "seeClassStudent">
                                                 <@macroBtn url = op.url title = op.title></@macroBtn>
                                                 <#assign op = map["operators"+view.id][0]>
-                                            ${InsertKit(btnLabel,"${class.id}")}/
+                                            ${InsertKit(btnLabel,"${class.id}")}
                                             </#if>
                                         </#list>
                                         <#if updateAble>
-                                        ${InsertKit(updateBtn,"${class.id}")}
+                                            /${InsertKit(updateBtn,"${class.id}")}
                                         </#if>
-                                        <#if updateAble>
+                                        <#if deleteAble>
                                             /${InsertKit(deleteBtn,"${class.id}")}
                                         </#if>
 
