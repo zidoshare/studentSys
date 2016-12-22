@@ -917,7 +917,7 @@ var func = {
     },
     addUser: function (method) {
         if (method == 'show') {
-            modalUtil.toggleClear($('#addUserModel'));
+            modalUtil.show($('#addUserModel'));
             /*func.showPermissions(0, '', 'permissions');*/
         } else {
             var json = {};

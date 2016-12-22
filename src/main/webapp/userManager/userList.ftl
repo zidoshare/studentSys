@@ -43,11 +43,6 @@
                     <div class="form-group">
                         <label for="userRole" class="col-sm-2 control-label">负责区域</label>
                         <div class="col-sm-10">
-                            <#--<select class="form-control" name="user.userRole" id="userRole">-->
-                            <#--<#list roles as role>-->
-                                <#--<option value="${role.id}">${role.name}</option>-->
-                            <#--</#list>-->
-                            <#--</select>-->
                                 <select id="regionList" name="user.regionData" class="selectpicker form-control" multiple data-live-search="false">
                                     <#if regionList??>
                                         <#list regionList as region>

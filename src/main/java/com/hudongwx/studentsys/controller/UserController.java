@@ -29,15 +29,14 @@ public class UserController extends BaseController {
     public void index() {
         super.index();
         List<Role> roles = roleService.getRoles();
-        setAttr("roles", roles);
+        List<Region> regionList = regionService.getAllRegions();
         Map<String, List<User>> map = new HashMap<>();
         for (Role role : roles) {
             map.put(role.getName(), userService.getUsersByRole(role));
         }
-        setAttr("roleMap", map);
-        List<Region> regionList = regionService.getAllRegions();
+        setAttr("roles", roles);
         setAttr("regionList", regionList);
-
+        setAttr("roleMap", map);
     }
 
     /**
