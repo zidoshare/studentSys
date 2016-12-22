@@ -63,12 +63,11 @@ public class UpAndDownLoadController extends BaseController {
                         classService._updateClass(cls);
                     }
                 }
-                file.delete();
                 RenderKit.renderSuccess(this, "文件上传成功！");
             } else {
-                file.delete();
                 RenderKit.renderError(this, "表格数据存在异常！");
             }
+            file.delete();
         } else {
             RenderKit.renderError(this, "上传失败！");
         }
