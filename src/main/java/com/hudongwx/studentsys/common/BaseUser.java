@@ -129,4 +129,12 @@ public abstract class BaseUser<M extends BaseUser<M>> extends Model<M> implement
 		return get("operater");
 	}
 
+	public void setRegionData(java.lang.String regionData) {
+		set("regionData", regionData);
+	}
+
+	public java.lang.String getRegionData() {
+		return get("regionData");
+	}
+
 }

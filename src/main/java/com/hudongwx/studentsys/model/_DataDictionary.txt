@@ -431,6 +431,7 @@ Table: stumanager_user
  userCreateTime  | bigint(19)           | YES  |     |         | 用户创建时间  
  userUpdateTime  | bigint(19)           | YES  |     |         | 用户更新时间  
  operater        | varchar(20)          | YES  |     | admin   | 创建者     
+ regionData      | mediumtext(16777215) | YES  |     |         | 负责区域    
 -----------------+----------------------+------+-----+---------+---------
 
 Table: stumanager_user_region

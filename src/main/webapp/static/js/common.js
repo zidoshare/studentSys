@@ -923,7 +923,16 @@ var func = {
             var json = {};
             $('#createTime').val(new Date().getTime());
             $('#user').find('.form-control').each(function () {
-                json[$(this).attr('name')] = $(this).val();
+                var strName = $(this).attr('name');
+                if (strName == "user.userRole") {
+                    json['user.roleId'] = $(this).val();
+                    json['user.userRole'] = $(this).find("option:selected").text();
+                } else if( strName == "user.regionData"){
+                    var val=$(this).val()+"";
+                    json[strName]=val;
+                }else {
+                    json[strName] = $(this).val();
+                }
             });
             Util.ajax({
                 url: Label.staticServePath + '/userManager/addUser',
@@ -955,8 +964,8 @@ var func = {
                     } else {
                         json[str] = time;
                     }
-                } else if(str=="student.paymentMethod"){
-                    if($(this).is(':checked')){
+                } else if (str == "student.paymentMethod") {
+                    if ($(this).is(':checked')) {
                         json[str] = $(this).val();
                     }
                 } else {

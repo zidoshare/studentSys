@@ -18,8 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.util.Enumeration;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by wu on 2016/12/13.
@@ -121,11 +119,5 @@ public class UpAndDownLoadController extends BaseController {
         } else {
             RenderKit.renderError(this, "图片上传失败！");
         }
-    }
-
-    private boolean isNumber(String idNumber) {
-        Pattern pattern = Pattern.compile("[0-9]*");
-        Matcher isNum = pattern.matcher(idNumber);
-        return isNum.matches();
     }
 }
