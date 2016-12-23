@@ -17,14 +17,6 @@ public abstract class BaseSubsidyApplication<M extends BaseSubsidyApplication<M>
 		return get("id");
 	}
 
-	public void setTitle(java.lang.String title) {
-		set("title", title);
-	}
-
-	public java.lang.String getTitle() {
-		return get("title");
-	}
-
 	public void setApplicantId(java.lang.Integer applicantId) {
 		set("applicantId", applicantId);
 	}

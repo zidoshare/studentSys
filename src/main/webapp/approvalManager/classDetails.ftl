@@ -32,19 +32,19 @@
                 <#list classInfoList as classInfoList>
                     <tr>
                         <td>
-                            ${classInfoList.studentName}
+                            ${(classInfoList.studentName)!'无'}
                         </td>
                         <td class=" z-money-cny">
-                            ${classInfoList.subsidyAmount}
+                            ${(classInfoList.subsidyAmount)!0}
                         </td>
                         <td >
-                            ${classInfoList.residualFrequency}
+                            ${(classInfoList.residualFrequency)!0}
                         </td>
                         <td class=" z-money-cny">
-                            ${classInfoList.bonus}
+                            ${(classInfoList.bonus)!0}
                         </td>
                         <td>
-                            ${classInfoList.status}
+                            ${(classInfoList.studentStatusName)!'无'}
                         </td>
                     </tr>
                 </#list>

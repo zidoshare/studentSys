@@ -917,13 +917,22 @@ var func = {
     },
     addUser: function (method) {
         if (method == 'show') {
-            modalUtil.toggleClear($('#addUserModel'));
+            modalUtil.show($('#addUserModel'));
             /*func.showPermissions(0, '', 'permissions');*/
         } else {
             var json = {};
             $('#createTime').val(new Date().getTime());
             $('#user').find('.form-control').each(function () {
-                json[$(this).attr('name')] = $(this).val();
+                var strName = $(this).attr('name');
+                if (strName == "user.userRole") {
+                    json['user.roleId'] = $(this).val();
+                    json['user.userRole'] = $(this).find("option:selected").text();
+                } else if( strName == "user.regionData"){
+                    var val=$(this).val()+"";
+                    json[strName]=val;
+                }else {
+                    json[strName] = $(this).val();
+                }
             });
             Util.ajax({
                 url: Label.staticServePath + '/userManager/addUser',
@@ -955,11 +964,15 @@ var func = {
                     } else {
                         json[str] = time;
                     }
+                } else if (str == "student.paymentMethod") {
+                    if ($(this).is(':checked')) {
+                        json[str] = $(this).val();
+                    }
                 } else {
                     json[str] = $(this).val();
                 }
             });
-
+            console.log(json);
             Util.ajax({
                 url: Label.staticServePath + '/studentManager/addStudent',
                 data: json,
@@ -1061,7 +1074,41 @@ var func = {
             })
         }
     },
-    updateApproval: function () {
+    updateApproval: function (method, id) {
+
+    },
+
+    updateAgreeApproval: function (method, id) {
+        Util.ajax(Label.staticServePath + "/subsidyManager/examineAndApprove",
+            {
+                type: 'POST',
+                data: {
+                    classId: id,
+                    applicationDate: $('#applicationDate' + id).attr('data-time'),
+                    approveStatus: 8
+                },
+                success: function (data) {
+                    Util.reloadByPjax('#table-inner', {fragment: '#table-inner'});
+                }
+            }
+        );
+
+    },
+
+    deleteDisagreeApproval: function (method, id) {
+        Util.ajax(Label.staticServePath + "/subsidyManager/examineAndApprove",
+            {
+                type: 'POST',
+                data: {
+                    classId: id,
+                    applicationDate: $('#applicationDate' + id).attr('data-time'),
+                    approveStatus: 13
+                },
+                success: function (data) {
+                    Util.reloadByPjax('#table-inner', {fragment: '#table-inner'});
+                }
+            }
+        );
 
     },
 
@@ -1072,10 +1119,9 @@ var func = {
     },
     submitApply: function () {
         var data = [];
-
         var jsonData = [];
         $("tr[name='submit-tr']").each(function (index, dom) {
-            var list = $(dom).find('input[name]');
+            var list = $(dom).find('input[name="applicationDate"]');
             if (list.length <= 0)
                 return true;
             var json = {};
@@ -1112,6 +1158,9 @@ var func = {
                     url: Label.staticServePath + "/subsidyManager/deleteSubsidyClassInfo",
                     data: {
                         'classId': classId
+                    },
+                    success: function () {
+
                     }
                 });
             }
@@ -1153,6 +1202,7 @@ var func = {
             success: function (data, status) {
                 if (data.state == 'success') {
                     var json = JSON.parse(data.msg);
+                    console.log(data.msg);
                     json.map(function (elem, num) {
                         var str = '<tr id="tr{id}">' +
                             '<td></td>' +
@@ -1161,7 +1211,7 @@ var func = {
                             '<td class=" z-money-cny">{subsidyAmount}</td>' +
                             '<td>{residualFrequency}</td>' +
                             '<td><input value="{bonus}" class="form-control"  id="input-text{id}" name="bonus"></td>' +
-                            '<td>{status}</td>' +
+                            '<td>{studentStatusName}</td>' +
                             '</tr>';
                         str = Util.jsonToString(str, elem);
                         $('#seeApplyModel').find('tbody:first').append(str);
@@ -1420,7 +1470,7 @@ var func = {
             success: function (data) {
                 if (data.state == 'success') {
                     $('#detailInfoModel').find('tbody:first').html('');
-                    console.log(data,data.msg);
+                    console.log(data, data.msg);
                     var json = data.msg;
                     json.map(function (elem, num) {
                         var str = "";
@@ -1437,7 +1487,7 @@ var func = {
                     });
                 }
             },
-            error:function(data){
+            error: function (data) {
                 $('#detailInfoModel').find('tbody:first').html('');
                 $('#detailInfoModel').find('tbody:first').append('<tr><td colspan="2" style="text-align: center">暂无相关信息！</td></tr>');
             }
@@ -1566,8 +1616,18 @@ var func = {
             });
     },
 
-    deleteStudent: function () {
-
+    deleteStudent: function (method, stuId) {
+        if (confirm("确定要删除学生信息？")) {
+            Util.ajax(
+                Label.staticServePath + "/studentManager/deleteStudent",
+                {
+                    data: {stuId: stuId},
+                    success: function (data) {
+                        Util.reloadByPjax('#table-inner', {fragment: '#table-inner'});
+                    }
+                }
+            );
+        }
     },
     seeClassStudent: function (method, classId) {
         Util.loadByPjax(Label.staticServePath + "/studentManager/pageJump?classId=" + classId, {

@@ -5,7 +5,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
                         class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="myModalLabel">添加学生信息</h4>
+                <h4 class="modal-title" id="myModalLabel">添加用户信息</h4>
             </div>
             <div class="modal-body">
                 <form id="user" role="form" class="form-horizontal">
@@ -35,9 +35,21 @@
                         <div class="col-sm-10">
                             <select class="form-control" name="user.userRole" id="userRole">
                             <#list roles as role>
-                                <option>${role.name}</option>
+                                <option value="${role.id}">${role.name}</option>
                             </#list>
                             </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="userRole" class="col-sm-2 control-label">负责区域</label>
+                        <div class="col-sm-10">
+                                <select id="regionList" name="user.regionData" class="selectpicker form-control" multiple data-live-search="false">
+                                    <#if regionList??>
+                                        <#list regionList as region>
+                                            <option value="${region.id}">${region.regionName}</option>
+                                        </#list>
+                                    </#if>
+                                </select>
                         </div>
                     </div>
                     <div class="form-group sr-only">

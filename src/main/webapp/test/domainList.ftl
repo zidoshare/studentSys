@@ -32,22 +32,22 @@ ${view.title}<span class="pull-right">${addBtn}</span>
                 <tbody>
 
                     <#list domains.list as domain>
-                    <tr id="domain${domain.id}">
-                        <td id="domainTitle${domain.id}"
-                            data-label="${domain.domainTitle?html}">${domain.domainTitle}</td>
-                        <td id="domainMessage${domain.id}"
+                    <tr id="domain${(domain.id)!}">
+                        <td id="domainTitle${(domain.id)!}"
+                            data-label="${(domain.domainTitle)!?html}">${(domain.domainTitle)!}</td>
+                        <td id="domainMessage${(domain.id)!}"
                             data-label="<#if domain.domainMessage??>${domain.domainMessage}</#if>"><#if domain.domainMessage??>${domain.domainMessage?html}</#if></td>
-                        <td id="domainCreateTime${domain.id}"
-                            data-label="${domain.domainCreateTime}">${(domain.domainCreateTime?number)?number_to_datetime}</td>
+                        <td id="domainCreateTime${(domain.id)!}"
+                            data-label="${(domain.domainCreateTime)!}">${((domain.domainCreateTime)!?number)?number_to_datetime}</td>
                         <#if updateAble || deleteAble>
                             <td>
                                 <#if updateAble>
-                                ${InsertKit(updateBtn,"${domain.id}")}/
+                                ${InsertKit(updateBtn,"${(domain.id)!}")}/
                                 </#if>
-                            ${InsertKit(deleteBtn,"${domain.id}")}
+                            ${InsertKit(deleteBtn,"${(domain.id)!}")}
                             </td>
                         </#if>
-                        <td class="hidden" id="tags${domain.id}" data-label="${domain.tags}"></td>
+                        <td class="hidden" id="tags${(domain.id)!}" data-label="${(domain.tags)!}"></td>
                     </tr>
                     </#list>
 

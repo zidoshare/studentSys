@@ -15,7 +15,7 @@
                         class="selectpicker  show-menu-arrow form-control"
                         data-live-search="true">
                     <#list classes as class>
-                        <option value="${class.id}" <#if nowClass.id == class.id>selected</#if>>${class.className}</option>
+                        <option value="${(class.id)!}" <#if nowClass.id == class.id>selected</#if>>${(class.className)!}</option>
                     </#list>
                 </select>
             </div>
@@ -40,14 +40,15 @@
                 </tr>
                 </thead>
                 <tbody>
+                <#if questionnaires??>
                     <#list questionnaires as q>
-                    <tr id="${q.testQuestionnaireClassId}" data-label="open-check">
-                        <td>${q.testQuestionnaireTitle}</td>
-                        <td>${((q.testQuestionnaireStartTime)?number)?number_to_datetime}</td>
-                        <td>${((q.testQuestionnaireEndTime)?number)?number_to_datetime}</td>
-                        <td><#if (q.testQuestionnaireStartTime?number) < (nowTime?number) && (q.testQuestionnaireEndTime?number) gt (nowTime?number)>
+                    <tr id="${(q.testQuestionnaireClassId)!}" data-label="open-check">
+                        <td>${(q.testQuestionnaireTitle)!}</td>
+                        <td>${((q.testQuestionnaireStartTime)!?number)?number_to_datetime}</td>
+                        <td>${((q.testQuestionnaireEndTime)!?number)?number_to_datetime}</td>
+                        <td><#if ((q.testQuestionnaireStartTime)!?number) < ((nowTime)!?number) && ((q.testQuestionnaireEndTime)!?number) gt ((nowTime)!?number)>
                             <span class="text-success">正在进行中</span>
-                        <#elseif (q.testQuestionnaireStartTime?number) gt (nowTime?number)>
+                        <#elseif ((q.testQuestionnaireStartTime)!?number) gt ((nowTime)!?number)>
                             <span class="text-danger">尚未开始</span>
                         <#else>
                             <span class="text-gray">已完结</span>
@@ -55,10 +56,10 @@
                         </td>
                         <td>
                             <#list map["operators"+view.id] as op>
-                                <#if q.testQuestionnaireEndTime?number_to_datetime < .now?datetime && op.url="delayTest">
-                                    <a class="res" onclick="func.${op.url}('${q.testQuestionnaireClassId}')">${op.title}</a>
-                                <#elseif  q.testQuestionnaireEndTime?number_to_datetime gt .now?datetime && op.url="closeTest">
-                                    <a class="res" onclick="func.${op.url}('${q.testQuestionnaireClassId}')">${op.title}</a>
+                                <#if (q.testQuestionnaireEndTime)!?number_to_datetime < .now?datetime && op.url="delayTest">
+                                    <a class="res" onclick="func.${(op.url)!}('${(q.testQuestionnaireClassId)!}')">${(op.title)!}</a>
+                                <#elseif  (q.testQuestionnaireEndTime)!?number_to_datetime gt .now?datetime && op.url="closeTest">
+                                    <a class="res" onclick="func.${(op.url)!}('${(q.testQuestionnaireClassId)!}')">${(op.title)!}</a>
                                 </#if>
                             </#list>
                         </td>
@@ -69,7 +70,7 @@
                         </td>
                     </tr>
                     </#list>
-
+                </#if>
                 </tbody>
             </table>
         </div>
@@ -113,7 +114,7 @@
 </div>
 <script type="text/javascript">
     var classes = [<#list classes as class>
-        <#if class_index gt 0>,</#if>${class.id}</#list>];
+        <#if class_index gt 0>,</#if>${(class.id)!}</#list>];
     $(document).on('pjax:complete', function () { //pjax链接加载完成后重新绘制；
         Util.redrawSelects();
     });

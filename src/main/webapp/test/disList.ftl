@@ -30,15 +30,15 @@
                 <tbody>
 
                     <#list disList as q>
-                    <tr id="testQuestionnaireClass${q.id}">
-                        <td id="testQuestionnaireId${q.id}"
-                            data-label="${q.testQuestionnaireId}">${testQuestionnaireMap["${q.id}"].testQuestionnaireTitle}</td>
-                        <td id="classId${q.id}"
-                            data-label="${q.testQuestionnaireId}">${classMap["${q.id}"].className}</td>
-                        <td id="testQuestionnaireStartTime${q.id}"
-                            data-label="${q.testQuestionnaireStartTime}">${(q.testQuestionnaireStartTime?number)?number_to_datetime}</td>
+                    <tr id="testQuestionnaireClass${(q.id)!}">
+                        <td id="testQuestionnaireId${(q.id)!}"
+                            data-label="${(q.testQuestionnaireId)!}">${(testQuestionnaireMap["${(q.id)!0}"].testQuestionnaireTitle)!}</td>
+                        <td id="classId${(q.id)!}"
+                            data-label="${(q.testQuestionnaireId)!}">${(classMap["${q.id}"].className)!}</td>
+                        <td id="testQuestionnaireStartTime${(q.id)!}"
+                            data-label="${(q.testQuestionnaireStartTime)!}">${(q.testQuestionnaireStartTime?number)?number_to_datetime}</td>
                         <td id="testQuestionnaireEndTime${q.id}"
-                            data-label="${q.testQuestionnaireEndTime}}">${((q.testQuestionnaireEndTime)?number)?number_to_datetime}</td>
+                            data-label="${(q.testQuestionnaireEndTime)!}}">${((q.testQuestionnaireEndTime)?number)?number_to_datetime}</td>
                     </tr>
                     </#list>
                 </tbody>

@@ -29,6 +29,7 @@ public class StudentController extends BaseController {
     public ClassService classService;
     public StatusService statusService;
     public TrainingProjectService trainingProjectService;
+    public RoleService roleService;
 
     @Override
     public void index() {
@@ -80,12 +81,42 @@ public class StudentController extends BaseController {
     @Before(POST.class)
     public void addStudent() throws ServiceException {
         Student model = getModel(Student.class);
-        Student student= StudentUtil.rebuildStudentModel(getCurrentUser(this),model,userService,classService,studentService);
-        if (studentService._save(student)) {
-            RenderKit.renderSuccess(this);
-            return;
+        Student student = StudentUtil.rebuildStudentModel(getCurrentUser(this), model, userService, classService, studentService);
+        Student stu = studentService.getStudentByIdNumber(student.getIdNumber());
+        if(stu==null){
+            if (studentService._save(student)) {
+                StudentUtil.createAndSaveUserAccount(getCurrentUser(this),student,userService,roleService);
+                Class aClass = classService.getClassById(student.getClassId());
+                aClass.setStudentCnt(studentService.getStuCntByClsId(student.getClassId()));
+                classService._updateClass(aClass);
+                RenderKit.renderSuccess(this,"学生信息添加成功！");
+                return;
+            }
+            RenderKit.renderError(this,"学生信息添加异常！");
+        }else{
+            RenderKit.renderError(this,"学生信息已存在！");
         }
-        RenderKit.renderError(this);
+
+    }
+
+    public void deleteStudent() throws ServiceException {
+        Integer stuId = getParaToInt("stuId");
+        Student student = studentService.getStudentById(stuId);
+        Integer clsId = 0;
+        if (student != null) {
+            clsId = student.getClassId();
+        }
+        if (studentService._deleteStudentById(stuId)) {
+            Class aClass = classService.getClassById(clsId);
+            if (aClass != null) {
+                int cnt = (aClass.getStudentCnt() - 1) <= 0 ? 0 : aClass.getStudentCnt() - 1;
+                aClass.setStudentCnt(cnt);
+                classService._updateClass(aClass);
+            }
+            RenderKit.renderSuccess(this, "学生信息删除成功！");
+        } else {
+            RenderKit.renderError(this, "学生信息删除失败！");
+        }
     }
 
     /**
@@ -195,20 +226,20 @@ public class StudentController extends BaseController {
         RenderKit.renderSuccess(this, "操作成功！");
     }
 
-    public void addTrainingProject(){
-        TrainingProject tp=getModel(TrainingProject.class);
+    public void addTrainingProject() {
+        TrainingProject tp = getModel(TrainingProject.class);
         tp.setTime(System.currentTimeMillis());
-        if(trainingProjectService._saveProjectInfo(tp)){
-            RenderKit.renderSuccess(this,"评分成绩保存成功！");
-        }else{
-            RenderKit.renderError(this,"保存失败！");
+        if (trainingProjectService._saveProjectInfo(tp)) {
+            RenderKit.renderSuccess(this, "评分成绩保存成功！");
+        } else {
+            RenderKit.renderError(this, "保存失败！");
         }
     }
 
-    public void getTrainingProject(){
+    public void getTrainingProject() {
         List<TrainingProject> projectList = trainingProjectService.getProjectInfoByStudentId(getParaToInt("stuId"));
-        if(projectList!=null){
-            RenderKit.renderSuccess(this,JsonKit.toJson(projectList));
+        if (projectList != null) {
+            RenderKit.renderSuccess(this, JsonKit.toJson(projectList));
         }
     }
 }

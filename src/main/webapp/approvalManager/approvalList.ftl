@@ -6,7 +6,7 @@
 <div class="panel-heading title">
 ${view.title}
 </div>
-<div id="table-apply">
+<div id="table-inner">
     <div id="dataTables-example_subsidy" class="table-responsive dataTables_wrapper form-inline" role="grid">
         <table class="table table-striped table-bordered table-hover dataTable no-footer"
                id="dataTables-example" aria-describedby="dataTables-example_apply">
@@ -62,7 +62,7 @@ ${view.title}
                     <td>
                         ${sa.applicantName}
                     </td>
-                    <td>
+                    <td id="applicationDate${sa.classId}" data-time="${(sa.applicationDate)!0}">
                     ${(sa.applicationDate?number)?number_to_date}
                     </td>
                     <#if addAble || updateAble || deleteAble>
@@ -77,9 +77,9 @@ ${view.title}
                             </#list>
 
                             <#if updateAble>
-                            ${InsertKit(updateBtn,"同意")}/
+                            ${InsertKit(updateBtn,"${sa.classId}")}/
                             </#if>
-                        ${InsertKit(deleteBtn,"驳回")}
+                        ${InsertKit(deleteBtn,"${sa.classId}")}
                         </td>
                     </#if>
                   </tr>
